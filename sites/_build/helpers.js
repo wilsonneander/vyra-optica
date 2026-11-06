@@ -48,10 +48,17 @@ function duo(name, cls = 'duo') {
   return `<svg class="${cls}" viewBox="0 0 32 32" fill="none" aria-hidden="true">${DUO[name] || DUO.fiber}</svg>`;
 }
 
-function socialLinks(c, cls = 'social') {
+const SOCIAL_SOLID = {
+  instagram: '<path fill-rule="evenodd" d="M7.6 2h8.8A5.6 5.6 0 0 1 22 7.6v8.8a5.6 5.6 0 0 1-5.6 5.6H7.6A5.6 5.6 0 0 1 2 16.4V7.6A5.6 5.6 0 0 1 7.6 2zm0 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/><circle cx="17.4" cy="6.6" r="1.3"/>',
+  facebook: '<path d="M13.6 22v-8.1h2.7l.4-3.2h-3.1V8.7c0-.9.3-1.5 1.6-1.5h1.7V4.3c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.2H7.5v3.2h2.7V22h3.4z"/>',
+  linkedin: '<path d="M6.9 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM7 8.5H3V21h4V8.5zm6.3 0H9.4V21h3.9v-6.6c0-3.7 4.8-4 4.8 0V21H22v-7.9c0-6.2-7-5.9-8.7-2.9V8.5z"/>',
+  whatsapp: '<path fill-rule="evenodd" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 1 1-4.1 14.9l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 0 1 12 4z"/><path d="M9 7.4c.2-.4.4-.4.7-.4h.5c.2 0 .4 0 .6.4l.8 1.9c.1.2.1.4 0 .6l-.4.6c-.1.2-.2.3-.1.5a6.6 6.6 0 0 0 2.6 2.6c.2.1.4.1.5-.1l.6-.7c.2-.2.3-.2.5-.1l1.9.9c.2.1.4.2.4.3.1.2.1.9-.2 1.6-.3.7-1.6 1.3-2.2 1.3-.6.1-1.2.2-3.8-.8-3.1-1.2-5-4.4-5.2-4.6-.2-.2-1.2-1.6-1.2-3.1S8.8 7.7 9 7.4z"/>',
+};
+
+function socialLinks(c, cls = 'social', solid = false) {
   const s = c.contact.social;
   const items = [['instagram', 'Instagram'], ['facebook', 'Facebook'], ['linkedin', 'LinkedIn'], ['whatsapp', 'WhatsApp']];
-  return `<div class="${cls}">${items.map(([k, label]) => `<a href="${s[k]}" target="_blank" rel="noopener" aria-label="${label}">${icon(k)}</a>`).join('')}</div>`;
+  return `<div class="${cls}">${items.map(([k, label]) => `<a href="${s[k]}" target="_blank" rel="noopener" aria-label="${label}">${solid ? `<svg class="ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${SOCIAL_SOLID[k]}</svg>` : icon(k)}</a>`).join('')}</div>`;
 }
 
 function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
@@ -86,4 +93,18 @@ ${scripts.map(s => `<script src="${s}"></script>`).join('\n')}
 `;
 }
 
-module.exports = { logo, icon, duo, socialLinks, esc, navLinks, shell, PAGE_TITLES };
+const DUO_CSS = `
+.duo { width: 32px; height: 32px; position: relative; }
+.duo .s { stroke: #C9B6FF; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.duo .f { fill: #8A55F0; }
+.duo .k { stroke: #160B2E; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.duo .a { fill: #18E28A; }
+.duo .ag { fill: #18E28A; opacity: .22; }
+.duo .as { stroke: #18E28A; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+`;
+
+function socialIcon(k, cls = 'ico') {
+  return `<svg class="${cls}" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${SOCIAL_SOLID[k]}</svg>`;
+}
+
+module.exports = { DUO_CSS, logo, icon, duo, socialIcon, socialLinks, esc, navLinks, shell, PAGE_TITLES };

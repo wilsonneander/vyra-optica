@@ -1,5 +1,6 @@
 // MODELO INTERMEDIÁRIO — mais elegante, animações simples (entrada ao rolar, contadores, hover).
-const { logo, icon, socialLinks, esc, navLinks, shell } = require('./helpers');
+const { DUO_CSS, logo, icon, duo, socialIcon, socialLinks, esc, navLinks, shell } = require('./helpers');
+const BIZ_ICONS = ['fiber', 'wifi', 'shield', 'headset'];
 
 const FONTS = 'family=Outfit:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500';
 
@@ -107,8 +108,14 @@ p { margin: 0; }
 .g2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
 .card { background: var(--white); border-radius: 20px; padding: 28px; display: grid; gap: 12px; align-content: start; box-shadow: 0 0 0 1px var(--line); transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
 .card:hover { transform: translateY(-6px); box-shadow: 0 0 0 1.5px var(--violet), 0 24px 40px -24px rgba(108,43,217,.45); }
-.card .ico-box { width: 52px; height: 52px; border-radius: 14px; background: var(--mist); color: var(--violet); display: grid; place-items: center; transition: background-color .35s, color .35s; }
-.card:hover .ico-box { background: var(--violet); color: var(--white); }
+${DUO_CSS}
+.card .ico-box, .ico-big { position: relative; overflow: hidden; display: grid; place-items: center; background: var(--ink); box-shadow: 0 12px 26px -14px rgba(22,11,46,.6), inset 0 0 0 1px rgba(255,255,255,.06); transition: transform .45s var(--ease), box-shadow .45s var(--ease); }
+.card .ico-box::before, .ico-big::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 85% 90%, rgba(108,43,217,.6), transparent 62%); transition: opacity .45s; }
+.card .ico-box::after, .ico-big::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 30% 20%, rgba(24,226,138,.28), transparent 55%); opacity: 0; transition: opacity .45s; }
+.card .ico-box { width: 60px; height: 60px; border-radius: 18px; margin-bottom: 6px; }
+.card:hover .ico-box, .service-row:hover .ico-big { transform: translateY(-3px) rotate(-4deg); box-shadow: 0 18px 30px -14px rgba(108,43,217,.7), inset 0 0 0 1px rgba(201,182,255,.18); }
+.card:hover .ico-box::after, .service-row:hover .ico-big::after { opacity: 1; }
+.dark .card .ico-box { background: #2A1A52; }
 .card p { color: var(--muted); font-size: 15px; }
 .dark .card { background: var(--ink-2); box-shadow: 0 0 0 1px rgba(255,255,255,.08); }
 .dark .card p { color: var(--lilac); }
@@ -200,9 +207,8 @@ p { margin: 0; }
 .service-row { display: grid; grid-template-columns: 200px 1fr 1fr; gap: 40px; padding: 44px 0; border-top: 1px solid var(--line); align-items: start; }
 .service-row:last-child { border-bottom: 1px solid var(--line); }
 @media (max-width: 860px) { .service-row { grid-template-columns: 1fr; gap: 18px; } }
-.service-row .ico-big { width: 72px; height: 72px; border-radius: 20px; background: var(--mist); color: var(--violet); display: grid; place-items: center; transition: transform .35s var(--ease), background-color .35s, color .35s; }
-.service-row:hover .ico-big { transform: rotate(-6deg) scale(1.05); background: var(--violet); color: var(--white); }
-.service-row .ico-big .ico { width: 32px; height: 32px; }
+.service-row .ico-big { width: 80px; height: 80px; border-radius: 24px; }
+.service-row .ico-big .duo { width: 40px; height: 40px; }
 .service-row p { color: var(--muted); margin-top: 10px; font-size: 16.5px; }
 
 /* FAQ */
@@ -238,7 +244,9 @@ p { margin: 0; }
 .info { display: grid; gap: 12px; }
 .info a, .info div.item { display: flex; gap: 16px; align-items: center; padding: 20px; border-radius: 18px; background: var(--white); box-shadow: 0 0 0 1px var(--line); text-decoration: none; color: var(--ink); transition: transform .3s var(--ease), box-shadow .3s; }
 .info a:hover { transform: translateX(6px); box-shadow: 0 0 0 1.5px var(--violet); }
-.info .ib { width: 46px; height: 46px; border-radius: 14px; background: var(--mist); color: var(--violet); display: grid; place-items: center; flex: none; }
+.info .ib { width: 48px; height: 48px; border-radius: 15px; background: var(--ink); color: var(--lilac); display: grid; place-items: center; flex: none; box-shadow: 0 10px 20px -12px rgba(22,11,46,.6); transition: transform .4s var(--ease); }
+.info .ib-wa { color: var(--green); }
+.info a:hover .ib { transform: rotate(-6deg); }
 .info b { display: block; font-family: var(--f-display); }
 .info span { color: var(--muted); font-size: 14.5px; }
 fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 16px; }
@@ -264,10 +272,14 @@ legend i { font: 500 12px/1 var(--f-mono); font-style: normal; width: 30px; heig
 
 /* Redes */
 .social { display: flex; gap: 10px; flex-wrap: wrap; }
-.social a { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; color: var(--violet); background: var(--mist); transition: transform .3s var(--ease), background-color .3s, color .3s; }
-.social a:hover { transform: translateY(-4px) rotate(-6deg); background: var(--violet); color: var(--white); }
-.footer .social a { background: rgba(255,255,255,.07); color: var(--white); }
-.footer .social a:hover { background: var(--green); color: var(--ink); }
+.social a { position: relative; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; color: var(--white); background: var(--ink); overflow: hidden; isolation: isolate; transition: transform .4s var(--ease), color .3s, box-shadow .4s; }
+.social a::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 50%; background: var(--violet); transform: scale(0); transition: transform .4s var(--ease); }
+.social a .ico { width: 20px; height: 20px; }
+.social a:hover { transform: translateY(-3px); box-shadow: 0 12px 22px -10px rgba(108,43,217,.7); }
+.social a:hover::before { transform: scale(1); }
+.footer .social a { background: rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px rgba(201,182,255,.18); color: var(--lilac); }
+.footer .social a::before { background: var(--green); }
+.footer .social a:hover { color: var(--ink); box-shadow: 0 12px 22px -10px rgba(24,226,138,.6); }
 
 /* Rodapé */
 .footer { padding: 80px 0 32px; font-size: 15px; color: var(--lilac); }
@@ -412,7 +424,7 @@ function footer(c) {
   return `<footer class="footer dark dots">
   <div class="container">
     <div class="cols">
-      <div>${logo()}<p style="max-width:32ch">${esc(c.brand.slogan)} ${esc(c.brand.support)}</p><div style="margin-top:22px">${socialLinks(c)}</div></div>
+      <div>${logo()}<p style="max-width:32ch">${esc(c.brand.slogan)} ${esc(c.brand.support)}</p><div style="margin-top:22px">${socialLinks(c, 'social', true)}</div></div>
       <div><h3>Navegação</h3><ul>${c.nav.map(n => `<li><a href="${n.href}">${n.label}</a></li>`).join('')}</ul></div>
       <div><h3>Serviços</h3><ul>${c.services.map(s => `<li><a href="servicos.html#${s.id}">${s.title}</a></li>`).join('')}</ul></div>
       <div><h3>Contato</h3><ul><li>${c.contact.whatsapp}</li><li>${c.contact.email}</li><li>${c.contact.address}<br>${c.contact.city}</li><li><a href="${c.cta.href}" style="color:var(--green)">${c.cta.label} →</a></li></ul></div>
@@ -420,7 +432,7 @@ function footer(c) {
     <div class="bottom"><span>© <span id="year">2026</span> Vyra Fibra · CNPJ 00.000.000/0001-00</span><span>Feito no interior, para o interior.</span></div>
   </div>
 </footer>
-<a class="wa-float" href="${c.contact.whatsappLink}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">${icon('whatsapp')}</a>`;
+<a class="wa-float" href="${c.contact.whatsappLink}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">${socialIcon('whatsapp')}</a>`;
 }
 
 function pageHead(title, lead, crumb) {
@@ -485,7 +497,7 @@ const pages = {
 
   <section class="section"><div class="container">
     <div class="section-head reveal"><span class="eyebrow">Por que a Vyra</span><h2>Uma rede pensada para o interior</h2><p>Tecnologia de capital com o atendimento de quem conhece a sua cidade.</p></div>
-    <div class="grid g4">${c.benefits.map((b, i) => `<div class="card reveal" data-d="${i}"><div class="ico-box">${icon(b.icon)}</div><h3>${b.title}</h3><p>${b.text}</p></div>`).join('')}</div>
+    <div class="grid g4">${c.benefits.map((b, i) => `<div class="card reveal" data-d="${i}"><div class="ico-box">${duo(b.icon)}</div><h3>${b.title}</h3><p>${b.text}</p></div>`).join('')}</div>
   </div></section>
 
   <section class="section alt"><div class="container">
@@ -496,7 +508,7 @@ const pages = {
     </div>
     <div class="tab-panel" id="tab-casa" role="tabpanel" aria-labelledby="t-casa">${plansGrid(c)}<p class="note">Valores de exemplo. Consulte a disponibilidade para o seu endereço.</p></div>
     <div class="tab-panel" id="tab-empresa" role="tabpanel" aria-labelledby="t-empresa" hidden>
-      <div class="grid g4">${c.business.map(b => `<div class="card"><div class="ico-box">${icon('building')}</div><h3>${b.title}</h3><p>${b.text}</p></div>`).join('')}</div>
+      <div class="grid g4">${c.business.map((b, i) => `<div class="card"><div class="ico-box">${duo(BIZ_ICONS[i])}</div><h3>${b.title}</h3><p>${b.text}</p></div>`).join('')}</div>
       <div style="margin-top:28px"><a class="btn" href="contato.html">Pedir proposta${icon('arrow')}</a></div>
     </div>
   </div></section>
@@ -539,7 +551,7 @@ ${footer(c)}`,
   ${pageHead('Serviços', 'Internet fibra óptica para casa, empresa e área rural, com suporte de quem está perto.', 'Serviços')}
   <section class="section"><div class="container">
     ${c.services.map(s => `<div class="service-row reveal" id="${s.id}">
-      <div class="ico-big">${icon(s.icon)}</div>
+      <div class="ico-big">${duo(s.icon)}</div>
       <div><h2 style="font-size:clamp(24px,3vw,32px)">${s.title}</h2><p>${s.text}</p></div>
       <ul class="checks">${s.items.map(i => `<li>${icon('check')}${i}</li>`).join('')}</ul>
     </div>`).join('')}
@@ -568,7 +580,7 @@ ${footer(c)}`,
     </div>`).join('')}</div>
     <aside class="side-card dark dots reveal">
       <h3>Ainda com dúvida?</h3><p>Fale com um técnico da sua região. A gente responde rápido.</p>
-      <a class="btn btn-green" href="${c.contact.whatsappLink}" target="_blank" rel="noopener">${icon('whatsapp')}WhatsApp</a>
+      <a class="btn btn-green" href="${c.contact.whatsappLink}" target="_blank" rel="noopener">${socialIcon('whatsapp')}WhatsApp</a>
       <a class="btn btn-ghost" href="contato.html">Enviar mensagem</a>
     </aside>
   </div></section>
@@ -591,12 +603,12 @@ ${footer(c)}`,
       <div class="form-ok" tabindex="-1" role="status">${icon('check')}Mensagem enviada. Respondemos em breve.</div>
     </form>
     <div class="info reveal" data-d="1">
-      <a href="${c.contact.whatsappLink}" target="_blank" rel="noopener"><span class="ib">${icon('whatsapp')}</span><div><b>WhatsApp</b><span>${c.contact.whatsapp}</span></div></a>
+      <a href="${c.contact.whatsappLink}" target="_blank" rel="noopener"><span class="ib ib-wa">${socialIcon('whatsapp')}</span><div><b>WhatsApp</b><span>${c.contact.whatsapp}</span></div></a>
       <div class="item"><span class="ib">${icon('phone')}</span><div><b>Telefone</b><span>${c.contact.phone}</span></div></div>
       <div class="item"><span class="ib">${icon('mail')}</span><div><b>E-mail</b><span>${c.contact.email}</span></div></div>
       <div class="item"><span class="ib">${icon('pin')}</span><div><b>Endereço</b><span>${c.contact.address} · ${c.contact.city}</span></div></div>
       <div class="item"><span class="ib">${icon('clock')}</span><div>${c.contact.hours.map(h => `<b>${h[0]}</b><span>${h[1]}</span>`).join('<br>')}</div></div>
-      <div class="item" style="justify-content:space-between;flex-wrap:wrap"><b>Siga a Vyra</b>${socialLinks(c)}</div>
+      <div class="item" style="justify-content:space-between;flex-wrap:wrap"><b>Siga a Vyra</b>${socialLinks(c, 'social', true)}</div>
     </div>
   </div></section>
 </main>

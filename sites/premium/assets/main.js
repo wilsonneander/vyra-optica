@@ -1,3 +1,23 @@
+// Vyra · comportamento comum
+(function () {
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  function toTop() {
+    var id = location.hash.slice(1), el = id && document.getElementById(id);
+    if (el) { el.scrollIntoView({ behavior: 'instant', block: 'start' }); return; }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }
+  toTop();
+  addEventListener('load', function () { toTop(); setTimeout(toTop, 60); });
+  addEventListener('pageshow', function (e) { if (e.persisted) toTop(); });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('.nav a');
+    if (!a) return;
+    var nav = a.closest('.nav'); nav.classList.remove('open');
+    var b = document.querySelector('.menu-btn');
+    if (b) { b.setAttribute('aria-expanded', 'false'); if (b.dataset.open) b.innerHTML = b.dataset.open; }
+  });
+})();
+
 // Vyra · modelo Premium
 (function () {
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;

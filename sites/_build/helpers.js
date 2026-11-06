@@ -33,6 +33,21 @@ function icon(name, cls = 'ico') {
   return `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[name] || ''}</svg>`;
 }
 
+// Ícones duotone da marca (grade 32px): .s traço lilás, .f preenchimento violeta, .k detalhe escuro, .a/.as verde (luz/sinal).
+const DUO = {
+  fiber: '<path class="s" d="M4 9c8 0 12 7 19 7M4 16h19M4 23c8 0 12-7 19-7"/><circle class="ag" cx="26" cy="16" r="5.5"/><circle class="a" cx="26" cy="16" r="2.8"/>',
+  headset: '<path class="s" d="M7 18v-3a9 9 0 0 1 18 0v3"/><rect class="f" x="4.5" y="16.5" width="5.5" height="9" rx="2.75"/><rect class="f" x="22" y="16.5" width="5.5" height="9" rx="2.75"/><path class="s" d="M24.75 25.5c0 2.2-2.6 3-6.5 3"/><circle class="a" cx="16.6" cy="28.5" r="2.2"/>',
+  calendar: '<path class="f" d="M5 11a4 4 0 0 1 4-4h14a4 4 0 0 1 4 4v2.5H5z"/><rect class="s" x="5" y="7" width="22" height="21" rx="4"/><path class="s" d="M11 4v5M21 4v5"/><path class="as" d="M11.5 20l3.2 3.2 6-6.4"/>',
+  shield: '<path class="s" d="M8 4h11l6.5 6.5V26a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path class="f" d="M19 4v6.5h6.5z"/><path class="s" d="M10.5 14.5h8M10.5 19h5"/><circle class="a" cx="22.5" cy="23.5" r="5.5"/><path class="k" d="M20.2 23.6l1.6 1.6 3-3.2"/>',
+  home: '<path class="f" d="M8 14.5V27h16V14.5L16 8z"/><path class="s" d="M4.5 15.5L16 6l11.5 9.5"/><rect class="a" x="13.5" y="19.5" width="5" height="7.5" rx="1.2"/>',
+  building: '<rect class="f" x="5.5" y="4.5" width="13.5" height="23" rx="2"/><path class="s" d="M19 12h5a2 2 0 0 1 2 2v13.5h-7"/><path class="k" d="M9.5 10h5.5M9.5 14.5h5.5M9.5 19h5.5"/><circle class="a" cx="22.5" cy="18" r="1.9"/><path class="s" d="M3.5 27.5h25"/>',
+  tree: '<circle class="f" cx="15" cy="13" r="8.5"/><path class="k" d="M15 20v-5.5l3-3M15 16.5l-3-3"/><path class="s" d="M15 21.5v6M7 27.5h16"/><path class="as" d="M24.5 5.5a6 6 0 0 1 3 3"/><circle class="a" cx="24" cy="9" r="1.8"/>',
+  wifi: '<path class="s" d="M3.5 13a17.5 17.5 0 0 1 25 0M7.8 17.6a11.5 11.5 0 0 1 16.4 0"/><path class="as" d="M12 22.2a5.6 5.6 0 0 1 8 0"/><circle class="ag" cx="16" cy="26.5" r="4.5"/><circle class="a" cx="16" cy="26.5" r="2.2"/>',
+};
+function duo(name, cls = 'duo') {
+  return `<svg class="${cls}" viewBox="0 0 32 32" fill="none" aria-hidden="true">${DUO[name] || DUO.fiber}</svg>`;
+}
+
 function socialLinks(c, cls = 'social') {
   const s = c.contact.social;
   const items = [['instagram', 'Instagram'], ['facebook', 'Facebook'], ['linkedin', 'LinkedIn'], ['whatsapp', 'WhatsApp']];
@@ -71,4 +86,4 @@ ${scripts.map(s => `<script src="${s}"></script>`).join('\n')}
 `;
 }
 
-module.exports = { logo, icon, socialLinks, esc, navLinks, shell, PAGE_TITLES };
+module.exports = { logo, icon, duo, socialLinks, esc, navLinks, shell, PAGE_TITLES };

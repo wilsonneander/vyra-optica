@@ -1,5 +1,5 @@
 // MODELO BÁSICO — simples, objetivo, sem animações (só troca de cor no hover).
-const { logo, icon, socialLinks, esc, navLinks, shell } = require('./helpers');
+const { logo, icon, duo, socialLinks, esc, navLinks, shell } = require('./helpers');
 
 const FONTS = 'family=Outfit:wght@600;700;800&family=Manrope:wght@400;500;600;700';
 
@@ -79,7 +79,15 @@ p { margin: 0; }
 .grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 .grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
 .card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: grid; gap: 10px; align-content: start; }
-.card .ico-box { width: 44px; height: 44px; border-radius: 10px; background: var(--mist); color: var(--violet); display: grid; place-items: center; }
+.card .ico-box { width: 60px; height: 60px; border-radius: 18px; background: var(--ink); display: grid; place-items: center; margin-bottom: 8px; position: relative; overflow: hidden; box-shadow: 0 10px 22px -12px rgba(22,11,46,.55); }
+.card .ico-box::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 85% 90%, rgba(108,43,217,.55), transparent 60%); }
+.duo { width: 32px; height: 32px; position: relative; }
+.duo .s { stroke: var(--lilac); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.duo .f { fill: #8A55F0; }
+.duo .k { stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.duo .a { fill: var(--green); }
+.duo .ag { fill: var(--green); opacity: .22; }
+.duo .as { stroke: var(--green); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .card p { color: var(--muted); font-size: 15px; }
 .card ul { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 14.5px; }
 .card li { display: flex; gap: 8px; align-items: center; }
@@ -317,7 +325,7 @@ const pages = {
 
   <section class="section"><div class="container">
     <div class="section-head"><h2>Por que escolher a Vyra</h2><p>Uma rede pensada para o interior, com o atendimento que você merece.</p></div>
-    <div class="grid grid-4">${c.benefits.map(b => `<div class="card"><div class="ico-box">${icon(b.icon)}</div><h3>${b.title}</h3><p>${b.text}</p></div>`).join('')}</div>
+    <div class="grid grid-4">${c.benefits.map(b => `<div class="card"><div class="ico-box">${duo(b.icon)}</div><h3>${b.title}</h3><p>${b.text}</p></div>`).join('')}</div>
   </div></section>
 
   <section class="section alt"><div class="container">
@@ -356,7 +364,7 @@ ${footer(c)}`,
 <main>
   ${pageHead('Serviços', 'Internet fibra óptica para casa, empresa e área rural, com suporte de quem está perto.', 'Serviços')}
   <section class="section"><div class="container">
-    <div class="grid grid-3">${c.services.map(s => `<div class="card" id="${s.id}"><div class="ico-box">${icon(s.icon)}</div><h3>${s.title}</h3><p>${s.text}</p><ul>${s.items.map(i => `<li>${icon('check')}${i}</li>`).join('')}</ul></div>`).join('')}</div>
+    <div class="grid grid-3">${c.services.map(s => `<div class="card" id="${s.id}"><div class="ico-box">${duo(s.icon)}</div><h3>${s.title}</h3><p>${s.text}</p><ul>${s.items.map(i => `<li>${icon('check')}${i}</li>`).join('')}</ul></div>`).join('')}</div>
     <p class="note">* Sujeito à disponibilidade da equipe técnica na região.</p>
   </div></section>
   <section class="section alt"><div class="container">

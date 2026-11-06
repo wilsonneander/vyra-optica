@@ -1,0 +1,361 @@
+<title>Vyra Brand Guide</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: manual de marca em capítulos; capa escura, capítulos em branco, índice lateral em telas largas */
+:root {
+  --violet: #6C2BD9; --violet-700: #5420B0; --ink: #160B2E; --green: #18E28A;
+  --lilac: #C9B6FF; --pink: #FF3EA5; --paper: #FFFFFF; --mist: #F6F3FD; --line: #E6E0F5; --muted: #5E5577;
+  --f-display: "Outfit", system-ui, sans-serif;
+  --f-body: "Manrope", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font: 400 16px/1.6 var(--f-body); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { margin: 0; text-wrap: balance; font-family: var(--f-display); }
+h2 { font-weight: 700; font-size: clamp(28px, 4vw, 40px); line-height: 1.1; letter-spacing: -0.025em; }
+h3 { font-weight: 600; font-size: 19px; line-height: 1.3; letter-spacing: -0.01em; }
+p { margin: 0; }
+.eyebrow { font: 500 12px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--violet); }
+.lead { color: var(--muted); max-width: 64ch; }
+.logo { display: block; height: auto; }
+
+/* Capa */
+.cover { background: var(--ink); color: #fff; }
+.cover .wrap { padding-block: 72px 56px; display: grid; gap: 40px; }
+.cover .logo { width: min(440px, 80%); color: #fff; }
+.cover-line { height: 4px; max-width: 360px; border-radius: 4px; background: linear-gradient(90deg, var(--violet), var(--lilac) 60%, var(--green)); }
+.cover-slogan { font: 600 clamp(24px, 3.4vw, 36px)/1.2 var(--f-display); letter-spacing: -0.02em; max-width: 22ch; }
+.cover-meta { display: flex; flex-wrap: wrap; gap: 8px 28px; font: 400 12.5px/1.4 var(--f-mono); color: var(--lilac); }
+
+/* Índice */
+.toc { border-bottom: 1px solid var(--line); }
+.toc .wrap { display: flex; flex-wrap: wrap; gap: 6px 22px; padding-block: 18px; font: 500 13px/1.4 var(--f-mono); }
+.toc a { color: var(--muted); text-decoration: none; }
+.toc a:hover, .toc a:focus-visible { color: var(--violet); }
+.toc b { color: var(--violet); font-weight: 500; margin-right: 6px; }
+
+section.ch { padding-block: 72px; border-bottom: 1px solid var(--line); }
+.ch-head { display: grid; gap: 12px; margin-bottom: 40px; }
+
+/* Essência */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.box { background: var(--mist); border-radius: 16px; padding: 24px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.box.outline { background: none; border: 1px solid var(--line); }
+.box blockquote { margin: 0; font: 600 21px/1.35 var(--f-display); letter-spacing: -0.01em; }
+.values { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 16px; }
+.values div { border-top: 3px solid var(--violet); padding-top: 12px; display: grid; gap: 4px; }
+.values strong { font: 600 16px/1.3 var(--f-display); }
+.values span { font-size: 14px; color: var(--muted); }
+.persona dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 14px; }
+.persona dt { font: 500 11.5px/1.7 var(--f-mono); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.persona dd { margin: 0; }
+
+/* Logo */
+.logo-hero { background: var(--ink); color: #fff; border-radius: 20px; padding: clamp(40px, 8vw, 96px); display: grid; place-items: center; position: relative; }
+.logo-hero .logo { width: min(520px, 100%); color: #fff; }
+.variants { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 12px; }
+.var { border-radius: 16px; min-height: 160px; display: grid; place-items: center; padding: 28px; position: relative; border: 1px solid var(--line); }
+.var .logo { width: min(190px, 80%); }
+.var .lbl, .logo-hero .lbl { position: absolute; left: 14px; top: 12px; font: 500 10.5px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; opacity: .65; }
+.v-white { background: var(--paper); color: var(--violet); }
+.v-white.inkc { color: var(--ink); }
+.v-ink { background: var(--ink); color: #fff; border-color: var(--ink); }
+.v-violet { background: var(--violet); color: #fff; border-color: var(--violet); }
+.v-mono { background: var(--mist); color: var(--ink); }
+.v-mono { --dot: var(--ink); }
+.pinkdot { --dot: var(--pink); }
+.v-photo { background: linear-gradient(135deg, #2a1650, #6C2BD9 55%, #b04aa8); color: #fff; border: 0; }
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 40px; }
+.rule { display: grid; gap: 14px; align-content: start; }
+.rule-visual { border: 1px solid var(--line); border-radius: 16px; min-height: 170px; display: grid; place-items: center; padding: 24px; position: relative; overflow: hidden; }
+.clear { position: relative; padding: 28px; outline: 1.5px dashed var(--pink); outline-offset: 0; }
+.clear .logo { width: 170px; color: var(--violet); }
+.clear i { position: absolute; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--pink); }
+.clear i:nth-child(1) { left: 5px; top: 5px; } .clear i:nth-child(2) { right: 5px; bottom: 5px; }
+.sizes { display: flex; align-items: flex-end; gap: 22px; flex-wrap: wrap; justify-content: center; }
+.sizes figure { margin: 0; display: grid; gap: 8px; justify-items: center; font: 400 11px/1.3 var(--f-mono); color: var(--muted); text-align: center; }
+.icon { display: block; }
+.dont-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 16px; }
+.dont { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: grid; }
+.dont .stage { height: 120px; display: grid; place-items: center; padding: 16px; position: relative; overflow: hidden; }
+.dont .stage .logo { width: 130px; color: var(--violet); }
+.dont .stage::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top right, transparent calc(50% - 1px), rgba(194,24,91,.55) 50%, transparent calc(50% + 1px)); }
+.dont p { padding: 10px 14px 14px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); }
+.dont p b { color: #C2185B; font: 600 11px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+/* Cores */
+.colors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 820px) { .colors { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .colors { grid-template-columns: 1fr; } }
+.color { border-radius: 18px; overflow: hidden; border: 1px solid var(--line); display: grid; }
+.color .chip { height: 130px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+.color .chip b { font: 700 20px/1.1 var(--f-display); }
+.color .chip span { font: 500 12px/1 var(--f-mono); opacity: .85; }
+.color.main .chip { height: 190px; }
+.color .meta { padding: 14px 16px 16px; display: grid; gap: 6px; font-size: 13.5px; color: var(--muted); }
+.color code { font: 400 12px/1.5 var(--f-mono); color: var(--ink); }
+.color .meta .ok { font: 500 11.5px/1.4 var(--f-mono); color: var(--ink); }
+.ratio { display: flex; height: 48px; border-radius: 12px; overflow: hidden; margin-top: 24px; border: 1px solid var(--line); }
+.ratio span { display: flex; align-items: center; justify-content: center; font: 500 11px/1 var(--f-mono); min-width: 0; overflow: hidden; white-space: nowrap; }
+
+/* Tipografia */
+.fonts { display: grid; gap: 14px; }
+.font-row { border: 1px solid var(--line); border-radius: 18px; padding: 24px; display: grid; grid-template-columns: 220px 1fr; gap: 24px; align-items: center; }
+@media (max-width: 720px) { .font-row { grid-template-columns: 1fr; } }
+.font-row .name { display: grid; gap: 4px; }
+.font-row .name b { font: 600 20px/1.2 var(--f-display); }
+.font-row .name span { font: 400 12px/1.5 var(--f-mono); color: var(--muted); }
+.spec-display { font: 800 clamp(40px, 6vw, 64px)/1 var(--f-display); letter-spacing: -0.035em; }
+.spec-body { font: 400 17px/1.6 var(--f-body); max-width: 60ch; }
+.spec-mono { font: 400 15px/1.7 var(--f-mono); color: var(--violet); }
+.scale { margin-top: 24px; border: 1px solid var(--line); border-radius: 18px; overflow-x: auto; }
+.scale table { width: 100%; border-collapse: collapse; min-width: 560px; }
+.scale td { padding: 14px 20px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.scale tr:last-child td { border-bottom: 0; }
+.scale td:first-child { font: 500 11.5px/1.3 var(--f-mono); color: var(--muted); width: 160px; text-transform: uppercase; letter-spacing: .06em; }
+.scale td:last-child { font: 400 12px/1.3 var(--f-mono); color: var(--muted); width: 190px; text-align: right; }
+
+/* Voz */
+.slogan-main { background: var(--violet); color: #fff; border-radius: 20px; padding: clamp(28px, 5vw, 48px); display: grid; gap: 12px; }
+.slogan-main q { quotes: none; font: 700 clamp(28px, 4.4vw, 46px)/1.1 var(--f-display); letter-spacing: -0.03em; }
+.slogan-main q span { color: var(--green); }
+.slogan-main p { color: var(--lilac); font: 500 13px/1.4 var(--f-mono); }
+.say { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 16px; }
+.say div { border: 1px solid var(--line); border-radius: 16px; padding: 20px; display: grid; gap: 8px; }
+.tag { font: 500 11px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; }
+.yes { color: #0B8A52; } .no { color: #C2185B; }
+.words { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.words span { padding: 6px 12px; border-radius: 999px; font-size: 13.5px; }
+.words.use span { background: var(--mist); color: var(--ink); }
+.words.avoid span { background: #FDEEF4; color: #9B1550; text-decoration: line-through; text-decoration-thickness: 1px; }
+
+/* Elementos */
+.el-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.el { border: 1px solid var(--line); border-radius: 18px; overflow: hidden; display: grid; }
+.el .stage { height: 160px; display: grid; place-items: center; padding: 20px; }
+.el .txt { padding: 16px 18px 18px; display: grid; gap: 6px; border-top: 1px solid var(--line); }
+.el .txt span { font-size: 13.5px; color: var(--muted); }
+.status { display: inline-flex; align-items: center; gap: 8px; background: var(--ink); color: #fff; border-radius: 999px; padding: 9px 16px 9px 12px; font: 500 13px/1 var(--f-mono); }
+.status i { width: 10px; height: 10px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px rgba(24,226,138,.2); animation: led 2.4s ease-in-out infinite; }
+@keyframes led { 50% { box-shadow: 0 0 0 7px rgba(24,226,138,.08); } }
+.fiberline { width: 100%; height: 4px; border-radius: 4px; background: linear-gradient(90deg, var(--violet), var(--lilac) 60%, var(--green)); position: relative; overflow: hidden; }
+.fiberline::after { content: ""; position: absolute; top: 0; bottom: 0; left: -30%; width: 30%; background: linear-gradient(90deg, transparent, #fff, transparent); animation: run 2.8s ease-in-out infinite; }
+@keyframes run { to { left: 110%; } }
+.btns { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.btn { font: 600 15px/1 var(--f-display); padding: 13px 22px; border-radius: 999px; border: 0; }
+.btn.p { background: var(--violet); color: #fff; }
+.btn.s { background: var(--paper); color: var(--violet); box-shadow: inset 0 0 0 1.5px var(--violet); }
+.btn.w { background: var(--green); color: var(--ink); }
+.dotgrid { width: 100%; height: 100%; min-height: 120px; border-radius: 12px; background-color: var(--ink); background-image: radial-gradient(rgba(201,182,255,.35) 1.2px, transparent 1.3px); background-size: 16px 16px; position: relative; }
+.dotgrid::after { content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--green); box-shadow: 0 0 18px var(--green); }
+
+/* Arquivos */
+.files { border: 1px solid var(--line); border-radius: 18px; overflow-x: auto; }
+.files table { width: 100%; border-collapse: collapse; min-width: 520px; font-size: 14px; }
+.files th, .files td { text-align: left; padding: 12px 18px; border-bottom: 1px solid var(--line); }
+.files th { font: 500 11px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--mist); }
+.files tr:last-child td { border-bottom: 0; }
+.files code { font: 400 12.5px/1.4 var(--f-mono); color: var(--violet); }
+
+footer { padding-block: 40px 56px; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; font: 400 12px/1.5 var(--f-mono); color: var(--muted); }
+footer .logo { width: 90px; color: var(--violet); }
+
+@media (prefers-reduced-motion: reduce) { .status i, .fiberline::after { animation: none; } }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="vyra" viewBox="-0.10 -49.90 232.50 70.60">
+      <path fill="currentColor" d="M35.20 0L19.80 0L-0.10-48.90L18.50-48.90L27.60-19.300L36.70-48.90L55.10-48.90L35.20 0ZM84.60 20.70L67.10 20.70L77.70-2.50L59.10-48.90L77.70-48.90L86.10-20.80L94.50-48.90L113.10-48.90L93 0.10L84.60 20.70ZM132.40 0L115 0L115-48.90L132.40-48.90L132.40-45.80Q137.20-49.90 144.80-49.90L144.80-49.90Q148.30-49.90 150.85-49Q153.40-48.10 155.20-46.20L155.20-46.20L145.10-32.70Q144.30-33.60 142.85-34.15Q141.40-34.70 139.60-34.70L139.60-34.70Q136.20-34.70 134.30-32.65Q132.40-30.60 132.40-26.60L132.40-26.60L132.40 0ZM175.70 1L175.70 1Q168.90 1 163.60-2.30Q158.30-5.60 155.30-11.35Q152.30-17.10 152.30-24.40L152.30-24.40Q152.30-31.80 155.30-37.60Q158.30-43.40 163.60-46.65Q168.90-49.90 175.70-49.90L175.70-49.90Q180.30-49.90 184.10-48.30L184.10-48.30Q186.50-47.20 188.30-45.70L188.30-45.70L188.30-48.90L205.40-48.90L205.40 0L188.30 0L188.30-3.30Q186.50-1.80 184.10-0.70L184.10-0.70Q180.30 1 175.700 1ZM179.40-14.50L179.40-14.50Q183.70-14.50 186.35-17.30Q189.00-20.10 189.00-24.50L189.00-24.50Q189.00-27.40 187.80-29.60Q186.60-31.80 184.45-33.10Q182.30-34.40 179.50-34.40Q176.70-34.40 174.55-33.10Q172.40-31.80 171.15-29.55Q169.90-27.30 169.90-24.50L169.90-24.50Q169.90-21.60 171.10-19.35Q172.30-17.10 174.50-15.80Q176.70-14.50 179.40-14.50Z"/>
+      <circle style="fill: var(--dot, #18E28A)" cx="222.40" cy="-10.00" r="10"/>
+    </symbol>
+    <symbol id="vyra-icon" viewBox="0 0 64 64">
+      <circle fill="#6C2BD9" cx="32" cy="32" r="32"/>
+      <path fill="#FFFFFF" transform="translate(13.5 47.67)" d="M21.12 0L11.88 0L-0.06-29.34L11.10-29.34L16.56-11.58L22.02-29.34L33.06-29.34L21.12 0Z"/>
+      <circle fill="#18E28A" cx="53.06" cy="43.17" r="4.5"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="cover">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--lilac)">Manual de marca · v1.0</span>
+    <svg class="logo" viewBox="0 0 232.50 70.60" role="img" aria-label="Vyra"><use href="#vyra"/></svg>
+    <div class="cover-line" aria-hidden="true"></div>
+    <p class="cover-slogan">Velocidade de capital, onde você está.</p>
+    <div class="cover-meta"><span>Provedor de fibra óptica</span><span>Marialva · PR</span><span>vyrafibra.com.br</span><span>06/11/2026</span></div>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Capítulos">
+  <div class="wrap">
+    <a href="#essencia"><b>1</b>Essência</a><a href="#logo"><b>2</b>Logo</a><a href="#cores"><b>3</b>Cores</a><a href="#tipografia"><b>4</b>Tipografia</a><a href="#voz"><b>5</b>Voz</a><a href="#elementos"><b>6</b>Elementos</a><a href="#arquivos"><b>7</b>Arquivos</a>
+  </div>
+</nav>
+
+<section class="ch" id="essencia">
+  <div class="wrap">
+    <div class="ch-head"><span class="eyebrow">1 · Essência</span><h2>Internet de verdade onde as grandes não chegam</h2></div>
+    <div class="grid-2">
+      <div class="box"><span class="eyebrow">Propósito</span><blockquote>Levar internet de verdade para onde as grandes operadoras não chegam.</blockquote></div>
+      <div class="box"><span class="eyebrow">Posicionamento</span><blockquote>Para empresas e famílias do interior que não podem ficar offline: velocidade de capital com suporte de quem está perto.</blockquote></div>
+    </div>
+    <div class="values">
+      <div><strong>Estabilidade</strong><span>A conexão não cai. Se cair, resolvemos rápido.</span></div>
+      <div><strong>Proximidade</strong><span>Gente atendendo, não robô.</span></div>
+      <div><strong>Precisão técnica</strong><span>Rede bem projetada, sem promessa vazia.</span></div>
+      <div><strong>Transparência</strong><span>A velocidade contratada é a entregue.</span></div>
+      <div><strong>Alcance</strong><span>Ninguém fica de fora por morar longe.</span></div>
+    </div>
+    <div class="grid-2" style="margin-top:32px">
+      <div class="box outline persona"><span class="eyebrow">Persona B2C</span><h3>Juliana, 34</h3>
+        <dl><dt>Contexto</dt><dd>Home office no interior, 2 filhos</dd><dt>Dor</dt><dd>Queda na reunião, suporte por robô</dd><dt>Quer</dt><dd>Que funcione e alguém que atenda</dd><dt>Canal</dt><dd>Instagram e indicação</dd><dt>Plano</dt><dd>Conecta (intermediário)</dd></dl></div>
+      <div class="box outline persona"><span class="eyebrow">Persona B2B</span><h3>Ricardo, 46</h3>
+        <dl><dt>Contexto</dt><dd>Dono de negócio: agro, clínica, comércio</dd><dt>Dor</dt><dd>Internet fora = venda perdida</dd><dt>Quer</dt><dd>SLA, IP fixo, contato técnico direto</dd><dt>Canal</dt><dd>LinkedIn e visita comercial</dd><dt>Plano</dt><dd>Ultra ou link dedicado</dd></dl></div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="logo">
+  <div class="wrap">
+    <div class="ch-head"><span class="eyebrow">2 · Logo</span><h2>O nome em minúsculas com o LED de "online"</h2>
+      <p class="lead">O logo é a palavra vyra em letras arredondadas, que transmitem proximidade, seguida de um ponto verde. Esse ponto é o LED do roteador: indica que a conexão está ativa. Ele é sempre verde, exceto na versão monocromática. A versão principal é branca sobre a Tinta, com o ponto verde aceso. Use a versão violeta quando o fundo for claro.</p></div>
+    <div class="logo-hero"><span class="lbl">Versão principal</span>
+      <svg class="logo" viewBox="0 0 232.50 70.60" role="img" aria-label="Vyra"><use href="#vyra"/></svg></div>
+    <div class="variants">
+      <div class="var v-white inkc"><span class="lbl">Tinta · fundo claro</span><svg class="logo" viewBox="0 0 232.50 70.60" aria-label="Vyra"><use href="#vyra"/></svg></div>
+      <div class="var v-white"><span class="lbl">Violeta · fundo claro</span><svg class="logo" viewBox="0 0 232.50 70.60" aria-label="Vyra"><use href="#vyra"/></svg></div>
+      <div class="var v-violet"><span class="lbl">Sobre violeta</span><svg class="logo" viewBox="0 0 232.50 70.60" aria-label="Vyra"><use href="#vyra"/></svg></div>
+      <div class="var v-mono"><span class="lbl">Monocromática</span><svg class="logo" viewBox="0 0 232.50 70.60" aria-label="Vyra"><use href="#vyra"/></svg></div>
+      <div class="var v-photo"><span class="lbl">Sobre imagem</span><svg class="logo" viewBox="0 0 232.50 70.60" aria-label="Vyra"><use href="#vyra"/></svg></div>
+      <div class="var v-white"><span class="lbl">Ícone / avatar</span><svg class="icon" width="92" height="92" viewBox="0 0 64 64" aria-label="Ícone Vyra"><use href="#vyra-icon"/></svg></div>
+    </div>
+
+    <div class="rules">
+      <div class="rule">
+        <div class="rule-visual"><div class="clear"><i></i><i></i><svg class="logo" viewBox="0 0 232.50 70.60" aria-label="Vyra"><use href="#vyra"/></svg></div></div>
+        <h3>Área de proteção</h3><p class="lead">Mantenha livre ao redor do logo um espaço igual a 1,5 vez o diâmetro do ponto verde. Nenhum texto ou elemento entra nessa área.</p>
+      </div>
+      <div class="rule">
+        <div class="rule-visual"><div class="sizes">
+          <figure><svg class="logo" style="width:80px;color:var(--violet)" viewBox="0 0 232.50 70.60" aria-label="Vyra"><use href="#vyra"/></svg><figcaption>logo mín.<br>80 px · 20 mm</figcaption></figure>
+          <figure><svg class="icon" width="32" height="32" viewBox="0 0 64 64" aria-label="Ícone"><use href="#vyra-icon"/></svg><figcaption>ícone<br>32 px</figcaption></figure>
+          <figure><svg class="icon" width="16" height="16" viewBox="0 0 64 64" aria-label="Favicon"><use href="#vyra-icon"/></svg><figcaption>favicon<br>16 px</figcaption></figure>
+        </div></div>
+        <h3>Tamanho mínimo</h3><p class="lead">Abaixo de 80 px de largura (ou 20 mm impresso), use o ícone no lugar do logo completo.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:48px">Não faça</h3>
+    <div class="dont-grid">
+      <div class="dont"><div class="stage"><svg class="logo" style="transform:scaleX(1.5)" viewBox="0 0 232.50 70.60" aria-label=""><use href="#vyra"/></svg></div><p><b>Distorcer</b>Não estique nem achate o logo.</p></div>
+      <div class="dont"><div class="stage pinkdot"><svg class="logo" viewBox="0 0 232.50 70.60" aria-label=""><use href="#vyra"/></svg></div><p><b>Mudar o ponto</b>O ponto é sempre verde (ou da cor única na versão mono).</p></div>
+      <div class="dont"><div class="stage" style="background:var(--lilac)"><svg class="logo" style="color:var(--pink)" viewBox="0 0 232.50 70.60" aria-label=""><use href="#vyra"/></svg></div><p><b>Baixo contraste</b>Não use rosa sobre lilás nem outras combinações fracas.</p></div>
+      <div class="dont"><div class="stage"><svg class="logo" style="transform:rotate(-12deg)" viewBox="0 0 232.50 70.60" aria-label=""><use href="#vyra"/></svg></div><p><b>Girar</b>O logo fica sempre na horizontal.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="cores">
+  <div class="wrap">
+    <div class="ch-head"><span class="eyebrow">3 · Cores</span><h2>Violeta, tinta e um ponto de verde</h2>
+      <p class="lead">As três cores principais formam a assinatura da marca. Lilás e rosa entram como apoio. Os valores de contraste seguem a norma WCAG: 4,5:1 é o mínimo para texto comum.</p></div>
+    <div class="colors">
+      <div class="color main"><div class="chip" style="background:#6C2BD9;color:#fff"><span>Principal</span><b>Vyra Violeta</b></div>
+        <div class="meta"><code>HEX #6C2BD9 · RGB 108 43 217</code><span class="ok">7,1:1 sobre branco · texto ok</span>Logo, botões, links, títulos de destaque.</div></div>
+      <div class="color main"><div class="chip" style="background:#160B2E;color:#fff"><span>Principal</span><b>Tinta</b></div>
+        <div class="meta"><code>HEX #160B2E · RGB 22 11 46</code><span class="ok">18,6:1 sobre branco · texto ok</span>Textos, rodapés, seções escuras.</div></div>
+      <div class="color main"><div class="chip" style="background:#18E28A;color:#160B2E"><span>Principal · 3ª cor</span><b>Verde Sinal</b></div>
+        <div class="meta"><code>HEX #18E28A · RGB 24 226 138</code><span class="ok">10,8:1 sobre tinta · nunca texto no branco</span>Ponto do logo, status online, checks, CTA sobre escuro.</div></div>
+      <div class="color"><div class="chip" style="background:#C9B6FF;color:#160B2E"><span>Apoio</span><b>Lilás Luz</b></div>
+        <div class="meta"><code>HEX #C9B6FF · RGB 201 182 255</code>Fundos suaves, texto secundário sobre tinta.</div></div>
+      <div class="color"><div class="chip" style="background:#FF3EA5;color:#160B2E"><span>Apoio</span><b>Rosa Pulso</b></div>
+        <div class="meta"><code>HEX #FF3EA5 · RGB 255 62 165</code>Destaques pontuais: selos, ofertas, ilustração.</div></div>
+      <div class="color"><div class="chip" style="background:#F6F3FD;color:#160B2E"><span>Neutro</span><b>Névoa</b></div>
+        <div class="meta"><code>HEX #F6F3FD · RGB 246 243 253</code>Separar seções sem usar cinza.</div></div>
+    </div>
+    <div class="ratio" aria-label="Proporção de uso">
+      <span style="flex:55;background:#fff;color:#160B2E">Branco 55%</span>
+      <span style="flex:22;background:#160B2E;color:#fff">Tinta 22%</span>
+      <span style="flex:13;background:#6C2BD9;color:#fff">Violeta 13%</span>
+      <span style="flex:6;background:#C9B6FF;color:#160B2E">Lilás</span>
+      <span style="flex:2;background:#FF3EA5"></span>
+      <span style="flex:2;background:#18E28A"></span>
+    </div>
+    <p class="lead" style="margin-top:10px;font-size:14px">Para impressão, peça à gráfica uma prova de cor a partir dos valores HEX. O violeta e o verde neon perdem saturação em CMYK.</p>
+  </div>
+</section>
+
+<section class="ch" id="tipografia">
+  <div class="wrap">
+    <div class="ch-head"><span class="eyebrow">4 · Tipografia</span><h2>Outfit, a mesma família do logo, comanda os títulos</h2>
+      <p class="lead">São três famílias gratuitas do Google Fonts. Os títulos usam a fonte do logo, o que deixa site e redes coerentes com a marca.</p></div>
+    <div class="fonts">
+      <div class="font-row"><div class="name"><b>Outfit</b><span>Títulos, números, botões<br>600 · 700 · 800</span></div><div class="spec-display">1 Giga de fibra</div></div>
+      <div class="font-row"><div class="name"><b>Manrope</b><span>Textos e interface<br>400 · 500 · 600</span></div><p class="spec-body">A Vyra leva fibra óptica até a sua casa ou empresa, com instalação agendada e suporte de técnicos da sua região.</p></div>
+      <div class="font-row"><div class="name"><b>JetBrains Mono</b><span>Dados técnicos, rótulos<br>400 · 500</span></div><p class="spec-mono">download 600 Mbps · upload 300 Mbps · latência 4 ms</p></div>
+    </div>
+    <div class="scale"><table>
+      <tr><td>Display</td><td style="font:800 56px/1 var(--f-display);letter-spacing:-.035em">Fibra até você</td><td>Outfit 800 · 56–72 px</td></tr>
+      <tr><td>Título 1</td><td style="font:700 36px/1.1 var(--f-display);letter-spacing:-.025em">Planos para casa</td><td>Outfit 700 · 36–40 px</td></tr>
+      <tr><td>Título 2</td><td style="font:600 22px/1.3 var(--f-display)">Suporte em 24 horas</td><td>Outfit 600 · 22 px</td></tr>
+      <tr><td>Texto</td><td style="font:400 16px/1.6 var(--f-body)">Instalação agendada no dia que for melhor para você.</td><td>Manrope 400 · 16 px</td></tr>
+      <tr><td>Rótulo</td><td style="font:500 12px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--violet)">Mais escolhido</td><td>Mono 500 · 12 px · caixa alta</td></tr>
+    </table></div>
+  </div>
+</section>
+
+<section class="ch" id="voz">
+  <div class="wrap">
+    <div class="ch-head"><span class="eyebrow">5 · Voz</span><h2>Fala como um engenheiro que é seu vizinho</h2></div>
+    <div class="slogan-main"><p>Slogan principal</p><q>Velocidade de capital, <span>onde você está.</span></q><p>Assinatura de apoio: "Fibra de verdade. Gente de perto."</p></div>
+    <div class="say">
+      <div><span class="tag yes">Assim</span><p>"Sua conexão caiu? Um técnico da Vyra chega hoje. Pode deixar com a gente."</p></div>
+      <div><span class="tag no">Assim não</span><p>"Prezado cliente, seu chamado foi registrado e será atendido em até 72h úteis."</p></div>
+    </div>
+    <div class="grid-2" style="margin-top:24px">
+      <div><h3>Palavras que usamos</h3><div class="words use"><span>estável</span><span>a gente resolve</span><span>técnico da região</span><span>fibra até você</span><span>sem letra miúda</span><span>agendado</span></div></div>
+      <div><h3>Palavras que evitamos</h3><div class="words avoid"><span>SUPER PROMOÇÃO</span><span>imperdível</span><span>prezado cliente</span><span>até 72h úteis</span><span>🔥🔥🔥</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="elementos">
+  <div class="wrap">
+    <div class="ch-head"><span class="eyebrow">6 · Elementos gráficos</span><h2>Recursos que repetem a ideia de sinal e fibra</h2></div>
+    <div class="el-grid">
+      <div class="el"><div class="stage"><span class="status"><i></i>rede online · Marialva</span></div><div class="txt"><h3>Selo "online"</h3><span>O ponto verde do logo vira indicador de status em sites e posts.</span></div></div>
+      <div class="el"><div class="stage" style="padding:32px"><div class="fiberline"></div></div><div class="txt"><h3>Linha de fibra</h3><span>Um gradiente do violeta ao verde, usado como divisor ou barra de progresso.</span></div></div>
+      <div class="el"><div class="stage"><div class="btns"><span class="btn p">Assinar</span><span class="btn s">Ver planos</span><span class="btn w">Falar agora</span></div></div><div class="txt"><h3>Botões</h3><span>Formato pílula. Violeta é a ação principal. O verde só aparece sobre fundo escuro.</span></div></div>
+      <div class="el"><div class="stage" style="padding:0"><div class="dotgrid"></div></div><div class="txt"><h3>Malha de rede</h3><span>Uma grade de pontos lilás sobre a tinta, com um nó verde aceso. Funciona como fundo de seções e capas.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="arquivos" style="border-bottom:0">
+  <div class="wrap">
+    <div class="ch-head"><span class="eyebrow">7 · Arquivos</span><h2>Onde está cada arquivo</h2><p class="lead">Todos os arquivos estão na pasta <code>brand/</code> do projeto. Nos SVGs, o texto já está convertido em curvas, então não dependem da fonte instalada.</p></div>
+    <div class="files"><table>
+      <thead><tr><th>Arquivo</th><th>Uso</th></tr></thead>
+      <tbody>
+        <tr><td><code>logo/vyra-logo-white.svg</code> · <code>-white-2000.png</code></td><td><b>Principal:</b> branco com ponto verde, sobre Tinta, violeta ou foto</td></tr>
+        <tr><td><code>logo/vyra-logo-violet.svg</code> · <code>-violet-2000.png</code></td><td>Violeta com ponto verde, sobre fundo claro</td></tr>
+        <tr><td><code>logo/vyra-logo-ink.svg</code></td><td>Tinta com ponto verde, sobre fundo claro</td></tr>
+        <tr><td><code>logo/vyra-logo-mono-black.svg</code> · <code>-mono-white.svg</code></td><td>Uma cor só: carimbo, bordado, gravação</td></tr>
+        <tr><td><code>logo/vyra-icon.svg</code> · <code>vyra-avatar-1080.png</code></td><td>Avatar do Instagram e do LinkedIn</td></tr>
+        <tr><td><code>logo/favicon.svg</code> · <code>favicon-32.png</code></td><td>Ícone da aba do navegador</td></tr>
+        <tr><td><code>logo/*-2000.png</code></td><td>PNG em alta resolução para apresentações e documentos</td></tr>
+        <tr><td><code>tokens.css</code></td><td>Cores, fontes e espaçamentos para o site</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<footer><div class="wrap"><svg class="logo" viewBox="0 0 232.50 70.60" aria-label="Vyra"><use href="#vyra"/></svg><span>Manual de marca Vyra · v1.0 · 06/11/2026</span></div></footer>

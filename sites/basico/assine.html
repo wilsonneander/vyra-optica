@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Assine já · Vyra</title>
+<meta name="description" content="Vyra é um provedor de internet 100% fibra óptica para casas e empresas do interior, com suporte técnico local.">
+<meta name="theme-color" content="#160B2E">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="" data-page="assine">
+<header class="topbar">
+  <div class="container">
+    <a class="brand" href="index.html" aria-label="Vyra, página inicial"><svg class="logo" viewBox="-0.10 -49.90 232.50 70.60" role="img" aria-label="Vyra"><path fill="currentColor" d="M35.20 0L19.80 0L-0.10-48.90L18.50-48.90L27.60-19.30L36.70-48.90L55.10-48.90L35.20 0ZM84.60 20.70L67.10 20.70L77.70-2.50L59.10-48.90L77.70-48.90L86.10-20.80L94.50-48.90L113.10-48.90L93 0.10L84.60 20.70ZM132.40 0L115 0L115-48.90L132.40-48.90L132.40-45.80Q137.20-49.90 144.80-49.90L144.80-49.90Q148.30-49.90 150.85-49Q153.40-48.10 155.20-46.20L155.20-46.20L145.10-32.70Q144.30-33.60 142.85-34.15Q141.40-34.70 139.60-34.70L139.60-34.70Q136.20-34.70 134.30-32.65Q132.40-30.60 132.40-26.60L132.40-26.60L132.40 0ZM175.70 1L175.70 1Q168.90 1 163.60-2.30Q158.30-5.60 155.30-11.35Q152.30-17.10 152.30-24.40L152.30-24.40Q152.30-31.80 155.30-37.60Q158.30-43.40 163.60-46.65Q168.90-49.90 175.70-49.90L175.70-49.90Q180.30-49.90 184.10-48.30L184.10-48.30Q186.50-47.20 188.30-45.70L188.30-45.70L188.30-48.90L205.40-48.90L205.40 0L188.30 0L188.30-3.30Q186.50-1.800 184.10-0.70L184.10-0.70Q180.30 1 175.70 1ZM179.40-14.50L179.40-14.50Q183.70-14.50 186.35-17.30Q189.00-20.10 189.00-24.50L189.00-24.50Q189.00-27.40 187.80-29.60Q186.60-31.80 184.45-33.10Q182.30-34.40 179.50-34.40Q176.70-34.40 174.55-33.10Q172.40-31.80 171.15-29.55Q169.90-27.30 169.90-24.50L169.90-24.50Q169.90-21.60 171.10-19.35Q172.30-17.10 174.50-15.80Q176.70-14.50 179.40-14.50Z"/><circle fill="#18E28A" cx="222.40" cy="-10" r="10"/></svg></a>
+    <button class="menu-btn" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="index.html">Início</a><a href="sobre.html">Sobre nós</a><a href="servicos.html">Serviços</a><a href="faq.html">FAQ</a><a href="contato.html">Contato</a>
+      <a class="btn btn-green" href="assine.html" aria-current="page">Assine já</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="page-head"><div class="container">
+  <div class="crumbs"><a href="index.html">Início</a> / Assine já</div>
+  <h1>Assine já</h1><p>Preencha os dados abaixo. Nossa equipe confirma a cobertura e agenda a instalação com você.</p></div></section>
+  <section class="section"><div class="container" style="max-width:860px">
+    <form class="form" novalidate>
+      <fieldset><legend>1. Escolha o plano</legend>
+        <div class="plan-pick"><label><input type="radio" name="plano" value="essencial" required><b>Essencial · 300 Mega</b><span>R$ 99,90/mês</span></label><label><input type="radio" name="plano" value="conecta" checked required><b>Conecta · 600 Mega</b><span>R$ 129,90/mês</span></label><label><input type="radio" name="plano" value="ultra" required><b>Ultra · 1 Giga</b><span>R$ 179,90/mês</span></label></div>
+      </fieldset>
+      <fieldset><legend>2. Seus dados</legend>
+        <div class="row"><label for="a-nome">Nome completo<input id="a-nome" autocomplete="name" required></label>
+        <label for="a-cpf">CPF<input id="a-cpf" inputmode="numeric" required></label></div>
+        <div class="row"><label for="a-tel">WhatsApp<input id="a-tel" inputmode="tel" data-mask="tel" autocomplete="tel" required></label>
+        <label for="a-email">E-mail<input id="a-email" type="email" autocomplete="email" required></label></div>
+      </fieldset>
+      <fieldset><legend>3. Endereço de instalação</legend>
+        <div class="row"><label for="a-cep">CEP<input id="a-cep" inputmode="numeric" data-mask="cep" placeholder="00000-000" required></label>
+        <label for="a-num">Número<input id="a-num" required></label></div>
+        <label for="a-rua">Rua<input id="a-rua" autocomplete="address-line1" required></label>
+        <div class="row"><label for="a-bairro">Bairro<input id="a-bairro" required></label>
+        <label for="a-periodo">Melhor período para instalação<select id="a-periodo"><option>Manhã</option><option>Tarde</option><option>Sábado</option></select></label></div>
+      </fieldset>
+      <div><button class="btn btn-primary" type="submit">Enviar pedido de assinatura</button></div>
+      <div class="form-ok" tabindex="-1" role="status">Pedido recebido. Vamos confirmar a cobertura e falar com você pelo WhatsApp.</div>
+    </form>
+  </div></section>
+</main>
+<footer class="footer">
+  <div class="container">
+    <div class="cols">
+      <div><svg class="logo" viewBox="-0.10 -49.90 232.50 70.60" role="img" aria-label="Vyra"><path fill="currentColor" d="M35.20 0L19.80 0L-0.10-48.90L18.50-48.90L27.60-19.30L36.70-48.90L55.10-48.90L35.20 0ZM84.60 20.70L67.10 20.70L77.70-2.50L59.10-48.90L77.70-48.90L86.10-20.80L94.50-48.90L113.10-48.90L93 0.10L84.60 20.70ZM132.40 0L115 0L115-48.90L132.40-48.90L132.40-45.80Q137.20-49.90 144.80-49.90L144.80-49.90Q148.30-49.90 150.85-49Q153.40-48.10 155.20-46.20L155.20-46.20L145.10-32.70Q144.30-33.60 142.85-34.15Q141.40-34.70 139.60-34.70L139.60-34.70Q136.20-34.70 134.30-32.65Q132.40-30.60 132.40-26.60L132.40-26.60L132.40 0ZM175.70 1L175.70 1Q168.90 1 163.60-2.30Q158.30-5.60 155.30-11.35Q152.30-17.10 152.30-24.40L152.30-24.40Q152.30-31.80 155.30-37.60Q158.30-43.40 163.60-46.65Q168.90-49.90 175.70-49.90L175.70-49.90Q180.30-49.90 184.10-48.30L184.10-48.30Q186.50-47.20 188.30-45.70L188.30-45.70L188.30-48.90L205.40-48.90L205.40 0L188.30 0L188.30-3.30Q186.50-1.800 184.10-0.70L184.10-0.70Q180.30 1 175.70 1ZM179.40-14.50L179.40-14.50Q183.70-14.50 186.35-17.30Q189.00-20.10 189.00-24.50L189.00-24.50Q189.00-27.40 187.80-29.60Q186.60-31.80 184.45-33.10Q182.30-34.40 179.50-34.40Q176.70-34.40 174.55-33.10Q172.40-31.80 171.15-29.55Q169.90-27.30 169.90-24.50L169.90-24.50Q169.90-21.60 171.10-19.35Q172.30-17.10 174.50-15.80Q176.70-14.50 179.40-14.50Z"/><circle fill="#18E28A" cx="222.40" cy="-10" r="10"/></svg><p>Fibra de verdade. Gente de perto.</p><div style="margin-top:18px"><div class="social"><a href="https://instagram.com/vyrafibra" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a><a href="https://facebook.com/vyrafibra" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H9v3h2.5V21"/></svg></a><a href="https://linkedin.com/company/vyrafibra" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5V17M12 17v-3.6c0-1.6 1-2.6 2.2-2.6s2 .8 2 2.6V17M12 10.5V17"/><circle cx="8" cy="7.6" r="1" fill="currentColor" stroke="none"/></svg></a><a href="https://wa.me/5544900000000" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20.5l1.3-4a8.5 8.5 0 1 1 3.2 3z"/><path d="M9 8.6c.3-.6.7-.6 1-.6h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.6.7c.6 1.2 1.7 2.3 3 2.9l.7-.7c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.3.4.5v.5c0 .4-.2.8-.6 1-.6.3-1.4.5-2.4.2-2.6-.8-4.6-2.8-5.4-5.2-.3-1-.2-1.9.1-2.7z"/></svg></a></div></div></div>
+      <div><h3>Navegação</h3><ul><li><a href="index.html">Início</a></li><li><a href="sobre.html">Sobre nós</a></li><li><a href="servicos.html">Serviços</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contato.html">Contato</a></li><li><a href="assine.html">Assine já</a></li></ul></div>
+      <div><h3>Fale com a gente</h3><ul>
+        <li>WhatsApp: (44) 90000-0000</li><li>Telefone: (44) 3000-0000</li><li>contato@vyrafibra.com.br</li><li>Rua Exemplo, 000 · Centro<br>Marialva · PR</li></ul></div>
+    </div>
+    <div class="bottom"><span>© <span id="year">2026</span> Vyra Fibra. Todos os direitos reservados.</span><span>CNPJ 00.000.000/0001-00</span></div>
+  </div>
+</footer>
+<a class="wa-float" href="https://wa.me/5544900000000" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20.5l1.3-4a8.5 8.5 0 1 1 3.2 3z"/><path d="M9 8.6c.3-.6.7-.6 1-.6h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.6.7c.6 1.2 1.7 2.3 3 2.9l.7-.7c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.3.4.5v.5c0 .4-.2.8-.6 1-.6.3-1.4.5-2.4.2-2.6-.8-4.6-2.8-5.4-5.2-.3-1-.2-1.9.1-2.7z"/></svg></a>
+<script src="assets/main.js"></script>
+</body>
+</html>

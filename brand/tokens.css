@@ -1,0 +1,51 @@
+/* =========================================================
+   VYRA — tokens de marca (v1.0 · 06/11/2026)
+   Fontes (Google Fonts):
+   https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap
+   ========================================================= */
+:root {
+  /* Cores principais */
+  --vyra-violet: #6C2BD9;      /* Vyra Violeta — cor da marca */
+  --vyra-violet-700: #5420B0;  /* hover / pressionado */
+  --vyra-ink: #160B2E;         /* Tinta — texto e fundos escuros */
+  --vyra-green: #18E28A;       /* Verde Sinal — "online", só detalhes */
+  /* Apoio */
+  --vyra-lilac: #C9B6FF;       /* Lilás Luz */
+  --vyra-pink: #FF3EA5;        /* Rosa Pulso — destaque pontual */
+  /* Neutros (com viés violeta) */
+  --vyra-white: #FFFFFF;
+  --vyra-mist: #F6F3FD;
+  --vyra-line: #E6E0F5;
+  --vyra-muted: #5E5577;
+
+  /* Tipografia */
+  --vyra-font-display: "Outfit", system-ui, sans-serif;     /* logo, títulos, números */
+  --vyra-font-body: "Manrope", system-ui, sans-serif;       /* textos */
+  --vyra-font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace; /* dados técnicos */
+
+  /* Escala de tipo */
+  --vyra-fs-xs: 0.8125rem;
+  --vyra-fs-sm: 0.9375rem;
+  --vyra-fs-md: 1rem;
+  --vyra-fs-lg: 1.25rem;
+  --vyra-fs-xl: 1.75rem;
+  --vyra-fs-2xl: 2.5rem;
+  --vyra-fs-3xl: clamp(2.75rem, 6vw, 4.5rem);
+
+  /* Forma */
+  --vyra-radius-sm: 10px;
+  --vyra-radius-md: 16px;
+  --vyra-radius-lg: 24px;
+  --vyra-radius-pill: 999px;
+
+  /* Espaçamento (base 4px) */
+  --vyra-space-1: 4px;
+  --vyra-space-2: 8px;
+  --vyra-space-3: 12px;
+  --vyra-space-4: 16px;
+  --vyra-space-6: 24px;
+  --vyra-space-8: 32px;
+  --vyra-space-12: 48px;
+  --vyra-space-16: 64px;
+  --vyra-space-24: 96px;
+}

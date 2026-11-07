@@ -1,6 +1,6 @@
 // MODELO PREMIUM — experiência sofisticada: cursor próprio, rede animada em canvas, transições
 // entre páginas, botões magnéticos, textos que se revelam, simulador de plano e assinatura em etapas.
-const { logo, icon, socialLinks, esc, navLinks, shell } = require('./helpers');
+const { DUO_CSS, logo, icon, duo, socialLinks, esc, navLinks, shell } = require('./helpers');
 
 const FONTS = 'family=Outfit:wght@300;400;500;600;700&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500';
 
@@ -96,9 +96,12 @@ html.from-nav .curtain { transform: scaleY(1); transform-origin: top; animation:
   .hdr nav, .hdr .right .btn { display: none; }
   .burger { display: grid; }
 }
-.mmenu { position: fixed; inset: 0; z-index: 150; background: var(--deep); padding: calc(110px + env(safe-area-inset-top)) max(24px, env(safe-area-inset-left)) 40px; display: flex; flex-direction: column; justify-content: space-between; clip-path: circle(0 at calc(100% - 48px) 42px); transition: clip-path .8s var(--ease); visibility: hidden; }
-.mmenu.open { clip-path: circle(150% at calc(100% - 48px) 42px); visibility: visible; }
-.mmenu a.big { display: block; font: 300 clamp(40px, 11vw, 64px)/1.1 var(--f-display); letter-spacing: -0.04em; text-decoration: none; color: var(--white); opacity: 0; transform: translateY(30px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.mmenu { position: fixed; inset: 0; z-index: 150; background: var(--deep); padding: calc(110px + env(safe-area-inset-top)) max(24px, env(safe-area-inset-left)) 40px; display: flex; flex-direction: column; justify-content: space-between; clip-path: circle(0 at calc(100% - 48px) 42px); transition: clip-path .7s cubic-bezier(.7,0,.3,1), visibility 0s linear .7s; visibility: hidden; }
+.mmenu.open { clip-path: circle(150% at calc(100% - 48px) 42px); visibility: visible; transition: clip-path .8s var(--ease), visibility 0s; }
+.mmenu .social { opacity: 0; transform: translateY(20px); transition: opacity .4s, transform .5s var(--ease); }
+.mmenu.open .social { opacity: 1; transform: none; transition-delay: .3s; }
+.mmenu a.big { display: block; font: 300 clamp(40px, 11vw, 64px)/1.1 var(--f-display); letter-spacing: -0.04em; text-decoration: none; color: var(--white); opacity: 0; transform: translateY(30px); transition: opacity .3s, transform .4s var(--ease); }
+.mmenu.open a.big { transition: opacity .6s var(--ease), transform .6s var(--ease); }
 .mmenu a.big[aria-current="page"] { color: var(--green); }
 .mmenu.open a.big { opacity: 1; transform: none; }
 .mmenu.open a.big:nth-child(2) { transition-delay: .05s; } .mmenu.open a.big:nth-child(3) { transition-delay: .1s; } .mmenu.open a.big:nth-child(4) { transition-delay: .15s; } .mmenu.open a.big:nth-child(5) { transition-delay: .2s; } .mmenu.open a.big:nth-child(6) { transition-delay: .25s; }
@@ -159,7 +162,12 @@ html.from-nav .curtain { transform: scaleY(1); transform-origin: top; animation:
 .tile p { color: var(--fog); max-width: 42ch; }
 .tile .num { font: 300 clamp(64px, 8vw, 120px)/.9 var(--f-display); letter-spacing: -0.05em; }
 .tile .num small { font-size: .3em; color: var(--lilac); letter-spacing: 0; margin-left: 6px; }
-.tile .ico-c { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: rgba(201,182,255,.08); color: var(--green); }
+${DUO_CSS}
+.tile .ico-c, .svc-item .ico-c { position: relative; overflow: hidden; display: grid; place-items: center; border-radius: 20px; background: linear-gradient(150deg, #2E1C5C, #120A26); box-shadow: inset 0 0 0 1px rgba(201,182,255,.16), 0 18px 34px -18px rgba(108,43,217,.8); transition: transform .6s var(--ease), box-shadow .6s; }
+.tile .ico-c::after, .svc-item .ico-c::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 75% 85%, rgba(24,226,138,.22), transparent 55%); }
+.tile .ico-c { width: 64px; height: 64px; }
+.tile:hover .ico-c, .svc-item:hover .ico-c { transform: translateY(-4px) rotate(-5deg); box-shadow: inset 0 0 0 1px rgba(201,182,255,.3), 0 24px 40px -18px rgba(108,43,217,.9); }
+.ico-c .duo { position: relative; z-index: 1; }
 .fibers { position: absolute; inset: 0; z-index: -1; opacity: .9; }
 .fibers i { position: absolute; left: -10%; right: -10%; height: 1px; background: linear-gradient(90deg, transparent, rgba(138,85,240,.5), transparent); }
 .fibers i::after { content: ""; position: absolute; top: -2px; left: 0; width: 80px; height: 5px; border-radius: 5px; background: linear-gradient(90deg, transparent, var(--green)); filter: blur(.5px); animation: photon 3.6s linear infinite; }
@@ -173,8 +181,18 @@ html.from-nav .curtain { transform: scaleY(1); transform-origin: top; animation:
 .spot:hover::before { opacity: 1; }
 
 /* Simulador */
-.sim { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; }
-@media (max-width: 960px) { .sim { grid-template-columns: 1fr; } }
+.sim { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 24px; }
+.sim > * { min-width: 0; }
+@media (max-width: 960px) { .sim { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 520px) {
+  .sim-panel, .result { padding: 24px 20px; border-radius: 24px; }
+  .stepper { gap: 12px; flex-wrap: wrap; }
+  .stepper button { width: 46px; height: 46px; font-size: 22px; }
+  .stepper output { font-size: 48px; }
+  .stepper span { flex-basis: 100%; }
+  .acts button { padding: 11px 16px; font-size: 14px; }
+  .result .btn { width: 100%; justify-content: center; }
+}
 .sim-panel { border-radius: 28px; padding: clamp(26px, 4vw, 44px); background: var(--ink-2); box-shadow: inset 0 0 0 1px var(--hair); display: grid; gap: 32px; align-content: start; }
 .sim h3 { font-size: 15px; font-family: var(--f-mono); font-weight: 400; color: var(--fog); letter-spacing: .08em; text-transform: uppercase; }
 .stepper { display: flex; align-items: center; gap: 20px; }
@@ -262,11 +280,13 @@ html.from-nav .curtain { transform: scaleY(1); transform-origin: top; animation:
 .values { display: flex; gap: 12px; height: 440px; }
 .val { position: relative; flex: 1; border-radius: 28px; background: var(--ink-2); box-shadow: inset 0 0 0 1px var(--hair); padding: 28px; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; transition: flex-grow .8s var(--ease), background-color .5s; min-width: 0; }
 .val.on { flex-grow: 3.4; background: var(--violet); }
-@media (min-width: 901px) { .val:not(.on) h3 { writing-mode: vertical-rl; transform: rotate(180deg); } .val:not(.on):hover { background: #2A1A4F; } }
+@media (min-width: 901px) { .val:not(.on) h3 { writing-mode: vertical-rl; transform: rotate(180deg); } .val:not(.on) { cursor: pointer; } .val:not(.on):hover { background: #2A1A4F; box-shadow: inset 0 0 0 1px rgba(201,182,255,.3); } }
 .val .n { font: 400 12px/1 var(--f-mono); color: var(--lilac); letter-spacing: .14em; }
 .val h3 { font-size: clamp(22px, 2.4vw, 32px); font-weight: 400; letter-spacing: -0.03em; white-space: nowrap; }
 .val p { color: var(--lilac); max-width: 30ch; opacity: 0; transform: translateY(12px); transition: opacity .5s, transform .6s var(--ease); }
 .val.on p { opacity: 1; transform: none; transition-delay: .2s; }
+@media (min-width: 901px) { .val.on h3, .val.on p { animation: valIn .6s var(--ease) .38s both; } }
+@keyframes valIn { from { opacity: 0; transform: translateY(14px); } }
 @media (max-width: 900px) { .values { flex-direction: column; height: auto; } .val { min-height: 150px; } .val p { opacity: 1; transform: none; } .val h3 { white-space: normal; } }
 .cities { border-top: 1px solid var(--hair); }
 .city { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--hair); transition: padding .5s var(--ease), color .3s; }
@@ -280,14 +300,19 @@ html.from-nav .curtain { transform: scaleY(1); transform-origin: top; animation:
 .svc { display: grid; grid-template-columns: 380px 1fr; gap: 72px; align-items: start; }
 @media (max-width: 960px) { .svc { grid-template-columns: 1fr; gap: 24px; } .svc-nav { display: none; } }
 .svc-nav { position: sticky; top: 130px; display: grid; gap: 4px; }
-.svc-nav a { display: flex; align-items: center; gap: 16px; padding: 14px 0; text-decoration: none; font: 300 24px/1.2 var(--f-display); letter-spacing: -0.02em; color: rgba(201,182,255,.4); transition: color .4s, transform .5s var(--ease); }
+.svc-nav { padding-left: 18px; }
+.svc-nav::before, .svc-nav::after { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 2px; border-radius: 2px; background: var(--hair); }
+.svc-nav::after { bottom: auto; height: var(--fill, 0%); background: linear-gradient(var(--violet), var(--green)); transition: height .6s var(--ease); }
+.svc-nav a { display: flex; align-items: center; gap: 16px; padding: 14px 0; text-decoration: none; font: 300 24px/1.2 var(--f-display); letter-spacing: -0.02em; color: rgba(201,182,255,.35); transition: color .5s, transform .5s var(--ease); }
+.svc-nav a.lit { color: var(--white); }
+.svc-nav a.lit i { color: var(--green); }
 .svc-nav a i { font: 400 11px/1 var(--f-mono); font-style: normal; letter-spacing: .12em; }
 .svc-nav a.on { color: var(--white); transform: translateX(10px); }
 .svc-nav a.on i { color: var(--green); }
 .svc-list { display: grid; gap: 18px; }
 .svc-item { position: relative; border-radius: 30px; padding: clamp(28px, 4vw, 48px); background: var(--ink-2); box-shadow: inset 0 0 0 1px var(--hair); display: grid; gap: 22px; min-height: 380px; align-content: space-between; isolation: isolate; overflow: hidden; scroll-margin-top: 120px; }
-.svc-item .ico-c { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: rgba(201,182,255,.08); color: var(--green); }
-.svc-item .ico-c .ico { width: 28px; height: 28px; }
+.svc-item .ico-c { width: 84px; height: 84px; border-radius: 26px; }
+.svc-item .ico-c .duo { width: 42px; height: 42px; }
 .svc-item h2 { font-size: clamp(32px, 3.6vw, 48px); }
 .svc-item p { color: var(--fog); font-size: 17px; max-width: 48ch; }
 .svc-item ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
@@ -309,15 +334,15 @@ html.from-nav .curtain { transform: scaleY(1); transform-origin: top; animation:
 .acc { border-top: 1px solid var(--hair); }
 .acc-item { border-bottom: 1px solid var(--hair); }
 .acc-item[hidden] { display: none; }
-.acc-item button { width: 100%; background: none; border: 0; color: var(--white); display: grid; grid-template-columns: 60px 1fr auto; align-items: center; gap: 16px; padding: 30px 0; text-align: left; font: 300 clamp(20px, 2.4vw, 30px)/1.25 var(--f-display); letter-spacing: -0.02em; transition: color .3s, padding .5s var(--ease); }
+.acc-item button { width: 100%; background: none; border: 0; color: var(--white); display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; padding: 30px 0; text-align: left; font: 300 clamp(20px, 2.4vw, 30px)/1.25 var(--f-display); letter-spacing: -0.02em; transition: color .3s, padding .5s var(--ease); }
 .acc-item button i { font: 400 12px/1 var(--f-mono); font-style: normal; color: var(--fog); letter-spacing: .12em; }
 .acc-item button:hover { padding-left: 12px; color: var(--lilac); }
 .acc-item .pm { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1px var(--hair); transition: transform .6s var(--ease), background-color .4s, color .4s; }
 .acc-item.open .pm { transform: rotate(135deg); background: var(--green); color: var(--ink); box-shadow: none; }
 .acc-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s var(--ease); }
 .acc-body > div { overflow: hidden; }
-.acc-body p { padding: 0 0 32px 76px; color: var(--fog); font-size: 17px; max-width: 70ch; }
-@media (max-width: 600px) { .acc-item button { grid-template-columns: 1fr auto; } .acc-item button i { display: none; } .acc-body p { padding-left: 0; } }
+.acc-body p { padding: 0 70px 32px 0; color: var(--fog); font-size: 17px; max-width: 70ch; }
+@media (max-width: 600px) { .acc-body p { padding-right: 0; } }
 .acc-item.open .acc-body { grid-template-rows: 1fr; }
 .empty { color: var(--fog); padding: 30px 0; }
 
@@ -601,13 +626,25 @@ const js = `// Vyra · modelo Premium
   if (qs.length) showQ(0);
 
   /* ---------- Valores (Sobre) no toque ---------- */
-  $('.val').forEach(function (v) { var on = function () { $('.val').forEach(function (o) { o.classList.toggle('on', o === v); }); }; v.addEventListener('mouseenter', on); v.addEventListener('focus', on); v.addEventListener('click', on); });
+  var vals = $$('.val');
+  function pickVal(v) { vals.forEach(function (o) { var on = o === v; o.classList.toggle('on', on); o.setAttribute('aria-expanded', on); if (on) o.removeAttribute('data-cursor'); else o.setAttribute('data-cursor', 'Abrir'); }); }
+  vals.forEach(function (v) {
+    v.addEventListener('click', function () { pickVal(v); });
+    v.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pickVal(v); } });
+  });
+  if (vals.length) pickVal(vals.filter(function (v) { return v.classList.contains('on'); })[0] || vals[0]);
 
   /* ---------- Serviços: índice fixo ---------- */
   var navs = $$('.svc-nav a');
-  if (navs.length && 'IntersectionObserver' in window) {
-    var so = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) navs.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id); }); }); }, { rootMargin: '-45% 0px -50% 0px' });
-    $$('.svc-item').forEach(function (s) { so.observe(s); });
+  if (navs.length) {
+    var items = $$('.svc-item'), svcNav = $('.svc-nav');
+    var lightUp = function () {
+      var cur = 0;
+      items.forEach(function (it, k) { if (it.getBoundingClientRect().top < innerHeight * .55) cur = k; });
+      navs.forEach(function (a, k) { a.classList.toggle('lit', k <= cur); a.classList.toggle('on', k === cur); });
+      svcNav.style.setProperty('--fill', (navs.length > 1 ? cur / (navs.length - 1) * 100 : 100) + '%');
+    };
+    addEventListener('scroll', lightUp, { passive: true }); addEventListener('resize', lightUp); lightUp();
   }
 
   /* ---------- FAQ: acordeão e busca ---------- */
@@ -772,7 +809,7 @@ const pages = {
       <div class="tile spot rv"><div class="fibers" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
         <span class="label">Tecnologia</span>
         <div><div class="num">100<small>%</small></div><h3 style="margin:14px 0 10px">${c.benefits[0].title}</h3><p>${c.benefits[0].text}</p></div></div>
-      ${c.benefits.slice(1).map((b, i) => `<div class="tile spot rv" data-d="${i + 1}"><div class="ico-c">${icon(b.icon)}</div><div><h3 style="margin-bottom:10px">${b.title}</h3><p>${b.text}</p></div></div>`).join('')}
+      ${c.benefits.slice(1).map((b, i) => `<div class="tile spot rv" data-d="${i + 1}"><div class="ico-c">${duo(b.icon)}</div><div><h3 style="margin-bottom:10px">${b.title}</h3><p>${b.text}</p></div></div>`).join('')}
       <div class="tile spot rv" data-d="2"><span class="label">Velocidade máxima</span><div class="num">1<small>Giga</small></div></div>
     </div>
   </div></section>
@@ -835,7 +872,7 @@ ${footer(c)}`,
   </div></section>
   <section class="section" style="padding-top:0"><div class="container">
     <div style="display:grid;gap:22px;margin-bottom:56px" class="rv"><span class="label">Valores</span><h2>O que <b>nos guia</b></h2></div>
-    <div class="values rv">${c.about.values.map((v, i) => `<div class="val${i === 0 ? ' on' : ''}" tabindex="0" data-cursor="Ver"><span class="n">0${i + 1}</span><div><h3>${v.title}</h3><p>${v.text}</p></div></div>`).join('')}</div>
+    <div class="values rv">${c.about.values.map((v, i) => `<div class="val${i === 0 ? ' on' : ''}" tabindex="0" role="button" aria-expanded="${i === 0}" data-cursor="Abrir"><span class="n">0${i + 1}</span><div><h3>${v.title}</h3><p>${v.text}</p></div></div>`).join('')}</div>
   </div></section>
   <section class="section" style="padding-top:0"><div class="container">
     <div style="display:grid;gap:22px;margin-bottom:56px" class="rv"><span class="label">Cobertura</span><h2>Onde a fibra <b>já chega</b></h2></div>
@@ -851,7 +888,7 @@ ${footer(c)}`,
   <section class="section" style="padding-top:40px"><div class="container svc">
     <nav class="svc-nav" aria-label="Serviços">${c.services.map((s, i) => `<a href="#${s.id}"${i === 0 ? ' class="on"' : ''}><i>0${i + 1}</i>${s.title}</a>`).join('')}</nav>
     <div class="svc-list">${c.services.map((s, i) => `<article class="svc-item spot rv" id="${s.id}">
-      <div class="ico-c">${icon(s.icon)}</div>
+      <div class="ico-c">${duo(s.icon)}</div>
       <div style="display:grid;gap:16px"><span class="label">0${i + 1}</span><h2>${s.title}</h2><p>${s.text}</p></div>
       <ul>${s.items.map(x => `<li>${x}</li>`).join('')}</ul>
     </article>`).join('')}
@@ -866,7 +903,7 @@ ${footer(c)}`,
       <div style="display:grid;gap:22px"><span class="label">Vyra Empresas</span><h2>Sua operação <b>não para.</b></h2></div>
       <a class="btn violet" href="contato.html" data-magnetic data-cursor="Falar"><span>Pedir proposta</span>${icon('arrow')}</a>
     </div>
-    <div class="biz rv">${c.business.map((b, i) => `<div><i>0${i + 1}</i><b>${b.title}</b><span>${b.text}</span></div>`).join('')}</div>
+    <div class="biz rv">${c.business.map(b => `<div><b>${b.title}</b><span>${b.text}</span></div>`).join('')}</div>
   </div></section>
   ${finalCta()}
 </main>
@@ -879,7 +916,7 @@ ${footer(c)}`,
     <div class="faq-top rv"><span class="label">${c.faq.length} perguntas</span>
       <label class="search" for="faq-search"><span class="sr">Buscar pergunta</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="faq-search" type="search" placeholder="Buscar: instalação, Wi-Fi, empresa..."></label></div>
     <div class="acc rv">${c.faq.map((f, i) => `<div class="acc-item">
-      <button aria-expanded="false" aria-controls="faq-${i}"><i>${String(i + 1).padStart(2, '0')}</i>${f.q}<span class="pm">${icon('plus')}</span></button>
+      <button aria-expanded="false" aria-controls="faq-${i}">${f.q}<span class="pm">${icon('plus')}</span></button>
       <div class="acc-body" id="faq-${i}"><div><p>${f.a}</p></div></div></div>`).join('')}</div>
     <p class="empty" hidden>Nenhuma pergunta encontrada. Fale com a gente pelo WhatsApp ${c.contact.whatsapp}.</p>
   </div></section>

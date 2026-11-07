@@ -204,13 +204,25 @@
   if (qs.length) showQ(0);
 
   /* ---------- Valores (Sobre) no toque ---------- */
-  $('.val').forEach(function (v) { var on = function () { $('.val').forEach(function (o) { o.classList.toggle('on', o === v); }); }; v.addEventListener('mouseenter', on); v.addEventListener('focus', on); v.addEventListener('click', on); });
+  var vals = $$('.val');
+  function pickVal(v) { vals.forEach(function (o) { var on = o === v; o.classList.toggle('on', on); o.setAttribute('aria-expanded', on); if (on) o.removeAttribute('data-cursor'); else o.setAttribute('data-cursor', 'Abrir'); }); }
+  vals.forEach(function (v) {
+    v.addEventListener('click', function () { pickVal(v); });
+    v.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pickVal(v); } });
+  });
+  if (vals.length) pickVal(vals.filter(function (v) { return v.classList.contains('on'); })[0] || vals[0]);
 
   /* ---------- Serviços: índice fixo ---------- */
   var navs = $$('.svc-nav a');
-  if (navs.length && 'IntersectionObserver' in window) {
-    var so = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) navs.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id); }); }); }, { rootMargin: '-45% 0px -50% 0px' });
-    $$('.svc-item').forEach(function (s) { so.observe(s); });
+  if (navs.length) {
+    var items = $$('.svc-item'), svcNav = $('.svc-nav');
+    var lightUp = function () {
+      var cur = 0;
+      items.forEach(function (it, k) { if (it.getBoundingClientRect().top < innerHeight * .55) cur = k; });
+      navs.forEach(function (a, k) { a.classList.toggle('lit', k <= cur); a.classList.toggle('on', k === cur); });
+      svcNav.style.setProperty('--fill', (navs.length > 1 ? cur / (navs.length - 1) * 100 : 100) + '%');
+    };
+    addEventListener('scroll', lightUp, { passive: true }); addEventListener('resize', lightUp); lightUp();
   }
 
   /* ---------- FAQ: acordeão e busca ---------- */

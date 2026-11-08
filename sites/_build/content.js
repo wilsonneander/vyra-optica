@@ -22,9 +22,9 @@ module.exports = {
       ['Suporte técnico', '24 horas, todos os dias'],           // [EXEMPLO]
     ],
     social: {
-      instagram: 'https://instagram.com/vyrafibra',               // [EXEMPLO]
-      facebook: 'https://facebook.com/vyrafibra',                 // [EXEMPLO]
-      linkedin: 'https://linkedin.com/company/vyrafibra',         // [EXEMPLO]
+      instagram: 'https://www.instagram.com/vyra.optica/',
+      facebook: 'https://www.facebook.com/profile.php?id=61596363840285',
+      linkedin: 'https://www.linkedin.com/in/vyra-optica/',
       whatsapp: 'https://wa.me/5544900000000',                    // [EXEMPLO]
     },
   },

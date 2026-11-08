@@ -156,9 +156,18 @@ ${DUO_CSS}
   .slide > img { height: 50%; object-position: center top; }
   .slide::after { background: linear-gradient(180deg, rgba(232,72,12,0) 20%, rgba(232,72,12,.92) 46%, #E8480C 62%, #E11D2E 100%); }
   .slide .container { align-items: flex-end; padding-bottom: 110px; }
-  .glass { display: none; }
+  .slide .glass { display: none !important; }
+  .slide .copy { gap: 14px; }
   .slide p { font-size: 16px; }
-  .stab { padding: 16px 10px 18px; } .stab b { font-size: 15px; } .stab span { display: none; }
+  .slide .logos .st { height: 28px; }
+  .stab { padding: 14px 8px 16px; min-height: 0; } .stab b { font-size: 13px; line-height: 1.2; } .stab span { display: none; }
+}
+@media (max-width: 560px) {
+  .tabs-bar .container { padding-right: 86px; }
+  .stab b { display: none; }
+  .stab { padding: 14px 4px; }
+  .stab::before, .stab i { left: 4px; right: 4px; }
+  @keyframes fill { to { width: calc(100% - 8px); } }
 }
 
 /* Faixa de logos corrida */
@@ -811,7 +820,7 @@ function stage(c) {
       <div class="glass price"><small>a partir de</small><b>R$ ${s.price}</b><small>por mês · exemplo</small></div>
     </div>`).join('')}
   </div>
-  <div class="tabs-bar"><div class="container">${tabsInfo.map((t, i) => `<button type="button" class="stab" aria-current="${i === 0}"><i></i><b>${t[0]}</b><span>${t[1]}</span></button>`).join('')}</div></div>
+  <div class="tabs-bar"><div class="container">${tabsInfo.map((t, i) => `<button type="button" class="stab" aria-current="${i === 0}" aria-label="Oferta: ${t[0]}"><i></i><b>${t[0]}</b><span>${t[1]}</span></button>`).join('')}</div></div>
 </section>`;
 }
 

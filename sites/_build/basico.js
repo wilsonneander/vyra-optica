@@ -859,7 +859,6 @@ ${footer(c)}`,
   sobre: c => `${header(c, 'sobre')}
 <main>
   ${phero('familia_sofa.jpg', 'Família sorrindo no sofá', 'Feita no interior, <em>para o interior.</em>', c.about.intro, 'Sobre nós')}
-  ${plansSection(c, 'both')}
   <section class="section"><div class="container split">
     <div class="media"><img src="${IMG}mulher_ligacao.jpg" alt="Mulher sorrindo ao telefone" loading="lazy"><div class="float"><b>24h</b><span>suporte por gente<br>da região</span></div></div>
     <div class="copy-block"><span class="kicker">Nossa história</span><h2>Gente de perto, <em>fibra de verdade.</em></h2>${c.about.story.map(p => `<p>${p}</p>`).join('')}</div>
@@ -924,7 +923,6 @@ ${footer(c)}`,
   faq: c => `${header(c, 'faq')}
 <main>
   ${phero('amigas_cafe.jpg', 'Duas amigas olhando o celular num café', 'Perguntas <em>frequentes.</em>', 'Respostas rápidas sobre instalação, planos, streaming e suporte.', 'FAQ')}
-  ${plansSection(c, 'both')}
   ${faqBlock(c)}
   ${finalCta()}
 </main>
@@ -933,7 +931,6 @@ ${footer(c)}`,
   contato: c => `${header(c, 'contato')}
 <main>
   ${phero('mulher_aceno.jpg', 'Mulher acenando numa videochamada', 'Fale com <em>a gente.</em>', 'Tire dúvidas, peça uma proposta ou fale com o suporte. Gente da região responde.', 'Contato')}
-  ${plansSection(c, 'both')}
   <section class="section"><div class="container contact-layout">
     <div style="display:grid;gap:18px"><div class="head" style="margin:0"><span class="kicker">Mensagem</span><h2>Envie sua <em>mensagem</em></h2></div>${contactForm(c)}</div>
     ${infoCard(c, 'mulher_videochamada.jpg', 'Mulher em videochamada no notebook')}

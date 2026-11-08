@@ -69,7 +69,7 @@ function navLinks(c, active, cls = '') {
   return c.nav.map(n => `<a href="${n.href}"${n.id === active ? ' aria-current="page"' : ''}${cls ? ` class="${cls}"` : ''}>${n.label}</a>`).join('');
 }
 
-const PAGE_TITLES = { index: 'Internet fibra óptica no interior', sobre: 'Sobre nós', servicos: 'Serviços', faq: 'Perguntas frequentes', contato: 'Contato', assine: 'Assine já' };
+const PAGE_TITLES = { index: 'Internet fibra óptica no interior', sobre: 'Sobre nós', servicos: 'Serviços', residencial: 'Internet residencial', empresas: 'Internet para empresas', faq: 'Perguntas frequentes', contato: 'Contato', assine: 'Assine já' };
 
 function shell({ c, page, fonts, css = 'assets/style.css', bodyClass = '', body, scripts = ['assets/main.js'], head = '' }) {
   const title = page === 'index' ? `Vyra · ${PAGE_TITLES.index}` : `${PAGE_TITLES[page]} · Vyra`;

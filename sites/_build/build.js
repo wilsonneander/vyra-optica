@@ -37,6 +37,8 @@ for (const tier of tiers) {
   const { pages, css, js } = require(mod).build(content);
   const dir = path.join(ROOT, tier);
   fs.mkdirSync(path.join(dir, 'assets'), { recursive: true });
+  // remove páginas que não fazem mais parte do modelo
+  for (const old of fs.readdirSync(dir).filter(f => f.endsWith('.html') && !(f in pages))) fs.unlinkSync(path.join(dir, old));
   for (const [file, html] of Object.entries(pages)) fs.writeFileSync(path.join(dir, file), html);
   fs.writeFileSync(path.join(dir, 'assets', 'style.css'), css);
   fs.writeFileSync(path.join(dir, 'assets', 'main.js'), COMMON_JS + '\n' + js);

@@ -121,6 +121,55 @@ module.exports = {
     soon: ['Mandaguari', 'Sarandi', 'Paiçandu', 'Mirador', 'Floresta'], // [EXEMPLO]
   },
 
+  // ------------------------------------------------------------------
+  // MODELO BÁSICO (versão com fotos e pacotes de streaming)
+  // Streamings: dependem de parceria comercial com cada serviço. [EXEMPLO]
+  // ------------------------------------------------------------------
+  basicNav: [
+    { href: 'index.html', label: 'Início', id: 'index' },
+    { href: 'sobre.html', label: 'Sobre nós', id: 'sobre' },
+    { href: 'residencial.html', label: 'Residencial', id: 'residencial' },
+    { href: 'empresas.html', label: 'Empresas', id: 'empresas' },
+    { href: 'faq.html', label: 'FAQ', id: 'faq' },
+    { href: 'contato.html', label: 'Contato', id: 'contato' },
+  ],
+
+  slides: [
+    { img: 'familia_celulares.jpg', alt: 'Família no sofá usando celulares e tablet', tag: 'Plano Família', title: 'A casa toda conectada, <em>sem disputa pelo Wi-Fi.</em>', text: '800 Mega de fibra + YouTube Premium + 1 streaming à sua escolha.', price: '129,90', cta: 'assine.html#familia' },
+    { img: 'amigas_mesa.jpg', alt: 'Amigas rindo enquanto olham o celular juntas', tag: 'Incluso em todos os planos', title: 'YouTube Premium <em>de presente.</em>', text: 'Vídeos sem anúncio e música offline em qualquer plano Vyra.', price: '99,90', cta: 'residencial.html' },
+    { img: 'mulher_celular_sofa.jpg', alt: 'Mulher sorrindo com o celular no sofá de casa', tag: 'Combo completo', title: '1 Giga com Netflix, Max e <em>Prime Video.</em>', text: 'Todos os streamings na conta da internet, com Wi-Fi mesh na casa inteira.', price: '179,90', cta: 'assine.html#ultra' },
+  ],
+
+  streamings: ['YouTube Premium', 'Netflix', 'Max', 'Prime Video'],
+
+  combos: [ // planos residenciais [EXEMPLO]
+    { id: 'start', name: 'Vyra Start', speed: '500', unit: 'Mega', price: '99,90', tag: 'Para começar',
+      streams: ['YouTube Premium'],
+      features: ['Wi-Fi 6 incluso', 'Instalação grátis', 'Suporte técnico local', 'Sem franquia de dados'] },
+    { id: 'familia', name: 'Vyra Família', speed: '800', unit: 'Mega', price: '129,90', tag: 'Mais popular', featured: true,
+      streams: ['YouTube Premium', 'Max ou Prime Video'],
+      features: ['Wi-Fi 6 + 1 ponto mesh', 'Instalação em até 48h', 'Atendimento prioritário', 'Controle dos pais no app'] },
+    { id: 'ultra', name: 'Vyra Ultra', speed: '1', unit: 'Giga', price: '179,90', tag: 'Combo completo',
+      streams: ['YouTube Premium', 'Netflix', 'Max', 'Prime Video'],
+      features: ['Wi-Fi 6 mesh (2 pontos)', 'Técnico em até 24h', 'IP fixo opcional', 'Ideal para games e 4K'] },
+  ],
+
+  addons: [ // adicionais [EXEMPLO]
+    { name: 'Netflix Padrão', price: '+ R$ 44,90' },
+    { name: 'Max', price: '+ R$ 29,90' },
+    { name: 'Prime Video', price: '+ R$ 19,90' },
+    { name: 'Ponto extra de Wi-Fi mesh', price: '+ R$ 19,90' },
+  ],
+
+  businessPlans: [ // planos empresariais [EXEMPLO]
+    { id: 'empresa400', name: 'Empresa 400', speed: '400', unit: 'Mega', price: '199,90', tag: 'Comércio e escritório',
+      features: ['IP fixo incluso', 'Wi-Fi corporativo', 'Suporte prioritário', 'Nota fiscal mensal'] },
+    { id: 'empresa800', name: 'Empresa 800', speed: '800', unit: 'Mega', price: '299,90', tag: 'Mais contratado', featured: true,
+      features: ['IP fixo incluso', 'SLA de reparo em 8h', 'Gerente de conta', 'Link de backup opcional'] },
+    { id: 'dedicado', name: 'Link Dedicado', speed: 'até 10', unit: 'Giga', price: null, tag: 'Operação crítica',
+      features: ['Banda simétrica garantida', 'SLA de reparo em 4h', 'Monitoramento 24h', 'Projeto sob medida'] },
+  ],
+
   faq: [
     { q: 'Como sei se a Vyra atende o meu endereço?', a: 'Informe seu CEP na página Assine já ou fale com a gente pelo WhatsApp. Respondemos na hora se a fibra já chega na sua rua.' },
     { q: 'Quanto tempo leva a instalação?', a: 'Depende do plano e da região. Em geral, a instalação acontece entre 24 e 72 horas após a contratação, no dia e período que você escolher.' },

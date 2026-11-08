@@ -261,7 +261,8 @@ ${DUO_CSS}
 .photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(30,21,18,.85)); }
 .photo div { position: absolute; left: 22px; right: 22px; bottom: 22px; z-index: 2; display: grid; gap: 6px; }
 .photo b { font: 800 22px/1.15 var(--f-display); }
-.photo span { font-size: 15px; color: rgba(255,255,255,.88); }
+.photo div span { font-size: 15px; color: rgba(255,255,255,.88); }
+.photo .vbug { color: var(--orange); }
 @media (max-width: 860px) { .photo { aspect-ratio: 16 / 10; } }
 
 /* Perfis (Residencial) */

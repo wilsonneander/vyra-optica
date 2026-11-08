@@ -972,4 +972,4 @@ function build(c) {
   for (const [id, fn] of Object.entries(pages)) out[id + '.html'] = shell({ c, page: id, fonts: FONTS, body: fn(c) });
   return { pages: out, css, js };
 }
-module.exports = { build };
+module.exports = { build, brandTile, streamLogos };

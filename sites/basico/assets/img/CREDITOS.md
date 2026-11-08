@@ -23,3 +23,4 @@ São fotos provisórias: o ideal é trocar por fotos reais da Vyra (equipe, clie
 | reuniao_laptop.jpg | https://unsplash.com/photos/oMtJYEbniH8 | Creatopy |
 | mae_tablet.jpg | https://unsplash.com/photos/UH-xs-FizTk | Alexander Dummer |
 | fibra.jpg | https://unsplash.com/photos/eMoMpSKE8eE | S A (@sraze) — cor ajustada para o laranja da marca |
+| mapa_marialva.jpg | Mapa © colaboradores do OpenStreetMap (ODbL) — https://www.openstreetmap.org/copyright | crédito exibido no rodapé |

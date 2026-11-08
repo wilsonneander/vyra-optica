@@ -107,6 +107,9 @@ module.exports = {
       'Hoje atendemos casas e empresas em Marialva e seguimos crescendo por cidades do interior que precisam de uma conexão de verdade.',
     ],
     purpose: 'Levar internet de verdade para onde as grandes operadoras não chegam.',
+    mission: 'Entregar internet de fibra óptica estável, com atendimento humano e próximo, conectando pessoas e empresas do interior ao que realmente importa.',
+    vision: 'Ser a referência em internet no interior do Brasil, reconhecida pela qualidade da rede e pela proximidade com cada cliente.',
+    valuesText: 'Estabilidade, proximidade, precisão técnica, transparência e alcance: ninguém fica de fora por morar longe.',
     values: [
       { title: 'Estabilidade', text: 'A conexão não cai. Se cair, resolvemos rápido.' },
       { title: 'Proximidade', text: 'Gente atendendo, não robô.' },

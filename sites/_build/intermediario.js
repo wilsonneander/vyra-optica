@@ -461,21 +461,35 @@ legend { font: 800 19px var(--f-display); margin-bottom: 12px; }
 .foot .social a { background: rgba(255,255,255,.1); }
 .foot .social a:hover { background: var(--orange); }
 
-/* Rodapé com mapa */
+/* Rodapé com mapa pequeno */
 .foot { background: var(--ink); color: rgba(255,255,255,.75); font-size: 15px; }
-.map { position: relative; height: 340px; overflow: hidden; background: #E9E4E1; }
-.map img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.3) saturate(1.3) hue-rotate(-12deg); }
-.map::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(30,21,18,.25), rgba(255,90,31,.06) 50%, rgba(30,21,18,.1)); pointer-events: none; }
-.map .pin { position: absolute; left: 50%; top: 50%; z-index: 2; width: 24px; height: 24px; margin: -12px 0 0 -12px; border-radius: 50%; background: var(--red); border: 4px solid var(--white); box-shadow: 0 8px 20px -6px rgba(225,29,46,.8); }
-.map .pin::before { content: ""; position: absolute; inset: -10px; border-radius: 50%; border: 3px solid rgba(225,29,46,.55); animation: ping 2.2s ease-out infinite; }
+.where { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 44px; align-items: center; padding: 64px 0 48px; border-bottom: 1px solid rgba(255,255,255,.12); }
+@media (max-width: 860px) { .where { grid-template-columns: 1fr; gap: 26px; } }
+.map-box { position: relative; height: 270px; border-radius: 24px; overflow: hidden; background: #E9E4E1; box-shadow: 0 30px 60px -34px rgba(0,0,0,.7); }
+.map-box img { width: 100%; height: 100%; object-fit: cover; filter: sepia(.25) saturate(1.25) hue-rotate(-12deg); }
+.map-box .pin { position: absolute; left: 50%; top: 50%; z-index: 2; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: var(--red); border: 4px solid var(--white); box-shadow: 0 8px 18px -6px rgba(225,29,46,.8); }
+.map-box .pin::before { content: ""; position: absolute; inset: -10px; border-radius: 50%; border: 3px solid rgba(225,29,46,.55); animation: ping 2.2s ease-out infinite; }
+.map-box .pin b { position: absolute; left: 22px; top: -6px; white-space: nowrap; font: 800 13px var(--f-display); color: var(--red); text-shadow: 0 0 4px #fff, 0 0 4px #fff; }
 @keyframes ping { from { transform: scale(.6); opacity: 1; } to { transform: scale(2.4); opacity: 0; } }
-.map-card { position: absolute; z-index: 3; left: max(20px, calc((100vw - var(--max)) / 2 + 20px)); top: 50%; transform: translateY(-50%); width: min(360px, calc(100% - 40px)); background: var(--white); color: var(--ink); border-radius: 22px; padding: 22px; display: grid; gap: 10px; box-shadow: 0 30px 60px -30px rgba(30,21,18,.6); }
-.map-card .logo { width: 92px; height: auto; color: var(--orange); }
-.map-card span { color: var(--muted); font-size: 14.5px; }
-.map .attr { position: absolute; right: 8px; bottom: 6px; z-index: 3; font-size: 11px; background: rgba(255,255,255,.85); color: var(--ink); padding: 2px 6px; border-radius: 4px; }
-.map .attr a { color: var(--ink); }
-@media (max-width: 640px) { .map { height: 440px; } .map-card { top: auto; bottom: 20px; transform: none; } .map .pin { left: 50%; top: 22%; } }
-.foot .cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; padding-top: 64px; }
+.map-info { position: absolute; left: 12px; top: 12px; z-index: 3; background: var(--white); color: var(--ink); border-radius: 14px; padding: 12px 14px; display: grid; gap: 3px; max-width: 260px; box-shadow: 0 12px 26px -12px rgba(0,0,0,.45); }
+.map-info b { font: 800 15px var(--f-display); }
+.map-info span { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.map-info .mbtns { display: flex; gap: 6px; margin-top: 8px; }
+.map-info a { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 10px; background: var(--grad); color: var(--white); font: 700 13px var(--f-display); text-decoration: none; }
+.map-info a.sq { padding: 8px; background: var(--mist); color: var(--orange-700); }
+.map-info a .ico { width: 16px; height: 16px; }
+.map-box .attr { position: absolute; right: 8px; bottom: 6px; z-index: 3; font-size: 11px; background: rgba(255,255,255,.85); color: var(--ink); padding: 2px 6px; border-radius: 4px; }
+.map-box .attr a { color: var(--ink); }
+.where h2 { color: var(--white); font-size: clamp(30px, 3.6vw, 46px); }
+.where p { color: rgba(255,255,255,.75); margin-top: 10px; max-width: 46ch; }
+.where .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.where .chips span { padding: 7px 13px; border-radius: 999px; background: rgba(255,255,255,.08); font: 600 13.5px var(--f-display); color: var(--white); }
+.where .chips span.on { background: var(--grad); }
+.where .chips small { opacity: .7; margin-left: 4px; font-weight: 500; }
+.foot-brand { display: flex; justify-content: space-between; align-items: center; gap: 16px 24px; flex-wrap: wrap; padding: 28px 0; border-bottom: 1px solid rgba(255,255,255,.12); }
+.foot-brand .logo { width: 124px; height: auto; color: var(--white); }
+.foot-brand b { font: 800 clamp(18px, 2.2vw, 24px) var(--f-display); color: var(--white); }
+.foot .cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; padding-top: 40px; }
 @media (max-width: 860px) { .foot .cols { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .foot .cols { grid-template-columns: 1fr; } }
 .foot .logo-w { width: 120px; height: auto; color: var(--white); display: block; margin-bottom: 14px; }
@@ -487,6 +501,59 @@ legend { font: 800 19px var(--f-display); margin-bottom: 12px; }
 .wa-float { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); width: 60px; height: 60px; border-radius: 50%; background: var(--grad); color: var(--white); display: grid; place-items: center; box-shadow: 0 12px 28px -8px rgba(232,72,12,.6); z-index: 45; transition: transform .3s var(--ease); }
 .wa-float:hover { transform: scale(1.08) rotate(-8deg); }
 .wa-float .ico { width: 28px; height: 28px; }
+
+/* Planos em faixas (Residencial) */
+.prows { display: grid; gap: 16px; }
+.prow { position: relative; display: grid; grid-template-columns: 210px minmax(0, 1fr) 230px; gap: 30px; align-items: center; background: var(--white); border-radius: 26px; padding: 26px 30px; box-shadow: 0 0 0 1px var(--line); transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
+.prow:hover { transform: translateX(6px); box-shadow: 0 0 0 1.5px var(--orange), 0 26px 44px -30px rgba(232,72,12,.5); }
+.prow.featured { background: var(--grad); color: var(--white); box-shadow: 0 30px 60px -30px rgba(225,29,46,.7); }
+.prow .badge { position: absolute; top: -12px; left: 30px; background: var(--ink); color: var(--white); font: 800 11.5px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; padding: 7px 12px; border-radius: 999px; }
+.prow .ph { display: flex; align-items: baseline; gap: 8px; }
+.prow .ph .logo { width: 54px; height: auto; color: var(--orange); transform: translateY(3px); }
+.prow.featured .ph .logo { color: var(--white); }
+.prow .ph b { font: 800 20px/1 var(--f-display); text-transform: lowercase; }
+.prow .speed { font: 800 64px/.9 var(--f-display); letter-spacing: -0.045em; color: var(--orange); margin-top: 8px; }
+.prow.featured .speed { color: var(--white); }
+.prow .speed small { font-size: 20px; letter-spacing: 0; margin-left: 4px; }
+.prow .mid { display: grid; gap: 12px; }
+.prow ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; font-size: 14.5px; }
+.prow li { display: flex; gap: 8px; align-items: center; }
+.prow li .ico { width: 17px; height: 17px; color: var(--orange-600); }
+.prow.featured li .ico { color: var(--white); }
+.prow .side { display: grid; gap: 12px; justify-items: end; text-align: right; }
+.prow .price small { font: 600 14px var(--f-body); opacity: .75; }
+.prow .price b { font: 800 40px/1 var(--f-display); letter-spacing: -0.03em; }
+.prow .side .btn { width: 100%; }
+@media (max-width: 900px) { .prow { grid-template-columns: 1fr; gap: 18px; padding-top: 30px; } .prow .side { justify-items: start; text-align: left; } .prow ul { grid-template-columns: 1fr; } }
+
+/* Planos empresariais em cards escuros */
+.bplans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (max-width: 980px) { .bplans { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; } }
+.bplan { position: relative; overflow: hidden; isolation: isolate; background: var(--ink); color: var(--white); border-radius: 26px; padding: 32px 30px; display: grid; gap: 16px; align-content: start; border-top: 5px solid var(--orange); transition: transform .35s var(--ease), box-shadow .35s; }
+.bplan::after { content: ""; position: absolute; right: -80px; top: -80px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,31,.35), transparent 65%); z-index: -1; }
+.bplan:hover { transform: translateY(-6px); box-shadow: 0 30px 50px -30px rgba(232,72,12,.6); }
+.bplan.featured { box-shadow: 0 0 0 2px var(--orange), 0 30px 60px -30px rgba(232,72,12,.7); }
+.bplan .tag { font: 700 12px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--peach); }
+.bplan .badge { position: absolute; top: 18px; right: 18px; background: var(--grad); color: var(--white); font: 800 11px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; padding: 7px 11px; border-radius: 999px; }
+.bplan .name { font: 800 22px var(--f-display); }
+.bplan .speed { font: 800 60px/.9 var(--f-display); letter-spacing: -0.045em; color: var(--orange); }
+.bplan .speed small { font-size: 20px; letter-spacing: 0; margin-left: 4px; color: var(--white); }
+.bplan ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 15px; color: rgba(255,255,255,.88); }
+.bplan li { display: flex; gap: 10px; align-items: center; }
+.bplan li .ico { width: 18px; height: 18px; color: var(--orange); }
+.bplan .price { border-top: 1px solid rgba(255,255,255,.14); padding-top: 16px; display: flex; align-items: baseline; gap: 4px; }
+.bplan .price small { font-size: 14px; opacity: .7; }
+.bplan .price b { font: 800 38px/1 var(--f-display); }
+.bplan .price .ask { font: 800 26px var(--f-display); }
+.bplan .btn { width: 100%; }
+
+/* Passos em linha (Empresas) */
+.hsteps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; position: relative; counter-reset: st; }
+.hsteps::before { content: ""; position: absolute; top: 27px; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, var(--orange), var(--red)); }
+.hstep { position: relative; display: grid; gap: 10px; justify-items: start; }
+.hstep::before { counter-increment: st; content: counter(st); width: 56px; height: 56px; border-radius: 50%; background: var(--white); box-shadow: 0 0 0 2px var(--orange); display: grid; place-items: center; font: 800 20px var(--f-display); color: var(--orange-700); }
+.hstep p { color: var(--muted); }
+@media (max-width: 800px) { .hsteps { grid-template-columns: 1fr; } .hsteps::before { display: none; } }
 
 /* Entrada ao rolar */
 .rv { transition: opacity .8s var(--ease), transform .8s var(--ease); }
@@ -699,19 +766,27 @@ function header(c, page) {
 
 function footer(c) {
   return `<footer class="foot">
-  <div class="map">
-    <img src="${IMG}mapa_marialva.jpg" alt="Mapa do centro de Marialva, Paraná" loading="lazy">
-    <span class="pin" aria-hidden="true"></span>
-    <div class="map-card">${logo()}<b>Loja e atendimento</b><span>${c.contact.address} · ${c.contact.city}<br>${c.contact.hours[0][1]}</span>
-      <a class="btn btn-primary" href="${MAPS}" target="_blank" rel="noopener">${icon('pin')}Como chegar</a></div>
-    <span class="attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
-  </div>
   <div class="container">
+    <div class="where">
+      <div class="map-box rv">
+        <img src="${IMG}mapa_marialva.jpg" alt="Mapa do centro de Marialva, Paraná" loading="lazy">
+        <span class="pin" aria-hidden="true"><b>Vyra Fibra</b></span>
+        <div class="map-info"><b>Vyra Fibra</b><span>${c.contact.address} · ${c.contact.city}</span><span>${c.contact.hours[0][1]}</span>
+          <div class="mbtns"><a href="${MAPS}" target="_blank" rel="noopener">${icon('pin')}Abrir no Maps</a><a class="sq" href="${MAPS}" target="_blank" rel="noopener" aria-label="Como chegar">${icon('arrow')}</a></div></div>
+        <span class="attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
+      </div>
+      <div class="rv" data-d="1">
+        <h2>Onde atendemos</h2>
+        <p>Fibra óptica em Marialva e região, chegando a novas cidades do interior. Confira se a Vyra já está disponível no seu endereço.</p>
+        <div class="chips">${c.cities.now.map(x => `<span class="on">${x}</span>`).join('')}${c.cities.soon.map(x => `<span>${x}<small>em breve</small></span>`).join('')}</div>
+      </div>
+    </div>
+    <div class="foot-brand">${logo()}<b>${esc(c.brand.slogan)}</b></div>
     <div class="cols">
-      <div>${logo('logo-w')}<p>${esc(c.brand.slogan)}<br>${esc(c.brand.support)}</p><div style="margin-top:18px">${socialLinks(c)}</div></div>
       <div><h3>Navegação</h3><ul>${c.basicNav.map(n => `<li><a href="${n.href}">${n.label}</a></li>`).join('')}<li><a href="assine.html">Assine já</a></li></ul></div>
       <div><h3>Planos</h3><ul>${c.combos.map(p => `<li><a href="assine.html#${p.id}">${p.name} · ${p.speed} ${p.unit}</a></li>`).join('')}<li><a href="empresas.html">Vyra Empresas</a></li></ul></div>
-      <div><h3>Fale com a gente</h3><ul><li>WhatsApp: ${c.contact.whatsapp}</li><li>Telefone: ${c.contact.phone}</li><li>${c.contact.email}</li></ul></div>
+      <div><h3>Fale com a gente</h3><ul><li>WhatsApp: ${c.contact.whatsapp}</li><li>Telefone: ${c.contact.phone}</li><li>${c.contact.email}</li><li>${c.contact.hours[1][0]}: ${c.contact.hours[1][1]}</li></ul></div>
+      <div><h3>Redes sociais</h3>${socialLinks(c)}</div>
     </div>
     <div class="bottom"><span>© <span id="year">2026</span> Vyra Fibra. Todos os direitos reservados.</span><span>A Vyra é uma empresa de telecomunicações inscrita no CNPJ 00.000.000/0001-00 com licença SCM da Anatel. [EXEMPLO]</span></div>
   </div>
@@ -798,6 +873,33 @@ function plansSection(c, mode = 'both') {
   return `<section class="section alt" id="planos"><div class="container">
     <div class="head center rv"><span class="kicker">Planos</span><h2>${title}</h2><p>${sub}</p></div>
     ${body}
+  </div></section>`;
+}
+
+function rowPlans(c) {
+  return `<section class="section alt" id="planos"><div class="container">
+    <div class="head center rv"><span class="kicker">Planos residenciais</span><h2>Escolha seu plano <em>Vyra</em></h2><p>Fibra até a sua casa, Wi-Fi 6 e streaming incluso.</p></div>
+    <div class="prows">${c.combos.map((p, i) => `<article class="prow rv${p.featured ? ' featured' : ''}" data-d="${i}">
+      ${p.featured ? `<span class="badge">${p.tag}</span>` : ''}
+      <div><div class="ph">${logo('logo', p.featured ? '#FFFFFF' : '#E11D2E')}<b>${shortName(p)}</b></div><div class="speed">${p.speed}<small>${p.unit}</small></div></div>
+      <div class="mid"><div class="logos">${streamLogos(p.streams)}</div><ul>${p.features.map(x => `<li>${icon('check')}${x}</li>`).join('')}</ul></div>
+      <div class="side"><div class="price"><small>R$ </small><b>${p.price}</b><small>/mês</small></div><a class="btn ${p.featured ? 'btn-white' : 'btn-primary'}" href="assine.html#${p.id}">Quero o ${shortName(p)}</a></div>
+    </article>`).join('')}</div>
+    <p class="note">Valores de exemplo. Streamings sujeitos a parceria e às regras de cada serviço; as marcas pertencem aos seus donos.</p>
+  </div></section>`;
+}
+
+function bizPlans(c) {
+  return `<section class="section alt" id="planos"><div class="container">
+    <div class="head center rv"><span class="kicker">Planos empresariais</span><h2>Planos <em>Vyra Empresas</em></h2><p>IP fixo, SLA em contrato e atendimento prioritário.</p></div>
+    <div class="bplans">${c.businessPlans.map((p, i) => `<article class="bplan rv${p.featured ? ' featured' : ''}" data-d="${i}">
+      ${p.featured ? `<span class="badge">${p.tag}</span>` : ''}<span class="tag">${p.featured ? 'Empresas' : p.tag}</span>
+      <span class="name">${p.name}</span><div class="speed">${p.speed}<small>${p.unit}</small></div>
+      <ul>${p.features.map(x => `<li>${icon('check')}${x}</li>`).join('')}</ul>
+      <div class="price">${p.price ? `<small>R$ </small><b>${p.price}</b><small>/mês</small>` : '<span class="ask">Sob consulta</span>'}</div>
+      <a class="btn ${p.featured ? 'btn-primary' : 'btn-white'}" href="#proposta">${p.price ? 'Contratar' : 'Pedir proposta'}</a>
+    </article>`).join('')}</div>
+    <p class="note">Valores de exemplo. Planos empresariais com contrato e nota fiscal.</p>
   </div></section>`;
 }
 
@@ -965,22 +1067,18 @@ const pages = {
   ${stage(c)}
   ${ribbon(c)}
   ${plansSection(c, 'both')}
-  ${compare(c)}
   ${scatter(c)}
-  ${streamingSplit(c)}
-  ${pathSection(STEPS(c), 'Como funciona', 'Da consulta ao Wi-Fi <em>em 4 passos</em>', 'Simples, rápido e sem burocracia.', true)}
+  ${pathSection(STEPS(c), 'Como funciona', 'Da consulta ao Wi-Fi <em>em 4 passos</em>', 'Simples, rápido e sem burocracia.', false)}
   ${gallery()}
   ${bizBand()}
   ${reviews(c)}
-  ${faqBlock(c, 5)}
   ${finalCta()}
 </main>
 ${footer(c)}`,
 
   sobre: c => `${header(c, 'sobre')}
 <main>
-  ${phero(c, 'familia_sofa.jpg', 'Família sorrindo no sofá', 'Feita no interior, <em>para o interior.</em>', c.about.intro, 'Sobre nós')}
-  ${plansSection(c, 'both')}
+  ${phero(c, 'familia_sofa.jpg', 'Família sorrindo no sofá', 'Feita no interior, <em>para o interior.</em>', c.about.intro, 'Sobre nós', false)}
   <section class="section"><div class="container split">
     <div class="media rv rv-l"><img src="${IMG}mulher_ligacao.jpg" alt="Atendente sorrindo ao telefone" loading="lazy"><span class="vbug tl">${logo()}</span><div class="float"><b>24h</b><span>suporte por gente<br>da região</span></div></div>
     <div class="copy-block rv rv-r"><span class="kicker">Nossa história</span><h2>Gente de perto, <em>fibra de verdade.</em></h2>${c.about.story.map(p => `<p>${p}</p>`).join('')}
@@ -991,19 +1089,13 @@ ${footer(c)}`,
     { num: duo('home').replace('class="duo"', 'class="duo" style="width:24px;height:24px"'), title: 'Visão', text: c.about.vision },
     { num: duo('shield').replace('class="duo"', 'class="duo" style="width:24px;height:24px"'), title: 'Valores', text: c.about.valuesText },
   ], 'O que nos move', 'Missão, visão <em>e valores</em>', '', true)}
-  ${gallery()}
-  <section class="section alt"><div class="container">
-    <div class="head rv"><span class="kicker">Cobertura</span><h2>Onde a fibra Vyra <em>já chega</em></h2><p>Atendemos hoje e já estamos levando fibra para novas cidades.</p></div>
-    <div class="cities rv">${c.cities.now.map(x => `<span class="city on">${x} · online</span>`).join('')}${c.cities.soon.map(x => `<span class="city">${x}<small>em breve</small></span>`).join('')}</div>
-  </div></section>
-  ${finalCta()}
 </main>
 ${footer(c)}`,
 
   residencial: c => `${header(c, 'residencial')}
 <main>
   ${phero(c, 'gamer_sofa.jpg', 'Jovem jogando videogame no sofá', 'Internet residencial <em>com streaming.</em>', 'Planos de 500 Mega a 1 Giga com YouTube Premium incluso, Wi-Fi 6 e instalação grátis.', 'Residencial')}
-  ${plansSection(c, 'res')}
+  ${rowPlans(c)}
   ${compare(c)}
   <section class="section alt"><div class="container">
     <div class="head rv"><span class="kicker">Para cada casa</span><h2>Qual plano é <em>a sua cara?</em></h2></div>
@@ -1015,16 +1107,13 @@ ${footer(c)}`,
     </div>
   </div></section>
   ${streamingSplit(c)}
-  ${scatter(c)}
-  ${faqBlock(c, 5)}
-  ${finalCta()}
 </main>
 ${footer(c)}`,
 
   empresas: c => `${header(c, 'empresas')}
 <main>
   ${phero(c, 'reuniao_laptop.jpg', 'Equipe reunida olhando um notebook', 'Vyra Empresas: <em>sua operação não para.</em>', 'IP fixo, link dedicado e SLA em contrato para comércio, clínicas, indústria e agro.', 'Empresas', false)}
-  ${plansSection(c, 'biz')}
+  ${bizPlans(c)}
   <section class="section"><div class="container split">
     <div class="media rv rv-l"><img src="${IMG}homem_escritorio.jpg" alt="Homem sorrindo trabalhando no notebook" loading="lazy"><span class="vbug tl">${logo()}</span><div class="float"><b>SLA</b><span>tempo de reparo<br>garantido em contrato</span></div></div>
     <div class="copy-block rv rv-r"><span class="kicker">Para o seu negócio</span><h2>Conexão de empresa, <em>atendimento de vizinho.</em></h2>
@@ -1032,13 +1121,15 @@ ${footer(c)}`,
       <div class="checklist">${c.business.map(b => `<div><span class="ck">${icon('check')}</span><b>${b.title}</b><span>${b.text}</span></div>`).join('')}</div>
     </div>
   </div></section>
-  ${pathSection([
-    { title: 'Diagnóstico', text: 'Um consultor entende a sua operação, os horários de pico e os sistemas críticos.' },
-    { title: 'Projeto sob medida', text: 'Definimos banda, IP fixo, redundância e o SLA ideal para o seu negócio.' },
-    { title: 'Ativação e monitoramento', text: 'Instalação agendada fora do horário comercial e monitoramento 24 horas.' },
-  ], 'Como trabalhamos', 'Do diagnóstico à <em>ativação</em>', '', true)}
-  ${bizBand()}
-  <section class="section alt"><div class="container contact-layout">
+  <section class="section alt"><div class="container">
+    <div class="head rv"><span class="kicker">Como trabalhamos</span><h2>Do diagnóstico <em>à ativação</em></h2></div>
+    <div class="hsteps rv">
+      <div class="hstep"><h3>Diagnóstico</h3><p>Um consultor entende a sua operação, os horários de pico e os sistemas críticos.</p></div>
+      <div class="hstep"><h3>Projeto sob medida</h3><p>Definimos banda, IP fixo, redundância e o SLA ideal para o seu negócio.</p></div>
+      <div class="hstep"><h3>Ativação e monitoramento</h3><p>Instalação fora do horário comercial e monitoramento 24 horas.</p></div>
+    </div>
+  </div></section>
+  <section class="section" id="proposta"><div class="container contact-layout">
     <div style="display:grid;gap:18px"><div class="head rv" style="margin:0"><span class="kicker">Proposta</span><h2>Peça uma proposta <em>sob medida.</em></h2><p>Um consultor responde em até 1 dia útil.</p></div><div class="rv">${contactForm(true)}</div></div>
     <div class="rv" data-d="1">${infoList(c)}</div>
   </div></section>
@@ -1047,17 +1138,14 @@ ${footer(c)}`,
 
   faq: c => `${header(c, 'faq')}
 <main>
-  ${phero(c, 'amigas_cafe.jpg', 'Duas amigas olhando o celular num café', 'Perguntas <em>frequentes.</em>', 'Respostas rápidas sobre instalação, planos, streaming e suporte.', 'FAQ')}
-  ${plansSection(c, 'both')}
+  ${phero(c, 'amigas_cafe.jpg', 'Duas amigas olhando o celular num café', 'Perguntas <em>frequentes.</em>', 'Respostas rápidas sobre instalação, planos, streaming e suporte.', 'FAQ', false)}
   ${faqBlock(c)}
-  ${finalCta()}
 </main>
 ${footer(c)}`,
 
   contato: c => `${header(c, 'contato')}
 <main>
   ${phero(c, 'mulher_aceno.jpg', 'Mulher acenando numa videochamada', 'Fale com <em>a gente.</em>', 'Tire dúvidas, peça uma proposta ou fale com o suporte. Gente da região responde.', 'Contato', false)}
-  ${plansSection(c, 'both')}
   <section class="section"><div class="container contact-layout">
     <div style="display:grid;gap:18px"><div class="head rv" style="margin:0"><span class="kicker">Mensagem</span><h2>Envie sua <em>mensagem</em></h2></div><div class="rv">${contactForm(false)}</div></div>
     <div class="rv" data-d="1">${infoList(c)}</div>
@@ -1095,7 +1183,6 @@ ${footer(c)}`,
       <div class="line"><span>Wi-Fi 6</span><b>Incluso</b></div>
     </aside>
   </div></section>
-  ${scatter(c)}
 </main>
 ${footer(c)}`,
 };

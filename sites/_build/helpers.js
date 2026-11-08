@@ -1,8 +1,8 @@
 // Peças compartilhadas pelos três modelos de site.
 const LOGO_PATH = 'M35.20 0L19.80 0L-0.10-48.90L18.50-48.90L27.60-19.30L36.70-48.90L55.10-48.90L35.20 0ZM84.60 20.70L67.10 20.70L77.70-2.50L59.10-48.90L77.70-48.90L86.10-20.80L94.50-48.90L113.10-48.90L93 0.10L84.60 20.70ZM132.40 0L115 0L115-48.90L132.40-48.90L132.40-45.80Q137.20-49.90 144.80-49.90L144.80-49.90Q148.30-49.90 150.85-49Q153.40-48.10 155.20-46.20L155.20-46.20L145.10-32.70Q144.30-33.60 142.85-34.15Q141.40-34.70 139.60-34.70L139.60-34.70Q136.20-34.70 134.30-32.65Q132.40-30.60 132.40-26.60L132.40-26.60L132.40 0ZM175.70 1L175.70 1Q168.90 1 163.60-2.30Q158.30-5.60 155.30-11.35Q152.30-17.10 152.30-24.40L152.30-24.40Q152.30-31.80 155.30-37.60Q158.30-43.40 163.60-46.65Q168.90-49.90 175.70-49.90L175.70-49.90Q180.30-49.90 184.10-48.30L184.10-48.30Q186.50-47.20 188.30-45.70L188.30-45.70L188.30-48.90L205.40-48.90L205.40 0L188.30 0L188.30-3.30Q186.50-1.800 184.10-0.70L184.10-0.70Q180.30 1 175.70 1ZM179.40-14.50L179.40-14.50Q183.70-14.50 186.35-17.30Q189.00-20.10 189.00-24.50L189.00-24.50Q189.00-27.40 187.80-29.60Q186.60-31.80 184.45-33.10Q182.30-34.40 179.50-34.40Q176.70-34.40 174.55-33.10Q172.40-31.80 171.15-29.55Q169.90-27.30 169.90-24.50L169.90-24.50Q169.90-21.60 171.10-19.35Q172.30-17.10 174.50-15.80Q176.70-14.50 179.40-14.50Z';
 
-// Logo vetorial: a cor do texto vem de `color` (currentColor); o ponto é sempre verde, salvo `dot`.
-function logo(cls = 'logo', dot = '#18E28A') {
+// Logo vetorial: a cor do texto vem de `color` (currentColor); o ponto é sempre vermelho, salvo `dot`.
+function logo(cls = 'logo', dot = '#E11D2E') {
   return `<svg class="${cls}" viewBox="-0.10 -49.90 232.50 70.60" role="img" aria-label="Vyra"><path fill="currentColor" d="${LOGO_PATH}"/><circle fill="${dot}" cx="222.40" cy="-10" r="10"/></svg>`;
 }
 
@@ -80,7 +80,7 @@ function shell({ c, page, fonts, css = 'assets/style.css', bodyClass = '', body,
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${title}</title>
 <meta name="description" content="${esc(c.brand.description)}">
-<meta name="theme-color" content="#160B2E">
+<meta name="theme-color" content="#FF5A1F">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,14 +95,16 @@ ${scripts.map(s => `<script src="${s}"></script>`).join('\n')}
 `;
 }
 
+// Ícones da marca sobre bloco em gradiente laranja→vermelho: traço branco, preenchimento claro translúcido.
 const DUO_CSS = `
-.duo { width: 32px; height: 32px; position: relative; }
-.duo .s { stroke: #C9B6FF; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.duo .f { fill: #8A55F0; }
-.duo .k { stroke: #160B2E; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.duo .a { fill: #18E28A; }
-.duo .ag { fill: #18E28A; opacity: .22; }
-.duo .as { stroke: #18E28A; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.duo { width: 32px; height: 32px; position: relative; z-index: 1; }
+.duo .s { stroke: #FFFFFF; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.duo .f { fill: rgba(255,255,255,.4); }
+.duo .k { stroke: #B0300A; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.duo .a { fill: #FFFFFF; }
+.duo .ag { fill: #FFFFFF; opacity: .3; }
+.duo .as { stroke: #FFFFFF; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.ico-grad { background: linear-gradient(145deg, #FF7A3D 0%, #FF5A1F 40%, #E11D2E 100%); }
 `;
 
 function socialIcon(k, cls = 'ico') {

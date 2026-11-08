@@ -6,17 +6,17 @@
 <style>
 /* Layout: vitrine com três faixas de modelo, da mais simples à mais elaborada */
 :root {
-  --bg: #FFFFFF; --fg: #160B2E; --muted: #5E5577; --line: #E6E0F5; --card: #F6F3FD;
-  --violet: #6C2BD9; --green: #18E28A; --ink: #160B2E; --lilac: #C9B6FF;
+  --bg: #FFFFFF; --fg: #1E1512; --muted: #6E5A52; --line: #F5E2D8; --card: #FFF6F1;
+  --violet: #E8480C; --green: #E11D2E; --ink: #1E1512; --lilac: #FFD9C7;
   --f-display: "Outfit", system-ui, sans-serif; --f-body: "Manrope", system-ui, sans-serif; --f-mono: "JetBrains Mono", ui-monospace, monospace;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0C0619; --fg: #FFFFFF; --muted: #B3A6D9; --line: #2A1D4A; --card: #160B2E; --violet: #9A6BFF; color-scheme: dark; } }
-:root[data-theme="dark"] { --bg: #0C0619; --fg: #FFFFFF; --muted: #B3A6D9; --line: #2A1D4A; --card: #160B2E; --violet: #9A6BFF; color-scheme: dark; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #1A1210; --fg: #FFFFFF; --muted: #D9C2B6; --line: #3A2A24; --card: #1E1512; --violet: #FF7A45; color-scheme: dark; } }
+:root[data-theme="dark"] { --bg: #1A1210; --fg: #FFFFFF; --muted: #D9C2B6; --line: #3A2A24; --card: #1E1512; --violet: #FF7A45; color-scheme: dark; }
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--fg); font: 400 16px/1.6 var(--f-body); }
 .wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 56px 72px; display: grid; gap: 40px; }
 header { display: grid; gap: 16px; }
-.logo { width: 120px; height: auto; color: var(--fg); }
+.logo { width: 120px; height: auto; color: #FF5A1F; }
 h1 { margin: 0; font: 300 clamp(34px, 5vw, 56px)/1.05 var(--f-display); letter-spacing: -0.04em; text-wrap: balance; }
 h1 b { font-weight: 600; }
 header p { color: var(--muted); max-width: 62ch; margin: 0; }
@@ -25,20 +25,23 @@ header p { color: var(--muted); max-width: 62ch; margin: 0; }
 .tier:hover, .tier:focus-visible { transform: translateY(-3px); border-color: var(--violet); outline: none; }
 @media (max-width: 760px) { .tier { grid-template-columns: 1fr; gap: 18px; } }
 .thumb { aspect-ratio: 16 / 10; max-width: 100%; border-radius: 14px; overflow: hidden; display: grid; grid-template-rows: 18% 1fr; border: 1px solid var(--line); }
-.thumb .bar { background: #160B2E; display: flex; align-items: center; padding: 0 10px; gap: 5px; }
+.thumb .bar { background: #1E1512; display: flex; align-items: center; padding: 0 10px; gap: 5px; }
 .thumb .bar i { width: 26px; height: 5px; border-radius: 3px; background: #fff; }
-.thumb .bar i:last-child { margin-left: auto; width: 20px; background: #18E28A; }
-.t-basico .body { background: #F6F3FD; padding: 12px; display: grid; gap: 6px; align-content: center; }
-.t-basico .body i { height: 7px; border-radius: 4px; background: #160B2E; width: 70%; }
-.t-basico .body i:nth-child(2) { background: #6C2BD9; width: 50%; }
-.t-basico .body i:nth-child(3) { height: 12px; width: 30%; border-radius: 6px; background: #6C2BD9; margin-top: 4px; }
-.t-inter .body { background: radial-gradient(circle at 80% 10%, rgba(108,43,217,.7), transparent 55%), #160B2E; padding: 12px; display: grid; grid-template-columns: 1fr .8fr; gap: 8px; align-items: center; }
+.thumb .bar i:last-child { margin-left: auto; width: 20px; background: #E11D2E; }
+.t-basico .body { background: #FFF6F1; padding: 12px; display: grid; gap: 6px; align-content: center; }
+.t-basico .body i { height: 7px; border-radius: 4px; background: #1E1512; width: 70%; }
+.t-basico .body i:nth-child(2) { background: #E8480C; width: 50%; }
+.t-basico .body i:nth-child(3) { height: 12px; width: 30%; border-radius: 6px; background: #E8480C; margin-top: 4px; }
+.t-inter .body { background: linear-gradient(135deg, #FF6A2B, #E8480C 50%, #E11D2E); padding: 12px; display: grid; grid-template-columns: 1fr .8fr; gap: 8px; align-items: center; }
 .t-inter .body i { display: block; height: 7px; border-radius: 4px; background: #fff; margin-bottom: 5px; }
-.t-inter .body i:nth-child(2) { background: #18E28A; width: 70%; }
+.t-inter .body i:nth-child(2) { background: #1E1512; width: 70%; }
 .t-inter .body span { height: 60%; border-radius: 8px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15); }
-.t-premium .body { background: #0C0619; position: relative; overflow: hidden; }
+.t-premium .body { background: #FFFFFF; position: relative; overflow: hidden; }
 .t-premium svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.t-premium .bar { background: #0C0619; }
+.t-premium .bar { background: #FFFFFF; border-bottom: 1px solid #F5E2D8; }
+.t-premium .bar i:not(:last-child), .t-basico .bar i:not(:last-child) { background: #FF5A1F; }
+.t-basico .bar { background: #FFFFFF; border-bottom: 1px solid #F5E2D8; }
+.t-inter .bar { background: #FF6A2B; }
 .tier h2 { margin: 0 0 6px; font: 600 24px/1.2 var(--f-display); letter-spacing: -0.02em; }
 .tier .lvl { font: 500 11.5px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--violet); }
 .tier p { margin: 8px 0 12px; color: var(--muted); }
@@ -51,7 +54,7 @@ footer code { font: 400 13px var(--f-mono); color: var(--fg); }
 
 <div class="wrap">
   <header>
-    <svg class="logo" viewBox="0 0 232.50 70.60" role="img" aria-label="Vyra"><g transform="translate(0.10 49.90)"><path fill="currentColor" d="M35.20 0L19.80 0L-0.10-48.90L18.50-48.90L27.60-19.30L36.70-48.90L55.10-48.90L35.20 0ZM84.60 20.70L67.10 20.70L77.70-2.50L59.10-48.90L77.70-48.90L86.10-20.80L94.50-48.90L113.10-48.90L93 0.10L84.60 20.70ZM132.40 0L115 0L115-48.90L132.40-48.90L132.40-45.80Q137.20-49.90 144.80-49.90L144.80-49.90Q148.30-49.90 150.85-49Q153.40-48.10 155.20-46.20L155.20-46.20L145.10-32.70Q144.30-33.60 142.85-34.15Q141.40-34.70 139.60-34.70L139.60-34.70Q136.20-34.70 134.30-32.65Q132.40-30.60 132.40-26.60L132.40-26.60L132.40 0ZM175.70 1L175.70 1Q168.90 1 163.60-2.30Q158.30-5.60 155.30-11.35Q152.30-17.10 152.30-24.40L152.30-24.40Q152.30-31.80 155.30-37.600Q158.30-43.40 163.60-46.65Q168.90-49.90 175.70-49.90L175.70-49.90Q180.30-49.90 184.10-48.30L184.10-48.30Q186.50-47.20 188.30-45.70L188.30-45.70L188.30-48.90L205.40-48.90L205.40 0L188.30 0L188.30-3.30Q186.50-1.80 184.10-0.70L184.10-0.70Q180.30 1 175.70 1ZM179.40-14.50L179.40-14.50Q183.70-14.50 186.35-17.30Q189.00-20.10 189.00-24.50L189.00-24.50Q189.00-27.40 187.80-29.60Q186.60-31.80 184.45-33.10Q182.30-34.40 179.50-34.40Q176.70-34.40 174.55-33.10Q172.40-31.80 171.15-29.55Q169.90-27.30 169.90-24.50L169.90-24.50Q169.90-21.60 171.10-19.35Q172.30-17.10 174.50-15.80Q176.70-14.50 179.40-14.50Z"/><circle fill="#18E28A" cx="222.40" cy="-10" r="10"/></g></svg>
+    <svg class="logo" viewBox="0 0 232.50 70.60" role="img" aria-label="Vyra"><g transform="translate(0.10 49.90)"><path fill="currentColor" d="M35.20 0L19.80 0L-0.10-48.90L18.50-48.90L27.60-19.30L36.70-48.90L55.10-48.90L35.20 0ZM84.60 20.70L67.10 20.70L77.70-2.50L59.10-48.90L77.70-48.90L86.10-20.80L94.50-48.90L113.10-48.90L93 0.10L84.60 20.70ZM132.40 0L115 0L115-48.90L132.40-48.90L132.40-45.80Q137.20-49.90 144.80-49.90L144.80-49.90Q148.30-49.90 150.85-49Q153.40-48.10 155.20-46.20L155.20-46.20L145.10-32.70Q144.30-33.60 142.85-34.15Q141.40-34.70 139.60-34.70L139.60-34.70Q136.20-34.70 134.30-32.65Q132.40-30.60 132.40-26.60L132.40-26.60L132.40 0ZM175.70 1L175.70 1Q168.90 1 163.60-2.30Q158.30-5.60 155.30-11.35Q152.30-17.10 152.30-24.40L152.30-24.40Q152.30-31.80 155.30-37.600Q158.30-43.40 163.60-46.65Q168.90-49.90 175.70-49.90L175.70-49.90Q180.30-49.90 184.10-48.30L184.10-48.30Q186.50-47.20 188.30-45.70L188.30-45.70L188.30-48.90L205.40-48.90L205.40 0L188.30 0L188.30-3.30Q186.50-1.80 184.10-0.70L184.10-0.70Q180.30 1 175.70 1ZM179.40-14.50L179.40-14.50Q183.70-14.50 186.35-17.30Q189.00-20.10 189.00-24.50L189.00-24.50Q189.00-27.40 187.80-29.60Q186.60-31.80 184.45-33.10Q182.30-34.40 179.50-34.40Q176.70-34.40 174.55-33.10Q172.40-31.80 171.15-29.55Q169.90-27.30 169.90-24.50L169.90-24.50Q169.90-21.60 171.10-19.35Q172.30-17.10 174.50-15.80Q176.70-14.50 179.40-14.50Z"/><circle fill="#E11D2E" cx="222.40" cy="-10" r="10"/></g></svg>
     <h1>Três modelos de site, <b>uma marca.</b></h1>
     <p>Cada modelo tem as mesmas 6 páginas ligadas entre si: Início, Sobre nós, Serviços, FAQ, Contato e Assine já. Abra um modelo e navegue pelo menu.</p>
   </header>
@@ -67,15 +70,15 @@ footer code { font: 400 13px var(--f-mono); color: var(--fg); }
     <a class="tier" href="intermediario/index.html">
       <div class="thumb t-inter" aria-hidden="true"><div class="bar"><i></i><i></i></div><div class="body"><div><i></i><i></i></div><span></span></div></div>
       <div><span class="lvl">Modelo 2 · Intermediário</span><h2>Elegante, com movimento</h2>
-        <p>Hero escuro com medidor de velocidade, conteúdo que surge ao rolar, contadores animados, abas Casa/Empresa, FAQ em acordeão e resumo do plano na assinatura.</p>
+        <p>Hero em gradiente laranja com medidor de velocidade, conteúdo que surge ao rolar, contadores animados, abas Casa/Empresa, FAQ em acordeão e resumo do plano na assinatura.</p>
         <div class="tags"><span>Hover com elevação</span><span>Entrada ao rolar</span><span>Contadores</span><span>Abas</span></div></div>
       <span class="go">Abrir →</span>
     </a>
     <a class="tier" href="premium/index.html">
       <div class="thumb t-premium" aria-hidden="true"><div class="bar"><i></i><i></i></div><div class="body">
-        <svg viewBox="0 0 100 60" preserveAspectRatio="none"><g stroke="#6C2BD9" stroke-width=".4"><line x1="10" y1="12" x2="34" y2="28"/><line x1="34" y1="28" x2="60" y2="14"/><line x1="60" y1="14" x2="86" y2="30"/><line x1="34" y1="28" x2="52" y2="48"/><line x1="52" y1="48" x2="86" y2="30"/><line x1="10" y1="12" x2="18" y2="44"/><line x1="18" y1="44" x2="52" y2="48"/></g><g fill="#C9B6FF"><circle cx="10" cy="12" r="1.2"/><circle cx="34" cy="28" r="1.2"/><circle cx="60" cy="14" r="1.2"/><circle cx="86" cy="30" r="1.2"/><circle cx="18" cy="44" r="1.2"/></g><circle cx="52" cy="48" r="2" fill="#18E28A"/></svg></div></div>
+        <svg viewBox="0 0 100 60" preserveAspectRatio="none"><g stroke="#E8480C" stroke-width=".4"><line x1="10" y1="12" x2="34" y2="28"/><line x1="34" y1="28" x2="60" y2="14"/><line x1="60" y1="14" x2="86" y2="30"/><line x1="34" y1="28" x2="52" y2="48"/><line x1="52" y1="48" x2="86" y2="30"/><line x1="10" y1="12" x2="18" y2="44"/><line x1="18" y1="44" x2="52" y2="48"/></g><g fill="#FF9F70"><circle cx="10" cy="12" r="1.2"/><circle cx="34" cy="28" r="1.2"/><circle cx="60" cy="14" r="1.2"/><circle cx="86" cy="30" r="1.2"/><circle cx="18" cy="44" r="1.2"/></g><circle cx="52" cy="48" r="2" fill="#E11D2E"/></svg></div></div>
       <div><span class="lvl">Modelo 3 · Premium</span><h2>Experiência completa</h2>
-        <p>Rede de fibra animada no fundo, cursor próprio, botões magnéticos, transição entre páginas, manifesto que acende ao rolar, simulador de plano e assinatura em 3 etapas.</p>
+        <p>Tema claro com rede de fibra animada no fundo, cursor próprio, botões magnéticos, transição entre páginas, manifesto que acende ao rolar, simulador de plano e assinatura em 3 etapas.</p>
         <div class="tags"><span>Cursor animado</span><span>Canvas interativo</span><span>Transições</span><span>Simulador</span></div></div>
       <span class="go">Abrir →</span>
     </a>

@@ -124,7 +124,7 @@
           var b = nodes[j], d = Math.hypot(a.x - b.x, a.y - b.y);
           if (d < LINK) {
             var near = Math.hypot(mouse.x - (a.x + b.x) / 2, mouse.y - (a.y + b.y) / 2) < 160;
-            ctx.strokeStyle = near ? 'rgba(201,182,255,' + (1 - d / LINK) * .7 + ')' : 'rgba(138,85,240,' + (1 - d / LINK) * .38 + ')';
+            ctx.strokeStyle = near ? 'rgba(232,72,12,' + (1 - d / LINK) * .7 + ')' : 'rgba(255,90,31,' + (1 - d / LINK) * .38 + ')';
             ctx.lineWidth = near ? 1 : .7; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
             if (!reduce && Math.random() < .0009 && pulses.length < 26) pulses.push({ a: a, b: b, t: 0, s: .008 + Math.random() * .012 });
           }
@@ -132,13 +132,13 @@
       }
       for (var k = 0; k < nodes.length; k++) {
         var n = nodes[k], hot = Math.hypot(mouse.x - n.x, mouse.y - n.y) < 140;
-        ctx.fillStyle = hot ? '#18E28A' : 'rgba(201,182,255,.55)';
+        ctx.fillStyle = hot ? '#E8480C' : 'rgba(232,72,12,.55)';
         ctx.beginPath(); ctx.arc(n.x, n.y, hot ? 2.4 : 1.5, 0, 6.283); ctx.fill();
       }
       pulses = pulses.filter(function (p) {
         p.t += p.s; if (p.t >= 1) return false;
         var x = p.a.x + (p.b.x - p.a.x) * p.t, y = p.a.y + (p.b.y - p.a.y) * p.t;
-        var g = ctx.createRadialGradient(x, y, 0, x, y, 9); g.addColorStop(0, 'rgba(24,226,138,.95)'); g.addColorStop(1, 'rgba(24,226,138,0)');
+        var g = ctx.createRadialGradient(x, y, 0, x, y, 9); g.addColorStop(0, 'rgba(232,72,12,.95)'); g.addColorStop(1, 'rgba(232,72,12,0)');
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, 9, 0, 6.283); ctx.fill();
         return true;
       });

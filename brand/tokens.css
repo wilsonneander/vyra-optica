@@ -1,22 +1,23 @@
 /* =========================================================
-   VYRA — tokens de marca (v1.0 · 06/11/2026)
+   VYRA — tokens de marca (v2.0 laranja · 07/11/2026)
    Fontes (Google Fonts):
    https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap
    ========================================================= */
 :root {
-  /* Cores principais */
-  --vyra-violet: #6C2BD9;      /* Vyra Violeta — cor da marca */
-  --vyra-violet-700: #5420B0;  /* hover / pressionado */
-  --vyra-ink: #160B2E;         /* Tinta — texto e fundos escuros */
-  --vyra-green: #18E28A;       /* Verde Sinal — "online", só detalhes */
+  /* Cores principais — branco dominante, laranja e vermelho para vender */
+  --vyra-orange: #FF5A1F;      /* Laranja Vyra — cor da marca, logo, destaques */
+  --vyra-orange-600: #E8480C;  /* Laranja Forte — fundo dos botões */
+  --vyra-orange-700: #C2410C;  /* Laranja Texto — links e textos pequenos */
+  --vyra-red: #E11D2E;         /* Vermelho Oferta — ponto do logo, urgência, selos */
+  --vyra-white: #FFFFFF;       /* Branco — fundo dominante */
   /* Apoio */
-  --vyra-lilac: #C9B6FF;       /* Lilás Luz */
-  --vyra-pink: #FF3EA5;        /* Rosa Pulso — destaque pontual */
-  /* Neutros (com viés violeta) */
-  --vyra-white: #FFFFFF;
-  --vyra-mist: #F6F3FD;
-  --vyra-line: #E6E0F5;
-  --vyra-muted: #5E5577;
+  --vyra-ink: #1E1512;         /* Grafite — texto e rodapé */
+  --vyra-peach: #FFD9C7;       /* Pêssego — detalhes suaves */
+  --vyra-gradient: linear-gradient(135deg, #FF6A2B 0%, #E8480C 50%, #E11D2E 100%); /* Fogo */
+  /* Neutros (com viés quente) */
+  --vyra-mist: #FFF6F1;
+  --vyra-line: #F5E2D8;
+  --vyra-muted: #6E5A52;
 
   /* Tipografia */
   --vyra-font-display: "Outfit", system-ui, sans-serif;     /* logo, títulos, números */

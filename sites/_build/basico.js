@@ -2,8 +2,27 @@
 // planos com streaming logo em seguida. Ordem de toda página: 1) imagem  2) planos  3) restante.
 const { DUO_CSS, logo, icon, duo, socialIcon, socialLinks, esc, shell } = require('./helpers');
 
+const BR = require('./brands');
+
 const FONTS = 'family=Outfit:wght@500;600;700;800&family=Manrope:wght@400;500;600;700';
 const IMG = 'assets/img/';
+
+// Logos dos streamings em blocos com a cor de cada marca
+function brandTile(name) {
+  const svg = (k, vb, fill) => `<svg viewBox="${vb}" fill="${fill}" aria-hidden="true"><path d="${BR[k].path}"/></svg>`;
+  switch (name) {
+    case 'Netflix': return `<span class="st st-netflix" title="Netflix">${svg('netflix', '5.4 0 13.2 24', '#E50914')}<span class="sr">Netflix</span></span>`;
+    case 'YouTube Premium': return `<span class="st st-yt" title="YouTube Premium">${svg('youtube', '0 3.5 24 17', '#FF0000')}<b>Premium</b><span class="sr">YouTube</span></span>`;
+    case 'Prime Video': return `<span class="st st-prime" title="Prime Video">${svg('primevideo', '0 8.3 24 7.4', '#FFFFFF')}<span class="sr">Prime Video</span></span>`;
+    case 'Max': return `<span class="st st-max" title="Max">max</span>`;
+    default: return '';
+  }
+}
+function streamLogos(list) {
+  return list.map(s => s.includes(' ou ')
+    ? s.split(' ou ').map(brandTile).join('<i class="st-or">ou</i>')
+    : brandTile(s)).join('');
+}
 
 const css = `/* Vyra · modelo Básico (fotos + ofertas) */
 :root {
@@ -32,7 +51,39 @@ p { margin: 0; }
 .head.center { margin-left: auto; margin-right: auto; text-align: center; justify-items: center; }
 .head p { color: var(--muted); font-size: 17px; }
 .kicker { display: inline-flex; align-items: center; gap: 8px; font: 700 12.5px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--orange-700); }
-.kicker::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--red); }
+
+/* Logos dos streamings */
+.st { display: inline-flex; align-items: center; justify-content: center; gap: 4px; height: 34px; padding: 0 10px; border-radius: 9px; flex: none; box-shadow: 0 0 0 1px rgba(30,21,18,.08); transition: transform .25s ease; }
+.st svg { height: 22px; width: auto; display: block; }
+.st-netflix { background: #000; min-width: 34px; }
+.st-netflix svg { height: 20px; }
+.st-yt { background: #fff; color: #1E1512; }
+.st-yt svg { height: 16px; }
+.st-yt b { font: 800 12.5px/1 var(--f-display); letter-spacing: -0.01em; }
+.st-prime { background: #00A8E1; padding: 0 12px; }
+.st-prime svg { height: 15px; }
+.st-max { background: #002BE7; color: #fff; font: 800 18px/1 var(--f-display); letter-spacing: -0.04em; padding: 0 12px; }
+.st-or { font: 700 11px var(--f-display); font-style: normal; color: inherit; opacity: .75; padding: 0 2px; align-self: center; }
+.logos { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.logos.lg .st { height: 46px; border-radius: 12px; padding: 0 16px; }
+.logos.lg .st svg { height: 28px; }
+.logos.lg .st-netflix svg { height: 28px; }
+.logos.lg .st-yt svg { height: 22px; }
+.logos.lg .st-yt b { font-size: 16px; }
+.logos.lg .st-prime svg { height: 20px; }
+.logos.lg .st-max { font-size: 24px; }
+.logos .st:hover { transform: translateY(-2px); }
+
+/* Selo da marca sobre fotos */
+.vbug { position: absolute; z-index: 3; display: inline-flex; align-items: center; background: var(--white); border-radius: 12px; padding: 8px 12px; box-shadow: 0 10px 24px -12px rgba(30,21,18,.5); color: var(--orange); }
+.vbug .logo { width: 62px; height: auto; display: block; }
+.vbug.tr { top: 16px; right: 16px; }
+.vbug.tl { top: 16px; left: 16px; }
+
+/* Entrada suave ao rolar */
+.rv { transition: opacity .7s ease, transform .7s ease; }
+.rv.pre { opacity: 0; transform: translateY(26px); }
+@media (prefers-reduced-motion: reduce) { .rv.pre { opacity: 1; transform: none; } }
 .ico { width: 20px; height: 20px; flex: none; }
 :focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
 ${DUO_CSS}
@@ -326,6 +377,119 @@ legend { font: 800 19px var(--f-display); margin-bottom: 12px; }
 .wa-float { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); width: 58px; height: 58px; border-radius: 50%; background: var(--grad); color: var(--white); display: grid; place-items: center; box-shadow: 0 10px 24px -6px rgba(232,72,12,.55); z-index: 40; }
 .wa-float .ico { width: 28px; height: 28px; }
 
+/* Cabeçalho dos cards de plano com a marca */
+.plan .ph { display: flex; align-items: baseline; gap: 8px; }
+.plan .ph .logo { width: 58px; height: auto; color: var(--orange); display: block; transform: translateY(3px); }
+.plan.featured .ph .logo { color: var(--white); }
+.plan .ph b { font: 800 22px/1 var(--f-display); letter-spacing: -0.02em; text-transform: lowercase; }
+.plan .streams .logos .st { height: 30px; }
+.plan .streams .logos .st svg { height: 18px; }
+.plan .streams .logos .st-yt svg { height: 14px; }
+.plan .streams .logos .st-prime svg { height: 13px; }
+.plan .streams .logos .st-max { font-size: 16px; }
+
+/* Hover leve */
+.card, .profile, .quote, .plan, .review { transition: transform .3s ease, box-shadow .3s ease; }
+.card:hover, .profile:hover, .review:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--line), 0 22px 36px -24px rgba(232,72,12,.45); }
+.plan:hover { transform: translateY(-6px); }
+
+/* Banners de plano (peças de campanha) */
+.promos { display: grid; grid-template-columns: 1fr 1.2fr; gap: 22px; align-items: stretch; }
+.promos > * { min-width: 0; }
+@media (max-width: 980px) { .promos { grid-template-columns: 1fr; } }
+.promo { position: relative; border-radius: 30px; overflow: hidden; color: var(--white); isolation: isolate; background: radial-gradient(circle at 25% 15%, #FF7A3D 0%, #E8480C 42%, #B3121F 100%); box-shadow: 0 40px 70px -40px rgba(179,18,31,.75); }
+.promo::before { content: ""; position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px); background-size: 60px 60px; }
+.promo h3 { font: 800 clamp(30px, 3.4vw, 44px)/1.02 var(--f-display); letter-spacing: -0.03em; }
+.promo p { font-size: 18px; color: rgba(255,255,255,.92); }
+.promo-a { padding: 34px; display: grid; gap: 22px; }
+.pa-body { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: end; }
+@media (max-width: 520px) { .pa-body { grid-template-columns: 1fr; } }
+.pa-photo { margin: 0; position: relative; border-radius: 200px 200px 22px 22px; overflow: hidden; aspect-ratio: 3 / 4; max-width: 100%; border: 4px solid rgba(255,255,255,.9); box-shadow: 0 24px 40px -20px rgba(0,0,0,.45); }
+.pa-photo img { width: 100%; height: 100%; object-fit: cover; }
+.pa-table { display: grid; gap: 8px; }
+.pa-table > span { font: 800 16px var(--f-display); }
+.pa-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; border: 1.5px solid rgba(255,255,255,.55); border-radius: 14px; padding: 10px 14px; }
+.pa-row b { font: 800 30px/1 var(--f-display); letter-spacing: -0.03em; }
+.pa-row b small { font-size: 14px; margin-left: 3px; }
+.pa-row em { font: 700 15px var(--f-display); font-style: normal; }
+.pa-row.hi { background: var(--white); color: var(--ink); border-color: var(--white); }
+.pa-row.hi em { color: var(--orange-700); }
+.pa-extra { display: grid; gap: 8px; border-radius: 14px; padding: 12px 14px; background: rgba(30,21,18,.25); }
+.pa-extra span { font: 800 14px var(--f-display); }
+.pa-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.pa-foot .logo { width: 132px; height: auto; color: var(--white); display: block; }
+.promo-b { display: grid; grid-template-rows: auto 1fr; }
+.pb-photo { position: relative; aspect-ratio: 16 / 9; max-width: 100%; }
+.pb-photo img { width: 100%; height: 100%; object-fit: cover; }
+.pb-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(179,18,31,.9)); }
+.pb-photo .vbug { top: 18px; left: 18px; }
+.pb-copy { padding: 0 34px 34px; margin-top: -60px; position: relative; z-index: 2; display: grid; gap: 16px; }
+.pb-price { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
+.pb-price small { font: 800 14px/1.1 var(--f-display); text-transform: uppercase; }
+.pb-price b { font: 800 clamp(64px, 8vw, 96px)/.8 var(--f-display); letter-spacing: -0.05em; }
+.pb-price b sup { font-size: .38em; vertical-align: top; letter-spacing: 0; margin-left: 2px; }
+.pb-price em { font: 700 14px/1.2 var(--f-display); font-style: normal; }
+.pb-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.pb-tags span { padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.16); font: 700 13px var(--f-display); }
+
+/* Avaliações em carrossel contínuo */
+.marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); padding-block: 8px; }
+.marquee .track { display: flex; gap: 18px; width: max-content; animation: scrollx 70s linear infinite; }
+.marquee.rev .track { animation-direction: reverse; animation-duration: 80s; margin-top: 18px; }
+.marquee:hover .track { animation-play-state: paused; }
+@keyframes scrollx { to { transform: translateX(calc(-50% - 9px)); } }
+.review { width: 340px; flex: none; background: var(--white); border-radius: 20px; padding: 22px; display: grid; gap: 12px; align-content: space-between; box-shadow: 0 0 0 1px var(--line); }
+.review p { font-size: 15px; }
+.review footer { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--muted); }
+.review footer b { display: block; color: var(--ink); font-family: var(--f-display); font-size: 14.5px; }
+.review .plan-tag { margin-left: auto; padding: 5px 10px; border-radius: 999px; background: var(--mist); color: var(--orange-700); font: 700 12px var(--f-display); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { .marquee { overflow-x: auto; } .marquee .track { animation: none; } }
+
+/* Diferenciais em lista ao lado da foto */
+.why-wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; }
+.why-wrap > * { min-width: 0; }
+@media (max-width: 900px) { .why-wrap { grid-template-columns: 1fr; gap: 32px; } }
+.why-wrap .media { aspect-ratio: 4 / 5; }
+.list { display: grid; }
+.li { display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.li:first-child { border-top: 1px solid var(--line); }
+.li .ico-box { width: 50px; height: 50px; border-radius: 14px; margin: 0; grid-row: span 2; }
+.li h3 { font-size: 18px; }
+.li p { color: var(--muted); font-size: 15px; }
+
+/* Mosaico de fotos */
+.bento { display: grid; grid-template-columns: 1.35fr 1fr; grid-template-rows: 1fr 1fr; gap: 18px; height: 640px; }
+.bento .photo { aspect-ratio: auto; }
+.bento .photo:first-child { grid-row: span 2; }
+@media (max-width: 860px) { .bento { grid-template-columns: 1fr; grid-template-rows: none; height: auto; } .bento .photo { aspect-ratio: 16 / 10; } .bento .photo:first-child { grid-row: auto; } }
+
+/* FAQ em duas colunas */
+.faq-2 { display: grid; grid-template-columns: .8fr 1.2fr; gap: 48px; align-items: start; }
+.faq-2 > * { min-width: 0; }
+.faq-2 .faq { margin: 0; max-width: none; }
+.faq-side { position: sticky; top: 110px; display: grid; gap: 18px; }
+.faq-side .media { aspect-ratio: 4 / 3; }
+@media (max-width: 900px) { .faq-2 { grid-template-columns: 1fr; } .faq-side { position: static; } }
+
+/* Lista de verificação (Empresas) */
+.checklist { display: grid; gap: 0; width: 100%; }
+.checklist div { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.checklist .ck { width: 34px; height: 34px; border-radius: 50%; background: var(--grad); color: var(--white); display: grid; place-items: center; grid-row: span 2; }
+.checklist .ck .ico { width: 18px; height: 18px; }
+.checklist b { font: 700 17px var(--f-display); }
+.checklist span { color: var(--muted); font-size: 15px; }
+
+/* Adicionais com logos */
+.addons .add { gap: 10px; }
+.addons .add .st { height: 28px; }
+.addons .add .st svg { height: 16px; }
+.addons .add .st-yt svg { height: 13px; }
+.addons .add .st-prime svg { height: 12px; }
+.addons .add .st-max { font-size: 15px; }
+
+/* Marca grande na chamada final */
+.band.fire .watermark { position: absolute; right: -40px; bottom: -30px; width: min(520px, 60%); height: auto; color: rgba(255,255,255,.14); z-index: 1; pointer-events: none; }
+
 @media (prefers-reduced-motion: reduce) { .slide, .slide img, .photo img { transition: none !important; } }
 `;
 
@@ -400,6 +564,13 @@ const js = `// Vyra · modelo Básico
     var m = h.match(/^cep-(\\d{8})$/), ci = document.getElementById('a-cep');
     if (m && ci) ci.value = m[1].slice(0, 5) + '-' + m[1].slice(5);
   }
+  // Entrada suave ao rolar (só esconde o que ainda está abaixo da tela)
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.remove('pre'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.rv').forEach(function (el, i) {
+      if (el.getBoundingClientRect().top > window.innerHeight) { el.classList.add('pre'); el.style.transitionDelay = ((el.dataset.d || 0) * 90) + 'ms'; io.observe(el); }
+    });
+  }
   var y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
 })();
 `;
@@ -446,10 +617,12 @@ function carousel(c) {
   <div class="slides">${c.slides.map((s, i) => `
     <div class="slide${i === 0 ? ' on' : ''}" aria-roledescription="slide" aria-label="${i + 1} de ${c.slides.length}">
       <img src="${IMG}${s.img}" alt="${esc(s.alt)}"${i === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}>
+      <span class="vbug tr slide-bug">${logo()}</span>
       <div class="container"><div class="copy">
         <span class="tag">${s.tag}</span>
         ${i === 0 ? `<h1>${s.title}</h1>` : `<h2>${s.title}</h2>`}
         <p>${s.text}</p>
+        <div class="logos">${streamLogos(s.streams || [])}</div>
         <div class="price-chip"><small>a partir de R$</small><b>${s.price}</b><small>/mês</small></div>
         <div class="actions"><a class="btn btn-white" href="${s.cta}">Assine já ${icon('arrow')}</a><a class="btn btn-ghost" href="#planos">Ver planos</a></div>
       </div></div>
@@ -478,11 +651,11 @@ function planCard(p, biz) {
     : `<div class="price"><span class="ask">Sob consulta</span></div>`;
   const href = biz ? 'contato.html' : `assine.html#${p.id}`;
   const label = biz ? (p.price ? 'Contratar' : 'Pedir proposta') : 'Quero esse';
-  return `<article class="plan${p.featured ? ' featured' : ''}">
+  return `<article class="plan rv${p.featured ? ' featured' : ''}">
     ${p.featured ? `<span class="badge">${p.tag}</span>` : `<span class="tag">${p.tag}</span>`}
-    <span class="name">${p.name}</span>
+    <div class="ph">${logo('logo', p.featured ? '#FFFFFF' : '#E11D2E')}<b>${p.name.replace('Vyra ', '')}</b></div>
     <div class="speed">${p.speed}<small>${p.unit}</small></div>
-    ${p.streams ? `<div class="streams"><span>Streaming incluso</span><div>${p.streams.map(s => `<em class="chip">${s}</em>`).join('')}</div></div>` : ''}
+    ${p.streams ? `<div class="streams"><span>Streaming incluso</span><div class="logos">${streamLogos(p.streams)}</div></div>` : ''}
     <ul>${p.features.map(f => `<li>${icon('check')}${f}</li>`).join('')}</ul>
     ${price}
     <a class="btn ${p.featured ? 'btn-white' : 'btn-primary'}" href="${href}">${label}</a>
@@ -491,7 +664,7 @@ function planCard(p, biz) {
 
 function plansSection(c, mode = 'both') {
   const res = `<div class="plans">${c.combos.map(p => planCard(p)).join('')}</div>
-    <div class="addons"><b>Monte seu combo:</b>${c.addons.map(a => `<span class="add">${a.name} <em>${a.price}</em></span>`).join('')}</div>
+    <div class="addons rv"><b>Monte seu combo:</b>${c.addons.map(a => { const key = ['Netflix', 'Max', 'Prime Video'].find(k => a.name.startsWith(k)); return `<span class="add">${key ? brandTile(key) : ''}${a.name} <em>${a.price}</em></span>`; }).join('')}</div>
     <p class="note">Valores de exemplo. Streamings sujeitos a disponibilidade e às regras de cada serviço; as marcas pertencem aos seus donos.</p>`;
   const biz = `<div class="plans">${c.businessPlans.map(p => planCard(p, true)).join('')}</div>
     <p class="note">Valores de exemplo. Planos empresariais com contrato e nota fiscal.</p>`;
@@ -505,19 +678,20 @@ function plansSection(c, mode = 'both') {
     <div class="tab-panel" id="tab-biz" role="tabpanel" aria-labelledby="t-biz" hidden>${biz}</div>`;
   else body = mode === 'biz' ? biz : res;
   return `<section class="section alt" id="planos"><div class="container">
-    <div class="head center"><span class="kicker">Planos</span><h2>${title}</h2><p>${sub}</p></div>
+    <div class="head center rv"><span class="kicker">Planos</span><h2>${title}</h2><p>${sub}</p></div>
     ${body}
   </div></section>`;
 }
 
 function streamingSplit(c) {
   return `<section class="section"><div class="container split">
-    <div class="media"><img src="${IMG}tv_pai_filho.jpg" alt="Pai e filho assistindo TV no sofá" loading="lazy">
+    <div class="media rv"><img src="${IMG}tv_pai_filho.jpg" alt="Pai e filho assistindo TV no sofá" loading="lazy">
+      <span class="vbug tl">${logo()}</span>
       <div class="float"><b>4K</b><span>sem travar,<br>no horário de pico</span></div></div>
-    <div class="copy-block"><span class="kicker">Internet + streaming</span>
+    <div class="copy-block rv" data-d="1"><span class="kicker">Internet + streaming</span>
       <h2>Seus streamings favoritos <em>na conta da internet.</em></h2>
       <p>Assine a Vyra e leve YouTube Premium em qualquer plano. No Família, escolha mais um streaming. No Ultra, leve todos.</p>
-      <div class="stream-row">${c.streamings.map(s => `<span class="chip">${s}</span>`).join('')}</div>
+      <div class="logos lg">${streamLogos(c.streamings)}</div>
       <a class="btn btn-primary" href="#planos">Comparar planos ${icon('arrow')}</a>
     </div>
   </div></section>`;
@@ -527,19 +701,53 @@ function why(c) {
   const items = [...c.benefits,
     { icon: 'wifi', title: 'Wi-Fi 6 em todos os planos', text: 'Roteador moderno incluso, com sinal forte em toda a casa.' },
     { icon: 'home', title: 'Cobertura em expansão', text: 'Levamos fibra para bairros, distritos e chácaras do interior.' }];
-  return `<section class="section alt"><div class="container">
-    <div class="head center"><span class="kicker">Por que a Vyra</span><h2>Por que escolher a <em>Vyra?</em></h2><p>Conectividade de verdade, com diferenciais que fazem diferença no seu dia a dia.</p></div>
-    <div class="grid g3">${items.map(b => `<div class="card"><div class="ico-box">${duo(b.icon)}</div><h3>${b.title}</h3><p>${b.text}</p></div>`).join('')}</div>
+  return `<section class="section alt"><div class="container why-wrap">
+    <div class="media rv"><img src="${IMG}idosa_celular.jpg" alt="Senhora sorrindo enquanto usa o celular" loading="lazy"><span class="vbug tr">${logo()}</span>
+      <div class="float"><b>100%</b><span>fibra óptica<br>até a sua casa</span></div></div>
+    <div class="rv" data-d="1">
+      <div class="head" style="margin-bottom:22px"><span class="kicker">Por que a Vyra</span><h2>Por que escolher a <em>Vyra?</em></h2><p>Diferenciais que fazem diferença no seu dia a dia.</p></div>
+      <div class="list">${items.map(b => `<div class="li"><div class="ico-box">${duo(b.icon)}</div><h3>${b.title}</h3><p>${b.text}</p></div>`).join('')}</div>
+    </div>
   </div></section>`;
 }
 
 function moments() {
   return `<section class="section"><div class="container">
-    <div class="head"><span class="kicker">Conexão que você merece</span><h2>Para todos os <em>momentos.</em></h2></div>
-    <div class="photos">
-      <div class="photo"><img src="${IMG}amigas_cafe.jpg" alt="Duas amigas olhando o celular num café" loading="lazy"><div><b>Com os amigos</b><span>Vídeo, foto e chamada sem travar.</span></div></div>
-      <div class="photo"><img src="${IMG}idosa_celular.jpg" alt="Senhora sorrindo enquanto usa o celular" loading="lazy"><div><b>Para todas as idades</b><span>Simples de usar, com suporte que explica.</span></div></div>
-      <div class="photo"><img src="${IMG}gamer_sofa.jpg" alt="Jovem jogando videogame no sofá" loading="lazy"><div><b>Jogos sem lag</b><span>Baixa latência para quem joga online.</span></div></div>
+    <div class="head rv"><span class="kicker">Conexão que você merece</span><h2>Para todos os <em>momentos.</em></h2></div>
+    <div class="bento">
+      <div class="photo rv"><img src="${IMG}amigas_mesa.jpg" alt="Amigas rindo enquanto olham o celular" loading="lazy"><span class="vbug tl">${logo()}</span><div><b>Com os amigos</b><span>Vídeo, foto e chamada sem travar, mesmo com todo mundo conectado.</span></div></div>
+      <div class="photo rv" data-d="1"><img src="${IMG}gamer_sofa.jpg" alt="Jovem jogando videogame no sofá" loading="lazy"><div><b>Jogos sem lag</b><span>Baixa latência para quem joga online.</span></div></div>
+      <div class="photo rv" data-d="2"><img src="${IMG}mulher_videochamada.jpg" alt="Mulher em videochamada no notebook" loading="lazy"><div><b>Home office</b><span>Reunião estável e upload rápido.</span></div></div>
+    </div>
+  </div></section>`;
+}
+
+function promos(c) {
+  const [a, b, u] = c.combos;
+  const perDay = (p) => (parseFloat(p.replace(',', '.')) / 30).toFixed(2).replace('.', ',');
+  return `<section class="section"><div class="container">
+    <div class="promos">
+      <article class="promo promo-a rv">
+        <div><h3>O Família cabe<br>no seu bolso.</h3><p>800 Mega por menos de R$ ${perDay(b.price)} por dia.</p></div>
+        <div class="pa-body">
+          <figure class="pa-photo"><img src="${IMG}mulher_celular_sofa.jpg" alt="Mulher sorrindo com o celular" loading="lazy"></figure>
+          <div class="pa-table"><span>Aqui tem:</span>
+            ${c.combos.map(p => `<div class="pa-row${p.featured ? ' hi' : ''}"><b>${p.speed}<small>${p.unit}</small></b><em>R$ ${p.price}</em></div>`).join('')}
+            <div class="pa-extra"><span>+ streaming incluso</span><div class="logos">${streamLogos(['YouTube Premium', 'Max', 'Prime Video'])}</div></div>
+          </div>
+        </div>
+        <div class="pa-foot">${logo('logo', '#FFFFFF')}<a class="btn btn-white" href="assine.html#${b.id}">Quero o Família</a></div>
+      </article>
+      <article class="promo promo-b rv" data-d="1">
+        <div class="pb-photo"><img src="${IMG}tv_pai_filho.jpg" alt="Pai e filho assistindo TV" loading="lazy"><span class="vbug">${logo()}</span></div>
+        <div class="pb-copy">
+          <h3>Vyra Ultra: todos os streamings, <br>uma conta só.</h3>
+          <div class="logos lg">${streamLogos(u.streams)}</div>
+          <div class="pb-tags"><span>1 Giga de fibra</span><span>Wi-Fi 6 mesh</span><span>Técnico em 24h</span><span>IP fixo opcional</span></div>
+          <div class="pb-price"><small>Por<br>apenas R$</small><b>${u.price.split(',')[0]}<sup>,${u.price.split(',')[1]}</sup></b><em>/mês<br>valor de exemplo</em></div>
+          <div><a class="btn btn-white" href="assine.html#${u.id}">Assinar o Ultra ${icon('arrow')}</a></div>
+        </div>
+      </article>
     </div>
   </div></section>`;
 }
@@ -568,24 +776,33 @@ function aboutSplit(c) {
 }
 
 function testimonials(c) {
-  const initials = w => w.split(' ').map(x => x[0]).join('').slice(0, 2).toUpperCase();
+  const initials = w => w.replace(/^(Dona|Seu) /, '').split(' ').map(x => x[0]).join('').slice(0, 2).toUpperCase();
+  const card = r => `<blockquote class="review"><div class="stars" aria-label="5 estrelas">★★★★★</div><p>“${r.text}”</p><footer><span class="avatar">${initials(r.name)}</span><div><b>${r.name}</b>${r.where}</div><span class="plan-tag">${r.plan}</span></footer></blockquote>`;
+  const half = Math.ceil(c.reviews.length / 2);
+  const row1 = c.reviews.slice(0, half).map(card).join(''), row2 = c.reviews.slice(half).map(card).join('');
   return `<section class="section alt"><div class="container">
-    <div class="head center"><span class="kicker">Clientes</span><h2>Quem já é Vyra <em>recomenda</em></h2><p>Depoimentos de exemplo, para substituir por relatos reais.</p></div>
-    <div class="grid g3">${c.testimonials.map(t => `<blockquote class="quote"><div class="stars" aria-label="5 estrelas">★★★★★</div><p>“${t.text}”</p><footer><span class="avatar">${initials(t.who)}</span><div><b>${t.who}</b>${t.where}</div></footer></blockquote>`).join('')}</div>
-  </div></section>`;
+    <div class="head center rv"><span class="kicker">Avaliações</span><h2>Quem já é Vyra <em>recomenda</em></h2><p>Avaliações de exemplo, para substituir por relatos reais de clientes.</p></div>
+  </div>
+  <div class="marquee" aria-label="Avaliações de clientes"><div class="track">${row1}<div aria-hidden="true" style="display:contents">${row1}</div></div></div>
+  <div class="marquee rev" aria-hidden="true"><div class="track">${row2}${row2}</div></div>
+  </section>`;
 }
 
 function faqBlock(c, n) {
   const list = n ? c.faq.slice(0, n) : c.faq;
-  return `<section class="section"><div class="container">
-    <div class="head center"><span class="kicker">Dúvidas</span><h2>Perguntas <em>frequentes</em></h2></div>
-    <div class="faq">${list.map(f => `<details><summary>${f.q}${icon('plus')}</summary><p>${f.a}</p></details>`).join('')}</div>
-    ${n ? `<p class="center-cta"><a class="btn btn-outline" href="faq.html">Ver todas as perguntas</a></p>` : ''}
+  return `<section class="section"><div class="container faq-2">
+    <div class="faq-side rv">
+      <div class="head" style="margin:0"><span class="kicker">Dúvidas</span><h2>Perguntas <em>frequentes</em></h2><p>Não achou sua resposta? Fale com um técnico da região pelo WhatsApp.</p></div>
+      <div class="media"><img src="${IMG}mulher_ligacao.jpg" alt="Atendente sorrindo ao telefone" loading="lazy"><span class="vbug tr">${logo()}</span><div class="float"><b>24h</b><span>suporte por<br>gente de verdade</span></div></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-primary" href="${c.contact.whatsappLink}" target="_blank" rel="noopener">${socialIcon('whatsapp')}Chamar no WhatsApp</a>${n ? '<a class="btn btn-outline" href="faq.html">Todas as perguntas</a>' : ''}</div>
+    </div>
+    <div class="faq rv" data-d="1">${list.map(f => `<details><summary>${f.q}${icon('plus')}</summary><p>${f.a}</p></details>`).join('')}</div>
   </div></section>`;
 }
 
 function finalCta() {
   return `<section class="band fire"><img src="${IMG}fibra.jpg" alt="" loading="lazy">
+  ${logo('watermark', 'rgba(255,255,255,.14)')}
   <div class="container">
     <h2>Pronto para navegar <em>em outro nível?</em></h2>
     <p>Consulte a cobertura na sua rua e contrate hoje mesmo.</p>
@@ -626,6 +843,7 @@ const pages = {
 <main>
   ${carousel(c)}
   ${plansSection(c, 'both')}
+  ${promos(c)}
   ${streamingSplit(c)}
   ${why(c)}
   ${moments()}
@@ -662,13 +880,14 @@ ${footer(c)}`,
 <main>
   ${phero('gamer_sofa.jpg', 'Jovem jogando videogame no sofá', 'Internet residencial <em>com streaming.</em>', 'Planos de 500 Mega a 1 Giga com YouTube Premium incluso, Wi-Fi 6 e instalação grátis.', 'Residencial')}
   ${plansSection(c, 'res')}
+  ${promos(c)}
   <section class="section"><div class="container">
-    <div class="head"><span class="kicker">Para cada casa</span><h2>Qual plano é <em>a sua cara?</em></h2></div>
+    <div class="head rv"><span class="kicker">Para cada casa</span><h2>Qual plano é <em>a sua cara?</em></h2></div>
     <div class="profiles">
-      <div class="profile"><img src="${IMG}familia_celulares.jpg" alt="Família usando celulares e tablet" loading="lazy"><div><h3>Família conectada</h3><p>Várias telas ao mesmo tempo, sem briga pelo Wi-Fi.</p><a href="assine.html#familia">Vyra Família →</a></div></div>
-      <div class="profile"><img src="${IMG}gamer_sofa.jpg" alt="Jovem jogando videogame" loading="lazy"><div><h3>Gamer</h3><p>1 Giga, baixa latência e download rápido de jogos.</p><a href="assine.html#ultra">Vyra Ultra →</a></div></div>
-      <div class="profile"><img src="${IMG}mulher_videochamada.jpg" alt="Mulher em videochamada no notebook" loading="lazy"><div><h3>Home office</h3><p>Reunião em vídeo estável, upload rápido e suporte prioritário.</p><a href="assine.html#familia">Vyra Família →</a></div></div>
-      <div class="profile"><img src="${IMG}mae_tablet.jpg" alt="Mãe com bebês assistindo no tablet" loading="lazy"><div><h3>Crianças em casa</h3><p>Desenhos e aulas online, com controle dos pais no app.</p><a href="assine.html#start">Vyra Start →</a></div></div>
+      <div class="profile rv"><img src="${IMG}familia_celulares.jpg" alt="Família usando celulares e tablet" loading="lazy"><div><h3>Família conectada</h3><p>Várias telas ao mesmo tempo, sem briga pelo Wi-Fi.</p><a href="assine.html#familia">Vyra Família →</a></div></div>
+      <div class="profile rv"><img src="${IMG}gamer_sofa.jpg" alt="Jovem jogando videogame" loading="lazy"><div><h3>Gamer</h3><p>1 Giga, baixa latência e download rápido de jogos.</p><a href="assine.html#ultra">Vyra Ultra →</a></div></div>
+      <div class="profile rv"><img src="${IMG}mulher_videochamada.jpg" alt="Mulher em videochamada no notebook" loading="lazy"><div><h3>Home office</h3><p>Reunião em vídeo estável, upload rápido e suporte prioritário.</p><a href="assine.html#familia">Vyra Família →</a></div></div>
+      <div class="profile rv"><img src="${IMG}mae_tablet.jpg" alt="Mãe com bebês assistindo no tablet" loading="lazy"><div><h3>Crianças em casa</h3><p>Desenhos e aulas online, com controle dos pais no app.</p><a href="assine.html#start">Vyra Start →</a></div></div>
     </div>
   </div></section>
   ${streamingSplit(c)}
@@ -686,7 +905,7 @@ ${footer(c)}`,
     <div class="media"><img src="${IMG}homem_escritorio.jpg" alt="Homem sorrindo trabalhando no notebook" loading="lazy"><div class="float"><b>SLA</b><span>tempo de reparo<br>garantido em contrato</span></div></div>
     <div class="copy-block"><span class="kicker">Para o seu negócio</span><h2>Conexão de empresa, <em>atendimento de vizinho.</em></h2>
       <p>Maquininha, sistema na nuvem, câmeras e nota fiscal dependem da internet. A Vyra cuida para que nada disso pare.</p>
-      <div class="grid g2" style="width:100%">${c.business.map((b, i) => `<div class="card sm"><div class="ico-box">${duo(['fiber', 'wifi', 'shield', 'headset'][i])}</div><h3>${b.title}</h3><p>${b.text}</p></div>`).join('')}</div>
+      <div class="checklist">${c.business.map(b => `<div><span class="ck">${icon('check')}</span><b>${b.title}</b><span>${b.text}</span></div>`).join('')}</div>
     </div>
   </div></section>
   <section class="band"><img src="${IMG}equipe_laptop.jpg" alt="Equipe trabalhando com notebooks" loading="lazy">
@@ -703,7 +922,7 @@ ${footer(c)}`,
 
   faq: c => `${header(c, 'faq')}
 <main>
-  ${phero('mulher_ligacao.jpg', 'Mulher sorrindo ao telefone', 'Perguntas <em>frequentes.</em>', 'Respostas rápidas sobre instalação, planos, streaming e suporte.', 'FAQ')}
+  ${phero('amigas_cafe.jpg', 'Duas amigas olhando o celular num café', 'Perguntas <em>frequentes.</em>', 'Respostas rápidas sobre instalação, planos, streaming e suporte.', 'FAQ')}
   ${plansSection(c, 'both')}
   ${faqBlock(c)}
   ${finalCta()}

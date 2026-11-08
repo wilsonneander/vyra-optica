@@ -135,12 +135,26 @@ module.exports = {
   ],
 
   slides: [
-    { img: 'familia_celulares.jpg', alt: 'Família no sofá usando celulares e tablet', tag: 'Plano Família', title: 'A casa toda conectada, <em>sem disputa pelo Wi-Fi.</em>', text: '800 Mega de fibra + YouTube Premium + 1 streaming à sua escolha.', price: '129,90', cta: 'assine.html#familia' },
-    { img: 'amigas_mesa.jpg', alt: 'Amigas rindo enquanto olham o celular juntas', tag: 'Incluso em todos os planos', title: 'YouTube Premium <em>de presente.</em>', text: 'Vídeos sem anúncio e música offline em qualquer plano Vyra.', price: '99,90', cta: 'residencial.html' },
-    { img: 'mulher_celular_sofa.jpg', alt: 'Mulher sorrindo com o celular no sofá de casa', tag: 'Combo completo', title: '1 Giga com Netflix, Max e <em>Prime Video.</em>', text: 'Todos os streamings na conta da internet, com Wi-Fi mesh na casa inteira.', price: '179,90', cta: 'assine.html#ultra' },
+    { img: 'familia_celulares.jpg', alt: 'Família no sofá usando celulares e tablet', tag: 'Plano Família', title: 'A casa toda conectada, <em>sem disputa pelo Wi-Fi.</em>', text: '800 Mega de fibra + YouTube Premium + 1 streaming à sua escolha.', price: '129,90', cta: 'assine.html#familia', streams: ['YouTube Premium', 'Max ou Prime Video'] },
+    { img: 'amigas_mesa.jpg', alt: 'Amigas rindo enquanto olham o celular juntas', tag: 'Incluso em todos os planos', title: 'YouTube Premium <em>de presente.</em>', text: 'Vídeos sem anúncio e música offline em qualquer plano Vyra.', price: '99,90', cta: 'residencial.html', streams: ['YouTube Premium'] },
+    { img: 'mulher_celular_sofa.jpg', alt: 'Mulher sorrindo com o celular no sofá de casa', tag: 'Combo completo', title: '1 Giga com Netflix, Max e <em>Prime Video.</em>', text: 'Todos os streamings na conta da internet, com Wi-Fi mesh na casa inteira.', price: '179,90', cta: 'assine.html#ultra', streams: ['Netflix', 'Max', 'Prime Video', 'YouTube Premium'] },
   ],
 
   streamings: ['YouTube Premium', 'Netflix', 'Max', 'Prime Video'],
+
+  // Avaliações para o carrossel contínuo [EXEMPLO] — troque por avaliações reais, com autorização
+  reviews: [
+    { name: 'Carla M.', where: 'Marialva', plan: 'Vyra Família', text: 'Três filhos assistindo coisa diferente e eu em reunião. Nenhuma travada desde que mudei.' },
+    { name: 'Rafael S.', where: 'Marialva', plan: 'Vyra Ultra', text: 'Jogo online toda noite e o ping ficou lá embaixo. A instalação foi no dia que eu escolhi.' },
+    { name: 'Dona Lúcia', where: 'Mandaguari', plan: 'Vyra Start', text: 'Liguei com dúvida no Wi-Fi e o rapaz explicou com toda paciência. Gente educada.' },
+    { name: 'Mercado Bom Preço', where: 'Marialva', plan: 'Empresa 800', text: 'A maquininha não cai mais no sábado de movimento. Valeu cada centavo.' },
+    { name: 'Juliana P.', where: 'Sarandi', plan: 'Vyra Família', text: 'O YouTube Premium incluso já paga uma parte do plano. As crianças adoraram.' },
+    { name: 'Thiago R.', where: 'Marialva', plan: 'Vyra Ultra', text: 'Netflix, Max e Prime numa conta só. Cancelei três assinaturas separadas.' },
+    { name: 'Clínica Vida', where: 'Marialva', plan: 'Link Dedicado', text: 'Prontuário na nuvem exige estabilidade. Com o SLA da Vyra a gente dorme tranquilo.' },
+    { name: 'Marcos A.', where: 'Chácara Santa Rita', plan: 'Vyra Família', text: 'Nenhuma operadora chegava aqui. A Vyra fez o projeto e hoje temos fibra na chácara.' },
+    { name: 'Patrícia L.', where: 'Paiçandu', plan: 'Vyra Start', text: 'Preço justo e sem letra miúda. O que foi prometido é o que chegou.' },
+    { name: 'Eduardo K.', where: 'Marialva', plan: 'Vyra Ultra', text: 'Home office com upload rápido. Subo arquivos pesados em minutos.' },
+  ],
 
   combos: [ // planos residenciais [EXEMPLO]
     { id: 'start', name: 'Vyra Start', speed: '500', unit: 'Mega', price: '99,90', tag: 'Para começar',

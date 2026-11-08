@@ -89,5 +89,12 @@
     var m = h.match(/^cep-(\d{8})$/), ci = document.getElementById('a-cep');
     if (m && ci) ci.value = m[1].slice(0, 5) + '-' + m[1].slice(5);
   }
+  // Entrada suave ao rolar (só esconde o que ainda está abaixo da tela)
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.remove('pre'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.rv').forEach(function (el, i) {
+      if (el.getBoundingClientRect().top > window.innerHeight) { el.classList.add('pre'); el.style.transitionDelay = ((el.dataset.d || 0) * 90) + 'ms'; io.observe(el); }
+    });
+  }
   var y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
 })();

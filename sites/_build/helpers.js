@@ -71,7 +71,7 @@ function navLinks(c, active, cls = '') {
 
 const PAGE_TITLES = { index: 'Internet fibra óptica no interior', sobre: 'Sobre nós', servicos: 'Serviços', residencial: 'Internet residencial', empresas: 'Internet para empresas', faq: 'Perguntas frequentes', contato: 'Contato', assine: 'Assine já' };
 
-function shell({ c, page, fonts, css = 'assets/style.css', bodyClass = '', body, scripts = ['assets/main.js'], head = '' }) {
+function shell({ c, page, fonts, css = 'assets/style.css', bodyClass = '', body, scripts = ['assets/main.js'], head = '', theme = '#FF5A1F' }) {
   const title = page === 'index' ? `Vyra · ${PAGE_TITLES.index}` : `${PAGE_TITLES[page]} · Vyra`;
   return `<!doctype html>
 <html lang="pt-BR">
@@ -80,7 +80,7 @@ function shell({ c, page, fonts, css = 'assets/style.css', bodyClass = '', body,
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${title}</title>
 <meta name="description" content="${esc(c.brand.description)}">
-<meta name="theme-color" content="#FF5A1F">
+<meta name="theme-color" content="${theme}">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

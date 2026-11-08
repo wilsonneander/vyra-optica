@@ -25,7 +25,7 @@
 
   // Carrossel de ofertas
   var hero = document.querySelector('.hero');
-  if (hero) {
+  if (hero && hero.querySelector('.prev')) {
     var slides = hero.querySelectorAll('.slide'), dots = hero.querySelectorAll('.dots button'), cur = 0, timer;
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var go = function (i) {

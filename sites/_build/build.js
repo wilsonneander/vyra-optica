@@ -42,7 +42,10 @@ for (const tier of tiers) {
   for (const [file, html] of Object.entries(pages)) fs.writeFileSync(path.join(dir, file), html);
   fs.writeFileSync(path.join(dir, 'assets', 'style.css'), css);
   fs.writeFileSync(path.join(dir, 'assets', 'main.js'), COMMON_JS + '\n' + js);
-  fs.copyFileSync(FAVICON, path.join(dir, 'assets', 'favicon.svg'));
+  // favicon: o Básico usa a paleta azul e verde
+  let fav = fs.readFileSync(FAVICON, 'utf8');
+  if (tier === 'basico') fav = fav.replace(/#FF7A3D/gi, '#3B82F6').replace(/#FF5A1F/gi, '#2563EB').replace(/#E11D2E/gi, '#16A34A');
+  fs.writeFileSync(path.join(dir, 'assets', 'favicon.svg'), fav);
   // fotos compartilhadas (sites/_build/img) para os modelos que usam imagens
   {
     const src = path.join(__dirname, 'img'), dst = path.join(dir, 'assets', 'img');

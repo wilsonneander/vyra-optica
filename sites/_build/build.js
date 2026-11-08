@@ -44,7 +44,7 @@ for (const tier of tiers) {
   fs.writeFileSync(path.join(dir, 'assets', 'main.js'), COMMON_JS + '\n' + js);
   fs.copyFileSync(FAVICON, path.join(dir, 'assets', 'favicon.svg'));
   // fotos compartilhadas (sites/_build/img) para os modelos que usam imagens
-  if (tier !== 'premium') {
+  {
     const src = path.join(__dirname, 'img'), dst = path.join(dir, 'assets', 'img');
     fs.mkdirSync(dst, { recursive: true });
     for (const f of fs.readdirSync(src)) fs.copyFileSync(path.join(src, f), path.join(dst, f));

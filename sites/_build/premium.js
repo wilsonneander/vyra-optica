@@ -259,7 +259,8 @@ html.from-nav .curtain { transform: scaleY(1); transform-origin: top; animation:
 .logoband:hover .track { animation-play-state: paused; }
 .logoband .item { display: inline-flex; align-items: center; gap: 12px; font: 300 24px/1 var(--f-display); letter-spacing: -0.02em; white-space: nowrap; }
 .logoband .item b { font-weight: 700; }
-.logoband .star { width: 10px; height: 10px; border-radius: 50%; background: var(--grad); box-shadow: 0 0 14px rgba(255,90,31,.8); flex: none; }
+.logoband .sep { display: inline-flex; flex: none; color: var(--orange); filter: drop-shadow(0 0 8px rgba(255,90,31,.7)); }
+.logoband .sep .ico { width: 22px; height: 22px; stroke-width: 2.2; }
 @keyframes scrollx { to { transform: translateX(-50%); } }
 
 /* Planos */
@@ -1063,7 +1064,7 @@ function hero() {
 
 function logoband(c) {
   const items = [...c.streamings.map(s => `<span class="item">${brandTile(s)}</span>`), '<span class="item">Wi-Fi <b>6</b> incluso</span>', '<span class="item"><b>1 Giga</b> de fibra</span>', '<span class="item">Suporte <b>24h</b></span>', '<span class="item">Instalação <b>grátis</b></span>'];
-  const row = items.join('<span class="star"></span>') + '<span class="star"></span>';
+  const row = items.join(`<span class="sep" aria-hidden="true">${icon('wifi')}</span>`) + `<span class="sep" aria-hidden="true">${icon('wifi')}</span>`;
   return `<div class="logoband" aria-label="Incluso nos planos"><div class="track">${row}<span aria-hidden="true" style="display:contents">${row}</span></div></div>`;
 }
 

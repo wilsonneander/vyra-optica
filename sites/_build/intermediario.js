@@ -201,9 +201,10 @@ ${DUO_CSS}
 
 /* Faixa de logos corrida */
 .ribbon { background: var(--grad); color: var(--white); overflow: hidden; padding: 16px 0; }
-.ribbon .track { display: flex; align-items: center; gap: 34px; width: max-content; animation: scrollx 40s linear infinite; }
+.ribbon .track { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 22px; padding-inline: 16px; }
 .ribbon .item { display: inline-flex; align-items: center; gap: 12px; font: 800 18px/1 var(--f-display); white-space: nowrap; }
-.ribbon .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--white); opacity: .7; flex: none; }
+.ribbon .sep { display: inline-flex; flex: none; color: var(--white); opacity: .8; }
+.ribbon .sep .ico { width: 20px; height: 20px; stroke-width: 2.2; }
 @keyframes scrollx { to { transform: translateX(-50%); } }
 
 /* Planos */
@@ -600,8 +601,8 @@ legend { font: 800 19px var(--f-display); margin-bottom: 12px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .rv.pre, .reveal-img.pre { opacity: 1; transform: none; clip-path: none; }
-  .marquee, .ribbon { overflow-x: auto; }
-  .marquee .track, .ribbon .track { animation: none !important; }
+  .marquee { overflow-x: auto; }
+  .marquee .track { animation: none !important; }
 }
 `;
 
@@ -857,8 +858,9 @@ function stage(c) {
 
 function ribbon(c) {
   const items = [...c.streamings.map(s => `<span class="item">${brandTile(s)}</span>`), '<span class="item">Wi-Fi 6 incluso</span>', '<span class="item">Instalação grátis</span>', '<span class="item">Suporte local 24h</span>', '<span class="item">100% fibra óptica</span>'];
-  const row = items.join('<span class="dot"></span>') + '<span class="dot"></span>';
-  return `<div class="ribbon" aria-label="Incluso nos planos Vyra"><div class="track">${row}<span aria-hidden="true" style="display:contents">${row}</span></div></div>`;
+  // faixa parada: itens uma vez só, separados por ícone de Wi-Fi
+  const row = items.join(`<span class="sep" aria-hidden="true">${icon('wifi')}</span>`);
+  return `<div class="ribbon" aria-label="Incluso nos planos Vyra"><div class="track">${row}</div></div>`;
 }
 
 function phero(c, img, alt, title, lead, crumb, glass = true) {

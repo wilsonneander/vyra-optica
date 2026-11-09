@@ -187,9 +187,10 @@ p { margin: 0; }
 
 /* Faixa de logos corrida */
 .ribbon { background: var(--grad); color: var(--white); overflow: hidden; padding: 16px 0; }
-.ribbon .track { display: flex; align-items: center; gap: 34px; width: max-content; animation: scrollx 40s linear infinite; }
+.ribbon .track { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 22px; padding-inline: 16px; }
 .ribbon .item { display: inline-flex; align-items: center; gap: 12px; font: 800 18px/1 var(--f-display); white-space: nowrap; }
-.ribbon .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--white); opacity: .7; flex: none; }
+.ribbon .sep { display: inline-flex; flex: none; color: var(--white); opacity: .8; }
+.ribbon .sep .ico { width: 20px; height: 20px; stroke-width: 2.2; }
 @keyframes scrollx { to { transform: translateX(-50%); } }
 
 /* Planos */
@@ -586,6 +587,6 @@ legend { font: 800 19px var(--f-display); margin-bottom: 12px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .rv.pre, .reveal-img.pre { opacity: 1; transform: none; clip-path: none; }
-  .marquee, .ribbon { overflow-x: auto; }
-  .marquee .track, .ribbon .track { animation: none !important; }
+  .marquee { overflow-x: auto; }
+  .marquee .track { animation: none !important; }
 }

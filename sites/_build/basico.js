@@ -142,7 +142,7 @@ ${DUO_CSS}
 .slides { position: relative; height: clamp(520px, 70vh, 680px); }
 .slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .8s ease, visibility 0s linear .8s; }
 .slide.on { opacity: 1; visibility: visible; transition: opacity .8s ease; }
-.slide img { width: 100%; height: 100%; object-fit: cover; object-position: 70% center; transform: scale(1.06); transition: transform 7s ease-out; }
+.slide img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 8%; transform: scale(1.06); transition: transform 7s ease-out; }
 .slide.on img { transform: scale(1); }
 .slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(29,78,216,.95) 0%, rgba(29,78,216,.82) 30%, rgba(22,163,74,.35) 58%, rgba(22,163,74,0) 75%); }
 .slide .container { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; }
@@ -742,8 +742,8 @@ function moments() {
   return `<section class="section"><div class="container">
     <div class="head rv"><span class="kicker">Conexão que você merece</span><h2>Para todos os <em>momentos.</em></h2></div>
     <div class="bento">
-      <div class="photo rv"><img src="${IMG}amigas_mesa.jpg" alt="Amigas rindo enquanto olham o celular" loading="lazy"><span class="vbug tl">${logo('logo', '#16A34A')}</span><div><b>Com os amigos</b><span>Vídeo, foto e chamada sem travar, mesmo com todo mundo conectado.</span></div></div>
-      <div class="photo rv" data-d="1"><img src="${IMG}gamer_sofa.jpg" alt="Jovem jogando videogame no sofá" loading="lazy"><div><b>Jogos sem lag</b><span>Baixa latência para quem joga online.</span></div></div>
+      <div class="photo rv"><img src="${IMG}amigas_sofa.jpg" alt="Três amigas rindo com o celular no sofá" loading="lazy"><span class="vbug tl">${logo('logo', '#16A34A')}</span><div><b>Com os amigos</b><span>Vídeo, foto e chamada sem travar, mesmo com todo mundo conectado.</span></div></div>
+      <div class="photo rv" data-d="1"><img src="${IMG}amigos_game.jpg" alt="Dois amigos rindo enquanto jogam videogame no sofá" loading="lazy"><div><b>Jogos sem lag</b><span>Baixa latência para quem joga online.</span></div></div>
       <div class="photo rv" data-d="2"><img src="${IMG}mulher_videochamada.jpg" alt="Mulher em videochamada no notebook" loading="lazy"><div><b>Home office</b><span>Reunião estável e upload rápido.</span></div></div>
     </div>
   </div></section>`;
@@ -780,7 +780,7 @@ function promos(c) {
 }
 
 function bizBand() {
-  return `<section class="band"><img src="${IMG}reuniao_laptop.jpg" alt="Equipe reunida olhando um notebook" loading="lazy">
+  return `<section class="band"><img src="${IMG}equipe_diversa.jpg" alt="Equipe diversa sorrindo em volta de um notebook" style="object-position:50% 42%" loading="lazy">
   <div class="container">
     <span class="kicker">Vyra Empresas</span>
     <h2>Internet empresarial <em>que não para.</em></h2>
@@ -902,13 +902,13 @@ ${footer(c)}`,
 
   residencial: c => `${header(c, 'residencial')}
 <main>
-  ${phero('gamer_sofa.jpg', 'Jovem jogando videogame no sofá', 'Internet residencial <em>com streaming.</em>', 'Planos de 500 Mega a 1 Giga com YouTube Premium incluso, Wi-Fi 6 e instalação grátis.', 'Residencial')}
+  ${phero('amigos_game.jpg', 'Dois amigos rindo enquanto jogam videogame no sofá', 'Internet residencial <em>com streaming.</em>', 'Planos de 500 Mega a 1 Giga com YouTube Premium incluso, Wi-Fi 6 e instalação grátis.', 'Residencial')}
   ${plansSection(c, 'res')}
   <section class="section"><div class="container">
     <div class="head rv"><span class="kicker">Para cada casa</span><h2>Qual plano é <em>a sua cara?</em></h2></div>
     <div class="profiles">
       <div class="profile rv"><img src="${IMG}familia_celulares.jpg" alt="Família usando celulares e tablet" loading="lazy"><div><h3>Família conectada</h3><p>Várias telas ao mesmo tempo, sem briga pelo Wi-Fi.</p><a href="assine.html#familia">Vyra Família →</a></div></div>
-      <div class="profile rv"><img src="${IMG}gamer_sofa.jpg" alt="Jovem jogando videogame" loading="lazy"><div><h3>Gamer</h3><p>1 Giga, baixa latência e download rápido de jogos.</p><a href="assine.html#ultra">Vyra Ultra →</a></div></div>
+      <div class="profile rv"><img src="${IMG}amigos_game.jpg" alt="Dois amigos rindo enquanto jogam videogame no sofá" loading="lazy"><div><h3>Gamer</h3><p>1 Giga, baixa latência e download rápido de jogos.</p><a href="assine.html#ultra">Vyra Ultra →</a></div></div>
       <div class="profile rv"><img src="${IMG}mulher_videochamada.jpg" alt="Mulher em videochamada no notebook" loading="lazy"><div><h3>Home office</h3><p>Reunião em vídeo estável, upload rápido e suporte prioritário.</p><a href="assine.html#familia">Vyra Família →</a></div></div>
       <div class="profile rv"><img src="${IMG}mae_tablet.jpg" alt="Mãe com bebês assistindo no tablet" loading="lazy"><div><h3>Crianças em casa</h3><p>Desenhos e aulas online, com controle dos pais no app.</p><a href="assine.html#start">Vyra Start →</a></div></div>
     </div>

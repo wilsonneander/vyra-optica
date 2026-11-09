@@ -699,7 +699,7 @@ a.channel:hover { transform: translateX(8px); box-shadow: 0 0 0 1.5px var(--oran
 /* Redes */
 .social { display: flex; gap: 10px; flex-wrap: wrap; }
 .social a { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.08); color: var(--white); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); transition: transform .4s var(--ease), background-color .3s; }
-.social a:hover { transform: translateY(-4px); background: var(--orange); }
+.social a:hover, .foot .social a:hover { transform: translateY(-4px); background: var(--orange); color: #140E0C; }
 .social.light a { background: var(--mist); color: var(--orange-700); box-shadow: none; }
 .social.light a:hover { background: var(--grad); color: var(--white); }
 
@@ -1170,8 +1170,8 @@ function beforeAfter() {
 
 function hgallery() {
   const items = [
-    ['amigas_mesa.jpg', 'Amigas rindo com o celular', 'Amigos', 'Vídeo e chamada sem travar', 'Todo mundo postando ao mesmo tempo.'],
-    ['gamer_sofa.jpg', 'Jovem jogando videogame', 'Games', 'Jogos sem lag', 'Baixa latência para jogar online.'],
+    ['amigos_celular.jpg', 'Dois amigos rindo de um vídeo no celular', 'Amigos', 'Vídeo e chamada sem travar', 'Todo mundo postando ao mesmo tempo.'],
+    ['amigos_game.jpg', 'Dois amigos rindo enquanto jogam videogame no sofá', 'Games', 'Jogos sem lag', 'Baixa latência para jogar online.'],
     ['mulher_videochamada.jpg', 'Mulher em videochamada', 'Home office', 'Reunião que não cai', 'Upload rápido e conexão estável.'],
     ['idosa_celular.jpg', 'Senhora usando o celular', 'Família', 'Para todas as idades', 'Simples, com suporte que explica.'],
     ['mae_tablet.jpg', 'Mãe com bebês e tablet', 'Crianças', 'Desenhos e aulas online', 'Com controle dos pais no app.'],
@@ -1270,7 +1270,7 @@ function profiles() {
     <div class="head rv"><span class="kicker">Para cada casa</span><h2>Qual plano é <em>a sua cara?</em></h2></div>
     <div class="profiles">
       ${P('familia_celulares.jpg', 'Família usando celulares e tablet', 'Família conectada', 'Várias telas ao mesmo tempo, sem briga pelo Wi-Fi.', 'assine.html#familia', 'Vyra Família')}
-      ${P('gamer_sofa.jpg', 'Jovem jogando videogame', 'Gamer', '1 Giga e baixa latência.', 'assine.html#ultra', 'Vyra Ultra')}
+      ${P('amigos_game.jpg', 'Dois amigos rindo enquanto jogam videogame no sofá', 'Gamer', '1 Giga e baixa latência.', 'assine.html#ultra', 'Vyra Ultra')}
       ${P('mulher_videochamada.jpg', 'Mulher em videochamada', 'Home office', 'Reunião estável e upload rápido.', 'assine.html#familia', 'Vyra Família')}
       ${P('mae_tablet.jpg', 'Mãe com bebês e tablet', 'Crianças em casa', 'Desenhos e aulas com controle dos pais.', 'assine.html#start', 'Vyra Start')}
       ${P('amigas_cafe.jpg', 'Amigas olhando o celular', 'Quem mora sozinho', 'O essencial com YouTube Premium.', 'assine.html#start', 'Vyra Start')}
@@ -1369,7 +1369,7 @@ ${footer(c)}`,
 
   residencial: c => `${chrome(c, 'residencial')}
 <main>
-  ${phero(c, 'gamer_sofa.jpg', 'Jovem jogando videogame no sofá', 'Internet residencial *com* *streaming.*', 'Planos de 500 Mega a 1 Giga com YouTube Premium incluso, Wi-Fi 6 e instalação grátis.', 'Residencial', true)}
+  ${phero(c, 'amigos_game.jpg', 'Dois amigos rindo enquanto jogam videogame no sofá', 'Internet residencial *com* *streaming.*', 'Planos de 500 Mega a 1 Giga com YouTube Premium incluso, Wi-Fi 6 e instalação grátis.', 'Residencial', true)}
   ${rowPlans(c)}
   ${simulator()}
   ${compare(c)}

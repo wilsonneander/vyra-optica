@@ -121,7 +121,7 @@ p { margin: 0; }
 .slides { position: relative; height: clamp(520px, 70vh, 680px); }
 .slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .8s ease, visibility 0s linear .8s; }
 .slide.on { opacity: 1; visibility: visible; transition: opacity .8s ease; }
-.slide img { width: 100%; height: 100%; object-fit: cover; object-position: 70% center; transform: scale(1.06); transition: transform 7s ease-out; }
+.slide img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 8%; transform: scale(1.06); transition: transform 7s ease-out; }
 .slide.on img { transform: scale(1); }
 .slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(29,78,216,.95) 0%, rgba(29,78,216,.82) 30%, rgba(22,163,74,.35) 58%, rgba(22,163,74,0) 75%); }
 .slide .container { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; }

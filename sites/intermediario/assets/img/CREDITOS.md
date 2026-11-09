@@ -37,3 +37,8 @@ Não podem ser vendidas sem alteração nem usadas para sugerir endosso das pess
 | jovem_notebook.jpg | https://www.pexels.com/photo/13377869/ |
 | familia_cinco.jpg | https://www.pexels.com/photo/7114418/ |
 | casal_celular.jpg | https://www.pexels.com/photo/6579102/ |
+| amigos_game.jpg | https://www.pexels.com/photo/9071471/ |
+| amigos_celular.jpg | https://www.pexels.com/photo/6140963/ |
+| amigas_sofa.jpg | https://www.pexels.com/photo/3764496/ |
+| equipe_diversa.jpg | https://www.pexels.com/photo/3932225/ |
+| equipe_comemora.jpg | https://www.pexels.com/photo/7693708/ |

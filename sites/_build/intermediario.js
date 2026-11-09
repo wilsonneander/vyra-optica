@@ -1001,8 +1001,8 @@ function streamingSplit(c) {
 
 function gallery() {
   const items = [
-    ['amigas_cafe.jpg', 'Duas amigas olhando o celular num café', 'Com os amigos', 'Vídeo e chamada sem travar.', 'residencial.html'],
-    ['gamer_sofa.jpg', 'Jovem jogando videogame', 'Jogos sem lag', 'Baixa latência para jogar online.', 'assine.html#ultra'],
+    ['amigos_celular.jpg', 'Dois amigos rindo de um vídeo no celular', 'Com os amigos', 'Vídeo e chamada sem travar.', 'residencial.html'],
+    ['amigos_game.jpg', 'Dois amigos rindo enquanto jogam videogame no sofá', 'Jogos sem lag', 'Baixa latência para jogar online.', 'assine.html#ultra'],
     ['mulher_videochamada.jpg', 'Mulher em videochamada', 'Home office', 'Reunião estável e upload rápido.', 'assine.html#familia'],
     ['idosa_celular.jpg', 'Senhora usando o celular', 'Para todas as idades', 'Simples, com suporte que explica.', 'contato.html'],
     ['mae_tablet.jpg', 'Mãe com bebês e tablet', 'Crianças em casa', 'Desenhos e aulas com controle dos pais.', 'assine.html#familia'],
@@ -1017,7 +1017,7 @@ function gallery() {
 }
 
 function bizBand() {
-  return `<section class="band"><img src="${IMG}reuniao_laptop.jpg" alt="Equipe reunida olhando um notebook" loading="lazy">
+  return `<section class="band"><img src="${IMG}equipe_comemora.jpg" alt="Equipe diversa comemorando em frente ao notebook" style="object-position:50% 30%" loading="lazy">
   <div class="container">
     <span class="kicker">Vyra Empresas</span>
     <h2>Internet empresarial <em>que não para.</em></h2>
@@ -1129,14 +1129,14 @@ ${footer(c)}`,
 
   residencial: c => `${header(c, 'residencial')}
 <main>
-  ${phero(c, 'gamer_sofa.jpg', 'Jovem jogando videogame no sofá', 'Internet residencial <em>com streaming.</em>', 'Planos de 500 Mega a 1 Giga com YouTube Premium incluso, Wi-Fi 6 e instalação grátis.', 'Residencial')}
+  ${phero(c, 'amigos_game.jpg', 'Dois amigos rindo enquanto jogam videogame no sofá', 'Internet residencial <em>com streaming.</em>', 'Planos de 500 Mega a 1 Giga com YouTube Premium incluso, Wi-Fi 6 e instalação grátis.', 'Residencial')}
   ${rowPlans(c)}
   ${compare(c)}
   <section class="section alt"><div class="container">
     <div class="head rv"><span class="kicker">Para cada casa</span><h2>Qual plano é <em>a sua cara?</em></h2></div>
     <div class="profiles">
       ${profileCard('familia_celulares.jpg', 'Família usando celulares e tablet', 'Família conectada', 'Várias telas ao mesmo tempo.', 'assine.html#familia', 'Vyra Família', 0)}
-      ${profileCard('gamer_sofa.jpg', 'Jovem jogando videogame', 'Gamer', '1 Giga e baixa latência.', 'assine.html#ultra', 'Vyra Ultra', 1)}
+      ${profileCard('amigos_game.jpg', 'Dois amigos rindo enquanto jogam videogame no sofá', 'Gamer', '1 Giga e baixa latência.', 'assine.html#ultra', 'Vyra Ultra', 1)}
       ${profileCard('mulher_videochamada.jpg', 'Mulher em videochamada', 'Home office', 'Reunião estável, upload rápido.', 'assine.html#familia', 'Vyra Família', 2)}
       ${profileCard('mae_tablet.jpg', 'Mãe com bebês e tablet', 'Crianças em casa', 'Desenhos e aulas online.', 'assine.html#start', 'Vyra Start', 3)}
     </div>

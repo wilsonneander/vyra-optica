@@ -139,7 +139,7 @@ module.exports = {
 
   slides: [
     { img: 'familia_celulares.jpg', alt: 'Família no sofá usando celulares e tablet', tag: 'Plano Família', title: 'A casa toda conectada, <em>sem disputa pelo Wi-Fi.</em>', text: '800 Mega de fibra + YouTube Premium + 1 streaming à sua escolha.', price: '129,90', cta: 'assine.html#familia', streams: ['YouTube Premium', 'Max ou Prime Video'] },
-    { img: 'amigas_mesa.jpg', alt: 'Amigas rindo enquanto olham o celular juntas', tag: 'Incluso em todos os planos', title: 'YouTube Premium <em>de presente.</em>', text: 'Vídeos sem anúncio e música offline em qualquer plano Vyra.', price: '99,90', cta: 'residencial.html', streams: ['YouTube Premium'] },
+    { img: 'amigas_sofa.jpg', alt: 'Três amigas rindo com o celular no sofá', tag: 'Incluso em todos os planos', title: 'YouTube Premium <em>de presente.</em>', text: 'Vídeos sem anúncio e música offline em qualquer plano Vyra.', price: '99,90', cta: 'residencial.html', streams: ['YouTube Premium'] },
     { img: 'mulher_sofa_laranja.jpg', alt: 'Mulher sorrindo com o celular no sofá de casa', tag: 'Combo completo', title: '1 Giga com Netflix, Max e <em>Prime Video.</em>', text: 'Todos os streamings na conta da internet, com Wi-Fi mesh na casa inteira.', price: '179,90', cta: 'assine.html#ultra', streams: ['Netflix', 'Max', 'Prime Video', 'YouTube Premium'] },
   ],
 

@@ -24,3 +24,16 @@ São fotos provisórias: o ideal é trocar por fotos reais da Vyra (equipe, clie
 | mae_tablet.jpg | https://unsplash.com/photos/UH-xs-FizTk | Alexander Dummer |
 | fibra.jpg | https://unsplash.com/photos/eMoMpSKE8eE | S A (@sraze) — cor ajustada para o laranja da marca |
 | mapa_marialva.jpg | Mapa © colaboradores do OpenStreetMap (ODbL) — https://www.openstreetmap.org/copyright | crédito exibido no rodapé |
+
+## Fotos do Pexels
+
+Licença Pexels: uso gratuito, inclusive comercial, sem atribuição obrigatória (https://www.pexels.com/license/).
+Não podem ser vendidas sem alteração nem usadas para sugerir endosso das pessoas retratadas.
+
+| Arquivo | Foto no Pexels |
+|---|---|
+| mulher_sofa_laranja.jpg | https://www.pexels.com/photo/5711715/ |
+| empreendedor_mesa.jpg | https://www.pexels.com/photo/10376252/ |
+| jovem_notebook.jpg | https://www.pexels.com/photo/13377869/ |
+| familia_cinco.jpg | https://www.pexels.com/photo/7114418/ |
+| casal_celular.jpg | https://www.pexels.com/photo/6579102/ |

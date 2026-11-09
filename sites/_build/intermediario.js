@@ -131,6 +131,35 @@ ${DUO_CSS}
 .slide h1 em, .slide h2 em { color: var(--ink); }
 .slide p { font-size: 18.5px; color: rgba(255,255,255,.95); max-width: 46ch; }
 .slide .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+/* Black Friday: Wi-Fi gigante e etiqueta de preço (feito em CSS, sem foto) */
+.slide.bf h1 em, .slide.bf h2 em { color: #FF8A4C; }
+.slide.bf::after { background: linear-gradient(90deg, rgba(18,10,6,.94) 0%, rgba(18,10,6,.72) 36%, rgba(18,10,6,0) 64%); }
+.bf2 { position: absolute; inset: 0; overflow: hidden; background: radial-gradient(circle at 70% 58%, rgba(255,90,31,.42), transparent 42%), radial-gradient(circle at 70% 58%, rgba(225,29,46,.25), transparent 62%), linear-gradient(160deg, #1E1512 0%, #120B08 100%); }
+.bf2::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.07) 1px, transparent 1.5px); background-size: 26px 26px; -webkit-mask-image: radial-gradient(circle at 70% 55%, #000, transparent 70%); mask-image: radial-gradient(circle at 70% 55%, #000, transparent 70%); }
+.bf2-wifi { position: absolute; left: 70%; top: 60%; width: min(58vw, 760px); transform: translate(-50%, -62%); fill: none; stroke-linecap: round; overflow: visible; }
+.bf2-wifi path { stroke: #FF7A3D; stroke-width: 18; opacity: .2; animation: arc 2.6s ease-in-out infinite; }
+.bf2-wifi path:nth-child(1) { animation-delay: .75s; } .bf2-wifi path:nth-child(2) { animation-delay: .5s; } .bf2-wifi path:nth-child(3) { animation-delay: .25s; }
+.bf2-wifi circle { fill: #FFB37A; filter: drop-shadow(0 0 18px #FF5A1F); }
+@keyframes arc { 0%, 100% { opacity: .18; filter: none; } 35%, 55% { opacity: 1; filter: drop-shadow(0 0 10px #FF7A3D) drop-shadow(0 0 30px #FF5A1F); } }
+.bf2-tag { position: absolute; left: 70%; top: 66%; transform: translate(-50%, -10%) rotate(-7deg); display: grid; justify-items: center; padding: 22px 46px 24px 64px; background: linear-gradient(135deg, #FFD54A, #FFB020); color: #1E1512; border-radius: 18px 26px 26px 18px; clip-path: polygon(34px 0, 100% 0, 100% 100%, 34px 100%, 0 50%); box-shadow: 0 30px 60px -20px rgba(0,0,0,.6); animation: tagSwing 5s ease-in-out infinite; transform-origin: 10% 50%; }
+.bf2-tag::before { content: ""; position: absolute; left: 22px; top: 50%; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: #1E1512; }
+.bf2-tag b { font: 800 clamp(64px, 8vw, 118px)/.86 var(--f-display); letter-spacing: -0.05em; }
+.bf2-tag b small { font-size: .45em; letter-spacing: -0.02em; vertical-align: top; }
+.bf2-tag span { font: 800 clamp(14px, 1.3vw, 19px)/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase; margin-top: 6px; }
+@keyframes bob { 50% { transform: translateY(-12px); } }
+@keyframes tagSwing { 50% { transform: translate(-50%, -10%) rotate(-3deg); } }
+.bf2-band { position: absolute; left: 70%; top: 14%; transform: translateX(-50%) rotate(-3deg); padding: 10px 22px; background: #0F0A08; color: var(--white); font: 800 clamp(18px, 2vw, 28px)/1 var(--f-display); letter-spacing: .18em; text-transform: uppercase; box-shadow: 0 0 0 2px #FF7A3D, 0 0 28px rgba(255,90,31,.6); white-space: nowrap; }
+.bf2-band em { font-style: normal; color: #FF7A3D; }
+.bf2-mini { position: absolute; width: 46px; height: 46px; padding: 10px; border-radius: 14px; background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(255,255,255,.18); color: #FFB37A; animation: bob 6s ease-in-out infinite; }
+.bf2-mini svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; }
+.bf2-mini.m1 { left: 48%; top: 22%; } .bf2-mini.m2 { left: 92%; top: 30%; animation-delay: -2s; } .bf2-mini.m3 { left: 90%; top: 76%; animation-delay: -4s; width: 56px; height: 56px; } .bf2-mini.m4 { left: 52%; top: 80%; animation-delay: -3s; width: 38px; height: 38px; }
+@media (max-width: 900px) {
+  .slide.bf::after { background: linear-gradient(0deg, rgba(18,10,6,.96) 30%, rgba(18,10,6,.5) 60%, rgba(18,10,6,0) 85%); }
+  .bf2-wifi { left: 50%; top: 30%; width: 92vw; }
+  .bf2-tag { left: 50%; top: 22%; padding: 14px 30px 16px 48px; }
+  .bf2-band { left: 50%; top: 4%; }
+  .bf2-mini.m1, .bf2-mini.m4 { display: none; } .bf2-mini.m2 { left: 84%; top: 40%; } .bf2-mini.m3 { left: 4%; top: 36%; }
+}
 .glass { position: absolute; z-index: 3; background: rgba(255,255,255,.94); color: var(--ink); border-radius: 20px; padding: 16px 18px; box-shadow: 0 24px 50px -24px rgba(30,21,18,.6); }
 .slide .glass { opacity: 0; transform: translateY(20px) scale(.96); }
 .slide.on .glass { opacity: 1; transform: none; transition: opacity .7s var(--ease) .5s, transform .7s var(--ease) .5s; }
@@ -142,7 +171,7 @@ ${DUO_CSS}
 .glass.brandc span { font: 700 13px/1.25 var(--f-display); color: var(--muted); }
 .slide.on .glass.brandc { transition-delay: .65s; }
 .tabs-bar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 4; background: rgba(30,21,18,.55); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
-.tabs-bar .container { display: grid; grid-template-columns: repeat(3, 1fr); }
+.tabs-bar .container { display: grid; grid-template-columns: repeat(4, 1fr); }
 .stab { position: relative; background: none; border: 0; color: rgba(255,255,255,.7); text-align: left; padding: 20px 18px 22px; cursor: pointer; display: grid; gap: 2px; font: 600 13px var(--f-body); }
 .stab b { font: 800 18px var(--f-display); color: var(--white); }
 .stab::before { content: ""; position: absolute; left: 18px; right: 18px; top: 0; height: 3px; background: rgba(255,255,255,.25); border-radius: 3px; }
@@ -799,11 +828,18 @@ function footer(c) {
 }
 
 function stage(c) {
-  const tabsInfo = [['Plano Família', '800 Mega + streaming'], ['YouTube Premium', 'incluso em todos'], ['Combo completo', '1 Giga + 4 streamings']];
+  const BF = { bf: true, alt: 'Black Friday Vyra: 50% de desconto', tag: 'Black Friday', title: 'Wi-Fi 6 e fibra <em>pela metade do preço.</em>', text: '50% de desconto nos 3 primeiros meses em todos os planos. A partir de R$ 49,95 por mês, com instalação grátis (oferta de exemplo).', price: '49,95', cta: 'assine.html', streams: ['YouTube Premium'] };
+  const slides = [BF, ...c.slides];
+  const tabsInfo = [['Black Friday', '50% off por 3 meses'], ['Plano Família', '800 Mega + streaming'], ['YouTube Premium', 'incluso em todos'], ['Combo completo', '1 Giga + 4 streamings']];
   return `<section class="stage" aria-roledescription="carrossel" aria-label="Ofertas Vyra">
-  <div class="slides">${c.slides.map((s, i) => `
-    <div class="slide${i === 0 ? ' on' : ''}" aria-roledescription="slide" aria-label="${i + 1} de ${c.slides.length}">
-      <img src="${IMG}${s.img}" alt="${esc(s.alt)}"${i === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}>
+  <div class="slides">${slides.map((s, i) => `
+    <div class="slide${i === 0 ? ' on' : ''}${s.bf ? ' bf' : ''}" aria-roledescription="slide" aria-label="${i + 1} de ${slides.length}">
+      ${s.bf ? `<div class="bf2" aria-hidden="true">
+        <svg class="bf2-wifi" viewBox="0 0 400 300"><path d="M20 120a254 254 0 0 1 360 0"/><path d="M70 170a183 183 0 0 1 260 0"/><path d="M120 220a113 113 0 0 1 160 0"/><circle cx="200" cy="268" r="22"/></svg>
+        <span class="bf2-band">Black <em>Friday</em></span>
+        <div class="bf2-tag"><b>50<small>%</small></b><span>de desconto</span></div>
+        <span class="bf2-mini m1"><svg viewBox="0 0 24 24"><path d="M2.5 9a13.5 13.5 0 0 1 19 0"/><path d="M5.8 12.6a9 9 0 0 1 12.4 0"/><path d="M9.1 16.1a4.5 4.5 0 0 1 5.8 0"/><circle cx="12" cy="19.5" r="1.2" fill="currentColor" stroke="none"/></svg></span><span class="bf2-mini m2"><svg viewBox="0 0 24 24"><path d="M2.5 9a13.5 13.5 0 0 1 19 0"/><path d="M5.8 12.6a9 9 0 0 1 12.4 0"/><path d="M9.1 16.1a4.5 4.5 0 0 1 5.8 0"/><circle cx="12" cy="19.5" r="1.2" fill="currentColor" stroke="none"/></svg></span><span class="bf2-mini m3"><svg viewBox="0 0 24 24"><path d="M2.5 9a13.5 13.5 0 0 1 19 0"/><path d="M5.8 12.6a9 9 0 0 1 12.4 0"/><path d="M9.1 16.1a4.5 4.5 0 0 1 5.8 0"/><circle cx="12" cy="19.5" r="1.2" fill="currentColor" stroke="none"/></svg></span><span class="bf2-mini m4"><svg viewBox="0 0 24 24"><path d="M2.5 9a13.5 13.5 0 0 1 19 0"/><path d="M5.8 12.6a9 9 0 0 1 12.4 0"/><path d="M9.1 16.1a4.5 4.5 0 0 1 5.8 0"/><circle cx="12" cy="19.5" r="1.2" fill="currentColor" stroke="none"/></svg></span>
+      </div>` : `<img src="${IMG}${s.img}" alt="${esc(s.alt)}"${i === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}>`}
       <div class="container"><div class="copy">
         <span class="tag">${s.tag}</span>
         ${i === 0 ? `<h1>${s.title}</h1>` : `<h2>${s.title}</h2>`}
@@ -811,8 +847,8 @@ function stage(c) {
         <div class="logos">${streamLogos(s.streams || [])}</div>
         <div class="actions"><a class="btn btn-white" href="${s.cta}">Assine já ${icon('arrow')}</a><a class="btn btn-ghost" href="#planos">Ver planos</a></div>
       </div></div>
-      <div class="glass brandc">${logo()}<span>Fibra óptica<br>no interior</span></div>
-      <div class="glass price"><small>a partir de</small><b>R$ ${s.price}</b><small>por mês · exemplo</small></div>
+      ${s.bf ? '' : `<div class="glass brandc">${logo()}<span>Fibra óptica<br>no interior</span></div>
+      <div class="glass price"><small>a partir de</small><b>R$ ${s.price}</b><small>por mês · exemplo</small></div>`}
     </div>`).join('')}
   </div>
   <div class="tabs-bar"><div class="container">${tabsInfo.map((t, i) => `<button type="button" class="stab" aria-current="${i === 0}" aria-label="Oferta: ${t[0]}"><i></i><b>${t[0]}</b><span>${t[1]}</span></button>`).join('')}</div></div>
@@ -929,7 +965,7 @@ function bento(c) {
   return `<section class="section alt"><div class="container">
     <div class="head rv"><span class="kicker">Por que a Vyra</span><h2>Tecnologia de capital, <em>atendimento de vizinho.</em></h2></div>
     <div class="bento">
-      <div class="tile photo rv"><img src="${IMG}familia_sofa.jpg" alt="Família sorrindo no sofá" loading="lazy"><span class="vbug tl">${logo()}</span><h3>100% <b>fibra óptica</b></h3><p>Do poste até o seu roteador, sem trecho de cabo metálico.</p></div>
+      <div class="tile photo rv"><img src="${IMG}familia_cinco.jpg" alt="Pai, mãe e três filhos sorrindo juntos no sofá" style="object-position:50% 62%" loading="lazy"><span class="vbug tl">${logo()}</span><h3>100% <b>fibra óptica</b></h3><p>Do poste até o seu roteador, sem trecho de cabo metálico.</p></div>
       <div class="tile grad rv" data-d="1"><div class="big"><span data-count="1" data-suffix="">1</span><small>Giga</small></div><p>Velocidade máxima, com Wi-Fi 6 mesh.</p></div>
       <div class="tile rv" data-d="2"><div class="ico-box">${duo('headset')}</div><div><h3>Suporte 24h</h3><p>Gente da região atende.</p></div></div>
       <div class="tile dark wide rv" data-d="1"><h3>Streaming na conta</h3><div class="logos lg">${streamLogos(c.streamings)}</div></div>
@@ -970,7 +1006,7 @@ function gallery() {
     ['mulher_videochamada.jpg', 'Mulher em videochamada', 'Home office', 'Reunião estável e upload rápido.', 'assine.html#familia'],
     ['idosa_celular.jpg', 'Senhora usando o celular', 'Para todas as idades', 'Simples, com suporte que explica.', 'contato.html'],
     ['mae_tablet.jpg', 'Mãe com bebês e tablet', 'Crianças em casa', 'Desenhos e aulas com controle dos pais.', 'assine.html#familia'],
-    ['homem_escritorio.jpg', 'Homem trabalhando no notebook', 'Pequenas empresas', 'Maquininha e sistema sempre online.', 'empresas.html'],
+    ['jovem_notebook.jpg', 'Jovem sorrindo ao lado do notebook', 'Pequenas empresas', 'Maquininha e sistema sempre online.', 'empresas.html'],
   ];
   return `<section class="section" style="padding-bottom:70px"><div class="container gal-top">
       <div class="head rv" style="margin:0"><span class="kicker">Conexão que você merece</span><h2>Para todos os <em>momentos.</em></h2></div>
@@ -1111,10 +1147,10 @@ ${footer(c)}`,
 
   empresas: c => `${header(c, 'empresas')}
 <main>
-  ${phero(c, 'reuniao_laptop.jpg', 'Equipe reunida olhando um notebook', 'Vyra Empresas: <em>sua operação não para.</em>', 'IP fixo, link dedicado e SLA em contrato para comércio, clínicas, indústria e agro.', 'Empresas', false)}
+  ${phero(c, 'empreendedor_mesa.jpg', 'Empreendedor sorrindo na mesa de trabalho com notebook', 'Vyra Empresas: <em>sua operação não para.</em>', 'IP fixo, link dedicado e SLA em contrato para comércio, clínicas, indústria e agro.', 'Empresas', false)}
   ${bizPlans(c)}
   <section class="section"><div class="container split">
-    <div class="media rv rv-l"><img src="${IMG}homem_escritorio.jpg" alt="Homem sorrindo trabalhando no notebook" loading="lazy"><span class="vbug tl">${logo()}</span><div class="float"><b>SLA</b><span>tempo de reparo<br>garantido em contrato</span></div></div>
+    <div class="media rv rv-l"><img src="${IMG}jovem_notebook.jpg" alt="Jovem sorrindo ao lado do notebook" loading="lazy"><span class="vbug tl">${logo()}</span><div class="float"><b>SLA</b><span>tempo de reparo<br>garantido em contrato</span></div></div>
     <div class="copy-block rv rv-r"><span class="kicker">Para o seu negócio</span><h2>Conexão de empresa, <em>atendimento de vizinho.</em></h2>
       <p>Maquininha, sistema na nuvem, câmeras e nota fiscal dependem da internet. A Vyra cuida para que nada disso pare.</p>
       <div class="checklist">${c.business.map(b => `<div><span class="ck">${icon('check')}</span><b>${b.title}</b><span>${b.text}</span></div>`).join('')}</div>
@@ -1137,7 +1173,7 @@ ${footer(c)}`,
 
   faq: c => `${header(c, 'faq')}
 <main>
-  ${phero(c, 'amigas_cafe.jpg', 'Duas amigas olhando o celular num café', 'Perguntas <em>frequentes.</em>', 'Respostas rápidas sobre instalação, planos, streaming e suporte.', 'FAQ', false)}
+  ${phero(c, 'casal_celular.jpg', 'Casal rindo com o celular no sofá', 'Perguntas <em>frequentes.</em>', 'Respostas rápidas sobre instalação, planos, streaming e suporte.', 'FAQ', false)}
   ${faqBlock(c)}
 </main>
 ${footer(c)}`,
@@ -1154,7 +1190,7 @@ ${footer(c)}`,
 
   assine: c => `${header(c, 'assine')}
 <main>
-  ${phero(c, 'mulher_celular_sofa.jpg', 'Mulher sorrindo com o celular no sofá', 'Assine <em>já.</em>', 'Escolha o plano, preencha seus dados e a gente agenda a instalação.', 'Assine já', false)}
+  ${phero(c, 'mulher_sofa_laranja.jpg', 'Mulher sorrindo com o celular no sofá', 'Assine <em>já.</em>', 'Escolha o plano, preencha seus dados e a gente agenda a instalação.', 'Assine já', false)}
   <section class="section alt" id="planos"><div class="container assine-layout">
     <form class="form form-card" novalidate>
       <fieldset><legend>1. Escolha o plano</legend>

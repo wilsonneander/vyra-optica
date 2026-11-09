@@ -211,6 +211,37 @@ html.from-nav .curtain { transform: scaleY(1); transform-origin: top; animation:
 .scroll-ind { position: absolute; z-index: 4; left: max(22px, calc((100vw - var(--max)) / 2 + 22px)); bottom: 38px; display: inline-flex; align-items: center; gap: 12px; color: rgba(255,255,255,.75); text-decoration: none; font: 500 12.5px var(--f-display); letter-spacing: .14em; text-transform: uppercase; }
 .scroll-ind i { width: 24px; height: 38px; border-radius: 14px; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.55); position: relative; }
 .scroll-ind i::after { content: ""; position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; margin-left: -2px; border-radius: 2px; background: var(--white); animation: wheel 1.8s ease-in-out infinite; }
+/* Black Friday: cena em neon (feita em CSS, sem foto) */
+.bf-scene { background: radial-gradient(ellipse 42% 48% at 68% 44%, rgba(255,90,31,.30), transparent 70%), radial-gradient(ellipse 55% 60% at 92% 12%, rgba(124,58,237,.45), transparent 70%), radial-gradient(ellipse 40% 50% at 40% 100%, rgba(124,58,237,.25), transparent 70%), linear-gradient(180deg, #160B24 0%, #0C0714 60%, #120914 100%); overflow: hidden; }
+.hslide:has(.bf-scene)::after { background: linear-gradient(90deg, rgba(12,7,20,.9) 0%, rgba(12,7,20,.55) 32%, rgba(12,7,20,0) 50%), linear-gradient(0deg, rgba(12,7,20,.75), transparent 28%); }
+.bf-floor { position: absolute; left: 0; right: 0; bottom: 0; height: 30%; background: linear-gradient(180deg, rgba(255,122,61,.35) 0, rgba(255,122,61,0) 2px), linear-gradient(180deg, rgba(124,58,237,.18), transparent 70%); }
+.bf-neon { position: absolute; left: 71%; top: 47%; transform: translate(-50%, -62%); display: flex; align-items: flex-start; gap: .04em; font: 300 clamp(150px, 21vw, 330px)/.82 var(--f-display); letter-spacing: -0.03em; white-space: nowrap; }
+.bf-neon .n { color: #FFEDE2; filter: drop-shadow(0 0 3px #FF9A62) drop-shadow(0 0 12px #FF5A1F) drop-shadow(0 0 34px #FF5A1F) drop-shadow(0 0 70px #E11D2E); animation: neonOn 7s linear infinite; }
+.bf-neon .off { align-self: flex-end; margin: 0 0 .1em .08em; font-size: .3em; font-weight: 400; letter-spacing: .02em; color: #F5EDFF; filter: drop-shadow(0 0 3px #C4B5FD) drop-shadow(0 0 12px #8B5CF6) drop-shadow(0 0 30px #7C3AED); }
+.bf-neon.ref { top: 47%; transform: translate(-50%, 46%) scaleY(-1); opacity: .22; filter: blur(2px); -webkit-mask-image: linear-gradient(0deg, #000 0%, transparent 55%); mask-image: linear-gradient(0deg, #000 0%, transparent 55%); }
+@keyframes neonOn { 0%, 7%, 9%, 11%, 100% { opacity: 1; } 8%, 10% { opacity: .35; } 60% { opacity: 1; } 61% { opacity: .7; } 62% { opacity: 1; } }
+.bf-plus { position: absolute; width: 58px; height: 58px; animation: floaty 7s ease-in-out infinite; }
+.bf-plus::before, .bf-plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 100%; height: 34%; transform: translate(-50%, -50%); border-radius: 10px; background: linear-gradient(180deg, #FFB37A, #FF5A1F 55%, #C2410C); box-shadow: 0 0 24px rgba(255,90,31,.6), inset 0 2px 0 rgba(255,255,255,.45); }
+.bf-plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+.bf-plus.p1 { left: 44%; top: 16%; transform: rotate(18deg) scale(.7); }
+.bf-plus.p2 { left: 93%; top: 64%; animation-delay: -2s; transform: rotate(-12deg); }
+.bf-plus.p3 { left: 51%; top: 76%; animation-delay: -4s; transform: rotate(30deg) scale(.9); }
+.bf-plus.p4 { left: 86%; top: 10%; animation-delay: -1s; transform: rotate(8deg) scale(.55); }
+@keyframes floaty { 50% { translate: 0 -16px; } }
+.bf-wifi { position: absolute; left: 83%; top: 70%; width: clamp(70px, 8vw, 120px); height: auto; fill: none; stroke: #C4B5FD; stroke-width: 5; stroke-linecap: round; filter: drop-shadow(0 0 4px #A78BFA) drop-shadow(0 0 16px #7C3AED); }
+.bf-wifi path { animation: wave 2.4s ease-in-out infinite; }
+.bf-wifi path:nth-child(2) { animation-delay: .25s; } .bf-wifi path:nth-child(3) { animation-delay: .5s; }
+@keyframes wave { 0%, 100% { opacity: .25; } 40% { opacity: 1; } }
+.bf-chip { position: absolute; left: 71%; top: 75%; transform: translateX(-50%); padding: 10px 18px; border-radius: 12px; background: var(--grad); color: var(--white); font: 700 clamp(13px, 1.1vw, 16px)/1.2 var(--f-display); text-align: center; box-shadow: 0 0 30px rgba(255,90,31,.55); white-space: nowrap; }
+.hthumb .bf-mini { display: grid; place-items: center; height: 76px; background: radial-gradient(ellipse at 50% 50%, rgba(255,90,31,.35), transparent 70%), #120A1C; font: 300 36px/1 var(--f-display); letter-spacing: -0.03em; color: #FFEDE2; filter: drop-shadow(0 0 4px #FF7A3D) drop-shadow(0 0 10px #FF5A1F); opacity: .6; transition: opacity .3s; }
+.hthumb[aria-current="true"] .bf-mini { opacity: 1; }
+@media (max-width: 900px) {
+  .hslide:has(.bf-scene)::after { background: linear-gradient(0deg, rgba(12,7,20,.95) 20%, rgba(12,7,20,.5) 55%, rgba(12,7,20,0) 75%); }
+  .bf-neon { left: 50%; top: 24%; font-size: clamp(110px, 34vw, 210px); }
+  .bf-neon.ref, .bf-chip, .bf-floor { display: none; }
+  .bf-plus.p1 { left: 6%; top: 10%; } .bf-plus.p3 { display: none; } .bf-wifi { left: 80%; top: 30%; width: 56px; }
+  .hthumb .bf-mini { height: 54px; font-size: 24px; }
+}
 @keyframes wheel { 60% { transform: translateY(10px); opacity: 0; } }
 @media (max-width: 900px) {
   .hero { height: auto; min-height: 760px; }
@@ -338,8 +369,8 @@ html.from-nav .curtain { transform: scaleY(1); transform-origin: top; animation:
 .hs:hover, .hs.open { transform: scale(1.12); background: var(--orange); color: var(--white); z-index: 6; }
 .hs.open .ico { transform: rotate(45deg); }
 .tip { position: absolute; z-index: 3; left: 50%; bottom: calc(100% + 16px); width: 250px; transform: translateX(-50%) translateY(10px); background: var(--white); color: var(--ink); border-radius: 18px; padding: 16px 18px; text-align: left; box-shadow: 0 24px 50px -20px rgba(0,0,0,.55); opacity: 0; visibility: hidden; transition: opacity .35s, transform .45s var(--ease), visibility 0s linear .35s; pointer-events: none; }
-.tip b { display: block; font: 700 16px var(--f-display); margin-bottom: 4px; }
-.tip span { font-size: 14px; color: var(--muted); line-height: 1.45; display: block; }
+.tip > b { display: block; font: 700 16px var(--f-display); margin-bottom: 4px; }
+.tip > span { font-size: 14px; color: var(--muted); line-height: 1.45; display: block; }
 .tip .logos { margin-top: 10px; }
 .hs.open .tip, .hs:hover .tip, .hs:focus-visible .tip { opacity: 1; visibility: visible; transform: translateX(-50%); transition: opacity .35s, transform .45s var(--ease); }
 .hs.below .tip { bottom: auto; top: calc(100% + 16px); }
@@ -999,15 +1030,23 @@ function footer(c) {
 }
 
 const HERO = [
+  { bf: true, alt: 'Black Friday Vyra: 50% de desconto', tag: 'Black Friday Vyra', title: 'Metade do preço *na* *fibra* *mais* *rápida.*', text: '50% de desconto nos 3 primeiros meses em todos os planos, com instalação grátis. A partir de R$ 49,95 por mês (oferta de exemplo).', streams: ['YouTube Premium'], price: '49,95', cta: 'assine.html', thumb: 'Black Friday' },
   { img: 'familia_celulares.jpg', alt: 'Família no sofá usando celulares e tablet', tag: 'Plano Família', title: 'A casa inteira *conectada,* sem disputa.', text: '800 Mega de fibra, Wi-Fi 6 mesh e YouTube Premium com Max ou Prime Video.', streams: ['YouTube Premium', 'Max ou Prime Video'], price: '129,90', cta: 'assine.html#familia', thumb: 'Plano Família' },
   { img: 'tv_pai_filho.jpg', alt: 'Pai e filho assistindo TV no sofá', tag: 'Combo completo', title: 'Todos os streamings, *uma* *conta* *só.*', text: '1 Giga com Netflix, Max, Prime Video e YouTube Premium inclusos.', streams: ['Netflix', 'Max', 'Prime Video', 'YouTube Premium'], price: '179,90', cta: 'assine.html#ultra', thumb: 'Combo completo' },
-  { img: 'mulher_celular_sofa.jpg', alt: 'Mulher sorrindo com o celular no sofá', tag: 'Incluso em todos', title: 'YouTube Premium *de* *presente.*', text: 'Vídeos sem anúncio e música offline em qualquer plano Vyra.', streams: ['YouTube Premium'], price: '99,90', cta: 'residencial.html', thumb: 'YouTube Premium' },
+  { img: 'mulher_sofa_laranja.jpg', alt: 'Mulher sorrindo com o celular no sofá', tag: 'Incluso em todos', title: 'YouTube Premium *de* *presente.*', text: 'Vídeos sem anúncio e música offline em qualquer plano Vyra.', streams: ['YouTube Premium'], price: '99,90', cta: 'residencial.html', thumb: 'YouTube Premium' },
 ];
 
 function hero() {
   return `<section class="hero" aria-roledescription="carrossel" aria-label="Ofertas Vyra">
   ${HERO.map((s, i) => `<div class="hslide${i === 0 ? ' on' : ''}" aria-roledescription="slide" aria-label="${i + 1} de ${HERO.length}">
-    <div class="himg"><img src="${IMG}${s.img}" alt="${esc(s.alt)}"${i === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}></div>
+    ${s.bf ? `<div class="himg bf-scene" aria-hidden="true">
+      <span class="bf-floor"></span>
+      <div class="bf-neon"><span class="n">50%</span><span class="off">OFF</span></div>
+      <div class="bf-neon ref"><span class="n">50%</span><span class="off">OFF</span></div>
+      <span class="bf-plus p1"></span><span class="bf-plus p2"></span><span class="bf-plus p3"></span><span class="bf-plus p4"></span>
+      <svg class="bf-wifi" viewBox="0 0 64 52"><path d="M4 18a40 40 0 0 1 56 0"/><path d="M13 28a27 27 0 0 1 38 0"/><path d="M22 38a14 14 0 0 1 20 0"/><circle cx="32" cy="47" r="3.5" fill="#C4B5FD" stroke="none"/></svg>
+      <span class="bf-chip">Nos 3 primeiros meses</span>
+    </div>` : `<div class="himg"><img src="${IMG}${s.img}" alt="${esc(s.alt)}"${i === 0 ? ' fetchpriority="high"' : ' loading="lazy"'}></div>`}
     <div class="container"><div class="hcopy">
       <span class="tag"><i></i>${s.tag}</span>
       ${i === 0 ? `<h1>${split(s.title)}</h1>` : `<h2>${split(s.title)}</h2>`}
@@ -1015,10 +1054,10 @@ function hero() {
       <div class="logos">${streamLogos(s.streams)}</div>
       <div class="actions"><a class="btn btn-primary" href="${s.cta}" data-magnetic data-cursor="Assinar">Assine já ${icon('arrow')}</a><a class="btn btn-ghost" href="#planos" data-magnetic>Ver planos</a></div>
     </div></div>
-    <div class="hprice">${logo('logo', '#FF5A1F')}<small>a partir de</small><b>R$ ${s.price}</b><small>por mês · valor de exemplo</small></div>
+    ${s.bf ? '' : `<div class="hprice">${logo('logo', '#FF5A1F')}<small>a partir de</small><b>R$ ${s.price}</b><small>por mês · valor de exemplo</small></div>`}
   </div>`).join('')}
   <a class="scroll-ind" href="#planos"><i></i>Role para descobrir</a>
-  <div class="hthumbs">${HERO.map((s, i) => `<button type="button" class="hthumb" aria-current="${i === 0}" aria-label="Ver oferta ${s.thumb}"><img src="${IMG}${s.img}" alt="" loading="lazy"><span>${s.thumb}</span><i></i></button>`).join('')}</div>
+  <div class="hthumbs">${HERO.map((s, i) => `<button type="button" class="hthumb" aria-current="${i === 0}" aria-label="Ver oferta ${s.thumb}">${s.bf ? '<b class="bf-mini" aria-hidden="true">50%</b>' : `<img src="${IMG}${s.img}" alt="" loading="lazy">`}<span>${s.thumb}</span><i></i></button>`).join('')}</div>
 </section>`;
 }
 
@@ -1136,7 +1175,7 @@ function hgallery() {
     ['mulher_videochamada.jpg', 'Mulher em videochamada', 'Home office', 'Reunião que não cai', 'Upload rápido e conexão estável.'],
     ['idosa_celular.jpg', 'Senhora usando o celular', 'Família', 'Para todas as idades', 'Simples, com suporte que explica.'],
     ['mae_tablet.jpg', 'Mãe com bebês e tablet', 'Crianças', 'Desenhos e aulas online', 'Com controle dos pais no app.'],
-    ['homem_escritorio.jpg', 'Homem trabalhando no notebook', 'Negócios', 'Sua empresa online', 'Maquininha e sistema sem parar.'],
+    ['jovem_notebook.jpg', 'Jovem sorrindo ao lado do notebook', 'Negócios', 'Sua empresa online', 'Maquininha e sistema sem parar.'],
   ];
   return `<section class="hgal"><div class="hgal-sticky">
     <div class="container"><div class="head rv" style="margin:0"><span class="kicker">Para cada momento</span><h2>Uma conexão, <em>mil momentos.</em></h2></div></div>
@@ -1156,7 +1195,7 @@ function scatter(c) {
     <div class="head center rv"><span class="kicker">Por que a Vyra</span><h2>Tudo o que a sua casa <em>precisa</em></h2><p>Tecnologia de capital com atendimento de quem conhece a sua cidade.</p></div>
     <div class="scatter">
       <span class="ring" aria-hidden="true"></span>
-      <div class="photo-c reveal-img"><img src="${IMG}familia_sofa.jpg" alt="Família sorrindo no sofá" loading="lazy"></div>
+      <div class="photo-c reveal-img"><img src="${IMG}familia_cinco.jpg" alt="Pai, mãe e três filhos sorrindo juntos no sofá" style="object-position:50% 62%" loading="lazy"></div>
       ${cards.map((k, i) => `<div class="fcard f${i + 1}"><div class="ico-box">${duo(k[0])}</div><b>${k[1]}</b><span>${k[2]}</span></div>`).join('')}
       <div class="fcard f6 logo-card"><b>Streaming na conta</b><div class="logos">${streamLogos(c.streamings)}</div></div>
     </div>
@@ -1341,10 +1380,10 @@ ${footer(c)}`,
 
   empresas: c => `${chrome(c, 'empresas')}
 <main>
-  ${phero(c, 'reuniao_laptop.jpg', 'Equipe reunida olhando um notebook', 'Sua operação *não* *para.*', 'IP fixo, link dedicado e SLA em contrato para comércio, clínicas, indústria e agro.', 'Empresas')}
+  ${phero(c, 'empreendedor_mesa.jpg', 'Empreendedor sorrindo na mesa de trabalho com notebook', 'Sua operação *não* *para.*', 'IP fixo, link dedicado e SLA em contrato para comércio, clínicas, indústria e agro.', 'Empresas')}
   ${bizPlans(c)}
   <section class="section"><div class="container split">
-    <div class="media rv rv-l" data-tilt><img src="${IMG}homem_escritorio.jpg" alt="Homem sorrindo trabalhando no notebook" loading="lazy"><span class="vbug tl">${logo()}</span><div class="float"><b>SLA</b><span>tempo de reparo<br>garantido em contrato</span></div></div>
+    <div class="media rv rv-l" data-tilt><img src="${IMG}jovem_notebook.jpg" alt="Jovem sorrindo ao lado do notebook" loading="lazy"><span class="vbug tl">${logo()}</span><div class="float"><b>SLA</b><span>tempo de reparo<br>garantido em contrato</span></div></div>
     <div class="copy-block rv rv-r"><span class="kicker">Para o seu negócio</span><h2>Conexão de empresa, <em>atendimento de vizinho.</em></h2>
       <p>Maquininha, sistema na nuvem, câmeras e nota fiscal dependem da internet. A Vyra cuida para que nada disso pare.</p>
       <div class="checklist">${c.business.map(b => `<div><span class="ck">${icon('check')}</span><b>${b.title}</b><span>${b.text}</span></div>`).join('')}</div></div>
@@ -1361,7 +1400,7 @@ ${footer(c)}`,
 
   faq: c => `${chrome(c, 'faq')}
 <main>
-  ${phero(c, 'amigas_cafe.jpg', 'Duas amigas olhando o celular num café', 'Perguntas *frequentes.*', 'Respostas rápidas sobre instalação, planos, streaming e suporte.', 'FAQ')}
+  ${phero(c, 'casal_celular.jpg', 'Casal rindo com o celular no sofá', 'Perguntas *frequentes.*', 'Respostas rápidas sobre instalação, planos, streaming e suporte.', 'FAQ')}
   ${faqFull(c)}
 </main>
 ${footer(c)}`,
@@ -1378,7 +1417,7 @@ ${footer(c)}`,
 
   assine: c => `${chrome(c, 'assine')}
 <main>
-  ${phero(c, 'mulher_celular_sofa.jpg', 'Mulher sorrindo com o celular no sofá', 'Sua fibra *começa* *aqui.*', 'Três passos rápidos. A gente confirma a cobertura e agenda a instalação com você.', 'Assine já')}
+  ${phero(c, 'mulher_sofa_laranja.jpg', 'Mulher sorrindo com o celular no sofá', 'Sua fibra *começa* *aqui.*', 'Três passos rápidos. A gente confirma a cobertura e agenda a instalação com você.', 'Assine já')}
   <section class="section soft" id="planos"><div class="container wizard">
     <form novalidate>
       <div class="wsteps" aria-hidden="true"><div class="cur">01 · Plano</div><div>02 · Endereço</div><div>03 · Seus dados</div></div>

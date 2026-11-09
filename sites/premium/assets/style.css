@@ -188,6 +188,37 @@ html.from-nav .curtain { transform: scaleY(1); transform-origin: top; animation:
 .scroll-ind { position: absolute; z-index: 4; left: max(22px, calc((100vw - var(--max)) / 2 + 22px)); bottom: 38px; display: inline-flex; align-items: center; gap: 12px; color: rgba(255,255,255,.75); text-decoration: none; font: 500 12.5px var(--f-display); letter-spacing: .14em; text-transform: uppercase; }
 .scroll-ind i { width: 24px; height: 38px; border-radius: 14px; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.55); position: relative; }
 .scroll-ind i::after { content: ""; position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; margin-left: -2px; border-radius: 2px; background: var(--white); animation: wheel 1.8s ease-in-out infinite; }
+/* Black Friday: cena em neon (feita em CSS, sem foto) */
+.bf-scene { background: radial-gradient(ellipse 42% 48% at 68% 44%, rgba(255,90,31,.30), transparent 70%), radial-gradient(ellipse 55% 60% at 92% 12%, rgba(124,58,237,.45), transparent 70%), radial-gradient(ellipse 40% 50% at 40% 100%, rgba(124,58,237,.25), transparent 70%), linear-gradient(180deg, #160B24 0%, #0C0714 60%, #120914 100%); overflow: hidden; }
+.hslide:has(.bf-scene)::after { background: linear-gradient(90deg, rgba(12,7,20,.9) 0%, rgba(12,7,20,.55) 32%, rgba(12,7,20,0) 50%), linear-gradient(0deg, rgba(12,7,20,.75), transparent 28%); }
+.bf-floor { position: absolute; left: 0; right: 0; bottom: 0; height: 30%; background: linear-gradient(180deg, rgba(255,122,61,.35) 0, rgba(255,122,61,0) 2px), linear-gradient(180deg, rgba(124,58,237,.18), transparent 70%); }
+.bf-neon { position: absolute; left: 71%; top: 47%; transform: translate(-50%, -62%); display: flex; align-items: flex-start; gap: .04em; font: 300 clamp(150px, 21vw, 330px)/.82 var(--f-display); letter-spacing: -0.03em; white-space: nowrap; }
+.bf-neon .n { color: #FFEDE2; filter: drop-shadow(0 0 3px #FF9A62) drop-shadow(0 0 12px #FF5A1F) drop-shadow(0 0 34px #FF5A1F) drop-shadow(0 0 70px #E11D2E); animation: neonOn 7s linear infinite; }
+.bf-neon .off { align-self: flex-end; margin: 0 0 .1em .08em; font-size: .3em; font-weight: 400; letter-spacing: .02em; color: #F5EDFF; filter: drop-shadow(0 0 3px #C4B5FD) drop-shadow(0 0 12px #8B5CF6) drop-shadow(0 0 30px #7C3AED); }
+.bf-neon.ref { top: 47%; transform: translate(-50%, 46%) scaleY(-1); opacity: .22; filter: blur(2px); -webkit-mask-image: linear-gradient(0deg, #000 0%, transparent 55%); mask-image: linear-gradient(0deg, #000 0%, transparent 55%); }
+@keyframes neonOn { 0%, 7%, 9%, 11%, 100% { opacity: 1; } 8%, 10% { opacity: .35; } 60% { opacity: 1; } 61% { opacity: .7; } 62% { opacity: 1; } }
+.bf-plus { position: absolute; width: 58px; height: 58px; animation: floaty 7s ease-in-out infinite; }
+.bf-plus::before, .bf-plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 100%; height: 34%; transform: translate(-50%, -50%); border-radius: 10px; background: linear-gradient(180deg, #FFB37A, #FF5A1F 55%, #C2410C); box-shadow: 0 0 24px rgba(255,90,31,.6), inset 0 2px 0 rgba(255,255,255,.45); }
+.bf-plus::after { transform: translate(-50%, -50%) rotate(90deg); }
+.bf-plus.p1 { left: 44%; top: 16%; transform: rotate(18deg) scale(.7); }
+.bf-plus.p2 { left: 93%; top: 64%; animation-delay: -2s; transform: rotate(-12deg); }
+.bf-plus.p3 { left: 51%; top: 76%; animation-delay: -4s; transform: rotate(30deg) scale(.9); }
+.bf-plus.p4 { left: 86%; top: 10%; animation-delay: -1s; transform: rotate(8deg) scale(.55); }
+@keyframes floaty { 50% { translate: 0 -16px; } }
+.bf-wifi { position: absolute; left: 83%; top: 70%; width: clamp(70px, 8vw, 120px); height: auto; fill: none; stroke: #C4B5FD; stroke-width: 5; stroke-linecap: round; filter: drop-shadow(0 0 4px #A78BFA) drop-shadow(0 0 16px #7C3AED); }
+.bf-wifi path { animation: wave 2.4s ease-in-out infinite; }
+.bf-wifi path:nth-child(2) { animation-delay: .25s; } .bf-wifi path:nth-child(3) { animation-delay: .5s; }
+@keyframes wave { 0%, 100% { opacity: .25; } 40% { opacity: 1; } }
+.bf-chip { position: absolute; left: 71%; top: 75%; transform: translateX(-50%); padding: 10px 18px; border-radius: 12px; background: var(--grad); color: var(--white); font: 700 clamp(13px, 1.1vw, 16px)/1.2 var(--f-display); text-align: center; box-shadow: 0 0 30px rgba(255,90,31,.55); white-space: nowrap; }
+.hthumb .bf-mini { display: grid; place-items: center; height: 76px; background: radial-gradient(ellipse at 50% 50%, rgba(255,90,31,.35), transparent 70%), #120A1C; font: 300 36px/1 var(--f-display); letter-spacing: -0.03em; color: #FFEDE2; filter: drop-shadow(0 0 4px #FF7A3D) drop-shadow(0 0 10px #FF5A1F); opacity: .6; transition: opacity .3s; }
+.hthumb[aria-current="true"] .bf-mini { opacity: 1; }
+@media (max-width: 900px) {
+  .hslide:has(.bf-scene)::after { background: linear-gradient(0deg, rgba(12,7,20,.95) 20%, rgba(12,7,20,.5) 55%, rgba(12,7,20,0) 75%); }
+  .bf-neon { left: 50%; top: 24%; font-size: clamp(110px, 34vw, 210px); }
+  .bf-neon.ref, .bf-chip, .bf-floor { display: none; }
+  .bf-plus.p1 { left: 6%; top: 10%; } .bf-plus.p3 { display: none; } .bf-wifi { left: 80%; top: 30%; width: 56px; }
+  .hthumb .bf-mini { height: 54px; font-size: 24px; }
+}
 @keyframes wheel { 60% { transform: translateY(10px); opacity: 0; } }
 @media (max-width: 900px) {
   .hero { height: auto; min-height: 760px; }
@@ -315,8 +346,8 @@ html.from-nav .curtain { transform: scaleY(1); transform-origin: top; animation:
 .hs:hover, .hs.open { transform: scale(1.12); background: var(--orange); color: var(--white); z-index: 6; }
 .hs.open .ico { transform: rotate(45deg); }
 .tip { position: absolute; z-index: 3; left: 50%; bottom: calc(100% + 16px); width: 250px; transform: translateX(-50%) translateY(10px); background: var(--white); color: var(--ink); border-radius: 18px; padding: 16px 18px; text-align: left; box-shadow: 0 24px 50px -20px rgba(0,0,0,.55); opacity: 0; visibility: hidden; transition: opacity .35s, transform .45s var(--ease), visibility 0s linear .35s; pointer-events: none; }
-.tip b { display: block; font: 700 16px var(--f-display); margin-bottom: 4px; }
-.tip span { font-size: 14px; color: var(--muted); line-height: 1.45; display: block; }
+.tip > b { display: block; font: 700 16px var(--f-display); margin-bottom: 4px; }
+.tip > span { font-size: 14px; color: var(--muted); line-height: 1.45; display: block; }
 .tip .logos { margin-top: 10px; }
 .hs.open .tip, .hs:hover .tip, .hs:focus-visible .tip { opacity: 1; visibility: visible; transform: translateX(-50%); transition: opacity .35s, transform .45s var(--ease); }
 .hs.below .tip { bottom: auto; top: calc(100% + 16px); }

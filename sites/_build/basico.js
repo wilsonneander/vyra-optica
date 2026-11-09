@@ -757,7 +757,7 @@ function promos(c) {
       <article class="promo promo-a rv">
         <div><h3>O Família cabe<br>no seu bolso.</h3><p>800 Mega por menos de R$ ${perDay(b.price)} por dia.</p></div>
         <div class="pa-body">
-          <figure class="pa-photo"><img src="${IMG}mulher_celular_sofa.jpg" alt="Mulher sorrindo com o celular" loading="lazy"></figure>
+          <figure class="pa-photo"><img src="${IMG}mulher_sofa_laranja.jpg" alt="Mulher sorrindo com o celular" loading="lazy"></figure>
           <div class="pa-table"><span>Aqui tem:</span>
             ${c.combos.map(p => `<div class="pa-row${p.featured ? ' hi' : ''}"><b>${p.speed}<small>${p.unit}</small></b><em>R$ ${p.price}</em></div>`).join('')}
             <div class="pa-extra"><span>+ streaming incluso</span><div class="logos">${streamLogos(['YouTube Premium', 'Max', 'Prime Video'])}</div></div>
@@ -792,7 +792,7 @@ function bizBand() {
 
 function aboutSplit(c) {
   return `<section class="section"><div class="container split rev">
-    <div class="media"><img src="${IMG}familia_sofa.jpg" alt="Família sorrindo no sofá de casa" loading="lazy"></div>
+    <div class="media"><img src="${IMG}familia_cinco.jpg" alt="Pai, mãe e três filhos sorrindo juntos no sofá" style="object-position:50% 62%" loading="lazy"></div>
     <div class="copy-block"><span class="kicker">Sobre a Vyra</span>
       <h2>Você e o interior, <em>conectados.</em></h2>
       <p>${c.about.intro} Construímos uma rede 100% fibra óptica e um atendimento feito por gente da região.</p>
@@ -922,10 +922,10 @@ ${footer(c)}`,
 
   empresas: c => `${header(c, 'empresas')}
 <main>
-  ${phero('reuniao_laptop.jpg', 'Equipe reunida olhando um notebook', 'Vyra Empresas: <em>sua operação não para.</em>', 'Planos com IP fixo, link dedicado e SLA em contrato para comércio, clínicas, indústria e agro.', 'Empresas')}
+  ${phero('empreendedor_mesa.jpg', 'Empreendedor sorrindo na mesa de trabalho com notebook', 'Vyra Empresas: <em>sua operação não para.</em>', 'Planos com IP fixo, link dedicado e SLA em contrato para comércio, clínicas, indústria e agro.', 'Empresas')}
   ${plansSection(c, 'biz')}
   <section class="section"><div class="container split">
-    <div class="media"><img src="${IMG}homem_escritorio.jpg" alt="Homem sorrindo trabalhando no notebook" loading="lazy"><div class="float"><b>SLA</b><span>tempo de reparo<br>garantido em contrato</span></div></div>
+    <div class="media"><img src="${IMG}jovem_notebook.jpg" alt="Jovem sorrindo ao lado do notebook" loading="lazy"><div class="float"><b>SLA</b><span>tempo de reparo<br>garantido em contrato</span></div></div>
     <div class="copy-block"><span class="kicker">Para o seu negócio</span><h2>Conexão de empresa, <em>atendimento de vizinho.</em></h2>
       <p>Maquininha, sistema na nuvem, câmeras e nota fiscal dependem da internet. A Vyra cuida para que nada disso pare.</p>
       <div class="checklist">${c.business.map(b => `<div><span class="ck">${icon('check')}</span><b>${b.title}</b><span>${b.text}</span></div>`).join('')}</div>
@@ -938,14 +938,14 @@ ${footer(c)}`,
   </section>
   <section class="section alt"><div class="container contact-layout">
     <div style="display:grid;gap:18px"><div class="head" style="margin:0"><span class="kicker">Proposta</span><h2>Peça uma proposta <em>sob medida.</em></h2><p>Um consultor responde em até 1 dia útil.</p></div>${contactForm(c, true)}</div>
-    ${infoCard(c, 'homem_escritorio.jpg', 'Homem trabalhando no notebook')}
+    ${infoCard(c, 'jovem_notebook.jpg', 'Jovem sorrindo ao lado do notebook')}
   </div></section>
 </main>
 ${footer(c)}`,
 
   faq: c => `${header(c, 'faq')}
 <main>
-  ${phero('amigas_cafe.jpg', 'Duas amigas olhando o celular num café', 'Perguntas <em>frequentes.</em>', 'Respostas rápidas sobre instalação, planos, streaming e suporte.', 'FAQ')}
+  ${phero('casal_celular.jpg', 'Casal rindo com o celular no sofá', 'Perguntas <em>frequentes.</em>', 'Respostas rápidas sobre instalação, planos, streaming e suporte.', 'FAQ')}
   ${faqBlock(c)}
   ${finalCta()}
 </main>
@@ -963,7 +963,7 @@ ${footer(c)}`,
 
   assine: c => `${header(c, 'assine')}
 <main>
-  ${phero('mulher_celular_sofa.jpg', 'Mulher sorrindo com o celular no sofá', 'Assine <em>já.</em>', 'Escolha o plano e preencha seus dados. A gente confirma a cobertura e agenda a instalação.', 'Assine já')}
+  ${phero('mulher_sofa_laranja.jpg', 'Mulher sorrindo com o celular no sofá', 'Assine <em>já.</em>', 'Escolha o plano e preencha seus dados. A gente confirma a cobertura e agenda a instalação.', 'Assine já')}
   <section class="section alt" id="planos"><div class="container" style="max-width:920px">
     <form class="form form-card" novalidate>
       <fieldset><legend>1. Escolha o plano</legend>

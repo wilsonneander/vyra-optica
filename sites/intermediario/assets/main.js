@@ -88,11 +88,6 @@
       });
       el.addEventListener('mouseleave', function () { el.style.transform = ''; });
     });
-    var sc = $('.scatter');
-    if (sc) sc.addEventListener('mousemove', function (e) {
-      var r = sc.getBoundingClientRect(), dx = (e.clientX - r.left) / r.width - .5, dy = (e.clientY - r.top) / r.height - .5;
-      $$('.fcard', sc).forEach(function (c, i) { var d = (i % 3 + 1) * 8; c.style.translate = (dx * d) + 'px ' + (dy * d) + 'px'; });
-    });
   }
 
   // Linha que se desenha com a rolagem

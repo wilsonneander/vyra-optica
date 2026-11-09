@@ -249,29 +249,29 @@ ${DUO_CSS}
 .compare-hint { display: none; font-size: 13px; color: var(--muted); margin-top: 10px; text-align: center; }
 @media (max-width: 820px) { .compare-hint { display: block; } }
 
-/* Cards flutuantes em volta da foto */
-.scatter { position: relative; height: 640px; }
-.scatter .photo-c { position: absolute; left: 50%; top: 50%; width: min(440px, 40%); aspect-ratio: 4 / 5; transform: translate(-50%, -50%); border-radius: 240px 240px 32px 32px; overflow: hidden; box-shadow: 0 50px 80px -40px rgba(225,29,46,.55); border: 6px solid var(--white); }
-.scatter .photo-c img { width: 100%; height: 100%; object-fit: cover; }
-.scatter .ring { position: absolute; left: 50%; top: 50%; width: min(700px, 64%); aspect-ratio: 1; margin: calc(min(700px, 64%) / -2) 0 0 calc(min(700px, 64%) / -2); border-radius: 50%; border: 2px dashed rgba(232,72,12,.28); animation: spin 60s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.fcard { position: absolute; z-index: 2; width: 260px; background: var(--white); border-radius: 20px; padding: 16px 18px; box-shadow: 0 24px 44px -24px rgba(30,21,18,.4), 0 0 0 1px var(--line); display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; align-items: center; animation: bob 6s ease-in-out infinite; transition: translate .25s linear; }
-.fcard .ico-box { grid-row: span 2; }
-.fcard b { font: 800 16.5px/1.2 var(--f-display); }
-.fcard > span { font-size: 13.5px; color: var(--muted); line-height: 1.35; }
-.fcard.f1 { left: 2%; top: 4%; } .fcard.f2 { left: 0; top: 40%; animation-delay: -2s; } .fcard.f3 { left: 5%; bottom: 4%; animation-delay: -4s; }
-.fcard.f4 { right: 2%; top: 4%; animation-delay: -1s; } .fcard.f5 { right: 0; top: 40%; animation-delay: -3s; } .fcard.f6 { right: 5%; bottom: 4%; animation-delay: -5s; }
-.fcard.logo-card { grid-template-columns: 1fr; gap: 10px; }
-@keyframes bob { 50% { transform: translateY(-12px); } }
+/* Bento de diferenciais */
+.bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 230px; gap: 18px; }
+.bento > * { min-width: 0; }
+.tile { position: relative; border-radius: 28px; padding: 26px; overflow: hidden; isolation: isolate; background: var(--white); box-shadow: 0 0 0 1px var(--line); display: flex; flex-direction: column; justify-content: space-between; gap: 14px; transition: transform .5s var(--ease), box-shadow .5s; }
+.tile:hover { transform: translateY(-6px); box-shadow: 0 0 0 1.5px rgba(255,90,31,.5), 0 30px 50px -34px rgba(232,72,12,.55); }
+.tile p { color: var(--muted); font-size: 15px; }
+.tile.photo { grid-column: span 2; grid-row: span 2; color: var(--white); padding: 30px; justify-content: flex-end; box-shadow: none; }
+.tile.photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 1s var(--ease); }
+.tile.photo:hover img { transform: scale(1.05); }
+.tile.photo::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, transparent 35%, rgba(20,14,12,.88)); }
+.tile.photo h3 { font-size: 30px; font-weight: 500; letter-spacing: -0.03em; } .tile.photo h3 b { font-weight: 800; }
+.tile.photo p { color: rgba(255,255,255,.85); }
+.tile.grad { background: var(--grad); color: var(--white); box-shadow: none; }
+.tile.grad p { color: rgba(255,255,255,.88); }
+.tile.dark { background: #140E0C; color: var(--white); box-shadow: none; }
+.tile.dark p { color: rgba(255,255,255,.7); }
+.tile.wide { grid-column: span 2; }
+.tile .big { font: 800 64px/.9 var(--f-display); letter-spacing: -0.05em; }
+.tile .big small { font-size: 22px; font-weight: 600; letter-spacing: 0; margin-left: 4px; }
+@media (max-width: 1000px) { .bento { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .bento { grid-template-columns: 1fr; grid-auto-rows: auto; } .tile.photo, .tile.wide { grid-column: auto; } .tile.photo { grid-row: auto; min-height: 380px; } .tile { min-height: 200px; } }
 .ico-box { width: 52px; height: 52px; border-radius: 15px; position: relative; overflow: hidden; display: grid; place-items: center; background: var(--grad); box-shadow: 0 12px 24px -12px rgba(232,72,12,.6); }
 .ico-box::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 20% 15%, rgba(255,255,255,.32), transparent 55%); }
-@media (max-width: 1080px) {
-  .scatter { height: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .scatter .photo-c { position: relative; left: auto; top: auto; transform: none; width: 100%; grid-column: 1 / -1; aspect-ratio: 16 / 10; border-radius: 28px; }
-  .scatter .ring { display: none; }
-  .fcard { position: relative; inset: auto !important; width: auto; animation: none; }
-}
-@media (max-width: 560px) { .scatter { grid-template-columns: 1fr; } }
 
 /* Linha que se desenha com a rolagem */
 .path { position: relative; display: grid; gap: 90px; padding-block: 20px; }
@@ -646,11 +646,6 @@ const js = `// Vyra · modelo Intermediário
       });
       el.addEventListener('mouseleave', function () { el.style.transform = ''; });
     });
-    var sc = $('.scatter');
-    if (sc) sc.addEventListener('mousemove', function (e) {
-      var r = sc.getBoundingClientRect(), dx = (e.clientX - r.left) / r.width - .5, dy = (e.clientY - r.top) / r.height - .5;
-      $$('.fcard', sc).forEach(function (c, i) { var d = (i % 3 + 1) * 8; c.style.translate = (dx * d) + 'px ' + (dy * d) + 'px'; });
-    });
   }
 
   // Linha que se desenha com a rolagem
@@ -930,21 +925,16 @@ function compare(c) {
   </div></section>`;
 }
 
-function scatter(c) {
-  const cards = [
-    ['wifi', 'Wi-Fi 6 incluso', 'Sinal forte em toda a casa.'],
-    ['headset', 'Suporte local 24h', 'Gente da região atende.'],
-    ['calendar', 'Instalação grátis', 'No dia que você escolher.'],
-    ['fiber', '100% fibra óptica', 'Do poste até o roteador.'],
-    ['shield', 'Sem letra miúda', 'A velocidade contratada é a entregue.'],
-  ];
+function bento(c) {
   return `<section class="section alt"><div class="container">
-    <div class="head center rv"><span class="kicker">Por que a Vyra</span><h2>Tudo o que a sua casa <em>precisa</em></h2><p>Tecnologia de capital com atendimento de quem conhece a sua cidade.</p></div>
-    <div class="scatter">
-      <span class="ring" aria-hidden="true"></span>
-      <div class="photo-c reveal-img"><img src="${IMG}familia_sofa.jpg" alt="Família sorrindo no sofá" loading="lazy"></div>
-      ${cards.map((k, i) => `<div class="fcard f${i + 1}"><div class="ico-box">${duo(k[0])}</div><b>${k[1]}</b><span>${k[2]}</span></div>`).join('')}
-      <div class="fcard f6 logo-card"><b>Streaming na conta</b><div class="logos">${streamLogos(c.streamings)}</div></div>
+    <div class="head rv"><span class="kicker">Por que a Vyra</span><h2>Tecnologia de capital, <em>atendimento de vizinho.</em></h2></div>
+    <div class="bento">
+      <div class="tile photo rv"><img src="${IMG}familia_sofa.jpg" alt="Família sorrindo no sofá" loading="lazy"><span class="vbug tl">${logo()}</span><h3>100% <b>fibra óptica</b></h3><p>Do poste até o seu roteador, sem trecho de cabo metálico.</p></div>
+      <div class="tile grad rv" data-d="1"><div class="big"><span data-count="1" data-suffix="">1</span><small>Giga</small></div><p>Velocidade máxima, com Wi-Fi 6 mesh.</p></div>
+      <div class="tile rv" data-d="2"><div class="ico-box">${duo('headset')}</div><div><h3>Suporte 24h</h3><p>Gente da região atende.</p></div></div>
+      <div class="tile dark wide rv" data-d="1"><h3>Streaming na conta</h3><div class="logos lg">${streamLogos(c.streamings)}</div></div>
+      <div class="tile rv" data-d="2"><div class="ico-box">${duo('calendar')}</div><div><h3>Instalação grátis</h3><p>No dia que você escolher.</p></div></div>
+      <div class="tile rv" data-d="3"><div class="ico-box">${duo('shield')}</div><div><h3>Sem letra miúda</h3><p>A velocidade contratada é a entregue.</p></div></div>
     </div>
   </div></section>`;
 }
@@ -1076,7 +1066,7 @@ const pages = {
   ${stage(c)}
   ${ribbon(c)}
   ${plansSection(c, 'both')}
-  ${scatter(c)}
+  ${bento(c)}
   ${pathSection(STEPS(c), 'Como funciona', 'Da consulta ao Wi-Fi <em>em 4 passos</em>', 'Simples, rápido e sem burocracia.', false)}
   ${gallery()}
   ${bizBand()}

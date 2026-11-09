@@ -60,6 +60,13 @@
   $$('[data-menu]').forEach(function (b) { b.addEventListener('click', function () { var o = !mm.classList.contains('open'); mm.classList.toggle('open', o); document.body.classList.toggle('menu-open', o); $$('[data-menu]').forEach(function (x) { x.setAttribute('aria-expanded', o); }); }); });
   addEventListener('keydown', function (e) { if (e.key === 'Escape' && mm.classList.contains('open')) $('[data-menu]').click(); });
 
+  /* Cards flutuantes acompanham o mouse */
+  var sc = $('.scatter');
+  if (sc && fine && !reduce) sc.addEventListener('mousemove', function (e) {
+    var r = sc.getBoundingClientRect(), dx = (e.clientX - r.left) / r.width - .5, dy = (e.clientY - r.top) / r.height - .5;
+    $$('.fcard', sc).forEach(function (c, i) { var d = (i % 3 + 1) * 8; c.style.translate = (dx * d) + 'px ' + (dy * d) + 'px'; });
+  });
+
   /* Botões magnéticos */
   if (fine && !reduce) $$('[data-magnetic]').forEach(function (el) {
     el.addEventListener('mousemove', function (e) { var r = el.getBoundingClientRect(); el.style.transform = 'translate(' + (e.clientX - r.left - r.width / 2) * .25 + 'px,' + (e.clientY - r.top - r.height / 2) * .3 + 'px)'; });
@@ -163,7 +170,7 @@
   /* Entrada ao rolar */
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) return; e.target.classList.remove('pre'); e.target.classList.add('rv-in'); if (e.target.dataset.count) count(e.target); io.unobserve(e.target); }); }, { rootMargin: '0px 0px -10% 0px' });
-    $$('.rv, .clip').forEach(function (el) { if (!reduce && el.getBoundingClientRect().top > innerHeight) { el.classList.add('pre'); el.style.transitionDelay = ((el.dataset.d || 0) * 110) + 'ms'; io.observe(el); } else el.classList.add('rv-in'); });
+    $$('.rv, .clip, .reveal-img').forEach(function (el) { if (!reduce && el.getBoundingClientRect().top > innerHeight) { el.classList.add('pre'); el.style.transitionDelay = ((el.dataset.d || 0) * 110) + 'ms'; io.observe(el); } else el.classList.add('rv-in'); });
     $$('[data-count]').forEach(function (el) { io.observe(el); });
   }
 

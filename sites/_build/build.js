@@ -1,6 +1,9 @@
 // Gera os 3 sites Vyra a partir de content.js.  Uso: node sites/_build/build.js
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+// versão pelo conteúdo: o navegador baixa o CSS/JS de novo só quando o arquivo muda
+const ver = s => crypto.createHash('md5').update(s).digest('hex').slice(0, 8);
 const content = require('./content');
 
 const ROOT = path.join(__dirname, '..');
@@ -39,9 +42,12 @@ for (const tier of tiers) {
   fs.mkdirSync(path.join(dir, 'assets'), { recursive: true });
   // remove páginas que não fazem mais parte do modelo
   for (const old of fs.readdirSync(dir).filter(f => f.endsWith('.html') && !(f in pages))) fs.unlinkSync(path.join(dir, old));
-  for (const [file, html] of Object.entries(pages)) fs.writeFileSync(path.join(dir, file), html);
+  const mainJs = COMMON_JS + '\n' + js, cssV = ver(css), jsV = ver(mainJs);
+  for (const [file, html] of Object.entries(pages)) fs.writeFileSync(path.join(dir, file), html
+    .replace(/href="assets\/style\.css"/g, `href="assets/style.css?v=${cssV}"`)
+    .replace(/src="assets\/main\.js"/g, `src="assets/main.js?v=${jsV}"`));
   fs.writeFileSync(path.join(dir, 'assets', 'style.css'), css);
-  fs.writeFileSync(path.join(dir, 'assets', 'main.js'), COMMON_JS + '\n' + js);
+  fs.writeFileSync(path.join(dir, 'assets', 'main.js'), mainJs);
   // favicon: o Básico usa a paleta azul e verde
   let fav = fs.readFileSync(FAVICON, 'utf8');
   if (tier === 'basico') fav = fav.replace(/#FF7A3D/gi, '#3B82F6').replace(/#FF5A1F/gi, '#2563EB').replace(/#E11D2E/gi, '#16A34A');

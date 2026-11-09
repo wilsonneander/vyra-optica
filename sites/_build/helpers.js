@@ -15,6 +15,7 @@ const ICONS = {
   building: '<rect x="4" y="3.5" width="11" height="17" rx="1.5"/><path d="M15 9h4.5a.5.5 0 0 1 .5.5v11H15"/><path d="M7.5 7.5h4M7.5 11h4M7.5 14.5h4M9.5 20.5v-2.5"/>',
   tree: '<path d="M12 21v-6"/><path d="M12 3c3.5 0 6 2.7 6 6 0 3.2-2.7 6-6 6s-6-2.8-6-6c0-3.3 2.5-6 6-6z"/><path d="M12 15l-2.5-2.5M12 12.5l2.5-2.5"/>',
   wifi: '<path d="M2.5 9a13.5 13.5 0 0 1 19 0"/><path d="M5.5 12.3a9 9 0 0 1 13 0"/><path d="M8.6 15.5a4.6 4.6 0 0 1 6.8 0"/><circle cx="12" cy="19" r="1.3" fill="currentColor" stroke="none"/>',
+  trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0V4z"/><path d="M8 6H5.5a2.5 2.5 0 0 0 2.5 4M16 6h2.5a2.5 2.5 0 0 1-2.5 4"/><path d="M12 13v4M8.5 20h7M9.5 17h5"/>',
   check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
   arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
   plus: '<path d="M12 5v14M5 12h14"/>',

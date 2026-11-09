@@ -925,7 +925,7 @@ ${footer(c)}`,
   ${phero('empreendedor_mesa.jpg', 'Empreendedor sorrindo na mesa de trabalho com notebook', 'Vyra Empresas: <em>sua operação não para.</em>', 'Planos com IP fixo, link dedicado e SLA em contrato para comércio, clínicas, indústria e agro.', 'Empresas')}
   ${plansSection(c, 'biz')}
   <section class="section"><div class="container split">
-    <div class="media"><img src="${IMG}jovem_notebook.jpg" alt="Jovem sorrindo ao lado do notebook" loading="lazy"><div class="float"><b>SLA</b><span>tempo de reparo<br>garantido em contrato</span></div></div>
+    <div class="media"><img src="${IMG}empreendedora_caixas.jpg" alt="Empreendedora sorrindo no notebook entre caixas de pedidos" loading="lazy"><div class="float"><b>SLA</b><span>tempo de reparo<br>garantido em contrato</span></div></div>
     <div class="copy-block"><span class="kicker">Para o seu negócio</span><h2>Conexão de empresa, <em>atendimento de vizinho.</em></h2>
       <p>Maquininha, sistema na nuvem, câmeras e nota fiscal dependem da internet. A Vyra cuida para que nada disso pare.</p>
       <div class="checklist">${c.business.map(b => `<div><span class="ck">${icon('check')}</span><b>${b.title}</b><span>${b.text}</span></div>`).join('')}</div>
@@ -953,7 +953,7 @@ ${footer(c)}`,
 
   contato: c => `${header(c, 'contato')}
 <main>
-  ${phero('mulher_aceno.jpg', 'Mulher acenando numa videochamada', 'Fale com <em>a gente.</em>', 'Tire dúvidas, peça uma proposta ou fale com o suporte. Gente da região responde.', 'Contato')}
+  ${phero('atendente_headset.jpg', 'Atendente sorrindo com headset no computador', 'Fale com <em>a gente.</em>', 'Tire dúvidas, peça uma proposta ou fale com o suporte. Gente da região responde.', 'Contato')}
   <section class="section"><div class="container contact-layout">
     <div style="display:grid;gap:18px"><div class="head" style="margin:0"><span class="kicker">Mensagem</span><h2>Envie sua <em>mensagem</em></h2></div>${contactForm(c)}</div>
     ${infoCard(c, 'mulher_videochamada.jpg', 'Mulher em videochamada no notebook')}

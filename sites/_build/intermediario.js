@@ -1017,7 +1017,7 @@ function gallery() {
 }
 
 function bizBand() {
-  return `<section class="band"><img src="${IMG}equipe_comemora.jpg" alt="Equipe diversa comemorando em frente ao notebook" style="object-position:50% 30%" loading="lazy">
+  return `<section class="band"><img src="${IMG}equipe_reuniao.jpg" alt="Equipe diversa em reunião com notebook" style="object-position:50% 38%" loading="lazy">
   <div class="container">
     <span class="kicker">Vyra Empresas</span>
     <h2>Internet empresarial <em>que não para.</em></h2>
@@ -1129,7 +1129,7 @@ ${footer(c)}`,
 
   residencial: c => `${header(c, 'residencial')}
 <main>
-  ${phero(c, 'amigos_game.jpg', 'Dois amigos rindo enquanto jogam videogame no sofá', 'Internet residencial <em>com streaming.</em>', 'Planos de 500 Mega a 1 Giga com YouTube Premium incluso, Wi-Fi 6 e instalação grátis.', 'Residencial')}
+  ${phero(c, 'casal_tv.jpg', 'Casal rindo no sofá enquanto assiste TV', 'Internet residencial <em>com streaming.</em>', 'Planos de 500 Mega a 1 Giga com YouTube Premium incluso, Wi-Fi 6 e instalação grátis.', 'Residencial')}
   ${rowPlans(c)}
   ${compare(c)}
   <section class="section alt"><div class="container">
@@ -1150,7 +1150,7 @@ ${footer(c)}`,
   ${phero(c, 'empreendedor_mesa.jpg', 'Empreendedor sorrindo na mesa de trabalho com notebook', 'Vyra Empresas: <em>sua operação não para.</em>', 'IP fixo, link dedicado e SLA em contrato para comércio, clínicas, indústria e agro.', 'Empresas', false)}
   ${bizPlans(c)}
   <section class="section"><div class="container split">
-    <div class="media rv rv-l"><img src="${IMG}jovem_notebook.jpg" alt="Jovem sorrindo ao lado do notebook" loading="lazy"><span class="vbug tl">${logo()}</span><div class="float"><b>SLA</b><span>tempo de reparo<br>garantido em contrato</span></div></div>
+    <div class="media rv rv-l"><img src="${IMG}empresaria_notebook.jpg" alt="Empresária sorrindo no notebook" loading="lazy"><span class="vbug tl">${logo()}</span><div class="float"><b>SLA</b><span>tempo de reparo<br>garantido em contrato</span></div></div>
     <div class="copy-block rv rv-r"><span class="kicker">Para o seu negócio</span><h2>Conexão de empresa, <em>atendimento de vizinho.</em></h2>
       <p>Maquininha, sistema na nuvem, câmeras e nota fiscal dependem da internet. A Vyra cuida para que nada disso pare.</p>
       <div class="checklist">${c.business.map(b => `<div><span class="ck">${icon('check')}</span><b>${b.title}</b><span>${b.text}</span></div>`).join('')}</div>
@@ -1180,7 +1180,7 @@ ${footer(c)}`,
 
   contato: c => `${header(c, 'contato')}
 <main>
-  ${phero(c, 'mulher_aceno.jpg', 'Mulher acenando numa videochamada', 'Fale com <em>a gente.</em>', 'Tire dúvidas, peça uma proposta ou fale com o suporte. Gente da região responde.', 'Contato', false)}
+  ${phero(c, 'atendente_mesa.jpg', 'Atendente sorrindo com headset na mesa de trabalho', 'Fale com <em>a gente.</em>', 'Tire dúvidas, peça uma proposta ou fale com o suporte. Gente da região responde.', 'Contato', false)}
   <section class="section"><div class="container contact-layout">
     <div style="display:grid;gap:18px"><div class="head rv" style="margin:0"><span class="kicker">Mensagem</span><h2>Envie sua <em>mensagem</em></h2></div><div class="rv">${contactForm(false)}</div></div>
     <div class="rv" data-d="1">${infoList(c)}</div>

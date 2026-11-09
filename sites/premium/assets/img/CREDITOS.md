@@ -42,3 +42,10 @@ Não podem ser vendidas sem alteração nem usadas para sugerir endosso das pess
 | amigas_sofa.jpg | https://www.pexels.com/photo/3764496/ |
 | equipe_diversa.jpg | https://www.pexels.com/photo/3932225/ |
 | equipe_comemora.jpg | https://www.pexels.com/photo/7693708/ |
+| dona_negocio.jpg | https://www.pexels.com/photo/3801426/ |
+| equipe_reuniao.jpg | https://www.pexels.com/photo/7693716/ |
+| casal_tv.jpg | https://www.pexels.com/photo/8835951/ |
+| atendente_headset.jpg | https://www.pexels.com/photo/8867213/ |
+| atendente_mesa.jpg | https://www.pexels.com/photo/8204396/ |
+| empreendedora_caixas.jpg | https://www.pexels.com/photo/7857587/ |
+| empresaria_notebook.jpg | https://www.pexels.com/photo/3855619/ |

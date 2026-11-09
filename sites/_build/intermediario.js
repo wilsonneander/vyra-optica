@@ -126,7 +126,7 @@ ${DUO_CSS}
 .slide .copy > * { opacity: 0; transform: translateY(24px); }
 .slide.on .copy > * { opacity: 1; transform: none; transition: opacity .7s var(--ease), transform .7s var(--ease); }
 .slide.on .copy > *:nth-child(2) { transition-delay: .08s; } .slide.on .copy > *:nth-child(3) { transition-delay: .16s; } .slide.on .copy > *:nth-child(4) { transition-delay: .24s; } .slide.on .copy > *:nth-child(5) { transition-delay: .32s; }
-.slide .tag { padding: 7px 14px; border-radius: 999px; background: var(--white); color: var(--red); font: 800 12.5px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; }
+.slide .tag { padding: 8px 22px; border-radius: 0; clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%); background: var(--white); color: var(--red); font: 800 12.5px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; }
 .slide h1, .slide h2 { font-size: clamp(36px, 5.6vw, 64px); line-height: 1.02; }
 .slide h1 em, .slide h2 em { color: var(--ink); }
 .slide p { font-size: 18.5px; color: rgba(255,255,255,.95); max-width: 46ch; }
@@ -270,7 +270,7 @@ ${DUO_CSS}
 .compare tbody tr:hover td, .compare tbody tr:hover th { background: #FFEDE3; }
 .compare .yes { width: 26px; height: 26px; border-radius: 50%; background: var(--grad); color: var(--white); display: inline-grid; place-items: center; }
 .compare .yes .ico { width: 15px; height: 15px; }
-.compare .no { color: rgba(30,21,18,.3); font-weight: 700; }
+.compare .no { color: rgba(30,21,18,.4); font-weight: 600; font-size: 14px; }
 .compare .pr b { font: 800 26px var(--f-display); letter-spacing: -0.02em; }
 .compare .pr small { color: var(--muted); }
 .compare tfoot td { border-bottom: 0; padding-bottom: 26px; }
@@ -945,7 +945,7 @@ function bizPlans(c) {
 
 function compare(c) {
   const ids = c.combos.map(p => p.id);
-  const cell = v => v === true ? `<span class="yes" aria-label="Sim">${icon('check')}</span>` : v === false ? '<span class="no" aria-label="Não">—</span>' : Array.isArray(v) ? `<div class="logos">${streamLogos(v)}</div>` : v;
+  const cell = v => v === true ? `<span class="yes" aria-label="Sim">${icon('check')}</span>` : v === false ? '<span class="no">Não</span>' : Array.isArray(v) ? `<div class="logos">${streamLogos(v)}</div>` : v;
   return `<section class="section"><div class="container">
     <div class="head center rv"><span class="kicker">Comparativo</span><h2>Compare os planos <em>lado a lado</em></h2><p>Tudo o que vem em cada plano, sem letra miúda.</p></div>
     <div class="compare-wrap rv">

@@ -147,7 +147,7 @@ ${DUO_CSS}
 .slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(29,78,216,.95) 0%, rgba(29,78,216,.82) 30%, rgba(22,163,74,.35) 58%, rgba(22,163,74,0) 75%); }
 .slide .container { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; }
 .slide .copy { max-width: 560px; color: var(--white); display: grid; gap: 18px; justify-items: start; }
-.slide .tag { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: var(--white); color: var(--red); font: 600 14.5px/1 var(--f-title); letter-spacing: -0.01em; }
+.slide .tag { display: inline-flex; align-items: center; gap: 8px; padding: 8px 22px; border-radius: 0; clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%); background: var(--white); color: var(--red); font: 600 14.5px/1 var(--f-title); letter-spacing: -0.01em; }
 .slide h1 em, .slide h2 em { color: #A7F3D0; }
 .slide h2 { font-size: clamp(34px, 5.2vw, 60px); line-height: 1.05; letter-spacing: -0.03em; }
 .slide p { font-size: 18.5px; color: rgba(255,255,255,.95); max-width: 46ch; }
@@ -705,7 +705,7 @@ function plansSection(c, mode = 'both') {
     <div class="tab-panel" id="tab-biz" role="tabpanel" aria-labelledby="t-biz" hidden>${biz}</div>`;
   else body = mode === 'biz' ? biz : res;
   return `<section class="section alt" id="planos"><div class="container">
-    <div class="head center rv"><span class="kicker">Planos</span><h2>${title}</h2><p>${sub}</p></div>
+    <div class="head center rv"><h2>${title}</h2><p>${sub}</p></div>
     ${body}
   </div></section>`;
 }
@@ -732,7 +732,7 @@ function why(c) {
     <div class="media rv"><img src="${IMG}idosa_celular.jpg" alt="Senhora sorrindo enquanto usa o celular" loading="lazy"><span class="vbug tr">${logo('logo', '#16A34A')}</span>
       <div class="float"><b>100%</b><span>fibra óptica<br>até a sua casa</span></div></div>
     <div class="rv" data-d="1">
-      <div class="head" style="margin-bottom:22px"><span class="kicker">Por que a Vyra</span><h2>Por que escolher a <em>Vyra?</em></h2><p>Diferenciais que fazem diferença no seu dia a dia.</p></div>
+      <div class="head" style="margin-bottom:22px"><h2>Por que escolher a <em>Vyra?</em></h2></div>
       <div class="list">${items.map(b => `<div class="li"><div class="ico-box">${duo(b.icon)}</div><h3>${b.title}</h3><p>${b.text}</p></div>`).join('')}</div>
     </div>
   </div></section>`;
@@ -819,7 +819,7 @@ function faqBlock(c, n) {
   const list = n ? c.faq.slice(0, n) : c.faq;
   return `<section class="section"><div class="container faq-2">
     <div class="faq-side rv">
-      <div class="head" style="margin:0"><span class="kicker">Dúvidas</span><h2>Perguntas <em>frequentes</em></h2><p>Não achou sua resposta? Fale com um técnico da região pelo WhatsApp.</p></div>
+      <div class="head" style="margin:0"><h2>Perguntas <em>frequentes</em></h2><p>Não achou sua resposta? Fale com um técnico da região pelo WhatsApp.</p></div>
       <div class="media"><img src="${IMG}mulher_ligacao.jpg" alt="Atendente sorrindo ao telefone" loading="lazy"><span class="vbug tr">${logo('logo', '#16A34A')}</span><div class="float"><b>24h</b><span>suporte por<br>gente de verdade</span></div></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-primary" href="${c.contact.whatsappLink}" target="_blank" rel="noopener">${socialIcon('whatsapp')}Chamar no WhatsApp</a>${n ? '<a class="btn btn-outline" href="faq.html">Todas as perguntas</a>' : ''}</div>
     </div>
@@ -937,7 +937,7 @@ ${footer(c)}`,
       <div class="stats"><div><b>99,9%</b><span>de disponibilidade (meta)</span></div><div><b>4h</b><span>SLA no link dedicado</span></div><div><b>24/7</b><span>monitoramento</span></div></div></div>
   </section>
   <section class="section alt"><div class="container contact-layout">
-    <div style="display:grid;gap:18px"><div class="head" style="margin:0"><span class="kicker">Proposta</span><h2>Peça uma proposta <em>sob medida.</em></h2><p>Um consultor responde em até 1 dia útil.</p></div>${contactForm(c, true)}</div>
+    <div style="display:grid;gap:18px"><div class="head" style="margin:0"><h2>Peça uma proposta <em>sob medida.</em></h2><p>Um consultor responde em até 1 dia útil.</p></div>${contactForm(c, true)}</div>
     ${infoCard(c, 'jovem_notebook.jpg', 'Jovem sorrindo ao lado do notebook')}
   </div></section>
 </main>
@@ -955,7 +955,7 @@ ${footer(c)}`,
 <main>
   ${phero('atendente_headset.jpg', 'Atendente sorrindo com headset no computador', 'Fale com <em>a gente.</em>', 'Tire dúvidas, peça uma proposta ou fale com o suporte. Gente da região responde.', 'Contato')}
   <section class="section"><div class="container contact-layout">
-    <div style="display:grid;gap:18px"><div class="head" style="margin:0"><span class="kicker">Mensagem</span><h2>Envie sua <em>mensagem</em></h2></div>${contactForm(c)}</div>
+    <div style="display:grid;gap:18px"><div class="head" style="margin:0"><h2>Envie sua <em>mensagem</em></h2></div>${contactForm(c)}</div>
     ${infoCard(c, 'mulher_videochamada.jpg', 'Mulher em videochamada no notebook')}
   </div></section>
 </main>

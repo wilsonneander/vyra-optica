@@ -683,9 +683,18 @@ function contato() {
   const body = `
 ${pageHero(slug, 'Formulário e WhatsApp', 'Fale com a nossa *equipe*', 'Estamos à disposição para o seu contato. Escolha o canal que preferir.',
     [T('ci', 'o', 0, 0), T('sq', 'l', 1, 0), T('x', 'w', 2, 0), T('qa', 'b', 0, 1, 1), T('ri', 'w', 1, 1), T('sq', 'o', 2, 1), T('x', 'w', 0, 2), T('ar', 'l', 1, 2), T('ci', 'b', 2, 2)])}
-<section class="section">
+<section class="section ct-stage" data-ct>
+  <div class="ct-bg" aria-hidden="true">
+    <svg class="ct-wires" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      ${['M-20 160H260V420H520V880', 'M1460 120H1180V300H940V-20', 'M1460 640H1240V820H860V920', 'M-20 720H180V560H380'].map((d, i) => `<path class="base" d="${d}"/><path class="flow" style="--fd:${(i * -1.3).toFixed(1)}s;--ft:${5 + i}s" d="${d}"/>`).join('')}
+      ${[[260, 160], [260, 420], [520, 420], [1180, 120], [1180, 300], [940, 300], [1240, 640], [1240, 820], [180, 720], [180, 560]].map(([x, y]) => `<rect x="${x - 5}" y="${y - 5}" width="10" height="10"/>`).join('')}
+    </svg>
+    ${[['sq', 'o', 6, 14, 120, 0.6, 19], ['ci', 'b', 88, 10, 160, 0.9, 23], ['qa', 'l', 92, 62, 210, 0.4, 27], ['ri', 'o', 3, 70, 150, 1, 21], ['ar', 'b', 48, 88, 110, 0.7, 25], ['sq', 'l', 70, 30, 54, 1.4, 17], ['ci', 'o', 30, 6, 38, 1.6, 15], ['dt', 'b', 80, 84, 90, 1.2, 20], ['ln', 'o', 58, 4, 64, 1.1, 22]]
+      .map(([k, col, x, y, sz, depth, dur], i) => `<span class="ct-sh" style="--x:${x}%;--y:${y}%;--sz:${sz}px;--dp:${depth};--dur:${dur}s;--dl:${-i * 2.7}s"><i class="s s-${k}" style="--c:var(--${{ o: 'orange', b: 'blue', l: 'blue-l' }[col]})"></i></span>`).join('')}
+  </div>
   <div class="container contact">
-    <form class="form rv" id="form-contato" novalidate data-whats="${c.whatsapp}">
+    <form class="form ct-card rv" id="form-contato" novalidate data-whats="${c.whatsapp}">
+      <p class="kicker">Resposta em horário comercial</p>
       <h2>Envie sua mensagem</h2>
       <p class="form-note">Ao enviar, sua mensagem abre pronta no WhatsApp da THD.</p>
       <div class="row2">
@@ -705,7 +714,9 @@ ${pageHero(slug, 'Formulário e WhatsApp', 'Fale com a nossa *equipe*', 'Estamos
       <p class="form-status" role="status" aria-live="polite"></p>
     </form>
 
-    <aside class="chan rv" data-d="1">
+    <aside class="chan on-dark rv" data-d="1">
+      <div class="blueprint" aria-hidden="true"></div>
+      <p class="chan-hd"><strong>Fale direto com a equipe</strong><span class="chan-now" data-now>Segunda a sexta, das 9h às 18h</span></p>
       <a class="wa" href="${C.waOrcamento}" target="_blank" rel="noopener" data-cursor="Conversar"><span class="ci">${I.whatsapp}</span><span><strong>Estamos no WhatsApp</strong><small>${c.whatsappTexto}, clique para conversar</small></span></a>
       <a href="mailto:${c.email}"><span class="ci">${I.email}</span><span><strong>E-mail</strong><small>${c.email}</small></span></a>
       <div><span class="ci">${I.relogio}</span><span><strong>Horário de atendimento</strong>${c.horario.map(([d, h]) => `<small>${d}: ${h}</small>`).join('')}</span></div>

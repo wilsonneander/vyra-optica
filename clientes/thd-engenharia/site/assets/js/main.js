@@ -364,6 +364,26 @@
     });
   }
 
+  /* ---------- Contato: formas que seguem o mouse e aviso de atendimento ---------- */
+  $('[data-ct]').forEach(function (st) {
+    if (!fine || reduce) return;
+    var raf = 0, nx = 0, ny = 0;
+    st.addEventListener('mousemove', function (e) {
+      var r = st.getBoundingClientRect(); nx = (e.clientX - r.left) / r.width * 2 - 1; ny = (e.clientY - r.top) / r.height * 2 - 1;
+      if (!raf) raf = requestAnimationFrame(function () { raf = 0; st.style.setProperty('--mx', nx.toFixed(3)); st.style.setProperty('--my', ny.toFixed(3)); });
+    }, { passive: true });
+    st.addEventListener('mouseleave', function () { st.style.setProperty('--mx', 0); st.style.setProperty('--my', 0); });
+  });
+  $('[data-now]').forEach(function (el) {
+    try {
+      var p = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Sao_Paulo', weekday: 'short', hour: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
+      var wd = '', h = 0; p.forEach(function (x) { if (x.type === 'weekday') wd = x.value; if (x.type === 'hour') h = +x.value; });
+      var open = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].indexOf(wd) > -1 && h >= 9 && h < 18;
+      el.textContent = open ? 'Atendendo agora, até as 18h' : 'Fora do horário agora. Deixe sua mensagem e respondemos no próximo dia útil.';
+      el.classList.toggle('open', open);
+    } catch (e) {}
+  });
+
   /* registra cliques no WhatsApp no Analytics */
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href*="wa.me"]');

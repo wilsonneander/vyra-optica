@@ -110,6 +110,16 @@ module.exports = {
     { q: 'A sua marca está registrada?', id: 'registro-de-marca', pend: 'Registro de marca' },
   ],
 
+  // Carrossel de órgãos reguladores (imagens em _build/img/selo-*.png; h = altura do logo em px no carrossel)
+  selos: [
+    { img: 'selo-anatel.png', nome: 'Anatel', papel: 'Outorgas SCM, SEAC, STFC e DICI', h: 86 },
+    { img: 'selo-crea.png', nome: 'CREA', papel: 'Responsabilidade técnica e ART', h: 70 },
+    { img: 'selo-cft.png', nome: 'CFT', papel: 'Técnicos industriais e TRT', h: 68 },
+    { img: 'selo-registrobr.png', nome: 'Registro.br', papel: 'ASN e blocos de IP', h: 54 },
+    { img: 'selo-inpi.png', nome: 'INPI', papel: 'Registro de marca', h: 56 },
+    { img: 'selo-mcti.png', nome: 'MCTI', papel: 'Ministério da Ciência, Tecnologia e Inovação', h: 64 },
+  ],
+
   // Termos que correm na faixa animada
   faixa: ['Outorga SCM', 'Anatel', 'SEAC', 'STFC', 'DICI', 'ASN', 'IPv4', 'Registro.br', 'ART/TRT', 'CREA', 'CFT', 'Smart Accounting', 'Registro de marca'],
 

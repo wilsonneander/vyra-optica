@@ -110,6 +110,37 @@ const js = `/* THD Engenharia · gerado por _build/build.js */
     setInterval(function () { if (document.hidden) return; visible.forEach(function (g) { if (g.closest('.mmenu') && !mm.classList.contains('open')) return; shuffle(g); }); }, 1700);
   }
 
+  /* ---------- Carrossel de órgãos reguladores ---------- */
+  $$('[data-selos]').forEach(function (vp) {
+    var sec = vp.closest('.selos'), track = $('.selos-track', vp), x = 0, set = 0, vel = 0, pend = 0, hover = false, drag = null, onScreen = true, last = 0;
+    var BASE = reduce ? 0 : -42; // px por segundo (negativo = para a esquerda)
+    function measure() { set = track.scrollWidth / 3; if (!x) x = -set; }
+    function wrap() { while (x < -2 * set) x += set; while (x > 0) x -= set; }
+    function frame(t) {
+      var dt = Math.min(64, t - (last || t)) / 1000; last = t;
+      if (!drag && onScreen) {
+        vel += ((hover ? 0 : BASE) - vel) * Math.min(1, dt * 4);
+        var step = pend * Math.min(1, dt * 7); pend -= step;
+        x += vel * dt + step; wrap();
+      }
+      track.style.transform = 'translate3d(' + x + 'px,0,0)';
+      requestAnimationFrame(frame);
+    }
+    var cardW = function () { var c = $('.selo', track); return c ? c.offsetWidth : 280; };
+    $('.next', sec).addEventListener('click', function () { pend -= cardW(); });
+    $('.prev', sec).addEventListener('click', function () { pend += cardW(); });
+    vp.addEventListener('mouseenter', function () { hover = true; });
+    vp.addEventListener('mouseleave', function () { hover = false; });
+    vp.addEventListener('pointerdown', function (e) { drag = { x0: e.clientX, x: x, t: performance.now(), lx: e.clientX }; vp.classList.add('drag'); vp.setPointerCapture(e.pointerId); });
+    vp.addEventListener('pointermove', function (e) { if (!drag) return; var now = performance.now(); vel = (e.clientX - drag.lx) / Math.max(1, now - drag.t) * 1000; drag.t = now; drag.lx = e.clientX; x = drag.x + (e.clientX - drag.x0); wrap(); });
+    var end = function () { if (!drag) return; drag = null; vp.classList.remove('drag'); vel = Math.max(-1600, Math.min(1600, vel)); };
+    vp.addEventListener('pointerup', end); vp.addEventListener('pointercancel', end);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { onScreen = es[0].isIntersecting; }).observe(vp);
+    measure(); addEventListener('resize', function () { set = track.scrollWidth / 3; wrap(); });
+    addEventListener('load', measure);
+    requestAnimationFrame(frame);
+  });
+
   /* ---------- Jornada: a estrutura se monta com a rolagem ---------- */
   var jrn = $('[data-jrn]');
   if (jrn) {

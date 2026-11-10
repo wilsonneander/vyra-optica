@@ -220,6 +220,31 @@ const ctaBand = (slug, titulo = 'Vamos tirar o seu provedor do papel ou deixá-l
   </div>
 </section>`;
 
+// carrossel de órgãos reguladores: anda sozinho, pausa no mouse, arrasta com o dedo/mouse e tem setas
+const selos = (slug) => {
+  const card = (s, clone) => `<li class="selo"${clone ? ' aria-hidden="true"' : ''}>
+      <img src="${asset(slug, 'img/' + s.img)}" alt="${clone ? '' : s.nome}" style="--h:${s.h}px" loading="lazy" draggable="false">
+      <span class="selo-cap"><strong>${s.nome}</strong>${s.papel}</span>
+    </li>`;
+  return `
+<section class="selos" id="orgaos" aria-labelledby="selos-t">
+  <div class="container selos-head">
+    <div>
+      <p class="kicker rv">Órgãos reguladores</p>
+      <h2 class="rv" id="selos-t">Seu provedor em dia com quem regula o setor</h2>
+    </div>
+    <div class="selos-nav rv">
+      <button type="button" class="prev" aria-label="Voltar">${I.seta}</button>
+      <button type="button" class="next" aria-label="Avançar">${I.seta}</button>
+    </div>
+  </div>
+  <div class="selos-viewport" data-selos data-cursor="Arraste">
+    <ul class="selos-track">${C.selos.map((s) => card(s)).join('')}${C.selos.map((s) => card(s, true)).join('')}${C.selos.map((s) => card(s, true)).join('')}</ul>
+  </div>
+  <p class="container selos-note">As marcas pertencem aos respectivos órgãos e aparecem aqui só para indicar com quem a THD trata os processos do seu provedor.</p>
+</section>`;
+};
+
 const srow = (slug, s, k = 0) => `
 <a class="srow" href="${link(slug, 'servicos', '#' + s.id)}" style="--k:${k}" data-cursor="Ver">
   ${mk(s.id)}
@@ -274,7 +299,7 @@ function home() {
 </section>
 
 <div class="ticker" aria-hidden="true"><div class="ticker-row">${[...C.faixa, ...C.faixa].map((t) => `<span><i></i>${t}</span>`).join('')}</div></div>
-
+${selos(slug)}
 <section class="section" id="servicos">
   <div class="container">
     <div class="head-row">
@@ -454,7 +479,7 @@ ${pageHero(slug, 'Institucional', 'Quem *somos*', Q.intro,
     </div>
   </div>
 </section>
-
+${selos(slug)}
 <section class="section section-paper">
   <div class="container">
     <div class="head">

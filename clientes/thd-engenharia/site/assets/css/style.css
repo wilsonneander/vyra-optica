@@ -179,6 +179,31 @@ html.enter .curtain i{animation:tileOut .5s var(--ease-io) both;animation-delay:
 .ticker span:nth-child(3n+2) i{border-radius:100% 0 0 0}
 @keyframes tick{to{transform:translateX(-50%)}}
 
+/* ---------- carrossel de órgãos reguladores ---------- */
+.selos{position:relative;background:#fff;padding:clamp(70px,9vw,120px) 0 clamp(40px,5vw,60px);overflow:hidden}
+.selos-head{display:flex;justify-content:space-between;align-items:flex-end;gap:28px;flex-wrap:wrap;margin-bottom:clamp(32px,4vw,52px)}
+.selos-head h2{margin:0;max-width:20ch}
+.selos-nav{display:flex;gap:8px}
+.selos-nav button{display:grid;place-items:center;width:54px;height:54px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-size:20px;cursor:pointer;transition:background .35s,border-color .35s,color .35s,transform .45s var(--ease)}
+.selos-nav .prev svg{transform:rotate(180deg)}
+.selos-nav button:hover{background:var(--orange);border-color:var(--orange);color:#fff}
+.selos-nav .prev:hover{transform:translateX(-4px)}
+.selos-nav .next:hover{transform:translateX(4px)}
+.selos-viewport{position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);cursor:grab;touch-action:pan-y;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.selos-viewport.drag{cursor:grabbing}
+.selos-track{display:flex;width:max-content;margin:0;padding:0;list-style:none;will-change:transform;user-select:none}
+.selo{position:relative;isolation:isolate;flex:none;width:280px;height:190px;display:grid;place-items:center;border-right:1px solid var(--line);overflow:hidden}
+.selo::before{content:"";position:absolute;right:0;top:0;width:56px;height:56px;background:var(--orange);border-radius:0 0 0 100%;z-index:-1;transform:scale(0);transform-origin:top right;transition:transform .6s var(--ease)}
+.selo::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.selo img{height:var(--h);width:auto;max-width:210px;object-fit:contain;mix-blend-mode:multiply;transition:transform .7s var(--ease);pointer-events:none}
+.selo-cap{position:absolute;left:22px;right:22px;bottom:16px;font-size:.8rem;line-height:1.35;color:var(--muted);text-align:center;opacity:0;transform:translateY(12px);transition:opacity .4s,transform .5s var(--ease)}
+.selo-cap strong{display:block;font:700 .88rem/1.2 var(--f-head);font-stretch:108%;color:var(--ink)}
+.selo:hover img{transform:translateY(-16px) scale(1.06)}
+.selo:hover .selo-cap{opacity:1;transform:none}
+.selo:hover::before{transform:scale(1)}
+.selo:hover::after{transform:scaleX(1)}
+.selos-note{margin-top:18px;font-size:.8rem;color:#98A1B5}
+
 /* ---------- seções ---------- */
 .section{position:relative;padding:clamp(80px,11vw,150px) 0}
 .section-paper{background:var(--paper)}
@@ -546,8 +571,15 @@ blockquote{margin:28px 0 32px;padding:4px 0 4px 24px;border-left:3px solid var(-
   .fronts span{grid-column:1;grid-row:2}
   .fronts .float{display:none}
 }
+@media (hover:none){
+  .selo img{transform:translateY(-14px)}
+  .selo-cap{opacity:1;transform:none}
+}
 @media (max-width:600px){
   body{font-size:16px}
+  .selo{width:220px;height:170px}
+  .selo img{max-width:160px;height:calc(var(--h) * .85)}
+  .selos-nav button{width:46px;height:46px}
   .facts{grid-template-columns:1fr;gap:14px}
   .row2{grid-template-columns:1fr}
   .foot-grid{grid-template-columns:1fr;gap:34px}

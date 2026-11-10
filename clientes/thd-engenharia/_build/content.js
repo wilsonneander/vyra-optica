@@ -26,7 +26,7 @@ module.exports = {
       ['Sábado e domingo', 'Apenas contato'],
     ],
     redes: [
-      { rede: 'instagram', rotulo: 'Instagram', handle: '@thd_consultoria_de_provedores', url: 'https://www.instagram.com/thd_consultoria_de_provedores' },
+      { rede: 'instagram', rotulo: 'Instagram', handle: '@thd.engenharia', url: 'https://www.instagram.com/thd.engenharia/' },
       { rede: 'facebook', rotulo: 'Facebook', handle: '/thdengenhariatelecom', url: 'https://www.facebook.com/thdengenhariatelecom' },
       { rede: 'telegram', rotulo: 'Telegram', handle: '@thd_engenharia', url: 'https://t.me/thd_engenharia' },
     ],

@@ -215,6 +215,7 @@ body.menu-open{overflow:hidden}
 .hero-text{will-change:transform}
 .hero-vis{position:relative}
 .hero-orb{width:min(620px,112%);margin-right:-6%}
+.facts-wrap{position:relative;z-index:1}
 .facts{position:relative;z-index:1;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);margin-top:clamp(30px,5vh,60px);margin-bottom:0;padding-top:0}
 .facts li{padding:22px 24px 0 0;border-top:1px solid rgba(255,255,255,.12);font-size:.95rem;color:var(--soft-2)}
 .facts li+li{padding-left:24px;border-left:1px solid rgba(255,255,255,.12)}

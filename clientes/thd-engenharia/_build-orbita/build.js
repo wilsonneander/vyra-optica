@@ -318,11 +318,13 @@ function home() {
     </div>
     <div class="hero-vis">${orb(slug, 'hero', 'hero-orb')}</div>
   </div>
+  <div class="facts-wrap" data-par=".22">
   <ul class="container facts up" style="--d:1.15s">
     <li><strong>Anatel, CREA, CFT</strong>e Registro.br em um só parceiro</li>
     <li><strong>Dezenas de empresas</strong>atendidas e crescendo</li>
     <li><strong>Seg. a sex., 9h às 18h</strong>atendimento pelo WhatsApp</li>
   </ul>
+  </div>
 </section>
 
 ${selos(slug)}

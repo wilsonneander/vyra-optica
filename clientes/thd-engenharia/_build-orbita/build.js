@@ -50,7 +50,7 @@ const roll = (t) => `<span class="roll"><span>${t}</span><span aria-hidden="true
 // ---------- componentes 3D ----------
 // giroscópio: planeta + anéis do logo (laranja em pé, azul-céu deitado) + anéis finos e satélites
 const ORB = {
-  hero: { rings: ['o', 's', 'a', 'b', 'd'], img: 'hero.webp' },
+  hero: { rings: ['o', 's', 'a', 'b', 'd'] },
   page: { rings: ['o', 's', 'a', 'd'] },
   soft: { rings: ['o', 's', 'b'] },
   line: { rings: ['o', 's', 'a', 'b', 'd'], bare: true },
@@ -166,7 +166,6 @@ function footer(slug) {
   <p class="foot-word" aria-hidden="true" data-par="-.06">THD Engenharia</p>
   <div class="container foot-bottom">
     <span>© <span id="year">${new Date().getFullYear()}</span> ${C.nome}. CNPJ ${C.cnpj}</span>
-    <span>Site por ${C.credito.url ? `<a href="${C.credito.url}" target="_blank" rel="noopener">${C.credito.nome}</a>` : C.credito.nome}</span>
   </div>
 </footer>
 <a class="wa-float" href="${C.waOrcamento}" target="_blank" rel="noopener" aria-label="Falar com a THD no WhatsApp" data-cursor="Conversar">
@@ -553,7 +552,13 @@ ${pageHero(slug, 'Serviço contábil especializado', 'Você sabe a *rentabilidad
 <section class="sec sheet t-light" data-tone="light">
   <div class="bg-grid" aria-hidden="true"></div>
   <div class="container split-2">
-    ${tilt('../assets/img/contabilidade.webp', 'THD Engenharia, contabilidade', 800, 800, 'tilt-square')}
+    <figure class="tilt rv tilt-square" data-tilt>
+      <div class="tilt-in">
+        <div class="logo-card">${bgOrbits()}<img src="../assets/img/logo.png" alt="THD Engenharia" width="440" height="308" loading="lazy"><span>Contabilidade</span></div>
+        <span class="tilt-ring" aria-hidden="true"><i></i></span>
+        <span class="tilt-sq" aria-hidden="true"></span>
+      </div>
+    </figure>
     <div>
       <p class="kicker rv">Smart Accounting</p>
       <h2 class="split">${words('Contabilidade que mostra onde está o seu lucro')}</h2>

@@ -156,7 +156,6 @@ function footer(slug) {
   </div>
   <div class="container foot-bottom">
     <span>© <span id="year">${new Date().getFullYear()}</span> ${C.nome}. CNPJ ${C.cnpj}</span>
-    <span>Site por ${C.credito.url ? `<a href="${C.credito.url}" target="_blank" rel="noopener">${C.credito.nome}</a>` : C.credito.nome}</span>
   </div>
 </footer>
 <a class="wa-float" href="${C.waOrcamento}" target="_blank" rel="noopener" aria-label="Falar com a THD no WhatsApp" data-cursor="Conversar">${I.whatsapp}</a>`;

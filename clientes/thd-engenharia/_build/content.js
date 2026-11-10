@@ -17,7 +17,9 @@ module.exports = {
     whatsappTexto: '(21) 9 9834-0142',
     telefoneSchema: '+55-21-99834-0142',
     email: 'contato@thdengenharia.com',
-    endereco: 'R. Almirante Pestana, 6, Cacuia, Rio de Janeiro, RJ', // [CONFIRMAR] tirado do mapa do site antigo
+    endereco: 'R. Almirante Pestana, 6, Cacuia, Rio de Janeiro, RJ',
+    mapsLink: 'https://www.google.com/maps/search/?api=1&query=R.%20Alm.%20Pestana%2C%206%20-%20Cacuia%2C%20Rio%20de%20Janeiro',
+    rotaLink: 'https://www.google.com/maps/dir/?api=1&destination=R.%20Alm.%20Pestana%2C%206%20-%20Cacuia%2C%20Rio%20de%20Janeiro',
     mapa: 'https://www.google.com/maps?q=R.%20Alm.%20Pestana%2C%206%20-%20Cacuia%2C%20Rio%20de%20Janeiro&z=15&output=embed',
     horario: [
       ['Segunda a sexta', '9h às 18h'],
@@ -120,8 +122,6 @@ module.exports = {
     { img: 'selo-mcti.png', nome: 'MCTI', papel: 'Ministério da Ciência, Tecnologia e Inovação', h: 64 },
   ],
 
-  // Termos que correm na faixa animada
-  faixa: ['Outorga SCM', 'Anatel', 'SEAC', 'STFC', 'DICI', 'ASN', 'IPv4', 'Registro.br', 'ART/TRT', 'CREA', 'CFT', 'Smart Accounting', 'Registro de marca'],
 
   contabilidade: {
     pergunta: 'Você sabe a rentabilidade do seu negócio?',

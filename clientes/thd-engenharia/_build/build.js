@@ -116,6 +116,20 @@ function footer(slug) {
   return `
 <footer class="footer on-dark">
   ${geo([T('ci', 'w', 0, 0), T('qa', 'w', 1, 0, 1), T('sq', 'w', 2, 0), T('sq', 'w', 0, 1), T('x', 'w', 1, 1), T('ri', 'w', 2, 1), T('tr', 'w', 0, 2), T('sq', 'w', 1, 2), T('qa', 'w', 2, 2, 2)], { cls: 'foot-geo', wires: false, sats: false })}
+  <div class="container where">
+    <div class="map-box rv">
+      <iframe title="Mapa: THD Engenharia na R. Almirante Pestana, 6, Cacuia, Rio de Janeiro" src="${c.mapa}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="map-info"><b>THD Engenharia</b><span>${c.endereco}</span><span>${c.horario[0][0]}, ${c.horario[0][1]}</span>
+        <div class="mbtns"><a href="${c.mapsLink}" target="_blank" rel="noopener">${I.pin}Abrir no Maps</a><a class="sq" href="${c.rotaLink}" target="_blank" rel="noopener" aria-label="Traçar rota até a THD">${I.seta}</a></div>
+      </div>
+    </div>
+    <div class="rv" style="transition-delay:.12s">
+      <span class="kicker">Onde estamos</span>
+      <h2>Nosso escritório fica no <span class="o">Rio de Janeiro.</span></h2>
+      <p>Estamos no Cacuia, na Ilha do Governador. Atendemos de segunda a sexta, das 9h às 18h, pelo WhatsApp, por e-mail ou pessoalmente com horário marcado.</p>
+      <a class="btn btn-o" href="${C.waOrcamento}" target="_blank" rel="noopener">Marcar um horário</a>
+    </div>
+  </div>
   <div class="container foot-grid">
     <div class="foot-brand">
       <img src="${asset(slug, 'img/logo-escuro.png')}" alt="THD Engenharia" width="226" height="120" loading="lazy">
@@ -298,7 +312,6 @@ function home() {
   <span class="scroll-hint" aria-hidden="true"></span>
 </section>
 
-<div class="ticker" aria-hidden="true"><div class="ticker-row">${[...C.faixa, ...C.faixa].map((t) => `<span><i></i>${t}</span>`).join('')}</div></div>
 ${selos(slug)}
 <section class="section" id="servicos">
   <div class="container">
@@ -638,9 +651,6 @@ ${pageHero(slug, 'Formulário e WhatsApp', 'Fale com a nossa *equipe*', 'Estamos
       <div><span class="ci">${I.pin}</span><span><strong>Endereço</strong><small>${c.endereco}</small></span></div>
     </aside>
   </div>
-</section>
-<section class="map-wrap" aria-label="Mapa">
-  <iframe title="Localização da THD Engenharia" src="${c.mapa}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </section>`;
   return layout({ slug, body,
     title: 'Contato | THD Engenharia',

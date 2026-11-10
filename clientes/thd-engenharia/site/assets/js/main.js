@@ -235,7 +235,10 @@
   var gnav = $('.gnav');
   if (gnav && 'IntersectionObserver' in window) {
     var gl = $$('a', gnav), gbar = $('.bar', gnav);
-    var mark = function (a) { gl.forEach(function (x) { x.classList.toggle('active', x === a); }); gbar.style.width = a.offsetWidth + 'px'; gbar.style.transform = 'translateX(' + a.offsetLeft + 'px)'; a.scrollIntoView({ block: 'nearest', inline: 'nearest' }); };
+    var mark = function (a) { gl.forEach(function (x) { x.classList.toggle('active', x === a); }); gbar.style.width = a.offsetWidth + 'px'; gbar.style.transform = 'translateX(' + a.offsetLeft + 'px)';
+      /* rola só o menu na horizontal: scrollIntoView mexia na rolagem da página e travava quem estava descendo */
+      if (gnav.scrollWidth > gnav.clientWidth) { var l = a.offsetLeft, r = l + a.offsetWidth, sl = gnav.scrollLeft, w = gnav.clientWidth;
+        if (l < sl || r > sl + w) gnav.scrollTo({ left: l < sl ? l - 16 : r - w + 16, behavior: reduce ? 'auto' : 'smooth' }); } };
     var so = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) mark(gl.filter(function (a) { return a.getAttribute('href') === '#' + e.target.id; })[0]); }); }, { rootMargin: '-40% 0px -55% 0px' });
     gl.forEach(function (a) { var s = document.querySelector(a.getAttribute('href')); if (s) so.observe(s); });
     mark(gl[0]); if (document.fonts) document.fonts.ready.then(function () { mark($('.active', gnav) || gl[0]); });

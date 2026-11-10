@@ -137,10 +137,19 @@ a:hover>.roll>span+span,button:hover>.roll>span+span,a:focus-visible>.roll>span+
 .rail{position:fixed;left:0;top:0;bottom:0;z-index:60;width:var(--rail);display:flex;flex-direction:column;align-items:center;padding:22px 0 20px;background:var(--navy);color:#fff;box-shadow:1px 0 0 rgba(255,255,255,.06);transition:transform .55s var(--ease)}
 .brand img{width:62px;height:auto;transition:transform .5s var(--ease)}
 .brand:hover img{transform:scale(1.06) rotate(-4deg)}
-.rail-nav{display:flex;flex-direction:column;align-items:center;gap:4px;margin:auto 0}
-.rail-nav a{position:relative;writing-mode:vertical-rl;transform:rotate(180deg);padding:12px 10px;border-radius:8px;font:700 .74rem/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--soft-2);transition:color .3s,background .3s}
-.rail-nav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.rail-nav{display:flex;flex-direction:column;align-items:center;gap:10px;margin:auto 0}
+.rail-nav a{position:relative;display:grid;place-items:center;width:50px;height:50px;border-radius:12px;color:var(--soft-2);transition:color .3s,background .3s}
+.rail-nav a svg{width:23px;height:23px;transition:transform .45s var(--ease)}
+.rail-nav a:hover,.rail-nav a:focus-visible{color:#fff;background:rgba(255,255,255,.07)}
+.rail-nav a:hover svg{transform:translateY(-2px)}
 .rail-nav a[aria-current]{color:#fff;background:var(--orange)}
+.rail-nav a[aria-current]:hover svg{transform:none}
+/* nome da página: aparece ao lado do ícone ao passar o mouse ou focar pelo teclado */
+.rn-tip{position:absolute;left:calc(100% + 18px);top:50%;padding:11px 16px;border-radius:8px;background:var(--night);color:#fff;font:700 .8rem/1 var(--f-body);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;box-shadow:0 16px 32px -14px rgba(1,12,31,.7),inset 0 0 0 1px rgba(91,197,240,.16);pointer-events:none;opacity:0;transform:translate(-10px,-50%);clip-path:inset(0 100% 0 0);transition:opacity .25s,transform .45s var(--ease),clip-path .45s var(--ease)}
+.rn-tip::before{content:'';position:absolute;left:-5px;top:50%;width:10px;height:10px;background:var(--night);transform:translateY(-50%) rotate(45deg)}
+.rail-nav a:hover .rn-tip,.rail-nav a:focus-visible .rn-tip{opacity:1;transform:translate(0,-50%);clip-path:inset(-10px -10px -10px -10px)}
+.rail-nav a[aria-current] .rn-tip{background:var(--orange)}
+.rail-nav a[aria-current] .rn-tip::before{background:var(--orange)}
 .rail-prog{position:relative;width:3px;height:72px;margin-bottom:6px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden}
 .rail-prog i{position:absolute;inset:0;background:linear-gradient(var(--sky),var(--orange));transform-origin:top;transform:scaleY(var(--sp,0))}
 .menu-btn{display:none;align-items:center;gap:12px;padding:10px 12px;border:0;border-radius:10px;background:rgba(255,255,255,.08);color:#fff;cursor:pointer}

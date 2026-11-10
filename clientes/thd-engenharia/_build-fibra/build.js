@@ -21,11 +21,11 @@ const ver = (s) => crypto.createHash('md5').update(s).digest('hex').slice(0, 8);
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const PAGES = [
-  { slug: '', nav: 'Início', img: 'hero.webp' },
-  { slug: 'quem-somos', nav: 'Quem somos', img: 'rede.webp' },
-  { slug: 'servicos', nav: 'Serviços', img: 'internet.webp' },
-  { slug: 'contabilidade', nav: 'Contabilidade', img: 'contabilidade.webp' },
-  { slug: 'contato', nav: 'Contato', img: 'rack.webp' },
+  { slug: '', nav: 'Início', tip: 'Página inicial', ico: 'navInicio', img: 'hero.webp' },
+  { slug: 'quem-somos', nav: 'Quem somos', tip: 'Conheça a THD', ico: 'navQuemSomos', img: 'rede.webp' },
+  { slug: 'servicos', nav: 'Serviços', tip: 'Serviços para o seu provedor', ico: 'navServicos', img: 'internet.webp' },
+  { slug: 'contabilidade', nav: 'Contabilidade', tip: 'Contabilidade para provedores', ico: 'navContabilidade', img: 'contabilidade.webp' },
+  { slug: 'contato', nav: 'Contato', tip: 'Fale com a THD', ico: 'navContato', img: 'rack.webp' },
 ];
 
 const rootOf = (slug) => (slug ? '../' : '');
@@ -71,7 +71,7 @@ function header(slug) {
   <a class="brand" href="${link(slug, '')}" aria-label="THD Engenharia, página inicial">
     <img src="${asset(slug, 'img/logo-simbolo.png')}" alt="THD Engenharia, consultoria de provedores de internet" width="360" height="217">
   </a>
-  <nav class="rail-nav" aria-label="Principal">${PAGES.map((p) => `<a href="${link(slug, p.slug)}"${p.slug === slug ? ' aria-current="page"' : ''}>${p.nav}</a>`).join('')}</nav>
+  <nav class="rail-nav" aria-label="Principal">${PAGES.map((p) => `<a href="${link(slug, p.slug)}"${p.slug === slug ? ' aria-current="page"' : ''}>${I[p.ico]}<span class="rn-tip">${p.tip}</span></a>`).join('')}</nav>
   <span class="rail-prog" aria-hidden="true"><i></i></span>
   <button class="menu-btn" data-menu aria-controls="mmenu" aria-expanded="false" aria-label="Abrir menu"><span class="mb-t">Menu</span><span class="mb-i"><i></i><i></i></span></button>
 </header>

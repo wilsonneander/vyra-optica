@@ -582,16 +582,8 @@ a.ch:hover{background:rgba(255,255,255,.06);transform:translateX(6px)}
 .where-copy p:not(.kicker){color:var(--soft)}
 .where .btn{margin-top:12px}
 .map3d{perspective:1500px}
-.map-box{position:relative;height:420px;border-radius:28px;overflow:hidden;box-shadow:0 60px 90px -50px rgba(0,0,0,.8);transform:rotateY(calc(-9deg + var(--tx,0) * 1deg)) rotateX(calc(4deg + var(--ty,0) * 1deg));transition:transform 1s var(--ease)}
-/* o mapa sobe 170px dentro da moldura para esconder o cartão de endereço do próprio Google (fica só o nosso) */
-.map-box iframe{position:absolute;left:0;top:-170px;width:100%;height:calc(100% + 170px);border:0;display:block}
-.map-info{position:absolute;left:16px;bottom:16px;display:grid;gap:3px;max-width:300px;padding:20px;border-radius:20px;background:rgba(2,20,48,.88);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);font-size:.9rem;color:var(--soft)}
-.map-info b{font:600 1rem var(--f-head);color:#fff}
-.mbtns{display:flex;gap:8px;margin-top:12px}
-.mbtns a{display:inline-flex;align-items:center;gap:8px;padding:11px 14px;border-radius:12px;background:var(--orange);color:#fff;font-weight:700;font-size:.88rem;transition:transform .4s var(--ease),background .3s}
-.mbtns a:hover{transform:translateY(-2px);background:var(--orange-d)}
-.mbtns a.sq{padding:11px 13px;background:rgba(255,255,255,.12)}
-.mbtns a.sq:hover{background:rgba(255,255,255,.22)}
+${require('../_build/mapa-css')}
+.map-box{height:420px;transform:rotateY(calc(-9deg + var(--tx,0) * 1deg)) rotateX(calc(4deg + var(--ty,0) * 1deg));transition:transform 1s var(--ease)}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1.3fr 1fr;gap:40px;padding-top:56px;padding-bottom:30px;border-top:1px solid rgba(255,255,255,.08)}
 .footer h3{margin-bottom:18px;font-size:.95rem;color:#fff}
 .footer ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}

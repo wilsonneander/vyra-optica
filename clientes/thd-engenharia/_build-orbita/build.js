@@ -132,8 +132,10 @@ function footer(slug) {
       ${arrowBtn(C.waOrcamento, 'Marcar um horário', 'btn btn-o', ' target="_blank" rel="noopener"')}
     </div>
     <div class="map3d rv" data-tilt>
-      <div class="tilt-in map-box">
-        <iframe title="Mapa: THD Engenharia na R. Almirante Pestana, 6, Cacuia, Rio de Janeiro" src="${c.mapa}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <div class="tilt-in map-box mapc">
+        <img class="map-img" src="${asset(slug, 'img/mapa-thd.webp')}" alt="Mapa do Cacuia, Ilha do Governador, com a localização da THD Engenharia na R. Almirante Pestana" width="1240" height="760" loading="lazy" decoding="async">
+        <span class="map-pin" aria-hidden="true"><b>THD Engenharia</b></span>
+        <span class="map-attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
         <div class="map-info"><b>THD Engenharia</b><span>${c.endereco}</span><span>${c.horario[0][0]}, ${c.horario[0][1]}</span>
           <div class="mbtns"><a href="${c.mapsLink}" target="_blank" rel="noopener">${I.pin}Abrir no Maps</a><a class="sq" href="${c.rotaLink}" target="_blank" rel="noopener" aria-label="Traçar rota até a THD">${I.seta}</a></div>
         </div>

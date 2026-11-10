@@ -20,7 +20,6 @@ module.exports = {
     endereco: 'R. Almirante Pestana, 6, Cacuia, Rio de Janeiro, RJ',
     mapsLink: 'https://www.google.com/maps/search/?api=1&query=R.%20Alm.%20Pestana%2C%206%20-%20Cacuia%2C%20Rio%20de%20Janeiro',
     rotaLink: 'https://www.google.com/maps/dir/?api=1&destination=R.%20Alm.%20Pestana%2C%206%20-%20Cacuia%2C%20Rio%20de%20Janeiro',
-    mapa: 'https://www.google.com/maps?q=R.%20Alm.%20Pestana%2C%206%20-%20Cacuia%2C%20Rio%20de%20Janeiro&z=15&output=embed',
     horario: [
       ['Segunda a sexta', '9h às 18h'],
       ['Sábado e domingo', 'Apenas contato'],

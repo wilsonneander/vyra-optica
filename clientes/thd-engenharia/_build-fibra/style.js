@@ -575,18 +575,13 @@ a.ch:hover{background:rgba(255,255,255,.06);transform:translateX(6px)}
 .where{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,5vw,80px);align-items:center;padding-bottom:clamp(60px,8vw,100px)}
 .where-copy p:not(.kicker){color:var(--soft)}
 .where .btn{margin-top:12px}
-.map-frame{position:relative;height:420px;border-radius:14px;overflow:hidden;background:var(--deep)}
+${require('../_build/mapa-css')}
+.map-frame{height:420px}
+.map-frame.mapc .map-info b{font-size:20px;text-transform:uppercase}
+.map-frame.mapc .mbtns a,.map-frame.mapc .map-pin b{font-size:16px}
+.map-frame.mapc .map-pin b{text-transform:uppercase;top:-6px}
 .js .map-frame{clip-path:inset(0 0 100% 0);transition:clip-path 1.3s var(--ease-io)}
 .js .map-frame.in{clip-path:inset(0)}
-/* o mapa sobe 170px dentro da moldura para esconder o cartão de endereço do próprio Google (fica só o nosso) */
-.map-frame iframe{position:absolute;left:0;top:-170px;width:100%;height:calc(100% + 170px);border:0;display:block}
-.map-info{position:absolute;left:16px;bottom:16px;display:grid;gap:3px;max-width:300px;padding:20px;border-radius:12px;background:rgba(2,20,48,.9);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);font-size:.9rem;color:var(--soft)}
-.map-info b{font:800 1.3rem/1 var(--f-head);text-transform:uppercase;color:#fff}
-.mbtns{display:flex;gap:8px;margin-top:12px}
-.mbtns a{display:inline-flex;align-items:center;gap:8px;padding:11px 14px;border-radius:9px;background:var(--orange);color:#fff;font-weight:700;font-size:.88rem;transition:transform .4s var(--ease),background .3s}
-.mbtns a:hover{transform:translateY(-2px);background:var(--orange-d)}
-.mbtns a.sq{padding:11px 13px;background:rgba(255,255,255,.12)}
-.mbtns a.sq:hover{background:rgba(255,255,255,.22)}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1.3fr 1fr;gap:40px;padding-top:56px;padding-bottom:30px;border-top:1px solid rgba(255,255,255,.08)}
 .footer h3{margin-bottom:16px;font-size:1.3rem;color:#fff}
 .footer ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}

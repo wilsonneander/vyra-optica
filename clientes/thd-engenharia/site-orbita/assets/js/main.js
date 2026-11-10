@@ -18,7 +18,8 @@
   addEventListener('resize', req);
   addEventListener('load', req);
   var progress = function (sec) { var r = sec.getBoundingClientRect(); return clamp(-r.top / Math.max(1, sec.offsetHeight - innerHeight), 0, 1); };
-var passP = function (sec) { var r = sec.getBoundingClientRect(); return clamp((innerHeight * .85 - r.top) / (innerHeight * .95), 0, 1); };
+/* pilares: o giro começa com a seção inteira na tela e termina quando ela começa a sair por cima */
+  var passP = function (sec) { var r = sec.getBoundingClientRect(), s = Math.max(innerHeight - r.height, innerHeight * .35), e = -r.height * .35; return clamp((s - r.top) / (s - e), 0, 1); };
   var scrollToP = function (sec, p) { var top = sec.getBoundingClientRect().top + scrollY; scrollTo({ top: top + (sec.offsetHeight - innerHeight) * p, behavior: smooth }); };
 
   if (root.classList.contains('enter')) setTimeout(function () { root.classList.remove('enter'); }, 1150);

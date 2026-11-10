@@ -251,7 +251,7 @@
   /* ---------- Entrada ao rolar ---------- */
   if (!reduce && 'IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) return; e.target.classList.remove('pre'); io.unobserve(e.target); }); }, { rootMargin: '0px 0px -10% 0px' });
-    $$('.rv, .media, .cta-media, [data-bars]').forEach(function (el) { if (el.getBoundingClientRect().top > innerHeight * .9) { el.classList.add('pre'); el.style.transitionDelay = ((+el.dataset.d || 0) * 110) + 'ms'; io.observe(el); } });
+    $$('.rv, .media, .cube3d, [data-bars]').forEach(function (el) { if (el.getBoundingClientRect().top > innerHeight * .9) { el.classList.add('pre'); el.style.transitionDelay = ((+el.dataset.d || 0) * 110) + 'ms'; io.observe(el); } });
   }
 
   /* ---------- Formulário de contato: valida e abre a mensagem pronta no WhatsApp ---------- */

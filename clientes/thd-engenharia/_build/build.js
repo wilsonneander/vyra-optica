@@ -219,21 +219,44 @@ const pageHero = (slug, kicker, title, lead, tiles, wires = 'b') => `
   </div>
 </section>`;
 
-const ctaBand = (slug, titulo = 'Vamos tirar o seu provedor do papel ou deixá-lo em dia?', texto = 'Conte o que você precisa. Respondemos pelo WhatsApp em horário comercial.') => `
+// cubo 3D de vidro que se monta peça por peça (27 cubinhos, camada de cima gira, peças saem e voltam)
+const cubo = () => {
+  const rnd = (n) => { const v = Math.sin(n * 12.9898) * 43758.5453; return v - Math.floor(v); };
+  const laranja = ['1,-1,1', '-1,0,1', '0,1,-1'], claro = ['0,-1,0', '1,0,1', '-1,1,1', '1,1,-1'];
+  const pop = { '1,1,1': 'a', '-1,0,1': 'b', '1,0,-1': 'c' };
+  let i = 0;
+  const peca = (x, y, z) => {
+    const k = x + ',' + y + ',' + z, n = i++;
+    const cor = laranja.includes(k) ? ' cb-o' : claro.includes(k) ? ' cb-l' : '';
+    const st = `--x:${x};--y:${y};--z:${z};--i:${n};--rx:${Math.round(rnd(n + 1) * 360 - 180)}deg;--ry:${Math.round(rnd(n + 7) * 360 - 180)}deg;--sp:${(3 + rnd(n + 3) * 2.5).toFixed(2)}`;
+    return `<div class="cb${cor}" style="${st}"><div class="cb-in${pop[k] ? ' pop-' + pop[k] : ''}"><i class="f fr"></i><i class="f bk"></i><i class="f rt"></i><i class="f lf"></i><i class="f tp"></i><i class="f bt"></i></div></div>`;
+  };
+  const camada = (y) => { let h = ''; for (let z = -1; z <= 1; z++) for (let x = -1; x <= 1; x++) h += peca(x, y, z); return h; };
+  return `<div class="cube3d" aria-hidden="true">
+      <div class="cube-ring"><span></span></div>
+      <div class="cube-rig"><div class="layer l-top">${camada(-1)}</div><div class="layer">${camada(0)}${camada(1)}</div></div>
+      <div class="cube-floor"></div>
+    </div>`;
+};
+
+const ctaBand = (slug, titulo = 'Vamos tirar o seu provedor do papel ou deixá-lo em dia?', texto = 'Conte o que você precisa. Respondemos pelo WhatsApp em horário comercial.') => {
+  const c = C.contato;
+  return `
 <section class="cta">
   <div class="container cta-in">
-    <div class="cta-text">
-      <p class="kicker rv">Fale com a nossa equipe</p>
-      <h2 class="rv">${titulo}</h2>
-      <p class="rv" data-d="1">${texto}</p>
-      <div class="actions rv" data-d="2">${waBtn('Chamar no WhatsApp')}<a class="btn btn-dark" href="${link(slug, 'contato')}" data-magnetic><span>Enviar mensagem</span>${I.seta}</a></div>
-    </div>
-    <div class="cta-media">
-      <i class="bit b1"></i><i class="bit b2"></i><i class="bit b3"></i>
-      <img src="${asset(slug, 'img/atendente.webp')}" alt="Atendente da THD Engenharia" width="768" height="559" loading="lazy">
-    </div>
+    ${cubo()}
+    <p class="kicker rv">Fale com a nossa equipe</p>
+    <h2 class="rv">${titulo}</h2>
+    <p class="cta-lead rv" data-d="1">${texto}</p>
+    <div class="cta-actions rv" data-d="2">${waBtn('Chamar no WhatsApp', 'btn btn-w btn-cta')}<a class="link-arrow" href="${link(slug, 'contato')}"><span>Enviar mensagem</span>${I.seta}</a></div>
+    <dl class="cta-info rv" data-d="3">
+      <div><dt>WhatsApp</dt><dd><a href="${C.waOrcamento}" target="_blank" rel="noopener">${c.whatsappTexto}</a></dd></div>
+      <div><dt>E-mail</dt><dd><a href="mailto:${c.email}">${c.email}</a></dd></div>
+      <div><dt>Atendimento</dt><dd>Seg. a sex., ${c.horario[0][1]}</dd></div>
+    </dl>
   </div>
 </section>`;
+};
 
 // carrossel de órgãos reguladores: anda sozinho, arrasta com o dedo/mouse e tem setas
 const selos = (slug) => {

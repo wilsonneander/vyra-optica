@@ -383,23 +383,25 @@ ${selos(slug)}
   </div>
 </section>
 
-<section class="section section-paper" id="diagnostico">
+<section class="section section-paper diag-sec" id="diagnostico">
   <div class="container">
-    <div class="head">
-      <p class="kicker rv">Diagnóstico rápido</p>
-      <h2 class="rv">Como está o seu provedor hoje?</h2>
-      <p class="rv" data-d="1">Responda as perguntas e veja quais peças já estão no lugar. No fim, mande o resultado direto para a nossa equipe.</p>
-    </div>
-    <div class="diag" data-diag>
-      <ul class="dq">${D.map((d, i) => `
-        <li class="rv" data-d="${i % 3}">
-          <p id="dq-${i}">${d.q}</p>
-          <div class="seg" role="group" aria-labelledby="dq-${i}" data-i="${i}">
-            <button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button>
-          </div>
-        </li>`).join('')}
-      </ul>
+    <div class="diag rv" data-diag>
+      <div class="diag-q">
+        <div class="diag-head">
+          <p class="kicker">Diagnóstico rápido</p>
+          <h2>Como está o seu provedor hoje?</h2>
+          <p>Responda e veja quais peças já estão no lugar. No fim, mande o resultado direto para a nossa equipe.</p>
+        </div>
+        <div class="diag-prog" aria-hidden="true"><span><b data-diag-n>0</b> de ${D.length} respondidas</span><i><em data-diag-bar></em></i></div>
+        <ul class="dq">${D.map((d, i) => `
+          <li>
+            <p id="dq-${i}">${d.q}</p>
+            <div class="seg" role="group" aria-labelledby="dq-${i}" data-i="${i}"><i class="seg-ind" aria-hidden="true"></i><button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button></div>
+          </li>`).join('')}
+        </ul>
+      </div>
       <aside class="diag-card on-dark" aria-live="polite">
+        <div class="blueprint" aria-hidden="true"></div>
         <h3>O mapa do seu provedor</h3>
         <p class="diag-msg" data-diag-msg>Cada resposta encaixa uma peça. As que faltam ficam marcadas em laranja.</p>
         ${diagGeo}

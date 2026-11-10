@@ -174,7 +174,7 @@ const js = `/* THD Engenharia · gerado por _build/build.js */
   /* ---------- Diagnóstico ---------- */
   var dg = $('[data-diag]');
   if (dg) {
-    var ans = {}, total = $$('.seg', dg).length, score = $('[data-diag-score]', dg), msg = $('[data-diag-msg]', dg), pend = $('[data-diag-pend]', dg), go = $('[data-diag-go]', dg);
+    var ans = {}, total = $$('.seg', dg).length, score = $('[data-diag-score]', dg), msg = $('[data-diag-msg]', dg), pend = $('[data-diag-pend]', dg), go = $('[data-diag-go]', dg), nEl = $('[data-diag-n]', dg), bar = $('[data-diag-bar]', dg), last = 0;
     var labels = ${JSON.stringify(require('./content').diagnostico.map((d) => d.pend))};
     var paint = function () {
       var ok = 0, miss = [];
@@ -182,8 +182,10 @@ const js = `/* THD Engenharia · gerado por _build/build.js */
         t.classList.toggle('ok', v === 'sim'); t.classList.toggle('miss', v === 'nao' || v === 'ns');
         if (v === 'sim') ok++; else if (v) miss.push(labels[i]); }
       $$('.tile[data-fixed]', dg).forEach(function (t) { t.classList.toggle('fix', ok + miss.length > 0); });
+      if (ok !== last && !reduce) { score.classList.remove('bump'); void score.offsetWidth; score.classList.add('bump'); } last = ok;
       score.textContent = ok;
       var answered = Object.keys(ans).length;
+      nEl.textContent = answered; bar.style.setProperty('--p', answered / total);
       msg.textContent = !answered ? 'Cada resposta encaixa uma peça. As que faltam ficam marcadas em laranja.'
         : ok === total ? 'Estrutura completa! A THD ajuda a manter tudo em dia e a crescer com segurança.'
         : miss.length ? 'Encontramos ' + miss.length + (miss.length > 1 ? ' pontos' : ' ponto') + ' para resolver. A THD cuida disso para você:'
@@ -197,7 +199,10 @@ const js = `/* THD Engenharia · gerado por _build/build.js */
       $$('button', sg).forEach(function (b) { b.addEventListener('click', function () {
         var on = b.getAttribute('aria-pressed') !== 'true';
         $$('button', sg).forEach(function (o) { o.setAttribute('aria-pressed', o === b && on); });
-        if (on) ans[i] = b.dataset.v; else delete ans[i]; paint();
+        if (on) ans[i] = b.dataset.v; else delete ans[i];
+        var li = sg.parentNode; li.classList.toggle('done', on);
+        if (on) { li.dataset.v = sg.dataset.v = b.dataset.v; sg.style.setProperty('--k', ['sim', 'nao', 'ns'].indexOf(b.dataset.v)); } else { delete li.dataset.v; delete sg.dataset.v; }
+        paint();
       }); });
     });
     go.addEventListener('click', function () { if (window.gtag) gtag('event', 'diagnostico_enviado', { score: score.textContent }); });

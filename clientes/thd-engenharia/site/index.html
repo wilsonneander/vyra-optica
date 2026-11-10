@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=576baf6e">
+<link rel="stylesheet" href="assets/css/style.css?v=e1445547">
 <script>(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('thd-nav')){d.classList.add('enter');sessionStorage.removeItem('thd-nav');}}catch(e){}})();</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMZHV89B5P"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DMZHV89B5P');</script>
@@ -279,59 +279,49 @@
   </div>
 </section>
 
-<section class="section section-paper" id="diagnostico">
+<section class="section section-paper diag-sec" id="diagnostico">
   <div class="container">
-    <div class="head">
-      <p class="kicker rv">Diagnóstico rápido</p>
-      <h2 class="rv">Como está o seu provedor hoje?</h2>
-      <p class="rv" data-d="1">Responda as perguntas e veja quais peças já estão no lugar. No fim, mande o resultado direto para a nossa equipe.</p>
-    </div>
-    <div class="diag" data-diag>
-      <ul class="dq">
-        <li class="rv" data-d="0">
-          <p id="dq-0">Seu provedor já tem a outorga SCM?</p>
-          <div class="seg" role="group" aria-labelledby="dq-0" data-i="0">
-            <button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button>
-          </div>
-        </li>
-        <li class="rv" data-d="1">
-          <p id="dq-1">As declarações DICI saem todo mês, sem atraso?</p>
-          <div class="seg" role="group" aria-labelledby="dq-1" data-i="1">
-            <button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button>
-          </div>
-        </li>
-        <li class="rv" data-d="2">
-          <p id="dq-2">Existe responsável técnico com ART/TRT em dia?</p>
-          <div class="seg" role="group" aria-labelledby="dq-2" data-i="2">
-            <button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button>
-          </div>
-        </li>
-        <li class="rv" data-d="0">
-          <p id="dq-3">A rede já opera com ASN próprio?</p>
-          <div class="seg" role="group" aria-labelledby="dq-3" data-i="3">
-            <button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button>
-          </div>
-        </li>
-        <li class="rv" data-d="1">
-          <p id="dq-4">Você tem IPv4 suficiente para crescer?</p>
-          <div class="seg" role="group" aria-labelledby="dq-4" data-i="4">
-            <button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button>
-          </div>
-        </li>
-        <li class="rv" data-d="2">
-          <p id="dq-5">A sua contabilidade entende de provedor?</p>
-          <div class="seg" role="group" aria-labelledby="dq-5" data-i="5">
-            <button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button>
-          </div>
-        </li>
-        <li class="rv" data-d="0">
-          <p id="dq-6">A sua marca está registrada?</p>
-          <div class="seg" role="group" aria-labelledby="dq-6" data-i="6">
-            <button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button>
-          </div>
-        </li>
-      </ul>
+    <div class="diag rv" data-diag>
+      <div class="diag-q">
+        <div class="diag-head">
+          <p class="kicker">Diagnóstico rápido</p>
+          <h2>Como está o seu provedor hoje?</h2>
+          <p>Responda e veja quais peças já estão no lugar. No fim, mande o resultado direto para a nossa equipe.</p>
+        </div>
+        <div class="diag-prog" aria-hidden="true"><span><b data-diag-n>0</b> de 7 respondidas</span><i><em data-diag-bar></em></i></div>
+        <ul class="dq">
+          <li>
+            <p id="dq-0">Seu provedor já tem a outorga SCM?</p>
+            <div class="seg" role="group" aria-labelledby="dq-0" data-i="0"><i class="seg-ind" aria-hidden="true"></i><button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button></div>
+          </li>
+          <li>
+            <p id="dq-1">As declarações DICI saem todo mês, sem atraso?</p>
+            <div class="seg" role="group" aria-labelledby="dq-1" data-i="1"><i class="seg-ind" aria-hidden="true"></i><button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button></div>
+          </li>
+          <li>
+            <p id="dq-2">Existe responsável técnico com ART/TRT em dia?</p>
+            <div class="seg" role="group" aria-labelledby="dq-2" data-i="2"><i class="seg-ind" aria-hidden="true"></i><button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button></div>
+          </li>
+          <li>
+            <p id="dq-3">A rede já opera com ASN próprio?</p>
+            <div class="seg" role="group" aria-labelledby="dq-3" data-i="3"><i class="seg-ind" aria-hidden="true"></i><button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button></div>
+          </li>
+          <li>
+            <p id="dq-4">Você tem IPv4 suficiente para crescer?</p>
+            <div class="seg" role="group" aria-labelledby="dq-4" data-i="4"><i class="seg-ind" aria-hidden="true"></i><button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button></div>
+          </li>
+          <li>
+            <p id="dq-5">A sua contabilidade entende de provedor?</p>
+            <div class="seg" role="group" aria-labelledby="dq-5" data-i="5"><i class="seg-ind" aria-hidden="true"></i><button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button></div>
+          </li>
+          <li>
+            <p id="dq-6">A sua marca está registrada?</p>
+            <div class="seg" role="group" aria-labelledby="dq-6" data-i="6"><i class="seg-ind" aria-hidden="true"></i><button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button></div>
+          </li>
+        </ul>
+      </div>
       <aside class="diag-card on-dark" aria-live="polite">
+        <div class="blueprint" aria-hidden="true"></div>
         <h3>O mapa do seu provedor</h3>
         <p class="diag-msg" data-diag-msg>Cada resposta encaixa uma peça. As que faltam ficam marcadas em laranja.</p>
         <div class="geo geo-diag" data-geo aria-hidden="true"><div class="geo-in"><div class="tile" style="--x:0;--y:0;--r:0" data-q="0"><i class="s s-qa c-o"></i></div><div class="tile" style="--x:1;--y:0;--r:0" data-q="1"><i class="s s-sq c-l"></i></div><div class="tile" style="--x:2;--y:0;--r:0" data-q="2"><i class="s s-ci c-b"></i></div><div class="tile" style="--x:0;--y:1;--r:0" data-q="3"><i class="s s-st c-l"></i></div><div class="tile" style="--x:2;--y:1;--r:2" data-q="4"><i class="s s-ar c-o"></i></div><div class="tile" style="--x:0;--y:2;--r:0" data-q="5"><i class="s s-sq c-b"></i></div><div class="tile" style="--x:1;--y:2;--r:1" data-q="6"><i class="s s-qa c-l"></i></div><div class="tile" style="--x:1;--y:1;--r:0" data-fixed><i class="s s-ci c-o"></i></div><div class="tile" style="--x:2;--y:2;--r:2" data-fixed><i class="s s-tr c-w"></i></div></div></div>
@@ -455,6 +445,6 @@
   </div>
 </footer>
 <a class="wa-float" href="https://wa.me/5521998340142?text=Ol%C3%A1%2C%20THD!%20Vim%20pelo%20site%20e%20quero%20fazer%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="Falar com a THD no WhatsApp" data-cursor="Conversar"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01m-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43s.17-.25.25-.41c.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18s-.22-.16-.47-.28"/></svg></a>
-<script src="assets/js/main.js?v=f113c252" defer></script>
+<script src="assets/js/main.js?v=8d35347d" defer></script>
 </body>
 </html>

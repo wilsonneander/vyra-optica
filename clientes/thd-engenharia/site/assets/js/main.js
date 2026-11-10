@@ -213,9 +213,11 @@
     var pick = function (b, focus) { tabs.forEach(function (o) { var on = o === b, p = document.getElementById(o.getAttribute('aria-controls')); o.setAttribute('aria-selected', on); o.tabIndex = on ? 0 : -1; p.hidden = !on; if (on && !reduce) { p.classList.remove('swap'); void p.offsetWidth; p.classList.add('swap'); } }); if (focus) b.focus(); };
     /* no desktop a seção fica presa e a rolagem percorre as frentes em sequência, como a jornada */
     var trk = $('[data-svx]'), sbar = trk && $('.svx-bar', trk), cur = 0;
-    var pinned = function () { return trk && !mobile() && innerHeight >= 600; };
+    var pinned = function () { return trk && innerHeight >= 600; };
     var total = function () { return Math.max(1, trk.offsetHeight - innerHeight); };
-    var setIdx = function (i, focus) { tabs.forEach(function (o, k) { o.classList.toggle('on', !pinned() || k <= i); }); if (i === cur && !focus) return; cur = i; pick(tabs[i], focus); };
+    var setIdx = function (i, focus) { tabs.forEach(function (o, k) { o.classList.toggle('on', !pinned() || k <= i); }); if (i === cur && !focus) return; cur = i; pick(tabs[i], focus);
+      /* no celular as abas ficam numa faixa horizontal: traz a aba ativa para a vista */
+      if (mobile() && tl.scrollWidth > tl.clientWidth) tl.scrollTo({ left: Math.max(0, tabs[i].offsetLeft - (tl.clientWidth - tabs[i].offsetWidth) / 2), behavior: reduce ? 'auto' : 'smooth' }); };
     var go = function (i, focus) {
       setIdx(i, focus);
       if (!pinned()) return;

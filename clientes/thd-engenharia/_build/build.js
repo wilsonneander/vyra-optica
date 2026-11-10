@@ -416,7 +416,8 @@ ${selos(slug)}
   </div>
 </section>
 
-<section class="section">
+<section class="section pin-sec" style="--n:${C.quemSomos.pilares.length}" data-pin>
+  <div class="pin-stick">
   <div class="container">
     <div class="head">
       <p class="kicker rv">Como trabalhamos</p>
@@ -425,6 +426,7 @@ ${selos(slug)}
     <div class="pnl rv" data-pnl>${C.quemSomos.pilares.map((p, i) => `
       <div class="pnl-item${i === 0 ? ' on' : ''}" tabindex="0" role="button" aria-expanded="${i === 0}" data-cursor="Abrir"><span class="pnl-shape" aria-hidden="true"></span><h3>${p.t}</h3><p>${p.d}</p></div>`).join('')}
     </div>
+  </div>
   </div>
 </section>
 
@@ -515,7 +517,8 @@ ${pageHero(slug, 'Institucional', 'Quem *somos*', Q.intro,
   </div>
 </section>
 
-<section class="section">
+<section class="section pin-sec" style="--n:${Q.pilares.length}" data-pin>
+  <div class="pin-stick">
   <div class="container">
     <div class="head">
       <p class="kicker rv">Como trabalhamos</p>
@@ -524,6 +527,7 @@ ${pageHero(slug, 'Institucional', 'Quem *somos*', Q.intro,
     <div class="pnl rv" data-pnl>${Q.pilares.map((p, i) => `
       <div class="pnl-item${i === 0 ? ' on' : ''}" tabindex="0" role="button" aria-expanded="${i === 0}" data-cursor="Abrir"><span class="pnl-shape" aria-hidden="true"></span><h3>${p.t}</h3><p>${p.d}</p></div>`).join('')}
     </div>
+  </div>
   </div>
 </section>
 ${selos(slug)}
@@ -609,7 +613,8 @@ ${pageHero(slug, 'Serviço contábil especializado', 'Você sabe a *rentabilidad
   </div>
 </section>
 
-<section class="section section-paper">
+<section class="section section-paper pin-sec" style="--n:2" data-pin>
+  <div class="pin-stick">
   <div class="container lg" data-ledger>
     <div class="lg-top">
       <div class="head">
@@ -648,6 +653,7 @@ ${pageHero(slug, 'Serviço contábil especializado', 'Você sabe a *rentabilidad
         <ul class="lg-rows">${[['Extratos contábeis mensais', 'Todo mês'], ['Oportunidades de redução de custos e impostos', 'Contínuo'], ['Mais lucratividade para o negócio', 'Resultado']].map(([x, s], i) => `<li style="--k:${i}"><span class="lg-m"></span><span class="lg-n">${x}</span><span class="lg-st">${s}</span></li>`).join('')}</ul>
       </div>
     </div>
+  </div>
   </div>
 </section>
 

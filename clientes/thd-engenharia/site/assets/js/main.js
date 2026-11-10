@@ -213,7 +213,7 @@
     var pick = function (b, focus) { tabs.forEach(function (o) { var on = o === b, p = document.getElementById(o.getAttribute('aria-controls')); o.setAttribute('aria-selected', on); o.tabIndex = on ? 0 : -1; p.hidden = !on; if (on && !reduce) { p.classList.remove('swap'); void p.offsetWidth; p.classList.add('swap'); } }); if (focus) b.focus(); };
     /* no desktop a seção fica presa e a rolagem percorre as frentes em sequência, como a jornada */
     var trk = $('[data-svx]'), sbar = trk && $('.svx-bar', trk), cur = 0;
-    var pinned = function () { return trk && !mobile() && innerHeight >= 680; };
+    var pinned = function () { return trk && !mobile() && innerHeight >= 600; };
     var total = function () { return Math.max(1, trk.offsetHeight - innerHeight); };
     var setIdx = function (i, focus) { tabs.forEach(function (o, k) { o.classList.toggle('on', !pinned() || k <= i); }); if (i === cur && !focus) return; cur = i; pick(tabs[i], focus); };
     var go = function (i, focus) {
@@ -233,12 +233,27 @@
     if (trk) { addEventListener('scroll', svxScroll, { passive: true }); addEventListener('resize', svxScroll); svxScroll(); }
   }
 
+  /* ---------- Seção presa: a rolagem escolhe o item ativo ---------- */
+  var pinScroll = function (sec, n, onIdx) {
+    var cur = -1, ok = function () { return !mobile() && innerHeight >= 600 && !reduce; };
+    var total = function () { return Math.max(1, sec.offsetHeight - innerHeight); };
+    var f = function () { if (!ok()) { cur = -1; return; }
+      var p = Math.max(0, Math.min(1, -sec.getBoundingClientRect().top / total()));
+      sec.style.setProperty('--p', p);
+      var i = Math.min(n - 1, Math.floor(p * n)); if (i !== cur) { cur = i; onIdx(i); } };
+    addEventListener('scroll', f, { passive: true }); addEventListener('resize', f); f();
+    return { ok: ok, go: function (i) { if (!ok()) return false; cur = i; onIdx(i);
+      scrollTo({ top: sec.getBoundingClientRect().top + scrollY + total() * (i + .5) / n, behavior: 'smooth' }); return true; } };
+  };
+
   /* ---------- Painéis que se abrem ---------- */
-  $$('[data-pnl]').forEach(function (w) { var its = $$('.pnl-item', w);
+  $$('[data-pnl]').forEach(function (w) { var its = $$('.pnl-item', w), sec = w.closest('[data-pin]');
     var open = function (it) { its.forEach(function (o) { o.classList.toggle('on', o === it); o.setAttribute('aria-expanded', o === it); }); };
-    its.forEach(function (it) { it.addEventListener('click', function () { open(it); }); it.addEventListener('focus', function () { open(it); });
-      it.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(it); } });
-      if (fine) it.addEventListener('mouseenter', function () { open(it); }); });
+    var pin = sec && pinScroll(sec, its.length, function (i) { open(its[i]); });
+    var choose = function (it) { if (!(pin && pin.go(its.indexOf(it)))) open(it); };
+    its.forEach(function (it) { it.addEventListener('click', function () { choose(it); }); it.addEventListener('focus', function () { open(it); });
+      it.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(it); } });
+      if (fine) it.addEventListener('mouseenter', function () { if (!(pin && pin.ok())) open(it); }); });
   });
 
   /* ---------- Acordeão de serviços ---------- */
@@ -271,9 +286,12 @@
       if (!reduce) { stage.classList.remove('run'); void stage.offsetWidth; stage.classList.add('run'); }
       if (focus) tabs[i].focus(); };
     var stop = function () { if (auto) { auto = false; lg.classList.add('manual'); } };
+    var sec = lg.closest('[data-pin]'), pin = sec && pinScroll(sec, tabs.length, function (i) { stop(); if (i !== cur || !lg.classList.contains('live')) { lg.classList.add('live'); show(i); } });
+    if (pin && pin.ok()) stop();
+    var pick = function (i, focus) { stop(); if (!(pin && pin.go(i))) show(i); if (focus) tabs[i].focus(); };
     tabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { stop(); show(i); });
-      t.addEventListener('keydown', function (e) { var k = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0; if (k) { e.preventDefault(); stop(); show((i + k + tabs.length) % tabs.length, true); } });
+      t.addEventListener('click', function () { pick(i); });
+      t.addEventListener('keydown', function (e) { var k = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0; if (k) { e.preventDefault(); pick((i + k + tabs.length) % tabs.length, true); } });
       $('.tm', t).addEventListener('animationend', function () { if (auto) show((cur + 1) % tabs.length); });
     });
     lg.addEventListener('mouseenter', function () { lg.classList.add('paused'); });

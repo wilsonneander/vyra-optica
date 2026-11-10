@@ -338,7 +338,8 @@ function home() {
 </section>
 
 ${selos(slug)}
-<section class="section" id="servicos">
+<section class="svx-pin" id="servicos" style="--n:${C.grupos.length}" data-svx>
+  <div class="svx-sticky">
   <div class="container">
     <div class="head-row">
       <div class="head">
@@ -348,7 +349,7 @@ ${selos(slug)}
       <a class="link-arrow rv" href="${link(slug, 'servicos')}">Ver todos os serviços ${I.seta}</a>
     </div>
     <div class="svx">
-      <div class="svx-tabs" role="tablist" aria-label="Frentes de serviço">${C.grupos.map((g, i) => `
+      <div class="svx-tabs" role="tablist" aria-label="Frentes de serviço"><span class="svx-bar" aria-hidden="true"></span>${C.grupos.map((g, i) => `
         <button class="svx-tab" role="tab" id="t-${g.id}" aria-controls="p-${g.id}" aria-selected="${i === 0}"><strong>${g.titulo}</strong><small>${g.resumo}</small></button>`).join('')}
       </div>
       <div>${C.grupos.map((g, i) => `
@@ -357,6 +358,7 @@ ${selos(slug)}
         </div>`).join('')}
       </div>
     </div>
+  </div>
   </div>
 </section>
 

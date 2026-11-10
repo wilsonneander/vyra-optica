@@ -211,8 +211,26 @@
   var tl = $('.svx-tabs');
   if (tl) { var tabs = $$('[role=tab]', tl);
     var pick = function (b, focus) { tabs.forEach(function (o) { var on = o === b, p = document.getElementById(o.getAttribute('aria-controls')); o.setAttribute('aria-selected', on); o.tabIndex = on ? 0 : -1; p.hidden = !on; if (on && !reduce) { p.classList.remove('swap'); void p.offsetWidth; p.classList.add('swap'); } }); if (focus) b.focus(); };
-    tabs.forEach(function (b, i) { b.tabIndex = i ? -1 : 0; b.addEventListener('click', function () { pick(b); });
-      b.addEventListener('keydown', function (e) { var k = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0; if (k) { e.preventDefault(); pick(tabs[(i + k + tabs.length) % tabs.length], true); } }); });
+    /* no desktop a seção fica presa e a rolagem percorre as frentes em sequência, como a jornada */
+    var trk = $('[data-svx]'), sbar = trk && $('.svx-bar', trk), cur = 0;
+    var pinned = function () { return trk && !mobile() && innerHeight >= 680; };
+    var total = function () { return Math.max(1, trk.offsetHeight - innerHeight); };
+    var setIdx = function (i, focus) { tabs.forEach(function (o, k) { o.classList.toggle('on', !pinned() || k <= i); }); if (i === cur && !focus) return; cur = i; pick(tabs[i], focus); };
+    var go = function (i, focus) {
+      setIdx(i, focus);
+      if (!pinned()) return;
+      var y = trk.getBoundingClientRect().top + scrollY;
+      scrollTo({ top: y + total() * (i + .5) / tabs.length, behavior: reduce ? 'auto' : 'smooth' });
+    };
+    var svxScroll = function () {
+      if (!pinned()) { setIdx(cur); return; }
+      var p = Math.max(0, Math.min(1, -trk.getBoundingClientRect().top / total()));
+      sbar.style.setProperty('--p', p);
+      setIdx(Math.min(tabs.length - 1, Math.floor(p * tabs.length)));
+    };
+    tabs.forEach(function (b, i) { b.tabIndex = i ? -1 : 0; b.addEventListener('click', function () { go(i); });
+      b.addEventListener('keydown', function (e) { var k = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0; if (k) { e.preventDefault(); go((i + k + tabs.length) % tabs.length, true); } }); });
+    if (trk) { addEventListener('scroll', svxScroll, { passive: true }); addEventListener('resize', svxScroll); svxScroll(); }
   }
 
   /* ---------- Painéis que se abrem ---------- */

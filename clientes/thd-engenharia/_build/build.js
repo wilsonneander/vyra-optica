@@ -386,7 +386,8 @@ ${selos(slug)}
   </div>
 </section>
 
-<section class="section section-paper diag-sec" id="diagnostico">
+<section class="section section-paper diag-sec" id="diagnostico" data-mosaic>
+  <canvas class="mosaic" aria-hidden="true"></canvas>
   <div class="container">
     <div class="diag rv" data-diag>
       <div class="diag-q">

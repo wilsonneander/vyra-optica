@@ -304,6 +304,8 @@ html.enter .curtain i{animation:tileOut .5s var(--ease-io) both;animation-delay:
 
 /* ---------- diagnóstico ---------- */
 .diag-sec{padding:clamp(64px,8vw,110px) 0}
+.diag-sec{position:relative;isolation:isolate;overflow:hidden}
+.diag-sec .mosaic{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(180deg,transparent,#000 14%,#000 86%,transparent)}
 .diag{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.8fr);background:#fff;border-radius:2px 48px 2px 2px;overflow:hidden;box-shadow:0 1px 0 var(--line),0 50px 90px -50px rgba(2,20,48,.45)}
 .diag-q{padding:clamp(28px,3.6vw,48px)}
 .diag-head h2{font-size:clamp(1.7rem,2.9vw,2.4rem);margin-bottom:.35em}

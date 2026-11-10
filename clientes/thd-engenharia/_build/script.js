@@ -366,6 +366,93 @@ const js = `/* THD Engenharia · gerado por _build/build.js */
     });
   }
 
+  /* ---------- Diagnóstico: mosaico de peças que se reencaixam no fundo ----------
+     Uma onda diagonal gira as peças de tempos em tempos, o cursor gira as peças por onde passa
+     e cada resposta solta uma onda a partir do botão, colorindo as peças (Sim azul, Não laranja). */
+  $$('[data-mosaic]').forEach(function (sec) {
+    var cv = sec.querySelector('canvas.mosaic'), ctx = cv && cv.getContext('2d'), card = sec.querySelector('[data-diag]');
+    if (!ctx) return;
+    var done = false, S = 64, W = 0, H = 0, cols = 0, rows = 0, ox = 0, oy = 0, tiles = [], waves = [], running = false, last = 0, sweepT = 2, hover = -1, hole = null;
+    var KINDS = ['sq', 'ci', 'qa', 'ha', 'tr', 'qa', 'sq'], HALF = Math.PI / 2;
+    var COL = { sim: '43,90,168', nao: '254,87,16', ns: '103,114,140', all: '43,90,168', amb: '26,59,135' };
+    function layout() {
+      var s = sec.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = s.width; H = s.height; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      S = W < 700 ? 48 : 64; cols = Math.ceil(W / S) + 1; rows = Math.ceil(H / S) + 1; ox = (W - cols * S) / 2; oy = (H - rows * S) / 2;
+      tiles = [];
+      for (var y = 0; y < rows; y++) for (var x = 0; x < cols; x++) {
+        var cx = ox + x * S + S / 2, cy = oy + y * S + S / 2, q = Math.floor(Math.random() * 4);
+        tiles.push({ x: cx, y: cy, k: KINDS[Math.floor(Math.random() * KINDS.length)], a: q * HALF, t: q * HALF, f: 0, c: COL.amb, hit: -1 });
+      }
+      draw();
+    }
+    function kick(t, col, power) { t.t += HALF * (Math.random() < .5 ? 1 : -1); if (col) { t.c = col; t.f = Math.max(t.f, power); } }
+    function shape(t, h) {
+      ctx.beginPath();
+      if (t.k === 'sq') ctx.rect(-h, -h, h * 2, h * 2);
+      else if (t.k === 'ci') ctx.arc(0, 0, h, 0, Math.PI * 2);
+      else if (t.k === 'qa') { ctx.moveTo(h, h); ctx.arc(h, h, h * 2, Math.PI, Math.PI * 1.5); ctx.closePath(); }
+      else if (t.k === 'ha') { ctx.moveTo(-h, h * .5); ctx.arc(0, h * .5, h, Math.PI, 0); ctx.closePath(); }
+      else { ctx.moveTo(-h, -h); ctx.lineTo(h, h); ctx.lineTo(-h, h); ctx.closePath(); }
+    }
+    function measure() { // o cartão cobre o meio: as peças embaixo dele não são desenhadas
+      if (!card) return; var s = sec.getBoundingClientRect(), r = card.getBoundingClientRect();
+      hole = { x0: r.left - s.left + 6, y0: r.top - s.top + 6, x1: r.right - s.left - 6, y1: r.bottom - s.top - 6 };
+      tiles.forEach(function (t) { t.off = t.x > hole.x0 && t.x < hole.x1 && t.y > hole.y0 && t.y < hole.y1; });
+    }
+    function draw() {
+      measure(); ctx.clearRect(0, 0, W, H);
+      var h = S * .34; ctx.lineWidth = 1.3;
+      for (var i = 0; i < tiles.length; i++) {
+        var t = tiles[i]; if (t.off) continue;
+        ctx.save(); ctx.translate(t.x, t.y); ctx.rotate(t.a); shape(t, h);
+        if (t.f > .01) { ctx.fillStyle = 'rgba(' + t.c + ',' + (t.f * .55).toFixed(3) + ')'; ctx.fill(); }
+        ctx.strokeStyle = 'rgba(' + (t.f > .01 ? t.c : COL.amb) + ',' + (.13 + t.f * .5).toFixed(3) + ')'; ctx.stroke();
+        ctx.restore();
+      }
+    }
+    function step(dt) {
+      sweepT -= dt;
+      if (sweepT <= 0) { // onda diagonal ambiente, cada vez de um canto
+        sweepT = 4.5 + Math.random() * 2;
+        var corner = Math.floor(Math.random() * 4);
+        waves.push({ x: corner % 2 ? W : 0, y: corner > 1 ? H : 0, r: 0, v: 520, band: S * 1.1, col: COL.amb, p: .35, id: Math.random(), diag: true });
+      }
+      waves = waves.filter(function (w) {
+        w.r += w.v * dt;
+        tiles.forEach(function (t) {
+          if (t.off || t.hit === w.id) return;
+          var d = w.diag ? (Math.abs(t.x - w.x) + Math.abs(t.y - w.y)) * .72 : Math.sqrt((t.x - w.x) * (t.x - w.x) + (t.y - w.y) * (t.y - w.y));
+          if (d < w.r && d > w.r - w.band) { t.hit = w.id; if (Math.random() < (w.diag ? .5 : .85)) kick(t, w.col, w.p * (1 - Math.min(.7, d / 1400))); }
+        });
+        return w.r < Math.max(W, H) * 1.5;
+      });
+      tiles.forEach(function (t) { t.a += (t.t - t.a) * Math.min(1, dt * 7); t.f = Math.max(0, t.f - dt * .45); });
+    }
+    function loop(ts) { if (!running) return; var dt = Math.min(.05, (ts - (last || ts)) / 1000); last = ts; step(dt); draw(); requestAnimationFrame(loop); }
+    layout();
+    var rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 200); });
+    if (reduce) return;
+    sec.addEventListener('mousemove', function (e) {
+      var s = sec.getBoundingClientRect(), x = e.clientX - s.left - ox, y = e.clientY - s.top - oy, i = Math.floor(y / S) * cols + Math.floor(x / S);
+      if (i !== hover && tiles[i] && !tiles[i].off) { hover = i; kick(tiles[i], COL.sim, .5); }
+    }, { passive: true });
+    if (card) card.addEventListener('click', function (e) {
+      var b = e.target.closest('.seg button'); if (!b) return;
+      var s = sec.getBoundingClientRect(), r = b.getBoundingClientRect(), v = b.dataset.v;
+      waves.push({ x: r.left + r.width / 2 - s.left, y: r.top + r.height / 2 - s.top, r: 0, v: 700, band: S * 1.4, col: COL[v] || COL.amb, p: .9, id: Math.random() });
+      setTimeout(function () { // todas respondidas: onda final a partir do cartão
+        if (!done && card.querySelectorAll('.seg button[aria-pressed="true"]').length >= card.querySelectorAll('.seg').length) {
+          done = true; var c = card.getBoundingClientRect();
+          waves.push({ x: c.left + c.width / 2 - s.left, y: c.top + c.height / 2 - s.top, r: 0, v: 500, band: S * 3, col: COL.all, p: 1, id: Math.random() });
+        }
+      }, 60);
+    });
+    var start = function () { if (!running) { running = true; last = 0; requestAnimationFrame(loop); } };
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { if (!tiles.length || Math.abs(sec.getBoundingClientRect().height - H) > 4) layout(); start(); } else running = false; }); }).observe(sec);
+    else start();
+  });
+
   /* ---------- Quem somos: rede de fibra que cresce a partir da THD ----------
      Pontos novos se ligam à rede por trilhas em ângulo reto (como no logo), pacotes de luz
      saem da THD (atrás da foto) até cada ponto. O mouse funciona como lanterna sobre a rede. */

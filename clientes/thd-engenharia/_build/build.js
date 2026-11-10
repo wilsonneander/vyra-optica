@@ -94,7 +94,7 @@ function header(slug) {
 <header class="hdr">
   <div class="container hdr-in">
     <a class="brand" href="${link(slug, '')}" aria-label="THD Engenharia, página inicial">
-      <img src="${asset(slug, 'img/logo-escuro.png')}" alt="THD Engenharia, consultoria de provedores de internet" width="226" height="120">
+      <img src="${asset(slug, 'img/logo-simbolo.png')}" alt="THD Engenharia, consultoria de provedores de internet" width="360" height="217">
     </a>
     <nav class="nav" aria-label="Principal">${items}</nav>
     <a class="btn btn-o btn-sm" href="${C.waOrcamento}" target="_blank" rel="noopener" data-magnetic><span>Solicitar orçamento</span>${I.seta}</a>
@@ -132,7 +132,7 @@ function footer(slug) {
   </div>
   <div class="container foot-grid">
     <div class="foot-brand">
-      <img src="${asset(slug, 'img/logo-escuro.png')}" alt="THD Engenharia" width="226" height="120" loading="lazy">
+      <img src="${asset(slug, 'img/logo.png')}" alt="THD Engenharia" width="440" height="308" loading="lazy">
       <p>Consultoria para provedores de internet, com excelência e garantia.</p>
       <div class="social">${c.redes.map((r) => `<a href="${r.url}" target="_blank" rel="noopener" aria-label="${r.rotulo}">${I[r.rede]}</a>`).join('')}</div>
     </div>
@@ -184,7 +184,8 @@ function layout({ slug, title, desc, body, jsonld = '' }) {
 <meta property="og:url" content="${canonical(slug)}">
 <meta property="og:image" content="${C.dominio}/assets/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="${asset(slug, 'img/favicon.png')}">
+<link rel="icon" type="image/png" sizes="64x64" href="${asset(slug, 'img/favicon.png')}">
+<link rel="icon" type="image/png" sizes="512x512" href="${asset(slug, 'img/icon-512.png')}">
 <link rel="apple-touch-icon" href="${asset(slug, 'img/apple-touch-icon.png')}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -432,7 +433,7 @@ ${ctaBand(slug)}`;
   const jsonld = `
 <script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org', '@type': 'ProfessionalService', name: C.nome, description: C.quemSomos.intro,
-    url: C.dominio + '/', logo: C.dominio + '/assets/img/logo-claro.png', image: C.dominio + '/assets/img/og.jpg',
+    url: C.dominio + '/', logo: C.dominio + '/assets/img/logo-positivo.png', image: C.dominio + '/assets/img/og.jpg',
     telephone: C.contato.telefoneSchema, email: C.contato.email, taxID: C.cnpj,
     address: { '@type': 'PostalAddress', streetAddress: 'R. Almirante Pestana, 6', addressLocality: 'Rio de Janeiro', addressRegion: 'RJ', addressCountry: 'BR' },
     openingHours: 'Mo-Fr 09:00-18:00', sameAs: C.contato.redes.map((r) => r.url), areaServed: 'BR',

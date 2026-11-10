@@ -174,8 +174,10 @@ const js = `/* THD Engenharia, modelo Órbita. Gerado por _build-orbita/build.js
   });
 
   /* paralaxe leve */
-  var pars = $$('[data-par]');
+  var pars = $$('[data-par]'), parMq = matchMedia('(max-width:920px)');
   if (!reduce) ticks.push(function () {
+    /* no celular o layout é empilhado: deslocar o texto faz ele cobrir o bloco de baixo */
+    if (parMq.matches) { pars.forEach(function (el) { if (el.style.transform) el.style.transform = ''; }); return; }
     pars.forEach(function (el) { var host = el.closest('section, footer') || el.parentNode, r = host.getBoundingClientRect(); if (r.bottom < -200 || r.top > innerHeight + 200) return; el.style.transform = 'translate3d(0,' + (-r.top * parseFloat(el.dataset.par)).toFixed(1) + 'px,0)'; });
   });
 

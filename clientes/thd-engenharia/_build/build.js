@@ -600,24 +600,43 @@ ${pageHero(slug, 'Serviço contábil especializado', 'Você sabe a *rentabilidad
 </section>
 
 <section class="section section-paper">
-  <div class="container">
-    <div class="head">
-      <p class="kicker rv">Gestão contábil</p>
-      <h2 class="rv">Do operacional ao estratégico</h2>
-      <p class="rv">${svc('gestao-contabil').texto}</p>
+  <div class="container lg" data-ledger>
+    <div class="lg-top">
+      <div class="head">
+        <p class="kicker rv">Gestão contábil</p>
+        <h2 class="rv">Do operacional ao estratégico</h2>
+        <p class="rv">${svc('gestao-contabil').texto}</p>
+      </div>
+      <div class="lg-tabs rv" role="tablist" aria-label="Frentes da gestão contábil">
+        <button class="lg-tab" role="tab" id="sw-op" aria-controls="pn-op" aria-selected="true"><strong>Rotina operacional</strong><small>O dia a dia resolvido por nós</small><span class="arr">${I.seta}</span><span class="tm" aria-hidden="true"></span></button>
+        <button class="lg-tab" role="tab" id="sw-es" aria-controls="pn-es" aria-selected="false" tabindex="-1"><strong>Planejamento estratégico</strong><small>Os números trabalhando pelo lucro</small><span class="arr">${I.seta}</span><span class="tm" aria-hidden="true"></span></button>
+      </div>
     </div>
-    <div class="switch rv" role="tablist" data-switch>
-      <button role="tab" id="sw-op" aria-controls="pn-op" aria-selected="true">Rotina operacional</button>
-      <button role="tab" id="sw-es" aria-controls="pn-es" aria-selected="false">Planejamento estratégico</button>
-      <span class="bar" aria-hidden="true"></span>
-    </div>
-    <div class="sw-panel" role="tabpanel" id="pn-op" aria-labelledby="sw-op">
-      <div><h3>O dia a dia contábil, resolvido</h3><p>Guias, notas, documentos e demonstrações em dia, sem você precisar correr atrás.</p></div>
-      <ul class="big-list">${K.operacional.map((x) => `<li><i></i>${x}</li>`).join('')}</ul>
-    </div>
-    <div class="sw-panel" role="tabpanel" id="pn-es" aria-labelledby="sw-es" hidden>
-      <div><h3>Números a favor do negócio</h3><p>${K.estrategico}</p></div>
-      <ul class="big-list"><li><i></i>Extratos contábeis mensais</li><li><i></i>Oportunidades de redução de custos e impostos</li><li><i></i>Mais lucratividade para o negócio</li></ul>
+    <div class="lg-stage rv">
+      <div class="blueprint" aria-hidden="true"></div>
+      <span class="lg-scan" aria-hidden="true"></span>
+      <div class="lg-panel" role="tabpanel" id="pn-op" aria-labelledby="sw-op">
+        <div class="lg-copy">
+          <h3>O dia a dia contábil, resolvido</h3>
+          <p>Guias, notas, documentos e demonstrações em dia, sem você precisar correr atrás.</p>
+          <div class="lg-sheets" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i></div>
+        </div>
+        <ul class="lg-rows">${K.operacional.map((x, i) => `<li style="--k:${i}"><span class="lg-m"></span><span class="lg-n">${x}</span><span class="lg-st">${['Abertura e alterações', 'Todo mês', 'Arquivo organizado', 'Sob demanda', 'Periódico'][i] || ''}</span></li>`).join('')}</ul>
+      </div>
+      <div class="lg-panel" role="tabpanel" id="pn-es" aria-labelledby="sw-es" hidden>
+        <div class="lg-copy">
+          <h3>Números a favor do negócio</h3>
+          <p>${K.estrategico}</p>
+          <svg class="lg-chart" viewBox="0 0 300 140" aria-hidden="true">
+            <defs><linearGradient id="lg-ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FE5710" stop-opacity=".35"/><stop offset="1" stop-color="#FE5710" stop-opacity="0"/></linearGradient></defs>
+            <g class="gl">${[30, 60, 90, 120].map((y) => `<path d="M0 ${y}H300"/>`).join('')}</g>
+            <path class="ar" d="M10 112 L60 98 L110 104 L160 74 L210 60 L260 34 L292 20 V130 H10Z" fill="url(#lg-ar)"/>
+            <path class="ln" d="M10 112 L60 98 L110 104 L160 74 L210 60 L260 34 L292 20"/>
+            <rect class="pt" x="-5" y="-5" width="10" height="10"/>
+          </svg>
+        </div>
+        <ul class="lg-rows">${[['Extratos contábeis mensais', 'Todo mês'], ['Oportunidades de redução de custos e impostos', 'Contínuo'], ['Mais lucratividade para o negócio', 'Resultado']].map(([x, s], i) => `<li style="--k:${i}"><span class="lg-m"></span><span class="lg-n">${x}</span><span class="lg-st">${s}</span></li>`).join('')}</ul>
+      </div>
     </div>
   </div>
 </section>

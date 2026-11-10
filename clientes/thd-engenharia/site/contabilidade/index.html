@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/style.css?v=7286279a">
+<link rel="stylesheet" href="../assets/css/style.css?v=576baf6e">
 <script>(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('thd-nav')){d.classList.add('enter');sessionStorage.removeItem('thd-nav');}}catch(e){}})();</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMZHV89B5P"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DMZHV89B5P');</script>
@@ -82,24 +82,43 @@
 </section>
 
 <section class="section section-paper">
-  <div class="container">
-    <div class="head">
-      <p class="kicker rv">Gestão contábil</p>
-      <h2 class="rv">Do operacional ao estratégico</h2>
-      <p class="rv">A gestão contábil é a área responsável pela administração das rotinas, das informações, dos registros e dos documentos que se referem à situação patrimonial e financeira de um negócio.</p>
+  <div class="container lg" data-ledger>
+    <div class="lg-top">
+      <div class="head">
+        <p class="kicker rv">Gestão contábil</p>
+        <h2 class="rv">Do operacional ao estratégico</h2>
+        <p class="rv">A gestão contábil é a área responsável pela administração das rotinas, das informações, dos registros e dos documentos que se referem à situação patrimonial e financeira de um negócio.</p>
+      </div>
+      <div class="lg-tabs rv" role="tablist" aria-label="Frentes da gestão contábil">
+        <button class="lg-tab" role="tab" id="sw-op" aria-controls="pn-op" aria-selected="true"><strong>Rotina operacional</strong><small>O dia a dia resolvido por nós</small><span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" class="i-arrow"><path d="M3 12h13"/><path d="M14 6.5 19.5 12 14 17.5"/></svg></span><span class="tm" aria-hidden="true"></span></button>
+        <button class="lg-tab" role="tab" id="sw-es" aria-controls="pn-es" aria-selected="false" tabindex="-1"><strong>Planejamento estratégico</strong><small>Os números trabalhando pelo lucro</small><span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" class="i-arrow"><path d="M3 12h13"/><path d="M14 6.5 19.5 12 14 17.5"/></svg></span><span class="tm" aria-hidden="true"></span></button>
+      </div>
     </div>
-    <div class="switch rv" role="tablist" data-switch>
-      <button role="tab" id="sw-op" aria-controls="pn-op" aria-selected="true">Rotina operacional</button>
-      <button role="tab" id="sw-es" aria-controls="pn-es" aria-selected="false">Planejamento estratégico</button>
-      <span class="bar" aria-hidden="true"></span>
-    </div>
-    <div class="sw-panel" role="tabpanel" id="pn-op" aria-labelledby="sw-op">
-      <div><h3>O dia a dia contábil, resolvido</h3><p>Guias, notas, documentos e demonstrações em dia, sem você precisar correr atrás.</p></div>
-      <ul class="big-list"><li><i></i>Formalização da empresa</li><li><i></i>Emissão de guias de pagamento</li><li><i></i>Organização de documentos e registros</li><li><i></i>Emissão de notas fiscais</li><li><i></i>Envio de demonstrações contábeis</li></ul>
-    </div>
-    <div class="sw-panel" role="tabpanel" id="pn-es" aria-labelledby="sw-es" hidden>
-      <div><h3>Números a favor do negócio</h3><p>Existe também uma parte estratégica essencial: fazer o planejamento da área alinhado aos objetivos da empresa e usar os dados coletados a favor do negócio.</p></div>
-      <ul class="big-list"><li><i></i>Extratos contábeis mensais</li><li><i></i>Oportunidades de redução de custos e impostos</li><li><i></i>Mais lucratividade para o negócio</li></ul>
+    <div class="lg-stage rv">
+      <div class="blueprint" aria-hidden="true"></div>
+      <span class="lg-scan" aria-hidden="true"></span>
+      <div class="lg-panel" role="tabpanel" id="pn-op" aria-labelledby="sw-op">
+        <div class="lg-copy">
+          <h3>O dia a dia contábil, resolvido</h3>
+          <p>Guias, notas, documentos e demonstrações em dia, sem você precisar correr atrás.</p>
+          <div class="lg-sheets" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i></div>
+        </div>
+        <ul class="lg-rows"><li style="--k:0"><span class="lg-m"></span><span class="lg-n">Formalização da empresa</span><span class="lg-st">Abertura e alterações</span></li><li style="--k:1"><span class="lg-m"></span><span class="lg-n">Emissão de guias de pagamento</span><span class="lg-st">Todo mês</span></li><li style="--k:2"><span class="lg-m"></span><span class="lg-n">Organização de documentos e registros</span><span class="lg-st">Arquivo organizado</span></li><li style="--k:3"><span class="lg-m"></span><span class="lg-n">Emissão de notas fiscais</span><span class="lg-st">Sob demanda</span></li><li style="--k:4"><span class="lg-m"></span><span class="lg-n">Envio de demonstrações contábeis</span><span class="lg-st">Periódico</span></li></ul>
+      </div>
+      <div class="lg-panel" role="tabpanel" id="pn-es" aria-labelledby="sw-es" hidden>
+        <div class="lg-copy">
+          <h3>Números a favor do negócio</h3>
+          <p>Existe também uma parte estratégica essencial: fazer o planejamento da área alinhado aos objetivos da empresa e usar os dados coletados a favor do negócio.</p>
+          <svg class="lg-chart" viewBox="0 0 300 140" aria-hidden="true">
+            <defs><linearGradient id="lg-ar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FE5710" stop-opacity=".35"/><stop offset="1" stop-color="#FE5710" stop-opacity="0"/></linearGradient></defs>
+            <g class="gl"><path d="M0 30H300"/><path d="M0 60H300"/><path d="M0 90H300"/><path d="M0 120H300"/></g>
+            <path class="ar" d="M10 112 L60 98 L110 104 L160 74 L210 60 L260 34 L292 20 V130 H10Z" fill="url(#lg-ar)"/>
+            <path class="ln" d="M10 112 L60 98 L110 104 L160 74 L210 60 L260 34 L292 20"/>
+            <rect class="pt" x="-5" y="-5" width="10" height="10"/>
+          </svg>
+        </div>
+        <ul class="lg-rows"><li style="--k:0"><span class="lg-m"></span><span class="lg-n">Extratos contábeis mensais</span><span class="lg-st">Todo mês</span></li><li style="--k:1"><span class="lg-m"></span><span class="lg-n">Oportunidades de redução de custos e impostos</span><span class="lg-st">Contínuo</span></li><li style="--k:2"><span class="lg-m"></span><span class="lg-n">Mais lucratividade para o negócio</span><span class="lg-st">Resultado</span></li></ul>
+      </div>
     </div>
   </div>
 </section>
@@ -183,6 +202,6 @@
   </div>
 </footer>
 <a class="wa-float" href="https://wa.me/5521998340142?text=Ol%C3%A1%2C%20THD!%20Vim%20pelo%20site%20e%20quero%20fazer%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="Falar com a THD no WhatsApp" data-cursor="Conversar"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01m-7.01 15.24c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.23-8.22 8.23m4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43s.17-.25.25-.41c.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18s-.22-.16-.47-.28"/></svg></a>
-<script src="../assets/js/main.js?v=9f1739a8" defer></script>
+<script src="../assets/js/main.js?v=f113c252" defer></script>
 </body>
 </html>

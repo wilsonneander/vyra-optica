@@ -239,10 +239,26 @@ const js = `/* THD Engenharia · gerado por _build/build.js */
   }
 
   /* ---------- Chave operacional / estratégico ---------- */
-  $$('[data-switch]').forEach(function (sw) { var bs = $$('button', sw), sb = $('.bar', sw);
-    var place = function (b) { sb.style.width = b.offsetWidth + 'px'; sb.style.transform = 'translateX(' + b.offsetLeft + 'px)'; };
-    bs.forEach(function (b) { b.addEventListener('click', function () { bs.forEach(function (o) { var on = o === b, p = document.getElementById(o.getAttribute('aria-controls')); o.setAttribute('aria-selected', on); p.hidden = !on; if (on) { p.classList.remove('swap'); void p.offsetWidth; p.classList.add('swap'); } }); place(b); }); });
-    place(bs[0]); addEventListener('resize', function () { place($('[aria-selected=true]', sw)); }); if (document.fonts) document.fonts.ready.then(function () { place($('[aria-selected=true]', sw)); });
+  /* Painel contábil: abas que avançam sozinhas, varredura de luz e linhas que se preenchem */
+  $$('[data-ledger]').forEach(function (lg) {
+    var tabs = $$('[role=tab]', lg), stage = $('.lg-stage', lg), cur = 0, auto = !reduce;
+    var show = function (i, focus) { cur = i;
+      tabs.forEach(function (t, j) { var on = j === i, p = document.getElementById(t.getAttribute('aria-controls')); t.setAttribute('aria-selected', on); t.tabIndex = on ? 0 : -1; p.hidden = !on; p.classList.remove('on'); if (on && !reduce) { void p.offsetWidth; p.classList.add('on'); } });
+      if (!reduce) { stage.classList.remove('run'); void stage.offsetWidth; stage.classList.add('run'); }
+      if (focus) tabs[i].focus(); };
+    var stop = function () { if (auto) { auto = false; lg.classList.add('manual'); } };
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { stop(); show(i); });
+      t.addEventListener('keydown', function (e) { var k = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0; if (k) { e.preventDefault(); stop(); show((i + k + tabs.length) % tabs.length, true); } });
+      $('.tm', t).addEventListener('animationend', function () { if (auto) show((cur + 1) % tabs.length); });
+    });
+    lg.addEventListener('mouseenter', function () { lg.classList.add('paused'); });
+    lg.addEventListener('mouseleave', function () { lg.classList.remove('paused'); });
+    lg.addEventListener('focusin', function () { lg.classList.add('paused'); });
+    lg.addEventListener('focusout', function () { lg.classList.remove('paused'); });
+    if (fine && !reduce) stage.addEventListener('mousemove', function (e) { var r = stage.getBoundingClientRect(); stage.style.setProperty('--mx', (e.clientX - r.left) + 'px'); stage.style.setProperty('--my', (e.clientY - r.top) + 'px'); });
+    if (reduce || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (es) { es.forEach(function (e) { lg.classList.toggle('away', !e.isIntersecting); if (e.isIntersecting && !lg.classList.contains('live')) { lg.classList.add('live'); show(cur); } }); }, { threshold: .35 }).observe(stage);
   });
 
   /* ---------- Missão que acende com a rolagem ---------- */

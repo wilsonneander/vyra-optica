@@ -62,3 +62,27 @@ node clientes/thd-engenharia/_build-orbita/build.js --preview  # gera _preview-o
 - Seções presas na rolagem: pilha de serviços (uma camada por frente), jornada em trilho horizontal, tambor 3D dos pilares e folha da gestão contábil
 - Diagnóstico em baralho de cartas, com mapa em anel e envio pelo WhatsApp
 - Transição entre páginas em círculo laranja a partir do clique, cursor em órbita e botão do WhatsApp com anel de leitura da página
+
+## Terceiro modelo: "Fibra"
+
+Mesmo conteúdo (lido de `_build/content.js`) e mesmas cores, design totalmente diferente dos dois primeiros, inspirado na luz que corre pela fibra óptica.
+
+| Pasta | O que é |
+|---|---|
+| `_build-fibra/` | Gerador do modelo Fibra: `build.js`, `style.js`, `script.js` (usa `content.js`, `icons.js` e `img/` de `_build/`) |
+| `site-fibra/` | Modelo Fibra pronto para subir na hospedagem |
+| `_preview-fibra/` | Cópia para abrir direto no navegador (não vai para o git) |
+
+```bash
+node clientes/thd-engenharia/_build-fibra/build.js            # gera site-fibra/
+node clientes/thd-engenharia/_build-fibra/build.js --preview  # gera _preview-fibra/ (abra _preview-fibra/index.html)
+```
+
+- Fontes: Big Shoulders Display (títulos condensados em caixa-alta) + Schibsted Grotesk (texto), dupla diferente dos outros modelos
+- Base clara e editorial, com seções marinho e laranja; menu em trilho vertical à esquerda (no celular vira barra no topo)
+- Fundo: fios de luz em canvas que ondulam, desviam do cursor e levam pulsos laranja e azul-céu
+- Títulos revelados por um bloco laranja que atravessa o texto; textos de apoio que se decodificam; fotos que abrem em venezianas
+- Seções presas na rolagem: prisma 3D de quatro faces com os serviços e palavras gigantes dos pilares que se acendem
+- Jornada em trilha de fibra que se desenha com a rolagem e acende cada etapa; diagnóstico com chaves de três posições e rack 3D onde os módulos entram ou saltam para fora
+- Órgãos reguladores em linhas com o logo seguindo o cursor, foto em íris, missão digitada letra por letra, cabos das disciplinas, extrato que sai da impressora e comparador arrastável na gestão contábil
+- Transição entre páginas em venezianas, cursor com rastro de luz e nome da THD no rodapé iluminado pelo cursor

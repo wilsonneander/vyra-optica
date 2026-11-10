@@ -690,6 +690,21 @@ blockquote{margin:28px 0 32px;padding:4px 0 4px 24px;border-left:3px solid var(-
 .chan .wa{background:var(--green);color:#fff;padding:24px 22px;border-bottom:0;border-radius:0 0 0 36px}
 .chan .wa:hover{padding-left:30px}
 .chan .wa strong,.chan .wa small,.chan .wa .ci{color:#fff}
+/* quem somos: rede de fibra que cresce a partir da THD (canvas no fundo) */
+.hist{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse 60% 70% at 78% 50%,#EEF2F9 0,rgba(238,242,249,0) 70%),var(--white)}
+.hist .net{position:absolute;inset:0;width:100%;height:100%;z-index:-2;pointer-events:none}
+.hist-lead{font-size:clamp(1.06rem,1.4vw,1.18rem);color:var(--ink)}
+.disc{--dc:var(--orange);position:relative;color:var(--ink);font-weight:600;cursor:default;background:linear-gradient(var(--dc),var(--dc)) 0 100%/100% 2px no-repeat;transition:background-size .45s var(--ease),color .3s;padding:0 .08em;outline:0}
+.disc.d-l{--dc:var(--blue-l)} .disc.d-g{--dc:var(--green)} .disc.d-s{--dc:#3FA9F5}
+.disc:hover,.disc:focus-visible,.disc.on{background-size:100% 100%;color:#fff}
+.hist-media{perspective:1200px}
+.hist-media img{transform:rotateY(calc(var(--tx,0) * 6deg)) rotateX(calc(var(--ty,0) * -6deg));transition:clip-path 1.3s var(--ease-io),transform .8s var(--ease);box-shadow:0 40px 80px -40px rgba(2,20,48,.45)}
+.hist-media .b1{animation:hist-b1 9s ease-in-out infinite}
+.hist-media .b2{animation:hist-b2 11s ease-in-out -4s infinite}
+.hist-media .b3{animation:hist-b3 7s ease-in-out -2s infinite}
+@keyframes hist-b1{50%{translate:8px -10px}}
+@keyframes hist-b2{50%{translate:-10px 14px;rotate:90deg}}
+@keyframes hist-b3{50%{translate:-16px 6px}}
 /* contato: palco com formas da marca que flutuam e trilhas de circuito com pulsos */
 .ct-stage{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(180deg,var(--white) 0,var(--paper) 30%,var(--paper) 100%)}
 .ct-bg{position:absolute;inset:0;z-index:-1;pointer-events:none}

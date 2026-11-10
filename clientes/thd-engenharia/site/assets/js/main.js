@@ -364,8 +364,160 @@
     });
   }
 
+  /* ---------- Quem somos: rede de fibra que cresce a partir da THD ----------
+     Pontos novos se ligam à rede por trilhas em ângulo reto (como no logo), pacotes de luz
+     saem da THD (atrás da foto) até cada ponto. O mouse funciona como lanterna sobre a rede. */
+  $$('[data-net]').forEach(function (sec) {
+    var cv = sec.querySelector('canvas.net'), ctx = cv && cv.getContext('2d');
+    var hubEl = sec.querySelector('[data-net-hub]'), avoidEl = sec.querySelector('[data-net-avoid]');
+    if (!ctx || !hubEl || !avoidEl) return;
+    var COLORS = { o: '#FE5710', l: '#2B5AA8', g: '#23A455', s: '#3FA9F5' };
+    var STEP = 44, W = 0, H = 0, off = 0, cols = 0, rows = 0, MAX = 40, hub, avoid, fig;
+    var nodes = [], edges = [], packets = [], rings = [], used = {};
+    var mouse = null, color = COLORS.o, burst = 0, running = false, last = 0, growT = 0, spawnT = 0, clock = 0;
+    var rnd = function (n) { return Math.floor(Math.random() * n); };
+    var pt = function (c, r) { return { x: off + c * STEP, y: off + r * STEP }; };
+    var inR = function (p, q) { return p.x > q.x0 && p.x < q.x1 && p.y > q.y0 && p.y < q.y1; };
+    var segHit = function (a, b, q) { // segmento horizontal ou vertical contra retângulo
+      var x0 = Math.min(a.x, b.x), x1 = Math.max(a.x, b.x), y0 = Math.min(a.y, b.y), y1 = Math.max(a.y, b.y);
+      return x1 > q.x0 && x0 < q.x1 && y1 > q.y0 && y0 < q.y1;
+    };
+    function rel(el, pad) {
+      var s = sec.getBoundingClientRect(), r = el.getBoundingClientRect();
+      return { x0: r.left - s.left - pad, y0: r.top - s.top - pad, x1: r.right - s.left + pad, y1: r.bottom - s.top + pad };
+    }
+    function grow(instant) {
+      for (var t = 0; t < 60; t++) {
+        var p = nodes[rnd(nodes.length)];
+        if (p.kids >= (p === hub ? 6 : 3) || p.dying || (p.edge && p.edge.t < 1)) continue;
+        var big = p === hub ? 2 : 1; // da THD (atrás da foto) as trilhas saem mais longas, para passar da borda
+        var dc = (Math.random() < .5 ? -1 : 1) * (2 + rnd(5 * big)), dr = (Math.random() < .5 ? -1 : 1) * (1 + rnd(4 * big));
+        var k = Math.random(); if (k < .25) dr = 0; else if (k < .45) dc = 0;
+        var c = p.c + dc, r = p.r + dr, id = c + ',' + r;
+        if (c < 0 || r < 0 || c > cols || r > rows || used[id]) continue;
+        var a = pt(p.c, p.r), b = pt(c, r);
+        if (inR(b, avoid) || inR(b, fig)) continue;
+        var m = Math.random() < .5 ? { x: b.x, y: a.y } : { x: a.x, y: b.y };
+        if (segHit(a, m, avoid) || segHit(m, b, avoid)) continue;
+        var l1 = Math.abs(m.x - a.x) + Math.abs(m.y - a.y), l2 = Math.abs(b.x - m.x) + Math.abs(b.y - m.y);
+        var n = { c: c, r: r, x: b.x, y: b.y, id: id, kids: 0, parent: p, flash: 0, life: instant ? 1 : 0, dying: 0 };
+        n.edge = { a: a, m: m, b: b, l1: l1, len: l1 + l2, t: instant ? 1 : 0, n: n };
+        p.kids++; used[id] = 1; nodes.push(n); edges.push(n.edge);
+        return true;
+      }
+      return false;
+    }
+    function prune() { // a rede se renova: um ponto da ponta se desliga para outro nascer
+      var leaves = nodes.filter(function (n) { return n !== hub && !n.kids && !n.dying && n.edge.t >= 1; });
+      if (leaves.length) leaves[rnd(leaves.length)].dying = 1;
+    }
+    function layout() {
+      var s = sec.getBoundingClientRect(), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = s.width; H = s.height; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      off = STEP / 2; cols = Math.floor((W - off) / STEP); rows = Math.floor((H - off) / STEP);
+      MAX = Math.max(14, Math.min(46, Math.round(cols * rows / 14)));
+      avoid = rel(avoidEl, 28); fig = rel(hubEl, 8);
+      var hc = Math.round(((fig.x0 + fig.x1) / 2 - off) / STEP), hr = Math.round(((fig.y0 + fig.y1) / 2 - off) / STEP), hp = pt(hc, hr);
+      hub = { c: hc, r: hr, x: hp.x, y: hp.y, kids: 0, flash: 0, life: 1, dying: 0, edge: null };
+      nodes = [hub]; edges = []; packets = []; rings = []; used = {}; used[hc + ',' + hr] = 1;
+      for (var i = 0; i < Math.round(MAX * (reduce ? .8 : .45)); i++) grow(true);
+      if (reduce) draw();
+    }
+    function path(target) { var out = []; for (var n = target; n && n.edge; n = n.parent) out.unshift(n.edge); return out; }
+    function along(e, d) {
+      if (d <= e.l1) { var k = e.l1 ? d / e.l1 : 1; return { x: e.a.x + (e.m.x - e.a.x) * k, y: e.a.y + (e.m.y - e.a.y) * k }; }
+      var k2 = (d - e.l1) / ((e.len - e.l1) || 1); return { x: e.m.x + (e.b.x - e.m.x) * k2, y: e.m.y + (e.b.y - e.m.y) * k2 };
+    }
+    function lamp(x, y) { if (!mouse) return 0; var dx = x - mouse.x, dy = y - mouse.y, d = Math.sqrt(dx * dx + dy * dy); return d > 200 ? 0 : 1 - d / 200; }
+    function step(dt) {
+      clock += dt; burst = Math.max(0, burst - dt);
+      growT -= dt;
+      if (growT <= 0) { growT = .9 + Math.random() * .9; var live = nodes.filter(function (n) { return !n.dying; }).length; if (live >= MAX) prune(); grow(false); }
+      edges.forEach(function (e) { if (e.t < 1) { e.t = Math.min(1, e.t + dt * 700 / e.len); if (e.t >= 1) rings.push({ x: e.b.x, y: e.b.y, t: 0, c: color }); } });
+      nodes.forEach(function (n) {
+        n.flash = Math.max(0, n.flash - dt * 1.6);
+        if (n.dying) { n.life -= dt * .9; } else if (n.edge && n.edge.t >= 1) n.life = Math.min(1, n.life + dt * 2.5);
+      });
+      for (var i = nodes.length - 1; i > 0; i--) { var n = nodes[i]; if (n.dying && n.life <= 0) { n.parent.kids--; delete used[n.id]; nodes.splice(i, 1); edges.splice(edges.indexOf(n.edge), 1); } }
+      spawnT -= dt;
+      if (spawnT <= 0) {
+        spawnT = burst ? .07 : .32;
+        var ready = nodes.filter(function (n) { return n !== hub && n.edge.t >= 1 && !n.dying; });
+        if (ready.length) packets.push({ p: path(ready[rnd(ready.length)]), i: 0, d: 0, c: color, v: burst ? 420 : 230 });
+      }
+      packets = packets.filter(function (k) {
+        var e = k.p[k.i]; if (!e || e.n.dying) return false;
+        k.d += k.v * dt;
+        while (e && k.d >= e.len) { k.d -= e.len; k.i++; e = k.p[k.i]; }
+        if (!e) { var end = k.p[k.p.length - 1].n; end.flash = 1; end.fc = k.c; rings.push({ x: end.x, y: end.y, t: .35, c: k.c }); return false; }
+        return true;
+      });
+      rings = rings.filter(function (r) { r.t += dt * 1.1; return r.t < 1; });
+    }
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      // grade de pontos que a lanterna revela
+      for (var c = 0; c <= cols; c++) for (var r = 0; r <= rows; r++) {
+        var g = pt(c, r), a = .09 + lamp(g.x, g.y) * .45;
+        ctx.fillStyle = 'rgba(26,59,135,' + a.toFixed(3) + ')'; ctx.fillRect(g.x - 1, g.y - 1, 2, 2);
+      }
+      ctx.lineWidth = 1.4; ctx.lineCap = 'square';
+      edges.forEach(function (e) {
+        var f = Math.min(e.n.life + (e.t < 1 ? 1 : 0), 1), a = (.2 + lamp(e.b.x, e.b.y) * .5) * f;
+        ctx.strokeStyle = 'rgba(26,59,135,' + a.toFixed(3) + ')';
+        var d = e.len * e.t, tip = along(e, d);
+        ctx.beginPath(); ctx.moveTo(e.a.x, e.a.y);
+        if (d > e.l1) ctx.lineTo(e.m.x, e.m.y);
+        ctx.lineTo(tip.x, tip.y); ctx.stroke();
+        if (e.t < 1) { ctx.fillStyle = color; ctx.fillRect(tip.x - 3, tip.y - 3, 6, 6); }
+      });
+      nodes.forEach(function (n) {
+        if (n === hub || n.life <= 0) return;
+        var s = 6 + n.flash * 4, a = n.life * (.75 + lamp(n.x, n.y) * .25);
+        ctx.globalAlpha = a; ctx.fillStyle = n.flash > .05 ? n.fc : '#2B5AA8';
+        if (n.flash > .05) { ctx.shadowColor = n.fc; ctx.shadowBlur = 14 * n.flash; }
+        ctx.fillRect(n.x - s / 2, n.y - s / 2, s, s); ctx.shadowBlur = 0;
+      });
+      ctx.globalAlpha = 1;
+      rings.forEach(function (r) { var s = 8 + r.t * 34; ctx.globalAlpha = (1 - r.t) * .8; ctx.strokeStyle = r.c; ctx.lineWidth = 1.5; ctx.strokeRect(r.x - s / 2, r.y - s / 2, s, s); });
+      ctx.globalAlpha = 1;
+      packets.forEach(function (k) {
+        var e = k.p[k.i]; ctx.fillStyle = k.c; ctx.shadowColor = k.c; ctx.shadowBlur = 10;
+        for (var j = 0; j < 4; j++) {
+          var d = k.d - j * 7; if (d < 0) break;
+          var q = along(e, d), s = 5 - j; ctx.globalAlpha = 1 - j * .24; ctx.fillRect(q.x - s / 2, q.y - s / 2, s, s);
+        }
+        ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+      });
+    }
+    function loop(t) {
+      if (!running) return;
+      var dt = Math.min(.05, (t - (last || t)) / 1000); last = t;
+      step(dt); draw(); requestAnimationFrame(loop);
+    }
+    layout();
+    var rt; addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(layout, 200); });
+    if (window.ResizeObserver) { var lastH = H; new ResizeObserver(function () { var h = sec.getBoundingClientRect().height; if (Math.abs(h - lastH) > 4) { lastH = h; clearTimeout(rt); rt = setTimeout(layout, 120); } }).observe(sec); }
+    if (reduce) return;
+    sec.addEventListener('mousemove', function (e) { var s = sec.getBoundingClientRect(); mouse = { x: e.clientX - s.left, y: e.clientY - s.top }; }, { passive: true });
+    sec.addEventListener('mouseleave', function () { mouse = null; });
+    $$('[data-disc]', sec).forEach(function (w) {
+      var on = function () { color = COLORS[w.dataset.disc] || COLORS.o; burst = 1.6; };
+      var off2 = function () { color = COLORS.o; };
+      w.addEventListener('mouseenter', on); w.addEventListener('focus', on);
+      w.addEventListener('mouseleave', off2); w.addEventListener('blur', off2);
+    });
+    if (fine) {
+      hubEl.addEventListener('mousemove', function (e) { var r = hubEl.getBoundingClientRect(); hubEl.style.setProperty('--tx', ((e.clientX - r.left) / r.width - .5).toFixed(3)); hubEl.style.setProperty('--ty', ((e.clientY - r.top) / r.height - .5).toFixed(3)); });
+      hubEl.addEventListener('mouseleave', function () { hubEl.style.setProperty('--tx', 0); hubEl.style.setProperty('--ty', 0); });
+    }
+    var start = function () { if (!running) { running = true; last = 0; requestAnimationFrame(loop); } };
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) start(); else running = false; }); }).observe(sec);
+    else start();
+  });
+
   /* ---------- Contato: formas que seguem o mouse e aviso de atendimento ---------- */
-  $('[data-ct]').forEach(function (st) {
+  $$('[data-ct]').forEach(function (st) {
     if (!fine || reduce) return;
     var raf = 0, nx = 0, ny = 0;
     st.addEventListener('mousemove', function (e) {
@@ -374,7 +526,7 @@
     }, { passive: true });
     st.addEventListener('mouseleave', function () { st.style.setProperty('--mx', 0); st.style.setProperty('--my', 0); });
   });
-  $('[data-now]').forEach(function (el) {
+  $$('[data-now]').forEach(function (el) {
     try {
       var p = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Sao_Paulo', weekday: 'short', hour: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
       var wd = '', h = 0; p.forEach(function (x) { if (x.type === 'weekday') wd = x.value; if (x.type === 'hour') h = +x.value; });

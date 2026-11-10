@@ -493,16 +493,17 @@ function quemSomos() {
   const body = `
 ${pageHero(slug, 'Institucional', 'Quem *somos*', Q.intro,
     [T('sq', 'l', 0, 0), T('qa', 'o', 1, 0, 1), T('x', 'w', 2, 0), T('ci', 'w', 0, 1), T('sq', 'b', 1, 1), T('ar', 'o', 2, 1), T('st', 'l', 0, 2), T('tr', 'o', 1, 2, 3), T('ci', 'l', 2, 2)])}
-<section class="section">
+<section class="section hist" data-net>
+  <canvas class="net" aria-hidden="true"></canvas>
   <div class="container split">
-    <div>
+    <div class="hist-copy" data-net-avoid>
       <p class="kicker rv">Nossa história</p>
-      <h2 class="rv">Soluções completas para quem leva internet às pessoas</h2>
-      <p class="rv">${Q.historia}</p>
-      <p class="rv">Reunimos engenharia, regulatório, contabilidade e marketing em um só lugar, para que o provedor tenha um parceiro que entende o seu negócio de ponta a ponta.</p>
+      <h2 class="rv">Soluções completas para quem leva internet <span class="mark">às pessoas</span></h2>
+      <p class="rv hist-lead">${Q.historia}</p>
+      <p class="rv">Reunimos ${[['engenharia', 'o'], ['regulatório', 'l'], ['contabilidade', 'g'], ['marketing', 's']].map(([w, k], i, a) => `<span class="disc d-${k}" data-disc="${k}" tabindex="0">${w}</span>${i < a.length - 2 ? ', ' : i === a.length - 2 ? ' e ' : ''}`).join('')} em um só lugar, para que o provedor tenha um parceiro que entende o seu negócio de ponta a ponta.</p>
       <div class="actions rv">${waBtn('Faça seu orçamento', 'btn btn-o')}</div>
     </div>
-    <figure class="media rv">
+    <figure class="media rv hist-media" data-net-hub>
       <img src="../assets/img/rede.webp" alt="Profissional analisando a rede em um data center" width="1600" height="900" loading="lazy">
       <i class="bit b1"></i><i class="bit b2"></i><i class="bit b3"></i>
     </figure>

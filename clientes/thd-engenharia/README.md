@@ -39,3 +39,26 @@ Faça backup do WordPress antes de substituir.
 
 O site é estático. Ao enviar, o formulário monta a mensagem e abre no WhatsApp da THD (com nome, empresa, telefone, assunto e mensagem).
 O Google Analytics (`G-DMZHV89B5P`, o mesmo do site antigo) registra os envios e os cliques no WhatsApp.
+
+## Segundo modelo: "Órbita"
+
+Mesmo conteúdo (lido de `_build/content.js`) e mesmas cores, design totalmente diferente, inspirado nos anéis orbitais do logo.
+
+| Pasta | O que é |
+|---|---|
+| `_build-orbita/` | Gerador do modelo Órbita: `build.js`, `style.js`, `script.js` (usa `content.js`, `icons.js` e `img/` de `_build/`) |
+| `site-orbita/` | Modelo Órbita pronto para subir na hospedagem |
+| `_preview-orbita/` | Cópia para abrir direto no navegador (não vai para o git) |
+
+```bash
+node clientes/thd-engenharia/_build-orbita/build.js            # gera site-orbita/
+node clientes/thd-engenharia/_build-orbita/build.js --preview  # gera _preview-orbita/ (abra _preview-orbita/index.html)
+```
+
+- Fontes: Unbounded (títulos) + Hanken Grotesk (texto), dupla diferente do primeiro modelo
+- Fundo: céu de nós conectados em canvas (reage ao cursor) e órbitas girando atrás das seções
+- Rolagem: cada seção sobe como uma lâmina de cantos arredondados que se abre; títulos sobem palavra por palavra em 3D
+- 3D: giroscópio com planeta e anéis do logo (inclina com o mouse, gira com a rolagem), pilha de camadas dos serviços, barras isométricas da contabilidade, placas dos órgãos que giram, folha contábil que vira, fotos inclináveis com anel orbital
+- Seções presas na rolagem: pilha de serviços (uma camada por frente), jornada em trilho horizontal, tambor 3D dos pilares e folha da gestão contábil
+- Diagnóstico em baralho de cartas, com mapa em anel e envio pelo WhatsApp
+- Transição entre páginas em círculo laranja a partir do clique, cursor em órbita e botão do WhatsApp com anel de leitura da página

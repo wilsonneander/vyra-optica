@@ -575,8 +575,8 @@ a.ch:hover{background:rgba(255,255,255,.06);transform:translateX(6px)}
 .where .btn{margin-top:12px}
 .map3d{perspective:1500px}
 .map-box{position:relative;height:420px;border-radius:28px;overflow:hidden;box-shadow:0 60px 90px -50px rgba(0,0,0,.8);transform:rotateY(calc(-9deg + var(--tx,0) * 1deg)) rotateX(calc(4deg + var(--ty,0) * 1deg));transition:transform 1s var(--ease)}
-.map-box iframe{width:100%;height:100%;border:0;display:block;filter:grayscale(1) invert(.9) contrast(.9) hue-rotate(180deg);transition:filter .6s}
-.map-box:hover iframe{filter:none}
+/* o mapa sobe 170px dentro da moldura para esconder o cartão de endereço do próprio Google (fica só o nosso) */
+.map-box iframe{position:absolute;left:0;top:-170px;width:100%;height:calc(100% + 170px);border:0;display:block}
 .map-info{position:absolute;left:16px;bottom:16px;display:grid;gap:3px;max-width:300px;padding:20px;border-radius:20px;background:rgba(2,20,48,.88);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);font-size:.9rem;color:var(--soft)}
 .map-info b{font:600 1rem var(--f-head);color:#fff}
 .mbtns{display:flex;gap:8px;margin-top:12px}

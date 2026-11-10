@@ -234,12 +234,12 @@ const ctaBand = (slug, titulo = 'Vamos tirar o seu provedor do papel ou deixá-l
   </div>
 </section>`;
 
-// carrossel de órgãos reguladores: anda sozinho, pausa no mouse, arrasta com o dedo/mouse e tem setas
+// carrossel de órgãos reguladores: anda sozinho, arrasta com o dedo/mouse e tem setas
 const selos = (slug) => {
-  const card = (s, clone) => `<li class="selo"${clone ? ' aria-hidden="true"' : ''}>
-      <img src="${asset(slug, 'img/' + s.img)}" alt="${clone ? '' : s.nome}" style="--h:${s.h}px" loading="lazy" draggable="false">
+  const card = (s, clone) => `<li class="selo"${clone ? ' aria-hidden="true"' : ''}><div class="selo-in">
+      <span class="selo-logo"><img src="${asset(slug, 'img/' + s.img)}" alt="${clone ? '' : s.nome}" style="--h:${s.h}px" loading="lazy" draggable="false"></span>
       <span class="selo-cap"><strong>${s.nome}</strong>${s.papel}</span>
-    </li>`;
+    </div></li>`;
   return `
 <section class="selos" id="orgaos" aria-labelledby="selos-t">
   <div class="container selos-head">

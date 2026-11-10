@@ -207,7 +207,7 @@ ${footer(slug)}
 `;
 }
 
-const pageHero = (slug, kicker, title, lead, tiles, wires = 'b') => `
+const pageHero = (slug, kicker, title, lead, foto) => `
 <section class="phero on-dark">
   <div class="blueprint" aria-hidden="true"></div>
   <div class="container phero-in">
@@ -217,7 +217,10 @@ const pageHero = (slug, kicker, title, lead, tiles, wires = 'b') => `
       <h1>${words(title)}</h1>
       ${lead ? `<p class="lead fade-up" style="--d:.7s">${lead}</p>` : ''}
     </div>
-    ${geo(tiles, { wires })}
+    <figure class="phero-foto">
+      <span class="pf-img"><img src="${asset(slug, 'img/' + foto.src)}" alt="${foto.alt}" width="1200" height="960" fetchpriority="high" decoding="async"></span>
+      <i class="pf-b pf-b1 s-sq c-o" aria-hidden="true"></i><i class="pf-b pf-b2 s-qa c-l" aria-hidden="true"></i><i class="pf-b pf-b3 s-sq c-w" aria-hidden="true"></i>
+    </figure>
   </div>
 </section>`;
 
@@ -494,7 +497,7 @@ function quemSomos() {
   const missao = Q.missao.split(' ').map((w) => `<span class="mw${/praticidade|segurança/i.test(w) ? ' hl' : ''}">${w}</span>`).join(' ');
   const body = `
 ${pageHero(slug, 'Institucional', 'Quem *somos*', Q.intro,
-    [T('sq', 'l', 0, 0), T('qa', 'o', 1, 0, 1), T('x', 'w', 2, 0), T('ci', 'w', 0, 1), T('sq', 'b', 1, 1), T('ar', 'o', 2, 1), T('st', 'l', 0, 2), T('tr', 'o', 1, 2, 3), T('ci', 'l', 2, 2)])}
+    { src: 'topo-quem-somos.webp', alt: 'Sócios comemorando um resultado na mesa de trabalho' })}
 <section class="section hist" data-net>
   <canvas class="net" aria-hidden="true"></canvas>
   <div class="container split">
@@ -561,7 +564,7 @@ function servicos() {
   ];
   const body = `
 ${pageHero(slug, 'Catálogo de soluções', 'Serviços para *provedores* de internet', 'Da outorga na Anatel à contabilidade: escolha o que o seu provedor precisa ou fale com a gente para montar um pacote.',
-    [T('sq', 'b', 0, 0), T('ci', 'o', 1, 0), T('qa', 'l', 2, 0, 1), T('st', 'l', 0, 1), T('x', 'w', 1, 1), T('sq', 'o', 2, 1), T('ar', 'w', 0, 2), T('sq', 'l', 1, 2), T('tr', 'o', 2, 2, 2)], 'a')}
+    { src: 'topo-servicos.webp', alt: 'Equipe trabalhando junta em notebooks numa mesa compartilhada' })}
 <div class="gnav-wrap">
   <nav class="container gnav" aria-label="Frentes de serviço">${C.grupos.map((g) => `<a href="#${g.id}">${g.titulo}</a>`).join('')}<span class="bar" aria-hidden="true"></span></nav>
 </div>
@@ -601,7 +604,7 @@ function contabilidade() {
   const K = C.contabilidade;
   const body = `
 ${pageHero(slug, 'Serviço contábil especializado', 'Você sabe a *rentabilidade* do seu negócio?', K.smart,
-    [T('x', 'w', 0, 0), T('sq', 'l', 1, 0), T('qa', 'o', 2, 0, 1), T('sq', 'b', 0, 1), T('sq', 'l', 1, 1), T('sq', 'o', 2, 1), T('sq', 'b', 0, 2), T('sq', 'l', 1, 2), T('sq', 'o', 2, 2)], 'c')}
+    { src: 'topo-contabilidade.webp', alt: 'Notebook com painel de indicadores financeiros e gráficos' })}
 <section class="section">
   <div class="container split">
     <figure class="media sq rv">
@@ -685,7 +688,7 @@ function contato() {
   const c = C.contato;
   const body = `
 ${pageHero(slug, 'Formulário e WhatsApp', 'Fale com a nossa *equipe*', 'Estamos à disposição para o seu contato. Escolha o canal que preferir.',
-    [T('ci', 'o', 0, 0), T('sq', 'l', 1, 0), T('x', 'w', 2, 0), T('qa', 'b', 0, 1, 1), T('ri', 'w', 1, 1), T('sq', 'o', 2, 1), T('x', 'w', 0, 2), T('ar', 'l', 1, 2), T('ci', 'b', 2, 2)])}
+    { src: 'topo-contato.webp', alt: 'Atendente sorrindo enquanto fala ao telefone na mesa de trabalho' })}
 <section class="section ct-stage" data-ct>
   <div class="ct-bg" aria-hidden="true">
     <svg class="ct-wires" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">

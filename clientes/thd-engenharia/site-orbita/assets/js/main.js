@@ -18,6 +18,7 @@
   addEventListener('resize', req);
   addEventListener('load', req);
   var progress = function (sec) { var r = sec.getBoundingClientRect(); return clamp(-r.top / Math.max(1, sec.offsetHeight - innerHeight), 0, 1); };
+var passP = function (sec) { var r = sec.getBoundingClientRect(); return clamp((innerHeight * .85 - r.top) / (innerHeight * .95), 0, 1); };
   var scrollToP = function (sec, p) { var top = sec.getBoundingClientRect().top + scrollY; scrollTo({ top: top + (sec.offsetHeight - innerHeight) * p, behavior: smooth }); };
 
   if (root.classList.contains('enter')) setTimeout(function () { root.classList.remove('enter'); }, 1150);
@@ -316,11 +317,11 @@
     function setA(a) { drum.style.setProperty('--a', (a * 40).toFixed(2)); faces.forEach(function (f, i) { var d = Math.abs(a - i); f.style.setProperty('--o', Math.max(.05, 1 - d * .62).toFixed(3)); f.classList.toggle('on', d < .5); }); }
     function show(i) { if (i === cur) return; cur = i; ds.forEach(function (d, k) { d.classList.toggle('on', k === i); });
       tabs.forEach(function (t, k) { t.setAttribute('aria-selected', k === i); }); var t = tabs[i]; if (t && t.offsetWidth) { bar.style.width = t.offsetWidth + 'px'; bar.style.transform = 'translateX(' + t.offsetLeft + 'px)'; } }
-    tabs.forEach(function (t, i) { t.addEventListener('click', function () { if (pinned()) { lock = Date.now() + 1000; scrollToP(sec, i / (n - 1)); } show(i); setA(i); }); });
+    tabs.forEach(function (t, i) { t.addEventListener('click', function () { lock = Date.now() + 1600; show(i); setA(i); }); });
     ticks.push(function () {
-      if (!pinned()) return;
-      var p = progress(sec), a = p * (n - 1), f = a - Math.floor(a), e = Math.floor(a) + f * f * (3 - 2 * f);
-      setA(e); if (Date.now() > lock) show(Math.round(e));
+      if (!pinned() || Date.now() < lock) return;
+      var p = passP(sec), a = p * (n - 1), f = a - Math.floor(a), e = Math.floor(a) + f * f * (3 - 2 * f);
+      setA(e); show(Math.round(e));
     });
     setA(0); show(0); if (document.fonts) document.fonts.ready.then(function () { cur = -1; show(Math.max(0, Math.round(parseFloat(drum.style.getPropertyValue('--a') || 0) / 40))); });
   });

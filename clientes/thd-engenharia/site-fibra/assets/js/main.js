@@ -18,6 +18,7 @@
   addEventListener('resize', req);
   addEventListener('load', req);
   var progress = function (sec) { var r = sec.getBoundingClientRect(); return clamp(-r.top / Math.max(1, sec.offsetHeight - innerHeight), 0, 1); };
+var passP = function (sec) { var r = sec.getBoundingClientRect(); return clamp((innerHeight * .85 - r.top) / (innerHeight * .95), 0, 1); };
   var scrollToP = function (sec, p) { var top = sec.getBoundingClientRect().top + scrollY; scrollTo({ top: top + (sec.offsetHeight - innerHeight) * p, behavior: smooth }); };
   var ease = function (f) { return f * f * (3 - 2 * f); };
   var hold = function (a) { var b = Math.floor(a), f = a - b; return b + ease(ease(f)); };
@@ -327,11 +328,11 @@
       track.style.transform = 'translate3d(0,' + (box.clientHeight / 2 - y).toFixed(1) + 'px,0)';
     }
     function show(i) { if (i === cur) return; cur = i; ds.forEach(function (d, k) { d.classList.toggle('on', k === i); }); }
-    words.forEach(function (w, i) { w.addEventListener('click', function () { lock = Date.now() + 1000; scrollToP(sec, i / (n - 1)); show(i); }); });
+    words.forEach(function (w, i) { w.addEventListener('click', function () { lock = Date.now() + 1600; setA(i); show(i); }); });
     ticks.push(function () {
-      if (!pinned()) return;
-      var a = reduce ? Math.round(progress(sec) * (n - 1)) : hold(progress(sec) * (n - 1));
-      setA(a); if (Date.now() > lock) show(Math.round(a));
+      if (!pinned() || Date.now() < lock) return;
+      var a = reduce ? Math.round(passP(sec) * (n - 1)) : hold(passP(sec) * (n - 1));
+      setA(a); show(Math.round(a));
     });
   });
 

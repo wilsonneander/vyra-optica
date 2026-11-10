@@ -379,15 +379,15 @@ body.menu-open{overflow:hidden}
 .diag-card .btn{width:100%}
 
 /* ---------- pilares: tambor 3D ---------- */
-.pil{position:relative;height:calc(var(--n) * 48vh + 70vh)}
-.pil-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;padding-top:60px}
+.pil{position:relative}
+.pil-sticky{position:relative;overflow:hidden;display:flex;align-items:center;padding:clamp(52px,5.5vw,88px) 0}
 .pil-in{position:relative;z-index:1;display:grid;grid-template-columns:.95fr 1.05fr;grid-template-areas:"head drum" "desc drum";gap:10px clamp(30px,5vw,70px);align-items:center}
 .pil-head{grid-area:head;align-self:end}
 .pil-tabs{position:relative;display:flex;flex-wrap:wrap;gap:4px 22px;margin-top:10px}
 .pil-tabs button{padding:10px 0;border:0;background:none;font:700 .95rem var(--f-body);color:var(--muted);cursor:pointer;transition:color .3s}
 .pil-tabs button[aria-selected=true]{color:var(--ink)}
 .pil-bar{position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--orange);transition:transform .6s var(--ease),width .6s var(--ease)}
-.drum-wrap{grid-area:drum;height:min(66vh,600px);display:grid;place-items:center;perspective:1100px;-webkit-mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent);mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent)}
+.drum-wrap{grid-area:drum;height:min(46vh,400px);display:grid;place-items:center;perspective:1100px;-webkit-mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent);mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent)}
 .drum{position:relative;width:100%;height:1.2em;font:700 clamp(2.1rem,4.9vw,5rem)/1.2 var(--f-head);letter-spacing:-.05em;transform-style:preserve-3d;transform:translateZ(-2.1em) rotateX(calc(var(--a,0) * 1deg))}
 .drum-f{position:absolute;inset:0;display:grid;place-items:center;color:var(--ink);-webkit-backface-visibility:hidden;backface-visibility:hidden;transform:rotateX(calc(var(--i) * -40deg)) translateZ(2.1em);opacity:var(--o,.15);transition:color .5s}
 .drum-f.on{color:var(--orange)}

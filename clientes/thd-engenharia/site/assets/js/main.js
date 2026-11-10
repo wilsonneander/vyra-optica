@@ -235,15 +235,17 @@
 
   /* ---------- Seção presa: a rolagem escolhe o item ativo ---------- */
   var pinScroll = function (sec, n, onIdx) {
-    var cur = -1, ok = function () { return !mobile() && innerHeight >= 600 && !reduce; };
+    var cur = -1, lock = 0, ok = function () { return !mobile() && innerHeight >= 600 && !reduce; };
     var total = function () { return Math.max(1, sec.offsetHeight - innerHeight); };
     var f = function () { if (!ok()) { cur = -1; return; }
       var p = Math.max(0, Math.min(1, -sec.getBoundingClientRect().top / total()));
       sec.style.setProperty('--p', p);
+      if (lock) return;
       var i = Math.min(n - 1, Math.floor(p * n)); if (i !== cur) { cur = i; onIdx(i); } };
     addEventListener('scroll', f, { passive: true }); addEventListener('resize', f); f();
-    return { ok: ok, go: function (i) { if (!ok()) return false; cur = i; onIdx(i);
-      scrollTo({ top: sec.getBoundingClientRect().top + scrollY + total() * (i + .5) / n, behavior: 'smooth' }); return true; } };
+    return { ok: ok, go: function (i, instant) { if (!ok()) return false; cur = i; onIdx(i);
+      clearTimeout(lock); lock = setTimeout(function () { lock = 0; f(); }, instant ? 50 : 1100);
+      scrollTo({ top: sec.getBoundingClientRect().top + scrollY + total() * (i + .5) / n, behavior: instant ? 'auto' : 'smooth' }); return true; } };
   };
 
   /* ---------- Painéis que se abrem ---------- */
@@ -256,13 +258,25 @@
       if (fine) it.addEventListener('mouseenter', function () { if (!(pin && pin.ok())) open(it); }); });
   });
 
+  /* ---------- Frentes presas na rolagem (serviços) ---------- */
+  var gp = $('[data-gpin]'), gsecs = gp ? $$('.grp-sec', gp) : [], gMark = null;
+  var gpin = gp && pinScroll(gp, gsecs.length, function (i) { gsecs.forEach(function (s, k) { s.classList.toggle('cur', k === i); }); if (gMark) gMark(i); });
+  var gOn = function () { return gpin && gpin.ok(); };
+
   /* ---------- Acordeão de serviços ---------- */
   var accs = $$('.acc-item');
   var setAcc = function (it, o) { it.classList.toggle('open', o); $('button', it).setAttribute('aria-expanded', o); };
-  accs.forEach(function (it) { $('button', it).addEventListener('click', function () { setAcc(it, !it.classList.contains('open')); }); });
-  function fromHash() { var id = location.hash.slice(1), it = id && document.getElementById(id);
+  accs.forEach(function (it) { $('button', it).addEventListener('click', function () { var o = !it.classList.contains('open');
+    /* com a frente presa, um item aberto por vez para caber na tela */
+    if (o && gOn()) $$('.acc-item.open', it.parentNode).forEach(function (x) { setAcc(x, false); });
+    setAcc(it, o); }); });
+  function fromHash(first) { var id = location.hash.slice(1), it = id && document.getElementById(id);
+    if (gOn() && it) { var sec = it.classList.contains('grp-sec') ? it : it.closest('.grp-sec'), gi = gsecs.indexOf(sec);
+      if (gi > -1) { if (first === true) { var jump = function () { setTimeout(function () { gpin.go(gi, true); }, 60); }; if (document.readyState === 'complete') jump(); else addEventListener('load', jump); } else gpin.go(gi);
+        if (it.classList.contains('acc-item')) { $$('.acc-item.open', it.parentNode).forEach(function (x) { setAcc(x, false); }); setAcc(it, true); it.classList.remove('flash'); void it.offsetWidth; it.classList.add('flash'); }
+        return; } }
     if (it && it.classList.contains('acc-item')) { setAcc(it, true); it.classList.remove('flash'); void it.offsetWidth; it.classList.add('flash'); setTimeout(function () { it.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }, 80); } }
-  if (accs.length) { fromHash(); addEventListener('hashchange', fromHash); }
+  if (accs.length) { fromHash(true); addEventListener('hashchange', fromHash); }
 
   /* ---------- Menu de frentes (serviços) ---------- */
   var gnav = $('.gnav');
@@ -272,7 +286,9 @@
       /* rola só o menu na horizontal: scrollIntoView mexia na rolagem da página e travava quem estava descendo */
       if (gnav.scrollWidth > gnav.clientWidth) { var l = a.offsetLeft, r = l + a.offsetWidth, sl = gnav.scrollLeft, w = gnav.clientWidth;
         if (l < sl || r > sl + w) gnav.scrollTo({ left: l < sl ? l - 16 : r - w + 16, behavior: reduce ? 'auto' : 'smooth' }); } };
-    var so = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) mark(gl.filter(function (a) { return a.getAttribute('href') === '#' + e.target.id; })[0]); }); }, { rootMargin: '-40% 0px -55% 0px' });
+    gMark = function (i) { mark(gl[i]); };
+    gl.forEach(function (a, i) { a.addEventListener('click', function (e) { if (gOn()) { e.preventDefault(); gpin.go(i); history.replaceState(null, '', a.getAttribute('href')); } }); });
+    var so = new IntersectionObserver(function (es) { if (gOn()) return; es.forEach(function (e) { if (e.isIntersecting) mark(gl.filter(function (a) { return a.getAttribute('href') === '#' + e.target.id; })[0]); }); }, { rootMargin: '-40% 0px -55% 0px' });
     gl.forEach(function (a) { var s = document.querySelector(a.getAttribute('href')); if (s) so.observe(s); });
     mark(gl[0]); if (document.fonts) document.fonts.ready.then(function () { mark($('.active', gnav) || gl[0]); });
   }

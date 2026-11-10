@@ -562,8 +562,9 @@ ${pageHero(slug, 'Catálogo de soluções', 'Serviços para *provedores* de inte
 <div class="gnav-wrap">
   <nav class="container gnav" aria-label="Frentes de serviço">${C.grupos.map((g) => `<a href="#${g.id}">${g.titulo}</a>`).join('')}<span class="bar" aria-hidden="true"></span></nav>
 </div>
-${C.grupos.map((g, gi) => `
-<section class="section${gi % 2 ? ' section-paper' : ''}" id="${g.id}">
+<div class="gpin pin-sec" style="--n:${C.grupos.length}" data-gpin>
+<div class="pin-stick gstick">${C.grupos.map((g, gi) => `
+<section class="section grp-sec${gi % 2 ? ' section-paper' : ''}${gi === 0 ? ' cur' : ''}" id="${g.id}">
   <div class="container grp">
     <div class="grp-head">
       <p class="kicker rv">${g.titulo}</p>
@@ -584,6 +585,8 @@ ${C.grupos.map((g, gi) => `
     </div>
   </div>
 </section>`).join('')}
+</div>
+</div>
 ${ctaBand(slug, 'Não sabe por onde começar?', `Faça o <a href="${link(slug, '', '#diagnostico')}" style="color:var(--orange);font-weight:600">diagnóstico rápido</a> ou fale com a nossa equipe. Indicamos o caminho certo para a situação do seu provedor.`)}`;
   return layout({ slug, body,
     title: 'Serviços | THD Engenharia',

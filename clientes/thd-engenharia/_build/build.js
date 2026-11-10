@@ -491,6 +491,48 @@ function bars() {
     <p class="bars-cap">Extratos contábeis todo mês, para enxergar a evolução do seu provedor.</p></div>`;
 }
 
+// ---------- equipe (Quem somos) ----------
+const ini = (n) => n.split(' ').filter((w) => w.length > 2).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
+const teamMsg = (p) => `Olá! Vim pelo site da THD e quero falar com ${p.nome.split(' ')[0]}, da área de ${p.cargo.toLowerCase()}.`;
+// arte de blocos atrás do retrato: muda o arranjo a cada pessoa
+const TEAM_ART = [
+  [['qa', 'o'], ['sq', 'b'], ['x', ''], ['sq', 'l'], ['ci', 'o'], ['qd', 'b'], ['x', ''], ['qb', 'l'], ['sq', 'o']],
+  [['ci', 'b'], ['x', ''], ['qb', 'o'], ['sq', 'l'], ['qc', 'b'], ['x', ''], ['sq', 'o'], ['ci', 'l'], ['qa', 'b']],
+  [['sq', 'l'], ['qd', 'o'], ['x', ''], ['x', ''], ['sq', 'b'], ['ci', 'o'], ['qb', 'l'], ['sq', 'b'], ['qc', 'o']],
+  [['x', ''], ['ci', 'o'], ['sq', 'b'], ['qa', 'l'], ['x', ''], ['qc', 'o'], ['sq', 'b'], ['qd', 'l'], ['ci', 'b']],
+];
+function equipe(slug) {
+  const E = C.equipe;
+  return `
+<section class="section team" id="equipe">
+  <div class="container">
+    <div class="head-row">
+      <div class="head">
+        <p class="kicker rv">Nossa equipe</p>
+        <h2 class="rv">${E.titulo.replace(/seu provedor$/, '<span class="mark">seu provedor</span>')}</h2>
+      </div>
+      <p class="team-lead rv">${E.texto}</p>
+    </div>
+    <ul class="team-grid">${E.pessoas.map((p, i) => `
+      <li class="tm a-${p.area} rv" data-d="${i}">
+        <figure class="tm-pic">
+          <span class="tm-art" aria-hidden="true">${TEAM_ART[i % TEAM_ART.length].map(([k, c]) => `<i class="s-${k} c-${c || 'b'}"></i>`).join('')}</span>
+          ${p.foto ? `<img src="../assets/img/${p.foto}" alt="${esc(p.nome)}, ${esc(p.cargo)} da THD" width="800" height="1000" loading="lazy">` : `<span class="tm-ini" aria-hidden="true">${ini(p.nome)}</span>`}
+          <figcaption class="tm-role">${p.cargo}</figcaption>
+        </figure>
+        <div class="tm-body">
+          <h3>${p.nome}</h3>
+          <ol class="tm-trail">${p.formacao.map(([t, c, now]) => `
+            <li${now ? ' class="now"' : ''}><span>${t}</span>${c}</li>`).join('')}
+          </ol>
+          ${waBtn('Falar no WhatsApp', 'btn btn-w tm-btn', teamMsg(p))}
+        </div>
+      </li>`).join('')}
+    </ul>
+  </div>
+</section>`;
+}
+
 function quemSomos() {
   const slug = 'quem-somos';
   const Q = C.quemSomos;
@@ -514,7 +556,7 @@ ${pageHero(slug, 'Institucional', 'Quem *somos*', Q.intro,
     </figure>
   </div>
 </section>
-
+${equipe(slug)}
 <section class="section section-dark on-dark">
   <div class="blueprint" aria-hidden="true"></div>
   <div class="container">

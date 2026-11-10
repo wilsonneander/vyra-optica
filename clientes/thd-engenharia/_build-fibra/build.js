@@ -444,6 +444,47 @@ ${ctaBand(slug)}`;
     desc: 'Consultoria para provedores de internet: outorga SCM, ASN, aluguel de IPv4, DICI, notificações Anatel, responsabilidade técnica e contabilidade especializada.' });
 }
 
+// ---------- equipe (Quem somos): retrato com fios de luz e formação em cabos ----------
+const ini = (n) => n.split(' ').filter((w) => w.length > 2).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
+const teamMsg = (p) => `Olá! Vim pelo site da THD e quero falar com ${p.nome.split(' ')[0]}, da área de ${p.cargo.toLowerCase()}.`;
+const FIOS = [
+  ['M-10 40 C 60 40, 90 120, 210 110', 'M-10 150 C 80 150, 120 70, 210 60', 'M-10 210 C 70 200, 140 230, 210 180'],
+  ['M-10 70 C 90 60, 100 170, 210 160', 'M-10 120 C 50 130, 150 30, 210 40', 'M-10 230 C 90 220, 120 180, 210 215'],
+  ['M-10 30 C 70 90, 130 60, 210 130', 'M-10 180 C 60 140, 140 160, 210 90', 'M-10 120 C 90 200, 150 220, 210 240'],
+  ['M-10 100 C 60 30, 140 40, 210 70', 'M-10 200 C 70 180, 110 110, 210 150', 'M-10 60 C 100 140, 130 230, 210 230'],
+];
+function equipe() {
+  const E = C.equipe;
+  return `
+<section class="sec t-paper team" id="equipe">
+  <div class="container">
+    <div class="head team-head">
+      <div>
+        ${kicker('Nossa equipe')}
+        ${bl('h2', E.titulo.replace(/seu provedor$/, '*seu provedor*'))}
+      </div>
+      <p class="team-lead rv">${E.texto}</p>
+    </div>
+    <ul class="team-grid">${E.pessoas.map((p, i) => `
+      <li class="fx a-${p.area} rv" style="--d:${i}">
+        <figure class="fx-pic">
+          <svg class="fx-fios" viewBox="0 0 200 250" preserveAspectRatio="none" aria-hidden="true">${FIOS[i % FIOS.length].map((d, k) => `<path class="fb" d="${d}"/><path class="fp" style="--k:${k}" pathLength="100" d="${d}"/>`).join('')}</svg>
+          ${p.foto ? `<img src="../assets/img/${p.foto}" alt="${esc(p.nome)}, ${esc(p.cargo)} da THD" width="800" height="1000" loading="lazy">` : `<b class="fx-ini" aria-hidden="true">${ini(p.nome)}</b>`}
+          <figcaption>${p.cargo}</figcaption>
+        </figure>
+        <div class="fx-body">
+          <h3>${p.nome}</h3>
+          <ul class="fx-edu">${p.formacao.map(([t, c, now]) => `
+            <li${now ? ' class="now"' : ''}><small>${t}</small><span>${c}</span></li>`).join('')}
+          </ul>
+          ${waBtn('Falar no WhatsApp', 'btn btn-w fx-btn', teamMsg(p))}
+        </div>
+      </li>`).join('')}
+    </ul>
+  </div>
+</section>`;
+}
+
 function quemSomos() {
   const slug = 'quem-somos';
   const Q = C.quemSomos;
@@ -468,7 +509,7 @@ ${pageHero(slug, 'Institucional', 'Quem *somos*', Q.intro, { src: 'rede.webp', w
     <div class="cables-wrap rv">${cables}</div>
   </div>
 </section>
-
+${equipe()}
 <section class="sec t-navy mis">
   ${fibers('dark')}
   <div class="container">

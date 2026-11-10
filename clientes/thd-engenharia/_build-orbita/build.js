@@ -461,6 +461,45 @@ ${ctaBand(slug)}`;
     desc: 'Consultoria para provedores de internet: outorga SCM, ASN, aluguel de IPv4, DICI, notificações Anatel, responsabilidade técnica e contabilidade especializada.' });
 }
 
+// ---------- equipe (Quem somos): retrato em órbita, cartão que inclina em 3D ----------
+const ini = (n) => n.split(' ').filter((w) => w.length > 2).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
+const teamMsg = (p) => `Olá! Vim pelo site da THD e quero falar com ${p.nome.split(' ')[0]}, da área de ${p.cargo.toLowerCase()}.`;
+// anel de progresso: cheio = concluído, arco girando = em andamento
+const ring = (now) => `<svg class="om-ring${now ? ' now' : ''}" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="10.5" class="tr"/><circle cx="14" cy="14" r="10.5" class="ar" pathLength="100"/><rect x="11.5" y="11.5" width="5" height="5" rx="1.2"/></svg>`;
+function equipe() {
+  const E = C.equipe;
+  return `
+<section class="sec sheet t-dark team" id="equipe" data-tone="dark">
+  ${bgOrbits('team-orbits')}
+  <div class="container">
+    <div class="head-row">
+      <div>
+        <p class="kicker rv">Nossa equipe</p>
+        <h2 class="split">${words(E.titulo.replace(/seu provedor$/, '*seu* *provedor*'))}</h2>
+      </div>
+      <p class="team-lead rv">${E.texto}</p>
+    </div>
+    <ul class="team-grid">${E.pessoas.map((p, i) => `
+      <li class="om a-${p.area} rv" style="--d:${i}" data-tilt>
+        <div class="om-in">
+          <div class="om-pic">
+            <span class="om-orbit o1" aria-hidden="true"><i></i></span>
+            <span class="om-face">${p.foto ? `<img src="../assets/img/${p.foto}" alt="${esc(p.nome)}, ${esc(p.cargo)} da THD" width="800" height="1000" loading="lazy">` : `<b aria-hidden="true">${ini(p.nome)}</b>`}</span>
+            <span class="om-orbit o2" aria-hidden="true"><i></i></span>
+          </div>
+          <h3>${p.nome}</h3>
+          <p class="om-role">${p.cargo}</p>
+          <ul class="om-edu">${p.formacao.map(([t, c, now]) => `
+            <li${now ? ' class="now"' : ''}>${ring(now)}<span><small>${t}</small>${c}</span></li>`).join('')}
+          </ul>
+          ${waBtn('Falar no WhatsApp', 'btn btn-w om-btn', teamMsg(p))}
+        </div>
+      </li>`).join('')}
+    </ul>
+  </div>
+</section>`;
+}
+
 function quemSomos() {
   const slug = 'quem-somos';
   const Q = C.quemSomos;
@@ -480,7 +519,7 @@ ${pageHero(slug, 'Institucional', 'Quem *somos*', Q.intro)}
     ${tilt('../assets/img/rede.webp', 'Profissional analisando a rede em um data center', 1600, 900, 'tilt-wide hist-media')}
   </div>
 </section>
-
+${equipe()}
 <section class="sec sheet t-deep mis" data-tone="dark">
   ${bgOrbits()}
   <div class="container">

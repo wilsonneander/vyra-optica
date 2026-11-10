@@ -47,6 +47,24 @@ module.exports = {
     ],
   },
 
+  // Equipe (página Quem somos). [CONFIRMAR] nomes, cargos, formações e fotos com o cliente.
+  // foto: arquivo em _build/img/ (retrato vertical, ~800x1000, .webp). Sem foto, o cartão mostra a arte da marca com as iniciais.
+  // area: cor do cartão (o laranja, b azul, l azul do logo, s azul-céu). formacao: [tipo, curso, emAndamento?]
+  equipe: {
+    titulo: 'Quem cuida do seu provedor',
+    texto: 'Cada frente tem um responsável que conhece o setor por dentro. Fale direto com quem vai tocar o seu processo.',
+    pessoas: [
+      { nome: 'Nome Sobrenome', cargo: 'Diretoria técnica', area: 'o', foto: '',
+        formacao: [['Formação', 'Engenharia de Telecomunicações'], ['Pós-graduação', 'Redes e Infraestrutura'], ['Cursando', 'MBA em Gestão de Projetos', true]] },
+      { nome: 'Nome Sobrenome', cargo: 'Processos regulatórios', area: 'b', foto: '',
+        formacao: [['Formação', 'Direito'], ['Pós-graduação', 'Direito Regulatório e Telecomunicações']] },
+      { nome: 'Daiane Ribeiro', cargo: 'Contabilidade', area: 'l', foto: '',
+        formacao: [['Formação', 'Ciências Contábeis'], ['Especialização', 'Planejamento tributário']] },
+      { nome: 'Nome Sobrenome', cargo: 'Marketing e comunicação', area: 's', foto: '',
+        formacao: [['Formação', 'Publicidade e Propaganda']] },
+    ],
+  },
+
   // Serviços agrupados por etapa da vida do provedor. "id" vira a âncora em /servicos/#id
   grupos: [
     { id: 'regulatorio', titulo: 'Regulatório Anatel', resumo: 'Para começar a operar dentro da lei e continuar em dia.' },

@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css?v=1f88dd7f">
+<link rel="stylesheet" href="assets/css/style.css?v=acb0b0dd">
 <script>(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('thd-nav')){d.classList.add('enter');sessionStorage.removeItem('thd-nav');}}catch(e){}})();</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DMZHV89B5P"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-DMZHV89B5P');</script>
@@ -350,9 +350,14 @@
 
 <section class="section section-paper">
   <div class="container split">
-    <figure class="media rv">
-      <img src="assets/img/internet.webp" alt="Conexões de internet ao redor do mundo" width="1000" height="483" loading="lazy">
+    <figure class="media media-globe rv">
+      <div class="globe-box" data-globe data-cursor="Girar" role="img" aria-label="Globo girando com conexões de internet entre cidades do mundo, com destaque para o Rio de Janeiro, sede da THD">
+        <div class="blueprint" aria-hidden="true"></div>
+        <canvas aria-hidden="true"></canvas>
+        <span class="globe-hint" aria-hidden="true">Arraste para girar</span>
+      </div>
       <i class="bit b1"></i><i class="bit b2"></i><i class="bit b3"></i>
+      <script src="assets/js/globe.js?v=01c18a1c" defer></script>
     </figure>
     <div>
       <p class="kicker rv">Quem somos</p>

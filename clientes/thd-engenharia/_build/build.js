@@ -10,6 +10,7 @@ const crypto = require('crypto');
 const C = require('./content');
 const { css } = require('./style');
 const { js } = require('./script');
+const { globeJs } = require('./globe');
 const I = require('./icons');
 
 const PREVIEW = process.argv.includes('--preview');
@@ -427,9 +428,14 @@ ${selos(slug)}
 
 <section class="section section-paper">
   <div class="container split">
-    <figure class="media rv">
-      <img src="assets/img/internet.webp" alt="Conexões de internet ao redor do mundo" width="1000" height="483" loading="lazy">
+    <figure class="media media-globe rv">
+      <div class="globe-box" data-globe data-cursor="Girar" role="img" aria-label="Globo girando com conexões de internet entre cidades do mundo, com destaque para o Rio de Janeiro, sede da THD">
+        <div class="blueprint" aria-hidden="true"></div>
+        <canvas aria-hidden="true"></canvas>
+        <span class="globe-hint" aria-hidden="true">Arraste para girar</span>
+      </div>
       <i class="bit b1"></i><i class="bit b2"></i><i class="bit b3"></i>
+      <script src="${asset(slug, 'js/globe.js')}?v=${ver(globeJs)}" defer></script>
     </figure>
     <div>
       <p class="kicker rv">Quem somos</p>
@@ -714,6 +720,7 @@ for (const [slug, html] of Object.entries(pages)) {
 for (const d of ['css', 'js', 'img']) fs.mkdirSync(path.join(OUT, 'assets', d), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'assets', 'css', 'style.css'), css);
 fs.writeFileSync(path.join(OUT, 'assets', 'js', 'main.js'), js);
+fs.writeFileSync(path.join(OUT, 'assets', 'js', 'globe.js'), globeJs);
 const IMG = path.join(__dirname, 'img');
 for (const f of fs.readdirSync(IMG)) fs.copyFileSync(path.join(IMG, f), path.join(OUT, 'assets', 'img', f));
 

@@ -262,12 +262,15 @@
 
   /* ---------- Frentes presas na rolagem (serviços) ---------- */
   var gp = $('[data-gpin]'), gsecs = gp ? $$('.grp-sec', gp) : [], gMark = null;
-  var gpin = gp && pinScroll(gp, gsecs.length, function (i) { gsecs.forEach(function (s, k) { s.classList.toggle('cur', k === i); }); if (gMark) gMark(i); });
+  var gpin = gp && pinScroll(gp, gsecs.length, function (i) { gsecs.forEach(function (s, k) { s.classList.toggle('cur', k === i); }); if (gMark) gMark(i);
+    /* a frente que entra já mostra o primeiro serviço aberto, para a tela não ficar vazia */
+    var g = gsecs[i], f = g && $('.acc-item', g); if (setAcc && f && !$('.acc-item.open', g)) setAcc(f, true); });
   var gOn = function () { return gpin && gpin.ok(); };
 
   /* ---------- Acordeão de serviços ---------- */
   var accs = $$('.acc-item');
   var setAcc = function (it, o) { it.classList.toggle('open', o); $('button', it).setAttribute('aria-expanded', o); };
+  if (gOn() && !location.hash) { var g0 = $('.grp-sec.cur', gp), f0 = g0 && $('.acc-item', g0); if (f0 && !$('.acc-item.open', g0)) setAcc(f0, true); }
   accs.forEach(function (it) { $('button', it).addEventListener('click', function () { var o = !it.classList.contains('open');
     /* com a frente presa, um item aberto por vez para caber na tela */
     if (o && gOn()) $$('.acc-item.open', it.parentNode).forEach(function (x) { setAcc(x, false); });

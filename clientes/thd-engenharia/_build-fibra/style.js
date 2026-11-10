@@ -43,9 +43,9 @@ main{position:relative;z-index:1}
 
 /* fios de luz (canvas) */
 .fibers{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
-.sec{position:relative;padding:clamp(90px,12vw,160px) 0;overflow:clip}
+.sec{position:relative;padding:clamp(52px,5.5vw,88px) 0;overflow:clip}
 .sec>.container{position:relative;z-index:1}
-.head{margin-bottom:clamp(30px,4vw,56px)}
+.head{margin-bottom:clamp(24px,3vw,40px)}
 
 /* texto de apoio: texto simples em caixa-alta, sem caixa, sem traço */
 .kicker{display:block;margin:0 0 18px;font:700 .78rem/1.3 var(--f-body);letter-spacing:.16em;text-transform:uppercase;color:var(--orange-dd)}
@@ -197,7 +197,7 @@ body.menu-open{overflow:hidden}
 .facts strong{display:block;margin-bottom:4px;font:800 1.5rem/1 var(--f-head);text-transform:uppercase;color:var(--ink)}
 
 /* topo das páginas internas */
-.phero{position:relative;padding:clamp(120px,17vh,180px) 0 clamp(60px,8vw,100px);overflow:clip}
+.phero{position:relative;padding:clamp(104px,14vh,140px) 0 clamp(44px,5vw,72px);overflow:clip}
 .phero-in{position:relative;z-index:1}
 .phero .hl{max-width:15ch}
 .phero-row{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,5vw,70px);align-items:end;margin-top:14px}
@@ -207,7 +207,7 @@ body.menu-open{overflow:hidden}
 .crumbs a:hover{color:var(--ink)}
 
 /* ---------- órgãos reguladores em linhas ---------- */
-.orgs{position:relative;padding:clamp(90px,11vw,150px) 0;overflow:clip}
+.orgs{position:relative;padding:clamp(52px,5.5vw,88px) 0;overflow:clip}
 .orgs>.container{position:relative;z-index:1}
 .orgs-head{margin-bottom:clamp(26px,4vw,50px)}
 .org-list{list-style:none;margin:0;padding:0;border-top:1.5px solid var(--ink)}
@@ -237,7 +237,7 @@ body.menu-open{overflow:hidden}
 .t-deep .orgs-note{color:var(--soft-2)}
 
 /* ---------- serviços da home: prisma 3D preso na rolagem ---------- */
-.prs{position:relative;height:calc(var(--n) * 85vh + 100vh)}
+.prs{position:relative;height:calc(var(--n) * 60vh + 70vh)}
 .prs-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
 .prs-in{position:relative;z-index:1;display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(30px,5vw,80px);align-items:center}
 .prs-l h2{font-size:clamp(2.2rem,4vw,3.8rem)}
@@ -274,8 +274,8 @@ body.menu-open{overflow:hidden}
 .prism-floor{position:absolute;left:50%;bottom:-6px;width:min(560px,46vw);height:60px;margin-left:calc(min(560px,46vw) / -2);border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.55),transparent);filter:blur(6px)}
 
 /* ---------- jornada: a luz corre pela fibra ---------- */
-.jrn{position:relative;padding:clamp(90px,12vw,160px) 0 clamp(100px,13vw,170px);overflow:clip}
-.jrn-head{max-width:820px;margin-bottom:clamp(40px,6vw,80px)}
+.jrn{position:relative;padding:clamp(52px,5.5vw,88px) 0;overflow:clip}
+.jrn-head{max-width:820px;margin-bottom:clamp(26px,3.5vw,48px)}
 .jrn-head p{max-width:52ch}
 .jrn-body{position:relative}
 .jrn-svg{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none}
@@ -301,7 +301,7 @@ body.menu-open{overflow:hidden}
 .tags a:hover{background:var(--ink);color:#fff;transform:translateY(-2px)}
 
 /* ---------- diagnóstico: chaves de três posições + rack 3D ---------- */
-.dg{position:relative;padding:clamp(90px,12vw,160px) 0;overflow:clip}
+.dg{position:relative;padding:clamp(52px,5.5vw,88px) 0;overflow:clip}
 .dg-in{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,80px);align-items:start}
 .dg-l>p.rv{max-width:50ch}
 .dq-list{list-style:none;margin:30px 0 22px;padding:0;border-top:1px solid rgba(255,255,255,.12)}
@@ -347,7 +347,7 @@ body.menu-open{overflow:hidden}
 .dg-r .btn{width:100%}
 
 /* ---------- pilares: palavras que se acendem ---------- */
-.plr{position:relative;height:calc(var(--n) * 65vh + 100vh)}
+.plr{position:relative;height:calc(var(--n) * 48vh + 70vh)}
 .plr-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
 .plr-in{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,5vw,80px);align-items:center}
 .plr-desc{display:grid;margin-top:30px}
@@ -361,7 +361,7 @@ body.menu-open{overflow:hidden}
 .pw::after{content:attr(data-t);position:absolute;inset:.04em 0;color:var(--orange);-webkit-text-stroke:0;clip-path:inset(0 calc(100% - var(--f,0) * 100%) 0 0)}
 
 /* ---------- quem somos (home): foto que abre em íris ---------- */
-.qs{position:relative;padding:clamp(90px,12vw,160px) 0;overflow:clip}
+.qs{position:relative;padding:clamp(52px,5.5vw,88px) 0;overflow:clip}
 .qs-in{position:relative;z-index:1;display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(36px,6vw,90px);align-items:center}
 .iris{margin:0;aspect-ratio:4/5;max-height:660px;border-radius:14px;overflow:hidden;clip-path:circle(calc(var(--r,75) * 1%) at 50% 50%)}
 .iris img{width:100%;height:100%;object-fit:cover;scale:calc(1.4 - var(--rp,1) * .4)}
@@ -397,7 +397,7 @@ blockquote strong{display:block;margin-bottom:6px;font:800 1.4rem/1 var(--f-head
 .pp-f{margin:12px 0 0;padding-top:12px;border-top:1.5px dashed var(--line);font-size:.82rem;line-height:1.45;color:var(--muted)}
 
 /* ---------- chamada final laranja ---------- */
-.cta{position:relative;padding:clamp(100px,13vw,180px) 0;overflow:clip}
+.cta{position:relative;padding:clamp(60px,6.5vw,108px) 0;overflow:clip}
 .cta-in{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(30px,5vw,80px);align-items:end}
 .cta h2{font-size:clamp(2.6rem,5.6vw,5.8rem);max-width:15ch}
 .cta-lead{max-width:48ch;margin:0;font-size:1.15rem;color:#FFE9DE}
@@ -410,7 +410,7 @@ blockquote strong{display:block;margin-bottom:6px;font:800 1.4rem/1 var(--f-head
 .cta-info dd{margin:0;font-weight:700;text-align:right}
 
 /* ---------- serviços (página): índice fixo + catálogo ---------- */
-.cat{position:relative;padding:clamp(60px,8vw,110px) 0 clamp(90px,12vw,150px)}
+.cat{position:relative;padding:clamp(40px,4.5vw,72px) 0 clamp(52px,5.5vw,88px)}
 .cat-in{display:grid;grid-template-columns:270px 1fr;gap:clamp(30px,5vw,80px);align-items:start}
 .cat-nav{position:sticky;top:24px;display:grid;gap:4px;padding:24px;border-radius:14px;background:var(--navy);color:var(--soft)}
 .cat-nav-t{margin:0 0 8px;font:700 .74rem/1 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
@@ -571,7 +571,7 @@ a.ch:hover{background:rgba(255,255,255,.06);transform:translateX(6px)}
 .ch-wa .ci{color:#62D691}
 
 /* ---------- rodapé ---------- */
-.footer{position:relative;z-index:1;overflow:hidden;padding:clamp(80px,10vw,130px) 0 0}
+.footer{position:relative;z-index:1;overflow:hidden;padding:clamp(52px,5.5vw,88px) 0 0}
 .where{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,5vw,80px);align-items:center;padding-bottom:clamp(60px,8vw,100px)}
 .where-copy p:not(.kicker){color:var(--soft)}
 .where .btn{margin-top:12px}
@@ -624,7 +624,7 @@ a.ch:hover{background:rgba(255,255,255,.06);transform:translateX(6px)}
 }
 @media (max-width:920px),(max-height:699px){
   .prs,.plr{height:auto}
-  .prs-sticky,.plr-sticky{position:relative;height:auto;padding:clamp(90px,12vw,130px) 0;overflow:visible}
+  .prs-sticky,.plr-sticky{position:relative;height:auto;padding:clamp(52px,5.5vw,88px) 0;overflow:visible}
   .prs-in,.plr-in{grid-template-columns:1fr}
   .prs-idx{display:none}
   .prism-wrap{height:auto;perspective:none;display:block}

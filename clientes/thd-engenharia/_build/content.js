@@ -17,7 +17,7 @@ module.exports = {
     whatsappTexto: '(21) 9 9834-0142',
     telefoneSchema: '+55-21-99834-0142',
     email: 'contato@thdengenharia.com',
-    endereco: 'R. Almirante Pestana, 6 – Cacuia, Rio de Janeiro – RJ', // [CONFIRMAR] tirado do mapa do site antigo
+    endereco: 'R. Almirante Pestana, 6, Cacuia, Rio de Janeiro, RJ', // [CONFIRMAR] tirado do mapa do site antigo
     mapa: 'https://www.google.com/maps?q=R.%20Alm.%20Pestana%2C%206%20-%20Cacuia%2C%20Rio%20de%20Janeiro&z=15&output=embed',
     horario: [
       ['Segunda a sexta', '9h às 18h'],
@@ -58,7 +58,7 @@ module.exports = {
     { id: 'outorga-scm', grupo: 'regulatorio', icone: 'outorga', titulo: 'Credenciamentos e Outorga SCM',
       curto: 'A licença que permite explorar comercialmente o serviço de internet.',
       texto: 'A outorga SCM (Serviço de Comunicação Multimídia) é necessária para explorar comercialmente a área de telecomunicações e provedor de internet (wireless), para que a empresa possa atuar no ramo prestando serviços de conexão à internet.' },
-    { id: 'seac-stfc', grupo: 'regulatorio', icone: 'antena', titulo: 'Licença SEAC e STFC · Compartilhamento de poste',
+    { id: 'seac-stfc', grupo: 'regulatorio', icone: 'antena', titulo: 'Licença SEAC e STFC e compartilhamento de poste',
       curto: 'Outorgas para conteúdo audiovisual e transmissão de voz.',
       texto: 'A outorga de STFC e SEAC é necessária para explorar comercialmente as áreas de conteúdo audiovisual e de transmissão de voz de um ponto ao outro. Também orientamos o processo de compartilhamento de poste.' },
     { id: 'pos-outorga', grupo: 'regulatorio', icone: 'documento', titulo: 'Pós-outorga: DICI e apoio jurídico',
@@ -98,6 +98,20 @@ module.exports = {
     { t: 'Manter tudo em dia', d: 'DICI mensal, notificações, ART/TRT e apoio jurídico.', ids: ['pos-outorga', 'notificacoes', 'responsabilidade-tecnica'] },
     { t: 'Crescer com saúde', d: 'Contabilidade especializada, marketing e registro de marca.', ids: ['gestao-contabil', 'marketing', 'registro-de-marca'] },
   ],
+
+  // Diagnóstico interativo (home): cada pergunta aponta para o serviço que resolve a pendência
+  diagnostico: [
+    { q: 'Seu provedor já tem a outorga SCM?', id: 'outorga-scm', pend: 'Outorga SCM' },
+    { q: 'As declarações DICI saem todo mês, sem atraso?', id: 'pos-outorga', pend: 'DICI e pós-outorga' },
+    { q: 'Existe responsável técnico com ART/TRT em dia?', id: 'responsabilidade-tecnica', pend: 'Responsabilidade técnica' },
+    { q: 'A rede já opera com ASN próprio?', id: 'asn', pend: 'ASN próprio' },
+    { q: 'Você tem IPv4 suficiente para crescer?', id: 'ipv4', pend: 'Blocos de IPv4' },
+    { q: 'A sua contabilidade entende de provedor?', id: 'gestao-contabil', pend: 'Contabilidade especializada' },
+    { q: 'A sua marca está registrada?', id: 'registro-de-marca', pend: 'Registro de marca' },
+  ],
+
+  // Termos que correm na faixa animada
+  faixa: ['Outorga SCM', 'Anatel', 'SEAC', 'STFC', 'DICI', 'ASN', 'IPv4', 'Registro.br', 'ART/TRT', 'CREA', 'CFT', 'Smart Accounting', 'Registro de marca'],
 
   contabilidade: {
     pergunta: 'Você sabe a rentabilidade do seu negócio?',

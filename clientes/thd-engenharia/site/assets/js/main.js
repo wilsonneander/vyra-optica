@@ -1,61 +1,228 @@
 /* THD Engenharia · gerado por _build/build.js */
 (function () {
-  var header = document.querySelector('.header');
-  var btn = document.querySelector('.menu-btn');
-  var nav = document.getElementById('nav');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches, fine = matchMedia('(pointer: fine)').matches;
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return [].slice.call((r || document).querySelectorAll(s)); };
+  var rnd = function (a, b) { return a + Math.random() * (b - a); };
+  var mobile = function () { return innerWidth <= 920; };
 
-  // sombra no cabeçalho ao rolar
-  function onScroll() { header.classList.toggle('scrolled', window.scrollY > 10); }
-  onScroll(); addEventListener('scroll', onScroll, { passive: true });
-
-  // menu mobile
-  function setMenu(open) {
-    nav.classList.toggle('open', open);
-    btn.setAttribute('aria-expanded', String(open));
-    btn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+  /* Cursor próprio */
+  if (fine && !reduce) {
+    var dot = document.createElement('div'), ring = document.createElement('div');
+    dot.className = 'cursor-dot'; ring.className = 'cursor-ring'; ring.innerHTML = '<span></span>';
+    document.body.append(dot, ring);
+    var mx = -100, my = -100, rx = -100, ry = -100, shown = false;
+    addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; if (!shown) { shown = true; rx = mx; ry = my; document.body.classList.add('has-cursor'); } dot.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0)'; }, { passive: true });
+    document.addEventListener('mouseleave', function () { document.body.classList.remove('has-cursor'); shown = false; });
+    (function loop() { rx += (mx - rx) * .18; ry += (my - ry) * .18; ring.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0)'; requestAnimationFrame(loop); })();
+    document.addEventListener('mouseover', function (e) {
+      var t = e.target.closest('[data-cursor], a, button, label, [role=button]');
+      ring.classList.remove('hover', 'text'); if (!t) return;
+      var txt = t.getAttribute('data-cursor'); if (txt) { ring.classList.add('text'); ring.firstChild.textContent = txt; } else ring.classList.add('hover');
+    });
   }
-  btn.addEventListener('click', function () { setMenu(!nav.classList.contains('open')); });
-  nav.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
-  addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
 
-  // entrada suave ao rolar
-  var items = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-    items.forEach(function (el) { io.observe(el); });
-  } else items.forEach(function (el) { el.classList.add('in'); });
+  /* Transição entre páginas: os blocos fecham a tela e abrem na próxima */
+  var curtain = $('.curtain');
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href]'); if (!a || !curtain || reduce || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || a.target === '_blank') return;
+    var u; try { u = new URL(a.href, location.href); } catch (err) { return; }
+    if (!/^(https?|file):$/.test(u.protocol) || u.host !== location.host) return;
+    if (u.pathname === location.pathname) return;
+    e.preventDefault(); try { sessionStorage.setItem('thd-nav', '1'); } catch (err) {}
+    curtain.classList.add('cover'); setTimeout(function () { location.href = a.href; }, 560);
+  });
+  addEventListener('pageshow', function (e) { if (e.persisted && curtain) curtain.classList.remove('cover'); });
 
-  // serviços: destaca a categoria visível no menu de categorias
-  var svcNav = document.querySelector('.svc-nav');
-  if (svcNav && 'IntersectionObserver' in window) {
-    var links = svcNav.querySelectorAll('a');
-    var so = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        links.forEach(function (a) {
-          var on = a.getAttribute('href') === '#' + en.target.id;
-          a.classList.toggle('active', on);
-          if (on) a.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-        });
+  /* Cabeçalho, progresso e menu */
+  var hdr = $('.hdr'), prog = $('.progress'), lastY = scrollY;
+  function onScroll() {
+    var y = scrollY, h = document.documentElement.scrollHeight - innerHeight, hide = y > lastY && y > 300 && !document.body.classList.contains('menu-open');
+    if (prog) prog.style.transform = 'scaleX(' + (h > 0 ? y / h : 0) + ')';
+    hdr.classList.toggle('solid', y > 40); hdr.classList.toggle('hide', hide); document.body.classList.toggle('hdr-on', !hide);
+    if (Math.abs(y - lastY) > 4) lastY = y;
+  }
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  var mm = $('.mmenu'), mbtn = $('[data-menu]');
+  function setMenu(o) { mm.classList.toggle('open', o); document.body.classList.toggle('menu-open', o); mbtn.setAttribute('aria-expanded', o); mbtn.setAttribute('aria-label', o ? 'Fechar menu' : 'Abrir menu'); if (o) hdr.classList.remove('hide'); }
+  mbtn.addEventListener('click', function () { setMenu(!mm.classList.contains('open')); });
+  mm.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape' && mm.classList.contains('open')) { setMenu(false); mbtn.focus(); } });
+
+  /* Botões magnéticos */
+  if (fine && !reduce) $$('[data-magnetic]').forEach(function (el) {
+    el.addEventListener('mousemove', function (e) { var r = el.getBoundingClientRect(); el.style.transform = 'translate(' + (e.clientX - r.left - r.width / 2) * .22 + 'px,' + (e.clientY - r.top - r.height / 2) * .3 + 'px)'; });
+    el.addEventListener('mouseleave', function () { el.style.transform = ''; });
+  });
+
+  /* ---------- Blocos geométricos ---------- */
+  var RADS = ['0 0 0 100%', '100% 0 0 0', '0 100% 0 0', '0 0 100% 0'];
+  function scatter(t) {
+    var a = rnd(0, Math.PI * 2), d = rnd(140, 320);
+    t.style.setProperty('--sx', Math.cos(a) * d + 'px'); t.style.setProperty('--sy', Math.sin(a) * d + 'px');
+    t.style.setProperty('--sr', (rnd(-1, 1) > 0 ? 1 : -1) * Math.round(rnd(1, 3)) * 90 + 'deg');
+  }
+  function assemble(g) {
+    $$('.tile', g).forEach(function (t, i) { if (g.hasAttribute('data-build') && !mobile()) return; t.style.setProperty('--dl', (i * 90 + rnd(0, 120)) + 'ms'); t.classList.remove('out'); });
+    setTimeout(function () { g.classList.add('ready'); }, 300);
+  }
+  // troca de lugar, gira ou muda o recorte de um bloco
+  function shuffle(g) {
+    if (g.classList.contains('geo-diag') || (g.hasAttribute('data-build') && !g.classList.contains('full'))) return;
+    var tiles = $$('.tile', g), small = tiles.filter(function (t) { return !t.hasAttribute('data-big') && !t.hasAttribute('data-fixed'); }), r = Math.random();
+    if (r < .45 && small.length > 1) {
+      var a = small[Math.floor(Math.random() * small.length)], b = small[Math.floor(Math.random() * small.length)]; if (a === b) return shuffle(g);
+      var ax = a.style.getPropertyValue('--x'), ay = a.style.getPropertyValue('--y');
+      a.style.setProperty('--x', b.style.getPropertyValue('--x')); a.style.setProperty('--y', b.style.getPropertyValue('--y'));
+      b.style.setProperty('--x', ax); b.style.setProperty('--y', ay);
+    } else if (r < .85) {
+      var t = small[Math.floor(Math.random() * small.length)]; t.style.setProperty('--r', (+t.style.getPropertyValue('--r') || 0) + (Math.random() < .5 ? 1 : -1));
+    } else {
+      var big = $('[data-big]', g);
+      if (big) { var cur = RADS.indexOf(big.style.getPropertyValue('--rad').trim()); big.style.setProperty('--rad', RADS[(cur + 1) % 4]); }
+      else { var t2 = small[Math.floor(Math.random() * small.length)]; t2.style.setProperty('--r', (+t2.style.getPropertyValue('--r') || 0) + 2); }
+    }
+  }
+  var geos = $$('[data-geo]'), visible = [];
+  geos.forEach(function (g) {
+    if (!reduce) $$('.tile', g).forEach(function (t) { scatter(t); t.classList.add('out'); });
+    else g.classList.add('ready');
+    // parallax: o conjunto inclina e os satélites acompanham o mouse
+    if (fine && !reduce) {
+      var host = g.closest('section, .mmenu') || g, inner = $('.geo-in', g), sats = $$('.sat', g);
+      host.addEventListener('mousemove', function (e) {
+        var r = g.getBoundingClientRect(), dx = (e.clientX - (r.left + r.width / 2)) / innerWidth, dy = (e.clientY - (r.top + r.height / 2)) / innerHeight;
+        inner.style.transform = 'rotateY(' + dx * 14 + 'deg) rotateX(' + -dy * 14 + 'deg)';
+        sats.forEach(function (s) { var k = +s.dataset.depth || 1; s.style.setProperty('--px', dx * 50 * k + 'px'); s.style.setProperty('--py', dy * 50 * k + 'px'); });
       });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    links.forEach(function (a) { var s = document.querySelector(a.getAttribute('href')); if (s) so.observe(s); });
+      host.addEventListener('mouseleave', function () { inner.style.transform = ''; sats.forEach(function (s) { s.style.setProperty('--px', '0px'); s.style.setProperty('--py', '0px'); }); });
+    }
+  });
+  if (!reduce && 'IntersectionObserver' in window) {
+    var gio = new IntersectionObserver(function (es) { es.forEach(function (e) {
+      var g = e.target, i = visible.indexOf(g);
+      if (e.isIntersecting) { if (!g.dataset.done) { g.dataset.done = 1; assemble(g); } if (i < 0) visible.push(g); }
+      else if (i > -1) visible.splice(i, 1);
+    }); }, { threshold: .2 });
+    geos.forEach(function (g) { gio.observe(g); });
+    setInterval(function () { if (document.hidden) return; visible.forEach(function (g) { if (g.closest('.mmenu') && !mm.classList.contains('open')) return; shuffle(g); }); }, 1700);
   }
 
-  // formulário de contato: valida e abre a mensagem pronta no WhatsApp
+  /* ---------- Jornada: a estrutura se monta com a rolagem ---------- */
+  var jrn = $('[data-jrn]');
+  if (jrn) {
+    var steps = $$('.jrn-steps > li', jrn), bar = $('.jrn-bar', jrn), jg = $('[data-build]', jrn), jt = $$('.tile', jg), n = steps.length, stage = -1;
+    var setStage = function (s) {
+      if (s === stage) return; stage = s;
+      steps.forEach(function (li, i) { li.classList.toggle('on', i <= s); li.classList.toggle('cur', i === s); });
+      jt.forEach(function (t, i) { var on = +t.dataset.stage <= s; if (on && t.classList.contains('out')) t.style.setProperty('--dl', (i % 3) * 110 + 'ms'); if (!on && !t.classList.contains('out')) scatter(t); t.classList.toggle('out', !on); });
+      jg.classList.toggle('full', s >= n - 1); jg.classList.toggle('ready', s >= 0);
+    };
+    var jrnScroll = function () {
+      if (mobile() || reduce) { setStage(n - 1); steps.forEach(function (li) { li.classList.add('on'); }); return; }
+      var r = jrn.getBoundingClientRect(), total = jrn.offsetHeight - innerHeight, p = Math.max(0, Math.min(1, -r.top / total));
+      bar.style.setProperty('--p', p);
+      setStage(Math.min(n - 1, Math.floor(p * n)));
+    };
+    addEventListener('scroll', jrnScroll, { passive: true }); addEventListener('resize', jrnScroll); jrnScroll();
+  }
+
+  /* ---------- Diagnóstico ---------- */
+  var dg = $('[data-diag]');
+  if (dg) {
+    var ans = {}, total = $$('.seg', dg).length, score = $('[data-diag-score]', dg), msg = $('[data-diag-msg]', dg), pend = $('[data-diag-pend]', dg), go = $('[data-diag-go]', dg);
+    var labels = ["Outorga SCM","DICI e pós-outorga","Responsabilidade técnica","ASN próprio","Blocos de IPv4","Contabilidade especializada","Registro de marca"];
+    var paint = function () {
+      var ok = 0, miss = [];
+      for (var i = 0; i < total; i++) { var v = ans[i], t = $('.tile[data-q="' + i + '"]', dg);
+        t.classList.toggle('ok', v === 'sim'); t.classList.toggle('miss', v === 'nao' || v === 'ns');
+        if (v === 'sim') ok++; else if (v) miss.push(labels[i]); }
+      $$('.tile[data-fixed]', dg).forEach(function (t) { t.classList.toggle('fix', ok + miss.length > 0); });
+      score.textContent = ok;
+      var answered = Object.keys(ans).length;
+      msg.textContent = !answered ? 'Cada resposta encaixa uma peça. As que faltam ficam marcadas em laranja.'
+        : ok === total ? 'Estrutura completa! A THD ajuda a manter tudo em dia e a crescer com segurança.'
+        : miss.length ? 'Encontramos ' + miss.length + (miss.length > 1 ? ' pontos' : ' ponto') + ' para resolver. A THD cuida disso para você:'
+        : 'Ótimo começo. Continue respondendo para ver o mapa completo.';
+      pend.innerHTML = miss.map(function (m) { return '<li>' + m + '</li>'; }).join('');
+      var txt = 'Olá, THD! Fiz o diagnóstico no site: ' + ok + ' de ' + total + ' peças no lugar.' + (miss.length ? '\n\nPreciso de ajuda com:\n' + miss.map(function (m) { return '- ' + m; }).join('\n') : '\n\nQuero manter meu provedor em dia.');
+      go.href = 'https://wa.me/5521998340142?text=' + encodeURIComponent(txt);
+      go.lastChild.textContent = miss.length ? 'Resolver com a THD' : 'Enviar diagnóstico';
+    };
+    $$('.seg', dg).forEach(function (sg) { var i = +sg.dataset.i;
+      $$('button', sg).forEach(function (b) { b.addEventListener('click', function () {
+        var on = b.getAttribute('aria-pressed') !== 'true';
+        $$('button', sg).forEach(function (o) { o.setAttribute('aria-pressed', o === b && on); });
+        if (on) ans[i] = b.dataset.v; else delete ans[i]; paint();
+      }); });
+    });
+    go.addEventListener('click', function () { if (window.gtag) gtag('event', 'diagnostico_enviado', { score: score.textContent }); });
+    paint();
+  }
+
+  /* ---------- Abas de serviços (home) ---------- */
+  var tl = $('.svx-tabs');
+  if (tl) { var tabs = $$('[role=tab]', tl);
+    var pick = function (b, focus) { tabs.forEach(function (o) { var on = o === b, p = document.getElementById(o.getAttribute('aria-controls')); o.setAttribute('aria-selected', on); o.tabIndex = on ? 0 : -1; p.hidden = !on; if (on && !reduce) { p.classList.remove('swap'); void p.offsetWidth; p.classList.add('swap'); } }); if (focus) b.focus(); };
+    tabs.forEach(function (b, i) { b.tabIndex = i ? -1 : 0; b.addEventListener('click', function () { pick(b); });
+      b.addEventListener('keydown', function (e) { var k = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0; if (k) { e.preventDefault(); pick(tabs[(i + k + tabs.length) % tabs.length], true); } }); });
+  }
+
+  /* ---------- Painéis que se abrem ---------- */
+  $$('[data-pnl]').forEach(function (w) { var its = $$('.pnl-item', w);
+    var open = function (it) { its.forEach(function (o) { o.classList.toggle('on', o === it); o.setAttribute('aria-expanded', o === it); }); };
+    its.forEach(function (it) { it.addEventListener('click', function () { open(it); }); it.addEventListener('focus', function () { open(it); });
+      it.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(it); } });
+      if (fine) it.addEventListener('mouseenter', function () { open(it); }); });
+  });
+
+  /* ---------- Acordeão de serviços ---------- */
+  var accs = $$('.acc-item');
+  var setAcc = function (it, o) { it.classList.toggle('open', o); $('button', it).setAttribute('aria-expanded', o); };
+  accs.forEach(function (it) { $('button', it).addEventListener('click', function () { setAcc(it, !it.classList.contains('open')); }); });
+  function fromHash() { var id = location.hash.slice(1), it = id && document.getElementById(id);
+    if (it && it.classList.contains('acc-item')) { setAcc(it, true); it.classList.remove('flash'); void it.offsetWidth; it.classList.add('flash'); setTimeout(function () { it.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }, 80); } }
+  if (accs.length) { fromHash(); addEventListener('hashchange', fromHash); }
+
+  /* ---------- Menu de frentes (serviços) ---------- */
+  var gnav = $('.gnav');
+  if (gnav && 'IntersectionObserver' in window) {
+    var gl = $$('a', gnav), gbar = $('.bar', gnav);
+    var mark = function (a) { gl.forEach(function (x) { x.classList.toggle('active', x === a); }); gbar.style.width = a.offsetWidth + 'px'; gbar.style.transform = 'translateX(' + a.offsetLeft + 'px)'; a.scrollIntoView({ block: 'nearest', inline: 'nearest' }); };
+    var so = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) mark(gl.filter(function (a) { return a.getAttribute('href') === '#' + e.target.id; })[0]); }); }, { rootMargin: '-40% 0px -55% 0px' });
+    gl.forEach(function (a) { var s = document.querySelector(a.getAttribute('href')); if (s) so.observe(s); });
+    mark(gl[0]); if (document.fonts) document.fonts.ready.then(function () { mark($('.active', gnav) || gl[0]); });
+  }
+
+  /* ---------- Chave operacional / estratégico ---------- */
+  $$('[data-switch]').forEach(function (sw) { var bs = $$('button', sw), sb = $('.bar', sw);
+    var place = function (b) { sb.style.width = b.offsetWidth + 'px'; sb.style.transform = 'translateX(' + b.offsetLeft + 'px)'; };
+    bs.forEach(function (b) { b.addEventListener('click', function () { bs.forEach(function (o) { var on = o === b, p = document.getElementById(o.getAttribute('aria-controls')); o.setAttribute('aria-selected', on); p.hidden = !on; if (on) { p.classList.remove('swap'); void p.offsetWidth; p.classList.add('swap'); } }); place(b); }); });
+    place(bs[0]); addEventListener('resize', function () { place($('[aria-selected=true]', sw)); }); if (document.fonts) document.fonts.ready.then(function () { place($('[aria-selected=true]', sw)); });
+  });
+
+  /* ---------- Missão que acende com a rolagem ---------- */
+  $$('[data-manifesto]').forEach(function (m) { var ws = $$('.mw', m);
+    var lit = function () { var r = m.getBoundingClientRect(), p = (innerHeight * .8 - r.top) / (r.height + innerHeight * .3), k = reduce ? ws.length : Math.round(Math.max(0, Math.min(1, p)) * ws.length); ws.forEach(function (w, i) { w.classList.toggle('lit', i < k); }); };
+    addEventListener('scroll', lit, { passive: true }); lit(); });
+
+  /* ---------- Entrada ao rolar ---------- */
+  if (!reduce && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting) return; e.target.classList.remove('pre'); io.unobserve(e.target); }); }, { rootMargin: '0px 0px -10% 0px' });
+    $$('.rv, .media, .cta-media, [data-bars]').forEach(function (el) { if (el.getBoundingClientRect().top > innerHeight * .9) { el.classList.add('pre'); el.style.transitionDelay = ((+el.dataset.d || 0) * 110) + 'ms'; io.observe(el); } });
+  }
+
+  /* ---------- Formulário de contato: valida e abre a mensagem pronta no WhatsApp ---------- */
   var form = document.getElementById('form-contato');
   if (form) {
-    var status = form.querySelector('.form-status');
-    var tel = form.elements.telefone;
+    var status = form.querySelector('.form-status'), tel = form.elements.telefone;
     tel.addEventListener('input', function () {
       var d = tel.value.replace(/\D/g, '').slice(0, 11);
       tel.value = d.length > 10 ? d.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3')
         : d.length > 6 ? d.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3')
         : d.length > 2 ? d.replace(/(\d{2})(\d+)/, '($1) $2') : d;
     });
-    form.addEventListener('input', function (e) { e.target.classList && e.target.classList.remove('invalid'); });
+    form.addEventListener('input', function (e) { var l = e.target.closest('.fl'); if (l) l.classList.remove('invalid'); });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var f = form.elements, bad = [];
@@ -63,13 +230,8 @@
       if (tel.value.replace(/\D/g, '').length < 10) bad.push(tel);
       if (f.email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value)) bad.push(f.email);
       if (!f.mensagem.value.trim()) bad.push(f.mensagem);
-      bad.forEach(function (el) { el.classList.add('invalid'); });
-      if (bad.length) {
-        status.className = 'form-status err';
-        status.textContent = 'Confira os campos destacados.';
-        bad[0].focus();
-        return;
-      }
+      bad.forEach(function (el) { el.closest('.fl').classList.add('invalid'); });
+      if (bad.length) { status.className = 'form-status err'; status.textContent = 'Confira os campos destacados.'; bad[0].focus(); return; }
       var txt = 'Olá, THD! Vim pelo site.\n\n'
         + '*Assunto:* ' + f.assunto.value + '\n'
         + '*Nome:* ' + f.nome.value.trim() + '\n'
@@ -84,7 +246,7 @@
     });
   }
 
-  // registra cliques no WhatsApp no Analytics
+  /* registra cliques no WhatsApp no Analytics */
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href*="wa.me"]');
     if (a && window.gtag) gtag('event', 'whatsapp_click', { link_text: (a.textContent || '').trim().slice(0, 60) });

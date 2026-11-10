@@ -1,6 +1,9 @@
-// Gera o site THD Engenharia.
+// Gera o site THD Engenharia (nível premium).
 //   node clientes/thd-engenharia/_build/build.js            → site/     (produção, URLs limpas: /servicos/)
 //   node clientes/thd-engenharia/_build/build.js --preview  → _preview/ (links para index.html, abre sem servidor)
+//
+// Linguagem visual: "seu provedor montado peça por peça". Blocos geométricos nas cores da marca voam,
+// se encaixam numa grade 3x3 e seguem trocando de lugar, ligados por trilhas de circuito (como as letras do logo).
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
@@ -22,7 +25,6 @@ const PAGES = [
   { slug: 'contato', nav: 'Contato' },
 ];
 
-// caminho relativo da página atual até a raiz do site
 const rootOf = (slug) => (slug ? '../' : '');
 const link = (from, to, hash = '') => {
   const r = rootOf(from);
@@ -32,44 +34,92 @@ const link = (from, to, hash = '') => {
 const asset = (from, p) => `${rootOf(from)}assets/${p}`;
 const canonical = (slug) => `${C.dominio}/${slug ? slug + '/' : ''}`;
 const svc = (id) => C.servicos.find((s) => s.id === id);
+const shortTitle = (t) => t.split(':')[0].replace(/ e compartilhamento de poste/, '').trim();
+
+// ---------- blocos geométricos ----------
+// tile: [forma, cor, coluna, linha, giro, extras]. Formas: sq ci qa ha tr ri st dt ar ln lq im x
+// cores: o laranja, b azul, l azul do logo, w branco, n marinho, p azul claro, k tinta
+const T = (k, c, x, y, r = 0, o = {}) => ({ k, c, x, y, r, ...o });
+const WIRES = {
+  a: ['M-30 100H100V200H200V330', 'M200 -30V100H330'],
+  b: ['M-30 200H200V100H330', 'M100 -30V100'],
+  c: ['M-30 100H200V200H330', 'M100 330V200'],
+};
+const nodes = { a: [[100, 100], [100, 200], [200, 200], [200, 100]], b: [[200, 200], [200, 100], [100, 100]], c: [[100, 100], [200, 100], [200, 200], [100, 200]] };
+function geo(tiles, { cls = '', wires = 'a', sats = true, attrs = '' } = {}) {
+  const w = wires ? `<svg class="wires" viewBox="0 0 300 300" preserveAspectRatio="none">${WIRES[wires].map((d) => `<path class="base draw" style="--len:700" d="${d}"/><path class="flow" d="${d}"/>`).join('')}${nodes[wires].map(([x, y]) => `<rect x="${x - 4}" y="${y - 4}" width="8" height="8"/>`).join('')}</svg>` : '';
+  const t = tiles.map((o) => {
+    const style = [`--x:${o.x}`, `--y:${o.y}`, `--r:${o.r}`, o.w ? `--w:${o.w}` : '', o.rad ? `--rad:${o.rad}` : ''].filter(Boolean).join(';');
+    const data = [o.st != null ? ` data-stage="${o.st}"` : '', o.q != null ? ` data-q="${o.q}"` : '', o.fixed ? ' data-fixed' : '', o.w ? ' data-big' : ''].join('');
+    return `<div class="tile" style="${style}"${data}><i class="s s-${o.k} c-${o.c}">${o.img ? `<img src="${o.img}" alt="" width="1920" height="1056" fetchpriority="high">` : ""}</i></div>`;
+  }).join('');
+  const s = sats ? `<i class="sat sat-a s-sq c-o" data-depth="2"></i><i class="sat sat-b s-ci c-l" data-depth="3"></i><i class="sat sat-c s-sq c-w" data-depth="1.5"></i>` : '';
+  return `<div class="geo ${cls}" data-geo${attrs} aria-hidden="true"><div class="geo-in">${t}${w}</div>${s}</div>`;
+}
+
+// marca geométrica de cada serviço (quatro quadrantes)
+const MARKS = {
+  'outorga-scm': [['qa', 'o'], ['sq', 'b'], ['x', ''], ['ci', 'l']],
+  'seac-stfc': [['ci', 'b'], ['qb', 'o'], ['sq', 'l'], ['x', '']],
+  'pos-outorga': [['sq', 'b'], ['ln', 'b'], ['qd', 'o'], ['sq', 'l']],
+  notificacoes: [['x', ''], ['ci', 'o'], ['qc', 'b'], ['sq', 'l']],
+  asn: [['ci', 'l'], ['x', ''], ['ci', 'b'], ['ci', 'o']],
+  ipv4: [['sq', 'b'], ['sq', 'l'], ['sq', 'o'], ['ln', 'b']],
+  'responsabilidade-tecnica': [['qa', 'b'], ['qb', 'o'], ['qc', 'l'], ['qd', 'b']],
+  'seguranca-do-trabalho': [['sq', 'o'], ['qc', 'b'], ['x', ''], ['sq', 'l']],
+  'gestao-contabil': [['x', ''], ['sq', 'l'], ['sq', 'b'], ['qa', 'o']],
+  marketing: [['ci', 'o'], ['qd', 'l'], ['ln', 'b'], ['ci', 'b']],
+  'registro-de-marca': [['qb', 'b'], ['ci', 'o'], ['sq', 'l'], ['qc', 'b']],
+  cta: [['ci', 'w'], ['qa', 'w'], ['sq', 'w'], ['x', '']],
+};
+const mk = (id) => `<span class="mk" aria-hidden="true">${(MARKS[id] || MARKS.cta).map(([k, c]) => `<i class="s-${k} c-${c || 'b'}"></i>`).join('')}</span>`;
+
+// título com palavras que sobem; *palavra* recebe o sublinhado em bloco
+const words = (text) => text.split(' ').map((w, i) => {
+  const m = /^\*(.+)\*([.,!?]?)$/.exec(w);
+  const inner = m ? `<span class="mark">${m[1]}</span>${m[2]}` : w;
+  return `<span class="w"><span style="--i:${i}">${inner}</span></span>`;
+}).join(' ');
 
 // ---------- partes comuns ----------
-const waBtn = (label = 'Falar no WhatsApp', cls = 'btn btn-wa', msg) =>
-  `<a class="${cls}" href="${msg ? C.wa(msg) : C.waOrcamento}" target="_blank" rel="noopener">${I.whatsapp}<span>${label}</span></a>`;
+const waBtn = (label = 'Falar no WhatsApp', cls = 'btn btn-w', msg) =>
+  `<a class="${cls}" href="${msg ? C.wa(msg) : C.waOrcamento}" target="_blank" rel="noopener" data-magnetic>${I.whatsapp}<span>${label}</span></a>`;
 
 function header(slug) {
-  const items = PAGES.map((p) =>
-    `<a href="${link(slug, p.slug)}"${p.slug === slug ? ' aria-current="page"' : ''}>${p.nav}</a>`).join('');
+  const items = PAGES.map((p) => `<a href="${link(slug, p.slug)}"${p.slug === slug ? ' aria-current="page"' : ''}>${p.nav}</a>`).join('');
   return `
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
-<div class="topbar">
-  <div class="container topbar-in">
-    <a href="${C.waOrcamento}" target="_blank" rel="noopener">${I.whatsapp}<span>WhatsApp ${C.contato.whatsappTexto}</span></a>
-    <a href="mailto:${C.contato.email}" class="hide-sm">${I.email}<span>${C.contato.email}</span></a>
-    <div class="topbar-social">${C.contato.redes.map((r) => `<a href="${r.url}" target="_blank" rel="noopener" aria-label="${r.rotulo}">${I[r.rede]}</a>`).join('')}</div>
-  </div>
-</div>
-<header class="header" id="topo">
-  <div class="container header-in">
+<div class="progress" aria-hidden="true"></div>
+<div class="curtain" aria-hidden="true">${Array.from({ length: 24 }, (_, i) => `<i style="--d:${((i % 6) + Math.floor(i / 6)) * 45}ms"></i>`).join('')}</div>
+<header class="hdr">
+  <div class="container hdr-in">
     <a class="brand" href="${link(slug, '')}" aria-label="THD Engenharia, página inicial">
-      <img src="${asset(slug, 'img/logo-claro.png')}" alt="THD Engenharia · Consultoria de provedores de internet" width="226" height="120">
+      <img src="${asset(slug, 'img/logo-escuro.png')}" alt="THD Engenharia, consultoria de provedores de internet" width="226" height="120">
     </a>
-    <nav class="nav" id="nav" aria-label="Principal">${items}
-      <a class="btn btn-primary nav-cta" href="${C.waOrcamento}" target="_blank" rel="noopener">Solicitar orçamento</a>
-    </nav>
-    <button class="menu-btn" aria-controls="nav" aria-expanded="false" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+    <nav class="nav" aria-label="Principal">${items}</nav>
+    <a class="btn btn-o btn-sm" href="${C.waOrcamento}" target="_blank" rel="noopener" data-magnetic><span>Solicitar orçamento</span>${I.seta}</a>
+    <button class="menu-btn" data-menu aria-controls="mmenu" aria-expanded="false" aria-label="Abrir menu"><span></span><span></span><span></span></button>
   </div>
-</header>`;
+</header>
+<div class="mmenu" id="mmenu">
+  <nav aria-label="Menu">${items}</nav>
+  <div class="mmenu-foot">
+    <a href="${C.waOrcamento}" target="_blank" rel="noopener">WhatsApp ${C.contato.whatsappTexto}</a>
+    <a href="mailto:${C.contato.email}">${C.contato.email}</a>
+  </div>
+  ${geo([T('qa', 'o', 0, 0), T('sq', 'l', 1, 0), T('ci', 'b', 2, 0), T('st', 'l', 0, 1), T('ar', 'o', 1, 1, 2), T('x', 'w', 2, 1), T('sq', 'b', 0, 2), T('tr', 'o', 1, 2, 1), T('ci', 'l', 2, 2)], { wires: false, sats: false })}
+</div>`;
 }
 
 function footer(slug) {
   const c = C.contato;
   return `
-<footer class="footer">
-  <div class="container footer-grid">
-    <div class="footer-brand">
+<footer class="footer on-dark">
+  ${geo([T('ci', 'w', 0, 0), T('qa', 'w', 1, 0, 1), T('sq', 'w', 2, 0), T('sq', 'w', 0, 1), T('x', 'w', 1, 1), T('ri', 'w', 2, 1), T('tr', 'w', 0, 2), T('sq', 'w', 1, 2), T('qa', 'w', 2, 2, 2)], { cls: 'foot-geo', wires: false, sats: false })}
+  <div class="container foot-grid">
+    <div class="foot-brand">
       <img src="${asset(slug, 'img/logo-escuro.png')}" alt="THD Engenharia" width="226" height="120" loading="lazy">
-      <p>${C.quemSomos.intro.split(',')[0]}, com excelência e garantia.</p>
+      <p>Consultoria para provedores de internet, com excelência e garantia.</p>
       <div class="social">${c.redes.map((r) => `<a href="${r.url}" target="_blank" rel="noopener" aria-label="${r.rotulo}">${I[r.rede]}</a>`).join('')}</div>
     </div>
     <div>
@@ -78,24 +128,26 @@ function footer(slug) {
     </div>
     <div>
       <h3>Contato</h3>
-      <ul class="footer-contact">
+      <ul class="foot-contact">
         <li>${I.whatsapp}<a href="${C.waOrcamento}" target="_blank" rel="noopener">${c.whatsappTexto}</a></li>
         <li>${I.email}<a href="mailto:${c.email}">${c.email}</a></li>
         <li>${I.pin}<span>${c.endereco}</span></li>
       </ul>
     </div>
     <div>
-      <h3>Horário de atendimento</h3>
+      <h3>Atendimento</h3>
       <dl class="hours">${c.horario.map(([d, h]) => `<div><dt>${d}</dt><dd>${h}</dd></div>`).join('')}</dl>
     </div>
   </div>
-  <div class="container footer-bottom">
-    <span>© ${new Date().getFullYear()} ${C.nome} · CNPJ ${C.cnpj}</span>
+  <div class="container foot-bottom">
+    <span>© <span id="year">${new Date().getFullYear()}</span> ${C.nome}. CNPJ ${C.cnpj}</span>
     <span>Site por ${C.credito.url ? `<a href="${C.credito.url}" target="_blank" rel="noopener">${C.credito.nome}</a>` : C.credito.nome}</span>
   </div>
 </footer>
-<a class="wa-float" href="${C.waOrcamento}" target="_blank" rel="noopener" aria-label="Falar com a THD no WhatsApp">${I.whatsapp}</a>`;
+<a class="wa-float" href="${C.waOrcamento}" target="_blank" rel="noopener" aria-label="Falar com a THD no WhatsApp" data-cursor="Conversar">${I.whatsapp}</a>`;
 }
+
+const headScript = `<script>(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('thd-nav')){d.classList.add('enter');sessionStorage.removeItem('thd-nav');}}catch(e){}})();</script>`;
 
 function layout({ slug, title, desc, body, jsonld = '' }) {
   const ga = C.ga4 && !PREVIEW ? `
@@ -122,9 +174,9 @@ function layout({ slug, title, desc, body, jsonld = '' }) {
 <link rel="apple-touch-icon" href="${asset(slug, 'img/apple-touch-icon.png')}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${asset(slug, 'css/style.css')}?v=${ver(css)}">
-<script>document.documentElement.classList.add('js')</script>${ga}${jsonld}
+${headScript}${ga}${jsonld}
 </head>
 <body>
 ${header(slug)}
@@ -138,131 +190,204 @@ ${footer(slug)}
 `;
 }
 
-const pageHero = (slug, eyebrow, title, lead) => `
-<section class="page-hero">
-  <div class="circuit" aria-hidden="true"></div>
-  <div class="container">
-    <nav class="crumbs" aria-label="Você está em"><a href="${link(slug, '')}">Início</a><span>/</span><span aria-current="page">${PAGES.find((p) => p.slug === slug).nav}</span></nav>
-    <p class="eyebrow">${eyebrow}</p>
-    <h1>${title}</h1>
-    ${lead ? `<p class="lead">${lead}</p>` : ''}
+const pageHero = (slug, kicker, title, lead, tiles, wires = 'b') => `
+<section class="phero on-dark">
+  <div class="blueprint" aria-hidden="true"></div>
+  <div class="container phero-in">
+    <div>
+      <nav class="crumbs fade-up" style="--d:.1s" aria-label="Você está em"><a href="${link(slug, '')}">Início</a><span>/</span><span aria-current="page">${PAGES.find((p) => p.slug === slug).nav}</span></nav>
+      <p class="kicker fade-up" style="--d:.2s">${kicker}</p>
+      <h1>${words(title)}</h1>
+      ${lead ? `<p class="lead fade-up" style="--d:.7s">${lead}</p>` : ''}
+    </div>
+    ${geo(tiles, { wires })}
   </div>
 </section>`;
 
 const ctaBand = (slug, titulo = 'Vamos tirar o seu provedor do papel ou deixá-lo em dia?', texto = 'Conte o que você precisa. Respondemos pelo WhatsApp em horário comercial.') => `
-<section class="cta-band">
+<section class="cta">
   <div class="container cta-in">
-    <div class="cta-text reveal">
-      <p class="eyebrow">Fale com a nossa equipe</p>
-      <h2>${titulo}</h2>
-      <p>${texto}</p>
-      <div class="actions">${waBtn('Chamar no WhatsApp')}<a class="btn btn-ghost-light" href="${link(slug, 'contato')}">Enviar mensagem</a></div>
+    <div class="cta-text">
+      <p class="kicker rv">Fale com a nossa equipe</p>
+      <h2 class="rv">${titulo}</h2>
+      <p class="rv" data-d="1">${texto}</p>
+      <div class="actions rv" data-d="2">${waBtn('Chamar no WhatsApp')}<a class="btn btn-dark" href="${link(slug, 'contato')}" data-magnetic><span>Enviar mensagem</span>${I.seta}</a></div>
     </div>
-    <img class="cta-img" src="${asset(slug, 'img/atendente.webp')}" alt="Atendente da THD Engenharia" width="768" height="559" loading="lazy">
+    <div class="cta-media">
+      <i class="bit b1"></i><i class="bit b2"></i><i class="bit b3"></i>
+      <img src="${asset(slug, 'img/atendente.webp')}" alt="Atendente da THD Engenharia" width="768" height="559" loading="lazy">
+    </div>
   </div>
 </section>`;
 
-const serviceCard = (slug, s) => `
-<a class="card svc reveal" href="${link(slug, 'servicos', '#' + s.id)}">
-  <span class="ico">${I[s.icone]}</span>
-  <h3>${s.titulo}</h3>
-  <p>${s.curto}</p>
-  <span class="more">Saiba mais ${I.seta}</span>
+const srow = (slug, s, k = 0) => `
+<a class="srow" href="${link(slug, 'servicos', '#' + s.id)}" style="--k:${k}" data-cursor="Ver">
+  ${mk(s.id)}
+  <div><h3>${s.titulo}</h3><p>${s.curto}</p></div>
+  <span class="go">${I.seta}</span>
 </a>`;
 
 // ---------- páginas ----------
 function home() {
   const slug = '';
-  const destaques = ['outorga-scm', 'pos-outorga', 'asn', 'ipv4'].map(svc);
+  const heroGeo = geo([
+    T('im', 'n', 0, 0, 0, { w: 2, img: 'assets/img/hero.webp', rad: '0 0 0 100%' }),
+    T('ci', 'o', 2, 0), T('st', 'l', 2, 1, 1), T('qa', 'o', 0, 2, 1), T('sq', 'l', 1, 2), T('ar', 'w', 2, 2, 0),
+  ], { wires: 'c', attrs: ' data-shuffle' });
+
+  const jrnGeo = geo([
+    T('sq', 'b', 0, 2, 0, { st: 0 }), T('sq', 'l', 1, 2, 0, { st: 0 }), T('qa', 'o', 2, 2, 1, { st: 0 }),
+    T('ci', 'w', 0, 1, 0, { st: 1 }), T('st', 'l', 1, 1, 0, { st: 1 }),
+    T('ar', 'o', 2, 1, 0, { st: 2 }), T('dt', 'w', 0, 0, 0, { st: 2 }),
+    T('tr', 'l', 1, 0, 1, { st: 3 }), T('ci', 'o', 2, 0, 0, { st: 3 }),
+  ], { wires: 'a', attrs: ' data-build' });
+
+  const D = C.diagnostico;
+  const diagLayout = [[0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [0, 2], [1, 2]];
+  const diagKinds = [['qa', 'o', 0], ['sq', 'l', 0], ['ci', 'b', 0], ['st', 'l', 0], ['ar', 'o', 2], ['sq', 'b', 0], ['qa', 'l', 1]];
+  const diagGeo = geo([
+    ...D.map((d, i) => T(diagKinds[i][0], diagKinds[i][1], diagLayout[i][0], diagLayout[i][1], diagKinds[i][2], { q: i })),
+    T('ci', 'o', 1, 1, 0, { fixed: 1 }), T('tr', 'w', 2, 2, 2, { fixed: 1 }),
+  ], { cls: 'geo-diag', wires: false, sats: false });
+
   const body = `
-<section class="hero">
-  <picture class="hero-bg"><source srcset="assets/img/hero.webp" type="image/webp"><img src="assets/img/hero.jpg" alt="" width="1920" height="1056" fetchpriority="high"></picture>
-  <div class="circuit" aria-hidden="true"></div>
+<section class="hero on-dark">
+  <div class="blueprint" aria-hidden="true"></div>
   <div class="container hero-in">
     <div class="hero-text">
-      <p class="eyebrow">${I.sinal} ${C.slogan}</p>
-      <h1>Seu provedor <em>regular</em>, em dia e pronto para crescer.</h1>
-      <p class="lead">Outorga SCM, ASN, IPv4, declarações à Anatel e contabilidade especializada. A THD cuida da parte técnica e burocrática para você focar no que importa: seus clientes.</p>
-      <div class="actions">
-        ${waBtn('Solicitar orçamento', 'btn btn-primary btn-lg')}
-        <a class="btn btn-ghost-light btn-lg" href="${link(slug, 'servicos')}">Ver serviços</a>
+      <p class="kicker fade-up" style="--d:.1s">${C.slogan}</p>
+      <h1>${words('Seu provedor *regular,* em dia e pronto para crescer.')}</h1>
+      <p class="lead fade-up" style="--d:.8s">Outorga SCM, ASN, IPv4, declarações à Anatel e contabilidade especializada. A THD cuida da parte técnica e burocrática para você focar no que importa: seus clientes.</p>
+      <div class="actions fade-up" style="--d:.95s">
+        ${waBtn('Solicitar orçamento', 'btn btn-o')}
+        <a class="btn btn-line" href="#diagnostico" data-magnetic><span>Fazer o diagnóstico</span>${I.seta}</a>
       </div>
-      <ul class="hero-proof">
-        <li>${I.check} Dezenas de empresas atendidas</li>
-        <li>${I.check} Anatel, CREA, CFT e Registro.br</li>
+      <ul class="facts fade-up" style="--d:1.1s">
+        <li><strong>Anatel, CREA, CFT</strong>e Registro.br em um só parceiro</li>
+        <li><strong>Dezenas de empresas</strong>atendidas e crescendo</li>
+        <li><strong>Seg. a sex., 9h às 18h</strong>atendimento pelo WhatsApp</li>
       </ul>
     </div>
-    <aside class="hero-card" aria-label="Serviços mais procurados">
-      <p class="hero-card-title">Mais procurados</p>
-      <ul>${destaques.map((s) => `<li><a href="${link(slug, 'servicos', '#' + s.id)}"><span class="ico">${I[s.icone]}</span><span><strong>${s.titulo}</strong><small>${s.curto}</small></span></a></li>`).join('')}</ul>
-    </aside>
+    ${heroGeo}
   </div>
+  <span class="scroll-hint" aria-hidden="true"></span>
 </section>
 
-<section class="section">
+<div class="ticker" aria-hidden="true"><div class="ticker-row">${[...C.faixa, ...C.faixa].map((t) => `<span><i></i>${t}</span>`).join('')}</div></div>
+
+<section class="section" id="servicos">
   <div class="container">
-    <header class="section-head reveal">
-      <p class="eyebrow">Nossos serviços</p>
-      <h2>Como a THD pode ajudar a sua empresa</h2>
-      <p>Tudo o que um provedor de internet precisa para operar dentro das regras, em um só parceiro.</p>
-    </header>
-    <div class="grid-svc">${C.servicos.map((s) => serviceCard(slug, s)).join('')}
-      <a class="card svc svc-cta reveal" href="${C.waOrcamento}" target="_blank" rel="noopener">
-        <span class="ico">${I.whatsapp}</span>
-        <h3>Precisa de outra solução?</h3>
-        <p>Conte a situação do seu provedor e indicamos o melhor caminho.</p>
-        <span class="more">Falar com a equipe ${I.seta}</span>
-      </a>
+    <div class="head-row">
+      <div class="head">
+        <p class="kicker rv">Nossos serviços</p>
+        <h2 class="rv">Tudo o que o seu provedor precisa, organizado por frente</h2>
+      </div>
+      <a class="link-arrow rv" href="${link(slug, 'servicos')}">Ver todos os serviços ${I.seta}</a>
+    </div>
+    <div class="svx">
+      <div class="svx-tabs" role="tablist" aria-label="Frentes de serviço">${C.grupos.map((g, i) => `
+        <button class="svx-tab" role="tab" id="t-${g.id}" aria-controls="p-${g.id}" aria-selected="${i === 0}"><strong>${g.titulo}</strong><small>${g.resumo}</small></button>`).join('')}
+      </div>
+      <div>${C.grupos.map((g, i) => `
+        <div class="svx-panel" role="tabpanel" id="p-${g.id}" aria-labelledby="t-${g.id}"${i ? ' hidden' : ''}>${C.servicos.filter((s) => s.grupo === g.id).map((s, k) => srow(slug, s, k)).join('')}
+          <a class="srow srow-cta" href="${C.waOrcamento}" target="_blank" rel="noopener" style="--k:4" data-cursor="Conversar">${mk('cta')}<div><h3>Precisa de outra solução?</h3><p>Conte a situação do seu provedor e indicamos o melhor caminho.</p></div><span class="go">${I.whatsapp}</span></a>
+        </div>`).join('')}
+      </div>
     </div>
   </div>
 </section>
 
-<section class="section section-dark">
-  <div class="circuit" aria-hidden="true"></div>
+<section class="section-dark on-dark jrn" style="--n:${C.jornada.length}" data-jrn>
+  <div class="jrn-sticky">
+    <div class="blueprint" aria-hidden="true"></div>
+    <div class="container jrn-in">
+      <div>
+        <div class="head">
+          <p class="kicker">A jornada do provedor</p>
+          <h2>Montamos a estrutura do seu provedor, peça por peça</h2>
+        </div>
+        <ol class="jrn-steps"><span class="jrn-bar" aria-hidden="true"></span>${C.jornada.map((j, i) => `
+          <li${i === 0 ? ' class="on cur"' : ''}>
+            <h3>${j.t}</h3>
+            <div class="body"><div>
+              <p>${j.d}</p>
+              <ul class="jrn-tags">${j.ids.map((id) => `<li><a href="${link(slug, 'servicos', '#' + id)}">${shortTitle(svc(id).titulo)}</a></li>`).join('')}</ul>
+            </div></div>
+          </li>`).join('')}
+        </ol>
+      </div>
+      ${jrnGeo}
+    </div>
+  </div>
+</section>
+
+<section class="section section-paper" id="diagnostico">
   <div class="container">
-    <header class="section-head reveal">
-      <p class="eyebrow">A jornada do provedor</p>
-      <h2>Acompanhamos cada etapa, da outorga ao crescimento</h2>
-    </header>
-    <ol class="journey">${C.jornada.map((j, i) => `
-      <li class="reveal" style="--d:${i * 80}ms">
-        <span class="step">0${i + 1}</span>
-        <h3>${j.t}</h3>
-        <p>${j.d}</p>
-        <ul class="tags">${j.ids.map((id) => `<li><a href="${link(slug, 'servicos', '#' + id)}">${svc(id).titulo.split(':')[0].split('·')[0].trim()}</a></li>`).join('')}</ul>
-      </li>`).join('')}
-    </ol>
+    <div class="head">
+      <p class="kicker rv">Diagnóstico rápido</p>
+      <h2 class="rv">Como está o seu provedor hoje?</h2>
+      <p class="rv" data-d="1">Responda as perguntas e veja quais peças já estão no lugar. No fim, mande o resultado direto para a nossa equipe.</p>
+    </div>
+    <div class="diag" data-diag>
+      <ul class="dq">${D.map((d, i) => `
+        <li class="rv" data-d="${i % 3}">
+          <p id="dq-${i}">${d.q}</p>
+          <div class="seg" role="group" aria-labelledby="dq-${i}" data-i="${i}">
+            <button type="button" data-v="sim" aria-pressed="false">Sim</button><button type="button" data-v="nao" aria-pressed="false">Não</button><button type="button" data-v="ns" aria-pressed="false">Não sei</button>
+          </div>
+        </li>`).join('')}
+      </ul>
+      <aside class="diag-card on-dark" aria-live="polite">
+        <h3>O mapa do seu provedor</h3>
+        <p class="diag-msg" data-diag-msg>Cada resposta encaixa uma peça. As que faltam ficam marcadas em laranja.</p>
+        ${diagGeo}
+        <p class="diag-score"><span data-diag-score>0</span><small>de ${D.length} peças<br>no lugar</small></p>
+        <ul class="diag-pend" data-diag-pend></ul>
+        <a class="btn btn-o" href="${C.waOrcamento}" target="_blank" rel="noopener" data-diag-go data-magnetic>${I.whatsapp}<span>Enviar diagnóstico</span></a>
+      </aside>
+    </div>
   </div>
 </section>
 
 <section class="section">
+  <div class="container">
+    <div class="head">
+      <p class="kicker rv">Como trabalhamos</p>
+      <h2 class="rv">O que você pode esperar da THD</h2>
+    </div>
+    <div class="pnl rv" data-pnl>${C.quemSomos.pilares.map((p, i) => `
+      <div class="pnl-item${i === 0 ? ' on' : ''}" tabindex="0" role="button" aria-expanded="${i === 0}" data-cursor="Abrir"><span class="pnl-shape" aria-hidden="true"></span><h3>${p.t}</h3><p>${p.d}</p></div>`).join('')}
+    </div>
+  </div>
+</section>
+
+<section class="section section-paper">
   <div class="container split">
-    <figure class="split-media reveal">
+    <figure class="media rv">
       <img src="assets/img/internet.webp" alt="Conexões de internet ao redor do mundo" width="1000" height="483" loading="lazy">
+      <i class="bit b1"></i><i class="bit b2"></i><i class="bit b3"></i>
     </figure>
-    <div class="split-text reveal">
-      <p class="eyebrow">Quem somos</p>
-      <h2>Consultoria feita para provedores de internet</h2>
-      <p>${C.quemSomos.intro}</p>
-      <p>${C.quemSomos.historia}</p>
-      <blockquote><strong>Nossa missão:</strong> ${C.quemSomos.missao.charAt(0).toLowerCase() + C.quemSomos.missao.slice(1)}</blockquote>
-      <a class="btn btn-outline" href="${link(slug, 'quem-somos')}">Conheça a THD ${I.seta}</a>
+    <div>
+      <p class="kicker rv">Quem somos</p>
+      <h2 class="rv">Consultoria feita para quem leva internet às pessoas</h2>
+      <p class="rv">${C.quemSomos.intro}</p>
+      <p class="rv">${C.quemSomos.historia}</p>
+      <blockquote class="rv"><strong>Nossa missão:</strong> ${C.quemSomos.missao.charAt(0).toLowerCase() + C.quemSomos.missao.slice(1)}</blockquote>
+      <a class="link-arrow rv" href="${link(slug, 'quem-somos')}">Conheça a THD ${I.seta}</a>
     </div>
   </div>
 </section>
 
-<section class="section section-soft">
-  <div class="container split split-rev">
-    <div class="split-text reveal">
-      <p class="eyebrow">Contabilidade</p>
-      <h2>${C.contabilidade.pergunta}</h2>
-      <p>${C.contabilidade.smart}</p>
-      <ul class="checks">${C.contabilidade.operacional.slice(0, 4).map((x) => `<li>${I.check}${x}</li>`).join('')}</ul>
-      <a class="btn btn-outline" href="${link(slug, 'contabilidade')}">Ver contabilidade ${I.seta}</a>
+<section class="section section-dark on-dark ctb">
+  <div class="blueprint" aria-hidden="true"></div>
+  <div class="container ctb-in">
+    <div>
+      <p class="kicker rv">Contabilidade para provedores</p>
+      <h2 class="rv">${C.contabilidade.pergunta}</h2>
+      <p class="rv" data-d="1">${C.contabilidade.smart}</p>
+      <div class="actions rv" data-d="2"><a class="btn btn-o" href="${link(slug, 'contabilidade')}" data-magnetic><span>Conhecer a contabilidade</span>${I.seta}</a></div>
     </div>
-    <figure class="split-media media-square reveal">
-      <img src="assets/img/contabilidade.webp" alt="THD Engenharia · Contabilidade" width="800" height="800" loading="lazy">
-    </figure>
+    ${bars()}
   </div>
 </section>
 ${ctaBand(slug)}`;
@@ -272,94 +397,120 @@ ${ctaBand(slug)}`;
     url: C.dominio + '/', logo: C.dominio + '/assets/img/logo-claro.png', image: C.dominio + '/assets/img/og.jpg',
     telephone: C.contato.telefoneSchema, email: C.contato.email, taxID: C.cnpj,
     address: { '@type': 'PostalAddress', streetAddress: 'R. Almirante Pestana, 6', addressLocality: 'Rio de Janeiro', addressRegion: 'RJ', addressCountry: 'BR' },
-    openingHours: 'Mo-Fr 09:00-18:00', sameAs: C.contato.redes.map((r) => r.url),
-    areaServed: 'BR',
+    openingHours: 'Mo-Fr 09:00-18:00', sameAs: C.contato.redes.map((r) => r.url), areaServed: 'BR',
   })}</script>`;
   return layout({ slug, jsonld, body,
-    title: 'THD Engenharia · Consultoria de provedores de internet',
+    title: 'THD Engenharia | Consultoria de provedores de internet',
     desc: 'Consultoria para provedores de internet: outorga SCM, ASN, aluguel de IPv4, DICI, notificações Anatel, responsabilidade técnica e contabilidade especializada.' });
+}
+
+// gráfico decorativo de barras que sobem (extratos mensais)
+function bars() {
+  const h = [34, 42, 38, 51, 47, 60, 58, 71, 68, 84];
+  return `<div><div class="bars" data-bars aria-hidden="true">${h.map((v, i) => `<i style="--h:${v}%;--k:${i}"></i>`).join('')}
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none"><path vector-effect="non-scaling-stroke" d="M${h.map((v, i) => `${(i + 0.5) * 10} ${100 - v - 6}`).join(' L')}"/></svg></div>
+    <p class="bars-cap">Extratos contábeis todo mês, para enxergar a evolução do seu provedor.</p></div>`;
 }
 
 function quemSomos() {
   const slug = 'quem-somos';
   const Q = C.quemSomos;
+  const missao = Q.missao.split(' ').map((w) => `<span class="mw${/praticidade|segurança/i.test(w) ? ' hl' : ''}">${w}</span>`).join(' ');
   const body = `
-${pageHero(slug, 'Institucional', 'Quem somos', Q.intro)}
+${pageHero(slug, 'Institucional', 'Quem *somos*', Q.intro,
+    [T('sq', 'l', 0, 0), T('qa', 'o', 1, 0, 1), T('x', 'w', 2, 0), T('ci', 'w', 0, 1), T('sq', 'b', 1, 1), T('ar', 'o', 2, 1), T('st', 'l', 0, 2), T('tr', 'o', 1, 2, 3), T('ci', 'l', 2, 2)])}
 <section class="section">
   <div class="container split">
-    <div class="split-text reveal">
-      <p class="eyebrow">Nossa história</p>
-      <h2>Soluções completas para quem leva internet às pessoas</h2>
-      <p>${Q.historia}</p>
-      <p>Reunimos engenharia, regulatório, contabilidade e marketing em um só lugar, para que o provedor tenha um parceiro que entende o seu negócio de ponta a ponta.</p>
-      <div class="actions">${waBtn('Confira nossos serviços e faça seu orçamento', 'btn btn-primary')}</div>
+    <div>
+      <p class="kicker rv">Nossa história</p>
+      <h2 class="rv">Soluções completas para quem leva internet às pessoas</h2>
+      <p class="rv">${Q.historia}</p>
+      <p class="rv">Reunimos engenharia, regulatório, contabilidade e marketing em um só lugar, para que o provedor tenha um parceiro que entende o seu negócio de ponta a ponta.</p>
+      <div class="actions rv">${waBtn('Faça seu orçamento', 'btn btn-o')}</div>
     </div>
-    <figure class="split-media reveal">
+    <figure class="media rv">
       <img src="../assets/img/rede.webp" alt="Profissional analisando a rede em um data center" width="1600" height="900" loading="lazy">
+      <i class="bit b1"></i><i class="bit b2"></i><i class="bit b3"></i>
     </figure>
   </div>
 </section>
 
-<section class="section section-dark mission">
-  <div class="circuit" aria-hidden="true"></div>
-  <div class="container narrow reveal">
-    <p class="eyebrow">Nossa missão</p>
-    <p class="mission-text">“${Q.missao}”</p>
+<section class="section section-dark on-dark">
+  <div class="blueprint" aria-hidden="true"></div>
+  <div class="container">
+    <p class="kicker">Nossa missão</p>
+    <p class="manifesto" data-manifesto>${missao}</p>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <header class="section-head reveal">
-      <p class="eyebrow">Como trabalhamos</p>
-      <h2>O que você pode esperar da THD</h2>
-    </header>
-    <div class="grid-4">${Q.pilares.map((p, i) => `
-      <article class="card pillar reveal" style="--d:${i * 70}ms">
-        <span class="ico">${I[['selo', 'escudo', 'raio', 'cadeado'][i]]}</span>
-        <h3>${p.t}</h3><p>${p.d}</p>
-      </article>`).join('')}
+    <div class="head">
+      <p class="kicker rv">Como trabalhamos</p>
+      <h2 class="rv">O que você pode esperar da THD</h2>
     </div>
+    <div class="pnl rv" data-pnl>${Q.pilares.map((p, i) => `
+      <div class="pnl-item${i === 0 ? ' on' : ''}" tabindex="0" role="button" aria-expanded="${i === 0}" data-cursor="Abrir"><span class="pnl-shape" aria-hidden="true"></span><h3>${p.t}</h3><p>${p.d}</p></div>`).join('')}
+    </div>
+  </div>
+</section>
+
+<section class="section section-paper">
+  <div class="container">
+    <div class="head">
+      <p class="kicker rv">Onde atuamos</p>
+      <h2 class="rv">Quatro frentes, um só parceiro</h2>
+    </div>
+    <ul class="fronts">${C.grupos.map((g, i) => `
+      <li class="rv"><a href="${link(slug, 'servicos', '#' + g.id)}" data-cursor="Ver"><strong>${g.titulo}</strong><span>${g.resumo}</span><span class="go">${I.seta}</span><i class="float" style="--c:${['var(--orange)', 'var(--blue)', 'var(--blue-l)', 'var(--orange)'][i]};border-radius:${['50%', '100% 0 0 0', '0', '0 0 100% 0'][i]}"></i></a></li>`).join('')}
+    </ul>
   </div>
 </section>
 ${ctaBand(slug)}`;
   return layout({ slug, body,
-    title: 'Quem somos · THD Engenharia',
+    title: 'Quem somos | THD Engenharia',
     desc: 'A THD é uma consultoria especializada em provedores de internet. Praticidade e segurança para resolver as questões técnicas e regulatórias do seu provedor.' });
 }
 
 function servicos() {
   const slug = 'servicos';
+  const grpGeo = [
+    [T('qa', 'o', 0, 0), T('sq', 'b', 1, 0), T('x', 'w', 2, 0), T('sq', 'l', 0, 1), T('ci', 'o', 1, 1), T('sq', 'b', 2, 1), T('x', 'w', 0, 2), T('st', 'b', 1, 2), T('qa', 'l', 2, 2, 2)],
+    [T('ci', 'l', 0, 0), T('x', 'w', 1, 0), T('ci', 'b', 2, 0), T('sq', 'o', 0, 1), T('ri', 'b', 1, 1), T('sq', 'o', 2, 1), T('ci', 'b', 0, 2), T('x', 'w', 1, 2), T('ci', 'l', 2, 2)],
+    [T('tr', 'o', 0, 0), T('sq', 'b', 1, 0), T('qa', 'l', 2, 0, 1), T('st', 'l', 0, 1, 1), T('sq', 'o', 1, 1), T('x', 'w', 2, 1), T('sq', 'b', 0, 2), T('ar', 'l', 1, 2), T('tr', 'o', 2, 2, 2)],
+    [T('x', 'w', 0, 0), T('sq', 'l', 1, 0), T('qa', 'o', 2, 0, 1), T('sq', 'b', 0, 1), T('sq', 'l', 1, 1), T('dt', 'b', 2, 1), T('qa', 'o', 0, 2, 3), T('sq', 'b', 1, 2), T('ci', 'o', 2, 2)],
+  ];
   const body = `
-${pageHero(slug, 'Catálogo de soluções', 'Serviços para provedores de internet', 'Da outorga na Anatel à contabilidade: escolha o que o seu provedor precisa ou fale com a gente para montar um pacote.')}
-<div class="svc-nav-wrap">
-  <nav class="container svc-nav" aria-label="Categorias de serviço">${C.grupos.map((g) => `<a href="#${g.id}">${g.titulo}</a>`).join('')}</nav>
+${pageHero(slug, 'Catálogo de soluções', 'Serviços para *provedores* de internet', 'Da outorga na Anatel à contabilidade: escolha o que o seu provedor precisa ou fale com a gente para montar um pacote.',
+    [T('sq', 'b', 0, 0), T('ci', 'o', 1, 0), T('qa', 'l', 2, 0, 1), T('st', 'l', 0, 1), T('x', 'w', 1, 1), T('sq', 'o', 2, 1), T('ar', 'w', 0, 2), T('sq', 'l', 1, 2), T('tr', 'o', 2, 2, 2)], 'a')}
+<div class="gnav-wrap">
+  <nav class="container gnav" aria-label="Frentes de serviço">${C.grupos.map((g) => `<a href="#${g.id}">${g.titulo}</a>`).join('')}<span class="bar" aria-hidden="true"></span></nav>
 </div>
 ${C.grupos.map((g, gi) => `
-<section class="section ${gi % 2 ? 'section-soft' : ''}" id="${g.id}">
-  <div class="container">
-    <header class="section-head left reveal">
-      <p class="eyebrow">0${gi + 1} · ${g.titulo}</p>
-      <h2>${g.resumo}</h2>
-    </header>
-    <div class="svc-list">${C.servicos.filter((s) => s.grupo === g.id).map((s) => `
-      <article class="card svc-full reveal" id="${s.id}">
-        <span class="ico">${I[s.icone]}</span>
-        <div>
-          <h3>${s.titulo}</h3>
+<section class="section${gi % 2 ? ' section-paper' : ''}" id="${g.id}">
+  <div class="container grp">
+    <div class="grp-head">
+      <p class="kicker rv">${g.titulo}</p>
+      <h2 class="rv">${g.resumo}</h2>
+      ${geo(grpGeo[gi], { wires: false, sats: false, attrs: ' data-shuffle' })}
+    </div>
+    <div class="acc">${C.servicos.filter((s) => s.grupo === g.id).map((s) => `
+      <div class="acc-item rv" id="${s.id}">
+        <h3 class="acc-h"><button type="button" aria-expanded="false" aria-controls="b-${s.id}">${mk(s.id)}<span><span class="acc-t">${s.titulo}</span><small>${s.curto}</small></span><span class="tog">${I.mais}</span></button></h3>
+        <div class="acc-body" id="b-${s.id}" role="region"><div><div class="inner">
           <p>${s.texto}</p>
-          <div class="svc-actions">
-            ${waBtn('Pedir orçamento', 'btn btn-sm btn-primary', `Olá, THD! Quero um orçamento de: ${s.titulo}.`)}
-            ${s.link ? `<a class="btn btn-sm btn-outline" href="${link(slug, s.link)}">Ver contabilidade ${I.seta}</a>` : ''}
+          <div class="actions">
+            ${waBtn('Pedir orçamento', 'btn btn-o btn-sm', `Olá, THD! Quero um orçamento de: ${s.titulo}.`)}
+            ${s.link ? `<a class="link-arrow" href="${link(slug, s.link)}">Ver contabilidade ${I.seta}</a>` : ''}
           </div>
-        </div>
-      </article>`).join('')}
+        </div></div></div>
+      </div>`).join('')}
     </div>
   </div>
 </section>`).join('')}
-${ctaBand(slug, 'Não encontrou o que procura?', 'Fale com a nossa equipe. Indicamos o caminho certo para a situação do seu provedor.')}`;
+${ctaBand(slug, 'Não sabe por onde começar?', `Faça o <a href="${link(slug, '', '#diagnostico')}" style="color:var(--orange);font-weight:600">diagnóstico rápido</a> ou fale com a nossa equipe. Indicamos o caminho certo para a situação do seu provedor.`)}`;
   return layout({ slug, body,
-    title: 'Serviços · THD Engenharia',
+    title: 'Serviços | THD Engenharia',
     desc: 'Outorga SCM, SEAC e STFC, DICI e pós-outorga, notificações Anatel/CREA/CFT, ASN, aluguel de IPv4, responsabilidade técnica, segurança do trabalho, contabilidade, marketing e registro de marca.' });
 }
 
@@ -367,52 +518,62 @@ function contabilidade() {
   const slug = 'contabilidade';
   const K = C.contabilidade;
   const body = `
-${pageHero(slug, 'Serviço contábil especializado', K.pergunta, K.smart)}
+${pageHero(slug, 'Serviço contábil especializado', 'Você sabe a *rentabilidade* do seu negócio?', K.smart,
+    [T('x', 'w', 0, 0), T('sq', 'l', 1, 0), T('qa', 'o', 2, 0, 1), T('sq', 'b', 0, 1), T('sq', 'l', 1, 1), T('sq', 'o', 2, 1), T('sq', 'b', 0, 2), T('sq', 'l', 1, 2), T('sq', 'o', 2, 2)], 'c')}
 <section class="section">
   <div class="container split">
-    <figure class="split-media media-square reveal">
-      <img src="../assets/img/contabilidade.webp" alt="THD Engenharia · Contabilidade" width="800" height="800" loading="lazy">
+    <figure class="media sq rv">
+      <img src="../assets/img/contabilidade.webp" alt="THD Engenharia, contabilidade" width="800" height="800" loading="lazy">
+      <i class="bit b1"></i><i class="bit b2"></i><i class="bit b3"></i>
     </figure>
-    <div class="split-text reveal">
-      <p class="eyebrow">Smart Accounting</p>
-      <h2>Contabilidade que mostra onde está o seu lucro</h2>
-      <p>${K.time}</p>
-      <p>Atendemos:</p>
-      <ul class="chips">${K.segmentos.map((s) => `<li>${s}</li>`).join('')}</ul>
-      <div class="actions">${waBtn('Falar com a contabilidade', 'btn btn-primary', 'Olá, THD! Quero saber mais sobre o serviço de contabilidade.')}</div>
+    <div>
+      <p class="kicker rv">Smart Accounting</p>
+      <h2 class="rv">Contabilidade que mostra onde está o seu lucro</h2>
+      <p class="rv">${K.time}</p>
+      <p class="rv"><strong>Atendemos:</strong></p>
+      <ul class="segments rv">${K.segmentos.map((s) => `<li>${s}</li>`).join('')}</ul>
+      <div class="actions rv">${waBtn('Falar com a contabilidade', 'btn btn-o', 'Olá, THD! Quero saber mais sobre o serviço de contabilidade.')}</div>
     </div>
   </div>
 </section>
 
-<section class="section section-soft">
+<section class="section section-paper">
   <div class="container">
-    <header class="section-head reveal">
-      <p class="eyebrow">Gestão contábil</p>
-      <h2>Do operacional ao estratégico</h2>
-      <p>${svc('gestao-contabil').texto}</p>
-    </header>
-    <div class="grid-2">
-      <article class="card reveal">
-        <span class="ico">${I.documento}</span>
-        <h3>Rotina operacional</h3>
-        <ul class="checks">${K.operacional.map((x) => `<li>${I.check}${x}</li>`).join('')}</ul>
-      </article>
-      <article class="card reveal" style="--d:80ms">
-        <span class="ico">${I.grafico}</span>
-        <h3>Planejamento estratégico</h3>
-        <p>${K.estrategico}</p>
-        <ul class="checks">
-          <li>${I.check}Extratos contábeis mensais</li>
-          <li>${I.check}Oportunidades de redução de custos e impostos</li>
-          <li>${I.check}Mais lucratividade para o negócio</li>
-        </ul>
-      </article>
+    <div class="head">
+      <p class="kicker rv">Gestão contábil</p>
+      <h2 class="rv">Do operacional ao estratégico</h2>
+      <p class="rv">${svc('gestao-contabil').texto}</p>
     </div>
+    <div class="switch rv" role="tablist" data-switch>
+      <button role="tab" id="sw-op" aria-controls="pn-op" aria-selected="true">Rotina operacional</button>
+      <button role="tab" id="sw-es" aria-controls="pn-es" aria-selected="false">Planejamento estratégico</button>
+      <span class="bar" aria-hidden="true"></span>
+    </div>
+    <div class="sw-panel" role="tabpanel" id="pn-op" aria-labelledby="sw-op">
+      <div><h3>O dia a dia contábil, resolvido</h3><p>Guias, notas, documentos e demonstrações em dia, sem você precisar correr atrás.</p></div>
+      <ul class="big-list">${K.operacional.map((x) => `<li><i></i>${x}</li>`).join('')}</ul>
+    </div>
+    <div class="sw-panel" role="tabpanel" id="pn-es" aria-labelledby="sw-es" hidden>
+      <div><h3>Números a favor do negócio</h3><p>${K.estrategico}</p></div>
+      <ul class="big-list"><li><i></i>Extratos contábeis mensais</li><li><i></i>Oportunidades de redução de custos e impostos</li><li><i></i>Mais lucratividade para o negócio</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark on-dark ctb">
+  <div class="blueprint" aria-hidden="true"></div>
+  <div class="container ctb-in">
+    <div>
+      <p class="kicker rv">Extratos mensais</p>
+      <h2 class="rv">Enxergue a evolução do seu provedor mês a mês</h2>
+      <p class="rv" data-d="1">Nossos contadores acompanham os números e apontam onde reduzir custos e impostos.</p>
+    </div>
+    ${bars()}
   </div>
 </section>
 ${ctaBand(slug, 'Descubra a real rentabilidade do seu provedor', 'Converse com a nossa equipe contábil e veja onde é possível economizar.')}`;
   return layout({ slug, body,
-    title: 'Contabilidade para provedores · THD Engenharia',
+    title: 'Contabilidade para provedores | THD Engenharia',
     desc: 'Contabilidade especializada com Smart Accounting: extratos mensais, redução de custos e impostos e planejamento estratégico para provedores de internet e empresas.' });
 }
 
@@ -420,46 +581,36 @@ function contato() {
   const slug = 'contato';
   const c = C.contato;
   const body = `
-${pageHero(slug, 'Formulário e WhatsApp', 'Entre em contato com a nossa equipe', 'Estamos à disposição para o seu contato. Escolha o canal que preferir.')}
+${pageHero(slug, 'Formulário e WhatsApp', 'Fale com a nossa *equipe*', 'Estamos à disposição para o seu contato. Escolha o canal que preferir.',
+    [T('ci', 'o', 0, 0), T('sq', 'l', 1, 0), T('x', 'w', 2, 0), T('qa', 'b', 0, 1, 1), T('ri', 'w', 1, 1), T('sq', 'o', 2, 1), T('x', 'w', 0, 2), T('ar', 'l', 1, 2), T('ci', 'b', 2, 2)])}
 <section class="section">
-  <div class="container contact-grid">
-    <form class="card form reveal" id="form-contato" novalidate data-whats="${c.whatsapp}">
+  <div class="container contact">
+    <form class="form rv" id="form-contato" novalidate data-whats="${c.whatsapp}">
       <h2>Envie sua mensagem</h2>
       <p class="form-note">Ao enviar, sua mensagem abre pronta no WhatsApp da THD.</p>
-      <div class="field-row">
-        <label class="field"><span>Nome *</span><input name="nome" autocomplete="name" required></label>
-        <label class="field"><span>Empresa / provedor</span><input name="empresa" autocomplete="organization"></label>
+      <div class="row2">
+        <label class="fl"><input name="nome" autocomplete="name" required placeholder=" "><span>Nome *</span></label>
+        <label class="fl"><input name="empresa" autocomplete="organization" placeholder=" "><span>Empresa ou provedor</span></label>
       </div>
-      <div class="field-row">
-        <label class="field"><span>Telefone *</span><input name="telefone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="(00) 00000-0000"></label>
-        <label class="field"><span>E-mail</span><input name="email" type="email" autocomplete="email"></label>
+      <div class="row2">
+        <label class="fl"><input name="telefone" type="tel" autocomplete="tel" inputmode="tel" required placeholder=" "><span>Telefone *</span></label>
+        <label class="fl"><input name="email" type="email" autocomplete="email" placeholder=" "><span>E-mail</span></label>
       </div>
-      <fieldset class="field">
+      <fieldset class="subj">
         <legend>Assunto *</legend>
-        <div class="radios">${c.assuntos.map((a, i) => `<label><input type="radio" name="assunto" value="${a}"${i === 0 ? ' checked' : ''}><span>${a}</span></label>`).join('')}</div>
+        <div>${c.assuntos.map((a, i) => `<label><input type="radio" name="assunto" value="${a}"${i === 0 ? ' checked' : ''}><span>${a}</span></label>`).join('')}</div>
       </fieldset>
-      <label class="field"><span>Mensagem *</span><textarea name="mensagem" rows="5" required placeholder="Conte como podemos ajudar"></textarea></label>
-      <button class="btn btn-primary btn-lg" type="submit">${I.whatsapp}<span>Enviar mensagem</span></button>
+      <label class="fl"><textarea name="mensagem" rows="4" required placeholder=" "></textarea><span>Mensagem *</span></label>
+      <button class="btn btn-o" type="submit" data-magnetic>${I.whatsapp}<span>Enviar mensagem</span></button>
       <p class="form-status" role="status" aria-live="polite"></p>
     </form>
 
-    <aside class="contact-side">
-      <a class="card contact-wa reveal" href="${C.waOrcamento}" target="_blank" rel="noopener">
-        <span class="ico ico-wa">${I.whatsapp}</span>
-        <span><strong>Estamos no WhatsApp</strong><small>${c.whatsappTexto} · clique para conversar</small></span>
-      </a>
-      <a class="card contact-item reveal" href="mailto:${c.email}">
-        <span class="ico">${I.email}</span>
-        <span><strong>E-mail</strong><small>${c.email}</small></span>
-      </a>
-      <div class="card contact-item reveal">
-        <span class="ico">${I.relogio}</span>
-        <span><strong>Horário de atendimento</strong>${c.horario.map(([d, h]) => `<small>${d}: ${h}</small>`).join('')}</span>
-      </div>
-      <div class="card contact-item reveal">
-        <span class="ico">${I.instagram}</span>
-        <span><strong>Redes sociais</strong>${c.redes.map((r) => `<small><a href="${r.url}" target="_blank" rel="noopener">${r.rotulo} ${r.handle}</a></small>`).join('')}</span>
-      </div>
+    <aside class="chan rv" data-d="1">
+      <a class="wa" href="${C.waOrcamento}" target="_blank" rel="noopener" data-cursor="Conversar"><span class="ci">${I.whatsapp}</span><span><strong>Estamos no WhatsApp</strong><small>${c.whatsappTexto}, clique para conversar</small></span></a>
+      <a href="mailto:${c.email}"><span class="ci">${I.email}</span><span><strong>E-mail</strong><small>${c.email}</small></span></a>
+      <div><span class="ci">${I.relogio}</span><span><strong>Horário de atendimento</strong>${c.horario.map(([d, h]) => `<small>${d}: ${h}</small>`).join('')}</span></div>
+      <div><span class="ci">${I.sinal}</span><span><strong>Redes sociais</strong>${c.redes.map((r) => `<small><a href="${r.url}" target="_blank" rel="noopener">${r.rotulo} ${r.handle}</a></small>`).join('')}</span></div>
+      <div><span class="ci">${I.pin}</span><span><strong>Endereço</strong><small>${c.endereco}</small></span></div>
     </aside>
   </div>
 </section>
@@ -467,7 +618,7 @@ ${pageHero(slug, 'Formulário e WhatsApp', 'Entre em contato com a nossa equipe'
   <iframe title="Localização da THD Engenharia" src="${c.mapa}" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </section>`;
   return layout({ slug, body,
-    title: 'Contato · THD Engenharia',
+    title: 'Contato | THD Engenharia',
     desc: 'Fale com a THD Engenharia pelo WhatsApp (21) 9 9834-0142 ou e-mail contato@thdengenharia.com. Atendimento de segunda a sexta, das 9h às 18h.' });
 }
 
@@ -480,9 +631,7 @@ for (const [slug, html] of Object.entries(pages)) {
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
 }
-fs.mkdirSync(path.join(OUT, 'assets', 'css'), { recursive: true });
-fs.mkdirSync(path.join(OUT, 'assets', 'js'), { recursive: true });
-fs.mkdirSync(path.join(OUT, 'assets', 'img'), { recursive: true });
+for (const d of ['css', 'js', 'img']) fs.mkdirSync(path.join(OUT, 'assets', d), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'assets', 'css', 'style.css'), css);
 fs.writeFileSync(path.join(OUT, 'assets', 'js', 'main.js'), js);
 const IMG = path.join(__dirname, 'img');

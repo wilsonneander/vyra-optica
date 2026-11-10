@@ -17,6 +17,10 @@ O objetivo é que nenhum site tenha cara de "feito por IA": nada de componentes,
   - Certo: "Sem treinamento, o padrão muda de pessoa para pessoa. E o cliente sente."
 - Proibido o ponto médio "·" e o "•" como separador entre palavras ("AceleraISP · a consultoria do INB").
 - Proibidas as bolinhas coloridas de status/destaque antes de um texto (o pontinho verde/azul piscando).
+- Proibido o traço decorativo antes de títulos e subtítulos: aquela linha horizontal curta e colorida ao lado do texto de apoio.
+  Exemplo do que não fazer: `———  Diagnóstico rápido`.
+  Isso vale também quando o traço é feito em CSS (`::before` / `::after` com `width` pequeno e `height: 1px` ou `2px`, `border-top` curto, `<span class="line">`, `<hr>` inline) e não só quando é o caractere "—".
+  O texto de apoio aparece sozinho, sem linha, traço ou marcador na frente nem atrás.
 
 ### Selo em cápsula (pill / badge / eyebrow)
 - Proibido o selinho arredondado em formato de cápsula acima do título, com borda fina, texto em caixa-alta espaçada e bolinha na frente.
@@ -61,9 +65,11 @@ grep -rnE "lucide|heroicons|feather|tabler|phosphor|font-awesome|material-icons|
 grep -rnE "Inter|Manrope|Outfit|Plus Jakarta|DM Sans|Space Grotesk|Satoshi|General Sans|Poppins|Montserrat|Roboto|Open Sans|Geist" sites/ --include=*.css --include=*.html
 grep -rnE "999px|9999px|rounded-full" sites/ --include=*.css --include=*.html
 grep -rnE ">\s*0[1-9]\s*<|>\s*/0[1-9]" sites/ --include=*.html
+grep -rnE "::?(before|after)" sites/ --include=*.css   # conferir se algum desenha traço antes/depois de título
 ```
 
 E conferir visualmente:
 - Nenhum selo em cápsula com bolinha acima de título.
+- Nenhum traço ou linha decorativa antes ou depois de títulos e textos de apoio.
 - Nenhuma grade de cards com ícone em quadradinho.
 - Nenhum número marcando tópico.

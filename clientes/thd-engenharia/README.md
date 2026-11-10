@@ -20,7 +20,9 @@ Para trocar textos, edite `_build/content.js` e gere de novo. Itens marcados `[C
 ## Identidade (tirada do site original)
 
 - Laranja `#FE5710` · Azul `#1A3B87` · Azul do logo `#2B5AA8` · Marinho `#021430` · Verde WhatsApp `#23A455`
-- Títulos em Montserrat, texto em Lato
+- Títulos em Archivo (larga, com cara de engenharia) e texto em Onest. Montserrat/Lato do site antigo saíram por estarem na lista proibida de DIRETRIZES-SITES.md
+- Conceito visual (nível premium): "seu provedor montado peça por peça". Blocos geométricos nas cores da marca se montam em grade 3x3 e seguem trocando de lugar, ligados por trilhas de circuito como as letras do logo
+- Interações: jornada presa na rolagem que monta a estrutura, diagnóstico interativo que gera a mensagem no WhatsApp, explorador de serviços em abas, painéis expansíveis, acordeão de serviços, cursor próprio, botões magnéticos e transição entre páginas
 
 ## Páginas e URLs (iguais às do site antigo)
 

@@ -116,7 +116,7 @@ const header = `
 const K = C.capa;
 const capa = `
 <section class="capa" id="topo" aria-labelledby="capa-t">
-  <div class="capa-foto"><img src="${img('capa-praia.webp')}" srcset="${img('capa-praia-1000.webp')} 1000w, ${img('capa-praia.webp')} 2000w" sizes="100vw" alt="" width="2000" height="1333" fetchpriority="high" decoding="async"><span class="capa-veu" aria-hidden="true"></span></div>
+  <div class="capa-foto"><img src="${img('capa-praia.webp')}" srcset="${img('capa-praia-1000.webp')} 1000w, ${img('capa-praia.webp')} 1672w" sizes="100vw" alt="" width="1672" height="941" fetchpriority="high" decoding="async"><span class="capa-veu" aria-hidden="true"></span></div>
   <svg class="capa-borda" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 34C240 0 520 26 760 18C1010 10 1220 36 1440 14V90H0Z"/></svg>
   <div class="wrap capa-in">
     <div class="capa-txt">
@@ -134,7 +134,6 @@ const capa = `
       <ul class="postais-pilha">
         ${K.cartoes.map((c, i) => `<li class="postal" data-pos="${i}" aria-hidden="${i ? 'true' : 'false'}"><figure><img src="${img(c.foto + '.webp')}" alt="${esc(c.alt)}" width="382" height="510"${i ? ' loading="lazy"' : ''} decoding="async"><figcaption>${esc(c.legenda)}</figcaption></figure></li>`).join('')}
       </ul>
-      ${carimbo('cp-capa', 'SIRI NA LATA   ESTREITO   FLORIANÓPOLIS   SC   ', 'carimbo')}
       <div class="postais-ctl">
         <button type="button" data-prev aria-label="Foto anterior">${I.voltar()}</button>
         <button type="button" data-next aria-label="Próxima foto">${I.seta()}</button>
@@ -417,7 +416,7 @@ const html = `<!doctype html>
 <title>${esc(C.seo.titulo)}</title>
 <meta name="description" content="${esc(C.seo.descricao)}">
 <link rel="canonical" href="${C.dominio}/">
-<meta name="theme-color" content="#0E2A3D">
+<meta name="theme-color" content="#F4EFE1">
 <meta property="og:type" content="restaurant">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="${esc(C.nome)}">
@@ -430,7 +429,7 @@ const html = `<!doctype html>
 <link rel="icon" href="assets/img/favicon.png" type="image/png">
 <link rel="icon" href="assets/img/siri-na-lata.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="preload" as="image" href="${img('capa-praia.webp')}" imagesrcset="${img('capa-praia-1000.webp')} 1000w, ${img('capa-praia.webp')} 2000w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" href="${img('capa-praia.webp')}" imagesrcset="${img('capa-praia-1000.webp')} 1000w, ${img('capa-praia.webp')} 1672w" imagesizes="100vw" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap">

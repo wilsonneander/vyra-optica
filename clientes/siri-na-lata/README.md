@@ -26,12 +26,12 @@ Site enxuto de uma página, foco no essencial, baixo custo de manutenção.
 - Estrutura inspirada na referência enviada (Sushi House): topo escuro com foto e título grande, destaques com ilustração em traço, boas-vindas, faixa "Cardápio" com foto, grade de pratos com legenda, história com mosaico de fotos, faixa de reservas com foto e rodapé em colunas
 - Seções: topo, destaques da casa, boas-vindas, cardápio (grade de fotos + cardápio completo com preços), a casa, reservas e eventos (três formatos com condições), perguntas frequentes, como chegar e horários, rodapé
 - WhatsApp: botão flutuante e todos os botões abrem a conversa com mensagem pronta (pedido, reserva, aniversário, evento, dúvida)
-- Instagram e WhatsApp no rodapé; Facebook aparece sozinho se for preenchido em `content.js`
+- Instagram e WhatsApp no rodapé com ícones próprios em traço fino dentro de círculo; Facebook aparece sozinho se for preenchido em `content.js`
 - "Aberto agora / Fechado agora" calculado no horário de Brasília, e o dia de hoje destacado na tabela de horários
 - SEO básico: título e descrição, canonical, Open Graph, dados estruturados `Restaurant` e `FAQPage`, `sitemap.xml`, `robots.txt`
 - Desempenho: CSS e JS embutidos (sem pedidos extras), fotos em WebP com lazy-load, só a foto do topo carrega antes. `.htaccess` com cache e compressão para hospedagem Apache
 - Fontes: Gloock (títulos, conversa com o rótulo da lata) + Figtree (texto). Dupla ainda não usada em outro projeto
-- Cores: tinta `#1C1714`, siri `#E4572E`, creme `#F6EFDF`, verde-mar claro `#DCEEEA` / `#C6E3DC`, verde-mar escuro `#1F4C46`
+- Cores (tons pastel, inspirados no siri e na lata): creme `#F4EFE1` e branco nos fundos, terracota `#CA603C` nos títulos e botões, pêssego `#E4A785` nos subtítulos (versão mais escura `#B8714F` em fundo claro), preto `#1B1714` no rodapé e textos, grafite `#3F3E3B` no topo
 
 ## Logo
 

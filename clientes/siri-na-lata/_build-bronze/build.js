@@ -100,7 +100,7 @@ const hero = `
 
 const ILL = { siri: I.lataSiri('ill'), porcao: I.porcao('ill') };
 const destaques = `
-<section class="sec sea" aria-labelledby="destaques-t">
+<section class="sec cream" aria-labelledby="destaques-t">
   <h2 class="sr" id="destaques-t">Destaques da casa</h2>
   ${I.alga('alga tr')}${I.alga('alga bl')}
   <div class="wrap duo">
@@ -110,7 +110,7 @@ const destaques = `
 </section>`;
 
 const boasVindas = `
-<section class="sec sea-2 welcome" aria-labelledby="bv-t">
+<section class="sec white welcome" aria-labelledby="bv-t">
   ${I.alga('alga br')}
   <div class="wrap rv">
     <h2 id="bv-t">${esc(C.boasVindas.titulo)}</h2>
@@ -126,7 +126,7 @@ const faixaCardapio = `
 </div>`;
 
 const cardapio = `
-<section class="sec sea" aria-label="Cardápio">
+<section class="sec cream" aria-label="Cardápio">
   ${I.alga('alga tr')}
   <div class="wrap">
     <ul class="grid-fotos">
@@ -156,7 +156,7 @@ const cardapio = `
 
 const S = C.sobre;
 const aCasa = `
-<section class="sec cream" id="a-casa" aria-labelledby="casa-t">
+<section class="sec white" id="a-casa" aria-labelledby="casa-t">
   <div class="wrap story">
     <div class="story-txt rv">
       <p>${esc(S.titulo)}</p>
@@ -211,7 +211,7 @@ const faq = `
 </section>`;
 
 const visite = `
-<section class="sec sea" id="visite" aria-labelledby="vis-t">
+<section class="sec white" id="visite" aria-labelledby="vis-t">
   ${I.alga('alga tr')}
   <div class="wrap visite">
     <div class="rv">
@@ -257,7 +257,7 @@ const footer = `
         <div class="redes">
           <a href="${C.contato.instagram}" target="_blank" rel="noopener" aria-label="Instagram ${esc(C.contato.instagramUser)}">${I.instagram()}</a>
           <a href="${WA.geral}" target="_blank" rel="noopener" aria-label="WhatsApp">${I.whatsapp()}</a>
-          ${C.contato.facebook ? `<a href="${C.contato.facebook}" target="_blank" rel="noopener" aria-label="Facebook">f</a>` : ''}
+          ${C.contato.facebook ? `<a href="${C.contato.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${I.facebook()}</a>` : ''}
         </div>
       </div>
     </div>
@@ -274,7 +274,7 @@ const html = `<!doctype html>
 <title>${esc(C.seo.titulo)}</title>
 <meta name="description" content="${esc(C.seo.descricao)}">
 <link rel="canonical" href="${C.dominio}/">
-<meta name="theme-color" content="#1C1714">
+<meta name="theme-color" content="#3F3E3B">
 <meta property="og:type" content="restaurant">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="${esc(C.nome)}">

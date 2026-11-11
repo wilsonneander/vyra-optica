@@ -24,4 +24,4 @@ Fotos de demonstração: trocar pelas fotos reais do Siri na Lata quando o clien
 
 | Arquivo | Origem |
 |---|---|
-| capa-praia.webp, capa-praia-1000.webp | Foto enviada em 2026-11-11 para a capa do Silver (isca de peixe com fritas na mesa de frente para o mar). [CONFIRMAR] origem e direito de uso; parece imagem gerada ou de banco, não é a praia do Estreito |
+| capa-praia.webp, capa-praia-1000.webp | Foto enviada em 2026-11-11 para a capa do Silver (drink e isca de peixe na mesa de frente para o mar). [CONFIRMAR] origem e direito de uso (não parece ser a praia do Estreito) |

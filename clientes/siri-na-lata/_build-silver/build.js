@@ -3,8 +3,9 @@
 //
 // Silver: mesma base do Bronze (uma página, conteúdo do _build/content.js), com experiência mais sofisticada:
 // capa com foto da praia e pilha de cartões-postais que gira, faixa corrida,
-// "um dia na casa" com o sol que anda conforme a rolagem, carrossel dos mais pedidos, cardápio em abas
-// com pedido montado no site e enviado pelo WhatsApp, reserva guiada, perguntas animadas e mapa no rodapé.
+// cardápio em livro que folheia com a rolagem (com + para montar o pedido),
+// "um dia na casa" com o sol que anda conforme a rolagem, carrossel dos mais pedidos,
+// pedido montado no site e enviado pelo WhatsApp, reserva guiada, perguntas animadas e mapa no rodapé.
 const fs = require('fs');
 const path = require('path');
 const C = require('../_build/content');
@@ -116,7 +117,7 @@ const header = `
 const K = C.capa;
 const capa = `
 <section class="capa" id="topo" aria-labelledby="capa-t">
-  <div class="capa-foto"><img src="${img('capa-praia.webp')}" srcset="${img('capa-praia-1000.webp')} 1000w, ${img('capa-praia.webp')} 1672w" sizes="100vw" alt="" width="1672" height="941" fetchpriority="high" decoding="async"><span class="capa-veu" aria-hidden="true"></span></div>
+  <div class="capa-foto"><img src="${img('capa-praia.webp')}" srcset="${img('capa-praia-1000.webp')} 1000w, ${img('capa-praia.webp')} 2000w" sizes="100vw" alt="" width="2000" height="1333" fetchpriority="high" decoding="async"><span class="capa-veu" aria-hidden="true"></span></div>
   <svg class="capa-borda" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 34C240 0 520 26 760 18C1010 10 1220 36 1440 14V90H0Z"/></svg>
   <div class="wrap capa-in">
     <div class="capa-txt">
@@ -148,29 +149,68 @@ const faixa = `
   <div class="faixa-trilho"><div>${faixaItens}</div><div>${faixaItens}</div></div>
 </div>`;
 
-const siriItem = porNome('Siri na lata');
-const estrela = `
-<section class="sec estrela" aria-labelledby="estrela-t">
-  ${I.alga('alga tr')}
-  <div class="wrap">
-    <div class="estrela-row">
-      <div class="estrela-fotos"><figure class="ef ef1"><img src="${img('siri.webp')}" alt="Siris inteiros servidos com batata frita e salada" width="640" height="800" loading="lazy" decoding="async"></figure><figure class="ef ef2" data-par="0.06"><img src="${img('casquinha-siri.webp')}" alt="Casquinha de siri gratinada na mesa, com a Baía ao fundo" width="382" height="510" loading="lazy" decoding="async"></figure></div>
-      <div class="estrela-txt rv">
-        <p class="apoio">A estrela da casa</p>
-        <h2 id="estrela-t">${esc(C.destaques[0].titulo)}</h2>
-        <p>${esc(C.destaques[0].texto)}</p>
-        <div class="preco-grande"><strong>${brl(siriItem.preco)}</strong><span>${esc(C.cardapio.find((c) => c.id === siriItem.cat).nota)}, com torradas</span></div>
-        <button class="btn btn-tinta" type="button" data-add="${siriItem.id}">${I.mais()}Colocar no pedido</button>
+// ---------- cardápio em livro (mesmo componente do Gold, com o + do pedido do Silver) ----------
+// páginas em ordem de leitura. Em tela larga viram pares (esquerda e direita); no celular, uma por vez.
+const cat = (id) => C.cardapio.find((c) => c.id === id);
+const lista = (c) => `
+  <header><h3 id="c-${c.id}">${esc(c.titulo)}</h3><p>${esc(c.nota)}</p></header>
+  <ul>${ITENS.filter((it) => it.cat === c.id).map((it) => `<li><div class="row"><b>${esc(it.nome)}</b><i></i><strong>${brl(it.preco)}</strong><button type="button" class="pg-add" data-add="${it.id}" aria-label="Colocar ${esc(it.nome)} no pedido">${I.mais()}</button></div><small>${esc(it.desc)}${it.obs ? `, <em>${esc(it.obs)}</em>` : ''}${it.meia ? `. <em>Meia ${brl(it.meia)}</em>` : ''}</small></li>`).join('')}</ul>`;
+const rodape = (t) => `<p class="pg-run">${esc(C.curto)}, ${t}</p>`;
+const colada = (f, alt, w, h, cls, cap) => `<figure class="cola ${cls}"><img src="${img(f + '.webp')}" alt="${esc(alt)}" width="${w}" height="${h}" loading="lazy" decoding="async"><figcaption>${esc(cap)}</figcaption></figure>`;
+
+const PAGINAS = [
+  `<article class="pg pg-capa">
+    <p class="pg-k">${esc(C.nome)}</p>
+    <h3>Cardápio</h3>
+    <p class="pg-sub">Tudo feito na hora, pensado para dividir com a mesa toda.</p>
+    ${colada('casquinha-siri', 'Casquinha de siri com alface e limão', 382, 510, 'c1', 'casquinha de siri')}
+    <img class="pg-siri" src="${img('siri-na-lata.svg')}" alt="" width="90" height="146" loading="lazy">
+    ${rodape('frutos do mar')}
+  </article>`,
+  `<article class="pg pg-lista" aria-labelledby="c-mar">${lista(cat('mar'))}${rodape('petiscos')}</article>`,
+  `<article class="pg pg-fotos" aria-label="Fotos dos pratos para dividir">
+    ${colada('peixe-pirao', 'Peixe frito com panela de barro de pirão, arroz e salada na mesa da praia', 680, 382, 'c2', 'peixe frito com pirão')}
+    <p class="pg-frase alt">Mesa de praia pede prato no meio e todo mundo se servindo.</p>
+    ${colada('camarao-completo', 'Camarão frito com batata, arroz, pirão e salada servidos na mesa', 382, 510, 'c3', 'camarão completo')}
+    ${rodape('para dividir')}
+  </article>`,
+  `<article class="pg pg-lista" aria-labelledby="c-pratos">${lista(cat('pratos'))}
+    <p class="pg-nota">Os pratos chegam em panela de barro, direto para o meio da mesa.</p>${rodape('para dividir')}</article>`,
+  `<article class="pg pg-fotos" aria-label="Fotos das porções">
+    ${colada('isca-peixe', 'Iscas de peixe fritas e douradas com molho', 382, 510, 'c4', 'isca de peixe')}
+    <p class="pg-frase alt">Crocante por fora, sequinho por dentro e quente até a última.</p>
+    ${colada('camarao-milanesa', 'Camarão à milanesa com molho rosé', 236, 510, 'c5', 'camarão à milanesa')}
+    ${rodape('porções')}
+  </article>`,
+  `<article class="pg pg-lista" aria-labelledby="c-salgados">${lista(cat('salgados'))}${rodape('porções')}</article>`,
+  `<article class="pg pg-fotos" aria-label="Fotos das bebidas">
+    ${colada('casa-drinks', 'Caipirinha e chope no balcão de madeira de frente para o mar', 287, 510, 'c6', 'caipirinha e chope')}
+    <p class="pg-frase alt">Gelada no ponto e o mar fazendo a trilha sonora.</p>
+    ${colada('casa-drink', 'Drink azul com rodela de laranja, com a praia ao fundo', 287, 510, 'c7', 'o drink do fim de tarde')}
+    ${rodape('para beber')}
+  </article>`,
+  `<article class="pg pg-lista pg-fim" aria-labelledby="c-acomp">${lista(cat('acomp'))}
+    <div class="pg-beber"><h4>Para beber</h4><p>${esc(C.bebidas)}</p></div>
+    <a class="btn btn-terra btn-sm" href="${WA.geral}" target="_blank" rel="noopener">${I.whatsapp()}Pedir pelo WhatsApp</a>
+    <p class="pg-aviso">${esc(C.avisoPrecos)}</p>
+  </article>`,
+];
+const CAPITULOS = ['Petiscos do mar', 'Para dividir', 'Salgados e porções', 'Acompanhamentos e bebidas'];
+
+const livro = `
+<section class="livro-sec" id="cardapio" data-book-sec aria-labelledby="menu-t">
+  <div class="pin">
+    <div class="wrap menu-top">
+      <div>
+        <p class="apoio">Cardápio</p>
+        <h2 id="menu-t">O cardápio completo</h2>
+        <p class="menu-dica">Desça para virar a página, suba e ela volta. Toque no + para montar o seu pedido.</p>
       </div>
+      <nav class="caps" aria-label="Capítulos do cardápio">${CAPITULOS.map((c, i) => `<button type="button" data-cap="${i}"${i === 0 ? ' aria-current="true"' : ''}>${c}</button>`).join('')}</nav>
     </div>
-    <div class="estrela-row inv">
-      <div class="estrela-fotos"><figure class="ef ef1"><img src="${img('salgados.webp')}" alt="Kibes e coxinhas com batata frita e molhos para dividir" width="640" height="800" loading="lazy" decoding="async"></figure><figure class="ef ef2" data-par="0.06"><img src="${img('camarao-milanesa.webp')}" alt="Camarão à milanesa com molho rosé e limão" width="236" height="510" loading="lazy" decoding="async"></figure></div>
-      <div class="estrela-txt rv">
-        <p class="apoio">Para a turma toda</p>
-        <h2>${esc(C.destaques[1].titulo)}</h2>
-        <p>${esc(C.destaques[1].texto)}</p>
-        <a class="btn btn-linha-escura" href="#cardapio">Ver as porções${I.seta()}</a>
-      </div>
+    <div class="book" data-book>
+      <div class="book-stage"></div>
+      <div class="book-src">${PAGINAS.join('')}</div>
     </div>
   </div>
 </section>`;
@@ -193,10 +233,10 @@ const dia = `
         <h2 id="dia-t">Do almoço ao pôr do sol</h2>
       </div>
       <div class="dia-fotos">
-        ${M.map((m, i) => `<figure class="dia-foto${i ? '' : ' on'}" data-m="${i}"><img src="${img(m.foto + '.webp')}" alt="${esc(m.alt)}" width="${m.w}" height="${m.h}" loading="lazy" decoding="async"></figure>`).join('')}
+        ${M.map((m, i) => `<figure class="dia-foto${i ? '' : ' on'}${m.w > m.h ? ' larga' : ''}" data-m="${i}"><img src="${img(m.foto + '.webp')}" alt="${esc(m.alt)}" width="${m.w}" height="${m.h}" loading="lazy" decoding="async"></figure>`).join('')}
       </div>
       <div class="dia-txts">
-        ${M.map((m, i) => `<article class="dia-txt${i ? '' : ' on'}" data-m="${i}"><p class="hora">${esc(m.hora)}</p><h3>${esc(m.titulo)}</h3><p>${esc(m.texto)}</p></article>`).join('')}
+        ${M.map((m, i) => `<article class="dia-txt${i ? '' : ' on'}" data-m="${i}"><p class="hora">${esc(m.hora)}</p><h3>${esc(m.titulo)}</h3>${m.prato ? `<p class="dia-prato">${esc(m.prato)}</p>` : ''}<p>${esc(m.texto)}</p></article>`).join('')}
       </div>
       <div class="dia-linha" aria-hidden="true">
         <span class="dia-barra"><i data-dia-barra></i></span>
@@ -218,17 +258,8 @@ const prato = (f) => {
   </li>`;
 };
 
-const itemRow = (it) => `<li class="item" data-item="${it.id}">
-  <div class="item-txt"><b>${esc(it.nome)}</b><small>${esc(it.desc)}${it.obs ? `. <em>${esc(it.obs)}</em>` : ''}${it.meia ? `. <em>Meia porção ${brl(it.meia)}</em>` : ''}</small></div>
-  <strong class="item-preco">${brl(it.preco)}</strong>
-  <div class="qtd" data-qtd="${it.id}">
-    <button type="button" class="q-add" data-add="${it.id}" aria-label="Colocar ${esc(it.nome)} no pedido">${I.mais()}</button>
-    <span class="q-step"><button type="button" data-sub="${it.id}" aria-label="Tirar um ${esc(it.nome)}">${I.menos()}</button><output aria-live="polite">0</output><button type="button" data-add="${it.id}" aria-label="Mais um ${esc(it.nome)}">${I.mais()}</button></span>
-  </div>
-</li>`;
-
 const cardapio = `
-<section class="sec cardapio" id="cardapio" aria-labelledby="card-t">
+<section class="sec cardapio" id="mais-pedidos" aria-labelledby="card-t">
   <div class="wrap card-head">
     <div class="rv">
       <p class="apoio">Cardápio</p>
@@ -244,25 +275,6 @@ const cardapio = `
   </div>
   <div class="wrap"><div class="trilho-prog" aria-hidden="true"><i data-tr-prog></i></div></div>
 
-  <div class="wrap">
-    <div class="menu-head rv">
-      <h2>O cardápio completo</h2>
-      <p>Tudo feito na hora. Monte o pedido aqui e mande pelo WhatsApp para retirar no balcão, ou peça direto na mesa.</p>
-    </div>
-    <div class="abas" role="tablist" aria-label="Seções do cardápio">
-      ${C.cardapio.map((c, i) => `<button type="button" role="tab" id="aba-${c.id}" aria-controls="pn-${c.id}" aria-selected="${i ? 'false' : 'true'}"${i ? ' tabindex="-1"' : ''}>${esc(c.titulo)}</button>`).join('')}
-      <span class="abas-marca" aria-hidden="true"></span>
-    </div>
-    ${C.cardapio.map((c, i) => `<div class="painel" role="tabpanel" id="pn-${c.id}" aria-labelledby="aba-${c.id}"${i ? ' hidden' : ''}>
-      <p class="nota">${I.onda()}${esc(c.nota)}</p>
-      <ul class="itens">${ITENS.filter((it) => it.cat === c.id).map(itemRow).join('')}</ul>
-    </div>`).join('')}
-    <div class="bebidas rv">
-      <h3>Para beber</h3>
-      <p>${esc(C.bebidas)}</p>
-    </div>
-    <p class="aviso">${esc(C.avisoPrecos)}</p>
-  </div>
 </section>`;
 
 const S = C.sobre;
@@ -429,7 +441,7 @@ const html = `<!doctype html>
 <link rel="icon" href="assets/img/favicon.png" type="image/png">
 <link rel="icon" href="assets/img/siri-na-lata.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="preload" as="image" href="${img('capa-praia.webp')}" imagesrcset="${img('capa-praia-1000.webp')} 1000w, ${img('capa-praia.webp')} 1672w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" href="${img('capa-praia.webp')}" imagesrcset="${img('capa-praia-1000.webp')} 1000w, ${img('capa-praia.webp')} 2000w" imagesizes="100vw" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap">
@@ -444,7 +456,7 @@ ${header}
 <main id="conteudo">
 ${capa}
 ${faixa}
-${estrela}
+${livro}
 ${dia}
 ${cardapio}
 ${casa}
@@ -462,7 +474,7 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'assets/img'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 
-const IMGS = new Set(['siri.webp', 'salgados.webp', 'capa-praia.webp', 'capa-praia-1000.webp', 'faixa-reserva.webp', 'mapa-siri.webp', 'og.jpg', 'casa-praia.webp', 'casa-drink.webp', 'camarao-completo.webp',
+const IMGS = new Set(['casquinha-siri.webp', 'isca-peixe.webp', 'camarao-milanesa.webp', 'casa-drinks.webp', 'capa-praia.webp', 'capa-praia-1000.webp', 'faixa-reserva.webp', 'mapa-siri.webp', 'og.jpg', 'casa-praia.webp', 'casa-drink.webp', 'camarao-completo.webp',
   ...K.cartoes.map((c) => c.foto + '.webp'), ...M.map((m) => m.foto + '.webp'), ...C.cardapioFotos.map((f) => f.foto + '.webp')]);
 IMGS.forEach((f) => fs.copyFileSync(path.join(ROOT, '_build/img', f), path.join(OUT, 'assets/img', f)));
 ['siri-na-lata.svg', 'favicon.png', 'apple-touch-icon.png'].forEach((f) => fs.copyFileSync(path.join(ROOT, 'marca', f), path.join(OUT, 'assets/img', f)));

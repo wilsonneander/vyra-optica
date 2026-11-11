@@ -229,6 +229,7 @@ module.exports = {
     {
       id: 'almoco',
       titulo: 'Almoço',
+      prato: 'Peixe frito com pirão',
       hora: '11h às 15h',
       texto: 'Mesa na sombra das árvores, pé na areia e o peixe com pirão chegando fumegando. Aqui o almoço não tem pressa.',
       foto: 'peixe-pirao', w: 680, h: 382,
@@ -237,6 +238,7 @@ module.exports = {
     {
       id: 'tarde',
       titulo: 'Fim de tarde',
+      prato: 'Caipirinha e chope gelado',
       hora: '15h às 18h',
       texto: 'A luz baixa sobre a Baía, o chope suando no copo e a primeira porção para dividir. A hora mais disputada da casa.',
       foto: 'casa-drinks', w: 287, h: 510,
@@ -245,6 +247,7 @@ module.exports = {
     {
       id: 'noite',
       titulo: 'Noite',
+      prato: 'Camarão completo',
       hora: '18h às 22h',
       texto: 'As luzes acendem, a conversa rende e, em alguns dias, tem música ao vivo para fechar a noite com a mesa cheia.', // [CONFIRMAR] dias de música ao vivo
       foto: 'casa-sequencia', w: 382, h: 510,

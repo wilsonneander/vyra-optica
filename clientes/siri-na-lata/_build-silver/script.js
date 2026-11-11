@@ -68,6 +68,90 @@ function app(H, ITENS, CFG) {
     });
   }
 
+  /* ---------- cardápio em livro: descer vira a página, subir a página volta ---------- */
+  var bsec = $('[data-book-sec]'), book = bsec && $('[data-book]', bsec), stage = book && $('.book-stage', book);
+  var pages = book ? $$('.book-src .pg', book) : [], leaves = [], modo = '', flips = 0, bt = 0, btT = 0, bAnda = false;
+  var caps = bsec ? $$('[data-cap]', bsec) : [], capCur = 0;
+  var duoMq = w.matchMedia('(min-width: 860px)'), fino = w.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  function folha(cls, pg) { var el = d.createElement('div'); el.className = cls; if (pg) el.appendChild(pg); return el; }
+  function addLeaf(a, b) {
+    var l = d.createElement('div'); l.className = 'leaf';
+    var back = folha('face back' + (b ? '' : ' blank'), b);
+    if (!b) back.setAttribute('aria-hidden', 'true');
+    l.appendChild(folha('face front', a)); l.appendChild(back);
+    stage.appendChild(l); leaves.push(l);
+  }
+  function montarLivro() {
+    if (!book || pages.length !== 8) return;
+    var m = duoMq.matches ? 'duo' : 'solo';
+    if (m !== modo) {
+      modo = m; stage.textContent = ''; leaves = [];
+      book.className = 'book ' + m;
+      if (m === 'duo') {
+        stage.appendChild(folha('base l', pages[0]));
+        for (var k = 0; k < 3; k++) addLeaf(pages[2 * k + 1], pages[2 * k + 2]);
+      } else {
+        for (var j = 0; j < 7; j++) addLeaf(pages[j], null);
+      }
+      stage.appendChild(folha('base r', pages[7]));
+      flips = leaves.length; bt = btT = clamp(Math.round(bt), 0, flips); pintarLivro(true);
+    }
+    bsec.style.height = Math.round(w.innerHeight * (1.2 + flips * (m === 'duo' ? 0.95 : 0.62))) + 'px';
+  }
+  function pintarLivro(force) {
+    for (var k = 0; k < leaves.length; k++) {
+      var l = leaves[k], u = clamp(bt - k, 0, 1), v = clamp((u - 0.08) / 0.84, 0, 1);
+      v = v * v * (3 - 2 * v);
+      var a = Math.round(v * 1800) / 10;
+      if (!force && l._a === a) continue;
+      l._a = a;
+      l.style.transform = 'rotateY(' + (-a) + 'deg)';
+      l.style.zIndex = a > 0 && a < 180 ? 60 : a >= 180 ? 10 + k : 40 - k;
+      l.style.setProperty('--s', (Math.sin(a * Math.PI / 180) * 0.9).toFixed(3));
+      l.style.opacity = modo === 'solo' && a > 96 ? clamp(1 - (a - 96) / 44, 0, 1) : '';
+      l.style.visibility = modo === 'solo' && a >= 140 ? 'hidden' : '';
+    }
+    var vis = Math.round(bt), c = modo === 'duo' ? vis : Math.floor(vis / 2);
+    c = clamp(c, 0, caps.length - 1);
+    if (c !== capCur) { capCur = c; caps.forEach(function (b, i) { b.setAttribute('aria-current', i === c ? 'true' : 'false'); }); }
+  }
+  function animarLivro() {
+    bt += (btT - bt) * (RM ? 1 : 0.12);
+    if (Math.abs(btT - bt) < 0.001) bt = btT;
+    pintarLivro(false);
+    if (bt !== btT) requestAnimationFrame(animarLivro); else bAnda = false;
+  }
+  function livro() {
+    if (!bsec || !flips) return;
+    var r = bsec.getBoundingClientRect(), total = bsec.offsetHeight - w.innerHeight;
+    if (r.bottom < 0 || r.top > w.innerHeight) return;
+    btT = flips * clamp((total > 0 ? -r.top / total : 0) * 1.08 - 0.04, 0, 1);
+    if (!bAnda && Math.abs(btT - bt) > 0.0005) { bAnda = true; requestAnimationFrame(animarLivro); }
+  }
+  caps.forEach(function (b, c) {
+    b.addEventListener('click', function () {
+      if (!flips) return;
+      var t = Math.min(modo === 'duo' ? c : 2 * c + 1, flips), p = (t / flips + 0.04) / 1.08;
+      var top = bsec.getBoundingClientRect().top + w.scrollY, total = bsec.offsetHeight - w.innerHeight;
+      w.scrollTo({ top: top + p * total + 2, behavior: RM ? 'auto' : 'smooth' });
+    });
+  });
+  /* inclinação leve do livro seguindo o mouse */
+  if (fino && !RM && book) {
+    bsec.addEventListener('pointermove', function (e) {
+      var r = book.getBoundingClientRect();
+      stage.style.setProperty('--tx', (((e.clientX - r.left) / r.width - 0.5) * 6).toFixed(2));
+      stage.style.setProperty('--ty', ((0.5 - (e.clientY - r.top) / r.height) * 4).toFixed(2));
+    });
+    bsec.addEventListener('pointerleave', function () { stage.style.setProperty('--tx', 0); stage.style.setProperty('--ty', 0); });
+  }
+  montarLivro();
+  var livroW = w.innerWidth, livroT;
+  w.addEventListener('resize', function () {
+    clearTimeout(livroT);
+    livroT = setTimeout(function () { if (w.innerWidth !== livroW || duoMq.matches !== (modo === 'duo')) { livroW = w.innerWidth; montarLivro(); livro(); } }, 150);
+  });
+
   /* ---------- um dia na casa: sol que anda com a rolagem ---------- */
   var D = $('[data-dia]');
   var dFotos = D ? $$('.dia-foto', D) : [], dTxts = D ? $$('.dia-txt', D) : [], dBtns = D ? $$('[data-ir]', D) : [];
@@ -103,7 +187,7 @@ function app(H, ITENS, CFG) {
 
   /* um único laço de rolagem */
   var tick = false;
-  function quadro() { tick = false; topo(); parallax(); dia(); }
+  function quadro() { tick = false; topo(); parallax(); livro(); dia(); }
   w.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(quadro); } }, { passive: true });
   w.addEventListener('resize', function () { if (!tick) { tick = true; requestAnimationFrame(quadro); } });
   quadro();
@@ -182,30 +266,6 @@ function app(H, ITENS, CFG) {
     T.addEventListener('click', function (e) { if (moveu) { e.preventDefault(); e.stopPropagation(); moveu = false; } }, true);
   }
 
-  /* ---------- abas do cardápio ---------- */
-  var abas = $$('.abas [role="tab"]'), marca = $('.abas-marca');
-  var marcar = function (t) { if (!t || !marca) return; marca.style.setProperty('--aw', t.offsetWidth + 'px'); marca.style.setProperty('--ax', t.offsetLeft + 'px'); };
-  var abaAtual = function () { return abas.filter(function (x) { return x.getAttribute('aria-selected') === 'true'; })[0]; };
-  var selAba = function (t, foco) {
-    abas.forEach(function (x) {
-      var on = x === t;
-      x.setAttribute('aria-selected', on); x.tabIndex = on ? 0 : -1;
-      d.getElementById(x.getAttribute('aria-controls')).hidden = !on;
-    });
-    marcar(t);
-    if (foco) t.focus();
-  };
-  abas.forEach(function (t, i) {
-    t.addEventListener('click', function () { selAba(t); });
-    t.addEventListener('keydown', function (e) {
-      var k = e.key, n = abas.length, j = k === 'ArrowRight' ? (i + 1) % n : k === 'ArrowLeft' ? (i - 1 + n) % n : k === 'Home' ? 0 : k === 'End' ? n - 1 : -1;
-      if (j > -1) { e.preventDefault(); selAba(abas[j], true); }
-    });
-  });
-  marcar(abaAtual());
-  w.addEventListener('resize', function () { marcar(abaAtual()); });
-  if (d.fonts && d.fonts.ready) d.fonts.ready.then(function () { marcar(abaAtual()); });
-
   /* ---------- pedido montado no site ---------- */
   var mapa = {}; ITENS.forEach(function (it) { mapa[it.id] = it; });
   var ped = {};
@@ -223,7 +283,7 @@ function app(H, ITENS, CFG) {
     ids.forEach(function (k) { n += ped[k]; total += ped[k] * mapa[k].preco; });
     $$('[data-qtd]').forEach(function (el) {
       var q = ped[el.getAttribute('data-qtd')] || 0;
-      el.closest('.item').classList.toggle('tem', q > 0);
+      var li = el.closest('.item'); if (li) li.classList.toggle('tem', q > 0);
       $('output', el).textContent = q;
     });
     sac.classList.toggle('on', n > 0);

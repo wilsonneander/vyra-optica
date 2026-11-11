@@ -159,21 +159,8 @@
     need = true;
   }
 
-  /* ---------- rodapé: nome que enche e mapa que carrega só quando chega perto ---------- */
-  var ftr = $('[data-ftr]'), mapa = $('[data-mapa]');
-  function abreMapa() {
-    if (!mapa || mapa._ok) return; mapa._ok = true;
-    var f = d.createElement('iframe');
-    f.src = mapa.getAttribute('data-src'); f.title = 'Mapa com a localização do Siri na Lata';
-    f.loading = 'lazy'; f.referrerPolicy = 'no-referrer-when-downgrade'; f.setAttribute('allowfullscreen', '');
-    mapa.appendChild(f);
-  }
-  if (mapa) {
-    if ('IntersectionObserver' in window) {
-      var mio = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { abreMapa(); mio.disconnect(); } }, { rootMargin: '600px 0px' });
-      mio.observe(mapa);
-    } else abreMapa();
-  }
+  /* ---------- rodapé: nome que enche de cor (o mapa é imagem estática do OpenStreetMap, sem JS) ---------- */
+  var ftr = $('[data-ftr]');
 
   /* ---------- quadro a quadro ---------- */
   var need = true, lastY = -1, hidden = false;

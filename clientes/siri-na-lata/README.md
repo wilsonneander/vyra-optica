@@ -63,6 +63,16 @@ O arquivo do cliente tinha 150 x 150 px com fundo rosa do Outubro Rosa. O carang
 O texto do rótulo foi convertido em curvas (Gloock + Archivo Black), então o SVG aparece igual em qualquer lugar.
 Para regerar os PNGs: `marca/gerar-logo.js` (precisa de `sharp` e `opentype.js` instalados e das fontes numa pasta `fonts/`).
 
+## Mapa (OpenStreetMap)
+
+Mapa sempre pelo OpenStreetMap, nunca Google (regra de DIRETRIZES-SITES.md). O Gold usa o componente padrão do rodapé (`.map-box`): imagem estática `_build/img/mapa_estreito.webp`, pino, cartão com endereço e horário, botões "Abrir no mapa" e "Como chegar" (links do OpenStreetMap em `content.js`) e crédito © OpenStreetMap.
+
+Para gerar de novo (por exemplo, se o cliente confirmar outra posição em `endereco.coordenadas`), ajuste as coordenadas em `_build/gerar-mapa.js` e rode com `sharp` instalado fora do projeto:
+
+```bash
+node clientes/siri-na-lata/_build/gerar-mapa.js mare clientes/siri-na-lata/_build/img/mapa_estreito.webp
+```
+
 ## Fotos
 
 Grade do cardápio e mosaico da seção "A casa" usam **fotos reais do cliente** (`casquinha-siri`, `camarao-milanesa`, `isca-peixe`, `peixe-pirao`, `camarao-completo`, `camarao-fritas`, `casa-praia`, `casa-drinks`, `casa-drink`, `casa-sequencia`).

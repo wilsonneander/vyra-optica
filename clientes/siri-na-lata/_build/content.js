@@ -39,6 +39,10 @@ module.exports = {
     cep: '', // [CONFIRMAR]
     referencia: 'No continente, a poucos minutos da Ponte Hercílio Luz.', // [CONFIRMAR] ponto de referência
     mapa: 'https://www.google.com/maps/search/?api=1&query=Rua+S%C3%A3o+Jos%C3%A9%2C+610%2C+Balne%C3%A1rio+Estreito%2C+Florian%C3%B3polis+SC',
+    // Mapa sempre pelo OpenStreetMap (DIRETRIZES-SITES.md). Ponto no fim da Rua São José, na beira da praia.
+    coordenadas: [-27.57742, -48.58251], // [CONFIRMAR] posição exata com o cliente
+    osm: 'https://www.openstreetmap.org/?mlat=-27.57742&mlon=-48.58251#map=18/-27.57742/-48.58251',
+    rota: 'https://www.openstreetmap.org/directions?route=%3B-27.57742%2C-48.58251',
   },
 
   // dia: 0 domingo ... 6 sábado. abre/fecha em "HH:MM". null = fechado.

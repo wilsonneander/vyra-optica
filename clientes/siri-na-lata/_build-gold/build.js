@@ -125,7 +125,7 @@ const hero = `
   </div>
   <div class="hero-info wrap">
     <p data-agora>${C.horarios.filter((h) => h.abre).map((h) => `<span><strong>${h.dias}</strong> ${horarioTxt(h)}</span>`).join('')}</p>
-    <a href="${end.mapa}" target="_blank" rel="noopener">${I.pino()}${esc(end.rua)}, ${esc(end.bairro)}</a>
+    <a href="${end.rota}" target="_blank" rel="noopener">${I.pino()}${esc(end.rua)}, ${esc(end.bairro)}</a>
     <span class="role">Role devagar${setaCurva}</span>
   </div>
   ${ondas('w-hero')}
@@ -332,7 +332,7 @@ const visite = `
       <address>${esc(end.rua)}<br>${esc(end.bairro)}, ${esc(end.cidade)}, ${end.uf}</address>
       <p class="ref">${esc(end.referencia)}</p>
       <div class="acoes">
-        <a class="btn btn-ink" href="${end.mapa}" target="_blank" rel="noopener">${I.pino()}Como chegar</a>
+        <a class="btn btn-ink" href="${end.rota}" target="_blank" rel="noopener">${I.pino()}Como chegar</a>
         <a class="btn btn-terra" href="${WA.reserva}" target="_blank" rel="noopener">${I.whatsapp()}Reservar mesa</a>
       </div>
     </div>
@@ -349,16 +349,21 @@ const ano = new Date().getFullYear();
 const footer = `
 <footer class="ftr" data-ftr>
   <div class="wrap">
-    <div class="ftr-mapa">
-      <div class="mapa" data-mapa data-src="https://www.google.com/maps?q=${encodeURIComponent(`${end.rua}, ${end.bairro}, ${end.cidade}, ${end.uf}`)}&amp;z=16&amp;output=embed">
-        <noscript><iframe title="Mapa: ${esc(end.rua)}, ${esc(end.bairro)}" src="https://www.google.com/maps?q=${encodeURIComponent(`${end.rua}, ${end.bairro}, ${end.cidade}, ${end.uf}`)}&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></noscript>
+    <div class="ftr-onde">
+      <div class="map-box rv">
+        <img src="${img('mapa_estreito.webp')}" alt="Mapa do Balneário Estreito, em Florianópolis, com a localização do Siri na Lata no fim da Rua São José, de frente para o mar" width="1240" height="760" loading="lazy" decoding="async">
+        <span class="pin" aria-hidden="true"><b>${esc(C.curto)}</b></span>
+        <div class="map-info"><b>${esc(C.curto)}</b><span>${esc(end.rua)}, ${esc(end.bairro)}, ${esc(end.cidade)}, ${end.uf}</span><span>${C.horarios.filter((h) => h.abre).map((h) => `${h.dias}, ${horarioTxt(h)}`).join('. ')}</span>
+          <div class="mbtns"><a href="${end.osm}" target="_blank" rel="noopener">${I.pino()}Abrir no mapa</a><a class="sq" href="${end.rota}" target="_blank" rel="noopener" aria-label="Como chegar">${I.seta()}</a></div>
+        </div>
+        <span class="attr">&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
       </div>
-      <div class="mapa-card">
+      <div class="onde-txt rv">
         <p class="kick">Onde a gente está</p>
-        <h3>${esc(end.rua)}</h3>
-        <p>${esc(end.bairro)}, ${esc(end.cidade)}, ${end.uf}. ${esc(end.referencia)}</p>
+        <h2>De frente pro mar, no Estreito</h2>
+        <p>${esc(end.referencia)} A mesa fica na areia, à sombra das árvores, de quarta a domingo.</p>
         <div class="acoes">
-          <a class="btn btn-sol" href="${end.mapa}" target="_blank" rel="noopener">${I.pino()}Traçar rota</a>
+          <a class="btn btn-sol" href="${end.rota}" target="_blank" rel="noopener">${I.pino()}Como chegar</a>
           <a class="btn btn-line-cream" href="${WA.reserva}" target="_blank" rel="noopener">${I.whatsapp()}Reservar mesa</a>
         </div>
       </div>
@@ -381,7 +386,7 @@ const footer = `
       </div>
       <div>
         <h3>Endereço</h3>
-        <p><a href="${end.mapa}" target="_blank" rel="noopener">${esc(end.rua)}<br>${esc(end.bairro)}<br>${esc(end.cidade)}, ${end.uf}</a></p>
+        <p><a href="${end.rota}" target="_blank" rel="noopener">${esc(end.rua)}<br>${esc(end.bairro)}<br>${esc(end.cidade)}, ${end.uf}</a></p>
         <div class="redes">
           <a href="${C.contato.instagram}" target="_blank" rel="noopener" aria-label="Instagram ${esc(C.contato.instagramUser)}">${I.instagram()}</a>
           <a href="${WA.geral}" target="_blank" rel="noopener" aria-label="WhatsApp">${I.whatsapp()}</a>
@@ -458,7 +463,7 @@ fs.copyFileSync(path.join(__dirname, 'gold.css'), path.join(OUT, 'assets/gold.cs
 fs.copyFileSync(path.join(__dirname, 'gold.js'), path.join(OUT, 'assets/gold.js'));
 
 // mesmas fotos do Bronze
-const IMGS = ['capa-praia.webp', 'faixa-reserva.webp', 'casa-drinks.webp', 'casa-praia.webp', 'casa-drink.webp', 'casa-sequencia.webp', 'og.jpg', ...C.cardapioFotos.map((f) => f.foto + '.webp')];
+const IMGS = ['capa-praia.webp', 'mapa_estreito.webp', 'faixa-reserva.webp', 'casa-drinks.webp', 'casa-praia.webp', 'casa-drink.webp', 'casa-sequencia.webp', 'og.jpg', ...C.cardapioFotos.map((f) => f.foto + '.webp')];
 IMGS.forEach((f) => fs.copyFileSync(path.join(ROOT, '_build/img', f), path.join(OUT, 'assets/img', f)));
 [['siri-na-lata.svg', 'siri-na-lata.svg'], ['favicon.png', 'favicon.png'], ['apple-touch-icon.png', 'apple-touch-icon.png']]
   .forEach(([a, b]) => fs.copyFileSync(path.join(ROOT, 'marca', a), path.join(OUT, 'assets/img', b)));

@@ -193,24 +193,24 @@ const PAGINAS = [
     ${rodape('frutos do mar')}
   </article>`,
   `<article class="pg pg-lista" aria-labelledby="c-mar">${lista(cat('mar'))}${rodape('petiscos')}</article>`,
-  `<article class="pg pg-fotos" aria-label="Fotos dos pratos para dividir">
+  `<article class="pg pg-fotos mista" aria-label="Fotos dos pratos para dividir">
     ${colada('peixe-pirao', 'Peixe frito com panela de barro de pirão, arroz e salada na mesa da praia', 680, 382, 'c2', 'peixe frito com pirão')}
-    <p class="pg-frase alt">Mesa de praia pede prato no meio e todo mundo se servindo.</p>
+    <p class="pg-frase">Mesa de praia pede prato no meio e todo mundo se servindo.</p>
     ${colada('camarao-completo', 'Camarão frito com batata, arroz, pirão e salada servidos na mesa', 382, 510, 'c3', 'camarão completo')}
     ${rodape('para dividir')}
   </article>`,
   `<article class="pg pg-lista" aria-labelledby="c-pratos">${lista(cat('pratos'))}
     <p class="pg-nota">Os pratos chegam em panela de barro, direto para o meio da mesa.</p>${rodape('para dividir')}</article>`,
-  `<article class="pg pg-fotos" aria-label="Fotos das porções">
+  `<article class="pg pg-fotos duas" aria-label="Fotos das porções">
     ${colada('isca-peixe', 'Iscas de peixe fritas e douradas com molho', 382, 510, 'c4', 'isca de peixe')}
-    <p class="pg-frase alt">Crocante por fora, sequinho por dentro e quente até a última.</p>
+    <p class="pg-frase">Crocante por fora, sequinho por dentro e quente até a última.</p>
     ${colada('camarao-milanesa', 'Camarão à milanesa com molho rosé', 236, 510, 'c5', 'camarão à milanesa')}
     ${rodape('porções')}
   </article>`,
   `<article class="pg pg-lista" aria-labelledby="c-salgados">${lista(cat('salgados'))}${rodape('porções')}</article>`,
-  `<article class="pg pg-fotos" aria-label="Fotos das bebidas">
+  `<article class="pg pg-fotos duas" aria-label="Fotos das bebidas">
     ${colada('casa-drinks', 'Caipirinha e chope no balcão de madeira de frente para o mar', 287, 510, 'c6', 'caipirinha e chope')}
-    <p class="pg-frase alt">Gelada no ponto e o mar fazendo a trilha sonora.</p>
+    <p class="pg-frase">Gelada no ponto e o mar fazendo a trilha sonora.</p>
     ${colada('casa-drink', 'Drink azul com rodela de laranja, com a praia ao fundo', 287, 510, 'c7', 'o drink do fim de tarde')}
     ${rodape('para beber')}
   </article>`,

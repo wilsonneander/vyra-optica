@@ -51,7 +51,7 @@ node clientes/siri-na-lata/_build-gold/build.js   # gera site-gold/
 - Topo com a foto da praia escurecida à esquerda para a leitura, título que sobe ("na Lata" em amarelo sol), ondas correndo e menu fixo no alto o tempo todo
 - Manifesto: o texto de boas-vindas acende palavra por palavra com a rolagem, com fotos flutuando em profundidades diferentes
 - Assinatura da casa (fundo terracota): siri na lata e porções, com as ilustrações em traço se desenhando conforme a rolagem
-- **Cardápio em livro**: rolar para baixo vira a página, rolar para cima a página volta. Em tela larga abre em pares (fotos coladas com fita à esquerda, pratos e preços à direita); no celular, uma página por vez. Capítulos clicáveis levam à página certa e o livro inclina de leve seguindo o mouse
+- **Cardápio em livro**: rolar para baixo vira a página, rolar para cima a página volta. Em tela larga abre em pares (fotos coladas com fita à esquerda, em grade que preenche a página; pratos e preços à direita, com a letra no maior tamanho que cabe em cada página); no celular, uma página por vez. Capítulos clicáveis levam à página certa e o livro inclina de leve seguindo o mouse
 - A casa: galeria horizontal de polaroides com as fotos reais, movida pela rolagem vertical, com o sol descendo ao fundo
 - Reservas em lista expansível (um formato aberto por vez), dúvidas em acordeão e "Como chegar" no pôr do sol, com "aberto agora" e o dia de hoje destacado
 - Fontes: Gloock (títulos) e Figtree (texto), as da marca, com Newsreader itálico nas falas suaves

@@ -93,7 +93,18 @@
       stage.appendChild(holder('base r', pages[7]));
       flips = leaves.length; bt = btT = clamp(Math.round(bt), 0, flips); paintBook(true);
     }
+    fitText();
     bsec.style.height = Math.round(vh * (1.2 + flips * (m === 'duo' ? 0.95 : 0.62))) + 'px';
+  }
+  /* letra do cardápio: a maior que cabe em cada página, sem passar do rodapé */
+  function fitText() {
+    $$('.pg-lista', stage).forEach(function (pg) {
+      var cabe = function (k) { pg.style.setProperty('--k', k); return pg.scrollHeight <= pg.clientHeight + 1; };
+      if (cabe(1.45)) return;
+      var lo = 0.7, hi = 1.45;
+      for (var i = 0; i < 8; i++) { var md = (lo + hi) / 2; if (cabe(md)) lo = md; else hi = md; }
+      pg.style.setProperty('--k', lo.toFixed(3));
+    });
   }
   function paintBook(force) {
     for (var k = 0; k < leaves.length; k++) {
@@ -243,6 +254,7 @@
   });
   measure();
   addEventListener('load', measure);
+  if (book && document.fonts && document.fonts.ready) document.fonts.ready.then(fitText);
   if (d.fonts && d.fonts.ready) d.fonts.ready.then(measure);
   /* abriu com #ancora: vai para a posição certa da pilha */
   if (location.hash) { var t0 = d.getElementById(location.hash.slice(1)); if (t0) addEventListener('load', function () { scrollTo(0, docTop(t0)); }); }

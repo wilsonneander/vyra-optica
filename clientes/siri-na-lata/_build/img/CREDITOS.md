@@ -19,3 +19,9 @@ Fotos de demonstração: trocar pelas fotos reais do Siri na Lata quando o clien
 | salgados.webp | https://unsplash.com/photos/bh-bzldOOAM |
 | casa-kibe.webp | https://unsplash.com/photos/awMutBri5jA |
 | casa-lagosta.webp | https://unsplash.com/photos/NGiZkiwHpUk |
+
+## Enviadas pelo cliente
+
+| Arquivo | Uso |
+|---|---|
+| capa-praia.webp | Capa do modelo Gold (imagem enviada pelo cliente) |

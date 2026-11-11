@@ -104,23 +104,23 @@ const header = `
 
 // ---------- seções ----------
 const hero = `
-<section class="panel hero" id="topo" data-panel data-tone="light" aria-labelledby="hero-t">
+<section class="panel hero" id="topo" data-panel data-tone="dark" aria-labelledby="hero-t">
+  <div class="hero-bg" aria-hidden="true"><img src="${img('capa-praia.webp')}" alt="" width="1672" height="941" fetchpriority="high"></div>
   <div class="sol" aria-hidden="true"></div>
   <div class="wrap hero-in">
     <div class="hero-copy">
       <p class="hero-kick">Bar &amp; Restaurante no ${esc(end.bairro)}, ${esc(end.cidade)}</p>
       <h1 id="hero-t"><span class="ln"><span>${C.hero.titulo[0]}</span></span><span class="ln l2"><span>${C.hero.titulo[1]}</span></span></h1>
-      <p class="hero-line">Petisco de mar com o pé na areia.</p>
+      <p class="hero-line">Petisco de mar com o <mark>pé na areia</mark>.</p>
       <p class="hero-txt">${esc(C.hero.texto)}</p>
       <div class="hero-cta">
-        <a class="btn btn-ink" href="#cardapio">Folhear o cardápio${I.seta()}</a>
-        <a class="btn btn-ghost" href="${WA.reserva}" target="_blank" rel="noopener">${I.whatsapp()}${C.hero.ctaSecundario}</a>
+        <a class="btn btn-sol" href="#cardapio">Folhear o cardápio${I.seta()}</a>
+        <a class="btn btn-line-cream" href="${WA.reserva}" target="_blank" rel="noopener">${I.whatsapp()}${C.hero.ctaSecundario}</a>
       </div>
     </div>
     <div class="hero-art" aria-hidden="true">
-      <div class="arch"><img src="${img('hero.webp')}" alt="" width="1920" height="1100" fetchpriority="high"></div>
       <figure class="polaroid hp"><img src="${img('casa-praia.webp')}" alt="" width="382" height="510"><figcaption>a mesa é na areia</figcaption></figure>
-      <img class="mascote" src="${img('siri-na-lata.svg')}" alt="" width="300" height="486">
+      <figure class="polaroid hp2"><img src="${img('casquinha-siri.webp')}" alt="" width="382" height="510"><figcaption>casquinha com vista</figcaption></figure>
     </div>
   </div>
   <div class="hero-info wrap">
@@ -347,8 +347,22 @@ const visite = `
 
 const ano = new Date().getFullYear();
 const footer = `
-<footer class="ftr">
+<footer class="ftr" data-ftr>
   <div class="wrap">
+    <div class="ftr-mapa">
+      <div class="mapa" data-mapa data-src="https://www.google.com/maps?q=${encodeURIComponent(`${end.rua}, ${end.bairro}, ${end.cidade}, ${end.uf}`)}&amp;z=16&amp;output=embed">
+        <noscript><iframe title="Mapa: ${esc(end.rua)}, ${esc(end.bairro)}" src="https://www.google.com/maps?q=${encodeURIComponent(`${end.rua}, ${end.bairro}, ${end.cidade}, ${end.uf}`)}&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></noscript>
+      </div>
+      <div class="mapa-card">
+        <p class="kick">Onde a gente está</p>
+        <h3>${esc(end.rua)}</h3>
+        <p>${esc(end.bairro)}, ${esc(end.cidade)}, ${end.uf}. ${esc(end.referencia)}</p>
+        <div class="acoes">
+          <a class="btn btn-sol" href="${end.mapa}" target="_blank" rel="noopener">${I.pino()}Traçar rota</a>
+          <a class="btn btn-line-cream" href="${WA.reserva}" target="_blank" rel="noopener">${I.whatsapp()}Reservar mesa</a>
+        </div>
+      </div>
+    </div>
     <div class="ftr-grid">
       <div>
         <a class="brand" href="#topo"><img src="${img('siri-na-lata.svg')}" alt="" width="40" height="65" loading="lazy"><span>${esc(C.curto)}</span></a>
@@ -375,11 +389,15 @@ const footer = `
         </div>
       </div>
     </div>
-    <p class="ftr-marca" aria-hidden="true">Siri na Lata</p>
+    <p class="ftr-marca" aria-hidden="true"><span class="m-linha">Siri na Lata</span><span class="m-cheio">Siri na Lata</span></p>
     <div class="ftr-bot"><span>&copy; ${ano} ${esc(C.nome)}</span><a href="${C.contato.instagram}" target="_blank" rel="noopener">${esc(C.contato.instagramUser)}</a></div>
   </div>
 </footer>
-<a class="wa-float" href="${WA.geral}" target="_blank" rel="noopener" aria-label="Fale com o Siri na Lata pelo WhatsApp">${I.whatsapp()}<span>Peça pelo WhatsApp</span></a>`;
+<a class="wa-float" href="${WA.geral}" target="_blank" rel="noopener" aria-label="Pedir pelo WhatsApp">
+  <svg class="wa-anel" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="wa-c" d="M60 60m-47 0a47 47 0 1 1 94 0a47 47 0 1 1-94 0"/></defs><text><textPath href="#wa-c" textLength="292" lengthAdjust="spacing">bateu a fome?&#160;o siri sai quentinho,&#160;pede agora&#160;&#160;&#160;</textPath></text></svg>
+  <span class="wa-bola">${I.whatsapp()}</span>
+  <span class="wa-dica" aria-hidden="true">Sai quentinho, pede agora</span>
+</a>`;
 
 const horariosJs = JSON.stringify(C.horarios.map((h) => ({ d: h.d, a: h.abre, f: h.fecha })));
 
@@ -404,7 +422,7 @@ const html = `<!doctype html>
 <link rel="icon" href="assets/img/favicon.png" type="image/png">
 <link rel="icon" href="assets/img/siri-na-lata.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<link rel="preload" as="image" href="${img('hero.webp')}" fetchpriority="high">
+<link rel="preload" as="image" href="${img('capa-praia.webp')}" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Gloock&family=Newsreader:ital,opsz,wght@1,6..72,300;1,6..72,400&display=swap">
@@ -440,7 +458,7 @@ fs.copyFileSync(path.join(__dirname, 'gold.css'), path.join(OUT, 'assets/gold.cs
 fs.copyFileSync(path.join(__dirname, 'gold.js'), path.join(OUT, 'assets/gold.js'));
 
 // mesmas fotos do Bronze
-const IMGS = ['hero.webp', 'faixa-reserva.webp', 'casa-drinks.webp', 'casa-praia.webp', 'casa-drink.webp', 'casa-sequencia.webp', 'og.jpg', ...C.cardapioFotos.map((f) => f.foto + '.webp')];
+const IMGS = ['capa-praia.webp', 'faixa-reserva.webp', 'casa-drinks.webp', 'casa-praia.webp', 'casa-drink.webp', 'casa-sequencia.webp', 'og.jpg', ...C.cardapioFotos.map((f) => f.foto + '.webp')];
 IMGS.forEach((f) => fs.copyFileSync(path.join(ROOT, '_build/img', f), path.join(OUT, 'assets/img', f)));
 [['siri-na-lata.svg', 'siri-na-lata.svg'], ['favicon.png', 'favicon.png'], ['apple-touch-icon.png', 'apple-touch-icon.png']]
   .forEach(([a, b]) => fs.copyFileSync(path.join(ROOT, 'marca', a), path.join(OUT, 'assets/img', b)));

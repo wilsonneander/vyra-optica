@@ -159,6 +159,22 @@
     need = true;
   }
 
+  /* ---------- rodapé: nome que enche e mapa que carrega só quando chega perto ---------- */
+  var ftr = $('[data-ftr]'), mapa = $('[data-mapa]');
+  function abreMapa() {
+    if (!mapa || mapa._ok) return; mapa._ok = true;
+    var f = d.createElement('iframe');
+    f.src = mapa.getAttribute('data-src'); f.title = 'Mapa com a localização do Siri na Lata';
+    f.loading = 'lazy'; f.referrerPolicy = 'no-referrer-when-downgrade'; f.setAttribute('allowfullscreen', '');
+    mapa.appendChild(f);
+  }
+  if (mapa) {
+    if ('IntersectionObserver' in window) {
+      var mio = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { abreMapa(); mio.disconnect(); } }, { rootMargin: '600px 0px' });
+      mio.observe(mapa);
+    } else abreMapa();
+  }
+
   /* ---------- quadro a quadro ---------- */
   var need = true, lastY = -1, hidden = false;
   var setV = function (el, k, v) { if (el['_' + k] !== v) { el['_' + k] = v; el.style.setProperty('--' + k, v); } };
@@ -213,6 +229,8 @@
         var ob = P[panels.indexOf(bsec)];
         if (ob) btT = flips * clamp(((sy - ob.top) / (ob.h - vh)) * 1.08 - 0.04, 0, 1);
       }
+      /* nome do rodapé: enche de cor conforme a rolagem do site inteiro */
+      if (ftr) { var mx = maxY(); setV(ftr, 'fp', reduce ? '1' : (mx > 0 ? clamp(sy / mx, 0, 1) : 1).toFixed(4)); }
       lastY = sy; need = false;
     }
     if (bsec && flips && Math.abs(btT - bt) > 0.0005) {

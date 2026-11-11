@@ -379,6 +379,7 @@ details[open]::details-content{block-size:auto}
 .faq summary:hover{color:var(--terra-dk)}
 .faq .mais{flex:none;color:var(--terra)}
 .faq-r p{color:var(--muted);margin:0;padding:0 44px 24px 0;max-width:62ch}
+@media (max-width:900px){.faq-in{grid-template-columns:1fr;gap:28px}.faq-in h2{font-size:clamp(34px,9vw,48px)}.faq{border-top:1px solid rgba(27,23,20,.14)}.faq summary{padding:18px 0;font-size:20px}.faq-r p{padding-right:0}}
 
 /* ---------- visite: pôr do sol ---------- */
 .vis{--bg:var(--dusk);display:flex;align-items:center;padding:clamp(110px,11vw,150px) 0 clamp(150px,16vw,230px);background:linear-gradient(180deg,#FFF0CC 0%,#FFD38A 50%,#F7A066 100%)}

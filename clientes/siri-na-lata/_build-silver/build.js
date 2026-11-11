@@ -155,7 +155,7 @@ const estrela = `
   ${I.alga('alga tr')}
   <div class="wrap">
     <div class="estrela-row">
-      <div class="estrela-ill draw">${I.lataSiri('ill')}</div>
+      <div class="estrela-fotos"><figure class="ef ef1"><img src="${img('siri.webp')}" alt="Siris inteiros servidos com batata frita e salada" width="640" height="800" loading="lazy" decoding="async"></figure><figure class="ef ef2" data-par="0.06"><img src="${img('casquinha-siri.webp')}" alt="Casquinha de siri gratinada na mesa, com a Baía ao fundo" width="382" height="510" loading="lazy" decoding="async"></figure></div>
       <div class="estrela-txt rv">
         <p class="apoio">A estrela da casa</p>
         <h2 id="estrela-t">${esc(C.destaques[0].titulo)}</h2>
@@ -165,7 +165,7 @@ const estrela = `
       </div>
     </div>
     <div class="estrela-row inv">
-      <div class="estrela-ill draw">${I.porcao('ill')}</div>
+      <div class="estrela-fotos"><figure class="ef ef1"><img src="${img('salgados.webp')}" alt="Kibes e coxinhas com batata frita e molhos para dividir" width="640" height="800" loading="lazy" decoding="async"></figure><figure class="ef ef2" data-par="0.06"><img src="${img('camarao-milanesa.webp')}" alt="Camarão à milanesa com molho rosé e limão" width="236" height="510" loading="lazy" decoding="async"></figure></div>
       <div class="estrela-txt rv">
         <p class="apoio">Para a turma toda</p>
         <h2>${esc(C.destaques[1].titulo)}</h2>
@@ -417,7 +417,7 @@ const html = `<!doctype html>
 <title>${esc(C.seo.titulo)}</title>
 <meta name="description" content="${esc(C.seo.descricao)}">
 <link rel="canonical" href="${C.dominio}/">
-<meta name="theme-color" content="#1B1714">
+<meta name="theme-color" content="#0E2A3D">
 <meta property="og:type" content="restaurant">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="${esc(C.nome)}">
@@ -463,7 +463,7 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'assets/img'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 
-const IMGS = new Set(['capa-praia.webp', 'capa-praia-1000.webp', 'faixa-reserva.webp', 'mapa-siri.webp', 'og.jpg', 'casa-praia.webp', 'casa-drink.webp', 'camarao-completo.webp',
+const IMGS = new Set(['siri.webp', 'salgados.webp', 'capa-praia.webp', 'capa-praia-1000.webp', 'faixa-reserva.webp', 'mapa-siri.webp', 'og.jpg', 'casa-praia.webp', 'casa-drink.webp', 'camarao-completo.webp',
   ...K.cartoes.map((c) => c.foto + '.webp'), ...M.map((m) => m.foto + '.webp'), ...C.cardapioFotos.map((f) => f.foto + '.webp')]);
 IMGS.forEach((f) => fs.copyFileSync(path.join(ROOT, '_build/img', f), path.join(OUT, 'assets/img', f)));
 ['siri-na-lata.svg', 'favicon.png', 'apple-touch-icon.png'].forEach((f) => fs.copyFileSync(path.join(ROOT, 'marca', f), path.join(OUT, 'assets/img', f)));

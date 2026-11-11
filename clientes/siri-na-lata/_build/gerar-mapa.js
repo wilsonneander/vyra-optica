@@ -1,5 +1,5 @@
 // Gera o mapa estático do Siri na Lata a partir de tiles do OpenStreetMap, recolorido na paleta da casa
-// (creme, pêssego e terracota, sem azul). Mesmo componente de mapa dos outros templates (THD, provedores).
+// (creme e areia, com o mar em azul-claro). Mesmo componente de mapa dos outros templates (THD, provedores).
 //
 // Uso: precisa de `sharp` instalado fora do projeto.
 //   NODE_PATH=<pasta com node_modules/sharp> node clientes/siri-na-lata/_build/gerar-mapa.js
@@ -52,7 +52,7 @@ const col = (t) => {
   }
   return ramp.at(-1)[1];
 };
-const WATER = [238, 205, 182]; // mar em pêssego claro, combina com o pôr do sol do site
+const WATER = [191, 225, 234]; // mar em azul-claro, combina com a paleta do Silver
 
 (async () => {
   const comps = [];

@@ -43,7 +43,7 @@ Mesma base e conteúdo do Bronze, com experiência de "cartão-postal do Estreit
 - **Abertura**: cortina terracota com o mascote que sobe com borda de onda (só na primeira visita da sessão; clique ou tecla pula; desligada para quem pede menos movimento)
 - **Capa**: foto da praia com petisco e drink na mesa (`_build/img/capa-praia.webp`, versão de 1000 px para celular) sob um véu escuro para o texto ficar legível. Ao lado, pilha de cartões-postais com fotos reais de petisco na praia que gira sozinha (setas, clique, pausa ao passar o mouse) e carimbo postal
 - **Faixa corrida** inclinada com os destaques da casa
-- **A estrela da casa**: ilustrações em traço que se desenham ao aparecer; botão coloca o siri na lata direto no pedido
+- **A estrela da casa**: duas fotos em moldura de postal por destaque (siri e casquinha; salgados e camarão à milanesa) sobre um círculo azul-céu; botão coloca o siri na lata direto no pedido
 - **Um dia na casa**: seção fixa em que o sol percorre o céu conforme a rolagem e o céu passa de dia para fim de tarde e noite (lua e estrelas), trocando foto e texto de almoço, fim de tarde e noite
 - **Cardápio**: carrossel dos mais pedidos (arrastar, setas, barra de progresso) e cardápio completo em abas acessíveis (setas do teclado)
 - **Pedido pelo site**: botão + em cada item, contador, barra de pedido com total e lista; envia tudo pronto pelo WhatsApp para retirada
@@ -52,6 +52,7 @@ Mesma base e conteúdo do Bronze, com experiência de "cartão-postal do Estreit
 - **Rodapé com mapa**: mesmo componente de mapa dos outros templates (OpenStreetMap estático recolorido, pino pulsante, cartão com "Abrir no Maps" e rota). Gerado por `_build/gerar-mapa.js` em `_build/img/mapa-siri.webp`
 - Siri andando de lado na linha de progresso do topo
 - Fontes: Newsreader (títulos) + Epilogue (texto). Dupla ainda não usada em outro projeto
+- Cores: a base do Bronze (creme, terracota, pêssego) mais azuis de mar para dar clima de praia e diferenciar do Bronze: azul `#1F6F94` (faixa, botões secundários, textos de apoio, abas, selo), azul-escuro `#134B66`, turquesa `#3FA7BD`, espuma `#9FD6E2`, céu `#DCEFF3` (céu de dia, fundo das fotos) e azul-noite `#0E2A3D` (capa, noite, reservas, rodapé, pedido). O mar do mapa também é azul-claro
 - SEO do Bronze mais cardápio completo nos dados estruturados (`Menu` com preços) e coordenadas
 
 ## Logo

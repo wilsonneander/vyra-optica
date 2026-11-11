@@ -46,9 +46,8 @@ function app(H, ITENS, CFG) {
     if (!RM) { hdr.classList.add('andando'); clearTimeout(andarT); andarT = setTimeout(function () { hdr.classList.remove('andando'); }, 180); }
   }
 
-  /* ---------- entrada ao rolar e ilustrações que se desenham ---------- */
-  $$('.draw path:not([stroke-dasharray]), .draw ellipse').forEach(function (p) { p.setAttribute('pathLength', '1'); });
-  var alvos = $$('.rv, .draw, [data-trilho]');
+  /* ---------- entrada ao rolar ---------- */
+  var alvos = $$('.rv, [data-trilho]');
   $$('.prato').forEach(function (li, i) { li.style.setProperty('--k', i); });
   if ('IntersectionObserver' in w) {
     var io = new IntersectionObserver(function (es) {

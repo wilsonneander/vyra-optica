@@ -109,7 +109,6 @@ const hero = `
   <div class="sol" aria-hidden="true"></div>
   <div class="wrap hero-in">
     <div class="hero-copy">
-      <p class="hero-kick">Bar &amp; Restaurante no ${esc(end.bairro)}, ${esc(end.cidade)}</p>
       <h1 id="hero-t"><span class="ln"><span>${C.hero.titulo[0]}</span></span><span class="ln l2"><span>${C.hero.titulo[1]}</span></span></h1>
       <p class="hero-line">Petisco de mar com o <mark>pé na areia</mark>.</p>
       <p class="hero-txt">${esc(C.hero.texto)}</p>
@@ -117,10 +116,6 @@ const hero = `
         <a class="btn btn-sol" href="#cardapio">Folhear o cardápio${I.seta()}</a>
         <a class="btn btn-line-cream" href="${WA.reserva}" target="_blank" rel="noopener">${I.whatsapp()}${C.hero.ctaSecundario}</a>
       </div>
-    </div>
-    <div class="hero-art" aria-hidden="true">
-      <figure class="polaroid hp"><img src="${img('casa-praia.webp')}" alt="" width="382" height="510"><figcaption>a mesa é na areia</figcaption></figure>
-      <figure class="polaroid hp2"><img src="${img('casquinha-siri.webp')}" alt="" width="382" height="510"><figcaption>casquinha com vista</figcaption></figure>
     </div>
   </div>
   <div class="hero-info wrap">

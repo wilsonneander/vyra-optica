@@ -163,7 +163,7 @@
   var ftr = $('[data-ftr]');
 
   /* ---------- quadro a quadro ---------- */
-  var need = true, lastY = -1, hidden = false;
+  var need = true, lastY = -1;
   var setV = function (el, k, v) { if (el['_' + k] !== v) { el['_' + k] = v; el.style.setProperty('--' + k, v); } };
   function frame() {
     sy = scrollY;
@@ -182,9 +182,6 @@
       /* topo: cor conforme a seção por baixo, some ao descer e volta ao subir */
       if (cur) hdr.setAttribute('data-tone', cur.el.getAttribute('data-tone'));
       hdr.classList.toggle('solid', sy > 30);
-      if (sy < 140 || root.classList.contains('menu-open')) { if (hidden) { hidden = false; hdr.classList.remove('hide'); } }
-      else if (sy > lastY + 3 && !hidden) { hidden = true; hdr.classList.add('hide'); }
-      else if (sy < lastY - 3 && hidden) { hidden = false; hdr.classList.remove('hide'); }
 
       /* manifesto */
       if (mani) {

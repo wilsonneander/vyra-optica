@@ -95,15 +95,12 @@ module.exports = {
   // ---------- cardápio ----------
   // destaque: aparece na grade de fotos. foto: arquivo em _build/img/
   cardapioFotos: [
-    { nome: 'Siri inteiro', foto: 'siri', alt: 'Travessa com siris inteiros e frutos do mar empanados' },
-    { nome: 'Camarão crocante', foto: 'camarao', alt: 'Camarões empanados com pimentões e cebola' },
-    { nome: 'Lula à dorê', foto: 'lula', alt: 'Anéis de lula fritos com molho tártaro' },
-    { nome: 'Ostras frescas', foto: 'ostras', alt: 'Ostras frescas no gelo com limão e molhos' },
-    { nome: 'Lagosta grelhada', foto: 'lagosta', alt: 'Lagosta grelhada servida com salada e limão' },
-    { nome: 'Kibe frito', foto: 'kibe', alt: 'Kibes fritos com tomate, alface e limão' },
-    { nome: 'Pastel de siri', foto: 'pastel', alt: 'Pastéis dourados em prato branco' },
-    { nome: 'Salgados da casa', foto: 'salgados', alt: 'Salgados fritos em cesta com molhos' },
-    { nome: 'Batata frita', foto: 'batata', alt: 'Batata frita em cestinha de metal com molho' },
+    { nome: 'Casquinha de siri', foto: 'casquinha-siri', alt: 'Siri desfiado gratinado servido na casquinha de barro com alface e limão' },
+    { nome: 'Camarão à milanesa', foto: 'camarao-milanesa', alt: 'Camarão empanado com molho rosé e limão' },
+    { nome: 'Isca de peixe', foto: 'isca-peixe', alt: 'Prato de iscas de peixe fritas e douradas com molho' },
+    { nome: 'Peixe frito com pirão', foto: 'peixe-pirao', alt: 'Peixe frito com panela de barro de pirão, arroz e salada na mesa da praia' },
+    { nome: 'Camarão completo', foto: 'camarao-completo', alt: 'Camarão frito com batata, arroz, pirão e salada servidos na mesa' },
+    { nome: 'Camarão com fritas', foto: 'camarao-fritas', alt: 'Camarões empanados com batata frita e molho' },
   ],
 
   cardapio: [

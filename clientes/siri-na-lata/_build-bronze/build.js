@@ -165,10 +165,10 @@ const aCasa = `
       <div class="selo"><img src="${img('siri-na-lata.svg')}" alt="" width="58" height="94" loading="lazy"><div><h3>${esc(S.selo.titulo)}</h3><p>${esc(S.selo.texto)}</p></div></div>
     </div>
     <div class="mosaico rv">
-      <figure class="m1"><img src="${img('casa-kibe.webp')}" alt="Kibe servido em tábua de madeira com limão" width="900" height="900" loading="lazy" decoding="async"></figure>
+      <figure class="m1"><img src="${img('casa-drinks.webp')}" alt="Caipirinha e chope no balcão de madeira de frente para o mar" width="287" height="510" loading="lazy" decoding="async"></figure>
       <figure class="marca"><img src="${img('siri-na-lata.svg')}" alt="Logo do Siri na Lata" width="124" height="200" loading="lazy"></figure>
-      <figure class="m2"><img src="${img('casa-lagosta.webp')}" alt="Lagostas frescas com limão e salsinha" width="900" height="1200" loading="lazy" decoding="async"></figure>
-      <figure class="m3"><img src="${img('casa-mesa.webp')}" alt="Travessa de frutos do mar com camarão, mexilhão e vieiras" width="900" height="700" loading="lazy" decoding="async"></figure>
+      <figure class="m2"><img src="${img('casa-praia.webp')}" alt="Mesas do Siri na Lata na areia, à sombra das árvores, de frente para o mar" width="382" height="510" loading="lazy" decoding="async"></figure>
+      <figure class="m3"><img src="${img('casa-sequencia.webp')}" alt="Mesa servida com camarão, batata frita, arroz, pirão, salada e drinks" width="382" height="510" loading="lazy" decoding="async"></figure>
     </div>
   </div>
 </section>`;
@@ -320,7 +320,7 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'assets/img'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 
-const IMGS = ['hero.webp', 'faixa-cardapio.webp', 'faixa-reserva.webp', 'casa-kibe.webp', 'casa-lagosta.webp', 'casa-mesa.webp', 'og.jpg', ...C.cardapioFotos.map((f) => f.foto + '.webp')];
+const IMGS = ['hero.webp', 'faixa-cardapio.webp', 'faixa-reserva.webp', 'casa-drinks.webp', 'casa-praia.webp', 'casa-sequencia.webp', 'og.jpg', ...C.cardapioFotos.map((f) => f.foto + '.webp')];
 IMGS.forEach((f) => fs.copyFileSync(path.join(ROOT, '_build/img', f), path.join(OUT, 'assets/img', f)));
 [['siri-na-lata.svg', 'siri-na-lata.svg'], ['favicon.png', 'favicon.png'], ['apple-touch-icon.png', 'apple-touch-icon.png']]
   .forEach(([a, b]) => fs.copyFileSync(path.join(ROOT, 'marca', a), path.join(OUT, 'assets/img', b)));

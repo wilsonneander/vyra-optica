@@ -41,8 +41,9 @@ Para regerar os PNGs: `marca/gerar-logo.js` (precisa de `sharp` e `opentype.js` 
 
 ## Fotos
 
-Fotos do Unsplash (licença livre para uso comercial, sem atribuição obrigatória). Lista em `_build/img/CREDITOS.md`.
-São fotos de demonstração: o ideal é trocar pelas fotos reais dos pratos do cliente (mesmos nomes de arquivo).
+Grade do cardápio e mosaico da seção "A casa" usam **fotos reais do cliente** (`casquinha-siri`, `camarao-milanesa`, `isca-peixe`, `peixe-pirao`, `camarao-completo`, `camarao-fritas`, `casa-praia`, `casa-drinks`, `casa-sequencia`).
+Vieram em baixa resolução (cerca de 380 x 510 px): pedir os originais do celular para trocar mantendo os mesmos nomes.
+Topo, faixa "Cardápio" e faixa de reservas ainda usam fotos do Unsplash (lista em `_build/img/CREDITOS.md`).
 
 ## Pendências com o cliente
 

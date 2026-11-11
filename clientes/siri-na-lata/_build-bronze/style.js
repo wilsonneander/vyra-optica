@@ -165,15 +165,18 @@ p{margin:0 0 1em}
 .selo img{width:58px}
 .selo h3{font-size:24px;color:var(--ink);margin-bottom:4px}
 .selo p{margin:0;font-size:15px;color:var(--muted)}
-.mosaico{display:grid;grid-template-columns:1fr 1fr 1.25fr;grid-template-rows:repeat(2,minmax(150px,1fr));gap:12px;min-height:520px}
+.mosaico{display:grid;grid-template-columns:1fr 1fr 1.25fr;grid-template-rows:repeat(2,260px);gap:12px}
 .mosaico figure{margin:0;border-radius:var(--r);overflow:hidden;background:var(--sand)}
 .mosaico img{width:100%;height:100%;object-fit:cover}
 .mosaico .m1{grid-row:1/2;grid-column:1/2}
 .mosaico .m2{grid-row:1/3;grid-column:3/4}
 .mosaico .m3{grid-row:2/3;grid-column:1/3}
+.mosaico .m1 img{object-position:50% 72%}
+.mosaico .m2 img{object-position:40% 78%}
+.mosaico .m3 img{object-position:50% 45%}
 .mosaico .marca{grid-row:1/2;grid-column:2/3;background:var(--graphite);display:grid;place-items:center;padding:16px}
 .mosaico .marca img{width:auto;height:100%;max-height:200px;object-fit:contain}
-@media (max-width:900px){.story{grid-template-columns:1fr}.mosaico{min-height:420px}}
+@media (max-width:900px){.story{grid-template-columns:1fr}.mosaico{grid-template-rows:repeat(2,220px)}}
 @media (max-width:520px){.mosaico{grid-template-columns:1fr 1fr;grid-template-rows:170px 170px 220px;min-height:0}.mosaico .m2{grid-row:3/4;grid-column:1/3}.mosaico .m3{grid-column:1/3}}
 
 /* reservas e eventos */

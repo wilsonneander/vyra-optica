@@ -493,7 +493,7 @@ function bars() {
 
 // ---------- equipe (Quem somos) ----------
 const ini = (n) => n.split(' ').filter((w) => w.length > 2).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
-const teamMsg = (p) => `Olá! Vim pelo site da THD e quero falar com ${p.nome.split(' ')[0]}, da área de ${p.cargo.toLowerCase()}.`;
+const teamMsg = (p) => `Olá! Vim pelo site da THD e quero falar com ${p.nome.split(' ')[0]}, da área de ${(p.setor || p.cargo).toLowerCase()}.`;
 // arte de blocos atrás do retrato: muda o arranjo a cada pessoa
 const TEAM_ART = [
   [['qa', 'o'], ['sq', 'b'], ['x', ''], ['sq', 'l'], ['ci', 'o'], ['qd', 'b'], ['x', ''], ['qb', 'l'], ['sq', 'o']],
@@ -517,7 +517,7 @@ function equipe(slug) {
       <li class="tm a-${p.area} rv" data-d="${i}">
         <figure class="tm-pic">
           <span class="tm-art" aria-hidden="true">${TEAM_ART[i % TEAM_ART.length].map(([k, c]) => `<i class="s-${k} c-${c || 'b'}"></i>`).join('')}</span>
-          ${p.foto ? `<img src="../assets/img/${p.foto}" alt="${esc(p.nome)}, ${esc(p.cargo)} da THD" width="800" height="1000" loading="lazy">` : `<span class="tm-ini" aria-hidden="true">${ini(p.nome)}</span>`}
+          ${p.foto ? `<img src="../assets/img/${p.foto}" alt="${esc(p.nome)}, ${esc(p.cargo)} da THD" width="720" height="720" loading="lazy">` : `<span class="tm-ini" aria-hidden="true">${ini(p.nome)}</span>`}
           <figcaption class="tm-role">${p.cargo}</figcaption>
         </figure>
         <div class="tm-body">

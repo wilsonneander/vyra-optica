@@ -446,7 +446,7 @@ ${ctaBand(slug)}`;
 
 // ---------- equipe (Quem somos): retrato com fios de luz e formação em cabos ----------
 const ini = (n) => n.split(' ').filter((w) => w.length > 2).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
-const teamMsg = (p) => `Olá! Vim pelo site da THD e quero falar com ${p.nome.split(' ')[0]}, da área de ${p.cargo.toLowerCase()}.`;
+const teamMsg = (p) => `Olá! Vim pelo site da THD e quero falar com ${p.nome.split(' ')[0]}, da área de ${(p.setor || p.cargo).toLowerCase()}.`;
 const FIOS = [
   ['M-10 40 C 60 40, 90 120, 210 110', 'M-10 150 C 80 150, 120 70, 210 60', 'M-10 210 C 70 200, 140 230, 210 180'],
   ['M-10 70 C 90 60, 100 170, 210 160', 'M-10 120 C 50 130, 150 30, 210 40', 'M-10 230 C 90 220, 120 180, 210 215'],
@@ -469,7 +469,7 @@ function equipe() {
       <li class="fx a-${p.area} rv" style="--d:${i}">
         <figure class="fx-pic">
           <svg class="fx-fios" viewBox="0 0 200 250" preserveAspectRatio="none" aria-hidden="true">${FIOS[i % FIOS.length].map((d, k) => `<path class="fb" d="${d}"/><path class="fp" style="--k:${k}" pathLength="100" d="${d}"/>`).join('')}</svg>
-          ${p.foto ? `<img src="../assets/img/${p.foto}" alt="${esc(p.nome)}, ${esc(p.cargo)} da THD" width="800" height="1000" loading="lazy">` : `<b class="fx-ini" aria-hidden="true">${ini(p.nome)}</b>`}
+          ${p.foto ? `<img src="../assets/img/${p.foto}" alt="${esc(p.nome)}, ${esc(p.cargo)} da THD" width="720" height="720" loading="lazy">` : `<b class="fx-ini" aria-hidden="true">${ini(p.nome)}</b>`}
           <figcaption>${p.cargo}</figcaption>
         </figure>
         <div class="fx-body">

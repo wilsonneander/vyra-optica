@@ -924,7 +924,7 @@ ${require('./mapa-css')}
 .tm:hover{transform:translateY(-8px);box-shadow:0 1px 0 var(--line),0 46px 70px -42px rgba(2,20,48,.55)}
 .tm:hover::after,.tm:focus-within::after{transform:none}
 .tm-pic{position:relative;margin:0;aspect-ratio:4/5;overflow:hidden;background:var(--navy);border-radius:0 min(34%,120px) 0 0;isolation:isolate}
-.tm-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.tm-pic img{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;aspect-ratio:1;object-fit:cover;z-index:1;transform-origin:50% 100%;-webkit-mask-image:linear-gradient(transparent,#000 26%);mask-image:linear-gradient(transparent,#000 26%);transition:transform 1.2s var(--ease)}
 .tm:hover .tm-pic img{transform:scale(1.05)}
 .tm-art{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);z-index:0}
 /* sem foto: arte em tons de azul (planta baixa), só o bloco da área ganha cor */
@@ -937,14 +937,11 @@ ${require('./mapa-css')}
 .tm-art i:nth-child(2){transition-delay:.04s}.tm-art i:nth-child(3){transition-delay:.08s}.tm-art i:nth-child(4){transition-delay:.12s}.tm-art i:nth-child(5){transition-delay:.16s}.tm-art i:nth-child(6){transition-delay:.2s}.tm-art i:nth-child(7){transition-delay:.24s}.tm-art i:nth-child(8){transition-delay:.28s}.tm-art i:nth-child(9){transition-delay:.32s}
 /* com foto, a arte vira um selo de blocos no canto */
 .tm-pic img~.tm-role{z-index:3}
-.tm-pic:has(img) .tm-art{inset:auto 0 0 auto;width:30%;height:auto;aspect-ratio:1;z-index:2}
-.tm-pic:has(img) .tm-art i{background:var(--c)}
 .tm-ini{position:absolute;inset:0;display:grid;place-items:center;z-index:1;font:800 clamp(4rem,7vw,6.2rem)/1 var(--f-head);font-stretch:125%;letter-spacing:-.04em;color:#fff;transition:transform .9s var(--ease)}
 .tm-ini::before{content:"";position:absolute;left:50%;top:50%;width:46%;aspect-ratio:1;background:var(--ac);border-radius:0 0 0 100%;transform:translate(-18%,-62%);z-index:-1;transition:transform .9s var(--ease),border-radius .9s var(--ease)}
 .tm:hover .tm-ini{transform:translateY(-4px)}
 .tm:hover .tm-ini::before{transform:translate(-62%,-38%) rotate(90deg);border-radius:0 0 100% 0}
 .tm-role{position:absolute;left:0;bottom:0;z-index:3;max-width:calc(100% - 20px);padding:11px 22px 11px 18px;background:var(--ac);color:var(--ac-t);font:700 .86rem/1.2 var(--f-head);font-stretch:110%;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)}
-.tm-pic:has(img) .tm-role{max-width:66%}
 .tm-body{display:flex;flex-direction:column;flex:1;padding:22px clamp(18px,1.6vw,24px) 24px}
 .tm-body h3{font-size:1.32rem;margin:0 0 16px}
 .tm-trail{list-style:none;position:relative;margin:0 0 24px;padding:0 0 0 24px}

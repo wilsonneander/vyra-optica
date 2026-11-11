@@ -463,7 +463,7 @@ ${ctaBand(slug)}`;
 
 // ---------- equipe (Quem somos): retrato em órbita, cartão que inclina em 3D ----------
 const ini = (n) => n.split(' ').filter((w) => w.length > 2).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
-const teamMsg = (p) => `Olá! Vim pelo site da THD e quero falar com ${p.nome.split(' ')[0]}, da área de ${p.cargo.toLowerCase()}.`;
+const teamMsg = (p) => `Olá! Vim pelo site da THD e quero falar com ${p.nome.split(' ')[0]}, da área de ${(p.setor || p.cargo).toLowerCase()}.`;
 // anel de progresso: cheio = concluído, arco girando = em andamento
 const ring = (now) => `<svg class="om-ring${now ? ' now' : ''}" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="10.5" class="tr"/><circle cx="14" cy="14" r="10.5" class="ar" pathLength="100"/><rect x="11.5" y="11.5" width="5" height="5" rx="1.2"/></svg>`;
 function equipe() {
@@ -484,7 +484,7 @@ function equipe() {
         <div class="om-in">
           <div class="om-pic">
             <span class="om-orbit o1" aria-hidden="true"><i></i></span>
-            <span class="om-face">${p.foto ? `<img src="../assets/img/${p.foto}" alt="${esc(p.nome)}, ${esc(p.cargo)} da THD" width="800" height="1000" loading="lazy">` : `<b aria-hidden="true">${ini(p.nome)}</b>`}</span>
+            <span class="om-face">${p.foto ? `<img src="../assets/img/${p.foto}" alt="${esc(p.nome)}, ${esc(p.cargo)} da THD" width="720" height="720" loading="lazy">` : `<b aria-hidden="true">${ini(p.nome)}</b>`}</span>
             <span class="om-orbit o2" aria-hidden="true"><i></i></span>
           </div>
           <h3>${p.nome}</h3>

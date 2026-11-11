@@ -741,11 +741,11 @@ a.ch:hover{background:rgba(255,255,255,.06);transform:translateX(6px)}
 .fx:nth-child(even){margin:56px 0 -56px}
 .fx:hover{box-shadow:0 50px 80px -46px rgba(7,19,48,.6)}
 .fx-pic{position:relative;margin:0;aspect-ratio:4/4.6;overflow:hidden;background:radial-gradient(90% 70% at 85% 10%,color-mix(in srgb,var(--ac) 30%,transparent),transparent 60%),var(--navy);isolation:isolate}
-.fx-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform 1.2s var(--ease)}
+.fx-pic img{position:absolute;left:0;right:0;bottom:0;width:100%;height:auto;aspect-ratio:1;object-fit:cover;z-index:0;transform-origin:50% 100%;-webkit-mask-image:linear-gradient(transparent,#000 24%);mask-image:linear-gradient(transparent,#000 24%);transition:transform 1.2s var(--ease)}
 .fx:hover .fx-pic img{transform:scale(1.05)}
 .fx-fios{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
 .fx-pic img~figcaption{z-index:3}
-.fx-pic:has(img) .fx-fios{mix-blend-mode:screen;opacity:.8;-webkit-mask-image:linear-gradient(transparent 45%,#000);mask-image:linear-gradient(transparent 45%,#000)}
+.fx-pic:has(img) .fx-fios{-webkit-mask-image:linear-gradient(#000 12%,transparent 34%);mask-image:linear-gradient(#000 12%,transparent 34%)}
 .fx-fios path{fill:none;vector-effect:non-scaling-stroke}
 .fx-fios .fb{stroke:rgba(143,163,201,.22);stroke-width:1.2}
 .fx-fios .fp{stroke:var(--ac);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:14 86;stroke-dashoffset:calc(var(--k) * 33);filter:drop-shadow(0 0 5px var(--ac));animation:cab 5.5s linear infinite;animation-delay:calc(var(--k) * -1.7s)}

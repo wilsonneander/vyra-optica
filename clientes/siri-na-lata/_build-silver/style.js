@@ -1,5 +1,5 @@
 // CSS do modelo Silver. Embutido no <head>. Mesma paleta do Bronze (creme, terracota, pêssego, tinta),
-// com cena de pôr do sol, cartões-postais e movimento. Fontes: Newsreader (títulos) + Epilogue (texto).
+// com foto da praia na capa, cartões-postais e movimento. Fontes: Newsreader (títulos) + Epilogue (texto).
 const css = `
 :root{
   --ink:#1B1714;--ink-2:#2A2420;--graphite:#3F3E3B;--text:#2A2420;--muted:#6E6258;
@@ -59,6 +59,8 @@ p{margin:0 0 1em}
 .hdr{position:fixed;inset:0 0 auto;z-index:50;transition:background .35s,box-shadow .35s,transform .35s var(--ease)}
 .hdr.solid{background:rgba(244,239,225,.94);box-shadow:0 10px 30px -24px rgba(27,23,20,.6)}
 @supports (backdrop-filter:blur(8px)){.hdr.solid{background:rgba(244,239,225,.93);backdrop-filter:blur(14px) saturate(1.2)}}
+.hdr:not(.solid):not(.open) .brand,.hdr:not(.solid):not(.open) .nav a,.hdr:not(.solid):not(.open) .menu-btn{color:var(--cream)}
+.hdr:not(.solid):not(.open) .brand em{color:var(--peach)}
 .hdr-in{display:flex;align-items:center;gap:30px;height:78px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);margin-right:auto}
 .brand img{width:30px;height:auto}
@@ -92,37 +94,23 @@ p{margin:0 0 1em}
   .hdr.open{background:var(--cream)}
 }
 
-/* capa: cena da Baía + cartões-postais */
-.capa{position:relative;min-height:max(100svh,720px);display:flex;align-items:center;background:linear-gradient(180deg,#FAF3E7 0%,#F7E8D8 34%,#F3D6C0 56%,#EEC2A4 66%);overflow:hidden;color:var(--ink)}
-.cena{position:absolute;inset:0}
-.cena svg{position:absolute;inset:0;width:100%;height:100%}
-.ponte path{fill:none;stroke:var(--graphite);stroke-width:1.6;stroke-linecap:round;opacity:.7}
-.ponte .pend{stroke-width:.8;opacity:.45}
-.morro{opacity:.9}
-.reflexo path{stroke:#FBE3CF;stroke-width:6;stroke-linecap:round;transform-box:fill-box;transform-origin:center;animation:brilho 3.4s ease-in-out infinite;animation-delay:calc(var(--i) * -.55s)}
-@keyframes brilho{0%,100%{opacity:.9;transform:scaleX(1)}50%{opacity:.35;transform:scaleX(.62)}}
-.ondas path{fill:none;stroke:#FCEADB;stroke-linecap:round}
-.ondas .o1{stroke-width:1.3;opacity:.55;animation:mar 20s linear infinite}
-.ondas .o2{stroke-width:1.8;opacity:.5;animation:mar 26s linear infinite reverse}
-.ondas .o3{stroke-width:2.4;opacity:.45;animation:mar 32s linear infinite}
-.ondas .o4{stroke-width:3;opacity:.4;animation:mar 42s linear infinite reverse}
-@keyframes mar{from{transform:translateX(0)}to{transform:translateX(-240px)}}
-.barco{fill:var(--graphite);opacity:.72;animation:barco 80s linear infinite}
-@keyframes barco{from{transform:translate(-90px,578px)}to{transform:translate(1500px,578px)}}
-.aves path{fill:none;stroke:var(--graphite);stroke-width:2;stroke-linecap:round;opacity:.5;animation:voo 7s ease-in-out infinite alternate}
-.aves path:nth-child(2){animation-duration:5.5s}
-.aves path:nth-child(3){animation-duration:8s}
-@keyframes voo{from{transform:translate(0,0)}to{transform:translate(28px,-12px)}}
-.areia{fill:var(--cream)}
+/* capa: foto da praia + cartões-postais */
+.capa{position:relative;min-height:max(100svh,720px);display:flex;align-items:center;background:var(--ink);overflow:hidden;color:var(--cream)}
+.capa-foto{position:absolute;inset:0}
+.capa-foto img{width:100%;height:100%;object-fit:cover;object-position:40% 60%}
+.capa-veu{position:absolute;inset:0;background:linear-gradient(90deg,rgba(27,23,20,.82) 0%,rgba(27,23,20,.66) 34%,rgba(27,23,20,.18) 62%,rgba(27,23,20,.05) 100%),linear-gradient(180deg,rgba(27,23,20,.45) 0%,rgba(27,23,20,0) 22%,rgba(27,23,20,0) 70%,rgba(27,23,20,.35) 100%)}
+.capa-borda{position:absolute;left:0;bottom:-1px;z-index:1;width:100%;height:clamp(40px,6vw,90px);fill:var(--cream)}
 .capa-in{position:relative;z-index:2;display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(24px,4vw,60px);align-items:center;padding-top:120px;padding-bottom:clamp(130px,14vw,190px)}
-.capa-local{font:500 13px/1.2 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--peach-dk);margin-bottom:22px}
-.capa h1{font-size:clamp(76px,11.4vw,176px);line-height:.84;letter-spacing:-.035em}
+.capa-local{font:500 13px/1.2 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--peach);margin-bottom:22px}
+.capa h1{font-size:clamp(76px,11.4vw,176px);line-height:.84;letter-spacing:-.035em;text-shadow:0 4px 30px rgba(27,23,20,.35)}
 .capa h1>span,.capa h1>em{display:block}
-.capa h1 em{color:var(--terra);padding-left:.5em}
+.capa h1 em{color:var(--peach);padding-left:.5em}
 .capa-linha{font:italic 400 clamp(24px,2.6vw,34px)/1.2 var(--serif);margin:26px 0 12px;max-width:24ch}
-.capa-texto{max-width:44ch;color:#4D423B;margin-bottom:28px}
+.capa-texto{max-width:44ch;color:rgba(244,239,225,.86);margin-bottom:28px}
 .capa-cta{display:flex;flex-wrap:wrap;gap:12px}
-.capa-status{margin:22px 0 0;font-size:15px;font-weight:600;color:var(--terra-dk);min-height:1.6em}
+.capa .btn-linha{border-color:rgba(244,239,225,.6);color:var(--cream);background:rgba(27,23,20,.2)}
+.capa .btn-linha:hover{background:var(--cream);border-color:var(--cream);color:var(--ink)}
+.capa-status{margin:22px 0 0;font-size:15px;font-weight:600;color:var(--peach);min-height:1.6em}
 .js .ent{opacity:0;transform:translateY(28px)}
 .pronto .ent{opacity:1;transform:none;transition:opacity .9s var(--ease),transform 1s var(--ease);transition-delay:calc(var(--d) * .1s)}
 .postais{position:relative;height:clamp(440px,44vw,580px)}
@@ -137,15 +125,17 @@ p{margin:0 0 1em}
 .postal[data-pos="3"]{--r:12deg;--x:30px;--y:28px;z-index:2}
 .postal[data-pos="4"],.postal[data-pos="5"],.postal[data-pos="6"]{--r:0deg;z-index:1;opacity:0}
 .postal.sai{--x:-150%;--y:60px;--r:-24deg;opacity:0;z-index:6;transition:transform .75s cubic-bezier(.5,0,.75,0),opacity .6s .15s}
-.carimbo{position:absolute;right:0;top:0;width:clamp(96px,10vw,128px);color:var(--terra);opacity:.85;z-index:7;transform:rotate(-14deg);pointer-events:none}
+.carimbo{position:absolute;right:0;top:0;width:clamp(96px,10vw,128px);color:var(--peach);opacity:.9;z-index:7;transform:rotate(-14deg);pointer-events:none}
 .carimbo text,.selo-txt text{fill:currentColor;font:600 15px var(--sans);letter-spacing:.22em}
 .postais-ctl{position:absolute;left:50%;bottom:0;transform:translateX(-50%);display:flex;gap:10px;z-index:8}
 .postais-ctl button,.trilho-ctl button{display:grid;place-items:center;width:50px;height:50px;border-radius:50%;border:1px solid rgba(27,23,20,.35);background:rgba(244,239,225,.7);color:var(--ink);cursor:pointer;transition:background .25s,color .25s,border-color .25s}
+.capa .postais-ctl button{border-color:rgba(244,239,225,.5);background:rgba(244,239,225,.85)}
 .postais-ctl button:hover,.trilho-ctl button:hover{background:var(--ink);border-color:var(--ink);color:var(--cream)}
 .postais-ctl .ic,.trilho-ctl .ic{width:20px;height:20px}
 @media (max-width:900px){
   .capa{align-items:flex-start}
-  .aves{display:none}
+  .capa-foto img{object-position:30% 50%}
+  .capa-veu{background:linear-gradient(180deg,rgba(27,23,20,.78) 0%,rgba(27,23,20,.6) 55%,rgba(27,23,20,.25) 100%)}
   .capa-in{grid-template-columns:1fr;padding-top:104px;padding-bottom:120px;gap:10px}
   .capa h1 em{padding-left:.3em}
   .postais{height:470px}

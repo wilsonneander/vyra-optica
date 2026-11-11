@@ -19,3 +19,9 @@ Fotos de demonstração: trocar pelas fotos reais do Siri na Lata quando o clien
 | salgados.webp | https://unsplash.com/photos/bh-bzldOOAM |
 | casa-kibe.webp | https://unsplash.com/photos/awMutBri5jA |
 | casa-lagosta.webp | https://unsplash.com/photos/NGiZkiwHpUk |
+
+## Enviadas pelo responsável do projeto
+
+| Arquivo | Origem |
+|---|---|
+| capa-praia.webp, capa-praia-1000.webp | Foto enviada em 2026-11-11 para a capa do Silver. [CONFIRMAR] origem e direito de uso (não parece ser a praia do Estreito) |

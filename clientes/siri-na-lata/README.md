@@ -41,7 +41,7 @@ Site enxuto de uma página, foco no essencial, baixo custo de manutenção.
 Mesma base e conteúdo do Bronze, com experiência de "cartão-postal do Estreito": mais movimento, carrosséis e ferramentas que poupam conversa no WhatsApp.
 
 - **Abertura**: cortina terracota com o mascote que sobe com borda de onda (só na primeira visita da sessão; clique ou tecla pula; desligada para quem pede menos movimento)
-- **Capa**: cena da Baía desenhada em SVG próprio, nos tons da paleta (sem azul): pôr do sol entre as torres da Ponte Hercílio Luz, morros da Ilha, ondas, reflexo, barco e pássaros animados. Ao lado, pilha de cartões-postais com fotos reais de petisco na praia que gira sozinha (setas, clique, pausa ao passar o mouse) e carimbo postal
+- **Capa**: foto da praia com petisco e drink na mesa (`_build/img/capa-praia.webp`, versão de 1000 px para celular) sob um véu escuro para o texto ficar legível. Ao lado, pilha de cartões-postais com fotos reais de petisco na praia que gira sozinha (setas, clique, pausa ao passar o mouse) e carimbo postal
 - **Faixa corrida** inclinada com os destaques da casa
 - **A estrela da casa**: ilustrações em traço que se desenham ao aparecer; botão coloca o siri na lata direto no pedido
 - **Um dia na casa**: seção fixa em que o sol percorre o céu conforme a rolagem e o céu passa de dia para fim de tarde e noite (lua e estrelas), trocando foto e texto de almoço, fim de tarde e noite

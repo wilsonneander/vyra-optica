@@ -2,7 +2,7 @@
 //   node clientes/siri-na-lata/_build-silver/build.js   → site-silver/
 //
 // Silver: mesma base do Bronze (uma página, conteúdo do _build/content.js), com experiência mais sofisticada:
-// capa em cartão-postal com a cena da Baía desenhada e animada, pilha de fotos que gira, faixa corrida,
+// capa com foto da praia e pilha de cartões-postais que gira, faixa corrida,
 // "um dia na casa" com o sol que anda conforme a rolagem, carrossel dos mais pedidos, cardápio em abas
 // com pedido montado no site e enviado pelo WhatsApp, reserva guiada, perguntas animadas e mapa no rodapé.
 const fs = require('fs');
@@ -75,54 +75,13 @@ const faqld = {
   mainEntity: C.faq.map((f) => ({ '@type': 'Question', name: f.p, acceptedAnswer: { '@type': 'Answer', text: f.r } })),
 };
 
-// ---------- cena da Baía (SVG próprio) ----------
+// ---------- ondas (SVG próprio, usadas no "um dia na casa") ----------
 // linha de onda contínua, período de 240 unidades, para rolar sem emenda
 const ondaLinha = (y, amp, w = 2880) => {
   let d = `M0 ${y}`;
   for (let x = 0; x < w; x += 240) d += ` q60 ${-amp} 120 0 t120 0`;
   return d;
 };
-// Ponte Hercílio Luz em traço: torres, corrente pênsil que desce até o tabuleiro e pendurais
-const ponte = (() => {
-  const yD = 556, tA = 690, tB = 810, top = 480, aL = 612, aR = 888;
-  const cabo = `M${aL} ${yD} L${tA} ${top} Q${(tA + tB) / 2} 628 ${tB} ${top} L${aR} ${yD}`;
-  const yQ = (x) => { const t = (x - tA) / (tB - tA); return (1 - t) * (1 - t) * top + 2 * (1 - t) * t * 628 + t * t * top; };
-  const pend = [];
-  for (let x = tA + 8; x < tB - 4; x += 8) { const y = yQ(x); if (yD - y > 4) pend.push(`M${x} ${y.toFixed(1)}V${yD}`); }
-  for (let x = aL + 9; x < tA; x += 9) { const y = yD - (x - aL) * (yD - top) / (tA - aL); pend.push(`M${x} ${y.toFixed(1)}V${yD}`); }
-  for (let x = tB + 9; x < aR; x += 9) { const y = top + (x - tB) * (yD - top) / (aR - tB); pend.push(`M${x} ${y.toFixed(1)}V${yD}`); }
-  const torre = (x) => `M${x - 5} ${yD + 18}L${x - 3} ${top - 4}M${x + 5} ${yD + 18}L${x + 3} ${top - 4}M${x - 4} ${top + 14}H${x + 4}M${x - 4} ${top + 40}H${x + 4}M${x - 5} ${top + 64}H${x + 5}M${x - 3} ${top - 4}H${x + 3}`;
-  return `<g class="ponte">
-    <path class="pend" d="${pend.join('')}"/>
-    <path d="${cabo}"/>
-    <path d="${torre(tA)}${torre(tB)}"/>
-    <path d="M590 ${yD}H910M590 ${yD + 4}H910"/>
-    <path d="M604 ${yD + 4}V573M896 ${yD + 4}V573"/>
-  </g>`;
-})();
-
-const cena = `<svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
-  <defs>
-    <radialGradient id="g-sol" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#F3B48C"/><stop offset=".6" stop-color="#E07B52"/><stop offset="1" stop-color="#CA603C"/></radialGradient>
-    <linearGradient id="g-mar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F0C7A9"/><stop offset=".45" stop-color="#E8AE8A"/><stop offset="1" stop-color="#D98F69"/></linearGradient>
-    <linearGradient id="g-morro" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E7B394"/><stop offset="1" stop-color="#EFC6AA"/></linearGradient>
-  </defs>
-  <g class="aves"><path d="M560 200q10-10 20 0q10-10 20 0"/><path d="M612 228q7-7 14 0q7-7 14 0"/><path d="M660 186q6-6 12 0q6-6 12 0"/></g>
-  <g data-par="0.18"><circle class="sol" cx="750" cy="566" r="82" fill="url(#g-sol)"/></g>
-  <path class="morro" fill="url(#g-morro)" d="M470 576C540 548 590 506 660 512C716 517 740 470 808 458C880 446 930 496 990 488C1060 478 1100 420 1186 428C1270 436 1330 494 1440 492V576Z"/>
-  ${ponte}
-  <rect y="572" width="1440" height="330" fill="url(#g-mar)"/>
-  <g class="reflexo">${[[750, 594, 120], [750, 614, 92], [750, 638, 66], [750, 664, 44], [750, 694, 28], [750, 728, 16]].map(([x, y, w], i) => `<path style="--i:${i}" d="M${x - w / 2} ${y}H${x + w / 2}"/>`).join('')}</g>
-  <g class="barco"><path d="M0 0h46l-8 9H8z"/><path d="M24 0V-44L44 -4z"/><path d="M21 -4V-34L6 -4z"/></g>
-  <g class="ondas">
-    <path class="o1" d="${ondaLinha(604, 4)}"/>
-    <path class="o2" d="${ondaLinha(640, 6)}"/>
-    <path class="o3" d="${ondaLinha(688, 8)}"/>
-    <path class="o4" d="${ondaLinha(748, 10)}"/>
-  </g>
-  <path class="areia" d="M0 812C240 774 520 800 760 790C1010 780 1220 808 1440 786V900H0Z"/>
-</svg>`;
-
 // carimbo postal (texto em círculo)
 const carimbo = (id, texto, cls) => `<svg class="${cls}" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
   <defs><path id="${id}" d="M100 100m-74 0a74 74 0 1 1 148 0a74 74 0 1 1-148 0"/></defs>
@@ -157,7 +116,8 @@ const header = `
 const K = C.capa;
 const capa = `
 <section class="capa" id="topo" aria-labelledby="capa-t">
-  <div class="cena">${cena}</div>
+  <div class="capa-foto"><img src="${img('capa-praia.webp')}" srcset="${img('capa-praia-1000.webp')} 1000w, ${img('capa-praia.webp')} 2000w" sizes="100vw" alt="" width="2000" height="1333" fetchpriority="high" decoding="async"><span class="capa-veu" aria-hidden="true"></span></div>
+  <svg class="capa-borda" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 34C240 0 520 26 760 18C1010 10 1220 36 1440 14V90H0Z"/></svg>
   <div class="wrap capa-in">
     <div class="capa-txt">
       <p class="capa-local ent" style="--d:0">Pé na areia no Balneário Estreito</p>
@@ -172,7 +132,7 @@ const capa = `
     </div>
     <div class="postais ent" style="--d:3" data-postais role="region" aria-roledescription="carrossel" aria-label="Fotos do Siri na Lata">
       <ul class="postais-pilha">
-        ${K.cartoes.map((c, i) => `<li class="postal" data-pos="${i}" aria-hidden="${i ? 'true' : 'false'}"><figure><img src="${img(c.foto + '.webp')}" alt="${esc(c.alt)}" width="382" height="510"${i ? ' loading="lazy"' : ' fetchpriority="high"'} decoding="async"><figcaption>${esc(c.legenda)}</figcaption></figure></li>`).join('')}
+        ${K.cartoes.map((c, i) => `<li class="postal" data-pos="${i}" aria-hidden="${i ? 'true' : 'false'}"><figure><img src="${img(c.foto + '.webp')}" alt="${esc(c.alt)}" width="382" height="510"${i ? ' loading="lazy"' : ''} decoding="async"><figcaption>${esc(c.legenda)}</figcaption></figure></li>`).join('')}
       </ul>
       ${carimbo('cp-capa', 'SIRI NA LATA   ESTREITO   FLORIANÓPOLIS   SC   ', 'carimbo')}
       <div class="postais-ctl">
@@ -457,7 +417,7 @@ const html = `<!doctype html>
 <title>${esc(C.seo.titulo)}</title>
 <meta name="description" content="${esc(C.seo.descricao)}">
 <link rel="canonical" href="${C.dominio}/">
-<meta name="theme-color" content="#F4EFE1">
+<meta name="theme-color" content="#1B1714">
 <meta property="og:type" content="restaurant">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="${esc(C.nome)}">
@@ -470,6 +430,7 @@ const html = `<!doctype html>
 <link rel="icon" href="assets/img/favicon.png" type="image/png">
 <link rel="icon" href="assets/img/siri-na-lata.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" as="image" href="${img('capa-praia.webp')}" imagesrcset="${img('capa-praia-1000.webp')} 1000w, ${img('capa-praia.webp')} 2000w" imagesizes="100vw" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap">
@@ -502,7 +463,7 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'assets/img'), { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 
-const IMGS = new Set(['faixa-reserva.webp', 'mapa-siri.webp', 'og.jpg', 'casa-praia.webp', 'casa-drink.webp', 'camarao-completo.webp',
+const IMGS = new Set(['capa-praia.webp', 'capa-praia-1000.webp', 'faixa-reserva.webp', 'mapa-siri.webp', 'og.jpg', 'casa-praia.webp', 'casa-drink.webp', 'camarao-completo.webp',
   ...K.cartoes.map((c) => c.foto + '.webp'), ...M.map((m) => m.foto + '.webp'), ...C.cardapioFotos.map((f) => f.foto + '.webp')]);
 IMGS.forEach((f) => fs.copyFileSync(path.join(ROOT, '_build/img', f), path.join(OUT, 'assets/img', f)));
 ['siri-na-lata.svg', 'favicon.png', 'apple-touch-icon.png'].forEach((f) => fs.copyFileSync(path.join(ROOT, 'marca', f), path.join(OUT, 'assets/img', f)));

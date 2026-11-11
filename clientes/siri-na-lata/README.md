@@ -9,11 +9,14 @@ Instagram do cliente: [@sirinalatafloripa](https://www.instagram.com/sirinalataf
 | `_build/` | Compartilhado pelos três modelos: `content.js` (todos os textos, cardápio, preços, condições e FAQ), `icons.js` (ilustrações em traço próprias), `img/` (fotos em WebP) |
 | `_build-bronze/` | Gerador do modelo Bronze: `build.js`, `style.js`, `script.js` |
 | `site-bronze/` | **Modelo Bronze pronto para subir** (abre direto no navegador pelo `index.html`) |
+| `_build-silver/` | Gerador do modelo Silver: `build.js`, `style.js`, `script.js` |
+| `site-silver/` | **Modelo Silver pronto para subir** |
 
 ## Gerar
 
 ```bash
 node clientes/siri-na-lata/_build-bronze/build.js   # gera site-bronze/
+node clientes/siri-na-lata/_build-silver/build.js   # gera site-silver/
 ```
 
 Para trocar textos, preços ou horários, edite `_build/content.js` e gere de novo.
@@ -32,6 +35,24 @@ Site enxuto de uma página, foco no essencial, baixo custo de manutenção.
 - Desempenho: CSS e JS embutidos (sem pedidos extras), fotos em WebP com lazy-load, só a foto do topo carrega antes. `.htaccess` com cache e compressão para hospedagem Apache
 - Fontes: Gloock (títulos, conversa com o rótulo da lata) + Figtree (texto). Dupla ainda não usada em outro projeto
 - Cores (tons pastel, inspirados no siri e na lata): creme `#F4EFE1` e branco nos fundos, terracota `#CA603C` nos títulos e botões, pêssego `#E4A785` nos subtítulos (versão mais escura `#B8714F` em fundo claro), preto `#1B1714` no rodapé e textos, grafite `#3F3E3B` no topo
+
+## Modelo Silver
+
+Mesma base e conteúdo do Bronze, com experiência de "cartão-postal do Estreito": mais movimento, carrosséis e ferramentas que poupam conversa no WhatsApp.
+
+- **Abertura**: cortina terracota com o mascote que sobe com borda de onda (só na primeira visita da sessão; clique ou tecla pula; desligada para quem pede menos movimento)
+- **Capa**: cena da Baía desenhada em SVG próprio, nos tons da paleta (sem azul): pôr do sol entre as torres da Ponte Hercílio Luz, morros da Ilha, ondas, reflexo, barco e pássaros animados. Ao lado, pilha de cartões-postais com fotos reais de petisco na praia que gira sozinha (setas, clique, pausa ao passar o mouse) e carimbo postal
+- **Faixa corrida** inclinada com os destaques da casa
+- **A estrela da casa**: ilustrações em traço que se desenham ao aparecer; botão coloca o siri na lata direto no pedido
+- **Um dia na casa**: seção fixa em que o sol percorre o céu conforme a rolagem e o céu passa de dia para fim de tarde e noite (lua e estrelas), trocando foto e texto de almoço, fim de tarde e noite
+- **Cardápio**: carrossel dos mais pedidos (arrastar, setas, barra de progresso) e cardápio completo em abas acessíveis (setas do teclado)
+- **Pedido pelo site**: botão + em cada item, contador, barra de pedido com total e lista; envia tudo pronto pelo WhatsApp para retirada
+- **Reserva guiada**: escolhe o formato (mesa, aniversário, evento) e vê as condições; dia, horário (só horários em que a casa está aberta, avisa quando é segunda ou terça), pessoas e observação; manda a mensagem pronta no WhatsApp
+- **A casa**: colagem de fotos com parallax leve e selo giratório do Comida di Buteco
+- **Rodapé com mapa**: mesmo componente de mapa dos outros templates (OpenStreetMap estático recolorido, pino pulsante, cartão com "Abrir no Maps" e rota). Gerado por `_build/gerar-mapa.js` em `_build/img/mapa-siri.webp`
+- Siri andando de lado na linha de progresso do topo
+- Fontes: Newsreader (títulos) + Epilogue (texto). Dupla ainda não usada em outro projeto
+- SEO do Bronze mais cardápio completo nos dados estruturados (`Menu` com preços) e coordenadas
 
 ## Logo
 
@@ -52,4 +73,5 @@ Topo, faixa "Cardápio" e faixa de reservas ainda usam fotos do Unsplash (lista 
 - Tabela de preços real e nomes dos pratos (os valores são de referência)
 - Condições de reserva, aniversário e evento; formas de pagamento e taxa de serviço
 - Delivery ou apps de entrega, dias de música ao vivo, petisco do Comida di Buteco 2026
+- Posição exata do número 610 no mapa (o pino está na ponta da Rua São José, na areia)
 - Domínio e hospedagem

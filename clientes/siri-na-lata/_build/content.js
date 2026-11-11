@@ -113,6 +113,7 @@ module.exports = {
         { nome: 'Casquinha de siri', desc: 'Duas unidades gratinadas com farofa da casa', preco: 36 },
         { nome: 'Bolinho de siri', desc: 'Oito unidades com molho rosé', preco: 44 },
         { nome: 'Camarão à milanesa', desc: 'Empanado na hora, com molho tártaro', preco: 79 },
+        { nome: 'Camarão com fritas', desc: 'Camarão empanado com batata frita e molho da casa', preco: 84 },
         { nome: 'Camarão alho e óleo', desc: 'Salteado com alho dourado e salsinha', preco: 82 },
         { nome: 'Lula à dorê', desc: 'Anéis de lula crocantes com limão', preco: 68 },
         { nome: 'Isca de peixe', desc: 'Peixe do dia empanado, com molho tártaro', preco: 62, meia: 38 },
@@ -126,6 +127,8 @@ module.exports = {
       nota: 'Acompanham arroz, pirão e salada',
       itens: [
         { nome: 'Sequência de frutos do mar', desc: 'Camarão, lula, isca de peixe, siri e ostras em rodadas', preco: 219, obs: 'serve 2' },
+        { nome: 'Peixe frito com pirão', desc: 'Peixe do dia frito, com pirão, arroz e salada', preco: 139, obs: 'serve 2' },
+        { nome: 'Camarão completo', desc: 'Camarão frito com fritas, arroz, pirão e salada', preco: 169, obs: 'serve 2' },
         { nome: 'Lagosta grelhada', desc: 'Na manteiga de ervas, com arroz e salada', preco: 249, obs: 'serve 2' },
         { nome: 'Moqueca de camarão', desc: 'No leite de coco e dendê, com arroz e pirão', preco: 159, obs: 'serve 2' },
         { nome: 'Caldo de frutos do mar', desc: 'Cremoso, com camarão e siri', preco: 39 },
@@ -205,6 +208,49 @@ module.exports = {
     pagamento: ['Pix', 'Cartão de crédito', 'Cartão de débito', 'Vale-refeição', 'Dinheiro'], // [CONFIRMAR] bandeiras e VR aceitos
     taxaServico: 'Taxa de serviço de 10% opcional.', // [CONFIRMAR]
   },
+
+  // ---------- usados a partir do Silver ----------
+  // capa em cartão-postal: fotos reais que giram na pilha do topo
+  capa: {
+    linha: 'Petisco de mar com o pé na areia.',
+    texto: 'Frutos do mar, porções e cerveja gelada de frente para a Baía, no Balneário Estreito. De quarta a domingo, do almoço até a noite.',
+    cartoes: [
+      { foto: 'casquinha-siri', legenda: 'Casquinha de siri, com o mar logo ali', alt: 'Casquinha de siri gratinada na mesa, com a Baía ao fundo' },
+      { foto: 'casa-praia', legenda: 'Mesas na areia, à sombra das árvores', alt: 'Mesas vermelhas do Siri na Lata na areia, de frente para o mar' },
+      { foto: 'camarao-fritas', legenda: 'Camarão com fritas para dividir', alt: 'Camarões empanados com batata frita e molho' },
+      { foto: 'casa-drink', legenda: 'O drink da casa no fim de tarde', alt: 'Drink com rodela de laranja sobre a mesa, com a praia ao fundo' },
+      { foto: 'isca-peixe', legenda: 'Isca de peixe sequinha', alt: 'Prato de iscas de peixe fritas e douradas' },
+    ],
+  },
+  // faixa corrida abaixo da capa
+  faixa: ['Siri na lata', 'Pé na areia', 'Camarão à milanesa', 'Chope gelado', 'Ostras da região', 'Pôr do sol na Baía', 'Isca de peixe', 'Mesa cheia'],
+  // o dia na casa, do almoço à noite (seção com o sol que anda conforme a rolagem)
+  momentos: [
+    {
+      id: 'almoco',
+      titulo: 'Almoço',
+      hora: '11h às 15h',
+      texto: 'Mesa na sombra das árvores, pé na areia e o peixe com pirão chegando fumegando. Aqui o almoço não tem pressa.',
+      foto: 'peixe-pirao', w: 680, h: 382,
+      alt: 'Peixe frito com pirão na panela de barro, arroz e salada na mesa da praia',
+    },
+    {
+      id: 'tarde',
+      titulo: 'Fim de tarde',
+      hora: '15h às 18h',
+      texto: 'A luz baixa sobre a Baía, o chope suando no copo e a primeira porção para dividir. A hora mais disputada da casa.',
+      foto: 'casa-drinks', w: 287, h: 510,
+      alt: 'Caipirinha e chope no balcão de madeira de frente para o mar',
+    },
+    {
+      id: 'noite',
+      titulo: 'Noite',
+      hora: '18h às 22h',
+      texto: 'As luzes acendem, a conversa rende e, em alguns dias, tem música ao vivo para fechar a noite com a mesa cheia.', // [CONFIRMAR] dias de música ao vivo
+      foto: 'casa-sequencia', w: 382, h: 510,
+      alt: 'Mesa servida com camarão, batata frita, arroz, pirão, salada e drinks',
+    },
+  ],
 
   // ---------- perguntas frequentes ----------
   faq: [

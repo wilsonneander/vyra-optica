@@ -275,6 +275,9 @@ h1 em, h2 em { font-style: normal; }
 .meias::-webkit-scrollbar-button { display: none; }
 @supports not selector(::-webkit-scrollbar) { .meias { scrollbar-width: thin; scrollbar-color: var(--tomate) var(--massa-esc); } }
 .cal { max-width: 440px; padding: 14px 14px 16px; background: var(--farinha); border-radius: 14px; box-shadow: 0 3px 0 var(--massa-esc); animation: entra .35s var(--suave) both; }
+.campo-dia legend, .campo-horas legend { width: 100%; text-align: center; }
+.campo-dia legend { float: left; width: min(100%, 440px); }
+.campo-dia .cal-area { clear: both; }
 .cal-area { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); align-items: center; }
 .cal-area .cal { max-width: none; }
 .cal-folha { display: grid; justify-items: center; text-align: center; }
@@ -289,6 +292,7 @@ h1 em, h2 em { font-style: normal; }
 @container campos (max-width: 700px) {
   .cal-area { grid-template-columns: minmax(0, 1fr); }
   .cal-folha { display: none; }
+  .campo-dia legend { width: 100%; }
 }
 /* folhinha de calendário de destacar */
 .folhinha { position: relative; display: grid; justify-items: center; width: 132px; padding-bottom: 14px; background: var(--farinha); border-radius: 14px; box-shadow: 0 4px 0 var(--massa-esc), 0 14px 24px -14px rgba(42,23,16,.35); transform: rotate(-3deg); }

@@ -233,8 +233,19 @@ ul { padding: 0; list-style: none; }
 .prato-pedir { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--brasa); padding: 8px 0; }
 .prato-pedir svg { transition: transform .3s var(--ease); }
 .prato-pedir:hover svg { transform: translateX(4px); }
-.nota { font-size: .8rem; margin-top: 12px; color: var(--branco); }
-.nota span:not(.estrelas) { color: var(--cinza); margin-left: 4px; }
+/* Curtir: só o coração; ao curtir, pula, solta faíscas e mostra o total */
+.curtir { position: relative; display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; padding: 6px 0; color: var(--cinza); font-size: .82rem; transition: color .3s; }
+.curtir svg { width: 20px; height: 20px; fill: transparent; stroke: currentColor; stroke-width: 1.8; overflow: visible; transition: fill .3s, stroke .3s, transform .3s var(--ease); }
+.curtir:hover:not(.curtido) svg { transform: scale(1.15); color: var(--branco); }
+.curtir.curtido { color: var(--branco); cursor: default; }
+.curtir.curtido svg { fill: var(--brasa); stroke: var(--brasa); }
+.curtir.pulou svg { animation: pulo .6s var(--ease); }
+@keyframes pulo { 0% { transform: scale(1); } 25% { transform: scale(.6); } 55% { transform: scale(1.45); } 100% { transform: scale(1); } }
+.curtir-num { opacity: 0; transform: translateX(-6px); transition: opacity .4s .15s, transform .4s .15s var(--ease); white-space: nowrap; }
+.curtir.curtido .curtir-num { opacity: 1; transform: none; }
+.curtir-faisca { position: absolute; left: 10px; top: 50%; width: 6px; height: 6px; margin: -3px; border-radius: 50%; background: var(--brasa); pointer-events: none; animation: faisca .7s var(--ease) forwards; }
+.curtir-faisca:nth-child(even) { background: var(--creme); width: 4px; height: 4px; margin: -2px; }
+@keyframes faisca { 0% { transform: rotate(var(--a)) translateY(0) scale(1); opacity: 1; } 100% { transform: rotate(var(--a)) translateY(-26px) scale(0); opacity: 0; } }
 
 /* ---------- Chapa (vídeo) ---------- */
 .chapa { position: relative; background: var(--preto); }

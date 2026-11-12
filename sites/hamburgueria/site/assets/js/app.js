@@ -186,6 +186,39 @@
   }));
   $$('.prato-foto').forEach((f) => f.addEventListener('click', () => f.parentElement.querySelector('.prato-pedir').click()));
 
+  /* ---------- Curtir prato (uma vez por pessoa, lembrado no navegador) ---------- */
+  const fmtLikes = (n) => (n >= 1000 ? (n / 1000).toFixed(1).replace('.', ',').replace(',0', '') + ' mil' : String(n)) + (n === 1 ? ' curtida' : ' curtidas');
+  const lerCurtidas = () => { try { return JSON.parse(localStorage.getItem('braseiro-curtidas')) || []; } catch (e) { return []; } };
+  const salvarCurtidas = (l) => { try { localStorage.setItem('braseiro-curtidas', JSON.stringify(l)); } catch (e) { /* navegador sem armazenamento */ } };
+  const curtidas = lerCurtidas();
+  $$('.curtir').forEach((b) => {
+    const nome = b.closest('.prato').querySelector('h3').textContent;
+    const marcar = () => {
+      b.classList.add('curtido');
+      b.setAttribute('aria-pressed', 'true');
+      b.setAttribute('aria-label', `Você curtiu ${nome}`);
+      b.querySelector('.curtir-num').textContent = fmtLikes(+b.dataset.likes + 1);
+    };
+    b.setAttribute('aria-label', `Curtir ${nome}`);
+    if (curtidas.includes(nome)) marcar();
+    b.addEventListener('click', () => {
+      if (b.classList.contains('curtido')) return; // só conta uma vez
+      marcar();
+      curtidas.push(nome);
+      salvarCurtidas(curtidas);
+      if (calmo) return;
+      b.classList.add('pulou');
+      setTimeout(() => b.classList.remove('pulou'), 650);
+      for (let i = 0; i < 8; i++) {
+        const f = document.createElement('span');
+        f.className = 'curtir-faisca';
+        f.style.setProperty('--a', `${i * 45}deg`);
+        b.appendChild(f);
+        setTimeout(() => f.remove(), 750);
+      }
+    });
+  });
+
   /* ---------- Vídeos que tocam só quando aparecem ---------- */
   const tocarVisivel = new IntersectionObserver((ents) => ents.forEach((en) => {
     const v = en.target;

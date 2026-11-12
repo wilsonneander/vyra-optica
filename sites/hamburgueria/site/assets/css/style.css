@@ -314,7 +314,6 @@ ul { padding: 0; list-style: none; }
 .reel-tit { font-family: var(--tit); text-transform: uppercase; font-size: 1.3rem; line-height: 1.08; }
 .reel-num { display: flex; align-items: center; gap: 6px; white-space: nowrap; font-size: .8rem; color: var(--carvao); }
 .reel-num svg { color: var(--brasa); }
-.reel-num svg:nth-of-type(2) { margin-left: 12px; }
 
 /* ---------- Contato ---------- */
 .contato { padding: 30px 0 110px; }
@@ -390,8 +389,13 @@ ul { padding: 0; list-style: none; }
 /* ---------- Rodapé ---------- */
 .rodape { background: var(--preto); color: var(--branco); padding: 40px 0 30px; }
 .rod-galeria { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; padding-bottom: 36px; border-bottom: 1px dashed rgba(255,255,255,.3); }
-.rod-galeria img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 4px; transition: translate .6s var(--ease), rotate .6s var(--ease), filter .6s; filter: brightness(.85); }
-.rod-galeria img:hover { translate: 0 -8px; rotate: -1.5deg; filter: none; }
+.rod-galeria a { position: relative; display: block; border-radius: 4px; overflow: hidden; transition: translate .6s var(--ease), rotate .6s var(--ease); }
+.rod-galeria img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; transition: filter .5s, scale .8s var(--ease); filter: brightness(.85); }
+.rod-galeria a:hover, .rod-galeria a:focus-visible { translate: 0 -8px; rotate: -1.5deg; }
+.rod-galeria a:hover img, .rod-galeria a:focus-visible img { filter: brightness(.55) grayscale(.6); scale: 1.06; }
+.rod-ig { position: absolute; left: 50%; top: 50%; width: 52px; height: 52px; margin: -26px 0 0 -26px; color: var(--branco); filter: drop-shadow(0 2px 8px rgba(0,0,0,.45)); display: grid; place-items: center; opacity: 0; scale: .4; rotate: -20deg; transition: opacity .35s, scale .5s var(--ease), rotate .5s var(--ease); }
+.rod-ig svg { width: 40px; height: 40px; }
+.rod-galeria a:hover .rod-ig, .rod-galeria a:focus-visible .rod-ig { opacity: 1; scale: 1; rotate: 0deg; }
 .rod-meio { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 50px 0 30px; align-items: start; }
 .rod-meio h2 { font-family: var(--tit); font-weight: 400; text-transform: uppercase; font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.05; color: var(--cinza-claro); max-width: 15em; }
 .news label { display: block; font-size: 1.1rem; font-weight: 500; margin-bottom: 14px; }
@@ -500,7 +504,7 @@ ul { padding: 0; list-style: none; }
   .map-img img { object-position: 64% 50%; }
   .map-card { position: static; transform: none; max-width: none; border-radius: 0; }
   .rod-galeria { grid-template-columns: repeat(3, 1fr); }
-  .rod-galeria img:nth-child(n+4) { display: none; }
+  .rod-galeria a:nth-child(n+4) { display: none; }
   .rod-cols { grid-template-columns: 1fr 1fr; }
   .pedir-fixo {
     display: flex; position: fixed; left: 16px; right: 16px; bottom: 14px; z-index: 90;

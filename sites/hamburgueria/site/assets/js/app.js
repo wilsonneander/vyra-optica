@@ -99,7 +99,7 @@
     anda();
     const alvos = [
       ['.prato-foto', 'Pedir'], ['.hero-card', 'Ver'], ['.reel-midia', 'Play'], ['.chef', 'Oi!'],
-      ['.coz-card', 'Ver'], ['.rod-galeria img', 'Hum'], ['.especiais-pilha', 'Hum'],
+      ['.coz-card', 'Ver'], ['.especiais-pilha', 'Hum'],
     ];
     alvos.forEach(([sel, txt]) => $$(sel).forEach((el) => {
       el.addEventListener('mouseenter', () => { cursor.firstElementChild.textContent = txt; cursor.classList.add('on'); });
@@ -430,7 +430,7 @@
   gsap.from('.map-pino', { y: -120, opacity: 0, duration: 1, ease: 'bounce.out', scrollTrigger: { trigger: '.map-box', start: 'top 70%' } });
 
   // rodapé
-  gsap.from('.rod-galeria img', { y: 60, opacity: 0, duration: .9, ease: 'power3.out', stagger: .08, scrollTrigger: { trigger: '.rod-galeria', start: 'top 90%' } });
+  gsap.from('.rod-galeria a', { y: 60, opacity: 0, duration: .9, ease: 'power3.out', stagger: .08, scrollTrigger: { trigger: '.rod-galeria', start: 'top 90%' } });
   gsap.from('#rodMarca span', { yPercent: 100, duration: 1, ease: 'power4.out', stagger: .05, scrollTrigger: { trigger: '#rodMarca', start: 'top 95%' } });
 
   window.addEventListener('load', () => ScrollTrigger.refresh());

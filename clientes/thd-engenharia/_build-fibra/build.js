@@ -26,7 +26,11 @@ const PAGES = [
   { slug: 'servicos', nav: 'Serviços', tip: 'Serviços para o seu provedor', ico: 'navServicos', img: 'internet.webp' },
   { slug: 'contabilidade', nav: 'Contabilidade', tip: 'Contabilidade para provedores', ico: 'navContabilidade', img: 'contabilidade.webp' },
   { slug: 'contato', nav: 'Contato', tip: 'Fale com a THD', ico: 'navContato', img: 'rack.webp' },
+  { slug: 'area-do-cliente', nav: 'Área do Cliente', tip: 'Área do Cliente', ico: 'navCliente', img: 'rede.webp' },
 ];
+const AREA = 'area-do-cliente';
+// ícone da Área do Cliente (só neste modelo): cadeado no traço reto dos outros ícones, com o nó de circuito
+const IC = { ...I, navCliente: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 10.5h14V21H5z"/><path d="M8.5 10.5V7a3.5 3.5 0 0 1 7 0v3.5"/><rect x="10.4" y="14.1" width="3.2" height="3.2" fill="currentColor" stroke="none"/></svg>' };
 
 const rootOf = (slug) => (slug ? '../' : '');
 const link = (from, to, hash = '') => {
@@ -71,11 +75,15 @@ function header(slug) {
   <a class="brand" href="${link(slug, '')}" aria-label="THD Engenharia, página inicial">
     <img src="${asset(slug, 'img/logo-simbolo.png')}" alt="THD Engenharia, consultoria de provedores de internet" width="360" height="217">
   </a>
-  <nav class="rail-nav" aria-label="Principal">${PAGES.map((p) => `<a href="${link(slug, p.slug)}"${p.slug === slug ? ' aria-current="page"' : ''}>${I[p.ico]}<span class="rn-tip">${p.tip}</span></a>`).join('')}</nav>
+  <nav class="rail-nav" aria-label="Principal">${PAGES.map((p) => `<a href="${link(slug, p.slug)}"${p.slug === slug ? ' aria-current="page"' : ''}>${IC[p.ico]}<span class="rn-tip">${p.tip}</span></a>`).join('')}</nav>
   <span class="rail-prog" aria-hidden="true"><i></i></span>
+  ${slug === AREA ? '' : `<a class="rail-acc" href="${link(slug, AREA)}">${IC.navCliente}<span>Área do Cliente</span></a>`}
   <button class="menu-btn" data-menu aria-controls="mmenu" aria-expanded="false" aria-label="Abrir menu"><span class="mb-t">Menu</span><span class="mb-i"><i></i><i></i></span></button>
 </header>
-<a class="btn btn-o btn-sm top-cta" href="${C.waOrcamento}" target="_blank" rel="noopener" data-magnetic>${roll('Solicitar orçamento')}<span class="b-ar">${I.seta}</span></a>
+<div class="top-cta">
+  ${slug === AREA ? '' : `<a class="btn btn-n btn-sm top-acc" href="${link(slug, AREA)}" data-magnetic>${IC.navCliente}${roll('Área do Cliente')}</a>`}
+  <a class="btn btn-o btn-sm" href="${C.waOrcamento}" target="_blank" rel="noopener" data-magnetic>${roll('Solicitar orçamento')}<span class="b-ar">${I.seta}</span></a>
+</div>
 <div class="mmenu" id="mmenu">
   ${fibers('dark')}
   <div class="mm-in">
@@ -142,9 +150,9 @@ function footer(slug) {
 <div class="cursor" aria-hidden="true">${[0, 1, 2, 3, 4, 5].map((k) => `<i class="c-tr" style="--n:${k}"></i>`).join('')}<i class="c-dot"></i><span class="c-tag"></span></div>`;
 }
 
-const headScript = `<script>(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('thd-f-nav')){d.classList.add('enter');sessionStorage.removeItem('thd-f-nav');}}catch(e){}})();</script>`;
+const headScript = `<script>(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('thd-f-nav')){d.classList.add('enter');sessionStorage.removeItem('thd-f-nav');}if(sessionStorage.getItem('thd-f-ac'))d.classList.add('ac-in');}catch(e){}})();</script>`;
 
-function layout({ slug, title, desc, body, jsonld = '' }) {
+function layout({ slug, title, desc, body, jsonld = '', noindex = false }) {
   const ga = C.ga4 && !PREVIEW ? `
 <script async src="https://www.googletagmanager.com/gtag/js?id=${C.ga4}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${C.ga4}');</script>` : '';
@@ -155,7 +163,7 @@ function layout({ slug, title, desc, body, jsonld = '' }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
-<link rel="canonical" href="${canonical(slug)}">
+<link rel="canonical" href="${canonical(slug)}">${noindex ? '\n<meta name="robots" content="noindex">' : ''}
 <meta name="theme-color" content="#021430">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
@@ -698,8 +706,189 @@ ${pageHero(slug, 'Formulário e WhatsApp', 'Fale com a nossa *equipe*', 'Estamos
     desc: 'Fale com a THD Engenharia pelo WhatsApp (21) 9 9834-0142 ou e-mail contato@thdengenharia.com. Atendimento de segunda a sexta, das 9h às 18h.' });
 }
 
+// ---------- área do cliente (demonstrativa) ----------
+// Dados de exemplo do assinante. Troque aqui quando o provedor ligar a área ao sistema dele.
+const ASSINANTE = {
+  nome: 'Mariana Costa',
+  codigo: '004817',
+  endereco: 'Rua das Acácias, 120, Jardim Guanabara, Rio de Janeiro, RJ',
+  desde: '15/03/2026',
+  plano: { nome: 'Fibra 500', down: 500, up: 250, valor: '99,90', tecnologia: 'Fibra óptica até a sua casa', wifi: 'Wi-Fi 6 dual band' },
+  beneficios: [
+    ['Roteador Wi-Fi 6 em comodato', 'Equipamento incluso, com troca sem custo em caso de defeito'],
+    ['Instalação sem custo', 'Feita por técnico da equipe, com teste no local'],
+    ['Internet ilimitada', 'Sem franquia de dados e sem redução de velocidade'],
+    ['IPv6 ativo', 'Endereço moderno para jogos, câmeras e casa conectada'],
+    ['Suporte pelo WhatsApp', 'Atendimento humano em horário comercial'],
+    ['Visita técnica inclusa', 'Sem cobrança quando o problema é na rede'],
+  ],
+  fidelidade: { meses: 12, cumpridos: 8, fim: '15/03/2027' },
+  vencimento: 'Todo dia 10',
+  proxima: '10/12/2026',
+  pagamento: 'Boleto ou Pix',
+  condicoes: [
+    'Pagando até o vencimento, a fatura sai com desconto de R$ 10,00 por pontualidade.',
+    'Cancelamento antes do fim da fidelidade gera multa proporcional aos meses restantes.',
+    'Mudança de endereço depende de viabilidade técnica na nova região.',
+    'Valor reajustado uma vez por ano pelo IPCA, com aviso prévio na fatura.',
+  ],
+};
+const SPEEDTEST = 'https://www.speedtest.net/pt';
+const AG_SERV = ['Visita técnica', 'Mudança de endereço', 'Ponto extra de Wi-Fi', 'Troca de equipamento'];
+const AG_PER = ['Manhã', 'Tarde'];
+const AT_ASS = ['Fatura e pagamento', 'Suporte técnico', 'Mudança de plano', 'Outro assunto'];
+const fillTpl = (t, vals) => t.replace(/\{(\w+)\}/g, (_, k) => vals[k] || '');
+
+function areaCliente() {
+  const slug = AREA;
+  const A = ASSINANTE;
+  const P = A.plano;
+  const quem = `Sou ${A.nome}, assinante código ${A.codigo}, plano ${P.nome} (${P.down} Mega).`;
+  const tplAg = `Olá! Vim pela Área do Cliente. ${quem} Quero agendar: {servico}. Melhor período: {periodo}. Endereço: ${A.endereco}.`;
+  const tplAt = `Olá! Vim pela Área do Cliente. ${quem} Preciso de atendimento sobre: {assunto}.`;
+  const senhaMsg = 'Olá! Vim pela Área do Cliente e esqueci minha senha de acesso. Podem me ajudar?';
+  const chips = (name, legend, opts) => `
+        <fieldset class="subj ac-chips">
+          <legend>${legend}</legend>
+          <div>${opts.map((o, i) => `<label><input type="radio" name="${name}" value="${esc(o)}"${i ? '' : ' checked'}><span>${o}</span></label>`).join('')}</div>
+        </fieldset>`;
+  const waBox = (tpl) => `data-wa-tpl="${esc(tpl)}" data-whats="${C.contato.whatsapp}"`;
+  const pct = Math.round((A.fidelidade.cumpridos / A.fidelidade.meses) * 100);
+  const body = `
+<section class="ac-login t-paper" data-ac-login aria-labelledby="ac-lt">
+  ${fibers('light')}
+  <div class="container ac-login-in">
+    <div class="ac-login-copy">
+      <nav class="crumbs up" style="--d:.1s" aria-label="Você está em"><a href="${link(slug, '')}">Início</a><span>/</span><span aria-current="page">Área do Cliente</span></nav>
+      ${kicker('Área do Cliente', 'up')}
+      <h1 class="hl" id="ac-lt">${rise('Sua *conexão* em um só lugar.')}</h1>
+      <p class="lead up" style="--d:.7s">Consulte o seu plano, confira vencimento e fidelidade, teste a velocidade e agende um atendimento sem sair de casa.</p>
+      <ul class="ac-feat up" style="--d:.85s">
+        <li>Plano contratado<small>Velocidade e valor mensal</small></li>
+        <li>Detalhes do contrato<small>Vencimento, fidelidade e condições</small></li>
+        <li>Teste de conexão<small>Confira a velocidade em casa</small></li>
+        <li>Agendamento<small>Técnico marcado pelo WhatsApp</small></li>
+      </ul>
+    </div>
+    <form class="form ac-form up" style="--d:.5s" id="ac-login" novalidate>
+      <p class="kicker">Acesso do assinante</p>
+      <h2>Entrar</h2>
+      <p class="form-note">Use o CPF do titular e a senha enviada na instalação.</p>
+      <label class="fl"><input name="cpf" inputmode="numeric" autocomplete="username" required placeholder=" " maxlength="14"><span>CPF do titular *</span></label>
+      <label class="fl fl-pw"><input name="senha" type="password" autocomplete="current-password" required placeholder=" "><span>Senha *</span><button type="button" class="ac-eye" data-ac-eye aria-pressed="false">Mostrar</button></label>
+      <button class="btn btn-o" type="submit" data-magnetic>${roll('Acessar minha conta')}<span class="b-ar">${I.seta}</span></button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+      <p class="ac-help"><a href="${C.wa(senhaMsg)}" target="_blank" rel="noopener">Esqueci minha senha</a><a href="${C.wa('Olá! Vim pelo site e quero conhecer os planos de internet.')}" target="_blank" rel="noopener">Ainda não sou cliente</a></p>
+      <p class="ac-demo">Ambiente demonstrativo: entre com qualquer CPF e qualquer senha para ver a área do assinante.</p>
+    </form>
+  </div>
+</section>
+
+<div class="ac-dash" data-ac-dash>
+<section class="phero ac-top t-paper" aria-labelledby="ac-dt">
+  ${fibers('light')}
+  <div class="container phero-in">
+    <nav class="crumbs up" style="--d:.1s" aria-label="Você está em"><a href="${link(slug, '')}">Início</a><span>/</span><span aria-current="page">Área do Cliente</span></nav>
+    ${kicker('Área do Cliente', 'up')}
+    <div class="ac-hello">
+      <h1 class="hl" id="ac-dt" tabindex="-1">${rise(`Olá, *${A.nome.split(' ')[0]}.*`)}</h1>
+      <button type="button" class="btn btn-line btn-sm up" style="--d:.5s" data-ac-out>${roll('Sair da conta')}<span class="b-ar">${I.seta}</span></button>
+    </div>
+    <dl class="ac-id up" style="--d:.6s">
+      <div><dt>Titular</dt><dd>${A.nome}</dd></div>
+      <div><dt>Código do assinante</dt><dd>${A.codigo}</dd></div>
+      <div><dt>CPF</dt><dd data-ac-cpf>***.***.***-**</dd></div>
+      <div><dt>Situação</dt><dd class="ok">Conexão ativa</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec t-paper ac-main">
+  <div class="container ac-grid">
+    <article class="ac-card ac-plan t-navy rv" aria-labelledby="ac-pl">
+      ${fibers('dark')}
+      <p class="kicker">Plano contratado</p>
+      <h2 id="ac-pl">${P.nome}</h2>
+      <p class="ac-speed"><b>${P.down}</b><span>Mega<small>de download</small></span></p>
+      <dl class="ac-spec">
+        <div><dt>Upload</dt><dd>${P.up} Mega</dd></div>
+        <div><dt>Tecnologia</dt><dd>${P.tecnologia}</dd></div>
+        <div><dt>Roteador</dt><dd>${P.wifi}</dd></div>
+      </dl>
+      <div class="ac-plan-foot">
+        <p class="ac-price"><small>Valor mensal</small><b>R$ ${P.valor}</b><span>por mês</span></p>
+        ${arrowBtn('#ac-detalhe', 'Ver detalhes do plano', 'btn btn-o btn-sm')}
+      </div>
+    </article>
+
+    <article class="ac-card ac-test t-white rv" style="--d:1" aria-labelledby="ac-tt">
+      <figure class="gauge" aria-hidden="true">
+        <svg viewBox="0 0 240 140">
+          <path class="g-tr" d="M24 124 A96 96 0 0 1 216 124"/>
+          <path class="g-fl" pathLength="100" d="M24 124 A96 96 0 0 1 216 124"/>
+          <path class="g-lt" pathLength="100" d="M24 124 A96 96 0 0 1 216 124"/>
+          <text class="g-v" x="120" y="112">${P.down}</text>
+          <text class="g-u" x="120" y="134">Mega contratados</text>
+        </svg>
+      </figure>
+      <div class="ac-test-c">
+        <p class="kicker">Teste sua conexão</p>
+        <h2 id="ac-tt">A velocidade está chegando?</h2>
+        <ul class="ac-tips">
+          <li>Para medir o plano inteiro, ligue o computador no roteador pelo cabo.</li>
+          <li>No Wi-Fi, fique perto do roteador e feche downloads e vídeos abertos.</li>
+        </ul>
+        <a class="btn btn-o" href="${SPEEDTEST}" target="_blank" rel="noopener" data-magnetic>${roll('Testar minha velocidade')}<span class="b-ar">${I.seta}</span></a>
+      </div>
+    </article>
+
+    <article class="ac-card ac-detail t-white rv" id="ac-detalhe" aria-labelledby="ac-dh">
+      <div>
+        <p class="kicker">Detalhamento do plano</p>
+        <h2 id="ac-dh">O que o seu plano inclui</h2>
+        <ul class="ac-ben">${A.beneficios.map(([t, d]) => `<li><strong>${t}</strong><small>${d}</small></li>`).join('')}</ul>
+      </div>
+      <div class="ac-terms">
+        <dl>
+          <div><dt>Vencimento</dt><dd>${A.vencimento}</dd></div>
+          <div><dt>Próxima fatura</dt><dd>${A.proxima}, R$ ${P.valor}</dd></div>
+          <div><dt>Forma de pagamento</dt><dd>${A.pagamento}</dd></div>
+          <div><dt>Cliente desde</dt><dd>${A.desde}</dd></div>
+          <div class="ac-fid"><dt>Fidelidade</dt><dd>${A.fidelidade.meses} meses, até ${A.fidelidade.fim}</dd>
+            <p class="ac-bar" role="img" aria-label="${A.fidelidade.cumpridos} de ${A.fidelidade.meses} meses de fidelidade cumpridos"><i style="--p:${pct}%"></i></p>
+            <small>${A.fidelidade.cumpridos} de ${A.fidelidade.meses} meses cumpridos</small></div>
+        </dl>
+        <h3>Condições</h3>
+        <ul class="ac-cond">${A.condicoes.map((c) => `<li>${c}</li>`).join('')}</ul>
+      </div>
+    </article>
+
+    <article class="ac-card ac-act ac-sched t-deep rv" aria-labelledby="ac-ag" ${waBox(tplAg)}>
+      <p class="kicker">Agende um serviço</p>
+      <h2 id="ac-ag">Precisa de um técnico em casa?</h2>
+      <p>Escolha o serviço e o melhor período. A mensagem abre pronta no WhatsApp, com seus dados e endereço.</p>
+      ${chips('servico', 'Serviço', AG_SERV)}
+      ${chips('periodo', 'Período', AG_PER)}
+      <a class="btn btn-w" href="${C.wa(fillTpl(tplAg, { servico: AG_SERV[0], periodo: AG_PER[0] }))}" target="_blank" rel="noopener" data-wa-go data-magnetic>${I.whatsapp}${roll('Agendar pelo WhatsApp')}</a>
+    </article>
+
+    <article class="ac-card ac-act ac-talk t-orange rv" style="--d:1" aria-labelledby="ac-fc" ${waBox(tplAt)}>
+      <p class="kicker">Fale conosco</p>
+      <h2 id="ac-fc">Fale com a nossa equipe</h2>
+      <p>Diga o assunto e a conversa já começa com o seu código de assinante.</p>
+      ${chips('assunto', 'Assunto', AT_ASS)}
+      <a class="btn btn-n" href="${C.wa(fillTpl(tplAt, { assunto: AT_ASS[0] }))}" target="_blank" rel="noopener" data-wa-go data-magnetic>${I.whatsapp}${roll('Falar no WhatsApp')}</a>
+    </article>
+  </div>
+</section>
+</div>`;
+  return layout({ slug, body, noindex: true,
+    title: 'Área do Cliente | THD Engenharia',
+    desc: 'Área do assinante: plano contratado, vencimento, fidelidade, teste de velocidade e agendamento de serviços pelo WhatsApp.' });
+}
+
 // ---------- gravação ----------
-const pages = { '': home(), 'quem-somos': quemSomos(), servicos: servicos(), contabilidade: contabilidade(), contato: contato() };
+const pages = { '': home(), 'quem-somos': quemSomos(), servicos: servicos(), contabilidade: contabilidade(), contato: contato(), [AREA]: areaCliente() };
 
 fs.rmSync(OUT, { recursive: true, force: true });
 for (const [slug, html] of Object.entries(pages)) {
@@ -717,7 +906,7 @@ if (!PREVIEW) {
   const hoje = new Date().toISOString().slice(0, 10);
   fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${Object.keys(pages).map((s) => `  <url><loc>${canonical(s)}</loc><lastmod>${hoje}</lastmod></url>`).join('\n')}
+${Object.keys(pages).filter((s) => s !== AREA).map((s) => `  <url><loc>${canonical(s)}</loc><lastmod>${hoje}</lastmod></url>`).join('\n')}
 </urlset>
 `);
   fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${C.dominio}/sitemap.xml\n`);

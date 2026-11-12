@@ -86,3 +86,11 @@ node clientes/thd-engenharia/_build-fibra/build.js --preview  # gera _preview-fi
 - Jornada em trilha de fibra que se desenha com a rolagem e acende cada etapa; diagnóstico com chaves de três posições e rack 3D onde os módulos entram ou saltam para fora
 - Órgãos reguladores em linhas com o logo seguindo o cursor, foto em íris, missão digitada letra por letra, cabos das disciplinas, extrato que sai da impressora e comparador arrastável na gestão contábil
 - Transição entre páginas em venezianas, cursor com rastro de luz e nome da THD no rodapé iluminado pelo cursor
+
+### Área do Cliente (só no modelo Fibra)
+
+Página `/area-do-cliente/`, com acesso pelo trilho do menu (cadeado), pelo botão no topo e pela barra do celular. É demonstrativa: o login aceita qualquer CPF e senha e guarda a sessão só na aba (sessionStorage).
+
+- Plano contratado (nome, velocidade e valor), detalhamento (benefícios, vencimento, fidelidade e condições), botão do teste de velocidade e botões de agendamento e atendimento que abrem o WhatsApp com mensagem pronta
+- Dados do assinante de exemplo, link do teste de velocidade e opções de agendamento ficam no topo da função `areaCliente()` em `_build-fibra/build.js`
+- A página tem `noindex` e fica fora do `sitemap.xml`

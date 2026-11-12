@@ -463,6 +463,57 @@
     });
   }
 
+  /* ---------- área do cliente (demonstrativa): login local, sem servidor ---------- */
+  var acf = document.getElementById('ac-login');
+  if (acf) {
+    var AK = 'thd-f-ac', acCpf = acf.elements.cpf, acPw = acf.elements.senha, acSt = acf.querySelector('.form-status'), acBtn = acf.querySelector('[type=submit]');
+    var maskCpf = function (v) { var d = v.replace(/\D/g, '').slice(0, 11); return d.replace(/(\d{3})(\d)/, '$1.$2').replace(/(\d{3})\.(\d{3})(\d)/, '$1.$2.$3').replace(/(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4'); };
+    var showDash = function (cpf, focus) {
+      var out = $('[data-ac-cpf]');
+      if (out && cpf && cpf.length === 11) out.textContent = cpf.slice(0, 3) + '.***.***-' + cpf.slice(9);
+      root.classList.add('ac-in');
+      dispatchEvent(new Event('resize'));
+      if (focus) { scrollTo(0, 0); var h = $('#ac-dt'); if (h) h.focus({ preventScroll: true }); }
+    };
+    try { var saved = sessionStorage.getItem(AK); if (saved) showDash(saved); } catch (_) {}
+    acCpf.addEventListener('input', function () { acCpf.value = maskCpf(acCpf.value); });
+    acf.addEventListener('input', function (e) { var l = e.target.closest('.fl'); if (l) l.classList.remove('invalid'); });
+    var eye = acf.querySelector('[data-ac-eye]');
+    if (eye) eye.addEventListener('click', function () { var show = acPw.type === 'password'; acPw.type = show ? 'text' : 'password'; eye.textContent = show ? 'Ocultar' : 'Mostrar'; eye.setAttribute('aria-pressed', show); acPw.focus(); });
+    acf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var d = acCpf.value.replace(/\D/g, ''), bad = [];
+      if (d.length !== 11) bad.push(acCpf);
+      if (!acPw.value) bad.push(acPw);
+      bad.forEach(function (el) { el.closest('.fl').classList.add('invalid'); });
+      if (bad.length) { acSt.className = 'form-status err'; acSt.textContent = d.length !== 11 ? 'Digite os 11 números do CPF do titular.' : 'Digite a sua senha.'; bad[0].focus(); return; }
+      acSt.className = 'form-status ok'; acSt.textContent = 'Entrando na sua conta...'; acBtn.disabled = true;
+      setTimeout(function () {
+        try { sessionStorage.setItem(AK, d); } catch (_) {}
+        acBtn.disabled = false; acSt.textContent = '';
+        showDash(d, true);
+        if (window.gtag) gtag('event', 'login', { method: 'area_do_cliente_demo' });
+      }, 650);
+    });
+    $$('[data-ac-out]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        try { sessionStorage.removeItem(AK); } catch (_) {}
+        root.classList.remove('ac-in'); acf.reset(); acSt.textContent = '';
+        acPw.type = 'password'; if (eye) { eye.textContent = 'Mostrar'; eye.setAttribute('aria-pressed', 'false'); }
+        dispatchEvent(new Event('resize')); scrollTo(0, 0); acCpf.focus({ preventScroll: true });
+      });
+    });
+  }
+  /* botões de WhatsApp com mensagem montada pelas escolhas (agendamento e atendimento) */
+  $$('[data-wa-tpl]').forEach(function (box) {
+    var go = box.querySelector('[data-wa-go]'); if (!go) return;
+    var upd = function () {
+      var t = box.getAttribute('data-wa-tpl').replace(/\{(\w+)\}/g, function (_, k) { var i = box.querySelector('input[name="' + k + '"]:checked'); return i ? i.value : ''; });
+      go.href = 'https://wa.me/' + box.getAttribute('data-whats') + '?text=' + encodeURIComponent(t);
+    };
+    box.addEventListener('change', upd); upd();
+  });
+
   /* horário: avisa se a equipe está atendendo agora */
   $$('[data-now]').forEach(function (el) {
     try {

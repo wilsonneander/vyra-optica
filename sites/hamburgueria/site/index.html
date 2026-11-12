@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Braseiro Burger &amp; Cozinha | Smash na chapa, massas, saladas e sobremesas</title>
+<meta name="description" content="Hamburgueria e cozinha na Vila Madalena: smash prensado na chapa, massas frescas, saladas de verdade, porções e sobremesas da casa. Peça pelo WhatsApp.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0A0908">
+<meta property="og:title" content="Braseiro Burger &amp; Cozinha">
+<meta property="og:description" content="Onde o fogo encontra o sabor. Smash na chapa, massas, saladas e sobremesas.">
+<meta property="og:image" content="assets/img/og.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23E94222'/%3E%3Cpath d='M12 30c0-10 9-16 20-16s20 6 20 16z' fill='%23FEF6DF'/%3E%3Crect x='10' y='34' width='44' height='7' rx='3.5' fill='%230A0908'/%3E%3Cpath d='M12 45h40c0 4-3 6-7 6H19c-4 0-7-2-7-6z' fill='%23FEF6DF'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Host+Grotesk:wght@400;500;600;700&family=Yellowtail&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/video/capa.webp">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- Símbolos desenhados para a marca -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-logo" viewBox="0 0 48 48">
+    <path d="M24 3c2.6 3.2 1.2 5.4-.4 7.3-1.3 1.6-2 3.1-.6 4.7-4-1-5.6-4.6-3.6-7.6 1.3-2 3.5-2.7 4.6-4.4z"/>
+    <path d="M6 26c0-7.7 8-12.5 18-12.5S42 18.3 42 26z"/>
+    <path d="M4 29.5h40l-3.2 4.2-4.4-2.4-4.4 2.4-4-2.4-4 2.4-4-2.4-4.4 2.4-4.4-2.4-4 2.4z"/>
+    <rect x="5" y="35.5" width="38" height="3.6" rx="1.8"/>
+    <path d="M6.5 41h35c-.6 2.7-2.8 4-5.8 4H12.3c-3 0-5.2-1.3-5.8-4z"/>
+  </symbol>
+  <symbol id="i-seta" viewBox="0 0 24 24"><path d="M3 10.6h13.2l-4.7-4.7 2-2L21.4 12l-7.9 8.1-2-2 4.7-4.7H3z"/></symbol>
+  <symbol id="i-burger" viewBox="0 0 32 32">
+    <path d="M4 15c0-5.5 5.4-9 12-9s12 3.5 12 9z"/><rect x="3" y="17" width="26" height="4" rx="2"/><path d="M4.5 23h23c-.4 2.2-2 3.4-4.6 3.4H9.1c-2.6 0-4.2-1.2-4.6-3.4z"/>
+  </symbol>
+  <symbol id="i-estrela" viewBox="0 0 20 20"><path d="M10 1.2l2.6 5.6 6.1.7-4.5 4.2 1.2 6.1L10 14.8l-5.4 3 1.2-6.1-4.5-4.2 6.1-.7z"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></symbol>
+  <symbol id="i-pino" viewBox="0 0 40 52"><path d="M20 1C9.5 1 1 9.3 1 19.7 1 33.4 20 51 20 51s19-17.6 19-31.3C39 9.3 30.5 1 20 1z"/></symbol>
+  <symbol id="i-chama" viewBox="0 0 24 24"><path d="M12.6 1.5c.8 4.2-3.2 5.8-3.2 9.6 0 1.4.8 2.5 2 2.9-.5-2.3 1.3-3.7 2.6-5.4 2.4 2.1 4.5 4.9 4.5 8.1 0 3.9-3 6.8-6.6 6.8S5.4 20.6 5.4 16.8c0-6 7.6-8.6 7.2-15.3z"/></symbol>
+  <symbol id="i-coracao" viewBox="0 0 24 24"><path d="M12 21s-8.6-5.3-8.6-11.4C3.4 6.5 5.7 4.3 8.5 4.3c1.6 0 2.8.8 3.5 1.9.7-1.1 1.9-1.9 3.5-1.9 2.8 0 5.1 2.2 5.1 5.3C20.6 15.7 12 21 12 21z"/></symbol>
+  <symbol id="i-balao" viewBox="0 0 24 24"><path d="M4 4h16v11.5H10.2L5.5 20v-4.5H4z"/></symbol>
+</svg>
+
+<!-- Entrada: o burger se monta -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-stack">
+    <span class="l-top"></span><span class="l-alface"></span><span class="l-queijo"></span><span class="l-carne"></span><span class="l-base"></span>
+  </div>
+  <p class="loader-nome">Braseiro</p>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span>Ver</span></div>
+
+<header class="topo" id="topo">
+  <div class="wrap topo-in">
+    <a href="#inicio" class="logo" aria-label="Braseiro, voltar ao início">
+      <svg><use href="#i-logo"/></svg><span>Braseiro</span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Seções da página">
+      <a href="#inicio">Início</a>
+      <a href="#casa">A casa</a>
+      <a href="#cardapio">Cardápio</a>
+      <a href="#bastidores">Bastidores</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn-brasa topo-cta" href="https://wa.me/5511900000000?text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido%20na%20Braseiro" target="_blank" rel="noopener">Pedir agora <svg><use href="#i-seta"/></svg></a>
+    <button class="burger-btn" id="abrirMenu" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+
+<!-- CAPA -->
+<section class="hero" id="inicio">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/video/capa.webp">
+    <source src="assets/video/capa.mp4" type="video/mp4">
+  </video>
+  <div class="hero-veu"></div>
+  <div class="wrap hero-in">
+    <p class="script" data-hero>feito na brasa</p>
+    <h1 class="hero-titulo"><span class="linha"><span>Onde o fogo</span></span><span class="linha"><span>encontra o sabor</span></span></h1>
+    <div class="hero-prova" data-hero>
+      <div class="avatares">
+        <img src="assets/img/cliente-ana.webp" alt="" width="40" height="40">
+        <img src="assets/img/cliente-davi.webp" alt="" width="40" height="40">
+        <img src="assets/img/cliente-julia.webp" alt="" width="40" height="40">
+        <span>12k</span>
+      </div>
+      <p>Smash prensado na hora, massa fresca, saladas de verdade e sobremesas que ninguém divide. Mais de 12 mil pedidos por mês saindo da nossa chapa.</p>
+    </div>
+    <a href="#cardapio" class="btn btn-brasa" data-hero>Ver cardápio <svg><use href="#i-seta"/></svg></a>
+  </div>
+
+  <a href="#cardapio" class="hero-card" data-cursor="Pedir">
+    <span class="hero-card-tit">Prove o Smash da Casa <svg><use href="#i-seta"/></svg></span>
+    <span class="hero-card-fotos">
+      <img src="assets/img/smash.webp" alt="Smash duplo com cheddar" class="on">
+      <img src="assets/img/carbonara.webp" alt="Carbonara da casa">
+      <img src="assets/img/brownie.webp" alt="Brownie com sorvete">
+      <img src="assets/img/caesar.webp" alt="Salada caesar">
+    </span>
+  </a>
+</section>
+
+<!-- FAIXA QUE CORRE -->
+<div class="faixa" aria-hidden="true">
+  <div class="faixa-trilho">
+    <div class="faixa-grupo">
+      <span>Peça seu smash</span><svg><use href="#i-burger"/></svg>
+      <span>Massa fresca todo dia</span><svg><use href="#i-burger"/></svg>
+      <span>Saladas de verdade</span><svg><use href="#i-burger"/></svg>
+      <span>Sobremesa da casa</span><svg><use href="#i-burger"/></svg>
+      <span>Chapa a 260 graus</span><svg><use href="#i-burger"/></svg>
+    </div>
+    <div class="faixa-grupo">
+      <span>Peça seu smash</span><svg><use href="#i-burger"/></svg>
+      <span>Massa fresca todo dia</span><svg><use href="#i-burger"/></svg>
+      <span>Saladas de verdade</span><svg><use href="#i-burger"/></svg>
+      <span>Sobremesa da casa</span><svg><use href="#i-burger"/></svg>
+      <span>Chapa a 260 graus</span><svg><use href="#i-burger"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- A CASA -->
+<section class="casa" id="casa">
+  <img src="assets/img/mesa.webp" alt="Mesa com burgers, fritas e bebidas vista de cima" class="casa-foto f1" data-vel="-60" width="700" height="700" loading="lazy">
+  <img src="assets/img/combo.webp" alt="Burger com fritas na cestinha de metal" class="casa-foto f2" data-vel="80" width="700" height="700" loading="lazy">
+  <div class="wrap casa-in">
+    <p class="script">desde 2016</p>
+    <p class="casa-texto" id="casaTexto">A Braseiro nasceu de uma chapa de ferro e de muita vontade de receber bem. Moemos a carne toda manhã, abrimos a massa na bancada e montamos cada prato na frente de quem pediu. Aqui nada fica esperando no balcão.</p>
+    <a href="#chapa" class="btn btn-brasa">Conheça a chapa <svg><use href="#i-seta"/></svg></a>
+  </div>
+</section>
+
+<!-- OS QUERIDINHOS -->
+<section class="especiais">
+  <div class="wrap">
+    <div class="especiais-topo">
+      <span>(Os queridinhos)</span>
+      <span class="script">da casa</span>
+      <span>(2016 a 2026)</span>
+    </div>
+    <div class="especiais-grade">
+      <ul class="especiais-lista" id="especiaisLista">
+        <li class="on" data-i="0"><button type="button"><span class="esp-nome">Smash Duplo Braseiro</span><span class="esp-preco">R$ 38,90</span></button></li>
+        <li data-i="1"><button type="button"><span class="esp-nome">Burger Trufado</span><span class="esp-preco">R$ 46,90</span></button></li>
+        <li data-i="2"><button type="button"><span class="esp-nome">Carbonara da Casa</span><span class="esp-preco">R$ 49,90</span></button></li>
+        <li data-i="3"><button type="button"><span class="esp-nome">Brownie com Sorvete</span><span class="esp-preco">R$ 26,90</span></button></li>
+      </ul>
+      <div class="especiais-pilha" id="especiaisPilha" aria-hidden="true">
+        <img src="assets/img/smash.webp" alt="" loading="lazy">
+        <img src="assets/img/trufado.webp" alt="" loading="lazy">
+        <img src="assets/img/carbonara.webp" alt="" loading="lazy">
+        <img src="assets/img/brownie.webp" alt="" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARDÁPIO -->
+<section class="cardapio escuro" id="cardapio">
+  <div class="wrap">
+    <div class="sec-topo">
+      <div>
+        <p class="rotulo">{Nosso cardápio}</p>
+        <h2 class="titulo" data-split>Descubra o sabor<br>da casa</h2>
+      </div>
+      <a class="btn btn-brasa" href="https://wa.me/5511900000000?text=Ol%C3%A1%2C%20quero%20ver%20o%20card%C3%A1pio%20completo" target="_blank" rel="noopener">Pedir pelo WhatsApp <svg><use href="#i-seta"/></svg></a>
+    </div>
+
+    <div class="abas" role="tablist" aria-label="Categorias do cardápio" id="abas">
+      <button role="tab" aria-selected="true" data-cat="burgers">Burgers</button>
+      <button role="tab" aria-selected="false" data-cat="porcoes">Porções</button>
+      <button role="tab" aria-selected="false" data-cat="massas">Massas</button>
+      <button role="tab" aria-selected="false" data-cat="saladas">Saladas</button>
+      <button role="tab" aria-selected="false" data-cat="sobremesas">Sobremesas</button>
+      <button role="tab" aria-selected="false" data-cat="bebidas">Bebidas</button>
+      <span class="abas-marca" id="abasMarca"></span>
+    </div>
+
+    <div class="pratos" id="pratos" role="tabpanel">
+      <!-- burgers -->
+      <article class="prato" data-cat="burgers"><div class="prato-foto"><img src="assets/img/smash.webp" alt="Smash duplo com cheddar escorrendo" loading="lazy"><span class="prato-tag">Mais pedido</span></div><h3>Smash Duplo Braseiro</h3><p class="prato-desc">Dois blends de 90 g prensados na chapa, cheddar inglês, cebola caramelizada e molho da casa.</p><div class="prato-linha"><strong>R$ 38,90</strong><button class="prato-pedir" data-item="Smash Duplo Braseiro">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,9 <span>(812 avaliações)</span></p></article>
+      <article class="prato" data-cat="burgers"><div class="prato-foto"><img src="assets/img/bacon.webp" alt="Burger com bacon em fatia grossa" loading="lazy"></div><h3>Bacon Defumado</h3><p class="prato-desc">Blend de 160 g, bacon em fatia grossa, queijo prato e maionese de páprica defumada.</p><div class="prato-linha"><strong>R$ 42,90</strong><button class="prato-pedir" data-item="Bacon Defumado">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(530 avaliações)</span></p></article>
+      <article class="prato" data-cat="burgers"><div class="prato-foto"><img src="assets/img/classico.webp" alt="Burger clássico com salada" loading="lazy"></div><h3>Clássico Braseiro</h3><p class="prato-desc">160 g de blend, queijo, alface americana, tomate, picles e cebola roxa no brioche.</p><div class="prato-linha"><strong>R$ 34,90</strong><button class="prato-pedir" data-item="Clássico Braseiro">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(476 avaliações)</span></p></article>
+      <article class="prato largo" data-cat="burgers"><div class="prato-foto"><img src="assets/img/crispy.webp" alt="Sanduíche de frango empanado com coleslaw" loading="lazy"></div><h3>Crispy Chicken</h3><p class="prato-desc">Sobrecoxa empanada no panko, coleslaw cremoso e molho de pimenta da casa.</p><div class="prato-linha"><strong>R$ 36,90</strong><button class="prato-pedir" data-item="Crispy Chicken">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,7 <span>(298 avaliações)</span></p></article>
+      <article class="prato largo" data-cat="burgers"><div class="prato-foto"><img src="assets/img/veggie.webp" alt="Burger vegetariano com abacate" loading="lazy"><span class="prato-tag verde">Vegetariano</span></div><h3>Veggie da Horta</h3><p class="prato-desc">Hambúrguer de grão-de-bico e beterraba, abacate, rúcula e maionese verde.</p><div class="prato-linha"><strong>R$ 33,90</strong><button class="prato-pedir" data-item="Veggie da Horta">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(184 avaliações)</span></p></article>
+      <!-- porções -->
+      <article class="prato" data-cat="porcoes" hidden><div class="prato-foto"><img src="assets/img/fritas.webp" alt="Fritas com parmesão na cesta" loading="lazy"></div><h3>Fritas com Parmesão</h3><p class="prato-desc">Batata rústica, parmesão ralado na hora e salsinha fresca.</p><div class="prato-linha"><strong>R$ 24,90</strong><button class="prato-pedir" data-item="Fritas com Parmesão">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,9 <span>(640 avaliações)</span></p></article>
+      <article class="prato" data-cat="porcoes" hidden><div class="prato-foto"><img src="assets/img/onion.webp" alt="Anéis de cebola empanados" loading="lazy"></div><h3>Onion Rings</h3><p class="prato-desc">Anéis de cebola empanados na cerveja, com barbecue da casa para molhar.</p><div class="prato-linha"><strong>R$ 26,90</strong><button class="prato-pedir" data-item="Onion Rings">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(322 avaliações)</span></p></article>
+      <article class="prato" data-cat="porcoes" hidden><div class="prato-foto"><img src="assets/img/wings.webp" alt="Asinhas de frango glaceadas" loading="lazy"><span class="prato-tag">Picante</span></div><h3>Asinhas Picantes</h3><p class="prato-desc">Asas de frango glaceadas no molho apimentado de mel, com molho ranch.</p><div class="prato-linha"><strong>R$ 34,90</strong><button class="prato-pedir" data-item="Asinhas Picantes">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,7 <span>(266 avaliações)</span></p></article>
+      <article class="prato largo" data-cat="porcoes" hidden><div class="prato-foto"><img src="assets/img/frango-frito.webp" alt="Frango frito crocante sobre tábua" loading="lazy"></div><h3>Frango Crocante</h3><p class="prato-desc">Coxinhas da asa empanadas com tempero de ervas e alho, servidas na tábua.</p><div class="prato-linha"><strong>R$ 32,90</strong><button class="prato-pedir" data-item="Frango Crocante">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(241 avaliações)</span></p></article>
+      <!-- massas -->
+      <article class="prato" data-cat="massas" hidden><div class="prato-foto"><img src="assets/img/carbonara.webp" alt="Spaghetti à carbonara" loading="lazy"></div><h3>Carbonara da Casa</h3><p class="prato-desc">Spaghetti, guanciale, gema, pecorino e pimenta-do-reino moída na hora.</p><div class="prato-linha"><strong>R$ 49,90</strong><button class="prato-pedir" data-item="Carbonara da Casa">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,9 <span>(388 avaliações)</span></p></article>
+      <article class="prato" data-cat="massas" hidden><div class="prato-foto"><img src="assets/img/arrabbiata.webp" alt="Penne ao molho arrabbiata" loading="lazy"><span class="prato-tag">Picante</span></div><h3>Penne Arrabbiata</h3><p class="prato-desc">Molho de tomate italiano, alho, pimenta calabresa e manjericão fresco.</p><div class="prato-linha"><strong>R$ 42,90</strong><button class="prato-pedir" data-item="Penne Arrabbiata">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,7 <span>(205 avaliações)</span></p></article>
+      <article class="prato" data-cat="massas" hidden><div class="prato-foto"><img src="assets/img/lasanha.webp" alt="Lasanha bolonhesa gratinada" loading="lazy"></div><h3>Lasanha Bolonhesa</h3><p class="prato-desc">Massa fresca em camadas, ragu de carne cozido por seis horas e parmesão gratinado.</p><div class="prato-linha"><strong>R$ 52,90</strong><button class="prato-pedir" data-item="Lasanha Bolonhesa">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,9 <span>(274 avaliações)</span></p></article>
+      <article class="prato largo" data-cat="massas" hidden><div class="prato-foto"><img src="assets/img/ragu.webp" alt="Tagliatelle ao ragu" loading="lazy"></div><h3>Tagliatelle ao Ragu</h3><p class="prato-desc">Massa artesanal com ragu de costela desfiada e lascas de parmesão.</p><div class="prato-linha"><strong>R$ 54,90</strong><button class="prato-pedir" data-item="Tagliatelle ao Ragu">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(162 avaliações)</span></p></article>
+      <article class="prato largo" data-cat="massas" hidden><div class="prato-foto"><img src="assets/img/mar.webp" alt="Spaghetti com camarões na frigideira" loading="lazy"></div><h3>Spaghetti ao Mar</h3><p class="prato-desc">Camarões salteados, tomate-cereja, alho e azeite de ervas.</p><div class="prato-linha"><strong>R$ 64,90</strong><button class="prato-pedir" data-item="Spaghetti ao Mar">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(139 avaliações)</span></p></article>
+      <!-- saladas -->
+      <article class="prato" data-cat="saladas" hidden><div class="prato-foto"><img src="assets/img/caesar.webp" alt="Salada caesar com croutons" loading="lazy"></div><h3>Caesar Clássica</h3><p class="prato-desc">Alface romana, croutons da casa, parmesão e molho caesar feito aqui.</p><div class="prato-linha"><strong>R$ 32,90</strong><button class="prato-pedir" data-item="Caesar Clássica">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(210 avaliações)</span></p></article>
+      <article class="prato" data-cat="saladas" hidden><div class="prato-foto"><img src="assets/img/bowl.webp" alt="Bowl com abacate, grão-de-bico e legumes" loading="lazy"><span class="prato-tag verde">Vegano</span></div><h3>Bowl Verde</h3><p class="prato-desc">Quinoa, abacate, grão-de-bico, legumes assados e molho de tahine.</p><div class="prato-linha"><strong>R$ 36,90</strong><button class="prato-pedir" data-item="Bowl Verde">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,9 <span>(188 avaliações)</span></p></article>
+      <article class="prato" data-cat="saladas" hidden><div class="prato-foto"><img src="assets/img/horta.webp" alt="Salada colorida da horta" loading="lazy"></div><h3>Salada da Horta</h3><p class="prato-desc">Folhas, rabanete, cenoura, pepino e vinagrete de mostarda e mel.</p><div class="prato-linha"><strong>R$ 29,90</strong><button class="prato-pedir" data-item="Salada da Horta">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,7 <span>(96 avaliações)</span></p></article>
+      <article class="prato largo" data-cat="saladas" hidden><div class="prato-foto"><img src="assets/img/frango-salada.webp" alt="Salada com frango grelhado" loading="lazy"></div><h3>Frango Grelhado</h3><p class="prato-desc">Mix de folhas, frango na brasa, croutons e molho de iogurte com limão.</p><div class="prato-linha"><strong>R$ 38,90</strong><button class="prato-pedir" data-item="Salada de Frango Grelhado">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(154 avaliações)</span></p></article>
+      <article class="prato largo" data-cat="saladas" hidden><div class="prato-foto"><img src="assets/img/fraldinha.webp" alt="Salada com fraldinha fatiada" loading="lazy"></div><h3>Fraldinha e Folhas</h3><p class="prato-desc">Fraldinha fatiada, tomate-cereja, rúcula e redução de balsâmico.</p><div class="prato-linha"><strong>R$ 46,90</strong><button class="prato-pedir" data-item="Fraldinha e Folhas">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(117 avaliações)</span></p></article>
+      <!-- sobremesas -->
+      <article class="prato" data-cat="sobremesas" hidden><div class="prato-foto"><img src="assets/img/brownie.webp" alt="Brownie com bolas de sorvete e calda" loading="lazy"><span class="prato-tag">Mais pedido</span></div><h3>Brownie com Sorvete</h3><p class="prato-desc">Brownie quente, sorvete de creme e calda de chocolate meio amargo.</p><div class="prato-linha"><strong>R$ 26,90</strong><button class="prato-pedir" data-item="Brownie com Sorvete">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,9 <span>(502 avaliações)</span></p></article>
+      <article class="prato" data-cat="sobremesas" hidden><div class="prato-foto"><img src="assets/img/cheesecake.webp" alt="Fatia de cheesecake de mirtilo" loading="lazy"></div><h3>Cheesecake de Mirtilo</h3><p class="prato-desc">Base crocante, creme de cream cheese e geleia de mirtilo da casa.</p><div class="prato-linha"><strong>R$ 24,90</strong><button class="prato-pedir" data-item="Cheesecake de Mirtilo">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(231 avaliações)</span></p></article>
+      <article class="prato" data-cat="sobremesas" hidden><div class="prato-foto"><img src="assets/img/tiramisu.webp" alt="Tiramisu com cacau" loading="lazy"></div><h3>Tiramisu</h3><p class="prato-desc">Biscoito embebido em café, creme de mascarpone e cacau em pó.</p><div class="prato-linha"><strong>R$ 27,90</strong><button class="prato-pedir" data-item="Tiramisu">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(176 avaliações)</span></p></article>
+      <article class="prato largo" data-cat="sobremesas" hidden><div class="prato-foto"><img src="assets/img/taca.webp" alt="Taça de sorvete com mousse e biscoito" loading="lazy"></div><h3>Taça Braseiro</h3><p class="prato-desc">Sorvete, mousse de chocolate, biscoito triturado e chantilly.</p><div class="prato-linha"><strong>R$ 25,90</strong><button class="prato-pedir" data-item="Taça Braseiro">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,7 <span>(143 avaliações)</span></p></article>
+      <article class="prato largo" data-cat="sobremesas" hidden><div class="prato-foto"><img src="assets/img/bolo.webp" alt="Fatias de bolo de chocolate" loading="lazy"></div><h3>Bolo de Chocolate</h3><p class="prato-desc">Três camadas de massa úmida e ganache de chocolate 70%.</p><div class="prato-linha"><strong>R$ 22,90</strong><button class="prato-pedir" data-item="Bolo de Chocolate">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(128 avaliações)</span></p></article>
+      <!-- bebidas -->
+      <article class="prato" data-cat="bebidas" hidden><div class="prato-foto"><img src="assets/img/shake-oreo.webp" alt="Milkshake de cookies com chantilly" loading="lazy"></div><h3>Milkshake de Cookies</h3><p class="prato-desc">Sorvete de baunilha batido com cookies, chantilly e calda de chocolate.</p><div class="prato-linha"><strong>R$ 24,90</strong><button class="prato-pedir" data-item="Milkshake de Cookies">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,9 <span>(355 avaliações)</span></p></article>
+      <article class="prato" data-cat="bebidas" hidden><div class="prato-foto"><img src="assets/img/shake-morango.webp" alt="Milkshake de morango" loading="lazy"></div><h3>Milkshake de Morango</h3><p class="prato-desc">Morango fresco, sorvete de creme e leite gelado.</p><div class="prato-linha"><strong>R$ 22,90</strong><button class="prato-pedir" data-item="Milkshake de Morango">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(201 avaliações)</span></p></article>
+      <article class="prato" data-cat="bebidas" hidden><div class="prato-foto"><img src="assets/img/limonada.webp" alt="Limonada com hortelã" loading="lazy"><span class="prato-tag verde">Sem álcool</span></div><h3>Limonada de Hortelã</h3><p class="prato-desc">Limão tahiti espremido na hora, hortelã e água com gás.</p><div class="prato-linha"><strong>R$ 12,90</strong><button class="prato-pedir" data-item="Limonada de Hortelã">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(167 avaliações)</span></p></article>
+      <article class="prato largo" data-cat="bebidas" hidden><div class="prato-foto"><img src="assets/img/chopp.webp" alt="Caneca de chopp gelado" loading="lazy"></div><h3>Chopp da Casa</h3><p class="prato-desc">Pilsen artesanal de Pinheiros, servido em caneca de 400 ml.</p><div class="prato-linha"><strong>R$ 16,90</strong><button class="prato-pedir" data-item="Chopp da Casa">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,8 <span>(244 avaliações)</span></p></article>
+      <article class="prato largo" data-cat="bebidas" hidden><div class="prato-foto"><img src="assets/img/drink.webp" alt="Drink com alecrim defumado" loading="lazy"></div><h3>Drink da Brasa</h3><p class="prato-desc">Bourbon, xarope de laranja queimada e alecrim defumado na hora.</p><div class="prato-linha"><strong>R$ 34,90</strong><button class="prato-pedir" data-item="Drink da Brasa">Pedir <svg><use href="#i-seta"/></svg></button></div><p class="nota"><span class="estrelas"></span>4,9 <span>(98 avaliações)</span></p></article>
+    </div>
+  </div>
+</section>
+
+<!-- VÍDEO DA CHAPA -->
+<section class="chapa" id="chapa">
+  <div class="chapa-moldura" id="chapaMoldura">
+    <video class="chapa-video" muted loop playsinline preload="none" poster="assets/video/chapa.webp" data-auto>
+      <source src="assets/video/chapa.mp4" type="video/mp4">
+    </video>
+    <div class="chapa-veu"></div>
+    <div class="chapa-txt">
+      <p class="script">direto da chapa</p>
+      <p class="chapa-grande"><span class="contador" data-ate="260">0</span> graus</p>
+      <p>É a temperatura da nossa chapa de ferro. Prensamos a bola de carne e ela sela em segundos, com a casquinha crocante por fora e o suco preso por dentro.</p>
+    </div>
+  </div>
+  <svg class="rasgo" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 52l28-9 22 14 31-21 24 17 19-6 30 11 26-22 21 10 34-13 18 19 29-8 23 12 26-24 30 18 17-5 33 14 22-19 27 9 25-15 21 20 30-7 19 10 35-22 24 13 28-6 20 15 31-17 22 8 27-14 29 21 18-9 33 6 21-20 26 12 30-8 23 16 25-23 32 15 19-4 28 10 22-18 30 7 24 14 27-21 20 9 34-12 23 17 26-5 29-14 21 18 33-9 25 11 18-16 31 8 26 13 24-19 22 6 30 12 V90 H0z"/></svg>
+</section>
+
+<!-- DA NOSSA COZINHA -->
+<section class="cozinha creme">
+  <div class="wrap">
+    <p class="rotulo centro">{Da nossa cozinha}</p>
+    <h2 class="titulo centro" data-split>Do smash à sobremesa,<br>tudo feito aqui.</h2>
+    <div class="cozinha-cards">
+      <a href="#cardapio" class="coz-card" data-ir="burgers">
+        <h3>Burgers</h3><p class="coz-qtd">5 opções</p>
+        <img src="assets/img/categoria-burger.webp" alt="Burger com fritas e refrigerante" loading="lazy">
+        <p>Blend próprio moído toda manhã e pão brioche assado na casa.</p>
+        <span class="coz-link">Ver no cardápio</span>
+      </a>
+      <a href="#cardapio" class="coz-card" data-ir="massas">
+        <h3>Massas</h3><p class="coz-qtd">5 opções</p>
+        <img src="assets/img/arrabbiata.webp" alt="Penne ao molho de tomate" loading="lazy">
+        <p>Massa aberta na bancada e molhos de cozimento lento.</p>
+        <span class="coz-link">Ver no cardápio</span>
+      </a>
+      <a href="#cardapio" class="coz-card" data-ir="saladas">
+        <h3>Saladas</h3><p class="coz-qtd">5 opções</p>
+        <img src="assets/img/bowl.webp" alt="Bowl colorido de salada" loading="lazy">
+        <p>Folhas da horta parceira em Ibiúna, colhidas no dia.</p>
+        <span class="coz-link">Ver no cardápio</span>
+      </a>
+      <a href="#cardapio" class="coz-card" data-ir="sobremesas">
+        <h3>Sobremesas</h3><p class="coz-qtd">5 opções</p>
+        <img src="assets/img/taca.webp" alt="Taça de sorvete com chocolate" loading="lazy">
+        <p>Doces feitos aqui para fechar a noite do jeito certo.</p>
+        <span class="coz-link">Ver no cardápio</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ASSINATURA -->
+<section class="assinatura escuro" id="assinatura">
+  <div class="wrap assin-topo">
+    <p class="rotulo">{ Assinatura }</p>
+    <div class="assin-chips">
+      <span>Smash Duplo</span><span>Burger Trufado</span><span>Costela 12 horas</span><span>Brownie Quente</span>
+    </div>
+  </div>
+  <div class="assin-palco">
+    <h2 class="assin-titulo" id="assinTitulo"><span class="on">Descubra nossas<br>criações</span><span>A escolha<br>do chef</span><span>O especial<br>da casa</span><span>Direto<br>da brasa</span></h2>
+    <div class="assin-fotos">
+      <img src="assets/img/derretido.webp" alt="Burger com queijo derretendo" class="a1" data-vel="-120" loading="lazy">
+      <img src="assets/img/costelinha.webp" alt="Costela na brasa com fritas" class="a2" data-vel="-220" loading="lazy">
+      <img src="assets/img/cesta.webp" alt="Burger e fritas em fundo escuro" class="a3" data-vel="-60" loading="lazy">
+      <img src="assets/img/espetos.webp" alt="Espetos e carnes grelhadas" class="a4" data-vel="-180" loading="lazy">
+      <img src="assets/img/trufado.webp" alt="Burger trufado com cogumelos" class="a5" data-vel="-140" loading="lazy">
+      <img src="assets/img/fritas-escuro.webp" alt="Fritas em cestinha de metal" class="a6" data-vel="-240" loading="lazy">
+      <img src="assets/img/escuro.webp" alt="Burger com bacon e salada" class="a7" data-vel="-90" loading="lazy">
+      <img src="assets/img/costela.webp" alt="Burger de costela com molho" class="a8" data-vel="-200" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- BASTIDORES -->
+<section class="bastidores" id="bastidores">
+  <div class="wrap">
+    <p class="rotulo centro">{Bastidores}</p>
+    <h2 class="titulo centro" data-split>Um olhar na<br>nossa cozinha</h2>
+    <p class="sub centro">Os nossos vídeos mostram mais que comida: mostram a chapa chiando, o queijo escorrendo e a equipe montando cada pedido na hora.</p>
+  </div>
+  <div class="reels" id="reels" tabindex="0" aria-label="Vídeos dos bastidores, arraste para o lado">
+    <button class="reel" data-src="assets/video/reel-queijo.mp4"><span class="reel-midia"><video muted loop playsinline preload="none" poster="assets/video/reel-queijo.webp"><source src="assets/video/reel-queijo.mp4" type="video/mp4"></video><span class="reel-play"><svg><use href="#i-play"/></svg></span></span><span class="reel-tit">Cheddar cremoso direto na chapa</span><span class="estrelas"></span><span class="reel-num"><svg><use href="#i-coracao"/></svg>1,3 mil <svg><use href="#i-balao"/></svg>2,1 mil comentários</span></button>
+    <button class="reel" data-src="assets/video/reel-chama.mp4"><span class="reel-midia"><video muted loop playsinline preload="none" poster="assets/video/reel-chama.webp"><source src="assets/video/reel-chama.mp4" type="video/mp4"></video><span class="reel-play"><svg><use href="#i-play"/></svg></span></span><span class="reel-tit">Fogo alto e carne selada na grelha</span><span class="estrelas"></span><span class="reel-num"><svg><use href="#i-coracao"/></svg>2 mil <svg><use href="#i-balao"/></svg>3 mil comentários</span></button>
+    <button class="reel" data-src="assets/video/reel-montagem.mp4"><span class="reel-midia"><video muted loop playsinline preload="none" poster="assets/video/reel-montagem.webp"><source src="assets/video/reel-montagem.mp4" type="video/mp4"></video><span class="reel-play"><svg><use href="#i-play"/></svg></span></span><span class="reel-tit">O segredo do pão tostado na manteiga</span><span class="estrelas"></span><span class="reel-num"><svg><use href="#i-coracao"/></svg>5 mil <svg><use href="#i-balao"/></svg>10 mil comentários</span></button>
+    <button class="reel" data-src="assets/video/reel-smash.mp4"><span class="reel-midia"><video muted loop playsinline preload="none" poster="assets/video/reel-smash.webp"><source src="assets/video/reel-smash.mp4" type="video/mp4"></video><span class="reel-play"><svg><use href="#i-play"/></svg></span></span><span class="reel-tit">Smash prensado na hora, sem atalho</span><span class="estrelas"></span><span class="reel-num"><svg><use href="#i-coracao"/></svg>3,6 mil <svg><use href="#i-balao"/></svg>5 mil comentários</span></button>
+    <button class="reel" data-src="assets/video/reel-chef.mp4"><span class="reel-midia"><video muted loop playsinline preload="none" poster="assets/video/reel-chef.webp"><source src="assets/video/reel-chef.mp4" type="video/mp4"></video><span class="reel-play"><svg><use href="#i-play"/></svg></span></span><span class="reel-tit">Montagem caprichada, camada por camada</span><span class="estrelas"></span><span class="reel-num"><svg><use href="#i-coracao"/></svg>4 mil <svg><use href="#i-balao"/></svg>10 mil comentários</span></button>
+    <button class="reel" data-src="assets/video/reel-cheddar.mp4"><span class="reel-midia"><video muted loop playsinline preload="none" poster="assets/video/reel-cheddar.webp"><source src="assets/video/reel-cheddar.mp4" type="video/mp4"></video><span class="reel-play"><svg><use href="#i-play"/></svg></span></span><span class="reel-tit">Queijo derretendo em cima da carne</span><span class="estrelas"></span><span class="reel-num"><svg><use href="#i-coracao"/></svg>7 mil <svg><use href="#i-balao"/></svg>18 mil comentários</span></button>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="contato" id="contato">
+  <div class="wrap">
+    <div class="contato-quadro">
+      <img src="assets/img/contato.webp" alt="Burger com bacon e salada em fundo escuro" class="contato-bg" loading="lazy">
+      <div class="contato-painel">
+        <p class="rotulo">{Fale com a gente}</p>
+        <h2 class="titulo">Sabor em cada<br>mordida</h2>
+        <p class="contato-sub">Carne moída no dia, folhas da horta parceira e massa aberta na bancada.</p>
+        <div class="contato-caixas">
+          <div class="caixa">
+            <h3>Onde estamos</h3>
+            <a href="#mapa">Rua Aspicuelta, 400, Vila Madalena</a>
+            <a href="tel:+5511900000000">(11) 90000-0000</a>
+            <a href="mailto:ola@braseiro.com.br">ola@braseiro.com.br</a>
+          </div>
+          <div class="caixa">
+            <h3>Horários</h3>
+            <ul class="horarios" id="horarios">
+              <li data-dias="1"><span>Segunda</span><span>Fechado</span></li>
+              <li data-dias="2,3,4"><span>Terça a quinta</span><span>18h às 23h</span></li>
+              <li data-dias="5,6"><span>Sexta e sábado</span><span>12h à 0h</span></li>
+              <li data-dias="0"><span>Domingo</span><span>12h às 22h</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="depo creme">
+  <div class="wrap">
+    <div class="sec-topo">
+      <div>
+        <p class="rotulo">{Quem já provou}</p>
+        <h2 class="titulo" data-split>O que falam<br>da casa</h2>
+      </div>
+      <a class="btn btn-brasa" href="https://wa.me/5511900000000?text=Ol%C3%A1%2C%20quero%20reservar%20uma%20mesa" target="_blank" rel="noopener">Reservar mesa <svg><use href="#i-seta"/></svg></a>
+    </div>
+    <div class="depo-colunas">
+      <div class="depo-col"><div class="depo-trilho">
+        <figure class="depo-card"><span class="aspas">“</span><span class="estrelas"></span><blockquote>O smash duplo é o melhor que já comi em São Paulo. A casquinha da carne faz toda a diferença.</blockquote><figcaption><img src="assets/img/cliente-ana.webp" alt="" width="44" height="44" loading="lazy"><span><strong>Ana Ribeiro</strong>Arquiteta</span></figcaption></figure>
+        <figure class="depo-card"><span class="aspas">“</span><span class="estrelas"></span><blockquote>Fui pelo burger e voltei pela carbonara. Massa no ponto e molho cremoso sem creme de leite.</blockquote><figcaption><span class="mono">MT</span><span><strong>Marcos Tavares</strong>Professor</span></figcaption></figure>
+      </div></div>
+      <div class="depo-col"><div class="depo-trilho">
+        <figure class="depo-card"><span class="aspas">“</span><span class="estrelas"></span><blockquote>Equipe atenciosa, ambiente animado e o brownie quente com sorvete fecha a noite com chave de ouro.</blockquote><figcaption><img src="assets/img/cliente-davi.webp" alt="" width="44" height="44" loading="lazy"><span><strong>Davi Nakamura</strong>Fotógrafo de gastronomia</span></figcaption></figure>
+        <figure class="depo-card"><span class="aspas">“</span><span class="estrelas"></span><blockquote>Pedi pelo WhatsApp e chegou quentinho em 30 minutos. As fritas com parmesão chegaram crocantes.</blockquote><figcaption><span class="mono">LC</span><span><strong>Lívia Campos</strong>Designer</span></figcaption></figure>
+      </div></div>
+      <div class="depo-col"><div class="depo-trilho">
+        <figure class="depo-card"><span class="aspas">“</span><span class="estrelas"></span><blockquote>Minha opção preferida é o bowl verde. Dá para comer leve numa hamburgueria e sair feliz.</blockquote><figcaption><img src="assets/img/cliente-julia.webp" alt="" width="44" height="44" loading="lazy"><span><strong>Júlia Moreira</strong>Nutricionista</span></figcaption></figure>
+        <figure class="depo-card"><span class="aspas">“</span><span class="estrelas"></span><blockquote>Comemoramos o aniversário do meu filho aqui. Reservaram a mesa grande e trouxeram a vela no milkshake.</blockquote><figcaption><span class="mono">RF</span><span><strong>Rafael Fontes</strong>Engenheiro</span></figcaption></figure>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPE -->
+<section class="equipe escuro">
+  <div class="wrap">
+    <p class="rotulo centro">{Nossa equipe}</p>
+    <h2 class="titulo centro" data-split>Quem faz a Braseiro</h2>
+    <div class="equipe-grade">
+      <figure class="chef"><img src="assets/img/chef-kenji.webp" alt="Kenji Tanaka, de braços cruzados com avental" loading="lazy"><figcaption><strong>Kenji Tanaka</strong><span>(Chef executivo)</span></figcaption></figure>
+      <figure class="chef"><img src="assets/img/chef-renato.webp" alt="Renato Silva sorrindo de dólmã e chapéu" loading="lazy"><figcaption><strong>Renato Silva</strong><span>(Chef de cozinha)</span></figcaption></figure>
+      <figure class="chef"><img src="assets/img/chef-lucas.webp" alt="Lucas Prado de avental vermelho" loading="lazy"><figcaption><strong>Lucas Prado</strong><span>(Chapeiro chefe)</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ONDE ESTAMOS -->
+<section class="local">
+  <div class="wrap">
+    <p class="rotulo">{Onde estamos}</p>
+    <h2 class="titulo escuro-txt" data-split>Celebre cada momento<br>com a Braseiro</h2>
+    <div class="local-cards">
+      <article class="local-card">
+        <img src="assets/img/salao.webp" alt="Salão do restaurante com mesas de madeira" loading="lazy">
+        <div>
+          <h3>Aniversários e encontros no nosso salão</h3>
+          <p>Mesa para até 24 pessoas, com cardápio fechado se você quiser.</p>
+          <a class="btn btn-brasa" href="https://wa.me/5511900000000?text=Ol%C3%A1%2C%20quero%20reservar%20para%20um%20evento" target="_blank" rel="noopener">Reservar <svg><use href="#i-seta"/></svg></a>
+        </div>
+      </article>
+      <article class="local-card">
+        <img src="assets/img/balcao.webp" alt="Balcão do restaurante com cozinha ao fundo" loading="lazy">
+        <div>
+          <h3>Retire no balcão em 15 minutos</h3>
+          <p>Peça pelo WhatsApp e pegue quentinho, sem esperar na fila.</p>
+          <a class="btn btn-brasa" href="https://wa.me/5511900000000?text=Ol%C3%A1%2C%20quero%20pedir%20para%20retirar" target="_blank" rel="noopener">Pedir para retirar <svg><use href="#i-seta"/></svg></a>
+        </div>
+      </article>
+    </div>
+
+    <div class="map-box" id="mapa">
+      <div class="map-img">
+        <img src="assets/img/mapa.webp" alt="Mapa da Vila Madalena com a localização da Braseiro" width="1240" height="760" loading="lazy">
+        <span class="map-pino" aria-hidden="true"><svg><use href="#i-pino"/></svg><svg class="map-pino-logo"><use href="#i-logo"/></svg></span>
+      </div>
+      <div class="map-card">
+        <h3>Braseiro Vila Madalena</h3>
+        <p>Rua Aspicuelta, 400<br>Vila Madalena, São Paulo, SP</p>
+        <a class="btn btn-brasa" href="https://www.openstreetmap.org/directions?to=-23.55640%2C-46.69080#map=17/-23.55640/-46.69080" target="_blank" rel="noopener">Como chegar <svg><use href="#i-seta"/></svg></a>
+      </div>
+      <a class="map-credito" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="rodape">
+  <div class="wrap">
+    <div class="rod-galeria">
+      <img src="assets/img/fritas.webp" alt="" loading="lazy">
+      <img src="assets/img/rustico.webp" alt="" loading="lazy">
+      <img src="assets/img/shake-oreo.webp" alt="" loading="lazy">
+      <img src="assets/img/lasanha.webp" alt="" loading="lazy">
+      <img src="assets/img/avocado.webp" alt="" loading="lazy">
+    </div>
+    <div class="rod-meio">
+      <h2>Receba cupons, novidades e o burger do mês</h2>
+      <form class="news" id="news" novalidate>
+        <label for="newsEmail">Newsletter</label>
+        <div class="news-campo">
+          <input type="email" id="newsEmail" name="email" placeholder="Seu melhor e-mail" autocomplete="email" required>
+          <button type="submit" aria-label="Cadastrar e-mail"><svg><use href="#i-seta"/></svg></button>
+        </div>
+        <p class="news-msg" id="newsMsg" role="status"></p>
+      </form>
+    </div>
+    <div class="rod-baixo">
+      <p class="rod-marca" id="rodMarca" aria-label="Braseiro">Braseiro</p>
+      <div class="rod-cols">
+        <div><h3>Navegue</h3><a href="#inicio">Início</a><a href="#casa">A casa</a><a href="#cardapio">Cardápio</a><a href="#bastidores">Bastidores</a><a href="#contato">Contato</a></div>
+        <div><h3>Atendimento</h3><a href="https://wa.me/5511900000000" target="_blank" rel="noopener">WhatsApp</a><a href="tel:+5511900000000">(11) 90000-0000</a><a href="mailto:ola@braseiro.com.br">ola@braseiro.com.br</a><a href="#mapa">Como chegar</a></div>
+        <div><h3>Siga a gente</h3><a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a><a href="https://tiktok.com/" target="_blank" rel="noopener">TikTok</a><a href="https://facebook.com/" target="_blank" rel="noopener">Facebook</a></div>
+      </div>
+    </div>
+    <p class="rod-copy">© 2026 Braseiro Burger &amp; Cozinha. Modelo de demonstração com fotos do Unsplash e vídeos do Pexels.</p>
+  </div>
+</footer>
+
+<a class="pedir-fixo" href="https://wa.me/5511900000000?text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido%20na%20Braseiro" target="_blank" rel="noopener">Pedir agora <svg><use href="#i-seta"/></svg></a>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Vídeo dos bastidores" hidden>
+  <button class="lb-fechar" id="lbFechar" aria-label="Fechar vídeo"><span></span><span></span></button>
+  <video id="lbVideo" controls playsinline></video>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

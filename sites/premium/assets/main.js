@@ -238,44 +238,104 @@
       var modal = $('.bmodal', ca), mbody = modal && $('.mbody', modal), lastFocus = null, info = { cls: '', title: '', body: '' };
       var TOOLS = '<span class="tools"><button type="button" class="tool" data-expand aria-label="Expandir informações da fatura" title="Expandir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 9.5v-5h5M19.5 9.5v-5h-5M4.5 14.5v5h5M19.5 14.5v5h-5"/></svg></button>' +
         '<button type="button" class="tool" data-collapse aria-label="Recolher informações da fatura" title="Recolher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button></span>';
-      var say = function (cls, title, body) { info = { cls: cls, title: title, body: body };
+      var say = function (cls, title, body, el, mode) { info = { cls: cls, title: title, body: body, el: el, mode: mode };
         out.className = 'bout' + (cls ? ' ' + cls : ''); out.innerHTML = '<div class="bt"><b>' + title + '</b>' + TOOLS + '</div>' + body; out.hidden = false; };
       var collapse = function () { if (out.hidden) return; out.classList.add('closing'); setTimeout(function () { out.hidden = true; out.classList.remove('closing'); }, reduce ? 0 : 260); };
-      var openModal = function (cls, html) { if (!modal) return; lastFocus = document.activeElement;
-        modal.className = 'bmodal' + (cls ? ' ' + cls : ''); mbody.innerHTML = html;
+      var openModal = function (cls, html) { if (!modal) return; var already = !modal.hidden; if (!already) lastFocus = document.activeElement;
+        modal.className = 'bmodal' + (cls ? ' ' + cls : '') + (already ? ' on' : ''); mbody.innerHTML = html; modal.scrollTop = 0;
+        if (already) { $('.mclose', modal).focus(); return; }
         modal.hidden = false; document.documentElement.classList.add('modal-open'); requestAnimationFrame(function () { modal.classList.add('on'); $('.mclose', modal).focus(); }); };
       var closeModal = function () { if (!modal || modal.hidden) return; modal.classList.remove('on'); document.documentElement.classList.remove('modal-open');
         setTimeout(function () { modal.hidden = true; }, reduce ? 0 : 300); if (lastFocus) lastFocus.focus(); };
       var pix = function (d) { return '00020126VYRA.PIX.' + bl.dataset.contract + '.' + d.label.slice(-4) + d.mm + '.DEMO5204000053039865406' + d.value.replace(',', '') + '5802BR'; };
-      var paidMsg = function (d) { say('ok-paid', d.label + ' já está paga.', '<span>Pagamento confirmado em ' + d.paid + '. Nada a fazer por aqui.</span>'); };
-      var slip = function (title, d, rows) {
+      var paidMsg = function (el) { var d = el.dataset; say('ok-paid', d.label + ' já está paga.', '<span>Pagamento confirmado em ' + d.paid + '. Nada a fazer por aqui.</span>', el, 'via'); };
+      var slip = function (title, el, mode, rows) { var d = el.dataset;
         say('', title, rows.map(function (r) { return '<div class="ln"><span>' + r[0] + '</span><strong>' + r[1] + '</strong></div>'; }).join('') +
-          '<span>Pix copia e cola (demonstração):</span><code>' + pix(d) + '</code><button type="button" class="copy">Copiar código Pix</button>');
+          '<span>Pix copia e cola (demonstração):</span><code>' + pix(d) + '</code><button type="button" class="copy">Copiar código Pix</button>', el, mode);
       };
-      $('[data-bill="gerar"]', bl).addEventListener('click', function () { var d = cur().dataset;
-        if (d.st === 'paga') return paidMsg(d);
-        slip('Fatura de ' + d.label + ' gerada', d, d.st === 'atraso'
+      $('[data-bill="gerar"]', bl).addEventListener('click', function () { var el = cur(), d = el.dataset;
+        if (d.st === 'paga') return paidMsg(el);
+        slip('Fatura de ' + d.label + ' gerada', el, 'gerar', d.st === 'atraso'
           ? [['Venceu em', d.due], ['Atraso', d.late + ' dias'], ['Valor com multa e juros', 'R$ ' + d.value]]
           : [['Vencimento', d.due], ['Valor', 'R$ ' + d.value]]); });
-      $('[data-bill="antecipar"]', bl).addEventListener('click', function () { var d = cur().dataset;
-        if (d.st === 'paga') return paidMsg(d);
+      $('[data-bill="antecipar"]', bl).addEventListener('click', function () { var el = cur(), d = el.dataset;
+        if (d.st === 'paga') return paidMsg(el);
         if (d.st === 'atraso') return say('warn', d.label + ' já venceu em ' + d.due + '.', '<span>Não dá para antecipar uma fatura vencida. Use Gerar fatura para pagar com multa e juros.</span>');
-        slip('Antecipação de ' + d.label, d, [['Vencimento original', d.due], ['Valor', 'R$ ' + d.value], ['Baixa na fatura', 'até 1 dia útil']]); });
+        slip('Antecipação de ' + d.label, el, 'antecipar', [['Vencimento original', d.due], ['Valor', 'R$ ' + d.value], ['Baixa na fatura', 'até 1 dia útil']]); });
+
+      /* Modal da fatura: dados do assinante, valor, Pix e boleto com código de barras (tudo fictício) */
+      var MES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+      var tpl = function (c) { var t = $('template.' + c, bl); return t ? t.innerHTML : ''; };
+      var num = function (s) { return parseFloat(String(s).replace(/\./g, '').replace(',', '.')); };
+      var money = function (n) { return 'R$ ' + n.toFixed(2).replace('.', ','); };
+      var pad = function (s, n) { s = String(s); while (s.length < n) s = '0' + s; return s.slice(-n); };
+      var boleto = function (d) {
+        var cents = pad(d.value.replace(/\D/g, ''), 10), free = pad(bl.dataset.contract.replace(/\D/g, '') + d.label.slice(-4) + d.mm + '7041', 25);
+        var bar = '0009' + '1' + '1000' + cents + free;
+        var f1 = bar.slice(0, 4) + free.slice(0, 5) + '3', f2 = free.slice(5, 15) + '8', f3 = free.slice(15, 25) + '6';
+        return { bar: bar, line: f1.slice(0, 5) + '.' + f1.slice(5) + ' ' + f2.slice(0, 5) + '.' + f2.slice(5) + ' ' + f3.slice(0, 5) + '.' + f3.slice(5) + ' 1 1000' + cents };
+      };
+      var I25 = ['nnwwn', 'wnnnw', 'nwnnw', 'wwnnn', 'nnwnw', 'wnwnn', 'nwwnn', 'nnnww', 'wnnwn', 'nwnwn'];
+      var barSvg = function (code) { var seq = 'nnnn', x = 0, r = '';
+        for (var i = 0; i < code.length; i += 2) { var a = I25[+code[i]], b = I25[+code[i + 1]]; for (var k = 0; k < 5; k++) seq += a[k] + b[k]; }
+        seq += 'wnn';
+        for (var j = 0; j < seq.length; j++) { var w = seq[j] === 'w' ? 3 : 1; if (j % 2 === 0) r += '<rect x="' + x + '" width="' + w + '" height="50"/>'; x += w; }
+        return '<svg class="barcode" viewBox="0 0 ' + x + ' 50" preserveAspectRatio="none" role="img" aria-label="Código de barras do boleto">' + r + '</svg>'; };
+      var pixFull = function (d) { var v = d.value.replace(',', '.');
+        return '00020126580014BR.GOV.BCB.PIX0136demo-vyra-' + bl.dataset.contract.toLowerCase() + '-' + d.label.slice(-4) + d.mm + '52040000530398654' + pad(v.length, 2) + v + '5802BR5910VYRA FIBRA6008MARIALVA62070503***6304D3E1'; };
+      var openInvoice = function (el, mode) {
+        var d = el.dataset, month = MES[+d.mm - 1] + ' de ' + d.label.slice(-4), paid = d.st === 'paga', base = num(bl.dataset.base), val = num(d.value);
+        var title = paid ? '2ª via de fatura' : mode === 'antecipar' ? 'Antecipação de fatura' : 'Fatura gerada';
+        var state = paid ? 'Paga em ' + d.paid : d.st === 'atraso' ? 'Em atraso, ' + d.late + ' dias' : mode === 'antecipar' ? 'A vencer, dentro do prazo' : 'Dentro do prazo';
+        var rows = [['Titular', bl.dataset.holder], ['Código do assinante', bl.dataset.contract], ['Plano', bl.dataset.plan], ['Vencimento', d.due]];
+        if (d.st === 'atraso') { var multa = base * 0.02; rows.push(['Valor original', money(base)], ['Multa de 2%', money(multa)], ['Juros de ' + d.late + ' dias', money(val - base - multa)]); }
+        var note = paid ? 'Esta fatura foi paga em ' + d.paid + '. Guarde esta 2ª via como comprovante.'
+          : d.st === 'atraso' ? 'A fatura de ' + month.toLowerCase() + ' venceu em ' + d.due + '. O valor já inclui multa e juros. A baixa acontece em até 1 dia útil após o pagamento.'
+          : mode === 'antecipar' ? 'Pagando agora, a fatura de ' + month.toLowerCase() + ' fica quitada antes do vencimento. O valor não muda.'
+          : 'Pague pelo Pix ou pelo boleto até ' + d.due + ', sem acréscimo.';
+        var bo = boleto(d), pay = paid
+          ? '<div class="ibox ipaid"><h5>Pagamento confirmado</h5><p>Recebemos ' + money(val) + ' em ' + d.paid + '. Não há nada a pagar nesta fatura.</p></div>'
+          : '<div class="ibox"><h5>Pix copia e cola</h5><code>' + pixFull(d) + '</code><button type="button" class="btn btn-primary sm" data-copy="Copiar código Pix">Copiar código Pix</button></div>' +
+            '<div class="ibox"><h5>Boleto</h5>' + barSvg(bo.bar) + '<code class="iline">' + bo.line + '</code><button type="button" class="btn btn-dark sm" data-copy="Copiar linha digitável">Copiar linha digitável</button></div>';
+        openModal('invoice', '<div class="itop"><span class="kicker">Área do cliente</span><h3>' + title + '</h3></div><div class="ibody">' +
+          '<button type="button" class="iback" data-back>Voltar para as faturas' + tpl('bico-arrow') + '</button>' +
+          '<article class="inv"><header class="ihead"><span class="ibrand">' + tpl('blogo') + '<span><b>Vyra Fibra</b><small>CNPJ ' + bl.dataset.cnpj + '</small></span></span>' +
+          '<span class="istate is-' + d.st + '">' + $('.bi', el).innerHTML + state + '</span></header>' +
+          '<div class="igrid"><div class="ileft"><span class="kicker">Fatura de internet</span><h4 class="imonth">' + month + '</h4><dl>' +
+          rows.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>'; }).join('') + '</dl>' +
+          '<span class="ilbl">' + (paid ? 'Valor pago' : 'Valor a pagar') + '</span><div class="ival">' + money(val) + '</div><p class="inote">' + note + '</p></div>' +
+          '<div class="iright">' + pay + '</div></div>' +
+          '<footer class="ifoot"><button type="button" class="btn btn-line sm" data-print>Imprimir ou salvar em PDF</button>' + $('.btalk', bl).outerHTML + '</footer></article>' +
+          '<p class="idemo">Fatura demonstrativa. Os códigos de pagamento não são válidos.</p></div>');
+      };
       var onCopy = function (e, root) { var b = e.target.closest('.copy'); if (!b) return; var code = $('code', root).textContent;
         var done = function () { b.textContent = 'Código copiado'; setTimeout(function () { b.textContent = 'Copiar código Pix'; }, 2000); };
         if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done(); };
       out.addEventListener('click', function (e) {
         if (e.target.closest('[data-collapse]')) return collapse();
-        if (e.target.closest('[data-expand]')) return openModal(info.cls, '<h3>' + info.title + '</h3>' + info.body);
+        if (e.target.closest('[data-expand]')) return info.mode ? openInvoice(info.el, info.mode) : openModal(info.cls, '<h3>' + info.title + '</h3>' + info.body);
         onCopy(e, out); });
-      /* Lista completa do ano no modal, só para visualizar (sem rolagem) */
-      var allBtn = $('[data-bills-expand]', bl);
-      if (allBtn) allBtn.addEventListener('click', function () {
-        var rows = $('.bills', bl).innerHTML.replace(/<button/g, '<div').replace(/<\/button>/g, '</div>');
+      /* Lista completa do ano no modal (sem rolagem), com a ação de cada fatura */
+      var billEls = $$('.bill', bl);
+      var openList = function () {
+        var firstOpen = billEls.filter(function (b) { return b.dataset.st === 'prazo'; })[0];
+        var rows = billEls.map(function (b, i) { var st = b.dataset.st, act = st === 'paga' ? ['via', '2ª via'] : st === 'atraso' ? ['gerar', 'Pagar'] : b === firstOpen ? ['gerar', 'Gerar'] : ['antecipar', 'Antecipar'];
+          return '<li><div class="bill is-' + st + '" aria-pressed="' + b.getAttribute('aria-pressed') + '">' + b.innerHTML +
+            '<button type="button" class="mact mact-' + st + '" data-open-bill="' + i + '" data-mode="' + act[0] + '" aria-label="' + act[1] + ' de ' + b.dataset.label + '">' + act[1] + '</button></div></li>'; }).join('');
         openModal('list', '<div class="mhead"><h3>' + $('.bh h3', bl).textContent + '</h3><span>' + $('.bh span', bl).textContent + '</span></div>' +
-          '<div class="mlegend">' + $('.blegend', bl).innerHTML + '</div><ul class="mlist">' + rows + '</ul>'); });
+          '<div class="mlegend">' + tpl('blegend') + '</div><ul class="mlist">' + rows + '</ul>'); };
+      var allBtn = $('[data-bills-expand]', bl);
+      if (allBtn) allBtn.addEventListener('click', openList);
       if (modal) {
-        modal.addEventListener('click', function (e) { if (e.target === modal || e.target.closest('.mclose')) return closeModal(); onCopy(e, modal); });
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal || e.target.closest('.mclose')) return closeModal();
+          var ob = e.target.closest('[data-open-bill]'); if (ob) return openInvoice(billEls[+ob.dataset.openBill], ob.dataset.mode);
+          if (e.target.closest('[data-back]')) return openList();
+          if (e.target.closest('[data-print]')) return window.print();
+          var cp = e.target.closest('[data-copy]');
+          if (cp) { var txt = cp.parentNode.querySelector('code').textContent, lbl = cp.dataset.copy, ok = function () { cp.textContent = 'Copiado'; setTimeout(function () { cp.textContent = lbl; }, 2000); };
+            if (navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, ok); else ok(); return; }
+          onCopy(e, modal); });
         addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
       }
     }

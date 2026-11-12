@@ -858,8 +858,66 @@ a.channel:hover { transform: translateX(8px); box-shadow: 0 0 0 1.5px var(--oran
 .bexpand { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border: 0; border-radius: 11px; display: grid; place-items: center; background: none; color: var(--orange-700); cursor: pointer; transition: background-color .3s, color .3s, transform .4s var(--ease); }
 .bexpand:hover { color: var(--orange); transform: scale(1.12); }
 .bexpand svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+/* Modal da fatura (gerada, antecipação e 2ª via) */
+.btn-dark { background: var(--night); color: var(--white); }
+.btn-dark::before { background: var(--grad); }
+.bmodal.invoice { place-items: start center; }
+.bmodal.invoice .mpanel { width: min(1000px, 100%); padding: 0; background: var(--white); color: var(--ink); margin: auto 0; }
+.bmodal.invoice .mbody { gap: 0; font-size: 16px; }
+.bmodal.invoice .mclose, .bmodal.list .mclose { background: var(--mist); color: var(--ink); }
+.bmodal.invoice .mclose:hover { background: var(--peach); }
+.itop { display: grid; gap: 10px; padding: clamp(24px, 4vw, 36px) clamp(20px, 4vw, 40px) 22px; border-bottom: 1px solid var(--line); }
+.itop h3 { font-size: clamp(28px, 4vw, 44px); font-weight: 300; letter-spacing: -0.04em; padding-right: 56px; }
+.ibody { display: grid; gap: 18px; padding: 22px clamp(16px, 4vw, 40px) clamp(22px, 4vw, 32px); }
+.iback { justify-self: start; display: inline-flex; align-items: center; gap: 10px; border: 0; background: none; padding: 6px 0; font: 600 15px var(--f-display); color: var(--ink); cursor: pointer; }
+.iback .ico { width: 17px; height: 17px; transform: rotate(180deg); transition: transform .4s var(--ease); }
+.iback:hover { color: var(--orange-700); }
+.iback:hover .ico { transform: rotate(180deg) translateX(4px); }
+.inv { border-radius: 24px; overflow: hidden; background: var(--white); box-shadow: 0 0 0 1px var(--line), 0 30px 60px -48px rgba(30,21,18,.5); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.ihead { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; padding: 22px clamp(18px, 3vw, 30px); background: var(--night); color: var(--white); }
+.ihead::before { content: ""; position: absolute; right: -80px; top: -140px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,31,.4), transparent 65%); z-index: -1; }
+.ibrand { display: flex; align-items: center; gap: 16px; }
+.ibrand .logo { width: 84px; height: auto; color: var(--white); }
+.ibrand > span { display: grid; gap: 2px; padding-left: 16px; border-left: 1px solid rgba(255,255,255,.16); }
+.ibrand b { font: 600 17px var(--f-display); }
+.ibrand small { font-size: 13px; color: rgba(255,255,255,.65); }
+.istate { display: inline-flex; align-items: center; gap: 10px; padding: 9px 14px; border-radius: 12px; background: rgba(255,255,255,.09); font: 600 14.5px var(--f-display); }
+.istate .ico { width: 17px; height: 17px; }
+.istate.is-paga { color: #7BE3AE; } .istate.is-prazo { color: rgba(255,255,255,.85); } .istate.is-atraso { color: #FF8A8A; }
+.igrid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(22px, 3vw, 36px); padding: clamp(22px, 3vw, 32px) clamp(18px, 3vw, 30px); }
+.ileft { display: grid; gap: 14px; align-content: start; }
+.imonth { font: 300 clamp(32px, 4.4vw, 52px)/1 var(--f-display); letter-spacing: -0.045em; margin: 0; }
+.ileft dl { margin: 4px 0 0; }
+.ileft dl div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.ileft dt { color: var(--muted); }
+.ileft dd { margin: 0; font: 600 16px var(--f-display); text-align: right; }
+.ilbl { margin-top: 8px; font: 600 12px/1 var(--f-display); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.ival { font: 700 clamp(44px, 6vw, 68px)/.95 var(--f-display); letter-spacing: -0.04em; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.inote { padding: 14px 16px; border-radius: 14px; background: var(--mist); color: var(--muted); font-size: 15px; }
+.iright { display: grid; gap: 16px; align-content: start; }
+.ibox { display: grid; gap: 12px; padding: 20px; border-radius: 20px; background: var(--mist); box-shadow: inset 0 0 0 1px var(--line); }
+.ibox h5 { margin: 0; font: 600 18px var(--f-display); }
+.bmodal.invoice .ibox code { display: block; padding: 0; background: none; border-radius: 0; font: 500 12.5px/1.55 ui-monospace, Consolas, monospace; word-break: break-all; color: #251E1B; }
+.ibox .btn { justify-self: stretch; }
+.ibox .barcode { width: 100%; height: 64px; display: block; fill: var(--ink); background: var(--white); padding: 8px 10px; border-radius: 10px; box-sizing: border-box; }
+.bmodal.invoice .ibox .iline { font-size: 13.5px; letter-spacing: .02em; }
+.ipaid { background: #E3F6EA; box-shadow: none; color: #0F5A2C; }
+.ipaid p { font-size: 15px; }
+.ifoot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; padding: 0 clamp(18px, 3vw, 30px) clamp(22px, 3vw, 30px); }
+.idemo { font-size: 13px; color: var(--muted); }
+@media (max-width: 760px) { .igrid { grid-template-columns: 1fr; } .ifoot .btn { width: 100%; } .ibrand .logo { width: 70px; } }
+@media print {
+  html.modal-open body > *:not(main), html.modal-open main > *:not(.ca), html.modal-open .ca .container > *:not(.bmodal), .cursor-dot, .cursor-ring { display: none !important; }
+  html.modal-open .ca { padding: 0; background: none; }
+  html.modal-open .bmodal { position: static; display: block; padding: 0; background: none; backdrop-filter: none; opacity: 1; overflow: visible; }
+  html.modal-open .bmodal .mpanel { width: 100%; box-shadow: none; transform: none; }
+  .bmodal .mclose, .itop, .iback, .ifoot, .idemo { display: none !important; }
+  .ibody { padding: 0; }
+  .inv { box-shadow: 0 0 0 1px #ddd; }
+}
+
 /* Modal com a lista do ano inteiro */
-.bmodal.list .mpanel { width: min(880px, 100%); background: var(--white); color: var(--ink); }
+.bmodal.list .mpanel { width: min(1000px, 100%); background: var(--white); color: var(--ink); }
 .bmodal.list .mclose { background: var(--mist); color: var(--ink); }
 .bmodal.list .mclose:hover { background: var(--peach); }
 .bmodal .mhead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; padding-right: 48px; }
@@ -872,7 +930,11 @@ a.channel:hover { transform: translateX(8px); box-shadow: 0 0 0 1.5px var(--oran
 .bmodal .mlegend .is-paga .bi { color: #15803D; background: #E3F6EA; } .bmodal .mlegend .is-prazo .bi { color: #8A8580; background: #EFEDEB; } .bmodal .mlegend .is-atraso .bi { color: #DC2626; background: #FDE7E7; }
 .mlist { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: column; grid-template-rows: repeat(6, auto); column-gap: 28px; }
 .mlist li { border-top: 1px solid var(--line); }
-.mlist .bill { cursor: default; padding: 12px 10px; }
+.mlist .bill { cursor: default; padding: 12px 10px; grid-template-columns: 30px minmax(0, 1fr) auto auto; }
+.mact { border: 0; border-radius: 10px; padding: 9px 12px; min-width: 84px; font: 600 13.5px var(--f-display); background: var(--mist); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; transition: background-color .3s, color .3s, box-shadow .3s; }
+.mact:hover { background: var(--night); color: var(--white); box-shadow: none; }
+.mact-atraso { background: #DC2626; color: var(--white); box-shadow: none; }
+.mact-atraso:hover { background: #A51C1C; }
 .mlist .bill:hover { background: transparent; }
 .mlist .bill[aria-pressed="true"] { background: var(--mist); }
 .mlist .bill .bm b, .mlist .bill .bv b { font-size: 17px; }
@@ -880,7 +942,8 @@ a.channel:hover { transform: translateX(8px); box-shadow: 0 0 0 1.5px var(--oran
 @media (max-width: 700px) {
   .mlist { grid-template-columns: 1fr; grid-auto-flow: row; grid-template-rows: none; }
   .bmodal.list .mpanel { padding: 22px 18px; } .bmodal.list .mbody { gap: 10px; } .bmodal.list h3 { font-size: 22px; }
-  .mlist .bill { grid-template-columns: 26px minmax(0, 1fr) auto; gap: 10px; padding: 6px; margin: 1px 0; }
+  .mlist .bill { grid-template-columns: 26px minmax(0, 1fr) auto auto; gap: 8px; padding: 6px; margin: 1px 0; }
+  .mact { min-width: 0; padding: 8px 9px; font-size: 12.5px; }
   .mlist .bill .bi { width: 26px; height: 26px; } .mlist .bill .bi .ico { width: 15px; height: 15px; }
   .mlist .bill .bm b, .mlist .bill .bv b { font-size: 15px; } .mlist .bill small { font-size: 12px; }
 }
@@ -1200,44 +1263,104 @@ const js = `// Vyra · modelo Premium
       var modal = $('.bmodal', ca), mbody = modal && $('.mbody', modal), lastFocus = null, info = { cls: '', title: '', body: '' };
       var TOOLS = '<span class="tools"><button type="button" class="tool" data-expand aria-label="Expandir informações da fatura" title="Expandir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 9.5v-5h5M19.5 9.5v-5h-5M4.5 14.5v5h5M19.5 14.5v5h-5"/></svg></button>' +
         '<button type="button" class="tool" data-collapse aria-label="Recolher informações da fatura" title="Recolher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button></span>';
-      var say = function (cls, title, body) { info = { cls: cls, title: title, body: body };
+      var say = function (cls, title, body, el, mode) { info = { cls: cls, title: title, body: body, el: el, mode: mode };
         out.className = 'bout' + (cls ? ' ' + cls : ''); out.innerHTML = '<div class="bt"><b>' + title + '</b>' + TOOLS + '</div>' + body; out.hidden = false; };
       var collapse = function () { if (out.hidden) return; out.classList.add('closing'); setTimeout(function () { out.hidden = true; out.classList.remove('closing'); }, reduce ? 0 : 260); };
-      var openModal = function (cls, html) { if (!modal) return; lastFocus = document.activeElement;
-        modal.className = 'bmodal' + (cls ? ' ' + cls : ''); mbody.innerHTML = html;
+      var openModal = function (cls, html) { if (!modal) return; var already = !modal.hidden; if (!already) lastFocus = document.activeElement;
+        modal.className = 'bmodal' + (cls ? ' ' + cls : '') + (already ? ' on' : ''); mbody.innerHTML = html; modal.scrollTop = 0;
+        if (already) { $('.mclose', modal).focus(); return; }
         modal.hidden = false; document.documentElement.classList.add('modal-open'); requestAnimationFrame(function () { modal.classList.add('on'); $('.mclose', modal).focus(); }); };
       var closeModal = function () { if (!modal || modal.hidden) return; modal.classList.remove('on'); document.documentElement.classList.remove('modal-open');
         setTimeout(function () { modal.hidden = true; }, reduce ? 0 : 300); if (lastFocus) lastFocus.focus(); };
       var pix = function (d) { return '00020126VYRA.PIX.' + bl.dataset.contract + '.' + d.label.slice(-4) + d.mm + '.DEMO5204000053039865406' + d.value.replace(',', '') + '5802BR'; };
-      var paidMsg = function (d) { say('ok-paid', d.label + ' já está paga.', '<span>Pagamento confirmado em ' + d.paid + '. Nada a fazer por aqui.</span>'); };
-      var slip = function (title, d, rows) {
+      var paidMsg = function (el) { var d = el.dataset; say('ok-paid', d.label + ' já está paga.', '<span>Pagamento confirmado em ' + d.paid + '. Nada a fazer por aqui.</span>', el, 'via'); };
+      var slip = function (title, el, mode, rows) { var d = el.dataset;
         say('', title, rows.map(function (r) { return '<div class="ln"><span>' + r[0] + '</span><strong>' + r[1] + '</strong></div>'; }).join('') +
-          '<span>Pix copia e cola (demonstração):</span><code>' + pix(d) + '</code><button type="button" class="copy">Copiar código Pix</button>');
+          '<span>Pix copia e cola (demonstração):</span><code>' + pix(d) + '</code><button type="button" class="copy">Copiar código Pix</button>', el, mode);
       };
-      $('[data-bill="gerar"]', bl).addEventListener('click', function () { var d = cur().dataset;
-        if (d.st === 'paga') return paidMsg(d);
-        slip('Fatura de ' + d.label + ' gerada', d, d.st === 'atraso'
+      $('[data-bill="gerar"]', bl).addEventListener('click', function () { var el = cur(), d = el.dataset;
+        if (d.st === 'paga') return paidMsg(el);
+        slip('Fatura de ' + d.label + ' gerada', el, 'gerar', d.st === 'atraso'
           ? [['Venceu em', d.due], ['Atraso', d.late + ' dias'], ['Valor com multa e juros', 'R$ ' + d.value]]
           : [['Vencimento', d.due], ['Valor', 'R$ ' + d.value]]); });
-      $('[data-bill="antecipar"]', bl).addEventListener('click', function () { var d = cur().dataset;
-        if (d.st === 'paga') return paidMsg(d);
+      $('[data-bill="antecipar"]', bl).addEventListener('click', function () { var el = cur(), d = el.dataset;
+        if (d.st === 'paga') return paidMsg(el);
         if (d.st === 'atraso') return say('warn', d.label + ' já venceu em ' + d.due + '.', '<span>Não dá para antecipar uma fatura vencida. Use Gerar fatura para pagar com multa e juros.</span>');
-        slip('Antecipação de ' + d.label, d, [['Vencimento original', d.due], ['Valor', 'R$ ' + d.value], ['Baixa na fatura', 'até 1 dia útil']]); });
+        slip('Antecipação de ' + d.label, el, 'antecipar', [['Vencimento original', d.due], ['Valor', 'R$ ' + d.value], ['Baixa na fatura', 'até 1 dia útil']]); });
+
+      /* Modal da fatura: dados do assinante, valor, Pix e boleto com código de barras (tudo fictício) */
+      var MES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+      var tpl = function (c) { var t = $('template.' + c, bl); return t ? t.innerHTML : ''; };
+      var num = function (s) { return parseFloat(String(s).replace(/\\./g, '').replace(',', '.')); };
+      var money = function (n) { return 'R$ ' + n.toFixed(2).replace('.', ','); };
+      var pad = function (s, n) { s = String(s); while (s.length < n) s = '0' + s; return s.slice(-n); };
+      var boleto = function (d) {
+        var cents = pad(d.value.replace(/\\D/g, ''), 10), free = pad(bl.dataset.contract.replace(/\\D/g, '') + d.label.slice(-4) + d.mm + '7041', 25);
+        var bar = '0009' + '1' + '1000' + cents + free;
+        var f1 = bar.slice(0, 4) + free.slice(0, 5) + '3', f2 = free.slice(5, 15) + '8', f3 = free.slice(15, 25) + '6';
+        return { bar: bar, line: f1.slice(0, 5) + '.' + f1.slice(5) + ' ' + f2.slice(0, 5) + '.' + f2.slice(5) + ' ' + f3.slice(0, 5) + '.' + f3.slice(5) + ' 1 1000' + cents };
+      };
+      var I25 = ['nnwwn', 'wnnnw', 'nwnnw', 'wwnnn', 'nnwnw', 'wnwnn', 'nwwnn', 'nnnww', 'wnnwn', 'nwnwn'];
+      var barSvg = function (code) { var seq = 'nnnn', x = 0, r = '';
+        for (var i = 0; i < code.length; i += 2) { var a = I25[+code[i]], b = I25[+code[i + 1]]; for (var k = 0; k < 5; k++) seq += a[k] + b[k]; }
+        seq += 'wnn';
+        for (var j = 0; j < seq.length; j++) { var w = seq[j] === 'w' ? 3 : 1; if (j % 2 === 0) r += '<rect x="' + x + '" width="' + w + '" height="50"/>'; x += w; }
+        return '<svg class="barcode" viewBox="0 0 ' + x + ' 50" preserveAspectRatio="none" role="img" aria-label="Código de barras do boleto">' + r + '</svg>'; };
+      var pixFull = function (d) { var v = d.value.replace(',', '.');
+        return '00020126580014BR.GOV.BCB.PIX0136demo-vyra-' + bl.dataset.contract.toLowerCase() + '-' + d.label.slice(-4) + d.mm + '52040000530398654' + pad(v.length, 2) + v + '5802BR5910VYRA FIBRA6008MARIALVA62070503***6304D3E1'; };
+      var openInvoice = function (el, mode) {
+        var d = el.dataset, month = MES[+d.mm - 1] + ' de ' + d.label.slice(-4), paid = d.st === 'paga', base = num(bl.dataset.base), val = num(d.value);
+        var title = paid ? '2ª via de fatura' : mode === 'antecipar' ? 'Antecipação de fatura' : 'Fatura gerada';
+        var state = paid ? 'Paga em ' + d.paid : d.st === 'atraso' ? 'Em atraso, ' + d.late + ' dias' : mode === 'antecipar' ? 'A vencer, dentro do prazo' : 'Dentro do prazo';
+        var rows = [['Titular', bl.dataset.holder], ['Código do assinante', bl.dataset.contract], ['Plano', bl.dataset.plan], ['Vencimento', d.due]];
+        if (d.st === 'atraso') { var multa = base * 0.02; rows.push(['Valor original', money(base)], ['Multa de 2%', money(multa)], ['Juros de ' + d.late + ' dias', money(val - base - multa)]); }
+        var note = paid ? 'Esta fatura foi paga em ' + d.paid + '. Guarde esta 2ª via como comprovante.'
+          : d.st === 'atraso' ? 'A fatura de ' + month.toLowerCase() + ' venceu em ' + d.due + '. O valor já inclui multa e juros. A baixa acontece em até 1 dia útil após o pagamento.'
+          : mode === 'antecipar' ? 'Pagando agora, a fatura de ' + month.toLowerCase() + ' fica quitada antes do vencimento. O valor não muda.'
+          : 'Pague pelo Pix ou pelo boleto até ' + d.due + ', sem acréscimo.';
+        var bo = boleto(d), pay = paid
+          ? '<div class="ibox ipaid"><h5>Pagamento confirmado</h5><p>Recebemos ' + money(val) + ' em ' + d.paid + '. Não há nada a pagar nesta fatura.</p></div>'
+          : '<div class="ibox"><h5>Pix copia e cola</h5><code>' + pixFull(d) + '</code><button type="button" class="btn btn-primary sm" data-copy="Copiar código Pix">Copiar código Pix</button></div>' +
+            '<div class="ibox"><h5>Boleto</h5>' + barSvg(bo.bar) + '<code class="iline">' + bo.line + '</code><button type="button" class="btn btn-dark sm" data-copy="Copiar linha digitável">Copiar linha digitável</button></div>';
+        openModal('invoice', '<div class="itop"><span class="kicker">Área do cliente</span><h3>' + title + '</h3></div><div class="ibody">' +
+          '<button type="button" class="iback" data-back>Voltar para as faturas' + tpl('bico-arrow') + '</button>' +
+          '<article class="inv"><header class="ihead"><span class="ibrand">' + tpl('blogo') + '<span><b>Vyra Fibra</b><small>CNPJ ' + bl.dataset.cnpj + '</small></span></span>' +
+          '<span class="istate is-' + d.st + '">' + $('.bi', el).innerHTML + state + '</span></header>' +
+          '<div class="igrid"><div class="ileft"><span class="kicker">Fatura de internet</span><h4 class="imonth">' + month + '</h4><dl>' +
+          rows.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>'; }).join('') + '</dl>' +
+          '<span class="ilbl">' + (paid ? 'Valor pago' : 'Valor a pagar') + '</span><div class="ival">' + money(val) + '</div><p class="inote">' + note + '</p></div>' +
+          '<div class="iright">' + pay + '</div></div>' +
+          '<footer class="ifoot"><button type="button" class="btn btn-line sm" data-print>Imprimir ou salvar em PDF</button>' + $('.btalk', bl).outerHTML + '</footer></article>' +
+          '<p class="idemo">Fatura demonstrativa. Os códigos de pagamento não são válidos.</p></div>');
+      };
       var onCopy = function (e, root) { var b = e.target.closest('.copy'); if (!b) return; var code = $('code', root).textContent;
         var done = function () { b.textContent = 'Código copiado'; setTimeout(function () { b.textContent = 'Copiar código Pix'; }, 2000); };
         if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done(); };
       out.addEventListener('click', function (e) {
         if (e.target.closest('[data-collapse]')) return collapse();
-        if (e.target.closest('[data-expand]')) return openModal(info.cls, '<h3>' + info.title + '</h3>' + info.body);
+        if (e.target.closest('[data-expand]')) return info.mode ? openInvoice(info.el, info.mode) : openModal(info.cls, '<h3>' + info.title + '</h3>' + info.body);
         onCopy(e, out); });
-      /* Lista completa do ano no modal, só para visualizar (sem rolagem) */
-      var allBtn = $('[data-bills-expand]', bl);
-      if (allBtn) allBtn.addEventListener('click', function () {
-        var rows = $('.bills', bl).innerHTML.replace(/<button/g, '<div').replace(/<\\/button>/g, '</div>');
+      /* Lista completa do ano no modal (sem rolagem), com a ação de cada fatura */
+      var billEls = $$('.bill', bl);
+      var openList = function () {
+        var firstOpen = billEls.filter(function (b) { return b.dataset.st === 'prazo'; })[0];
+        var rows = billEls.map(function (b, i) { var st = b.dataset.st, act = st === 'paga' ? ['via', '2ª via'] : st === 'atraso' ? ['gerar', 'Pagar'] : b === firstOpen ? ['gerar', 'Gerar'] : ['antecipar', 'Antecipar'];
+          return '<li><div class="bill is-' + st + '" aria-pressed="' + b.getAttribute('aria-pressed') + '">' + b.innerHTML +
+            '<button type="button" class="mact mact-' + st + '" data-open-bill="' + i + '" data-mode="' + act[0] + '" aria-label="' + act[1] + ' de ' + b.dataset.label + '">' + act[1] + '</button></div></li>'; }).join('');
         openModal('list', '<div class="mhead"><h3>' + $('.bh h3', bl).textContent + '</h3><span>' + $('.bh span', bl).textContent + '</span></div>' +
-          '<div class="mlegend">' + $('.blegend', bl).innerHTML + '</div><ul class="mlist">' + rows + '</ul>'); });
+          '<div class="mlegend">' + tpl('blegend') + '</div><ul class="mlist">' + rows + '</ul>'); };
+      var allBtn = $('[data-bills-expand]', bl);
+      if (allBtn) allBtn.addEventListener('click', openList);
       if (modal) {
-        modal.addEventListener('click', function (e) { if (e.target === modal || e.target.closest('.mclose')) return closeModal(); onCopy(e, modal); });
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal || e.target.closest('.mclose')) return closeModal();
+          var ob = e.target.closest('[data-open-bill]'); if (ob) return openInvoice(billEls[+ob.dataset.openBill], ob.dataset.mode);
+          if (e.target.closest('[data-back]')) return openList();
+          if (e.target.closest('[data-print]')) return window.print();
+          var cp = e.target.closest('[data-copy]');
+          if (cp) { var txt = cp.parentNode.querySelector('code').textContent, lbl = cp.dataset.copy, ok = function () { cp.textContent = 'Copiado'; setTimeout(function () { cp.textContent = lbl; }, 2000); };
+            if (navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, ok); else ok(); return; }
+          onCopy(e, modal); });
         addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
       }
     }
@@ -1736,7 +1859,8 @@ function clientArea(c) {
         <a class="btn btn-primary" data-wa-sched data-tpl="${esc(schedMsg)}" href="${waText(c, schedMsg.replace('{servico}', a.services[0].toLowerCase()))}" target="_blank" rel="noopener" data-magnetic>${socialIcon('whatsapp')}Agendar pelo WhatsApp</a>
       </article>
 
-      <article class="act act-bills" data-bills data-contract="${s.contract.replace(/\W/g, '')}">
+      <article class="act act-bills" data-bills data-contract="${s.contract.replace(/\W/g, '')}" data-holder="${esc(s.name)}" data-plan="${esc(planTxt)}" data-base="${p.price}" data-cnpj="${esc(a.cnpj)}">
+        <template class="blogo">${logo('logo', '#FF5A1F')}</template><template class="bico-arrow">${icon('arrow')}</template>
         <button type="button" class="bexpand" data-bills-expand aria-label="Ver todas as faturas de ${a.invoices.year}" title="Ver todas as faturas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 9.5v-5h5M19.5 9.5v-5h-5M4.5 14.5v5h5M19.5 14.5v5h-5"/></svg></button>
         <div class="bh"><h3>Faturas ${a.invoices.year}</h3><span>${nPaid} pagas${nLate ? `, ${nLate} em atraso` : ''}</span></div>
         <template class="blegend">${['paga', 'prazo', 'atraso'].map(k => `<span class="is-${k}"><i class="bi">${BILL_ST[k].ico}</i>${BILL_ST[k].label}</span>`).join('')}</template>

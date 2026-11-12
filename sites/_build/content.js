@@ -145,6 +145,7 @@ module.exports = {
     ],
     services: ['Visita técnica', 'Ponto extra de Wi-Fi', 'Mudança de endereço', 'Troca de plano'],
     speedTest: 'https://www.speedtest.net/pt',
+    cnpj: '00.000.000/0001-00',            // [EXEMPLO] mesmo do rodapé
   },
 
   cities: {

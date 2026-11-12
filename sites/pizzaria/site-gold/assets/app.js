@@ -22,6 +22,39 @@
     avisoT = setTimeout(() => aviso.classList.remove('on'), 3200);
   };
 
+  /* ---------- capa: vídeo do pizzaiolo primeiro, depois a foto ---------- */
+  (() => {
+    const capa = $('.capa');
+    const v = $('[data-capa-video]');
+    const barra = $('[data-capa-tempo]');
+    const rever = $('[data-capa-rever]');
+    if (!capa || !v) return;
+    const economia = navigator.connection && navigator.connection.saveData;
+    const virarFoto = () => capa.classList.add('foto');
+    if (calmo || economia) { v.remove(); $('.capa-tempo').remove(); capa.classList.add('foto'); return; }
+    const tocar = () => {
+      capa.classList.remove('foto');
+      v.currentTime = 0;
+      const p = v.play();
+      if (p && p.catch) p.catch(virarFoto);
+    };
+    let raf;
+    const andar = () => {
+      if (v.duration) barra.style.transform = `scaleX(${Math.min(1, v.currentTime / v.duration)})`;
+      raf = requestAnimationFrame(andar);
+    };
+    v.addEventListener('play', () => { cancelAnimationFrame(raf); andar(); });
+    v.addEventListener('ended', () => { cancelAnimationFrame(raf); virarFoto(); });
+    v.addEventListener('error', virarFoto, true);
+    rever.addEventListener('click', tocar);
+    // pausa fora da tela e retoma ao voltar
+    new IntersectionObserver(([e]) => {
+      if (capa.classList.contains('foto')) return;
+      if (e.isIntersecting) v.play().catch(virarFoto); else v.pause();
+    }, { threshold: 0.25 }).observe(capa);
+    tocar();
+  })();
+
   /* ---------- telas ---------- */
   const VISTAS = ['inicio', 'cardapio', 'reserva'];
   let vistaAtual = null;

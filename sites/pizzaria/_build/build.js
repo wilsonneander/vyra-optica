@@ -82,7 +82,7 @@ const html = `<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,400..900&family=Chivo:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/img/capa.webp">
+<link rel="preload" as="image" href="assets/img/capa-video.webp">
 <link rel="stylesheet" href="assets/style.css">
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
@@ -136,7 +136,12 @@ const html = `<!doctype html>
     <!-- INÍCIO -->
     <section class="vista" id="inicio" data-vista="inicio" aria-label="Início">
       <div class="capa sobe">
-        <img src="assets/img/capa.webp" alt="Fatia de pizza saindo do forno com queijo puxando" width="1600" height="1100" fetchpriority="high">
+        <img src="assets/img/capa.webp" alt="Fatia de pizza saindo do forno com queijo puxando" width="1600" height="1100">
+        <video class="capa-video" data-capa-video muted playsinline preload="auto" poster="assets/img/capa-video.webp" aria-label="Pizzaiolo abrindo a massa, montando a pizza e levando ao forno a lenha">
+          <source src="assets/img/capa-video.mp4" type="video/mp4">
+        </video>
+        <span class="capa-tempo" aria-hidden="true"><i data-capa-tempo></i></span>
+        <button type="button" class="capa-rever" data-capa-rever>${I.rever}<span>Ver o forno de novo</span></button>
         <div class="capa-txt">
           <h1>A massa descansa <em>48 horas.</em> Você espera <em>90 segundos.</em></h1>
           <p>Fermentação lenta, forno a lenha a 450 graus e muito queijo puxando. Peça pra viagem, receba em casa ou venha pra mesa.</p>
@@ -390,7 +395,7 @@ fs.writeFileSync(path.join(OUT, 'index.html'), html);
 fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(OUT, 'assets', 'style.css'));
 fs.copyFileSync(path.join(__dirname, 'app.js'), path.join(OUT, 'assets', 'app.js'));
 for (const f of fs.readdirSync(path.join(__dirname, 'img'))) {
-  if (/\.(webp|jpg)$/.test(f)) fs.copyFileSync(path.join(__dirname, 'img', f), path.join(OUT, 'assets', 'img', f));
+  if (/\.(webp|jpg|mp4)$/.test(f)) fs.copyFileSync(path.join(__dirname, 'img', f), path.join(OUT, 'assets', 'img', f));
 }
 fs.writeFileSync(path.join(OUT, 'assets', 'img', 'favicon.svg'), I.favicon);
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');

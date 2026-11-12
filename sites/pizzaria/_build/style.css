@@ -56,9 +56,13 @@ h1 em, h2 em { font-style: normal; }
 .painel { position: sticky; top: 0; align-self: start; height: 100vh; height: 100dvh; background: var(--tomate); color: var(--farinha); padding: 26px var(--gut) 0; display: grid; grid-template-rows: auto auto 1fr auto; gap: 26px; overflow: hidden; isolation: isolate; }
 .painel::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .14; background-image: radial-gradient(rgba(42,23,16,.9) 1px, transparent 1.4px); background-size: 7px 7px; mask-image: linear-gradient(180deg, transparent 35%, #000); }
 .painel-topo { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.logo { display: block; width: 58px; height: 58px; transition: transform .5s var(--mola); }
-.logo:hover { transform: rotate(-10deg) scale(1.08); }
-.logo-svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 4px 0 var(--carvao)); }
+.logo { display: inline-flex; align-items: center; gap: 10px; padding: 6px 18px 6px 8px; background: #FFFFFF; border-radius: 14px; box-shadow: 0 4px 0 var(--mostarda); text-decoration: none; transition: transform .5s var(--mola), box-shadow .3s; }
+.logo:hover { transform: rotate(-2deg) scale(1.03); box-shadow: 0 6px 0 var(--mostarda); }
+.logo-svg { flex: none; display: block; width: 52px; height: 52px; }
+.logo:hover .logo-svg { animation: brasa .9s ease-in-out; }
+@keyframes brasa { 40% { transform: translateY(-2px) rotate(-4deg); } 70% { transform: translateY(0) rotate(2deg); } }
+.logo-nome b { display: block; font: 900 31px/.86 var(--f-t); font-variation-settings: 'wdth' 74; letter-spacing: .01em; color: var(--tomate); text-transform: uppercase; }
+.logo-nome small { display: block; margin-top: 4px; font: 800 11px/1 var(--f-c); letter-spacing: .34em; text-transform: uppercase; color: var(--carvao); }
 
 .nav { position: relative; display: flex; gap: 4px; padding: 5px; background: var(--tomate-esc); border-radius: 14px; }
 .nav a { position: relative; z-index: 1; padding: 10px 16px; border-radius: 10px; font: 800 15px/1 var(--f-t); font-variation-settings: 'wdth' 78; text-transform: uppercase; letter-spacing: .03em; text-decoration: none; color: var(--massa); transition: color .3s; }
@@ -205,6 +209,7 @@ h1 em, h2 em { font-style: normal; }
 .aba-luz { position: absolute; z-index: 0; top: 5px; bottom: 5px; left: 0; border-radius: 10px; background: var(--tomate); transition: transform .5s var(--mola), width .5s var(--mola); }
 .filtros { display: flex; flex-wrap: wrap; gap: 8px; }
 /* grupos com fundo: todos os itens com a largura do mais longo (DIRETRIZES-SITES) */
+[data-iguais] > * { white-space: nowrap; }
 [data-iguais].medido > * { width: var(--larg); max-width: 100%; justify-content: center; text-align: center; }
 [data-iguais].medido > .busca { width: auto; justify-content: flex-start; }
 .busca { display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 14px; background: var(--farinha); border-radius: 12px; box-shadow: 0 3px 0 var(--massa-esc); color: var(--apoio); }
@@ -343,7 +348,7 @@ h1 em, h2 em { font-style: normal; }
 .bairros li.on { background: var(--mostarda); color: var(--carvao); }
 .bairros small { font-size: 11px; color: var(--massa-esc); opacity: .8; }
 .rodape-cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 26px; margin-top: 46px; padding-top: 32px; border-top: 2px dashed var(--carvao-2); }
-.rodape-marca .logo-svg { width: 56px; height: 56px; filter: none; }
+.rodape-marca .logo:hover { transform: none; }
 .rodape-marca p { max-width: 32ch; margin: 14px 0 0; color: var(--massa-esc); font-size: 14px; }
 .rodape h3 { font-size: 18px; font-weight: 900; font-variation-settings: 'wdth' 80; text-transform: uppercase; color: var(--mostarda); margin-bottom: 12px; }
 .rodape ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 14px; color: var(--massa-esc); }
@@ -460,7 +465,8 @@ h1 em, h2 em { font-style: normal; }
   .painel-topo { display: none; }
   body:not([data-vista="inicio"]) .painel { display: none; }
   .barra { justify-content: space-between; margin-bottom: 0; background: var(--tomate); box-shadow: 0 4px 0 var(--tomate-esc); }
-  .logo-mini { display: block; width: 44px; height: 44px; }
+  .logo-mini { display: inline-flex; padding: 4px; border-radius: 11px; box-shadow: 0 3px 0 var(--mostarda); }
+  .logo-mini .logo-svg { width: 40px; height: 40px; }
   .nav-mini { display: flex; }
   .nav-mini a { padding: 9px 10px; font-size: 14px; }
   .nav-mini a[aria-current="page"] { background: var(--mostarda); }

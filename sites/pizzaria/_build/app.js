@@ -35,6 +35,8 @@
   };
   window.addEventListener('resize', () => { clearTimeout(igualar.t); igualar.t = setTimeout(igualar, 120); });
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(igualar);
+  if (document.fonts) document.fonts.addEventListener('loadingdone', igualar);
+  window.addEventListener('load', igualar);
   igualar();
 
   /* ---------- capa: ciclo vídeo do pizzaiolo, foto por 5s, vídeo de novo ---------- */

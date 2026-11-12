@@ -1,7 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect x="2" y="2" width="60" height="60" rx="15" fill="#F4B41A"/>
-  <path d="M40 15h6v12h-6z" fill="#2A1710"/>
-  <path d="M10 49V36c0-12.2 9.8-22 22-22s22 9.8 22 22v13z" fill="#2A1710"/>
-  <path d="M20.5 49V40.5c0-6.4 5.1-11.5 11.5-11.5s11.5 5.1 11.5 11.5V49z" fill="#C42E1A"/>
-  <path d="M25 49c0-5 3-7 4.5-10.5 1.4 2.6 1.5 4.3 1.2 6 1.5-1.6 2.7-3.4 3-6 3 3 5.3 6.2 5.3 10.5z" fill="#F4B41A"/>
-  <path d="M7 50.5h50" stroke="#2A1710" stroke-width="3.5" stroke-linecap="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#FFFFFF"/><g transform="translate(3.2 1.6) scale(.9)">
+  <path d="M41 9h8v13h-8z" fill="#9E2414"/>
+  <path d="M39.5 8h11" stroke="#9E2414" stroke-width="3" stroke-linecap="round"/>
+  <path d="M6 52V35C6 20.6 17.6 9 32 9s26 11.6 26 26v17z" fill="#C42E1A"/>
+  <g stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" opacity=".85">
+    <path d="M16 19.5l2.6 3.2M24.5 13.4l1.4 3.9M39.5 13.4l-1.4 3.9M48 19.5l-2.6 3.2M10.6 28.8l4 1.4M53.4 28.8l-4 1.4"/>
+  </g>
+  <path d="M14.5 52V39.5c0-9.7 7.8-17.5 17.5-17.5s17.5 7.8 17.5 17.5V52z" fill="#FFFFFF"/>
+  <path d="M18 52V39.8C18 32 24.3 25.7 32 25.7S46 32 46 39.8V52z" fill="#2A1710"/>
+  <path d="M22.5 46c0-4.6 2.6-6.4 4.1-9.6 1.2 2.4 1.4 4 1.1 5.5 1.4-1.5 2.5-3.2 2.8-5.6 2.4 2.1 3.8 4.2 4.3 6.4.9-1.4 1.3-2.8 1.3-4.6 3 2.8 4.4 5.2 4.4 7.9z" fill="#F4B41A"/>
+  <path d="M27.4 46c0-2.2 1.3-3.2 2.1-4.8.8 1.4 1 2.6.6 4 .9-.7 1.6-1.6 1.9-3 1.6 1.4 2.2 2.6 2.2 3.8z" fill="#E8641E"/>
+  <path d="M34 49.4h25.5" stroke="#F4B41A" stroke-width="3.2" stroke-linecap="round"/>
+  <ellipse cx="29" cy="48.6" rx="9.6" ry="3" fill="#F4B41A"/>
+  <ellipse cx="29" cy="48.2" rx="7.6" ry="2.1" fill="#C42E1A"/>
+  <circle cx="26" cy="48" r="1" fill="#FFFAF0"/><circle cx="31.5" cy="48.6" r="1" fill="#FFFAF0"/><circle cx="29" cy="47.4" r=".8" fill="#2F6B3A"/>
+  <path d="M4 53.5h56" stroke="#2A1710" stroke-width="3.4" stroke-linecap="round"/></g></svg>

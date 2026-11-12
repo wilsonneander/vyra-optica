@@ -90,7 +90,7 @@ const html = `<!doctype html>
 <a class="pular" href="#palco">Pular para o conteúdo</a>
 <div class="app">
   <div class="barra">
-    <a class="logo logo-mini" href="#inicio" data-ir="inicio" aria-label="${M.completo}, início">${I.logo}</a>
+    <a class="logo logo-mini" href="#inicio" data-ir="inicio" aria-label="${M.completo}, início">${I.logoMini}</a>
     <nav class="nav nav-mini" aria-label="Principal no celular">
       <a href="#inicio" data-ir="inicio">Início</a>
       <a href="#cardapio" data-ir="cardapio">Cardápio</a>
@@ -301,7 +301,7 @@ const html = `<!doctype html>
         </div>
       </div>
       <div class="rodape-cols">
-        <div class="rodape-marca">${I.logo}<p>${esc(M.frase)}</p></div>
+        <div class="rodape-marca"><span class="logo" role="img" aria-label="${M.completo}">${I.logo}</span><p>${esc(M.frase)}</p></div>
         <div><h3>Navegue</h3><ul><li><a href="#inicio" data-ir="inicio">Início</a></li><li><a href="#cardapio" data-ir="cardapio">Cardápio</a></li><li><a href="#reserva" data-ir="reserva">Reserva</a></li><li><a href="#roleta">Gira a pizza</a></li></ul></div>
         <div><h3>Fale com a gente</h3><ul><li>WhatsApp ${M.whatsappTexto}</li><li>Telefone ${M.telefone}</li><li>${M.endereco}</li><li>${M.cidade}</li></ul></div>
         <div><h3>Siga o forno</h3><div class="redes"><a href="${M.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${I.insta}</a><a href="${wa('Oi, Fornalha! Tudo bem?')}" target="_blank" rel="noopener" aria-label="WhatsApp">${I.whats}</a></div><p class="user">${M.instagramUser}</p></div>

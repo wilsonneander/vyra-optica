@@ -43,7 +43,7 @@ Estrutura inspirada na referência enviada (cardápio Maison, Framer): painel fi
 
 - Cores que dão fome: tomate `#C42E1A`, mostarda da borda tostada `#F4B41A`, massa crua `#F6E9D0`, farinha `#FFFAF0`, carvão do forno `#2A1710`, brasa `#E8641E`, manjericão `#2F6B3A`
 - Fontes: **Anybody** (títulos, fonte variável de largura, usada no letreiro elástico) + **Chivo** (texto). Dupla ainda não usada em outro projeto
-- Logo: forno de cúpula com a boca acesa dentro de um quadrado mostarda (`_build/icons.js`)
+- Logo: forno a lenha de tijolo vermelho com o fogo aceso e uma pizza entrando na pá, ao lado do nome FORNALHA / pizza bar, numa placa branca com sombra mostarda. No celular a barra mostra só o símbolo. Favicon: símbolo sobre quadrado branco (`_build/icons.js`)
 
 ## Para virar site de cliente
 

@@ -11,8 +11,8 @@ Refatoração do site [thdengenharia.com](https://thdengenharia.com) (antes em W
 ## Gerar
 
 ```bash
-node clientes/thd-engenharia/_build/build.js            # gera site/
-node clientes/thd-engenharia/_build/build.js --preview  # gera _preview/ (abra _preview/index.html)
+node templates/thd-engenharia/_build/build.js            # gera site/
+node templates/thd-engenharia/_build/build.js --preview  # gera _preview/ (abra _preview/index.html)
 ```
 
 Para trocar textos, edite `_build/content.js` e gere de novo. Itens marcados `[CONFIRMAR]` precisam de validação com o cliente.
@@ -51,8 +51,8 @@ Mesmo conteúdo (lido de `_build/content.js`) e mesmas cores, design totalmente 
 | `_preview-orbita/` | Cópia para abrir direto no navegador (não vai para o git) |
 
 ```bash
-node clientes/thd-engenharia/_build-orbita/build.js            # gera site-orbita/
-node clientes/thd-engenharia/_build-orbita/build.js --preview  # gera _preview-orbita/ (abra _preview-orbita/index.html)
+node templates/thd-engenharia/_build-orbita/build.js            # gera site-orbita/
+node templates/thd-engenharia/_build-orbita/build.js --preview  # gera _preview-orbita/ (abra _preview-orbita/index.html)
 ```
 
 - Fontes: Unbounded (títulos) + Hanken Grotesk (texto), dupla diferente do primeiro modelo
@@ -74,8 +74,8 @@ Mesmo conteúdo (lido de `_build/content.js`) e mesmas cores, design totalmente 
 | `_preview-fibra/` | Cópia para abrir direto no navegador (não vai para o git) |
 
 ```bash
-node clientes/thd-engenharia/_build-fibra/build.js            # gera site-fibra/
-node clientes/thd-engenharia/_build-fibra/build.js --preview  # gera _preview-fibra/ (abra _preview-fibra/index.html)
+node templates/thd-engenharia/_build-fibra/build.js            # gera site-fibra/
+node templates/thd-engenharia/_build-fibra/build.js --preview  # gera _preview-fibra/ (abra _preview-fibra/index.html)
 ```
 
 - Fontes: Big Shoulders Display (títulos condensados em caixa-alta) + Schibsted Grotesk (texto), dupla diferente dos outros modelos

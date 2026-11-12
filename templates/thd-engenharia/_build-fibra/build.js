@@ -1,6 +1,6 @@
 // Gera o modelo "Fibra" do site THD Engenharia (nível premium, terceiro modelo).
-//   node clientes/thd-engenharia/_build-fibra/build.js            → site-fibra/     (produção, URLs limpas)
-//   node clientes/thd-engenharia/_build-fibra/build.js --preview  → _preview-fibra/ (abre sem servidor)
+//   node templates/thd-engenharia/_build-fibra/build.js            → site-fibra/     (produção, URLs limpas)
+//   node templates/thd-engenharia/_build-fibra/build.js --preview  → _preview-fibra/ (abre sem servidor)
 //
 // O conteúdo é o mesmo dos outros modelos (lido de ../_build/content.js). Só o design muda.
 // Linguagem visual: a luz que corre pela fibra óptica. Fios de luz em canvas atrás das seções, base clara e

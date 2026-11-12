@@ -1,6 +1,6 @@
 // Gera o site THD Engenharia (nível premium).
-//   node clientes/thd-engenharia/_build/build.js            → site/     (produção, URLs limpas: /servicos/)
-//   node clientes/thd-engenharia/_build/build.js --preview  → _preview/ (links para index.html, abre sem servidor)
+//   node templates/thd-engenharia/_build/build.js            → site/     (produção, URLs limpas: /servicos/)
+//   node templates/thd-engenharia/_build/build.js --preview  → _preview/ (links para index.html, abre sem servidor)
 //
 // Linguagem visual: "seu provedor montado peça por peça". Blocos geométricos nas cores da marca voam,
 // se encaixam numa grade 3x3 e seguem trocando de lugar, ligados por trilhas de circuito (como as letras do logo).

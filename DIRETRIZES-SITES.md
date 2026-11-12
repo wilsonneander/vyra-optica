@@ -85,7 +85,7 @@ grep -rnE "Inter|Manrope|Outfit|Plus Jakarta|DM Sans|Space Grotesk|Satoshi|Gener
 grep -rnE "999px|9999px|rounded-full" sites/ --include=*.css --include=*.html
 grep -rnE ">\s*0[1-9]\s*<|>\s*/0[1-9]" sites/ --include=*.html
 grep -rnE "::?(before|after)" sites/ --include=*.css   # conferir se algum desenha traço antes/depois de título
-grep -rnE "<iframe|google\.com/maps/embed|output=embed|maps\.googleapis" sites/ clientes/ --include=*.html   # mapa tem que ser OpenStreetMap
+grep -rnE "<iframe|google\.com/maps/embed|output=embed|maps\.googleapis" sites/ templates/ --include=*.html   # mapa tem que ser OpenStreetMap
 ```
 
 E conferir visualmente:

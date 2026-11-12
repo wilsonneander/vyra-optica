@@ -1,5 +1,5 @@
 // Gera o modelo BRONZE do Siri na Lata (nicho restaurante e lanchonete).
-//   node clientes/siri-na-lata/_build-bronze/build.js   → site-bronze/
+//   node templates/siri-na-lata/_build-bronze/build.js   → site-bronze/
 //
 // Bronze: site enxuto de uma página, foco no essencial. CSS e JS embutidos, fotos em WebP,
 // SEO básico (meta, Open Graph, dados estruturados de Restaurant, sitemap e robots).

@@ -1,5 +1,5 @@
 // Gera o mapa estático da Fornalha (modelo fictício) a partir de tiles do OpenStreetMap, recolorido na paleta.
-// Mesmo método do THD (clientes/thd-engenharia/_build/gerar-mapa.js). Nunca usar mapa do Google.
+// Mesmo método do THD (templates/thd-engenharia/_build/gerar-mapa.js). Nunca usar mapa do Google.
 //
 // Uso (sharp instalado fora do projeto):
 //   node gerar-mapa.js forno img/mapa_pinheiros.webp

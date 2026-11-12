@@ -1,6 +1,6 @@
 // Gera o modelo "Órbita" do site THD Engenharia (nível premium, segundo modelo).
-//   node clientes/thd-engenharia/_build-orbita/build.js            → site-orbita/     (produção, URLs limpas)
-//   node clientes/thd-engenharia/_build-orbita/build.js --preview  → _preview-orbita/ (abre sem servidor)
+//   node templates/thd-engenharia/_build-orbita/build.js            → site-orbita/     (produção, URLs limpas)
+//   node templates/thd-engenharia/_build-orbita/build.js --preview  → _preview-orbita/ (abre sem servidor)
 //
 // O conteúdo é o mesmo do primeiro modelo (lido de ../_build/content.js). Só o design muda.
 // Linguagem visual: os anéis orbitais do logo. Um giroscópio 3D no topo, seções que sobem como lâminas

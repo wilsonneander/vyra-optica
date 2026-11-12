@@ -1,4 +1,4 @@
-// Conteúdo do site THD Engenharia. Edite aqui e rode: node clientes/thd-engenharia/_build/build.js
+// Conteúdo do site THD Engenharia. Edite aqui e rode: node templates/thd-engenharia/_build/build.js
 // Textos vindos do site antigo (thdengenharia.com). Itens marcados [CONFIRMAR] precisam de validação com o cliente.
 
 const WHATS = '5521998340142';

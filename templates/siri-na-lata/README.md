@@ -13,7 +13,7 @@ Instagram do cliente: [@sirinalatafloripa](https://www.instagram.com/sirinalataf
 ## Gerar
 
 ```bash
-node clientes/siri-na-lata/_build-bronze/build.js   # gera site-bronze/
+node templates/siri-na-lata/_build-bronze/build.js   # gera site-bronze/
 ```
 
 Para trocar textos, preços ou horários, edite `_build/content.js` e gere de novo.
@@ -43,7 +43,7 @@ O dia na praia do Siri na Lata, do almoço ao pôr do sol. Mesmo conteúdo (`_bu
 | `site-gold/` | **Modelo Gold pronto para subir** (abre direto no navegador pelo `index.html`) |
 
 ```bash
-node clientes/siri-na-lata/_build-gold/build.js   # gera site-gold/
+node templates/siri-na-lata/_build-gold/build.js   # gera site-gold/
 ```
 
 - Seções empilhadas: cada seção fica presa na tela e a próxima sobe por cima com os cantos se fechando, enquanto a anterior recua e escurece
@@ -70,7 +70,7 @@ Mapa sempre pelo OpenStreetMap, nunca Google (regra de DIRETRIZES-SITES.md). O G
 Para gerar de novo (por exemplo, se o cliente confirmar outra posição em `endereco.coordenadas`), ajuste as coordenadas em `_build/gerar-mapa.js` e rode com `sharp` instalado fora do projeto:
 
 ```bash
-node clientes/siri-na-lata/_build/gerar-mapa.js mare clientes/siri-na-lata/_build/img/mapa_estreito.webp
+node templates/siri-na-lata/_build/gerar-mapa.js mare templates/siri-na-lata/_build/img/mapa_estreito.webp
 ```
 
 ## Fotos

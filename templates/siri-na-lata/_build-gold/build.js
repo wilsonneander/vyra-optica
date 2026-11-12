@@ -1,5 +1,5 @@
 // Gera o modelo GOLD do Siri na Lata (nicho restaurante e lanchonete).
-//   node clientes/siri-na-lata/_build-gold/build.js   → site-gold/
+//   node templates/siri-na-lata/_build-gold/build.js   → site-gold/
 //
 // Gold, conceito "Maré": o dia na praia do Siri na Lata, do almoço ao pôr do sol.
 // - Seções empilhadas: cada uma fica presa e a próxima sobe por cima, a anterior recua.

@@ -750,6 +750,275 @@ a.channel:hover { transform: translateX(8px); box-shadow: 0 0 0 1.5px var(--oran
 .wa-float:hover { transform: scale(1.08); }
 .wa-float .ico { width: 30px; height: 30px; position: relative; }
 
+/* Área do cliente: acesso no topo */
+.btn-client { background: var(--white); color: var(--orange-700); box-shadow: 0 18px 36px -18px rgba(0,0,0,.45); }
+.btn-client::before { background: var(--night); }
+.btn-client:hover { color: var(--white); }
+.hdr.solid .btn-client { box-shadow: inset 0 0 0 1.5px var(--line), 0 14px 28px -20px rgba(30,21,18,.45); }
+.hdr.solid .btn-client:hover { box-shadow: 0 18px 36px -16px rgba(20,14,12,.55); }
+@media (max-width: 1100px) {
+  .hdr .right .btn-client { display: inline-flex; width: 50px; height: 50px; padding: 0; }
+  .btn-client span { display: none; }
+  .btn-client .ico { width: 22px; height: 22px; }
+}
+/* Ícones que não são seta ficam parados no hover (WhatsApp, usuário) */
+.btn:hover .ico[fill="currentColor"], .btn:hover .ico.still { transform: none; }
+
+/* Área do cliente: login */
+.ca [hidden] { display: none !important; }
+.ca-login { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); gap: clamp(40px, 6vw, 90px); align-items: center; }
+.login { display: grid; gap: 20px; max-width: 520px; width: 100%; }
+.login .lhead { display: grid; gap: 12px; margin-bottom: 6px; justify-items: start; }
+.login .lhead .logo { width: 92px; height: auto; color: var(--ink); }
+.login .lhead h2 { font-size: clamp(30px, 3.4vw, 44px); }
+.login .lhead p { color: var(--muted); }
+.fl.pw input { padding-right: 62px; }
+.fl .eye { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: 0; border-radius: 12px; background: transparent; color: var(--muted); display: grid; place-items: center; cursor: pointer; transition: color .3s, background-color .3s; }
+.fl .eye:hover, .fl .eye[aria-pressed="true"] { color: var(--orange-700); background: var(--white); }
+.lrow { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 20px; font-size: 14.5px; }
+.lrow a { font-weight: 600; }
+.remember { display: inline-flex; gap: 10px; align-items: center; color: var(--muted); cursor: pointer; }
+.remember input { width: 18px; height: 18px; margin: 0; accent-color: var(--orange); }
+.login .err { padding: 14px 16px; border-radius: 14px; background: #FDECEC; color: #A3141F; font-weight: 600; font-size: 14.5px; }
+.login .btn[type=submit] { width: 100%; }
+.login.busy .btn[type=submit] { pointer-events: none; opacity: .7; }
+.login .demo { font-size: 13.5px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 16px; }
+.login .demo b { color: var(--ink); font-family: var(--f-display); white-space: nowrap; }
+.ca-intro { display: grid; gap: 20px; justify-items: start; }
+@media (max-width: 920px) { .ca-login { grid-template-columns: 1fr; } .login { max-width: none; } }
+
+/* Área do cliente: painel */
+.ca-dash { display: grid; gap: clamp(22px, 3vw, 34px); }
+.ca-dash.in > * { animation: fadeUp .8s var(--ease) both; }
+.ca-dash.in > :nth-child(2) { animation-delay: .08s; } .ca-dash.in > :nth-child(3) { animation-delay: .16s; }
+.dhead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 18px; }
+.dhead > div { display: grid; gap: 12px; }
+.dhead p { color: var(--muted); }
+.dgrid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 22px; }
+.dplan { position: relative; isolation: isolate; overflow: hidden; border-radius: 32px; padding: clamp(26px, 3.4vw, 40px); background: var(--night); color: var(--white); display: grid; gap: 14px; align-content: start; }
+.dplan::before { content: ""; position: absolute; right: -120px; top: -120px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,31,.45), transparent 65%); z-index: -1; }
+.dplan .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.dplan .logo { width: 96px; height: auto; color: var(--white); }
+.dplan .state { font: 600 13px/1 var(--f-display); color: #7BE3AE; background: rgba(123,227,174,.12); padding: 8px 12px; border-radius: 10px; }
+.dplan .lbl { font: 600 12.5px/1 var(--f-display); letter-spacing: .2em; text-transform: uppercase; color: var(--peach); }
+.dplan h3 { font-size: clamp(26px, 2.6vw, 34px); font-weight: 600; }
+.dplan .sp { font: 300 clamp(76px, 9vw, 124px)/.85 var(--f-display); letter-spacing: -0.06em; margin: 6px 0 4px; }
+.dplan .sp small { font-size: 22px; font-weight: 600; letter-spacing: 0; margin-left: 8px; color: var(--orange); }
+.dplan .val { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 14px; border-top: 1px solid rgba(255,255,255,.14); padding-top: 18px; margin-top: 12px; color: rgba(255,255,255,.7); }
+.dplan .val b { font: 700 32px var(--f-display); color: var(--white); letter-spacing: -0.02em; }
+.dplan .val small { font-size: 15px; font-weight: 500; color: rgba(255,255,255,.6); }
+.dcond { grid-column: 1 / -1; }
+.dcond ul { grid-template-columns: 1fr 1fr; column-gap: 40px; }
+.ddetail, .dcond { border-radius: 28px; padding: clamp(24px, 3vw, 36px); background: var(--white); box-shadow: 0 0 0 1px var(--line), 0 30px 60px -50px rgba(30,21,18,.5); }
+.ddetail h3, .dcond h3 { margin-bottom: 16px; }
+.ddetail dl { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 26px; }
+.ddetail dl div { padding: 14px 0; border-top: 1px solid var(--line); }
+.ddetail dt { font-size: 13.5px; color: var(--muted); }
+.ddetail dd { margin: 2px 0 0; font: 600 19px/1.3 var(--f-display); }
+.ddetail dd small { display: block; font: 400 14px/1.4 var(--f-body); color: var(--muted); }
+.ddetail h4 { font: 600 16px var(--f-display); margin: 22px 0 12px; }
+.perks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+.perks li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 1.45; }
+.perks .ico { width: 18px; height: 18px; color: var(--orange); margin-top: 2px; }
+.dcond ul { margin: 0; padding-left: 20px; display: grid; gap: 10px; color: var(--muted); font-size: 15px; }
+.dcond li::marker { color: var(--orange); }
+
+/* Área do cliente: ações */
+.dacts { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); grid-template-rows: auto 1fr; gap: 22px; align-items: start; }
+.act-sched { align-self: stretch; }
+.act-bills { grid-column: 2; grid-row: 1 / span 2; }
+.act { border-radius: 28px; padding: clamp(24px, 3vw, 34px); display: grid; gap: 14px; align-content: start; background: var(--white); box-shadow: 0 0 0 1px var(--line); transition: transform .5s var(--ease), box-shadow .4s; }
+.act:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--line), 0 30px 60px -40px rgba(30,21,18,.45); }
+.act p { color: var(--muted); font-size: 15.5px; }
+.act .btn { justify-self: start; margin-top: 4px; white-space: nowrap; }
+.act-speed { background: var(--grad); color: var(--white); box-shadow: 0 30px 60px -36px rgba(232,72,12,.8); grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 26px; }
+.act-speed:hover { box-shadow: 0 36px 70px -36px rgba(232,72,12,.9); }
+.act-speed p { color: rgba(255,255,255,.9); }
+.act-speed .txt { display: grid; gap: 14px; }
+.gauge { width: 150px; height: auto; overflow: visible; }
+.gauge path { fill: none; stroke-linecap: round; }
+.gauge .g-track, .gauge .g-fill { stroke-width: 14; }
+.gauge .g-track { stroke: rgba(255,255,255,.25); }
+.gauge .g-fill { stroke: var(--white); stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 1.6s var(--ease) .3s; }
+.gauge .g-needle { transform-box: view-box; transform-origin: 100px 105px; transform: rotate(-90deg); transition: transform 1.6s var(--ease) .3s; }
+.gauge .g-needle path { stroke: var(--night); stroke-width: 5; }
+.gauge .g-needle circle { fill: var(--night); }
+.ca-dash.in .gauge .g-fill { stroke-dashoffset: 18; }
+.ca-dash.in .gauge .g-needle { transform: rotate(58deg); }
+.act-speed:hover .gauge .g-needle { transform: rotate(78deg); }
+.act-speed:hover .gauge .g-fill { stroke-dashoffset: 6; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.opts label { position: relative; cursor: pointer; }
+.opts input { position: absolute; opacity: 0; pointer-events: none; }
+.opts span { display: inline-block; padding: 10px 14px; border-radius: 12px; background: var(--mist); box-shadow: inset 0 0 0 1px var(--line); font: 500 14px/1.2 var(--f-display); transition: background-color .3s, color .3s, box-shadow .3s; }
+.opts label:hover span { box-shadow: inset 0 0 0 1px var(--orange-600); }
+.opts input:checked + span { background: var(--night); color: var(--white); box-shadow: none; }
+.opts input:focus-visible + span { outline: 2px solid var(--orange); outline-offset: 2px; }
+.act-bills { gap: 12px; position: relative; }
+.bexpand { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border: 0; border-radius: 11px; display: grid; place-items: center; background: none; color: var(--orange-700); cursor: pointer; transition: background-color .3s, color .3s, transform .4s var(--ease); }
+.bexpand:hover { color: var(--orange); transform: scale(1.12); }
+.bexpand svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+/* Modal da fatura (gerada, antecipação e 2ª via) */
+.btn-dark { background: var(--night); color: var(--white); }
+.btn-dark::before { background: var(--grad); }
+.bmodal.invoice { place-items: start center; }
+.bmodal.invoice .mpanel { width: min(1000px, 100%); padding: 0; background: var(--white); color: var(--ink); margin: auto 0; }
+.bmodal.invoice .mbody { gap: 0; font-size: 16px; }
+.bmodal.invoice .mclose, .bmodal.list .mclose { background: var(--mist); color: var(--ink); }
+.bmodal.invoice .mclose:hover { background: var(--peach); }
+.itop { display: grid; gap: 10px; padding: clamp(24px, 4vw, 36px) clamp(20px, 4vw, 40px) 22px; border-bottom: 1px solid var(--line); }
+.itop h3 { font-size: clamp(28px, 4vw, 44px); font-weight: 300; letter-spacing: -0.04em; padding-right: 56px; }
+.ibody { display: grid; gap: 18px; padding: 22px clamp(16px, 4vw, 40px) clamp(22px, 4vw, 32px); }
+.iback { justify-self: start; display: inline-flex; align-items: center; gap: 10px; border: 0; background: none; padding: 6px 0; font: 600 15px var(--f-display); color: var(--ink); cursor: pointer; }
+.iback .ico { width: 17px; height: 17px; transform: rotate(180deg); transition: transform .4s var(--ease); }
+.iback:hover { color: var(--orange-700); }
+.iback:hover .ico { transform: rotate(180deg) translateX(4px); }
+.inv { border-radius: 24px; overflow: hidden; background: var(--white); box-shadow: 0 0 0 1px var(--line), 0 30px 60px -48px rgba(30,21,18,.5); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.ihead { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; padding: 22px clamp(18px, 3vw, 30px); background: var(--night); color: var(--white); }
+.ihead::before { content: ""; position: absolute; right: -80px; top: -140px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,31,.4), transparent 65%); z-index: -1; }
+.ibrand { display: flex; align-items: center; gap: 16px; }
+.ibrand .logo { width: 84px; height: auto; color: var(--white); }
+.ibrand > span { display: grid; gap: 2px; padding-left: 16px; border-left: 1px solid rgba(255,255,255,.16); }
+.ibrand b { font: 600 17px var(--f-display); }
+.ibrand small { font-size: 13px; color: rgba(255,255,255,.65); }
+.istate { display: inline-flex; align-items: center; gap: 10px; padding: 9px 14px; border-radius: 12px; background: rgba(255,255,255,.09); font: 600 14.5px var(--f-display); }
+.istate .ico { width: 17px; height: 17px; }
+.istate.is-paga { color: #7BE3AE; } .istate.is-prazo { color: rgba(255,255,255,.85); } .istate.is-atraso { color: #FF8A8A; }
+.igrid { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(22px, 3vw, 36px); padding: clamp(22px, 3vw, 32px) clamp(18px, 3vw, 30px); }
+.ileft { display: grid; gap: 14px; align-content: start; }
+.imonth { font: 300 clamp(32px, 4.4vw, 52px)/1 var(--f-display); letter-spacing: -0.045em; margin: 0; }
+.ileft dl { margin: 4px 0 0; }
+.ileft dl div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.ileft dt { color: var(--muted); }
+.ileft dd { margin: 0; font: 600 16px var(--f-display); text-align: right; }
+.ilbl { margin-top: 8px; font: 600 12px/1 var(--f-display); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+.ival { font: 700 clamp(44px, 6vw, 68px)/.95 var(--f-display); letter-spacing: -0.04em; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.inote { padding: 14px 16px; border-radius: 14px; background: var(--mist); color: var(--muted); font-size: 15px; }
+.iright { display: grid; gap: 16px; align-content: start; }
+.ibox { display: grid; gap: 12px; padding: 20px; border-radius: 20px; background: var(--mist); box-shadow: inset 0 0 0 1px var(--line); }
+.ibox h5 { margin: 0; font: 600 18px var(--f-display); }
+.bmodal.invoice .ibox code { display: block; padding: 0; background: none; border-radius: 0; font: 500 12.5px/1.55 ui-monospace, Consolas, monospace; word-break: break-all; color: #251E1B; }
+.ibox .btn { justify-self: stretch; }
+.ibox .barcode { width: 100%; height: 64px; display: block; fill: var(--ink); background: var(--white); padding: 8px 10px; border-radius: 10px; box-sizing: border-box; }
+.bmodal.invoice .ibox .iline { font-size: 13.5px; letter-spacing: .02em; }
+.ipaid { background: #E3F6EA; box-shadow: none; color: #0F5A2C; }
+.ipaid p { font-size: 15px; }
+.ifoot { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; padding: 0 clamp(18px, 3vw, 30px) clamp(22px, 3vw, 30px); }
+.idemo { font-size: 13px; color: var(--muted); }
+@media (max-width: 760px) { .igrid { grid-template-columns: 1fr; } .ifoot .btn { width: 100%; } .ibrand .logo { width: 70px; } }
+@media print {
+  html.modal-open body > *:not(main), html.modal-open main > *:not(.ca), html.modal-open .ca .container > *:not(.bmodal), .cursor-dot, .cursor-ring { display: none !important; }
+  html.modal-open .ca { padding: 0; background: none; }
+  html.modal-open .bmodal { position: static; display: block; padding: 0; background: none; backdrop-filter: none; opacity: 1; overflow: visible; }
+  html.modal-open .bmodal .mpanel { width: 100%; box-shadow: none; transform: none; }
+  .bmodal .mclose, .itop, .iback, .ifoot, .idemo { display: none !important; }
+  .ibody { padding: 0; }
+  .inv { box-shadow: 0 0 0 1px #ddd; }
+}
+
+/* Modal com a lista do ano inteiro */
+.bmodal.list .mpanel { width: min(1000px, 100%); background: var(--white); color: var(--ink); }
+.bmodal.list .mclose { background: var(--mist); color: var(--ink); }
+.bmodal.list .mclose:hover { background: var(--peach); }
+.bmodal .mhead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; padding-right: 48px; }
+.bmodal .mhead h3 { padding-right: 0; }
+.bmodal .mhead span { font-size: 15px; color: var(--muted); }
+.bmodal .mlegend { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; color: var(--muted); }
+.bmodal .mlegend span { display: inline-flex; align-items: center; gap: 8px; }
+.bmodal .mlegend .bi { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; }
+.bmodal .mlegend .bi .ico { width: 15px; height: 15px; }
+.bmodal .mlegend .is-paga .bi { color: #15803D; background: #E3F6EA; } .bmodal .mlegend .is-prazo .bi { color: #8A8580; background: #EFEDEB; } .bmodal .mlegend .is-atraso .bi { color: #DC2626; background: #FDE7E7; }
+.mlist { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: column; grid-template-rows: repeat(6, auto); column-gap: 28px; }
+.mlist li { border-top: 1px solid var(--line); }
+.mlist .bill { cursor: default; padding: 12px 10px; grid-template-columns: 30px minmax(0, 1fr) auto auto; }
+.mact { border: 0; border-radius: 10px; padding: 9px 12px; min-width: 84px; font: 600 13.5px var(--f-display); background: var(--mist); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; transition: background-color .3s, color .3s, box-shadow .3s; }
+.mact:hover { background: var(--night); color: var(--white); box-shadow: none; }
+.mact-atraso { background: #DC2626; color: var(--white); box-shadow: none; }
+.mact-atraso:hover { background: #A51C1C; }
+.mlist .bill:hover { background: transparent; }
+.mlist .bill[aria-pressed="true"] { background: var(--mist); }
+.mlist .bill .bm b, .mlist .bill .bv b { font-size: 17px; }
+.mlist .bill small { font-size: 13.5px; }
+@media (max-width: 700px) {
+  .mlist { grid-template-columns: 1fr; grid-auto-flow: row; grid-template-rows: none; }
+  .bmodal.list .mpanel { padding: 22px 18px; } .bmodal.list .mbody { gap: 10px; } .bmodal.list h3 { font-size: 22px; }
+  .mlist .bill { grid-template-columns: 26px minmax(0, 1fr) auto auto; gap: 8px; padding: 6px; margin: 1px 0; }
+  .mact { min-width: 0; padding: 8px 9px; font-size: 12.5px; }
+  .mlist .bill .bi { width: 26px; height: 26px; } .mlist .bill .bi .ico { width: 15px; height: 15px; }
+  .mlist .bill .bm b, .mlist .bill .bv b { font-size: 15px; } .mlist .bill small { font-size: 12px; }
+}
+.act-bills .bh { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; padding-right: 30px; }
+.act-bills .bh span { font-size: 13.5px; color: var(--muted); }
+.bills { position: relative; list-style: none; margin: 0 -8px; padding: 0 8px; max-height: 300px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--peach) transparent; }
+.bills li + li { border-top: 1px solid var(--line); }
+.bill { width: 100%; display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 11px 10px; margin: 2px 0; border: 0; border-radius: 14px; background: transparent; color: var(--ink); text-align: left; font: inherit; cursor: pointer; transition: background-color .3s, box-shadow .3s; }
+.bill:hover { background: var(--mist); }
+.bill[aria-pressed="true"] { background: var(--mist); box-shadow: inset 0 0 0 1.5px var(--orange-600); }
+.bill .bi { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; }
+.bill .bi .ico { width: 17px; height: 17px; }
+.bill.is-paga .bi { color: #15803D; background: #E3F6EA; }
+.bill.is-prazo .bi { color: #8A8580; background: #EFEDEB; }
+.bill.is-atraso .bi { color: #DC2626; background: #FDE7E7; }
+.bill .bm b, .bill .bv b { display: block; font: 600 15.5px/1.25 var(--f-display); }
+.bill small { display: block; font-size: 12.5px; color: var(--muted); }
+.bill .bv { text-align: right; }
+.bill.is-paga .bv small { color: #15803D; }
+.bill.is-atraso .bv small { color: #DC2626; font-weight: 600; }
+.bacts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.act .bacts .btn { justify-self: stretch; margin: 0; padding: 13px 10px; font-size: 14px; }
+.bout { border-radius: 18px; padding: 16px; background: var(--night); color: var(--white); display: grid; gap: 8px; font-size: 14px; animation: fadeUp .5s var(--ease); }
+.bout b { font: 600 16px var(--f-display); }
+.bout .ln { display: flex; justify-content: space-between; gap: 12px; color: rgba(255,255,255,.7); }
+.bout .ln strong { color: var(--white); font-family: var(--f-display); }
+.bout code { display: block; padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,.08); font: 500 12.5px/1.4 ui-monospace, Consolas, monospace; word-break: break-all; color: var(--peach); }
+.bout .copy { justify-self: start; border: 0; border-radius: 10px; padding: 9px 14px; background: var(--white); color: var(--orange-700); font: 600 13.5px var(--f-display); cursor: pointer; }
+.bout .copy:hover { background: var(--peach); }
+.bout.warn { background: #FDE7E7; color: #8F1414; }
+.bout.ok-paid { background: #E3F6EA; color: #0F5A2C; }
+.bout.closing { animation: boutUp .26s var(--ease) forwards; }
+@keyframes boutUp { to { opacity: 0; transform: translateY(-14px); } }
+.bout .bt { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.bout .tools { display: flex; gap: 6px; flex: none; margin: -4px -4px 0 0; }
+.bout .tool { width: 32px; height: 32px; border: 0; border-radius: 10px; display: grid; place-items: center; background: rgba(255,255,255,.1); color: inherit; cursor: pointer; transition: background-color .3s, transform .4s var(--ease); }
+.bout .tool:hover { background: rgba(255,255,255,.2); }
+.bout .tool[data-collapse]:hover { transform: translateY(-2px); }
+.bout .tool[data-expand]:hover { transform: scale(1.08); }
+.bout .tool svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.bout.warn .tool, .bout.ok-paid .tool { background: rgba(0,0,0,.06); }
+.bout.warn .tool:hover, .bout.ok-paid .tool:hover { background: rgba(0,0,0,.12); }
+
+/* Modal com as informações da fatura em tamanho maior */
+html.modal-open { overflow: hidden; }
+.bmodal { position: fixed; inset: 0; z-index: 350; display: grid; place-items: center; padding: max(20px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom)); background: rgba(20,14,12,.62); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; transition: opacity .3s var(--ease); overflow-y: auto; }
+.bmodal.on { opacity: 1; }
+.bmodal .mpanel { position: relative; width: min(560px, 100%); border-radius: 28px; padding: clamp(26px, 5vw, 42px); background: var(--night); color: var(--white); box-shadow: 0 50px 100px -40px rgba(0,0,0,.7); transform: translateY(24px) scale(.97); transition: transform .45s var(--ease); }
+.bmodal.on .mpanel { transform: none; }
+.bmodal.warn .mpanel { background: #FDE7E7; color: #8F1414; }
+.bmodal.ok-paid .mpanel { background: #E3F6EA; color: #0F5A2C; }
+.bmodal .mbody { display: grid; gap: 14px; font-size: 17px; }
+.bmodal h3 { font-size: clamp(24px, 3vw, 30px); padding-right: 48px; }
+.bmodal .ln { display: flex; justify-content: space-between; gap: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.72); }
+.bmodal .ln strong { color: var(--white); font: 600 19px var(--f-display); }
+.bmodal code { display: block; padding: 16px 18px; border-radius: 14px; background: rgba(255,255,255,.08); font: 500 15.5px/1.5 ui-monospace, Consolas, monospace; word-break: break-all; color: var(--peach); }
+.bmodal .copy { justify-self: start; border: 0; border-radius: 12px; padding: 14px 22px; background: var(--white); color: var(--orange-700); font: 600 16px var(--f-display); cursor: pointer; }
+.bmodal .copy:hover { background: var(--peach); }
+.bmodal .mclose { position: absolute; right: 18px; top: 18px; width: 44px; height: 44px; border: 0; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.12); color: inherit; cursor: pointer; transition: background-color .3s, transform .4s var(--ease); }
+.bmodal .mclose:hover { background: rgba(255,255,255,.22); transform: rotate(90deg); }
+.bmodal.warn .mclose, .bmodal.ok-paid .mclose { background: rgba(0,0,0,.07); }
+@media (max-width: 520px) { .bmodal .copy { width: 100%; justify-self: stretch; } }
+.btalk { display: inline-flex; align-items: center; gap: 8px; justify-self: start; font: 600 14px var(--f-display); color: var(--orange-700); text-decoration: none; }
+.btalk .ico { width: 18px; height: 18px; color: #25D366; }
+.btalk:hover { text-decoration: underline; }
+@media (max-width: 1080px) { .act-speed { grid-template-columns: 1fr; justify-items: start; } }
+@media (max-width: 860px) { .dgrid { grid-template-columns: 1fr; } .dcond ul { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  .dacts { grid-template-columns: 1fr; grid-template-rows: none; } .act-bills { grid-column: auto; grid-row: auto; }
+  .act-speed { grid-template-columns: 1fr; justify-items: start; }
+  .gauge { width: 130px; }
+  .ddetail dl, .perks { grid-template-columns: 1fr; }
+  .act .btn, .dhead .btn { width: 100%; }
+}
+
 /* Entrada ao rolar */
 .rv { transition: opacity 1s var(--ease), transform 1s var(--ease); }
 .rv.pre { opacity: 0; transform: translateY(40px); }
@@ -959,6 +1228,144 @@ const js = `// Vyra · modelo Premium
   $$('form.cep').forEach(function (cep) { cep.addEventListener('submit', function (e) { e.preventDefault(); var v = $('input', cep).value.replace(/\\D/g, ''), out = cep.parentNode.querySelector('.cep-result');
     if (v.length !== 8) { out.textContent = 'Digite os 8 números do CEP.'; return; } out.textContent = 'Boa notícia: temos fibra na sua região. Vamos para a assinatura...'; setTimeout(function () { location.href = 'assine.html#cep-' + v; }, 900); }); });
 
+  /* Área do cliente (demonstração: confere os dados fictícios no próprio navegador) */
+  var ca = $('.ca');
+  if (ca) {
+    var lf = $('form.login', ca), lgBox = $('[data-ca-login]', ca), dash = $('[data-ca-dash]', ca), err = $('.err', lf), KEY = 'vyra-cliente';
+    var store = function (k) { try { return k ? localStorage : sessionStorage; } catch (x) { return null; } };
+    var showDash = function (on, scroll) {
+      lgBox.hidden = on; dash.hidden = !on; dash.classList.remove('in');
+      if (on) requestAnimationFrame(function () { requestAnimationFrame(function () { dash.classList.add('in'); var l = $('.bills', dash), b = $('.bill[aria-pressed="true"]', dash); if (l && b) l.scrollTop = b.parentNode.offsetTop - 8; }); });
+      if (scroll) ca.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    };
+    try { if (sessionStorage.getItem(KEY) || localStorage.getItem(KEY)) showDash(true); } catch (x) {}
+    $$('input[data-mask=cpf]', ca).forEach(function (i) { i.addEventListener('input', function () { var v = i.value.replace(/\\D/g, '').slice(0, 11), o = v.slice(0, 3);
+      if (v.length > 3) o += '.' + v.slice(3, 6); if (v.length > 6) o += '.' + v.slice(6, 9); if (v.length > 9) o += '-' + v.slice(9); i.value = o; }); });
+    var eye = $('.eye', lf), pw = $('#l-pass');
+    eye.addEventListener('click', function () { var show = pw.type === 'password'; pw.type = show ? 'text' : 'password'; eye.setAttribute('aria-pressed', show); eye.setAttribute('aria-label', show ? 'Esconder senha' : 'Mostrar senha'); });
+    lf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!lf.checkValidity()) { lf.reportValidity(); return; }
+      if ($('#l-cpf').value.replace(/\\D/g, '') !== lf.dataset.cpf || pw.value !== lf.dataset.pw) { err.hidden = false; return; }
+      err.hidden = true; lf.classList.add('busy');
+      setTimeout(function () { var s = store($('#l-keep').checked); try { s && s.setItem(KEY, '1'); } catch (x) {} lf.classList.remove('busy'); showDash(true, true); }, 600);
+    });
+    $('[data-ca-logout]', ca).addEventListener('click', function () { try { sessionStorage.removeItem(KEY); localStorage.removeItem(KEY); } catch (x) {} showDash(false, true); });
+    var sched = $('[data-wa-sched]', ca), base = sched.getAttribute('href').split('?')[0];
+    $$('input[name=servico]', ca).forEach(function (r) { r.addEventListener('change', function () {
+      sched.setAttribute('href', base + '?text=' + encodeURIComponent(sched.dataset.tpl.replace('{servico}', r.value.toLowerCase()))); }); });
+
+    /* Faturas: escolher o mês, gerar a fatura ou antecipar o pagamento (códigos fictícios) */
+    var bl = $('[data-bills]', ca);
+    if (bl) {
+      var out = $('.bout', bl), cur = function () { return $('.bill[aria-pressed="true"]', bl) || $('.bill', bl); };
+      $$('.bill', bl).forEach(function (b) { b.addEventListener('click', function () { $$('.bill', bl).forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); out.hidden = true; }); });
+      var modal = $('.bmodal', ca), mbody = modal && $('.mbody', modal), lastFocus = null, info = { cls: '', title: '', body: '' };
+      var TOOLS = '<span class="tools"><button type="button" class="tool" data-expand aria-label="Expandir informações da fatura" title="Expandir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 9.5v-5h5M19.5 9.5v-5h-5M4.5 14.5v5h5M19.5 14.5v5h-5"/></svg></button>' +
+        '<button type="button" class="tool" data-collapse aria-label="Recolher informações da fatura" title="Recolher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button></span>';
+      var say = function (cls, title, body, el, mode) { info = { cls: cls, title: title, body: body, el: el, mode: mode };
+        out.className = 'bout' + (cls ? ' ' + cls : ''); out.innerHTML = '<div class="bt"><b>' + title + '</b>' + TOOLS + '</div>' + body; out.hidden = false; };
+      var collapse = function () { if (out.hidden) return; out.classList.add('closing'); setTimeout(function () { out.hidden = true; out.classList.remove('closing'); }, reduce ? 0 : 260); };
+      var openModal = function (cls, html) { if (!modal) return; var already = !modal.hidden; if (!already) lastFocus = document.activeElement;
+        modal.className = 'bmodal' + (cls ? ' ' + cls : '') + (already ? ' on' : ''); mbody.innerHTML = html; modal.scrollTop = 0;
+        if (already) { $('.mclose', modal).focus(); return; }
+        modal.hidden = false; document.documentElement.classList.add('modal-open'); requestAnimationFrame(function () { modal.classList.add('on'); $('.mclose', modal).focus(); }); };
+      var closeModal = function () { if (!modal || modal.hidden) return; modal.classList.remove('on'); document.documentElement.classList.remove('modal-open');
+        setTimeout(function () { modal.hidden = true; }, reduce ? 0 : 300); if (lastFocus) lastFocus.focus(); };
+      var pix = function (d) { return '00020126VYRA.PIX.' + bl.dataset.contract + '.' + d.label.slice(-4) + d.mm + '.DEMO5204000053039865406' + d.value.replace(',', '') + '5802BR'; };
+      var paidMsg = function (el) { var d = el.dataset; say('ok-paid', d.label + ' já está paga.', '<span>Pagamento confirmado em ' + d.paid + '. Nada a fazer por aqui.</span>', el, 'via'); };
+      var slip = function (title, el, mode, rows) { var d = el.dataset;
+        say('', title, rows.map(function (r) { return '<div class="ln"><span>' + r[0] + '</span><strong>' + r[1] + '</strong></div>'; }).join('') +
+          '<span>Pix copia e cola (demonstração):</span><code>' + pix(d) + '</code><button type="button" class="copy">Copiar código Pix</button>', el, mode);
+      };
+      $('[data-bill="gerar"]', bl).addEventListener('click', function () { var el = cur(), d = el.dataset;
+        if (d.st === 'paga') return paidMsg(el);
+        slip('Fatura de ' + d.label + ' gerada', el, 'gerar', d.st === 'atraso'
+          ? [['Venceu em', d.due], ['Atraso', d.late + ' dias'], ['Valor com multa e juros', 'R$ ' + d.value]]
+          : [['Vencimento', d.due], ['Valor', 'R$ ' + d.value]]); });
+      $('[data-bill="antecipar"]', bl).addEventListener('click', function () { var el = cur(), d = el.dataset;
+        if (d.st === 'paga') return paidMsg(el);
+        if (d.st === 'atraso') return say('warn', d.label + ' já venceu em ' + d.due + '.', '<span>Não dá para antecipar uma fatura vencida. Use Gerar fatura para pagar com multa e juros.</span>');
+        slip('Antecipação de ' + d.label, el, 'antecipar', [['Vencimento original', d.due], ['Valor', 'R$ ' + d.value], ['Baixa na fatura', 'até 1 dia útil']]); });
+
+      /* Modal da fatura: dados do assinante, valor, Pix e boleto com código de barras (tudo fictício) */
+      var MES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+      var tpl = function (c) { var t = $('template.' + c, bl); return t ? t.innerHTML : ''; };
+      var num = function (s) { return parseFloat(String(s).replace(/\\./g, '').replace(',', '.')); };
+      var money = function (n) { return 'R$ ' + n.toFixed(2).replace('.', ','); };
+      var pad = function (s, n) { s = String(s); while (s.length < n) s = '0' + s; return s.slice(-n); };
+      var boleto = function (d) {
+        var cents = pad(d.value.replace(/\\D/g, ''), 10), free = pad(bl.dataset.contract.replace(/\\D/g, '') + d.label.slice(-4) + d.mm + '7041', 25);
+        var bar = '0009' + '1' + '1000' + cents + free;
+        var f1 = bar.slice(0, 4) + free.slice(0, 5) + '3', f2 = free.slice(5, 15) + '8', f3 = free.slice(15, 25) + '6';
+        return { bar: bar, line: f1.slice(0, 5) + '.' + f1.slice(5) + ' ' + f2.slice(0, 5) + '.' + f2.slice(5) + ' ' + f3.slice(0, 5) + '.' + f3.slice(5) + ' 1 1000' + cents };
+      };
+      var I25 = ['nnwwn', 'wnnnw', 'nwnnw', 'wwnnn', 'nnwnw', 'wnwnn', 'nwwnn', 'nnnww', 'wnnwn', 'nwnwn'];
+      var barSvg = function (code) { var seq = 'nnnn', x = 0, r = '';
+        for (var i = 0; i < code.length; i += 2) { var a = I25[+code[i]], b = I25[+code[i + 1]]; for (var k = 0; k < 5; k++) seq += a[k] + b[k]; }
+        seq += 'wnn';
+        for (var j = 0; j < seq.length; j++) { var w = seq[j] === 'w' ? 3 : 1; if (j % 2 === 0) r += '<rect x="' + x + '" width="' + w + '" height="50"/>'; x += w; }
+        return '<svg class="barcode" viewBox="0 0 ' + x + ' 50" preserveAspectRatio="none" role="img" aria-label="Código de barras do boleto">' + r + '</svg>'; };
+      var pixFull = function (d) { var v = d.value.replace(',', '.');
+        return '00020126580014BR.GOV.BCB.PIX0136demo-vyra-' + bl.dataset.contract.toLowerCase() + '-' + d.label.slice(-4) + d.mm + '52040000530398654' + pad(v.length, 2) + v + '5802BR5910VYRA FIBRA6008MARIALVA62070503***6304D3E1'; };
+      var openInvoice = function (el, mode) {
+        var d = el.dataset, month = MES[+d.mm - 1] + ' de ' + d.label.slice(-4), paid = d.st === 'paga', base = num(bl.dataset.base), val = num(d.value);
+        var title = paid ? '2ª via de fatura' : mode === 'antecipar' ? 'Antecipação de fatura' : 'Fatura gerada';
+        var state = paid ? 'Paga em ' + d.paid : d.st === 'atraso' ? 'Em atraso, ' + d.late + ' dias' : mode === 'antecipar' ? 'A vencer, dentro do prazo' : 'Dentro do prazo';
+        var rows = [['Titular', bl.dataset.holder], ['Código do assinante', bl.dataset.contract], ['Plano', bl.dataset.plan], ['Vencimento', d.due]];
+        if (d.st === 'atraso') { var multa = base * 0.02; rows.push(['Valor original', money(base)], ['Multa de 2%', money(multa)], ['Juros de ' + d.late + ' dias', money(val - base - multa)]); }
+        var note = paid ? 'Esta fatura foi paga em ' + d.paid + '. Guarde esta 2ª via como comprovante.'
+          : d.st === 'atraso' ? 'A fatura de ' + month.toLowerCase() + ' venceu em ' + d.due + '. O valor já inclui multa e juros. A baixa acontece em até 1 dia útil após o pagamento.'
+          : mode === 'antecipar' ? 'Pagando agora, a fatura de ' + month.toLowerCase() + ' fica quitada antes do vencimento. O valor não muda.'
+          : 'Pague pelo Pix ou pelo boleto até ' + d.due + ', sem acréscimo.';
+        var bo = boleto(d), pay = paid
+          ? '<div class="ibox ipaid"><h5>Pagamento confirmado</h5><p>Recebemos ' + money(val) + ' em ' + d.paid + '. Não há nada a pagar nesta fatura.</p></div>'
+          : '<div class="ibox"><h5>Pix copia e cola</h5><code>' + pixFull(d) + '</code><button type="button" class="btn btn-primary sm" data-copy="Copiar código Pix">Copiar código Pix</button></div>' +
+            '<div class="ibox"><h5>Boleto</h5>' + barSvg(bo.bar) + '<code class="iline">' + bo.line + '</code><button type="button" class="btn btn-dark sm" data-copy="Copiar linha digitável">Copiar linha digitável</button></div>';
+        openModal('invoice', '<div class="itop"><span class="kicker">Área do cliente</span><h3>' + title + '</h3></div><div class="ibody">' +
+          '<button type="button" class="iback" data-back>Voltar para as faturas' + tpl('bico-arrow') + '</button>' +
+          '<article class="inv"><header class="ihead"><span class="ibrand">' + tpl('blogo') + '<span><b>Vyra Fibra</b><small>CNPJ ' + bl.dataset.cnpj + '</small></span></span>' +
+          '<span class="istate is-' + d.st + '">' + $('.bi', el).innerHTML + state + '</span></header>' +
+          '<div class="igrid"><div class="ileft"><span class="kicker">Fatura de internet</span><h4 class="imonth">' + month + '</h4><dl>' +
+          rows.map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + r[1] + '</dd></div>'; }).join('') + '</dl>' +
+          '<span class="ilbl">' + (paid ? 'Valor pago' : 'Valor a pagar') + '</span><div class="ival">' + money(val) + '</div><p class="inote">' + note + '</p></div>' +
+          '<div class="iright">' + pay + '</div></div>' +
+          '<footer class="ifoot"><button type="button" class="btn btn-line sm" data-print>Imprimir ou salvar em PDF</button>' + $('.btalk', bl).outerHTML + '</footer></article>' +
+          '<p class="idemo">Fatura demonstrativa. Os códigos de pagamento não são válidos.</p></div>');
+      };
+      var onCopy = function (e, root) { var b = e.target.closest('.copy'); if (!b) return; var code = $('code', root).textContent;
+        var done = function () { b.textContent = 'Código copiado'; setTimeout(function () { b.textContent = 'Copiar código Pix'; }, 2000); };
+        if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done(); };
+      out.addEventListener('click', function (e) {
+        if (e.target.closest('[data-collapse]')) return collapse();
+        if (e.target.closest('[data-expand]')) return info.mode ? openInvoice(info.el, info.mode) : openModal(info.cls, '<h3>' + info.title + '</h3>' + info.body);
+        onCopy(e, out); });
+      /* Lista completa do ano no modal (sem rolagem), com a ação de cada fatura */
+      var billEls = $$('.bill', bl);
+      var openList = function () {
+        var firstOpen = billEls.filter(function (b) { return b.dataset.st === 'prazo'; })[0];
+        var rows = billEls.map(function (b, i) { var st = b.dataset.st, act = st === 'paga' ? ['via', '2ª via'] : st === 'atraso' ? ['gerar', 'Pagar'] : b === firstOpen ? ['gerar', 'Gerar'] : ['antecipar', 'Antecipar'];
+          return '<li><div class="bill is-' + st + '" aria-pressed="' + b.getAttribute('aria-pressed') + '">' + b.innerHTML +
+            '<button type="button" class="mact mact-' + st + '" data-open-bill="' + i + '" data-mode="' + act[0] + '" aria-label="' + act[1] + ' de ' + b.dataset.label + '">' + act[1] + '</button></div></li>'; }).join('');
+        openModal('list', '<div class="mhead"><h3>' + $('.bh h3', bl).textContent + '</h3><span>' + $('.bh span', bl).textContent + '</span></div>' +
+          '<div class="mlegend">' + tpl('blegend') + '</div><ul class="mlist">' + rows + '</ul>'); };
+      var allBtn = $('[data-bills-expand]', bl);
+      if (allBtn) allBtn.addEventListener('click', openList);
+      if (modal) {
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal || e.target.closest('.mclose')) return closeModal();
+          var ob = e.target.closest('[data-open-bill]'); if (ob) return openInvoice(billEls[+ob.dataset.openBill], ob.dataset.mode);
+          if (e.target.closest('[data-back]')) return openList();
+          if (e.target.closest('[data-print]')) return window.print();
+          var cp = e.target.closest('[data-copy]');
+          if (cp) { var txt = cp.parentNode.querySelector('code').textContent, lbl = cp.dataset.copy, ok = function () { cp.textContent = 'Copiado'; setTimeout(function () { cp.textContent = lbl; }, 2000); };
+            if (navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, ok); else ok(); return; }
+          onCopy(e, modal); });
+        addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+      }
+    }
+  }
+
   /* Assinatura em etapas */
   var wz = $('.wizard form');
   if (wz) { var panels = $$('.wpanel', wz), marks = $$('.wsteps div', wz), cur2 = 0;
@@ -986,7 +1393,7 @@ function chrome(c, page) {
     <a class="brand" href="index.html" aria-label="Vyra, página inicial">${logo()}</a>
     <nav class="nav" aria-label="Principal">${c.basicNav.map(n => `<a href="${n.href}"${n.id === page ? ' aria-current="page"' : ''}>${n.label}</a>`).join('')}</nav>
     <div class="right">
-      <a class="wa-link" href="${c.contact.whatsappLink}" target="_blank" rel="noopener">${socialIcon('whatsapp')}WhatsApp</a>
+      <a class="btn btn-client sm" href="cliente.html"${page === 'cliente' ? ' aria-current="page"' : ''} aria-label="Área do cliente" data-magnetic>${USER_ICO}<span>Área do cliente</span></a>
       <a class="btn btn-primary sm" href="assine.html" data-magnetic>Assine já ${icon('arrow')}</a>
       <button class="burger" data-menu aria-label="Abrir menu" aria-expanded="false" aria-controls="mmenu">${icon('menu')}</button>
     </div>
@@ -994,7 +1401,7 @@ function chrome(c, page) {
 </header>
 <div class="mmenu" id="mmenu">
   <button class="close" data-menu aria-label="Fechar menu" aria-expanded="false">${icon('close')}</button>
-  <nav aria-label="Menu">${c.basicNav.map(n => `<a href="${n.href}"${n.id === page ? ' aria-current="page"' : ''}>${n.label}</a>`).join('')}<a href="assine.html" style="color:var(--orange-700);font-weight:700">Assine já</a></nav>
+  <nav aria-label="Menu">${c.basicNav.map(n => `<a href="${n.href}"${n.id === page ? ' aria-current="page"' : ''}>${n.label}</a>`).join('')}<a href="cliente.html"${page === 'cliente' ? ' aria-current="page"' : ''}>Área do cliente</a><a href="assine.html" style="color:var(--orange-700);font-weight:700">Assine já</a></nav>
   <div class="social light">${socialLinks(c).replace(/^<div class="social">|<\/div>$/g, '')}</div>
 </div>`;
 }
@@ -1019,7 +1426,7 @@ function footer(c) {
     </div>
     <div class="foot-brand">${logo()}<b>${esc(c.brand.slogan)}</b></div>
     <div class="cols">
-      <div><h3>Navegação</h3><ul>${c.basicNav.map(n => `<li><a href="${n.href}">${n.label}</a></li>`).join('')}<li><a href="assine.html">Assine já</a></li></ul></div>
+      <div><h3>Navegação</h3><ul>${c.basicNav.map(n => `<li><a href="${n.href}">${n.label}</a></li>`).join('')}<li><a href="assine.html">Assine já</a></li><li><a href="cliente.html">Área do cliente</a></li></ul></div>
       <div><h3>Planos</h3><ul>${c.combos.map(p => `<li><a href="assine.html#${p.id}">${p.name} · ${p.speed} ${p.unit}</a></li>`).join('')}<li><a href="empresas.html">Vyra Empresas</a></li></ul></div>
       <div><h3>Contato</h3><ul><li>WhatsApp: ${c.contact.whatsapp}</li><li>Telefone: ${c.contact.phone}</li><li>${c.contact.email}</li><li>${c.contact.hours[1][0]}: ${c.contact.hours[1][1]}</li></ul></div>
       <div><h3>Redes sociais</h3>${socialLinks(c)}</div>
@@ -1337,6 +1744,140 @@ function pathSection(items, kicker, title) {
   </div></section>`;
 }
 
+// ---------- Área do cliente (só no Premium, acesso demonstrativo) ----------
+const USER_ICO = '<svg class="ico still" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.2" r="3.7"/><path d="M4.6 20.4c.9-3.8 3.8-5.9 7.4-5.9s6.5 2.1 7.4 5.9"/></svg>';
+const EYE_ICO = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+const waText = (c, msg) => `${c.contact.whatsappLink}?text=${encodeURIComponent(msg)}`;
+
+// Status das faturas: check verde (paga), traço cinza (dentro do prazo), relógio vermelho (em atraso)
+const stIco = (d, extra = '') => `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}${extra}</svg>`;
+const BILL_ST = {
+  paga: { label: 'Paga', ico: stIco('<path d="M5 12.5l4.5 4.5L19 7.5"/>') },
+  prazo: { label: 'No prazo', ico: stIco('<path d="M6.5 12h11"/>') },
+  atraso: { label: 'Em atraso', ico: stIco('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>') },
+};
+const MESES = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+function invoiceRows(a, p) {
+  const inv = a.invoices, base = parseFloat(p.price.replace(',', '.'));
+  const money = n => n.toFixed(2).replace('.', ',');
+  const fmt = d => `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+  const [td, tm, ty] = inv.today.split('/').map(Number), today = new Date(ty, tm - 1, td);
+  return inv.status.map((st, i) => {
+    const due = new Date(inv.year, i, a.dueDay);
+    const late = st === 'atraso' ? Math.max(1, Math.round((today - due) / 864e5)) : 0;
+    const value = st === 'atraso' ? base * 1.02 + base * 0.01 * late / 30 : base; // multa 2% + juros 1% ao mês pro rata
+    return { st, label: `${MESES[i]}/${inv.year}`, mm: String(i + 1).padStart(2, '0'), due: fmt(due), value: money(value), late,
+      paidOn: st === 'paga' ? fmt(new Date(inv.year, i, a.dueDay - 3)) : '' };
+  });
+}
+
+function clientArea(c) {
+  const a = c.clientArea, s = a.subscriber, p = c.combos.find(x => x.id === a.plan) || c.combos[0];
+  const planTxt = `${p.name} ${p.speed} ${p.unit}`;
+  const schedMsg = `Olá, Vyra! Sou ${s.name}, assinante do plano ${planTxt} (contrato ${s.contract}). Quero agendar: {servico}. Qual o melhor dia e período?`;
+  const talkMsg = `Olá, Vyra! Sou ${s.name}, assinante do plano ${planTxt} (contrato ${s.contract}). Preciso de atendimento.`;
+  const forgotMsg = `Olá, Vyra! Sou assinante e esqueci a senha da Área do Cliente. Podem me ajudar?`;
+  const cpfDigits = a.login.cpf.replace(/\D/g, '');
+  const perks = [...p.streams.map(x => `${x} incluso`), ...p.features];
+  const bills = invoiceRows(a, p);
+  const firstOpen = Math.max(0, bills.findIndex(b => b.st !== 'paga'));
+  const nPaid = bills.filter(b => b.st === 'paga').length, nLate = bills.filter(b => b.st === 'atraso').length;
+  const intro = [
+    ['Plano e valores', 'Velocidade contratada, mensalidade e o que vem junto.'],
+    ['Faturas e fidelidade', 'Gere a fatura do mês, antecipe o pagamento e veja até quando vai o contrato.'],
+    ['Teste de velocidade', 'Confira a sua conexão em menos de um minuto.'],
+    ['Agendamento e atendimento', 'Visita técnica ou dúvida, direto no WhatsApp.'],
+  ];
+  return `<section class="section soft ca" id="acesso"><div class="container">
+  <div class="ca-login" data-ca-login>
+    <form class="login form-card" novalidate data-cpf="${cpfDigits}" data-pw="${esc(a.login.password)}">
+      <div class="lhead">${logo('logo', '#FF5A1F')}<h2>Entre na sua <em>conta</em></h2><p>Use o CPF do titular e a senha que você recebeu na instalação.</p></div>
+      <label class="fl"><input id="l-cpf" value="${a.login.cpf}" placeholder=" " inputmode="numeric" autocomplete="username" data-mask="cpf" required><span>CPF do titular</span></label>
+      <label class="fl pw"><input id="l-pass" type="password" value="${esc(a.login.password)}" placeholder=" " autocomplete="current-password" required><span>Senha</span><button type="button" class="eye" aria-label="Mostrar senha" aria-pressed="false">${EYE_ICO}</button></label>
+      <div class="lrow"><label class="remember"><input type="checkbox" id="l-keep"> Manter conectado neste aparelho</label><a href="${waText(c, forgotMsg)}" target="_blank" rel="noopener">Esqueci a senha</a></div>
+      <p class="err" role="alert" hidden>CPF ou senha não conferem. Nesta demonstração, use os dados já preenchidos.</p>
+      <button class="btn btn-primary" type="submit" data-magnetic data-cursor="Entrar">Entrar ${icon('arrow')}</button>
+      <p class="demo">Acesso de demonstração com dados fictícios. CPF <b>${a.login.cpf}</b> e senha <b>${esc(a.login.password)}</b>.</p>
+    </form>
+    <div class="ca-intro rv rv-r">
+      <span class="kicker">Para quem já é Vyra</span>
+      <h2>A sua fibra, <em>sem precisar ligar.</em></h2>
+      <div class="checklist">${intro.map(([t, d]) => `<div><span class="ck">${icon('check')}</span><b>${t}</b><span>${d}</span></div>`).join('')}</div>
+    </div>
+  </div>
+
+  <div class="ca-dash" data-ca-dash hidden>
+    <div class="dhead">
+      <div><span class="kicker">Contrato ${s.contract}</span><h2>Olá, <em>${s.first}.</em></h2><p>Assinante Vyra desde ${s.since}. Dados de demonstração.</p></div>
+      <button class="btn btn-line sm" type="button" data-ca-logout>Sair da conta</button>
+    </div>
+
+    <div class="dgrid">
+      <article class="dplan">
+        <div class="top">${logo('logo', '#FF5A1F')}<span class="state">Ativo</span></div>
+        <span class="lbl">Plano contratado</span>
+        <h3>${p.name}</h3>
+        <div class="sp">${p.speed}<small>${p.unit}</small></div>
+        <div class="logos">${streamLogos(p.streams)}</div>
+        <div class="val"><span>Mensalidade</span><b>R$ ${p.price}<small>/mês</small></b></div>
+      </article>
+
+      <article class="ddetail">
+        <h3>Detalhamento do plano</h3>
+        <dl>
+          <div><dt>Vencimento</dt><dd>Todo dia ${a.dueDay}</dd></div>
+          <div><dt>Próxima fatura</dt><dd>${a.nextBill.date}<small>R$ ${p.price}, ${a.nextBill.status.toLowerCase()}</small></dd></div>
+          <div><dt>Fidelidade</dt><dd>${a.loyalty.months} meses<small>até ${a.loyalty.until}</small></dd></div>
+          <div><dt>Velocidade</dt><dd>${p.speed} ${p.unit}<small>download, via fibra até o roteador</small></dd></div>
+        </dl>
+        <h4>Benefícios incluídos</h4>
+        <ul class="perks">${perks.map(x => `<li>${icon('check')}${x}</li>`).join('')}</ul>
+      </article>
+
+      <article class="dcond">
+        <h3>Condições do contrato</h3>
+        <ul>${a.conditions.map(x => `<li>${x}</li>`).join('')}</ul>
+      </article>
+    </div>
+
+    <div class="dacts">
+      <article class="act act-speed">
+        <svg class="gauge" viewBox="0 0 200 120" aria-hidden="true"><defs><linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF7A3D"/><stop offset="1" stop-color="#E11D2E"/></linearGradient></defs>
+          <path class="g-track" d="M20 105a80 80 0 0 1 160 0"/><path class="g-fill" d="M20 105a80 80 0 0 1 160 0" pathLength="100"/>
+          <g class="g-needle"><path d="M100 105L100 38"/><circle cx="100" cy="105" r="7"/></g></svg>
+        <div class="txt">
+          <h3>Teste sua conexão</h3>
+          <p>Mede download, upload e latência em menos de um minuto. Para ver os ${p.speed} ${p.unit} completos, teste num computador ligado ao roteador por cabo.</p>
+          <a class="btn btn-light" href="${a.speedTest}" target="_blank" rel="noopener" data-magnetic>Testar velocidade ${icon('arrow')}</a>
+        </div>
+      </article>
+
+      <article class="act act-sched">
+        <h3>Agende um serviço</h3>
+        <p>Escolha o que precisa. A mensagem vai pronta para o WhatsApp e a equipe confirma o dia com você.</p>
+        <div class="opts" role="radiogroup" aria-label="Tipo de serviço">${a.services.map((x, i) => `<label><input type="radio" name="servico" value="${esc(x)}"${i === 0 ? ' checked' : ''}><span>${x}</span></label>`).join('')}</div>
+        <a class="btn btn-primary" data-wa-sched data-tpl="${esc(schedMsg)}" href="${waText(c, schedMsg.replace('{servico}', a.services[0].toLowerCase()))}" target="_blank" rel="noopener" data-magnetic>${socialIcon('whatsapp')}Agendar pelo WhatsApp</a>
+      </article>
+
+      <article class="act act-bills" data-bills data-contract="${s.contract.replace(/\W/g, '')}" data-holder="${esc(s.name)}" data-plan="${esc(planTxt)}" data-base="${p.price}" data-cnpj="${esc(a.cnpj)}">
+        <template class="blogo">${logo('logo', '#FF5A1F')}</template><template class="bico-arrow">${icon('arrow')}</template>
+        <button type="button" class="bexpand" data-bills-expand aria-label="Ver todas as faturas de ${a.invoices.year}" title="Ver todas as faturas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 9.5v-5h5M19.5 9.5v-5h-5M4.5 14.5v5h5M19.5 14.5v5h-5"/></svg></button>
+        <div class="bh"><h3>Faturas ${a.invoices.year}</h3><span>${nPaid} pagas${nLate ? `, ${nLate} em atraso` : ''}</span></div>
+        <template class="blegend">${['paga', 'prazo', 'atraso'].map(k => `<span class="is-${k}"><i class="bi">${BILL_ST[k].ico}</i>${BILL_ST[k].label}</span>`).join('')}</template>
+        <ul class="bills" aria-label="Faturas de ${a.invoices.year}">${bills.map((b, i) => `<li><button type="button" class="bill is-${b.st}" aria-pressed="${i === firstOpen}" data-label="${b.label}" data-due="${b.due}" data-value="${b.value}" data-st="${b.st}" data-mm="${b.mm}" data-paid="${b.paidOn}" data-late="${b.late}">
+          <span class="bi" title="${BILL_ST[b.st].label}">${BILL_ST[b.st].ico}</span><span class="bm"><b>${b.label}</b><small>vence ${b.due}</small></span><span class="bv"><b>R$ ${b.value}</b><small>${BILL_ST[b.st].label}</small></span></button></li>`).join('')}</ul>
+        <div class="bacts"><button class="btn btn-primary sm" type="button" data-bill="gerar">Gerar fatura</button><button class="btn btn-line sm" type="button" data-bill="antecipar">Antecipar fatura</button></div>
+        <div class="bout" role="status" aria-live="polite" hidden></div>
+        <a class="btalk" href="${waText(c, talkMsg)}" target="_blank" rel="noopener">${socialIcon('whatsapp')}Dúvida na fatura? Fale conosco</a>
+      </article>
+    </div>
+  </div>
+  <div class="bmodal" role="dialog" aria-modal="true" aria-label="Informações da fatura" hidden>
+    <div class="mpanel"><button type="button" class="mclose" aria-label="Fechar">${icon('close')}</button><div class="mbody" role="status"></div></div>
+  </div>
+</div></section>`;
+}
+
 // ---------- páginas ----------
 const pages = {
   index: c => `${chrome(c, 'index')}
@@ -1440,6 +1981,13 @@ ${footer(c)}`,
     <aside class="wsum" aria-live="polite">${logo('logo', '#FF5A1F')}<span data-s="name" style="font:600 20px var(--f-display)">Vyra Família</span><div class="sp" data-s="speed">800<small>Mega</small></div><div class="logos" data-s="logos"></div>
       <div class="line"><span>Mensalidade</span><b data-s="price">R$ 129,90</b></div><div class="line"><span>Instalação</span><b>Grátis</b></div><div class="line"><span>Wi-Fi 6</span><b>Incluso</b></div><div class="line"><span>Suporte</span><b>24 horas</b></div></aside>
   </div></section>
+</main>
+${footer(c)}`,
+
+  cliente: c => `${chrome(c, 'cliente')}
+<main>
+  ${phero(c, 'mulher_celular_sofa.jpg', 'Mulher sorrindo no sofá enquanto usa o celular', 'Área do *cliente.*', 'Seu plano, vencimento, teste de velocidade e atendimento Vyra num lugar só.', 'Área do cliente')}
+  ${clientArea(c)}
 </main>
 ${footer(c)}`,
 };

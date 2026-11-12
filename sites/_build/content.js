@@ -119,6 +119,35 @@ module.exports = {
     ],
   },
 
+  // ------------------------------------------------------------------
+  // ÁREA DO CLIENTE (só no modelo Premium/Gold). Acesso DEMONSTRATIVO:
+  // assinante, contrato e datas são fictícios. [EXEMPLO]
+  // ------------------------------------------------------------------
+  clientArea: {
+    login: { cpf: '123.456.789-09', password: 'vyra2026' },
+    subscriber: { name: 'Mariana Duarte', first: 'Mariana', contract: 'VY-204817', since: 'março de 2026' },
+    plan: 'familia',                       // id de combos
+    dueDay: 10,
+    nextBill: { date: '10/09/2027', status: 'Em aberto' },
+    loyalty: { months: 24, until: '15/03/2028' },
+    // Faturas do ano, de janeiro a dezembro: 'paga', 'prazo' (dentro do prazo) ou 'atraso'.
+    // A demonstração considera "hoje" = today (dd/mm/aaaa), usado nos juros da fatura em atraso.
+    invoices: {
+      year: 2027, today: '05/09/2027',
+      status: ['paga', 'paga', 'paga', 'paga', 'paga', 'paga', 'paga', 'atraso', 'prazo', 'prazo', 'prazo', 'prazo'],
+    },
+    conditions: [
+      'Roteador Wi-Fi 6 e ponto mesh em comodato: continuam sendo da Vyra e voltam no fim do contrato.',
+      'Pagando até o vencimento, a mensalidade fica no valor do plano, sem acréscimo.',
+      'Depois do vencimento: multa de 2% e juros de 1% ao mês, proporcionais aos dias de atraso.',
+      'Cancelamento antes do fim da fidelidade: multa proporcional aos meses que faltam.',
+      'Troca para um plano mais rápido a qualquer momento, sem custo e sem nova fidelidade.',
+    ],
+    services: ['Visita técnica', 'Ponto extra de Wi-Fi', 'Mudança de endereço', 'Troca de plano'],
+    speedTest: 'https://www.speedtest.net/pt',
+    cnpj: '00.000.000/0001-00',            // [EXEMPLO] mesmo do rodapé
+  },
+
   cities: {
     now: ['Marialva'],
     soon: ['Mandaguari', 'Sarandi', 'Paiçandu', 'Mirador', 'Floresta'], // [EXEMPLO]

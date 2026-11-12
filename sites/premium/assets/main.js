@@ -235,11 +235,21 @@
     if (bl) {
       var out = $('.bout', bl), cur = function () { return $('.bill[aria-pressed="true"]', bl) || $('.bill', bl); };
       $$('.bill', bl).forEach(function (b) { b.addEventListener('click', function () { $$('.bill', bl).forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); out.hidden = true; }); });
-      var say = function (cls, html) { out.className = 'bout' + (cls ? ' ' + cls : ''); out.innerHTML = html; out.hidden = false; };
+      var modal = $('.bmodal', ca), mbody = modal && $('.mbody', modal), lastFocus = null, info = { cls: '', title: '', body: '' };
+      var TOOLS = '<span class="tools"><button type="button" class="tool" data-expand aria-label="Expandir informações da fatura" title="Expandir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 9.5v-5h5M19.5 9.5v-5h-5M4.5 14.5v5h5M19.5 14.5v5h-5"/></svg></button>' +
+        '<button type="button" class="tool" data-collapse aria-label="Recolher informações da fatura" title="Recolher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button></span>';
+      var say = function (cls, title, body) { info = { cls: cls, title: title, body: body };
+        out.className = 'bout' + (cls ? ' ' + cls : ''); out.innerHTML = '<div class="bt"><b>' + title + '</b>' + TOOLS + '</div>' + body; out.hidden = false; };
+      var collapse = function () { if (out.hidden) return; out.classList.add('closing'); setTimeout(function () { out.hidden = true; out.classList.remove('closing'); }, reduce ? 0 : 260); };
+      var openModal = function () { if (!modal) return; lastFocus = document.activeElement;
+        modal.className = 'bmodal' + (info.cls ? ' ' + info.cls : ''); mbody.innerHTML = '<h3>' + info.title + '</h3>' + info.body;
+        modal.hidden = false; document.documentElement.classList.add('modal-open'); requestAnimationFrame(function () { modal.classList.add('on'); $('.mclose', modal).focus(); }); };
+      var closeModal = function () { if (!modal || modal.hidden) return; modal.classList.remove('on'); document.documentElement.classList.remove('modal-open');
+        setTimeout(function () { modal.hidden = true; }, reduce ? 0 : 300); if (lastFocus) lastFocus.focus(); };
       var pix = function (d) { return '00020126VYRA.PIX.' + bl.dataset.contract + '.' + d.label.slice(-4) + d.mm + '.DEMO5204000053039865406' + d.value.replace(',', '') + '5802BR'; };
-      var paidMsg = function (d) { say('ok-paid', '<b>' + d.label + ' já está paga.</b><span>Pagamento confirmado em ' + d.paid + '. Nada a fazer por aqui.</span>'); };
+      var paidMsg = function (d) { say('ok-paid', d.label + ' já está paga.', '<span>Pagamento confirmado em ' + d.paid + '. Nada a fazer por aqui.</span>'); };
       var slip = function (title, d, rows) {
-        say('', '<b>' + title + '</b>' + rows.map(function (r) { return '<div class="ln"><span>' + r[0] + '</span><strong>' + r[1] + '</strong></div>'; }).join('') +
+        say('', title, rows.map(function (r) { return '<div class="ln"><span>' + r[0] + '</span><strong>' + r[1] + '</strong></div>'; }).join('') +
           '<span>Pix copia e cola (demonstração):</span><code>' + pix(d) + '</code><button type="button" class="copy">Copiar código Pix</button>');
       };
       $('[data-bill="gerar"]', bl).addEventListener('click', function () { var d = cur().dataset;
@@ -249,11 +259,19 @@
           : [['Vencimento', d.due], ['Valor', 'R$ ' + d.value]]); });
       $('[data-bill="antecipar"]', bl).addEventListener('click', function () { var d = cur().dataset;
         if (d.st === 'paga') return paidMsg(d);
-        if (d.st === 'atraso') return say('warn', '<b>' + d.label + ' já venceu em ' + d.due + '.</b><span>Não dá para antecipar uma fatura vencida. Use Gerar fatura para pagar com multa e juros.</span>');
+        if (d.st === 'atraso') return say('warn', d.label + ' já venceu em ' + d.due + '.', '<span>Não dá para antecipar uma fatura vencida. Use Gerar fatura para pagar com multa e juros.</span>');
         slip('Antecipação de ' + d.label, d, [['Vencimento original', d.due], ['Valor', 'R$ ' + d.value], ['Baixa na fatura', 'até 1 dia útil']]); });
-      out.addEventListener('click', function (e) { var b = e.target.closest('.copy'); if (!b) return; var code = $('code', out).textContent;
+      var onCopy = function (e, root) { var b = e.target.closest('.copy'); if (!b) return; var code = $('code', root).textContent;
         var done = function () { b.textContent = 'Código copiado'; setTimeout(function () { b.textContent = 'Copiar código Pix'; }, 2000); };
-        if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done(); });
+        if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done(); };
+      out.addEventListener('click', function (e) {
+        if (e.target.closest('[data-collapse]')) return collapse();
+        if (e.target.closest('[data-expand]')) return openModal();
+        onCopy(e, out); });
+      if (modal) {
+        modal.addEventListener('click', function (e) { if (e.target === modal || e.target.closest('.mclose')) return closeModal(); onCopy(e, modal); });
+        addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+      }
     }
   }
 

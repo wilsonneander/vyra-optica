@@ -883,6 +883,37 @@ a.channel:hover { transform: translateX(8px); box-shadow: 0 0 0 1.5px var(--oran
 .bout .copy:hover { background: var(--peach); }
 .bout.warn { background: #FDE7E7; color: #8F1414; }
 .bout.ok-paid { background: #E3F6EA; color: #0F5A2C; }
+.bout.closing { animation: boutUp .26s var(--ease) forwards; }
+@keyframes boutUp { to { opacity: 0; transform: translateY(-14px); } }
+.bout .bt { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.bout .tools { display: flex; gap: 6px; flex: none; margin: -4px -4px 0 0; }
+.bout .tool { width: 32px; height: 32px; border: 0; border-radius: 10px; display: grid; place-items: center; background: rgba(255,255,255,.1); color: inherit; cursor: pointer; transition: background-color .3s, transform .4s var(--ease); }
+.bout .tool:hover { background: rgba(255,255,255,.2); }
+.bout .tool[data-collapse]:hover { transform: translateY(-2px); }
+.bout .tool[data-expand]:hover { transform: scale(1.08); }
+.bout .tool svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.bout.warn .tool, .bout.ok-paid .tool { background: rgba(0,0,0,.06); }
+.bout.warn .tool:hover, .bout.ok-paid .tool:hover { background: rgba(0,0,0,.12); }
+
+/* Modal com as informações da fatura em tamanho maior */
+html.modal-open { overflow: hidden; }
+.bmodal { position: fixed; inset: 0; z-index: 350; display: grid; place-items: center; padding: max(20px, env(safe-area-inset-top)) 16px max(20px, env(safe-area-inset-bottom)); background: rgba(20,14,12,.62); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; transition: opacity .3s var(--ease); overflow-y: auto; }
+.bmodal.on { opacity: 1; }
+.bmodal .mpanel { position: relative; width: min(560px, 100%); border-radius: 28px; padding: clamp(26px, 5vw, 42px); background: var(--night); color: var(--white); box-shadow: 0 50px 100px -40px rgba(0,0,0,.7); transform: translateY(24px) scale(.97); transition: transform .45s var(--ease); }
+.bmodal.on .mpanel { transform: none; }
+.bmodal.warn .mpanel { background: #FDE7E7; color: #8F1414; }
+.bmodal.ok-paid .mpanel { background: #E3F6EA; color: #0F5A2C; }
+.bmodal .mbody { display: grid; gap: 14px; font-size: 17px; }
+.bmodal h3 { font-size: clamp(24px, 3vw, 30px); padding-right: 48px; }
+.bmodal .ln { display: flex; justify-content: space-between; gap: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.72); }
+.bmodal .ln strong { color: var(--white); font: 600 19px var(--f-display); }
+.bmodal code { display: block; padding: 16px 18px; border-radius: 14px; background: rgba(255,255,255,.08); font: 500 15.5px/1.5 ui-monospace, Consolas, monospace; word-break: break-all; color: var(--peach); }
+.bmodal .copy { justify-self: start; border: 0; border-radius: 12px; padding: 14px 22px; background: var(--white); color: var(--orange-700); font: 600 16px var(--f-display); cursor: pointer; }
+.bmodal .copy:hover { background: var(--peach); }
+.bmodal .mclose { position: absolute; right: 18px; top: 18px; width: 44px; height: 44px; border: 0; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.12); color: inherit; cursor: pointer; transition: background-color .3s, transform .4s var(--ease); }
+.bmodal .mclose:hover { background: rgba(255,255,255,.22); transform: rotate(90deg); }
+.bmodal.warn .mclose, .bmodal.ok-paid .mclose { background: rgba(0,0,0,.07); }
+@media (max-width: 520px) { .bmodal .copy { width: 100%; justify-self: stretch; } }
 .btalk { display: inline-flex; align-items: center; gap: 8px; justify-self: start; font: 600 14px var(--f-display); color: var(--orange-700); text-decoration: none; }
 .btalk .ico { width: 18px; height: 18px; color: #25D366; }
 .btalk:hover { text-decoration: underline; }
@@ -1137,11 +1168,21 @@ const js = `// Vyra · modelo Premium
     if (bl) {
       var out = $('.bout', bl), cur = function () { return $('.bill[aria-pressed="true"]', bl) || $('.bill', bl); };
       $$('.bill', bl).forEach(function (b) { b.addEventListener('click', function () { $$('.bill', bl).forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); out.hidden = true; }); });
-      var say = function (cls, html) { out.className = 'bout' + (cls ? ' ' + cls : ''); out.innerHTML = html; out.hidden = false; };
+      var modal = $('.bmodal', ca), mbody = modal && $('.mbody', modal), lastFocus = null, info = { cls: '', title: '', body: '' };
+      var TOOLS = '<span class="tools"><button type="button" class="tool" data-expand aria-label="Expandir informações da fatura" title="Expandir"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 9.5v-5h5M19.5 9.5v-5h-5M4.5 14.5v5h5M19.5 14.5v5h-5"/></svg></button>' +
+        '<button type="button" class="tool" data-collapse aria-label="Recolher informações da fatura" title="Recolher"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg></button></span>';
+      var say = function (cls, title, body) { info = { cls: cls, title: title, body: body };
+        out.className = 'bout' + (cls ? ' ' + cls : ''); out.innerHTML = '<div class="bt"><b>' + title + '</b>' + TOOLS + '</div>' + body; out.hidden = false; };
+      var collapse = function () { if (out.hidden) return; out.classList.add('closing'); setTimeout(function () { out.hidden = true; out.classList.remove('closing'); }, reduce ? 0 : 260); };
+      var openModal = function () { if (!modal) return; lastFocus = document.activeElement;
+        modal.className = 'bmodal' + (info.cls ? ' ' + info.cls : ''); mbody.innerHTML = '<h3>' + info.title + '</h3>' + info.body;
+        modal.hidden = false; document.documentElement.classList.add('modal-open'); requestAnimationFrame(function () { modal.classList.add('on'); $('.mclose', modal).focus(); }); };
+      var closeModal = function () { if (!modal || modal.hidden) return; modal.classList.remove('on'); document.documentElement.classList.remove('modal-open');
+        setTimeout(function () { modal.hidden = true; }, reduce ? 0 : 300); if (lastFocus) lastFocus.focus(); };
       var pix = function (d) { return '00020126VYRA.PIX.' + bl.dataset.contract + '.' + d.label.slice(-4) + d.mm + '.DEMO5204000053039865406' + d.value.replace(',', '') + '5802BR'; };
-      var paidMsg = function (d) { say('ok-paid', '<b>' + d.label + ' já está paga.</b><span>Pagamento confirmado em ' + d.paid + '. Nada a fazer por aqui.</span>'); };
+      var paidMsg = function (d) { say('ok-paid', d.label + ' já está paga.', '<span>Pagamento confirmado em ' + d.paid + '. Nada a fazer por aqui.</span>'); };
       var slip = function (title, d, rows) {
-        say('', '<b>' + title + '</b>' + rows.map(function (r) { return '<div class="ln"><span>' + r[0] + '</span><strong>' + r[1] + '</strong></div>'; }).join('') +
+        say('', title, rows.map(function (r) { return '<div class="ln"><span>' + r[0] + '</span><strong>' + r[1] + '</strong></div>'; }).join('') +
           '<span>Pix copia e cola (demonstração):</span><code>' + pix(d) + '</code><button type="button" class="copy">Copiar código Pix</button>');
       };
       $('[data-bill="gerar"]', bl).addEventListener('click', function () { var d = cur().dataset;
@@ -1151,11 +1192,19 @@ const js = `// Vyra · modelo Premium
           : [['Vencimento', d.due], ['Valor', 'R$ ' + d.value]]); });
       $('[data-bill="antecipar"]', bl).addEventListener('click', function () { var d = cur().dataset;
         if (d.st === 'paga') return paidMsg(d);
-        if (d.st === 'atraso') return say('warn', '<b>' + d.label + ' já venceu em ' + d.due + '.</b><span>Não dá para antecipar uma fatura vencida. Use Gerar fatura para pagar com multa e juros.</span>');
+        if (d.st === 'atraso') return say('warn', d.label + ' já venceu em ' + d.due + '.', '<span>Não dá para antecipar uma fatura vencida. Use Gerar fatura para pagar com multa e juros.</span>');
         slip('Antecipação de ' + d.label, d, [['Vencimento original', d.due], ['Valor', 'R$ ' + d.value], ['Baixa na fatura', 'até 1 dia útil']]); });
-      out.addEventListener('click', function (e) { var b = e.target.closest('.copy'); if (!b) return; var code = $('code', out).textContent;
+      var onCopy = function (e, root) { var b = e.target.closest('.copy'); if (!b) return; var code = $('code', root).textContent;
         var done = function () { b.textContent = 'Código copiado'; setTimeout(function () { b.textContent = 'Copiar código Pix'; }, 2000); };
-        if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done(); });
+        if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done(); };
+      out.addEventListener('click', function (e) {
+        if (e.target.closest('[data-collapse]')) return collapse();
+        if (e.target.closest('[data-expand]')) return openModal();
+        onCopy(e, out); });
+      if (modal) {
+        modal.addEventListener('click', function (e) { if (e.target === modal || e.target.closest('.mclose')) return closeModal(); onCopy(e, modal); });
+        addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+      }
     }
   }
 
@@ -1661,6 +1710,9 @@ function clientArea(c) {
         <a class="btalk" href="${waText(c, talkMsg)}" target="_blank" rel="noopener">${socialIcon('whatsapp')}Dúvida na fatura? Fale conosco</a>
       </article>
     </div>
+  </div>
+  <div class="bmodal" role="dialog" aria-modal="true" aria-label="Informações da fatura" hidden>
+    <div class="mpanel"><button type="button" class="mclose" aria-label="Fechar">${icon('close')}</button><div class="mbody" role="status"></div></div>
   </div>
 </div></section>`;
 }

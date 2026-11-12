@@ -26,7 +26,25 @@ const PAGES = [
   { slug: 'servicos', nav: 'Serviços', tip: 'Serviços para o seu provedor', ico: 'navServicos', img: 'internet.webp' },
   { slug: 'contabilidade', nav: 'Contabilidade', tip: 'Contabilidade para provedores', ico: 'navContabilidade', img: 'contabilidade.webp' },
   { slug: 'contato', nav: 'Contato', tip: 'Fale com a THD', ico: 'navContato', img: 'rack.webp' },
+  { slug: 'area-do-cliente', nav: 'Área do Cliente', tip: 'Área do Cliente', ico: 'navCliente', img: 'rede.webp' },
 ];
+const AREA = 'area-do-cliente';
+// ícones só deste modelo, no mesmo traço reto dos outros (cantos vivos e nó de circuito).
+// A Área do Cliente usa o ícone de pessoa que era do Quem somos; o Quem somos passa a ser o prédio do escritório.
+const sv = (d, w = 1.7) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">${d}</svg>`;
+const nd = (x, y) => `<rect x="${x - 1.6}" y="${y - 1.6}" width="3.2" height="3.2" fill="currentColor" stroke="none"/>`;
+const IC = {
+  ...I,
+  navCliente: I.navQuemSomos,
+  navQuemSomos: sv(`<path d="M3.5 20.5h17"/><path d="M5.5 20.5V3.5h9v17"/><path d="M14.5 9h4v11.5"/><path d="M8.5 7.5h3M8.5 11h3"/><path d="M8.5 20.5v-4.5h3v4.5"/>${nd(16.5, 13.5)}`),
+  // situação das faturas: paga, dentro do prazo e em atraso
+  ftPago: sv('<path d="M4.5 12.5 9.5 17.5 19.5 6.5"/>', 2.4),
+  ftPrazo: sv('<path d="M6 12h12"/>', 2.6),
+  ftAtraso: sv(`<path d="M4 4h16v16H4z"/><path d="M12 7.5V12h4"/>${nd(12, 12)}`, 2),
+  expandir: sv('<path d="M14 4h6v6M10 20H4v-6"/><path d="M20 4l-6.5 6.5M4 20l6.5-6.5"/>'),
+  fechar: sv('<path d="M5.5 5.5l13 13M18.5 5.5l-13 13"/>', 2),
+  chevron: sv('<path d="M6 14.5 12 8.5l6 6"/>', 2.2),
+};
 
 const rootOf = (slug) => (slug ? '../' : '');
 const link = (from, to, hash = '') => {
@@ -71,11 +89,15 @@ function header(slug) {
   <a class="brand" href="${link(slug, '')}" aria-label="THD Engenharia, página inicial">
     <img src="${asset(slug, 'img/logo-simbolo.png')}" alt="THD Engenharia, consultoria de provedores de internet" width="360" height="217">
   </a>
-  <nav class="rail-nav" aria-label="Principal">${PAGES.map((p) => `<a href="${link(slug, p.slug)}"${p.slug === slug ? ' aria-current="page"' : ''}>${I[p.ico]}<span class="rn-tip">${p.tip}</span></a>`).join('')}</nav>
+  <nav class="rail-nav" aria-label="Principal">${PAGES.map((p) => `<a href="${link(slug, p.slug)}"${p.slug === AREA ? ' class="rn-acc"' : ''}${p.slug === slug ? ' aria-current="page"' : ''}>${IC[p.ico]}<span class="rn-tip">${p.tip}</span></a>`).join('')}</nav>
   <span class="rail-prog" aria-hidden="true"><i></i></span>
+  ${slug === AREA ? '' : `<a class="rail-acc" href="${link(slug, AREA)}">${IC.navCliente}<span>Área do Cliente</span></a>`}
   <button class="menu-btn" data-menu aria-controls="mmenu" aria-expanded="false" aria-label="Abrir menu"><span class="mb-t">Menu</span><span class="mb-i"><i></i><i></i></span></button>
 </header>
-<a class="btn btn-o btn-sm top-cta" href="${C.waOrcamento}" target="_blank" rel="noopener" data-magnetic>${roll('Solicitar orçamento')}<span class="b-ar">${I.seta}</span></a>
+<div class="top-cta">
+  ${slug === AREA ? '' : `<a class="btn btn-n btn-sm top-acc" href="${link(slug, AREA)}" data-magnetic>${IC.navCliente}${roll('Área do Cliente')}</a>`}
+  <a class="btn btn-o btn-sm" href="${C.waOrcamento}" target="_blank" rel="noopener" data-magnetic>${roll('Solicitar orçamento')}<span class="b-ar">${I.seta}</span></a>
+</div>
 <div class="mmenu" id="mmenu">
   ${fibers('dark')}
   <div class="mm-in">
@@ -142,9 +164,9 @@ function footer(slug) {
 <div class="cursor" aria-hidden="true">${[0, 1, 2, 3, 4, 5].map((k) => `<i class="c-tr" style="--n:${k}"></i>`).join('')}<i class="c-dot"></i><span class="c-tag"></span></div>`;
 }
 
-const headScript = `<script>(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('thd-f-nav')){d.classList.add('enter');sessionStorage.removeItem('thd-f-nav');}}catch(e){}})();</script>`;
+const headScript = `<script>(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('thd-f-nav')){d.classList.add('enter');sessionStorage.removeItem('thd-f-nav');}if(sessionStorage.getItem('thd-f-ac'))d.classList.add('ac-in');}catch(e){}})();</script>`;
 
-function layout({ slug, title, desc, body, jsonld = '' }) {
+function layout({ slug, title, desc, body, jsonld = '', noindex = false }) {
   const ga = C.ga4 && !PREVIEW ? `
 <script async src="https://www.googletagmanager.com/gtag/js?id=${C.ga4}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${C.ga4}');</script>` : '';
@@ -155,7 +177,7 @@ function layout({ slug, title, desc, body, jsonld = '' }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(desc)}">
-<link rel="canonical" href="${canonical(slug)}">
+<link rel="canonical" href="${canonical(slug)}">${noindex ? '\n<meta name="robots" content="noindex">' : ''}
 <meta name="theme-color" content="#021430">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
@@ -698,8 +720,276 @@ ${pageHero(slug, 'Formulário e WhatsApp', 'Fale com a nossa *equipe*', 'Estamos
     desc: 'Fale com a THD Engenharia pelo WhatsApp (21) 9 9834-0142 ou e-mail contato@thdengenharia.com. Atendimento de segunda a sexta, das 9h às 18h.' });
 }
 
+// ---------- área do cliente (demonstrativa) ----------
+// Dados de exemplo do assinante. Troque aqui quando o provedor ligar a área ao sistema dele.
+const ASSINANTE = {
+  nome: 'Mariana Costa',
+  codigo: '004817',
+  endereco: 'Rua das Acácias, 120, Jardim Guanabara, Rio de Janeiro, RJ',
+  desde: '15/09/2026',
+  plano: { nome: 'Fibra 500', down: 500, up: 250, valor: '99,90', tecnologia: 'Fibra óptica até a sua casa', wifi: 'Wi-Fi 6 dual band' },
+  beneficios: [
+    ['Roteador Wi-Fi 6 em comodato', 'Equipamento incluso, com troca sem custo em caso de defeito'],
+    ['Instalação sem custo', 'Feita por técnico da equipe, com teste no local'],
+    ['Internet ilimitada', 'Sem franquia de dados e sem redução de velocidade'],
+    ['IPv6 ativo', 'Endereço moderno para jogos, câmeras e casa conectada'],
+    ['Suporte pelo WhatsApp', 'Atendimento humano em horário comercial'],
+    ['Visita técnica inclusa', 'Sem cobrança quando o problema é na rede'],
+  ],
+  fidelidade: { meses: 12, cumpridos: 7, fim: '15/09/2027' },
+  vencimento: 'Todo dia 10',
+  proxima: '10/05/2027',
+  pagamento: 'Boleto ou Pix',
+  condicoes: [
+    'Depois do vencimento, a fatura tem multa de 2% e juros de 1% ao mês.',
+    'Cancelamento antes do fim da fidelidade gera multa proporcional aos meses restantes.',
+    'Mudança de endereço depende de viabilidade técnica na nova região.',
+    'Valor reajustado uma vez por ano pelo IPCA, com aviso prévio na fatura.',
+  ],
+};
+const SPEEDTEST = 'https://www.speedtest.net/pt';
+const AG_SERV = ['Visita técnica', 'Mudança de endereço', 'Ponto extra de Wi-Fi', 'Troca de equipamento'];
+const AG_PER = ['Manhã', 'Tarde'];
+// faturas de 2027 do assinante de exemplo (a demonstração se passa no começo de maio de 2027):
+// janeiro a março pagas, abril em atraso, maio dentro do prazo e junho a dezembro a vencer (podem ser antecipadas)
+const MESES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+const pad = (n) => String(n).padStart(2, '0');
+const brl = (n) => 'R$ ' + n.toFixed(2).replace('.', ',');
+const FATURAS = MESES.map((m, i) => {
+  const st = i < 3 ? 'pago' : i === 3 ? 'atraso' : i === 4 ? 'aberto' : 'futuro';
+  const valor = 99.9;
+  const seq = String(48170 + i * 7).padStart(6, '0');
+  return {
+    ref: `${m.slice(0, 3)}/2027`, mes: `${m} de 2027`, venc: `10/${pad(i + 1)}/2027`, st, valor,
+    total: st === 'atraso' ? Math.round(valor * 1.03 * 100) / 100 : valor,
+    pagoEm: st === 'pago' ? `${pad(7 + i)}/${pad(i + 1)}/2027` : '',
+    linha: `34191.09008 ${seq}.1${pad(i + 1)}04 81700.004817 ${(i % 9) + 1} ${String(9990 + i * 31).padStart(14, '0')}`,
+    pix: `00020126580014BR.GOV.BCB.PIX0136demo-thd-004817-2027${pad(i + 1)}5204000053039865406${valor.toFixed(2)}5802BR5914THD ENGENHARIA6014RIO DE JANEIRO62070503***6304${(41000 + i * 97).toString(16).toUpperCase()}`,
+  };
+});
+const FT_ST = {
+  pago: { label: 'Paga', ic: 'ftPago', acao: '2ª via' },
+  aberto: { label: 'Dentro do prazo', ic: 'ftPrazo', acao: 'Gerar' },
+  futuro: { label: 'A vencer, dentro do prazo', ic: 'ftPrazo', acao: 'Antecipar' },
+  atraso: { label: 'Em atraso', ic: 'ftAtraso', acao: 'Pagar' },
+};
+const ftNota = (f) => f.st === 'pago' ? `Paga em ${f.pagoEm}` : f.st === 'atraso' ? `Venceu em ${f.venc}` : `Vence em ${f.venc}`;
+const fillTpl = (t, vals) => t.replace(/\{(\w+)\}/g, (_, k) => vals[k] || '');
+
+function areaCliente() {
+  const slug = AREA;
+  const A = ASSINANTE;
+  const P = A.plano;
+  const quem = `Sou ${A.nome}, assinante código ${A.codigo}, plano ${P.nome} (${P.down} Mega).`;
+  const tplAg = `Olá! Vim pela Área do Cliente. ${quem} Quero agendar: {servico}. Melhor período: {periodo}. Endereço: ${A.endereco}.`;
+  const msgSuporte = `Olá! Vim pela Área do Cliente. ${quem} Preciso de atendimento.`;
+  const msgFatura = `Olá! Vim pela Área do Cliente. ${quem} Tenho uma dúvida sobre a minha fatura.`;
+  const ftIc = (f) => `<span class="ft-ic ft-${f.st}" title="${FT_ST[f.st].label}">${IC[FT_ST[f.st].ic]}<span class="sr">${FT_ST[f.st].label}</span></span>`;
+  const ftBtn = (f, i) => `<button type="button" class="ft-a${f.st === 'atraso' ? ' hot' : ''}" data-ft-gen="${i}"${f.st === 'futuro' ? ' data-ft-mode="antecipar"' : ''} aria-label="${FT_ST[f.st].acao}: fatura de ${f.mes}">${FT_ST[f.st].acao}</button>`;
+  const conta = (st) => FATURAS.filter((f) => st.includes(f.st)).length;
+  const iAberto = FATURAS.findIndex((f) => f.st === 'aberto');
+  const iFuturo = FATURAS.findIndex((f) => f.st === 'futuro');
+  const ftResumo = `<p class="ft-sum">
+          <span class="ft-atraso">${IC.ftAtraso}${conta(['atraso'])} em atraso</span>
+          <span class="ft-pago">${IC.ftPago}${conta(['pago'])} pagas</span>
+          <span class="ft-aberto">${IC.ftPrazo}${conta(['aberto', 'futuro'])} dentro do prazo</span>
+        </p>`;
+  // dados das faturas para o JS montar a fatura gerada (o "<" vira < para não fechar o script)
+  const ftData = JSON.stringify({
+    titular: A.nome, codigo: A.codigo, plano: `${P.nome}, ${P.down} Mega`, endereco: A.endereco,
+    emissor: C.nome, cnpj: C.cnpj, wa: C.wa(msgFatura),
+    ic: { pago: IC.ftPago, aberto: IC.ftPrazo, futuro: IC.ftPrazo, atraso: IC.ftAtraso, wa: I.whatsapp, seta: I.seta },
+    st: Object.fromEntries(Object.entries(FT_ST).map(([k, v]) => [k, v.label])),
+    itens: FATURAS,
+  }).replace(/</g, '\\u003c');
+  const senhaMsg = 'Olá! Vim pela Área do Cliente e esqueci minha senha de acesso. Podem me ajudar?';
+  const chips = (name, legend, opts) => `
+        <fieldset class="subj ac-chips">
+          <legend>${legend}</legend>
+          <div>${opts.map((o, i) => `<label><input type="radio" name="${name}" value="${esc(o)}"${i ? '' : ' checked'}><span>${o}</span></label>`).join('')}</div>
+        </fieldset>`;
+  const waBox = (tpl) => `data-wa-tpl="${esc(tpl)}" data-whats="${C.contato.whatsapp}"`;
+  const pct = Math.round((A.fidelidade.cumpridos / A.fidelidade.meses) * 100);
+  const body = `
+<section class="ac-login t-paper" data-ac-login aria-labelledby="ac-lt">
+  ${fibers('light')}
+  <div class="container ac-login-in">
+    <div class="ac-login-copy">
+      <nav class="crumbs up" style="--d:.1s" aria-label="Você está em"><a href="${link(slug, '')}">Início</a><span>/</span><span aria-current="page">Área do Cliente</span></nav>
+      ${kicker('Área do Cliente', 'up')}
+      <h1 class="hl" id="ac-lt">${rise('Sua *conexão* em um só lugar.')}</h1>
+      <p class="lead up" style="--d:.7s">Consulte o seu plano, confira vencimento e fidelidade, teste a velocidade e agende um atendimento sem sair de casa.</p>
+      <ul class="ac-feat up" style="--d:.85s">
+        <li>Plano contratado<small>Velocidade e valor mensal</small></li>
+        <li>Detalhes do contrato<small>Vencimento, fidelidade e condições</small></li>
+        <li>Teste de conexão<small>Confira a velocidade em casa</small></li>
+        <li>Agendamento<small>Técnico marcado pelo WhatsApp</small></li>
+      </ul>
+    </div>
+    <form class="form ac-form up" style="--d:.5s" id="ac-login" novalidate>
+      <p class="kicker">Acesso do assinante</p>
+      <h2>Entrar</h2>
+      <p class="form-note">Use o CPF do titular e a senha enviada na instalação.</p>
+      <label class="fl"><input name="cpf" inputmode="numeric" autocomplete="username" required placeholder=" " maxlength="14"><span>CPF do titular *</span></label>
+      <label class="fl fl-pw"><input name="senha" type="password" autocomplete="current-password" required placeholder=" "><span>Senha *</span><button type="button" class="ac-eye" data-ac-eye aria-pressed="false">Mostrar</button></label>
+      <button class="btn btn-o" type="submit" data-magnetic>${roll('Acessar minha conta')}<span class="b-ar">${I.seta}</span></button>
+      <p class="form-status" role="status" aria-live="polite"></p>
+      <p class="ac-help"><a href="${C.wa(senhaMsg)}" target="_blank" rel="noopener">Esqueci minha senha</a><a href="${C.wa('Olá! Vim pelo site e quero conhecer os planos de internet.')}" target="_blank" rel="noopener">Ainda não sou cliente</a></p>
+      <p class="ac-demo">Ambiente demonstrativo: entre com qualquer CPF e qualquer senha para ver a área do assinante.</p>
+    </form>
+  </div>
+</section>
+
+<div class="ac-dash" data-ac-dash>
+<section class="phero ac-top t-paper" aria-labelledby="ac-dt">
+  ${fibers('light')}
+  <div class="container phero-in">
+    <nav class="crumbs up" style="--d:.1s" aria-label="Você está em"><a href="${link(slug, '')}">Início</a><span>/</span><span aria-current="page">Área do Cliente</span></nav>
+    ${kicker('Área do Cliente', 'up')}
+    <div class="ac-hello">
+      <h1 class="hl" id="ac-dt" tabindex="-1">${rise(`Olá, *${A.nome.split(' ')[0]}.*`)}</h1>
+      <button type="button" class="btn btn-line btn-sm up" style="--d:.5s" data-ac-out>${roll('Sair da conta')}<span class="b-ar">${I.seta}</span></button>
+    </div>
+    <dl class="ac-id up" style="--d:.6s">
+      <div><dt>Titular</dt><dd>${A.nome}</dd></div>
+      <div><dt>Código do assinante</dt><dd>${A.codigo}</dd></div>
+      <div><dt>CPF</dt><dd data-ac-cpf>***.***.***-**</dd></div>
+      <div><dt>Situação</dt><dd class="ok">Conexão ativa</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="sec t-paper ac-main">
+  <div class="container ac-grid">
+    <article class="ac-card ac-plan t-navy rv" aria-labelledby="ac-pl">
+      ${fibers('dark')}
+      <p class="kicker">Plano contratado</p>
+      <h2 id="ac-pl">${P.nome}</h2>
+      <p class="ac-speed"><b>${P.down}</b><span>Mega<small>de download</small></span></p>
+      <dl class="ac-spec">
+        <div><dt>Upload</dt><dd>${P.up} Mega</dd></div>
+        <div><dt>Tecnologia</dt><dd>${P.tecnologia}</dd></div>
+        <div><dt>Roteador</dt><dd>${P.wifi}</dd></div>
+      </dl>
+      <div class="ac-plan-foot">
+        <p class="ac-price"><small>Valor mensal</small><b>R$ ${P.valor}</b><span>por mês</span></p>
+        ${arrowBtn('#ac-detalhe', 'Ver detalhes do plano', 'btn btn-o btn-sm')}
+      </div>
+    </article>
+
+    <article class="ac-card ac-test t-white rv" style="--d:1" aria-labelledby="ac-tt">
+      <figure class="gauge" aria-hidden="true">
+        <svg viewBox="0 0 240 140">
+          <path class="g-tr" d="M24 124 A96 96 0 0 1 216 124"/>
+          <path class="g-fl" pathLength="100" d="M24 124 A96 96 0 0 1 216 124"/>
+          <path class="g-lt" pathLength="100" d="M24 124 A96 96 0 0 1 216 124"/>
+          <text class="g-v" x="120" y="112">${P.down}</text>
+          <text class="g-u" x="120" y="134">Mega contratados</text>
+        </svg>
+      </figure>
+      <div class="ac-test-c">
+        <p class="kicker">Teste sua conexão</p>
+        <h2 id="ac-tt">A velocidade está chegando?</h2>
+        <ul class="ac-tips">
+          <li>Para medir o plano inteiro, ligue o computador no roteador pelo cabo.</li>
+          <li>No Wi-Fi, fique perto do roteador e feche downloads e vídeos abertos.</li>
+        </ul>
+        <a class="btn btn-o" href="${SPEEDTEST}" target="_blank" rel="noopener" data-magnetic>${roll('Testar minha velocidade')}<span class="b-ar">${I.seta}</span></a>
+      </div>
+    </article>
+
+    <article class="ac-card ac-detail t-white rv" id="ac-detalhe" aria-labelledby="ac-dh">
+      <div>
+        <p class="kicker">Detalhamento do plano</p>
+        <h2 id="ac-dh">O que o seu plano inclui</h2>
+        <ul class="ac-ben">${A.beneficios.map(([t, d]) => `<li><strong>${t}</strong><small>${d}</small></li>`).join('')}</ul>
+      </div>
+      <div class="ac-terms">
+        <dl>
+          <div><dt>Vencimento</dt><dd>${A.vencimento}</dd></div>
+          <div><dt>Próxima fatura</dt><dd>${A.proxima}, R$ ${P.valor}</dd></div>
+          <div><dt>Forma de pagamento</dt><dd>${A.pagamento}</dd></div>
+          <div><dt>Cliente desde</dt><dd>${A.desde}</dd></div>
+          <div class="ac-fid"><dt>Fidelidade</dt><dd>${A.fidelidade.meses} meses, até ${A.fidelidade.fim}</dd>
+            <p class="ac-bar" role="img" aria-label="${A.fidelidade.cumpridos} de ${A.fidelidade.meses} meses de fidelidade cumpridos"><i style="--p:${pct}%"></i></p>
+            <small>${A.fidelidade.cumpridos} de ${A.fidelidade.meses} meses cumpridos</small></div>
+        </dl>
+        <div class="ac-cond-h">
+          <h3 id="ac-ch">Condições</h3>
+          <button type="button" class="ac-tog" data-ac-tog aria-expanded="true" aria-controls="ac-cond" aria-label="Recolher as condições" title="Recolher">${IC.chevron}</button>
+        </div>
+        <div class="ac-cond-w" id="ac-cond" role="region" aria-labelledby="ac-ch"><div><ul class="ac-cond">${A.condicoes.map((c) => `<li>${c}</li>`).join('')}</ul></div></div>
+      </div>
+    </article>
+
+    <article class="ac-card ac-act ac-sched t-deep rv" aria-labelledby="ac-ag" ${waBox(tplAg)}>
+      <p class="kicker">Agende um serviço</p>
+      <h2 id="ac-ag">Precisa de um técnico em casa?</h2>
+      <p>Escolha o serviço e o melhor período. A mensagem abre pronta no WhatsApp, com seus dados e endereço.</p>
+      ${chips('servico', 'Serviço', AG_SERV)}
+      ${chips('periodo', 'Período', AG_PER)}
+      <a class="btn btn-w" href="${C.wa(fillTpl(tplAg, { servico: AG_SERV[0], periodo: AG_PER[0] }))}" target="_blank" rel="noopener" data-wa-go data-magnetic>${I.whatsapp}${roll('Agendar pelo WhatsApp')}</a>
+      <a class="wa-lnk" href="${C.wa(msgSuporte)}" target="_blank" rel="noopener">${I.whatsapp}<span>Outro assunto? Fale com o suporte</span></a>
+    </article>
+
+    <article class="ac-card ac-fat t-white rv" style="--d:1" aria-labelledby="ac-ft">
+      <div class="ft-head">
+        <div>
+          <p class="kicker">Faturas</p>
+          <h2 id="ac-ft">Suas faturas de 2027</h2>
+        </div>
+        <button type="button" class="ft-exp" data-ft-open aria-haspopup="dialog" aria-label="Expandir as faturas" title="Expandir">${IC.expandir}</button>
+      </div>
+      ${ftResumo}
+      <div class="ft-acts">
+        <button type="button" class="btn btn-o btn-sm" data-ft-gen="${iAberto}" data-magnetic>${roll('Gerar fatura do mês')}<span class="b-ar">${I.seta}</span></button>
+        <button type="button" class="btn btn-line btn-sm" data-ft-gen="${iFuturo}" data-ft-mode="antecipar" data-magnetic>${roll('Antecipar fatura')}<span class="b-ar">${I.seta}</span></button>
+      </div>
+      <ul class="ft-list" aria-label="Faturas de 2027">${FATURAS.map((f, i) => `
+        <li class="ft${f.st === 'aberto' ? ' now' : ''}">${ftIc(f)}<span class="ft-m"><b>${f.ref}</b><small>${ftNota(f)}</small></span><span class="ft-v">${brl(f.total)}</span>${ftBtn(f, i)}</li>`).join('')}
+      </ul>
+      <a class="wa-lnk" href="${C.wa(msgFatura)}" target="_blank" rel="noopener">${I.whatsapp}<span>Dúvida na fatura? Fale conosco</span></a>
+    </article>
+  </div>
+</section>
+
+<dialog class="ft-modal" id="ft-modal" aria-labelledby="ftm-t">
+  <header class="ftm-head">
+    <div>
+      <p class="kicker">Área do Cliente</p>
+      <h2 id="ftm-t">Faturas de 2027</h2>
+    </div>
+    <button type="button" class="ftm-x" data-ft-close aria-label="Fechar">${IC.fechar}</button>
+  </header>
+  <div class="ftm-body">
+    <div class="ftm-list" data-ftm-list>
+      <div class="ftm-top">
+        ${ftResumo}
+        <div class="ft-acts">
+          <button type="button" class="btn btn-o btn-sm" data-ft-gen="${iAberto}">${roll('Gerar fatura do mês')}<span class="b-ar">${I.seta}</span></button>
+          <button type="button" class="btn btn-line btn-sm" data-ft-gen="${iFuturo}" data-ft-mode="antecipar">${roll('Antecipar fatura')}<span class="b-ar">${I.seta}</span></button>
+        </div>
+      </div>
+      <table class="ftm-tb">
+        <thead><tr><th scope="col">Mês</th><th scope="col">Vencimento</th><th scope="col">Valor</th><th scope="col">Situação</th><th scope="col"><span class="sr">Ação</span></th></tr></thead>
+        <tbody>${FATURAS.map((f, i) => `
+          <tr class="${f.st === 'aberto' ? 'now' : ''}"><th scope="row">${f.mes}</th><td data-l="Vencimento">${f.venc}</td><td data-l="Valor">${brl(f.total)}${f.st === 'atraso' ? '<small>com multa e juros</small>' : ''}</td><td data-l="Situação"><span class="ftm-st ft-${f.st}">${IC[FT_ST[f.st].ic]}${f.st === 'pago' ? `Paga em ${f.pagoEm}` : FT_ST[f.st].label}</span></td><td>${ftBtn(f, i)}</td></tr>`).join('')}
+        </tbody>
+      </table>
+      <a class="wa-lnk" href="${C.wa(msgFatura)}" target="_blank" rel="noopener">${I.whatsapp}<span>Dúvida na fatura? Fale conosco</span></a>
+    </div>
+    <div class="ftm-doc" data-ftm-doc hidden></div>
+  </div>
+</dialog>
+<script type="application/json" id="ft-data">${ftData}</script>
+</div>`;
+  return layout({ slug, body, noindex: true,
+    title: 'Área do Cliente | THD Engenharia',
+    desc: 'Área do assinante: plano contratado, vencimento, fidelidade, teste de velocidade e agendamento de serviços pelo WhatsApp.' });
+}
+
 // ---------- gravação ----------
-const pages = { '': home(), 'quem-somos': quemSomos(), servicos: servicos(), contabilidade: contabilidade(), contato: contato() };
+const pages = { '': home(), 'quem-somos': quemSomos(), servicos: servicos(), contabilidade: contabilidade(), contato: contato(), [AREA]: areaCliente() };
 
 fs.rmSync(OUT, { recursive: true, force: true });
 for (const [slug, html] of Object.entries(pages)) {
@@ -717,7 +1007,7 @@ if (!PREVIEW) {
   const hoje = new Date().toISOString().slice(0, 10);
   fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${Object.keys(pages).map((s) => `  <url><loc>${canonical(s)}</loc><lastmod>${hoje}</lastmod></url>`).join('\n')}
+${Object.keys(pages).filter((s) => s !== AREA).map((s) => `  <url><loc>${canonical(s)}</loc><lastmod>${hoje}</lastmod></url>`).join('\n')}
 </urlset>
 `);
   fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${C.dominio}/sitemap.xml\n`);

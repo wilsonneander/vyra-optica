@@ -141,7 +141,6 @@ const html = `<!doctype html>
           <source src="assets/img/capa-video.mp4" type="video/mp4">
         </video>
         <span class="capa-tempo" aria-hidden="true"><i data-capa-tempo></i></span>
-        <button type="button" class="capa-rever" data-capa-rever>${I.rever}<span>Ver o forno de novo</span></button>
         <div class="capa-txt">
           <h1>A massa descansa <em>48 horas.</em> Você espera <em>90 segundos.</em></h1>
           <p>Fermentação lenta, forno a lenha a 450 graus e muito queijo puxando. Peça pra viagem, receba em casa ou venha pra mesa.</p>

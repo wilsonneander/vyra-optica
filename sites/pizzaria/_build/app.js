@@ -37,35 +37,44 @@
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(igualar);
   igualar();
 
-  /* ---------- capa: vídeo do pizzaiolo primeiro, depois a foto ---------- */
+  /* ---------- capa: ciclo vídeo do pizzaiolo, foto por 5s, vídeo de novo ---------- */
   (() => {
     const capa = $('.capa');
     const v = $('[data-capa-video]');
     const barra = $('[data-capa-tempo]');
-    const rever = $('[data-capa-rever]');
     if (!capa || !v) return;
+    const FOTO_MS = 5000;
     const economia = navigator.connection && navigator.connection.saveData;
-    const virarFoto = () => capa.classList.add('foto');
     if (calmo || economia) { v.remove(); $('.capa-tempo').remove(); capa.classList.add('foto'); return; }
+    let visivel = true, falhou = false, fotoT = null, raf;
+    const parar = () => { falhou = true; clearTimeout(fotoT); capa.classList.add('foto'); };
     const tocar = () => {
+      fotoT = null;
+      if (falhou) return;
       capa.classList.remove('foto');
       v.currentTime = 0;
+      if (!visivel) return; // começa quando a capa voltar à tela
       const p = v.play();
-      if (p && p.catch) p.catch(virarFoto);
+      if (p && p.catch) p.catch(parar);
     };
-    let raf;
+    const mostrarFoto = () => {
+      capa.classList.add('foto');
+      clearTimeout(fotoT);
+      fotoT = setTimeout(tocar, FOTO_MS);
+    };
     const andar = () => {
       if (v.duration) barra.style.transform = `scaleX(${Math.min(1, v.currentTime / v.duration)})`;
       raf = requestAnimationFrame(andar);
     };
     v.addEventListener('play', () => { cancelAnimationFrame(raf); andar(); });
-    v.addEventListener('ended', () => { cancelAnimationFrame(raf); virarFoto(); });
-    v.addEventListener('error', virarFoto, true);
-    rever.addEventListener('click', tocar);
-    // pausa fora da tela e retoma ao voltar
+    v.addEventListener('pause', () => cancelAnimationFrame(raf));
+    v.addEventListener('ended', mostrarFoto);
+    v.addEventListener('error', parar, true);
+    // fora da tela o ciclo para; ao voltar continua de onde estava
     new IntersectionObserver(([e]) => {
-      if (capa.classList.contains('foto')) return;
-      if (e.isIntersecting) v.play().catch(virarFoto); else v.pause();
+      visivel = e.isIntersecting;
+      if (falhou || capa.classList.contains('foto')) return;
+      if (visivel) v.play().catch(parar); else v.pause();
     }, { threshold: 0.25 }).observe(capa);
     tocar();
   })();

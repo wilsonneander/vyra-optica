@@ -126,12 +126,6 @@ h1 em, h2 em { font-style: normal; }
 .capa-tempo { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0; height: 4px; background: rgba(255,250,240,.16); transition: opacity .6s; }
 .capa-tempo i { display: block; height: 100%; width: 100%; background: var(--mostarda); transform: scaleX(0); transform-origin: left; }
 .capa.foto .capa-tempo { opacity: 0; }
-.capa-rever { position: absolute; z-index: 3; right: clamp(16px, 2.4vw, 32px); bottom: clamp(18px, 2.6vw, 36px); display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px 10px 11px; border: 1.5px solid rgba(255,250,240,.5); border-radius: 10px; background: rgba(42,23,16,.55); color: var(--farinha); font: 600 13px/1 'Chivo', sans-serif; cursor: pointer; backdrop-filter: blur(6px); opacity: 0; transform: translateY(8px); transition: opacity .5s .9s, transform .5s .9s, background .2s, border-color .2s; }
-.capa-rever svg { width: 18px; height: 18px; }
-.capa:not(.foto) .capa-rever { visibility: hidden; transition: none; }
-.capa.foto .capa-rever { opacity: 1; transform: none; }
-.capa-rever:hover { background: var(--tomate); border-color: var(--tomate); }
-.capa-rever:focus-visible { outline: 3px solid var(--mostarda); outline-offset: 3px; }
 .capa::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(42,23,16,0) 25%, rgba(42,23,16,.88) 92%); }
 .capa-txt { position: absolute; z-index: 2; left: clamp(20px, 3vw, 44px); right: clamp(20px, 3vw, 44px); bottom: clamp(22px, 3vw, 44px); color: var(--farinha); }
 .capa h1 { max-width: 13ch; font-size: clamp(42px, 5.4vw, 92px); font-weight: 900; font-variation-settings: 'wdth' 72; text-transform: uppercase; line-height: .88; }
@@ -485,7 +479,6 @@ h1 em, h2 em { font-style: normal; }
   .nav-mini a { padding: 9px 8px; font-size: 13px; }
   .capa { min-height: 560px; }
   .selo { width: 96px; top: 14px; right: 14px; }
-  .capa-rever { top: 16px; left: 16px; right: auto; bottom: auto; }
   .casa { grid-template-columns: 1fr; grid-template-areas: "a" "t" "b"; }
   .casa-a { aspect-ratio: 4 / 3; min-height: 0; }
   .filtros, .busca { width: 100%; }

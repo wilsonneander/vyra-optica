@@ -734,6 +734,7 @@ ${require('../_build/mapa-css')}
 .ac-top{padding-bottom:clamp(28px,3vw,44px)}
 .ac-hello{display:flex;justify-content:space-between;align-items:flex-end;gap:16px 24px;flex-wrap:wrap}
 .ac-hello .hl{margin:0;outline:none}
+.ac-hello .btn-line{background:#fff}
 .ac-id{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:20px;margin:34px 0 0;border-top:1.5px solid var(--ink)}
 .ac-id div{padding:16px 0 4px}
 .ac-id dt{font:700 .72rem/1.3 var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}

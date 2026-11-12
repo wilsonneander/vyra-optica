@@ -137,8 +137,8 @@ h1 em, h2 em { font-style: normal; }
 .capa p { max-width: 46ch; margin: 16px 0 22px; font-size: 17px; color: var(--massa); }
 .capa-acoes { display: flex; flex-wrap: wrap; gap: 12px; }
 .selo { position: absolute; z-index: 3; top: 22px; right: 22px; width: clamp(110px, 11vw, 160px); animation: gira 22s linear infinite; filter: drop-shadow(0 6px 0 rgba(42,23,16,.6)); }
-.selo circle { fill: var(--mostarda); }
-.selo text { font: 800 17.5px var(--f-t); font-variation-settings: 'wdth' 90; text-transform: uppercase; letter-spacing: .08em; fill: var(--carvao); }
+.selo circle { fill: #FFFFFF; }
+.selo text { font: 800 17.5px var(--f-t); font-variation-settings: 'wdth' 90; text-transform: uppercase; fill: var(--carvao); }
 .selo-meio { color: var(--carvao); }
 @keyframes gira { to { transform: rotate(360deg); } }
 

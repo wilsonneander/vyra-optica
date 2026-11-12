@@ -155,7 +155,7 @@ const html = `<!doctype html>
         <svg class="selo" viewBox="0 0 200 200" aria-hidden="true">
           <defs><path id="giro" d="M100 100m-74 0a74 74 0 1 1 148 0a74 74 0 1 1-148 0"/></defs>
           <circle cx="100" cy="100" r="96"/>
-          <text><textPath href="#giro">forno a lenha a 450 graus  forno a lenha a 450 graus  </textPath></text>
+          <text><textPath href="#giro" textLength="456" lengthAdjust="spacing">forno a lenha a 450 graus forno a lenha a 450 graus</textPath></text>
           <g class="selo-meio">${I.fornoSelo}</g>
         </svg>
       </div>

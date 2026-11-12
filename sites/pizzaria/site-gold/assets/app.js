@@ -540,10 +540,22 @@
   const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   const SEM = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
   const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+  const JANELA = 60; // dias à frente que aceitam reserva
+  const diaK = (k) => { const d = new Date(hoje); d.setDate(hoje.getDate() + k); return d; };
+  const kDe = (d) => Math.round((d - hoje) / 864e5);
+  const fechadoEm = (d) => !(D.horarios[d.getDay()] || []).length;
+  const marcar = (campo, txt) => {
+    const dd = $(`[data-c="${campo}"]`);
+    if (dd.textContent === txt) return;
+    dd.textContent = txt;
+    dd.classList.remove('muda'); void dd.offsetWidth; dd.classList.add('muda');
+  };
+
+  // semana: tickets dos próximos 14 dias
   const diasBox = $('[data-dias]');
   for (let k = 0; k < 14; k++) {
-    const d = new Date(hoje); d.setDate(hoje.getDate() + k);
-    const fechado = !(D.horarios[d.getDay()] || []).length;
+    const d = diaK(k);
+    const fechado = fechadoEm(d);
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'dia';
     b.disabled = fechado;
@@ -553,27 +565,65 @@
     b.setAttribute('aria-label', `${d.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}${fechado ? ', fechado' : ''}`);
     diasBox.appendChild(b);
   }
-  const marcar = (campo, txt) => {
-    const dd = $(`[data-c="${campo}"]`);
-    if (dd.textContent === txt) return;
-    dd.textContent = txt;
-    dd.classList.remove('muda'); void dd.offsetWidth; dd.classList.add('muda');
-  };
-  diasBox.addEventListener('click', (e) => {
-    const b = e.target.closest('.dia');
-    if (!b || b.disabled) return;
-    $$('.dia', diasBox).forEach((x) => x.setAttribute('aria-pressed', x === b));
-    const d = new Date(hoje); d.setDate(hoje.getDate() + +b.dataset.k);
+
+  // calendário: mês inteiro, só a janela de reserva liberada
+  const cal = $('[data-cal]');
+  const calGrade = $('[data-cal-grade]');
+  const MESES_LONGOS = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+  const mesDe = (d) => new Date(d.getFullYear(), d.getMonth(), 1);
+  let calMes = mesDe(hoje);
+  const ultimoDia = diaK(JANELA - 1);
+  function desenharCal() {
+    $('[data-cal-titulo]').textContent = `${MESES_LONGOS[calMes.getMonth()]} ${calMes.getFullYear()}`;
+    const total = new Date(calMes.getFullYear(), calMes.getMonth() + 1, 0).getDate();
+    let s = '<span></span>'.repeat(calMes.getDay());
+    for (let n = 1; n <= total; n++) {
+      const d = new Date(calMes.getFullYear(), calMes.getMonth(), n);
+      const k = kDe(d);
+      const fora = k < 0 || k >= JANELA;
+      const fechado = !fora && fechadoEm(d);
+      const sel = !!R.dia && kDe(R.dia) === k;
+      s += `<button type="button" class="cal-dia${k === 0 ? ' hoje' : ''}${fechado ? ' fechado' : ''}" data-k="${k}" aria-pressed="${sel}"${fora || fechado ? ' disabled' : ''} aria-label="${d.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}${fechado ? ', fechado' : ''}">${n}</button>`;
+    }
+    calGrade.innerHTML = s;
+    $('[data-cal-mes="-1"]').disabled = calMes <= mesDe(hoje);
+    $('[data-cal-mes="1"]').disabled = new Date(calMes.getFullYear(), calMes.getMonth() + 1, 1) > ultimoDia;
+  }
+  $$('[data-cal-mes]').forEach((b) => b.addEventListener('click', () => {
+    calMes = new Date(calMes.getFullYear(), calMes.getMonth() + +b.dataset.calMes, 1);
+    desenharCal();
+  }));
+  desenharCal();
+
+  // alterna semana e calendário
+  $$('[data-modo]').forEach((b) => b.addEventListener('click', () => {
+    const mes = b.dataset.modo === 'mes';
+    $$('[data-modo]').forEach((x) => x.setAttribute('aria-pressed', x === b));
+    diasBox.hidden = mes;
+    cal.hidden = !mes;
+    if (mes && R.dia) { calMes = mesDe(R.dia); desenharCal(); }
+    if (!mes) { const sel = $('.dia[aria-pressed="true"]', diasBox); if (sel) sel.scrollIntoView({ block: 'nearest', inline: 'center' }); }
+  }));
+
+  function escolherDia(k) {
+    const d = diaK(k);
     R.dia = d; R.hora = null;
+    $$('.dia', diasBox).forEach((x) => x.setAttribute('aria-pressed', +x.dataset.k === k));
+    $$('.cal-dia', calGrade).forEach((x) => x.setAttribute('aria-pressed', +x.dataset.k === k));
     marcar('dia', d.toLocaleDateString('pt-BR', { weekday: 'short', day: 'numeric', month: 'short' }).replace(/\./g, ''));
     marcar('hora', 'a escolher');
     const agora = agoraSP();
     const slots = [];
-    (D.horarios[d.getDay()] || []).forEach(([a, z]) => { for (let h = a; h <= z - 1; h += .5) if (+b.dataset.k > 0 || h > agora.h + 1) slots.push(h); });
+    (D.horarios[d.getDay()] || []).forEach(([a, z]) => { for (let h = a; h <= z - 1; h += .5) if (k > 0 || h > agora.h + 1) slots.push(h); });
     $('[data-horas]').innerHTML = slots.length
       ? slots.map((h, i) => `<button type="button" class="hora-btn" style="--o:${i}" data-h="${h}" aria-pressed="false">${Math.floor(h)}:${h % 1 ? '30' : '00'}</button>`).join('')
       : '<p class="dica">Hoje não dá mais tempo. Escolhe outro dia?</p>';
-  });
+  }
+  [diasBox, calGrade].forEach((box) => box.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-k]');
+    if (!b || b.disabled) return;
+    escolherDia(+b.dataset.k);
+  }));
   $('[data-horas]').addEventListener('click', (e) => {
     const b = e.target.closest('.hora-btn');
     if (!b) return;

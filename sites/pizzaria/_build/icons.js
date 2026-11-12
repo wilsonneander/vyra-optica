@@ -29,6 +29,8 @@ module.exports = {
   mais: ico('<path d="M12 5.5v13M5.5 12h13"/>'),
   menos: ico('<path d="M5.5 12h13"/>'),
   x: ico('<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>'),
+  semana: ico('<rect x="3.5" y="6.5" width="17" height="11" rx="2.5"/><path d="M9.2 6.5v11M14.8 6.5v11"/>'),
+  calendario: ico('<rect x="3.5" y="5.5" width="17" height="15" rx="2.8"/><path d="M3.5 10h17M8.5 3.5v4M15.5 3.5v4"/><path d="M8.3 14h.01M12 14h.01M15.7 14h.01M8.3 17.2h.01M12 17.2h.01"/>'),
   seta: ico('<path d="M4.5 12h14M13 6.5l5.5 5.5-5.5 5.5"/>'),
   pino: ico('<path d="M12 21.5c-3.8-4.3-6.6-7.9-6.6-11.4a6.6 6.6 0 0 1 13.2 0c0 3.5-2.8 7.1-6.6 11.4z"/><path d="M9.6 10.2a2.4 2.4 0 1 0 4.8 0 2.4 2.4 0 1 0-4.8 0"/>'),
   lupa: ico('<path d="M4 10.5a6.5 6.5 0 1 0 13 0 6.5 6.5 0 1 0-13 0M15.4 15.4l4.8 4.8"/>'),

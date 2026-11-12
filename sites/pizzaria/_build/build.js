@@ -236,11 +236,25 @@ const html = `<!doctype html>
       </div>
       <form class="reserva sobe" data-reserva novalidate>
         <div class="res-campos">
-          <fieldset>
+          <fieldset class="campo-dia">
             <legend>Qual dia?</legend>
+            <div class="dia-modo" role="group" aria-label="Mostrar os dias por">
+              <button type="button" data-modo="semana" aria-pressed="true">${I.semana}Semana</button>
+              <button type="button" data-modo="mes" aria-pressed="false">${I.calendario}Calendário</button>
+            </div>
             <div class="dias" data-dias></div>
+            <div class="cal" data-cal hidden>
+              <div class="cal-topo">
+                <button type="button" class="cal-nav cal-volta" data-cal-mes="-1" aria-label="Mês anterior">${I.seta}</button>
+                <b data-cal-titulo aria-live="polite"></b>
+                <button type="button" class="cal-nav" data-cal-mes="1" aria-label="Próximo mês">${I.seta}</button>
+              </div>
+              <div class="cal-sem" aria-hidden="true"><span>dom</span><span>seg</span><span>ter</span><span>qua</span><span>qui</span><span>sex</span><span>sáb</span></div>
+              <div class="cal-grade" data-cal-grade></div>
+            </div>
           </fieldset>
-          <fieldset>
+          <div class="res-par">
+          <fieldset class="campo-horas">
             <legend>Que horas?</legend>
             <div class="horas" data-horas><p class="dica">Escolha o dia primeiro.</p></div>
           </fieldset>
@@ -255,9 +269,10 @@ const html = `<!doctype html>
               </div>
             </div>
           </fieldset>
+          </div>
           <fieldset>
             <legend>Qual a ocasião?</legend>
-            <div class="ocasioes" data-iguais>${C.ocasioes.map((o, i) => `<label><input type="radio" name="ocasiao" value="${o}"${i === 0 ? ' checked' : ''}><span>${o}</span></label>`).join('')}</div>
+            <div class="ocasioes">${C.ocasioes.map((o, i) => `<label><input type="radio" name="ocasiao" value="${o}"${i === 0 ? ' checked' : ''}><span>${o}</span></label>`).join('')}</div>
           </fieldset>
           <div class="campos">
             <label>Seu nome<input name="nome" autocomplete="name" required></label>

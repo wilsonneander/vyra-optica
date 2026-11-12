@@ -128,5 +128,5 @@ module.exports = {
     ['Borda de chocolate', 14],
   ],
 
-  ocasioes: ['Jantar', 'Aniversário', 'Encontro', 'Reunião de amigos', 'Família'],
+  ocasioes: ['Jantar', 'Aniversário', 'Encontro', 'Família'],
 };

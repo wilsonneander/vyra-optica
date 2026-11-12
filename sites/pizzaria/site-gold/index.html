@@ -564,11 +564,25 @@
       </div>
       <form class="reserva sobe" data-reserva novalidate>
         <div class="res-campos">
-          <fieldset>
+          <fieldset class="campo-dia">
             <legend>Qual dia?</legend>
+            <div class="dia-modo" role="group" aria-label="Mostrar os dias por">
+              <button type="button" data-modo="semana" aria-pressed="true"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="6.5" width="17" height="11" rx="2.5"/><path d="M9.2 6.5v11M14.8 6.5v11"/></svg>Semana</button>
+              <button type="button" data-modo="mes" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="15" rx="2.8"/><path d="M3.5 10h17M8.5 3.5v4M15.5 3.5v4"/><path d="M8.3 14h.01M12 14h.01M15.7 14h.01M8.3 17.2h.01M12 17.2h.01"/></svg>Calendário</button>
+            </div>
             <div class="dias" data-dias></div>
+            <div class="cal" data-cal hidden>
+              <div class="cal-topo">
+                <button type="button" class="cal-nav cal-volta" data-cal-mes="-1" aria-label="Mês anterior"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h14M13 6.5l5.5 5.5-5.5 5.5"/></svg></button>
+                <b data-cal-titulo aria-live="polite"></b>
+                <button type="button" class="cal-nav" data-cal-mes="1" aria-label="Próximo mês"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h14M13 6.5l5.5 5.5-5.5 5.5"/></svg></button>
+              </div>
+              <div class="cal-sem" aria-hidden="true"><span>dom</span><span>seg</span><span>ter</span><span>qua</span><span>qui</span><span>sex</span><span>sáb</span></div>
+              <div class="cal-grade" data-cal-grade></div>
+            </div>
           </fieldset>
-          <fieldset>
+          <div class="res-par">
+          <fieldset class="campo-horas">
             <legend>Que horas?</legend>
             <div class="horas" data-horas><p class="dica">Escolha o dia primeiro.</p></div>
           </fieldset>
@@ -583,9 +597,10 @@
               </div>
             </div>
           </fieldset>
+          </div>
           <fieldset>
             <legend>Qual a ocasião?</legend>
-            <div class="ocasioes" data-iguais><label><input type="radio" name="ocasiao" value="Jantar" checked><span>Jantar</span></label><label><input type="radio" name="ocasiao" value="Aniversário"><span>Aniversário</span></label><label><input type="radio" name="ocasiao" value="Encontro"><span>Encontro</span></label><label><input type="radio" name="ocasiao" value="Reunião de amigos"><span>Reunião de amigos</span></label><label><input type="radio" name="ocasiao" value="Família"><span>Família</span></label></div>
+            <div class="ocasioes"><label><input type="radio" name="ocasiao" value="Jantar" checked><span>Jantar</span></label><label><input type="radio" name="ocasiao" value="Aniversário"><span>Aniversário</span></label><label><input type="radio" name="ocasiao" value="Encontro"><span>Encontro</span></label><label><input type="radio" name="ocasiao" value="Família"><span>Família</span></label></div>
           </fieldset>
           <div class="campos">
             <label>Seu nome<input name="nome" autocomplete="name" required></label>

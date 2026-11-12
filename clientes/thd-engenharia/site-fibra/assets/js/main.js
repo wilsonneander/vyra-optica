@@ -514,6 +514,75 @@
     box.addEventListener('change', upd); upd();
   });
 
+  /* condições do plano: seta para recolher e abrir */
+  $$('[data-ac-tog]').forEach(function (b) {
+    var box = document.getElementById(b.getAttribute('aria-controls')); if (!box) return;
+    b.addEventListener('click', function () {
+      var open = b.getAttribute('aria-expanded') !== 'true';
+      b.setAttribute('aria-expanded', open); box.classList.toggle('shut-c', !open);
+      b.setAttribute('aria-label', open ? 'Recolher as condições' : 'Mostrar as condições'); b.title = open ? 'Recolher' : 'Mostrar';
+    });
+  });
+
+  /* faturas: modal com a lista completa e a fatura gerada (demonstrativa) */
+  var ftm = document.getElementById('ft-modal'), FD = null;
+  try { FD = JSON.parse(document.getElementById('ft-data').textContent); } catch (_) {}
+  if (ftm && FD) {
+    var fList = $('[data-ftm-list]', ftm), fDoc = $('[data-ftm-doc]', ftm), fTitle = $('#ftm-t', ftm), fBack = null;
+    var money = function (n) { return 'R$ ' + n.toFixed(2).replace('.', ','); };
+    var bars = function (code) {
+      var d = code.replace(/\D/g, ''), x = 0, out = '';
+      for (var i = 0; i < d.length; i++) { var n = +d[i], w = 1 + (n % 3); out += '<rect x="' + x + '" y="0" width="' + w + '" height="56"/>'; x += w + 1 + ((n + i) % 2); }
+      return '<svg class="doc-bars" viewBox="0 0 ' + x + ' 56" preserveAspectRatio="none" aria-hidden="true">' + out + '</svg>';
+    };
+    var openM = function () { if (!ftm.open) { fBack = document.activeElement; if (ftm.showModal) ftm.showModal(); else ftm.setAttribute('open', ''); } };
+    var closeM = function () { if (ftm.close) ftm.close(); else { ftm.removeAttribute('open'); if (fBack) fBack.focus(); } };
+    var showList = function () { fDoc.hidden = true; fDoc.innerHTML = ''; fList.hidden = false; fTitle.textContent = 'Faturas de 2027'; ftm.scrollTop = 0; };
+    var showDoc = function (i, mode) {
+      var f = FD.itens[i]; if (!f) return;
+      var ant = mode === 'antecipar', pago = f.st === 'pago', late = f.st === 'atraso';
+      var head = ant ? 'Antecipação de fatura' : pago ? 'Segunda via' : 'Fatura gerada';
+      var tag = pago ? FD.st.pago + ' em ' + f.pagoEm : FD.st[f.st];
+      var note = pago ? '<p class="doc-note ok">Pagamento confirmado em ' + f.pagoEm + '. Esta é a segunda via para os seus registros.</p>'
+        : late ? '<p class="doc-note late">Esta fatura venceu em ' + f.venc + '. O valor já inclui multa de 2% e juros de 1% ao mês. Depois do pagamento, a confirmação chega em até 1 dia útil.</p>'
+        : ant ? '<p class="doc-note">Pagando agora, a fatura de ' + f.mes.toLowerCase() + ' fica quitada antes do vencimento. O valor não muda.</p>'
+        : '<p class="doc-note">Pague até ' + f.venc + ' pelo Pix ou pelo boleto. O Pix é confirmado na hora.</p>';
+      var pay = pago ? '' : '<div class="doc-pay">'
+        + '<div class="doc-box"><p>Pix copia e cola</p><code>' + f.pix + '</code><button type="button" class="btn btn-o doc-copy" data-copy="' + f.pix + '">Copiar código Pix</button></div>'
+        + '<div class="doc-box"><p>Boleto</p>' + bars(f.linha) + '<code>' + f.linha + '</code><button type="button" class="btn btn-n doc-copy" data-copy="' + f.linha + '">Copiar linha digitável</button></div>'
+        + '</div>';
+      fDoc.innerHTML = '<button type="button" class="link-arrow ftm-back" data-ftm-back><span>Voltar para as faturas</span>' + FD.ic.seta + '</button>'
+        + '<article class="doc">'
+        + '<div class="doc-top"><div class="doc-brand"><img src="' + (document.querySelector('.brand img') || {}).src + '" alt="" width="360" height="217"><span><b>' + FD.emissor + '</b><small>CNPJ ' + FD.cnpj + '</small></span></div>'
+        + '<span class="doc-tag ft-' + (ant ? 'futuro' : f.st) + '">' + FD.ic[f.st] + tag + '</span></div>'
+        + '<div class="doc-main"><div><p class="kicker">Fatura de internet</p><h3>' + f.mes + '</h3>'
+        + '<dl class="doc-dl"><div><dt>Titular</dt><dd>' + FD.titular + '</dd></div><div><dt>Código do assinante</dt><dd>' + FD.codigo + '</dd></div><div><dt>Plano</dt><dd>' + FD.plano + '</dd></div><div><dt>Vencimento</dt><dd>' + f.venc + '</dd></div></dl>'
+        + '<p class="doc-total"><small>' + (pago ? 'Valor pago' : 'Valor a pagar') + '</small><b>' + money(f.total) + '</b></p>' + note + '</div>'
+        + (pay || '<div class="doc-pay"><div class="doc-box"><p>Comprovante</p><code>Pagamento via Pix em ' + f.pagoEm + '. Autenticação ' + f.pix.slice(-12) + '</code></div></div>') + '</div>'
+        + '<div class="doc-acts"><button type="button" class="btn btn-line btn-sm" data-ft-print><span>Imprimir ou salvar em PDF</span></button><a class="wa-lnk" href="' + FD.wa + '" target="_blank" rel="noopener">' + FD.ic.wa + '<span>Dúvida na fatura? Fale conosco</span></a></div>'
+        + '</article><p class="doc-demo">Fatura demonstrativa. Os códigos de pagamento não são válidos.</p>';
+      fList.hidden = true; fDoc.hidden = false; fTitle.textContent = head; ftm.scrollTop = 0;
+      var bk = $('[data-ftm-back]', fDoc); if (bk) bk.focus({ focusVisible: false });
+      if (window.gtag) gtag('event', ant ? 'antecipar_fatura' : 'gerar_fatura', { fatura: f.ref });
+    };
+    var copyTxt = function (txt, btn) {
+      var done = function () { var old = btn.textContent; btn.textContent = 'Copiado'; btn.classList.add('done'); setTimeout(function () { btn.textContent = old; btn.classList.remove('done'); }, 1800); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, function () {});
+      else { var t = document.createElement('textarea'); t.value = txt; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); done(); } catch (_) {} t.remove(); }
+    };
+    document.addEventListener('click', function (e) {
+      var g = e.target.closest('[data-ft-gen]');
+      if (g) { openM(); showDoc(+g.getAttribute('data-ft-gen'), g.getAttribute('data-ft-mode')); return; }
+      if (e.target.closest('[data-ft-open]')) { openM(); showList(); var x = $('[data-ft-close]', ftm); if (x) x.focus({ focusVisible: false }); return; }
+      if (e.target.closest('[data-ftm-back]')) { showList(); return; }
+      if (e.target.closest('[data-ft-close]')) { closeM(); return; }
+      if (e.target.closest('[data-ft-print]')) { window.print(); return; }
+      var cp = e.target.closest('[data-copy]'); if (cp) copyTxt(cp.getAttribute('data-copy'), cp);
+    });
+    ftm.addEventListener('click', function (e) { if (e.target === ftm) closeM(); });
+    ftm.addEventListener('close', function () { showList(); if (fBack && fBack.focus) fBack.focus(); });
+  }
+
   /* horário: avisa se a equipe está atendendo agora */
   $$('[data-now]').forEach(function (el) {
     try {

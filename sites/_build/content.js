@@ -128,8 +128,14 @@ module.exports = {
     subscriber: { name: 'Mariana Duarte', first: 'Mariana', contract: 'VY-204817', since: 'março de 2026' },
     plan: 'familia',                       // id de combos
     dueDay: 10,
-    nextBill: { date: '10/12/2026', status: 'Em aberto' },
-    loyalty: { months: 12, until: '15/03/2027' },
+    nextBill: { date: '10/09/2027', status: 'Em aberto' },
+    loyalty: { months: 24, until: '15/03/2028' },
+    // Faturas do ano, de janeiro a dezembro: 'paga', 'prazo' (dentro do prazo) ou 'atraso'.
+    // A demonstração considera "hoje" = today (dd/mm/aaaa), usado nos juros da fatura em atraso.
+    invoices: {
+      year: 2027, today: '05/09/2027',
+      status: ['paga', 'paga', 'paga', 'paga', 'paga', 'paga', 'paga', 'atraso', 'prazo', 'prazo', 'prazo', 'prazo'],
+    },
     conditions: [
       'Roteador Wi-Fi 6 e ponto mesh em comodato: continuam sendo da Vyra e voltam no fim do contrato.',
       'Pagando até o vencimento, a mensalidade fica no valor do plano, sem acréscimo.',

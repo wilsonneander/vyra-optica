@@ -751,18 +751,18 @@ a.channel:hover { transform: translateX(8px); box-shadow: 0 0 0 1.5px var(--oran
 .wa-float .ico { width: 30px; height: 30px; position: relative; }
 
 /* Área do cliente: acesso no topo */
-.client-link { display: inline-flex; align-items: center; gap: 8px; color: inherit; text-decoration: none; font: 600 14.5px var(--f-display); padding: 10px 14px; border-radius: 14px; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.4); transition: background-color .3s, box-shadow .3s, color .3s; }
-.client-link:hover { background: rgba(255,255,255,.12); }
-.hdr.solid .client-link { box-shadow: inset 0 0 0 1.5px var(--line); }
-.hdr.solid .client-link:hover { background: var(--mist); }
-.client-link[aria-current="page"] { background: var(--white); color: var(--orange-700); box-shadow: none; }
-.hdr.solid .client-link[aria-current="page"] { background: var(--grad); color: var(--white); }
+.btn-client { background: var(--white); color: var(--orange-700); box-shadow: 0 18px 36px -18px rgba(0,0,0,.45); }
+.btn-client::before { background: var(--night); }
+.btn-client:hover { color: var(--white); }
+.hdr.solid .btn-client { box-shadow: inset 0 0 0 1.5px var(--line), 0 14px 28px -20px rgba(30,21,18,.45); }
+.hdr.solid .btn-client:hover { box-shadow: 0 18px 36px -16px rgba(20,14,12,.55); }
 @media (max-width: 1100px) {
-  .client-link { width: 50px; height: 50px; padding: 0; justify-content: center; border-radius: 50%; box-shadow: none; background: rgba(255,255,255,.14); }
-  .hdr.solid .client-link { box-shadow: none; background: var(--mist); }
-  .client-link span { display: none; }
-  .client-link .ico { width: 22px; height: 22px; }
+  .hdr .right .btn-client { display: inline-flex; width: 50px; height: 50px; padding: 0; }
+  .btn-client span { display: none; }
+  .btn-client .ico { width: 22px; height: 22px; }
 }
+/* Ícones que não são seta ficam parados no hover (WhatsApp, usuário) */
+.btn:hover .ico[fill="currentColor"], .btn:hover .ico.still { transform: none; }
 
 /* Área do cliente: login */
 .ca [hidden] { display: none !important; }
@@ -824,7 +824,9 @@ a.channel:hover { transform: translateX(8px); box-shadow: 0 0 0 1.5px var(--oran
 .dcond li::marker { color: var(--orange); }
 
 /* Área do cliente: ações */
-.dacts { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
+.dacts { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); grid-template-rows: auto 1fr; gap: 22px; align-items: start; }
+.act-sched { align-self: stretch; }
+.act-bills { grid-column: 2; grid-row: 1 / span 2; }
 .act { border-radius: 28px; padding: clamp(24px, 3vw, 34px); display: grid; gap: 14px; align-content: start; background: var(--white); box-shadow: 0 0 0 1px var(--line); transition: transform .5s var(--ease), box-shadow .4s; }
 .act:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--line), 0 30px 60px -40px rgba(30,21,18,.45); }
 .act p { color: var(--muted); font-size: 15.5px; }
@@ -852,15 +854,42 @@ a.channel:hover { transform: translateX(8px); box-shadow: 0 0 0 1.5px var(--oran
 .opts label:hover span { box-shadow: inset 0 0 0 1px var(--orange-600); }
 .opts input:checked + span { background: var(--night); color: var(--white); box-shadow: none; }
 .opts input:focus-visible + span { outline: 2px solid var(--orange); outline-offset: 2px; }
-.when { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); }
-.when .ico { width: 18px; height: 18px; color: var(--orange); margin-top: 2px; }
-.btn-wa { background: #25D366; color: #08361C; box-shadow: 0 18px 36px -18px rgba(18,140,70,.7); }
-.btn-wa::before { background: var(--night); }
-.btn-wa:hover { color: var(--white); }
-@media (max-width: 1080px) { .dacts { grid-template-columns: 1fr 1fr; } .act-speed { grid-column: 1 / -1; } }
+.act-bills { gap: 12px; }
+.act-bills .bh { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; }
+.act-bills .bh span { font-size: 13.5px; color: var(--muted); }
+.bills { position: relative; list-style: none; margin: 0 -8px; padding: 0 8px; max-height: 300px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--peach) transparent; }
+.bills li + li { border-top: 1px solid var(--line); }
+.bill { width: 100%; display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 11px 10px; margin: 2px 0; border: 0; border-radius: 14px; background: transparent; color: var(--ink); text-align: left; font: inherit; cursor: pointer; transition: background-color .3s, box-shadow .3s; }
+.bill:hover { background: var(--mist); }
+.bill[aria-pressed="true"] { background: var(--mist); box-shadow: inset 0 0 0 1.5px var(--orange-600); }
+.bill .bi { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; }
+.bill .bi .ico { width: 17px; height: 17px; }
+.bill.is-paga .bi { color: #15803D; background: #E3F6EA; }
+.bill.is-prazo .bi { color: #8A8580; background: #EFEDEB; }
+.bill.is-atraso .bi { color: #DC2626; background: #FDE7E7; }
+.bill .bm b, .bill .bv b { display: block; font: 600 15.5px/1.25 var(--f-display); }
+.bill small { display: block; font-size: 12.5px; color: var(--muted); }
+.bill .bv { text-align: right; }
+.bill.is-paga .bv small { color: #15803D; }
+.bill.is-atraso .bv small { color: #DC2626; font-weight: 600; }
+.bacts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.act .bacts .btn { justify-self: stretch; margin: 0; padding: 13px 10px; font-size: 14px; }
+.bout { border-radius: 18px; padding: 16px; background: var(--night); color: var(--white); display: grid; gap: 8px; font-size: 14px; animation: fadeUp .5s var(--ease); }
+.bout b { font: 600 16px var(--f-display); }
+.bout .ln { display: flex; justify-content: space-between; gap: 12px; color: rgba(255,255,255,.7); }
+.bout .ln strong { color: var(--white); font-family: var(--f-display); }
+.bout code { display: block; padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,.08); font: 500 12.5px/1.4 ui-monospace, Consolas, monospace; word-break: break-all; color: var(--peach); }
+.bout .copy { justify-self: start; border: 0; border-radius: 10px; padding: 9px 14px; background: var(--white); color: var(--orange-700); font: 600 13.5px var(--f-display); cursor: pointer; }
+.bout .copy:hover { background: var(--peach); }
+.bout.warn { background: #FDE7E7; color: #8F1414; }
+.bout.ok-paid { background: #E3F6EA; color: #0F5A2C; }
+.btalk { display: inline-flex; align-items: center; gap: 8px; justify-self: start; font: 600 14px var(--f-display); color: var(--orange-700); text-decoration: none; }
+.btalk .ico { width: 18px; height: 18px; color: #25D366; }
+.btalk:hover { text-decoration: underline; }
+@media (max-width: 1080px) { .act-speed { grid-template-columns: 1fr; justify-items: start; } }
 @media (max-width: 860px) { .dgrid { grid-template-columns: 1fr; } .dcond ul { grid-template-columns: 1fr; } }
 @media (max-width: 640px) {
-  .dacts { grid-template-columns: 1fr; }
+  .dacts { grid-template-columns: 1fr; grid-template-rows: none; } .act-bills { grid-column: auto; grid-row: auto; }
   .act-speed { grid-template-columns: 1fr; justify-items: start; }
   .gauge { width: 130px; }
   .ddetail dl, .perks { grid-template-columns: 1fr; }
@@ -1083,7 +1112,7 @@ const js = `// Vyra · modelo Premium
     var store = function (k) { try { return k ? localStorage : sessionStorage; } catch (x) { return null; } };
     var showDash = function (on, scroll) {
       lgBox.hidden = on; dash.hidden = !on; dash.classList.remove('in');
-      if (on) requestAnimationFrame(function () { requestAnimationFrame(function () { dash.classList.add('in'); }); });
+      if (on) requestAnimationFrame(function () { requestAnimationFrame(function () { dash.classList.add('in'); var l = $('.bills', dash), b = $('.bill[aria-pressed="true"]', dash); if (l && b) l.scrollTop = b.parentNode.offsetTop - 8; }); });
       if (scroll) ca.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     };
     try { if (sessionStorage.getItem(KEY) || localStorage.getItem(KEY)) showDash(true); } catch (x) {}
@@ -1102,6 +1131,32 @@ const js = `// Vyra · modelo Premium
     var sched = $('[data-wa-sched]', ca), base = sched.getAttribute('href').split('?')[0];
     $$('input[name=servico]', ca).forEach(function (r) { r.addEventListener('change', function () {
       sched.setAttribute('href', base + '?text=' + encodeURIComponent(sched.dataset.tpl.replace('{servico}', r.value.toLowerCase()))); }); });
+
+    /* Faturas: escolher o mês, gerar a fatura ou antecipar o pagamento (códigos fictícios) */
+    var bl = $('[data-bills]', ca);
+    if (bl) {
+      var out = $('.bout', bl), cur = function () { return $('.bill[aria-pressed="true"]', bl) || $('.bill', bl); };
+      $$('.bill', bl).forEach(function (b) { b.addEventListener('click', function () { $$('.bill', bl).forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); out.hidden = true; }); });
+      var say = function (cls, html) { out.className = 'bout' + (cls ? ' ' + cls : ''); out.innerHTML = html; out.hidden = false; };
+      var pix = function (d) { return '00020126VYRA.PIX.' + bl.dataset.contract + '.' + d.label.slice(-4) + d.mm + '.DEMO5204000053039865406' + d.value.replace(',', '') + '5802BR'; };
+      var paidMsg = function (d) { say('ok-paid', '<b>' + d.label + ' já está paga.</b><span>Pagamento confirmado em ' + d.paid + '. Nada a fazer por aqui.</span>'); };
+      var slip = function (title, d, rows) {
+        say('', '<b>' + title + '</b>' + rows.map(function (r) { return '<div class="ln"><span>' + r[0] + '</span><strong>' + r[1] + '</strong></div>'; }).join('') +
+          '<span>Pix copia e cola (demonstração):</span><code>' + pix(d) + '</code><button type="button" class="copy">Copiar código Pix</button>');
+      };
+      $('[data-bill="gerar"]', bl).addEventListener('click', function () { var d = cur().dataset;
+        if (d.st === 'paga') return paidMsg(d);
+        slip('Fatura de ' + d.label + ' gerada', d, d.st === 'atraso'
+          ? [['Venceu em', d.due], ['Atraso', d.late + ' dias'], ['Valor com multa e juros', 'R$ ' + d.value]]
+          : [['Vencimento', d.due], ['Valor', 'R$ ' + d.value]]); });
+      $('[data-bill="antecipar"]', bl).addEventListener('click', function () { var d = cur().dataset;
+        if (d.st === 'paga') return paidMsg(d);
+        if (d.st === 'atraso') return say('warn', '<b>' + d.label + ' já venceu em ' + d.due + '.</b><span>Não dá para antecipar uma fatura vencida. Use Gerar fatura para pagar com multa e juros.</span>');
+        slip('Antecipação de ' + d.label, d, [['Vencimento original', d.due], ['Valor', 'R$ ' + d.value], ['Baixa na fatura', 'até 1 dia útil']]); });
+      out.addEventListener('click', function (e) { var b = e.target.closest('.copy'); if (!b) return; var code = $('code', out).textContent;
+        var done = function () { b.textContent = 'Código copiado'; setTimeout(function () { b.textContent = 'Copiar código Pix'; }, 2000); };
+        if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done(); });
+    }
   }
 
   /* Assinatura em etapas */
@@ -1131,8 +1186,7 @@ function chrome(c, page) {
     <a class="brand" href="index.html" aria-label="Vyra, página inicial">${logo()}</a>
     <nav class="nav" aria-label="Principal">${c.basicNav.map(n => `<a href="${n.href}"${n.id === page ? ' aria-current="page"' : ''}>${n.label}</a>`).join('')}</nav>
     <div class="right">
-      <a class="client-link" href="cliente.html"${page === 'cliente' ? ' aria-current="page"' : ''} aria-label="Área do cliente">${USER_ICO}<span>Área do cliente</span></a>
-      <a class="wa-link" href="${c.contact.whatsappLink}" target="_blank" rel="noopener">${socialIcon('whatsapp')}WhatsApp</a>
+      <a class="btn btn-client sm" href="cliente.html"${page === 'cliente' ? ' aria-current="page"' : ''} aria-label="Área do cliente" data-magnetic>${USER_ICO}<span>Área do cliente</span></a>
       <a class="btn btn-primary sm" href="assine.html" data-magnetic>Assine já ${icon('arrow')}</a>
       <button class="burger" data-menu aria-label="Abrir menu" aria-expanded="false" aria-controls="mmenu">${icon('menu')}</button>
     </div>
@@ -1484,9 +1538,31 @@ function pathSection(items, kicker, title) {
 }
 
 // ---------- Área do cliente (só no Premium, acesso demonstrativo) ----------
-const USER_ICO = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.2" r="3.7"/><path d="M4.6 20.4c.9-3.8 3.8-5.9 7.4-5.9s6.5 2.1 7.4 5.9"/></svg>';
+const USER_ICO = '<svg class="ico still" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.2" r="3.7"/><path d="M4.6 20.4c.9-3.8 3.8-5.9 7.4-5.9s6.5 2.1 7.4 5.9"/></svg>';
 const EYE_ICO = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>';
 const waText = (c, msg) => `${c.contact.whatsappLink}?text=${encodeURIComponent(msg)}`;
+
+// Status das faturas: check verde (paga), traço cinza (dentro do prazo), relógio vermelho (em atraso)
+const stIco = (d, extra = '') => `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}${extra}</svg>`;
+const BILL_ST = {
+  paga: { label: 'Paga', ico: stIco('<path d="M5 12.5l4.5 4.5L19 7.5"/>') },
+  prazo: { label: 'No prazo', ico: stIco('<path d="M6.5 12h11"/>') },
+  atraso: { label: 'Em atraso', ico: stIco('<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>') },
+};
+const MESES = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+function invoiceRows(a, p) {
+  const inv = a.invoices, base = parseFloat(p.price.replace(',', '.'));
+  const money = n => n.toFixed(2).replace('.', ',');
+  const fmt = d => `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+  const [td, tm, ty] = inv.today.split('/').map(Number), today = new Date(ty, tm - 1, td);
+  return inv.status.map((st, i) => {
+    const due = new Date(inv.year, i, a.dueDay);
+    const late = st === 'atraso' ? Math.max(1, Math.round((today - due) / 864e5)) : 0;
+    const value = st === 'atraso' ? base * 1.02 + base * 0.01 * late / 30 : base; // multa 2% + juros 1% ao mês pro rata
+    return { st, label: `${MESES[i]}/${inv.year}`, mm: String(i + 1).padStart(2, '0'), due: fmt(due), value: money(value), late,
+      paidOn: st === 'paga' ? fmt(new Date(inv.year, i, a.dueDay - 3)) : '' };
+  });
+}
 
 function clientArea(c) {
   const a = c.clientArea, s = a.subscriber, p = c.combos.find(x => x.id === a.plan) || c.combos[0];
@@ -1496,9 +1572,12 @@ function clientArea(c) {
   const forgotMsg = `Olá, Vyra! Sou assinante e esqueci a senha da Área do Cliente. Podem me ajudar?`;
   const cpfDigits = a.login.cpf.replace(/\D/g, '');
   const perks = [...p.streams.map(x => `${x} incluso`), ...p.features];
+  const bills = invoiceRows(a, p);
+  const firstOpen = Math.max(0, bills.findIndex(b => b.st !== 'paga'));
+  const nPaid = bills.filter(b => b.st === 'paga').length, nLate = bills.filter(b => b.st === 'atraso').length;
   const intro = [
     ['Plano e valores', 'Velocidade contratada, mensalidade e o que vem junto.'],
-    ['Vencimento e fidelidade', 'Data da próxima fatura e até quando vai o contrato.'],
+    ['Faturas e fidelidade', 'Gere a fatura do mês, antecipe o pagamento e veja até quando vai o contrato.'],
     ['Teste de velocidade', 'Confira a sua conexão em menos de um minuto.'],
     ['Agendamento e atendimento', 'Visita técnica ou dúvida, direto no WhatsApp.'],
   ];
@@ -1573,11 +1652,13 @@ function clientArea(c) {
         <a class="btn btn-primary" data-wa-sched data-tpl="${esc(schedMsg)}" href="${waText(c, schedMsg.replace('{servico}', a.services[0].toLowerCase()))}" target="_blank" rel="noopener" data-magnetic>${socialIcon('whatsapp')}Agendar pelo WhatsApp</a>
       </article>
 
-      <article class="act act-talk">
-        <h3>Fale conosco</h3>
-        <p>Dúvida sobre a fatura, o Wi-Fi ou o plano? Gente da região responde, sem robô.</p>
-        <div class="when">${icon('clock')}<span>${c.contact.hours[0][0]}: ${c.contact.hours[0][1].replace(/\s*·\s*/g, '; ')}. ${c.contact.hours[1][0]}: ${c.contact.hours[1][1]}.</span></div>
-        <a class="btn btn-wa" href="${waText(c, talkMsg)}" target="_blank" rel="noopener" data-magnetic>${socialIcon('whatsapp')}Falar no WhatsApp</a>
+      <article class="act act-bills" data-bills data-contract="${s.contract.replace(/\W/g, '')}">
+        <div class="bh"><h3>Faturas ${a.invoices.year}</h3><span>${nPaid} pagas${nLate ? `, ${nLate} em atraso` : ''}</span></div>
+        <ul class="bills" aria-label="Faturas de ${a.invoices.year}">${bills.map((b, i) => `<li><button type="button" class="bill is-${b.st}" aria-pressed="${i === firstOpen}" data-label="${b.label}" data-due="${b.due}" data-value="${b.value}" data-st="${b.st}" data-mm="${b.mm}" data-paid="${b.paidOn}" data-late="${b.late}">
+          <span class="bi" title="${BILL_ST[b.st].label}">${BILL_ST[b.st].ico}</span><span class="bm"><b>${b.label}</b><small>vence ${b.due}</small></span><span class="bv"><b>R$ ${b.value}</b><small>${BILL_ST[b.st].label}</small></span></button></li>`).join('')}</ul>
+        <div class="bacts"><button class="btn btn-primary sm" type="button" data-bill="gerar">Gerar fatura</button><button class="btn btn-line sm" type="button" data-bill="antecipar">Antecipar fatura</button></div>
+        <div class="bout" role="status" aria-live="polite" hidden></div>
+        <a class="btalk" href="${waText(c, talkMsg)}" target="_blank" rel="noopener">${socialIcon('whatsapp')}Dúvida na fatura? Fale conosco</a>
       </article>
     </div>
   </div>

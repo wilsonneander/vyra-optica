@@ -210,7 +210,7 @@
     var store = function (k) { try { return k ? localStorage : sessionStorage; } catch (x) { return null; } };
     var showDash = function (on, scroll) {
       lgBox.hidden = on; dash.hidden = !on; dash.classList.remove('in');
-      if (on) requestAnimationFrame(function () { requestAnimationFrame(function () { dash.classList.add('in'); }); });
+      if (on) requestAnimationFrame(function () { requestAnimationFrame(function () { dash.classList.add('in'); var l = $('.bills', dash), b = $('.bill[aria-pressed="true"]', dash); if (l && b) l.scrollTop = b.parentNode.offsetTop - 8; }); });
       if (scroll) ca.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
     };
     try { if (sessionStorage.getItem(KEY) || localStorage.getItem(KEY)) showDash(true); } catch (x) {}
@@ -229,6 +229,32 @@
     var sched = $('[data-wa-sched]', ca), base = sched.getAttribute('href').split('?')[0];
     $$('input[name=servico]', ca).forEach(function (r) { r.addEventListener('change', function () {
       sched.setAttribute('href', base + '?text=' + encodeURIComponent(sched.dataset.tpl.replace('{servico}', r.value.toLowerCase()))); }); });
+
+    /* Faturas: escolher o mês, gerar a fatura ou antecipar o pagamento (códigos fictícios) */
+    var bl = $('[data-bills]', ca);
+    if (bl) {
+      var out = $('.bout', bl), cur = function () { return $('.bill[aria-pressed="true"]', bl) || $('.bill', bl); };
+      $$('.bill', bl).forEach(function (b) { b.addEventListener('click', function () { $$('.bill', bl).forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); out.hidden = true; }); });
+      var say = function (cls, html) { out.className = 'bout' + (cls ? ' ' + cls : ''); out.innerHTML = html; out.hidden = false; };
+      var pix = function (d) { return '00020126VYRA.PIX.' + bl.dataset.contract + '.' + d.label.slice(-4) + d.mm + '.DEMO5204000053039865406' + d.value.replace(',', '') + '5802BR'; };
+      var paidMsg = function (d) { say('ok-paid', '<b>' + d.label + ' já está paga.</b><span>Pagamento confirmado em ' + d.paid + '. Nada a fazer por aqui.</span>'); };
+      var slip = function (title, d, rows) {
+        say('', '<b>' + title + '</b>' + rows.map(function (r) { return '<div class="ln"><span>' + r[0] + '</span><strong>' + r[1] + '</strong></div>'; }).join('') +
+          '<span>Pix copia e cola (demonstração):</span><code>' + pix(d) + '</code><button type="button" class="copy">Copiar código Pix</button>');
+      };
+      $('[data-bill="gerar"]', bl).addEventListener('click', function () { var d = cur().dataset;
+        if (d.st === 'paga') return paidMsg(d);
+        slip('Fatura de ' + d.label + ' gerada', d, d.st === 'atraso'
+          ? [['Venceu em', d.due], ['Atraso', d.late + ' dias'], ['Valor com multa e juros', 'R$ ' + d.value]]
+          : [['Vencimento', d.due], ['Valor', 'R$ ' + d.value]]); });
+      $('[data-bill="antecipar"]', bl).addEventListener('click', function () { var d = cur().dataset;
+        if (d.st === 'paga') return paidMsg(d);
+        if (d.st === 'atraso') return say('warn', '<b>' + d.label + ' já venceu em ' + d.due + '.</b><span>Não dá para antecipar uma fatura vencida. Use Gerar fatura para pagar com multa e juros.</span>');
+        slip('Antecipação de ' + d.label, d, [['Vencimento original', d.due], ['Valor', 'R$ ' + d.value], ['Baixa na fatura', 'até 1 dia útil']]); });
+      out.addEventListener('click', function (e) { var b = e.target.closest('.copy'); if (!b) return; var code = $('code', out).textContent;
+        var done = function () { b.textContent = 'Código copiado'; setTimeout(function () { b.textContent = 'Copiar código Pix'; }, 2000); };
+        if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done(); });
+    }
   }
 
   /* Assinatura em etapas */

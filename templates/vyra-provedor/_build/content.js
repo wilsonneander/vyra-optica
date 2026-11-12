@@ -1,5 +1,5 @@
 // =============================================================
-// CONTEÚDO DOS SITES VYRA — edite aqui e rode:  node sites/_build/build.js
+// CONTEÚDO DOS SITES VYRA — edite aqui e rode:  node templates/vyra-provedor/_build/build.js
 // Itens marcados com [EXEMPLO] são provisórios: troque pelos dados reais.
 // =============================================================
 module.exports = {

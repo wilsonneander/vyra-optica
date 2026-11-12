@@ -15,14 +15,14 @@ Vende pizzas, massas, saladas, drinks e porções pra dividir.
 ## Gerar
 
 ```bash
-node sites/pizzaria/_build/build.js
+node templates/pizzaria/_build/build.js
 ```
 
 Fotos e mapa só precisam ser gerados de novo se mudarem (precisam do `sharp` instalado fora do projeto):
 
 ```bash
-NODE_PATH=<pasta com node_modules/sharp> node sites/pizzaria/_build/imagens.js
-NODE_PATH=<pasta com node_modules/sharp> node sites/pizzaria/_build/gerar-mapa.js forno img/mapa_pinheiros.webp   # rodar dentro de _build/
+NODE_PATH=<pasta com node_modules/sharp> node templates/pizzaria/_build/imagens.js
+NODE_PATH=<pasta com node_modules/sharp> node templates/pizzaria/_build/gerar-mapa.js forno img/mapa_pinheiros.webp   # rodar dentro de _build/
 ```
 
 ## Como é

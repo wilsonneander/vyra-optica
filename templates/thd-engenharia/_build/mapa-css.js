@@ -1,4 +1,4 @@
-// Componente de mapa do rodapé/contato, igual ao do modelo premium dos provedores (sites/_build/premium.js),
+// Componente de mapa do rodapé/contato, igual ao do modelo premium dos provedores (templates/vyra-provedor/_build/premium.js),
 // nas cores da THD. Usado pelos três modelos: a moldura recebe a classe "mapc".
 // Mapa estático do OpenStreetMap recolorido (gerado por _build/gerar-mapa.js), sem Google.
 

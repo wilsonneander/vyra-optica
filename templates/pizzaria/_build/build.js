@@ -1,5 +1,5 @@
-// Gera o modelo Gold de pizzaria (Fornalha Pizza Bar, empresa fictícia) em sites/pizzaria/site-gold/
-// Uso: node sites/pizzaria/_build/build.js
+// Gera o modelo Gold de pizzaria (Fornalha Pizza Bar, empresa fictícia) em templates/pizzaria/site-gold/
+// Uso: node templates/pizzaria/_build/build.js
 const fs = require('fs');
 const path = require('path');
 const C = require('./content');

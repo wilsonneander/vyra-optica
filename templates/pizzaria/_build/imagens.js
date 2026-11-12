@@ -1,6 +1,6 @@
 // Baixa as fotos de demonstração do Unsplash (licença livre) e gera os WebP do site.
 // Uso (sharp instalado fora do projeto):
-//   NODE_PATH=<pasta com node_modules/sharp> node sites/pizzaria/_build/imagens.js
+//   NODE_PATH=<pasta com node_modules/sharp> node templates/pizzaria/_build/imagens.js
 const sharp = require('sharp');
 const fs = require('fs');
 const path = require('path');

@@ -1,4 +1,4 @@
-// Gera os 3 sites Vyra a partir de content.js.  Uso: node sites/_build/build.js
+// Gera os 3 sites Vyra a partir de content.js.  Uso: node templates/vyra-provedor/_build/build.js
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
@@ -7,7 +7,7 @@ const ver = s => crypto.createHash('md5').update(s).digest('hex').slice(0, 8);
 const content = require('./content');
 
 const ROOT = path.join(__dirname, '..');
-const FAVICON = path.join(__dirname, '..', '..', 'brand', 'logo', 'favicon.svg');
+const FAVICON = path.join(__dirname, '..', '..', '..', 'brand', 'logo', 'favicon.svg');
 const tiers = ['basico', 'intermediario', 'premium'];
 
 // Comum aos 3 modelos: toda página abre no topo (o navegador ou o visualizador às vezes restaura
@@ -52,7 +52,7 @@ for (const tier of tiers) {
   let fav = fs.readFileSync(FAVICON, 'utf8');
   if (tier === 'basico') fav = fav.replace(/#FF7A3D/gi, '#3B82F6').replace(/#FF5A1F/gi, '#2563EB').replace(/#E11D2E/gi, '#16A34A');
   fs.writeFileSync(path.join(dir, 'assets', 'favicon.svg'), fav);
-  // fotos compartilhadas (sites/_build/img) para os modelos que usam imagens
+  // fotos compartilhadas (templates/vyra-provedor/_build/img) para os modelos que usam imagens
   {
     const src = path.join(__dirname, 'img'), dst = path.join(dir, 'assets', 'img');
     fs.mkdirSync(dst, { recursive: true });

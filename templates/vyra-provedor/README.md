@@ -16,7 +16,7 @@ Todo o conteúdo fica em **`_build/content.js`**. Itens marcados com `[EXEMPLO]`
 Depois de editar, gere os sites de novo:
 
 ```bash
-node sites/_build/build.js
+node templates/vyra-provedor/_build/build.js
 ```
 
 O design de cada modelo está em `_build/basico.js`, `_build/intermediario.js` e `_build/premium.js`.

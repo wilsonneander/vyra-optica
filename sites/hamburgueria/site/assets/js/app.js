@@ -191,31 +191,52 @@
   const lerCurtidas = () => { try { return JSON.parse(localStorage.getItem('braseiro-curtidas')) || []; } catch (e) { return []; } };
   const salvarCurtidas = (l) => { try { localStorage.setItem('braseiro-curtidas', JSON.stringify(l)); } catch (e) { /* navegador sem armazenamento */ } };
   const curtidas = lerCurtidas();
+  const CORES_VOO = ['var(--brasa)', '#FF8FA3', '#F2B33D', '#FF6B4A', '#E8344F'];
+  const soltarCoracoes = (b) => {
+    for (let i = 0; i < 6; i++) {
+      const c = document.createElement('span');
+      c.className = 'curtir-voa';
+      c.innerHTML = '<svg><use href="#i-coracao"/></svg>';
+      c.style.setProperty('--dx', `${Math.round(Math.random() * 80 - 40)}px`);
+      c.style.setProperty('--giro', `${Math.round(Math.random() * 30 - 15)}deg`);
+      c.style.setProperty('--tam', (0.7 + Math.random() * 0.6).toFixed(2));
+      c.style.setProperty('--dur', `${(1.1 + Math.random() * 0.6).toFixed(2)}s`);
+      c.style.setProperty('--atraso', `${i * 90}ms`);
+      c.style.color = CORES_VOO[i % CORES_VOO.length];
+      b.appendChild(c);
+      setTimeout(() => c.remove(), 2400);
+    }
+  };
   $$('.curtir').forEach((b) => {
     const nome = b.closest('.prato').querySelector('h3').textContent;
+    const num = b.querySelector('.curtir-num');
+    const base = +b.dataset.likes;
     const marcar = () => {
       b.classList.add('curtido');
       b.setAttribute('aria-pressed', 'true');
       b.setAttribute('aria-label', `Você curtiu ${nome}`);
-      b.querySelector('.curtir-num').textContent = fmtLikes(+b.dataset.likes + 1);
+      num.textContent = fmtLikes(base + 1);
     };
     b.setAttribute('aria-label', `Curtir ${nome}`);
+    num.textContent = fmtLikes(base);
     if (curtidas.includes(nome)) marcar();
     b.addEventListener('click', () => {
-      if (b.classList.contains('curtido')) return; // só conta uma vez
+      // o coração pisca vermelho e os corações sobem a cada clique; a contagem só soma na primeira vez
+      if (!calmo) {
+        b.classList.remove('pulou');
+        void b.offsetWidth;
+        b.classList.add('pulou');
+        clearTimeout(b._pulo);
+        b._pulo = setTimeout(() => b.classList.remove('pulou'), 650);
+        soltarCoracoes(b);
+      }
+      if (b.classList.contains('curtido')) return;
       marcar();
+      num.classList.remove('subiu');
+      void num.offsetWidth;
+      num.classList.add('subiu');
       curtidas.push(nome);
       salvarCurtidas(curtidas);
-      if (calmo) return;
-      b.classList.add('pulou');
-      setTimeout(() => b.classList.remove('pulou'), 650);
-      for (let i = 0; i < 8; i++) {
-        const f = document.createElement('span');
-        f.className = 'curtir-faisca';
-        f.style.setProperty('--a', `${i * 45}deg`);
-        b.appendChild(f);
-        setTimeout(() => f.remove(), 750);
-      }
     });
   });
 

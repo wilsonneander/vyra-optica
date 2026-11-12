@@ -235,17 +235,25 @@ ul { padding: 0; list-style: none; }
 .prato-pedir:hover svg { transform: translateX(4px); }
 /* Curtir: só o coração; ao curtir, pula, solta faíscas e mostra o total */
 .curtir { position: relative; display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; padding: 6px 0; color: var(--cinza); font-size: .82rem; transition: color .3s; }
-.curtir svg { width: 20px; height: 20px; fill: transparent; stroke: currentColor; stroke-width: 1.8; overflow: visible; transition: fill .3s, stroke .3s, transform .3s var(--ease); }
-.curtir:hover:not(.curtido) svg { transform: scale(1.15); color: var(--branco); }
-.curtir.curtido { color: var(--branco); cursor: default; }
-.curtir.curtido svg { fill: var(--brasa); stroke: var(--brasa); }
-.curtir.pulou svg { animation: pulo .6s var(--ease); }
+.curtir > svg { width: 20px; height: 20px; fill: transparent; stroke: currentColor; stroke-width: 1.8; overflow: visible; transition: fill .3s, stroke .3s, transform .3s var(--ease); }
+.curtir:hover > svg { transform: scale(1.15); color: var(--branco); }
+.curtir.curtido { color: var(--branco); }
+/* só no clique o coração fica vermelho; depois volta a ficar vazado */
+.curtir.pulou > svg { fill: var(--brasa); stroke: var(--brasa); animation: pulo .6s var(--ease); }
 @keyframes pulo { 0% { transform: scale(1); } 25% { transform: scale(.6); } 55% { transform: scale(1.45); } 100% { transform: scale(1); } }
-.curtir-num { opacity: 0; transform: translateX(-6px); transition: opacity .4s .15s, transform .4s .15s var(--ease); white-space: nowrap; }
-.curtir.curtido .curtir-num { opacity: 1; transform: none; }
-.curtir-faisca { position: absolute; left: 10px; top: 50%; width: 6px; height: 6px; margin: -3px; border-radius: 50%; background: var(--brasa); pointer-events: none; animation: faisca .7s var(--ease) forwards; }
-.curtir-faisca:nth-child(even) { background: var(--creme); width: 4px; height: 4px; margin: -2px; }
-@keyframes faisca { 0% { transform: rotate(var(--a)) translateY(0) scale(1); opacity: 1; } 100% { transform: rotate(var(--a)) translateY(-26px) scale(0); opacity: 0; } }
+.curtir-num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.curtir-num.subiu { animation: numero .5s var(--ease); }
+@keyframes numero { 0% { transform: translateY(8px); opacity: 0; } 100% { transform: none; opacity: 1; } }
+/* corações subindo, como o like de uma live */
+.curtir-voa { position: absolute; left: 0; bottom: 8px; width: 20px; height: 20px; pointer-events: none; z-index: 5; color: var(--brasa); animation: voa var(--dur) cubic-bezier(.3, .6, .4, 1) var(--atraso) forwards; opacity: 0; }
+.curtir-voa svg { width: 100%; height: 100%; fill: currentColor; stroke: none; }
+@keyframes voa {
+  0% { transform: translate(0, 0) scale(.3); opacity: 0; }
+  12% { transform: translate(calc(var(--dx) * -.4), -14px) scale(var(--tam)); opacity: 1; }
+  40% { transform: translate(calc(var(--dx) * .6), -48px) scale(var(--tam)) rotate(var(--giro)); opacity: 1; }
+  70% { transform: translate(calc(var(--dx) * -.3), -82px) scale(var(--tam)) rotate(calc(var(--giro) * -1)); opacity: .8; }
+  100% { transform: translate(var(--dx), -120px) scale(calc(var(--tam) * .7)); opacity: 0; }
+}
 
 /* ---------- Chapa (vídeo) ---------- */
 .chapa { position: relative; background: var(--preto); }

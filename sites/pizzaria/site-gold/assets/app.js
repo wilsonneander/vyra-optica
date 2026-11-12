@@ -551,23 +551,7 @@
     dd.classList.remove('muda'); void dd.offsetWidth; dd.classList.add('muda');
   };
 
-  // semana: tickets dos próximos 14 dias
-  const diasBox = $('[data-dias]');
-  for (let k = 0; k < 14; k++) {
-    const d = diaK(k);
-    const fechado = fechadoEm(d);
-    const b = document.createElement('button');
-    b.type = 'button'; b.className = 'dia';
-    b.disabled = fechado;
-    b.setAttribute('aria-pressed', 'false');
-    b.dataset.k = k;
-    b.innerHTML = `<small>${k === 0 ? 'hoje' : k === 1 ? 'amanhã' : SEM[d.getDay()]}</small><b>${d.getDate()}</b><small>${fechado ? 'fechado' : MESES[d.getMonth()]}</small>`;
-    b.setAttribute('aria-label', `${d.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' })}${fechado ? ', fechado' : ''}`);
-    diasBox.appendChild(b);
-  }
-
   // calendário: mês inteiro, só a janela de reserva liberada
-  const cal = $('[data-cal]');
   const calGrade = $('[data-cal-grade]');
   const MESES_LONGOS = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
   const mesDe = (d) => new Date(d.getFullYear(), d.getMonth(), 1);
@@ -595,19 +579,9 @@
   }));
   desenharCal();
 
-  // alterna semana e calendário
-  $$('[data-modo]').forEach((b) => b.addEventListener('click', () => {
-    const mes = b.dataset.modo === 'mes';
-    $$('[data-modo]').forEach((x) => x.setAttribute('aria-pressed', x === b));
-    diasBox.hidden = mes;
-    cal.hidden = !mes;
-    if (mes && R.dia) { calMes = mesDe(R.dia); desenharCal(); }
-    if (!mes) { const sel = $('.dia[aria-pressed="true"]', diasBox); if (sel) sel.scrollIntoView({ block: 'nearest', inline: 'center' }); }
-  }));
-
   // folhinha ao lado do calendário
   const SEM_LONGA = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
-  const hTxt = (h) => `${Math.floor(h) % 24}h${h % 1 ? '30' : ''}`;
+  const hTxt = (h) => (h >= 24 ? 'meia-noite' : `${Math.floor(h)}h${h % 1 ? '30' : ''}`);
   const folha = $('[data-folha]');
   function atualizarFolha(d, k) {
     const escolhido = d !== null;
@@ -619,14 +593,13 @@
     folha.classList.remove('vira'); void folha.offsetWidth; folha.classList.add('vira');
     const faixas = D.horarios[d.getDay()] || [];
     $('[data-folha-conta]').textContent = !escolhido ? 'Toque num dia do calendário' : k === 0 ? 'É hoje!' : k === 1 ? 'É amanhã!' : `Faltam ${k} dias pra pizza`;
-    $('[data-folha-forno]').textContent = !escolhido ? 'A folhinha mostra o horário do forno no dia escolhido.' : `Forno aceso ${faixas.map(([a, z]) => `das ${hTxt(a)} às ${hTxt(z)}`).join(' e ')}`;
+    $('[data-folha-forno]').textContent = !escolhido ? 'A folhinha mostra o horário do forno no dia escolhido.' : `Forno aceso ${faixas.map(([a, z]) => `das ${hTxt(a)} ${z >= 24 ? 'à' : 'às'} ${hTxt(z)}`).join(' e ')}`;
   }
   atualizarFolha(null);
 
   function escolherDia(k) {
     const d = diaK(k);
     R.dia = d; R.hora = null;
-    $$('.dia', diasBox).forEach((x) => x.setAttribute('aria-pressed', +x.dataset.k === k));
     $$('.cal-dia', calGrade).forEach((x) => x.setAttribute('aria-pressed', +x.dataset.k === k));
     marcar('dia', d.toLocaleDateString('pt-BR', { weekday: 'short', day: 'numeric', month: 'short' }).replace(/\./g, ''));
     marcar('hora', 'a escolher');
@@ -638,11 +611,11 @@
       ? slots.map((h, i) => `<button type="button" class="hora-btn" style="--o:${i}" data-h="${h}" aria-pressed="false">${Math.floor(h)}:${h % 1 ? '30' : '00'}</button>`).join('')
       : `<div class="horas-vazio"><p>Hoje não dá mais tempo. Escolhe outro dia?</p><div class="folhinha" aria-hidden="true"><span class="folhinha-topo"><i></i><i></i><b>${MESES[d.getMonth()]}</b></span><strong>${d.getDate()}</strong><small>forno lotado</small></div></div>`;
   }
-  [diasBox, calGrade].forEach((box) => box.addEventListener('click', (e) => {
+  calGrade.addEventListener('click', (e) => {
     const b = e.target.closest('[data-k]');
     if (!b || b.disabled) return;
     escolherDia(+b.dataset.k);
-  }));
+  });
   $('[data-horas]').addEventListener('click', (e) => {
     const b = e.target.closest('.hora-btn');
     if (!b) return;

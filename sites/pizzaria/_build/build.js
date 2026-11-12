@@ -241,12 +241,7 @@ const html = `<!doctype html>
         <div class="res-campos">
           <fieldset class="campo-dia">
             <legend>Qual dia?</legend>
-            <div class="dia-modo" role="group" aria-label="Mostrar os dias por">
-              <button type="button" data-modo="semana" aria-pressed="true">${I.semana}Semana</button>
-              <button type="button" data-modo="mes" aria-pressed="false">${I.calendario}Calendário</button>
-            </div>
-            <div class="dias" data-dias></div>
-            <div class="cal-area" data-cal hidden>
+            <div class="cal-area">
             <div class="cal">
               <div class="cal-topo">
                 <button type="button" class="cal-nav cal-volta" data-cal-mes="-1" aria-label="Mês anterior">${I.seta}</button>

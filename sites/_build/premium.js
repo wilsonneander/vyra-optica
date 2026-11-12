@@ -750,6 +750,123 @@ a.channel:hover { transform: translateX(8px); box-shadow: 0 0 0 1.5px var(--oran
 .wa-float:hover { transform: scale(1.08); }
 .wa-float .ico { width: 30px; height: 30px; position: relative; }
 
+/* Área do cliente: acesso no topo */
+.client-link { display: inline-flex; align-items: center; gap: 8px; color: inherit; text-decoration: none; font: 600 14.5px var(--f-display); padding: 10px 14px; border-radius: 14px; box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.4); transition: background-color .3s, box-shadow .3s, color .3s; }
+.client-link:hover { background: rgba(255,255,255,.12); }
+.hdr.solid .client-link { box-shadow: inset 0 0 0 1.5px var(--line); }
+.hdr.solid .client-link:hover { background: var(--mist); }
+.client-link[aria-current="page"] { background: var(--white); color: var(--orange-700); box-shadow: none; }
+.hdr.solid .client-link[aria-current="page"] { background: var(--grad); color: var(--white); }
+@media (max-width: 1100px) {
+  .client-link { width: 50px; height: 50px; padding: 0; justify-content: center; border-radius: 50%; box-shadow: none; background: rgba(255,255,255,.14); }
+  .hdr.solid .client-link { box-shadow: none; background: var(--mist); }
+  .client-link span { display: none; }
+  .client-link .ico { width: 22px; height: 22px; }
+}
+
+/* Área do cliente: login */
+.ca [hidden] { display: none !important; }
+.ca-login { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr); gap: clamp(40px, 6vw, 90px); align-items: center; }
+.login { display: grid; gap: 20px; max-width: 520px; width: 100%; }
+.login .lhead { display: grid; gap: 12px; margin-bottom: 6px; justify-items: start; }
+.login .lhead .logo { width: 92px; height: auto; color: var(--ink); }
+.login .lhead h2 { font-size: clamp(30px, 3.4vw, 44px); }
+.login .lhead p { color: var(--muted); }
+.fl.pw input { padding-right: 62px; }
+.fl .eye { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: 0; border-radius: 12px; background: transparent; color: var(--muted); display: grid; place-items: center; cursor: pointer; transition: color .3s, background-color .3s; }
+.fl .eye:hover, .fl .eye[aria-pressed="true"] { color: var(--orange-700); background: var(--white); }
+.lrow { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 20px; font-size: 14.5px; }
+.lrow a { font-weight: 600; }
+.remember { display: inline-flex; gap: 10px; align-items: center; color: var(--muted); cursor: pointer; }
+.remember input { width: 18px; height: 18px; margin: 0; accent-color: var(--orange); }
+.login .err { padding: 14px 16px; border-radius: 14px; background: #FDECEC; color: #A3141F; font-weight: 600; font-size: 14.5px; }
+.login .btn[type=submit] { width: 100%; }
+.login.busy .btn[type=submit] { pointer-events: none; opacity: .7; }
+.login .demo { font-size: 13.5px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 16px; }
+.login .demo b { color: var(--ink); font-family: var(--f-display); white-space: nowrap; }
+.ca-intro { display: grid; gap: 20px; justify-items: start; }
+@media (max-width: 920px) { .ca-login { grid-template-columns: 1fr; } .login { max-width: none; } }
+
+/* Área do cliente: painel */
+.ca-dash { display: grid; gap: clamp(22px, 3vw, 34px); }
+.ca-dash.in > * { animation: fadeUp .8s var(--ease) both; }
+.ca-dash.in > :nth-child(2) { animation-delay: .08s; } .ca-dash.in > :nth-child(3) { animation-delay: .16s; }
+.dhead { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 18px; }
+.dhead > div { display: grid; gap: 12px; }
+.dhead p { color: var(--muted); }
+.dgrid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 22px; }
+.dplan { position: relative; isolation: isolate; overflow: hidden; border-radius: 32px; padding: clamp(26px, 3.4vw, 40px); background: var(--night); color: var(--white); display: grid; gap: 14px; align-content: start; }
+.dplan::before { content: ""; position: absolute; right: -120px; top: -120px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(255,90,31,.45), transparent 65%); z-index: -1; }
+.dplan .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.dplan .logo { width: 96px; height: auto; color: var(--white); }
+.dplan .state { font: 600 13px/1 var(--f-display); color: #7BE3AE; background: rgba(123,227,174,.12); padding: 8px 12px; border-radius: 10px; }
+.dplan .lbl { font: 600 12.5px/1 var(--f-display); letter-spacing: .2em; text-transform: uppercase; color: var(--peach); }
+.dplan h3 { font-size: clamp(26px, 2.6vw, 34px); font-weight: 600; }
+.dplan .sp { font: 300 clamp(76px, 9vw, 124px)/.85 var(--f-display); letter-spacing: -0.06em; margin: 6px 0 4px; }
+.dplan .sp small { font-size: 22px; font-weight: 600; letter-spacing: 0; margin-left: 8px; color: var(--orange); }
+.dplan .val { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 14px; border-top: 1px solid rgba(255,255,255,.14); padding-top: 18px; margin-top: 12px; color: rgba(255,255,255,.7); }
+.dplan .val b { font: 700 32px var(--f-display); color: var(--white); letter-spacing: -0.02em; }
+.dplan .val small { font-size: 15px; font-weight: 500; color: rgba(255,255,255,.6); }
+.dcond { grid-column: 1 / -1; }
+.dcond ul { grid-template-columns: 1fr 1fr; column-gap: 40px; }
+.ddetail, .dcond { border-radius: 28px; padding: clamp(24px, 3vw, 36px); background: var(--white); box-shadow: 0 0 0 1px var(--line), 0 30px 60px -50px rgba(30,21,18,.5); }
+.ddetail h3, .dcond h3 { margin-bottom: 16px; }
+.ddetail dl { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 26px; }
+.ddetail dl div { padding: 14px 0; border-top: 1px solid var(--line); }
+.ddetail dt { font-size: 13.5px; color: var(--muted); }
+.ddetail dd { margin: 2px 0 0; font: 600 19px/1.3 var(--f-display); }
+.ddetail dd small { display: block; font: 400 14px/1.4 var(--f-body); color: var(--muted); }
+.ddetail h4 { font: 600 16px var(--f-display); margin: 22px 0 12px; }
+.perks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+.perks li { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 1.45; }
+.perks .ico { width: 18px; height: 18px; color: var(--orange); margin-top: 2px; }
+.dcond ul { margin: 0; padding-left: 20px; display: grid; gap: 10px; color: var(--muted); font-size: 15px; }
+.dcond li::marker { color: var(--orange); }
+
+/* Área do cliente: ações */
+.dacts { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
+.act { border-radius: 28px; padding: clamp(24px, 3vw, 34px); display: grid; gap: 14px; align-content: start; background: var(--white); box-shadow: 0 0 0 1px var(--line); transition: transform .5s var(--ease), box-shadow .4s; }
+.act:hover { transform: translateY(-4px); box-shadow: 0 0 0 1px var(--line), 0 30px 60px -40px rgba(30,21,18,.45); }
+.act p { color: var(--muted); font-size: 15.5px; }
+.act .btn { justify-self: start; margin-top: 4px; white-space: nowrap; }
+.act-speed { background: var(--grad); color: var(--white); box-shadow: 0 30px 60px -36px rgba(232,72,12,.8); grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 26px; }
+.act-speed:hover { box-shadow: 0 36px 70px -36px rgba(232,72,12,.9); }
+.act-speed p { color: rgba(255,255,255,.9); }
+.act-speed .txt { display: grid; gap: 14px; }
+.gauge { width: 150px; height: auto; overflow: visible; }
+.gauge path { fill: none; stroke-linecap: round; }
+.gauge .g-track, .gauge .g-fill { stroke-width: 14; }
+.gauge .g-track { stroke: rgba(255,255,255,.25); }
+.gauge .g-fill { stroke: var(--white); stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 1.6s var(--ease) .3s; }
+.gauge .g-needle { transform-box: view-box; transform-origin: 100px 105px; transform: rotate(-90deg); transition: transform 1.6s var(--ease) .3s; }
+.gauge .g-needle path { stroke: var(--night); stroke-width: 5; }
+.gauge .g-needle circle { fill: var(--night); }
+.ca-dash.in .gauge .g-fill { stroke-dashoffset: 18; }
+.ca-dash.in .gauge .g-needle { transform: rotate(58deg); }
+.act-speed:hover .gauge .g-needle { transform: rotate(78deg); }
+.act-speed:hover .gauge .g-fill { stroke-dashoffset: 6; }
+.opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.opts label { position: relative; cursor: pointer; }
+.opts input { position: absolute; opacity: 0; pointer-events: none; }
+.opts span { display: inline-block; padding: 10px 14px; border-radius: 12px; background: var(--mist); box-shadow: inset 0 0 0 1px var(--line); font: 500 14px/1.2 var(--f-display); transition: background-color .3s, color .3s, box-shadow .3s; }
+.opts label:hover span { box-shadow: inset 0 0 0 1px var(--orange-600); }
+.opts input:checked + span { background: var(--night); color: var(--white); box-shadow: none; }
+.opts input:focus-visible + span { outline: 2px solid var(--orange); outline-offset: 2px; }
+.when { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); }
+.when .ico { width: 18px; height: 18px; color: var(--orange); margin-top: 2px; }
+.btn-wa { background: #25D366; color: #08361C; box-shadow: 0 18px 36px -18px rgba(18,140,70,.7); }
+.btn-wa::before { background: var(--night); }
+.btn-wa:hover { color: var(--white); }
+@media (max-width: 1080px) { .dacts { grid-template-columns: 1fr 1fr; } .act-speed { grid-column: 1 / -1; } }
+@media (max-width: 860px) { .dgrid { grid-template-columns: 1fr; } .dcond ul { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  .dacts { grid-template-columns: 1fr; }
+  .act-speed { grid-template-columns: 1fr; justify-items: start; }
+  .gauge { width: 130px; }
+  .ddetail dl, .perks { grid-template-columns: 1fr; }
+  .act .btn, .dhead .btn { width: 100%; }
+}
+
 /* Entrada ao rolar */
 .rv { transition: opacity 1s var(--ease), transform 1s var(--ease); }
 .rv.pre { opacity: 0; transform: translateY(40px); }
@@ -959,6 +1076,34 @@ const js = `// Vyra · modelo Premium
   $$('form.cep').forEach(function (cep) { cep.addEventListener('submit', function (e) { e.preventDefault(); var v = $('input', cep).value.replace(/\\D/g, ''), out = cep.parentNode.querySelector('.cep-result');
     if (v.length !== 8) { out.textContent = 'Digite os 8 números do CEP.'; return; } out.textContent = 'Boa notícia: temos fibra na sua região. Vamos para a assinatura...'; setTimeout(function () { location.href = 'assine.html#cep-' + v; }, 900); }); });
 
+  /* Área do cliente (demonstração: confere os dados fictícios no próprio navegador) */
+  var ca = $('.ca');
+  if (ca) {
+    var lf = $('form.login', ca), lgBox = $('[data-ca-login]', ca), dash = $('[data-ca-dash]', ca), err = $('.err', lf), KEY = 'vyra-cliente';
+    var store = function (k) { try { return k ? localStorage : sessionStorage; } catch (x) { return null; } };
+    var showDash = function (on, scroll) {
+      lgBox.hidden = on; dash.hidden = !on; dash.classList.remove('in');
+      if (on) requestAnimationFrame(function () { requestAnimationFrame(function () { dash.classList.add('in'); }); });
+      if (scroll) ca.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    };
+    try { if (sessionStorage.getItem(KEY) || localStorage.getItem(KEY)) showDash(true); } catch (x) {}
+    $$('input[data-mask=cpf]', ca).forEach(function (i) { i.addEventListener('input', function () { var v = i.value.replace(/\\D/g, '').slice(0, 11), o = v.slice(0, 3);
+      if (v.length > 3) o += '.' + v.slice(3, 6); if (v.length > 6) o += '.' + v.slice(6, 9); if (v.length > 9) o += '-' + v.slice(9); i.value = o; }); });
+    var eye = $('.eye', lf), pw = $('#l-pass');
+    eye.addEventListener('click', function () { var show = pw.type === 'password'; pw.type = show ? 'text' : 'password'; eye.setAttribute('aria-pressed', show); eye.setAttribute('aria-label', show ? 'Esconder senha' : 'Mostrar senha'); });
+    lf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!lf.checkValidity()) { lf.reportValidity(); return; }
+      if ($('#l-cpf').value.replace(/\\D/g, '') !== lf.dataset.cpf || pw.value !== lf.dataset.pw) { err.hidden = false; return; }
+      err.hidden = true; lf.classList.add('busy');
+      setTimeout(function () { var s = store($('#l-keep').checked); try { s && s.setItem(KEY, '1'); } catch (x) {} lf.classList.remove('busy'); showDash(true, true); }, 600);
+    });
+    $('[data-ca-logout]', ca).addEventListener('click', function () { try { sessionStorage.removeItem(KEY); localStorage.removeItem(KEY); } catch (x) {} showDash(false, true); });
+    var sched = $('[data-wa-sched]', ca), base = sched.getAttribute('href').split('?')[0];
+    $$('input[name=servico]', ca).forEach(function (r) { r.addEventListener('change', function () {
+      sched.setAttribute('href', base + '?text=' + encodeURIComponent(sched.dataset.tpl.replace('{servico}', r.value.toLowerCase()))); }); });
+  }
+
   /* Assinatura em etapas */
   var wz = $('.wizard form');
   if (wz) { var panels = $$('.wpanel', wz), marks = $$('.wsteps div', wz), cur2 = 0;
@@ -986,6 +1131,7 @@ function chrome(c, page) {
     <a class="brand" href="index.html" aria-label="Vyra, página inicial">${logo()}</a>
     <nav class="nav" aria-label="Principal">${c.basicNav.map(n => `<a href="${n.href}"${n.id === page ? ' aria-current="page"' : ''}>${n.label}</a>`).join('')}</nav>
     <div class="right">
+      <a class="client-link" href="cliente.html"${page === 'cliente' ? ' aria-current="page"' : ''} aria-label="Área do cliente">${USER_ICO}<span>Área do cliente</span></a>
       <a class="wa-link" href="${c.contact.whatsappLink}" target="_blank" rel="noopener">${socialIcon('whatsapp')}WhatsApp</a>
       <a class="btn btn-primary sm" href="assine.html" data-magnetic>Assine já ${icon('arrow')}</a>
       <button class="burger" data-menu aria-label="Abrir menu" aria-expanded="false" aria-controls="mmenu">${icon('menu')}</button>
@@ -994,7 +1140,7 @@ function chrome(c, page) {
 </header>
 <div class="mmenu" id="mmenu">
   <button class="close" data-menu aria-label="Fechar menu" aria-expanded="false">${icon('close')}</button>
-  <nav aria-label="Menu">${c.basicNav.map(n => `<a href="${n.href}"${n.id === page ? ' aria-current="page"' : ''}>${n.label}</a>`).join('')}<a href="assine.html" style="color:var(--orange-700);font-weight:700">Assine já</a></nav>
+  <nav aria-label="Menu">${c.basicNav.map(n => `<a href="${n.href}"${n.id === page ? ' aria-current="page"' : ''}>${n.label}</a>`).join('')}<a href="cliente.html"${page === 'cliente' ? ' aria-current="page"' : ''}>Área do cliente</a><a href="assine.html" style="color:var(--orange-700);font-weight:700">Assine já</a></nav>
   <div class="social light">${socialLinks(c).replace(/^<div class="social">|<\/div>$/g, '')}</div>
 </div>`;
 }
@@ -1019,7 +1165,7 @@ function footer(c) {
     </div>
     <div class="foot-brand">${logo()}<b>${esc(c.brand.slogan)}</b></div>
     <div class="cols">
-      <div><h3>Navegação</h3><ul>${c.basicNav.map(n => `<li><a href="${n.href}">${n.label}</a></li>`).join('')}<li><a href="assine.html">Assine já</a></li></ul></div>
+      <div><h3>Navegação</h3><ul>${c.basicNav.map(n => `<li><a href="${n.href}">${n.label}</a></li>`).join('')}<li><a href="assine.html">Assine já</a></li><li><a href="cliente.html">Área do cliente</a></li></ul></div>
       <div><h3>Planos</h3><ul>${c.combos.map(p => `<li><a href="assine.html#${p.id}">${p.name} · ${p.speed} ${p.unit}</a></li>`).join('')}<li><a href="empresas.html">Vyra Empresas</a></li></ul></div>
       <div><h3>Contato</h3><ul><li>WhatsApp: ${c.contact.whatsapp}</li><li>Telefone: ${c.contact.phone}</li><li>${c.contact.email}</li><li>${c.contact.hours[1][0]}: ${c.contact.hours[1][1]}</li></ul></div>
       <div><h3>Redes sociais</h3>${socialLinks(c)}</div>
@@ -1337,6 +1483,107 @@ function pathSection(items, kicker, title) {
   </div></section>`;
 }
 
+// ---------- Área do cliente (só no Premium, acesso demonstrativo) ----------
+const USER_ICO = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.2" r="3.7"/><path d="M4.6 20.4c.9-3.8 3.8-5.9 7.4-5.9s6.5 2.1 7.4 5.9"/></svg>';
+const EYE_ICO = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12s3.5-6.5 9.5-6.5 9.5 6.5 9.5 6.5-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+const waText = (c, msg) => `${c.contact.whatsappLink}?text=${encodeURIComponent(msg)}`;
+
+function clientArea(c) {
+  const a = c.clientArea, s = a.subscriber, p = c.combos.find(x => x.id === a.plan) || c.combos[0];
+  const planTxt = `${p.name} ${p.speed} ${p.unit}`;
+  const schedMsg = `Olá, Vyra! Sou ${s.name}, assinante do plano ${planTxt} (contrato ${s.contract}). Quero agendar: {servico}. Qual o melhor dia e período?`;
+  const talkMsg = `Olá, Vyra! Sou ${s.name}, assinante do plano ${planTxt} (contrato ${s.contract}). Preciso de atendimento.`;
+  const forgotMsg = `Olá, Vyra! Sou assinante e esqueci a senha da Área do Cliente. Podem me ajudar?`;
+  const cpfDigits = a.login.cpf.replace(/\D/g, '');
+  const perks = [...p.streams.map(x => `${x} incluso`), ...p.features];
+  const intro = [
+    ['Plano e valores', 'Velocidade contratada, mensalidade e o que vem junto.'],
+    ['Vencimento e fidelidade', 'Data da próxima fatura e até quando vai o contrato.'],
+    ['Teste de velocidade', 'Confira a sua conexão em menos de um minuto.'],
+    ['Agendamento e atendimento', 'Visita técnica ou dúvida, direto no WhatsApp.'],
+  ];
+  return `<section class="section soft ca" id="acesso"><div class="container">
+  <div class="ca-login" data-ca-login>
+    <form class="login form-card" novalidate data-cpf="${cpfDigits}" data-pw="${esc(a.login.password)}">
+      <div class="lhead">${logo('logo', '#FF5A1F')}<h2>Entre na sua <em>conta</em></h2><p>Use o CPF do titular e a senha que você recebeu na instalação.</p></div>
+      <label class="fl"><input id="l-cpf" value="${a.login.cpf}" placeholder=" " inputmode="numeric" autocomplete="username" data-mask="cpf" required><span>CPF do titular</span></label>
+      <label class="fl pw"><input id="l-pass" type="password" value="${esc(a.login.password)}" placeholder=" " autocomplete="current-password" required><span>Senha</span><button type="button" class="eye" aria-label="Mostrar senha" aria-pressed="false">${EYE_ICO}</button></label>
+      <div class="lrow"><label class="remember"><input type="checkbox" id="l-keep"> Manter conectado neste aparelho</label><a href="${waText(c, forgotMsg)}" target="_blank" rel="noopener">Esqueci a senha</a></div>
+      <p class="err" role="alert" hidden>CPF ou senha não conferem. Nesta demonstração, use os dados já preenchidos.</p>
+      <button class="btn btn-primary" type="submit" data-magnetic data-cursor="Entrar">Entrar ${icon('arrow')}</button>
+      <p class="demo">Acesso de demonstração com dados fictícios. CPF <b>${a.login.cpf}</b> e senha <b>${esc(a.login.password)}</b>.</p>
+    </form>
+    <div class="ca-intro rv rv-r">
+      <span class="kicker">Para quem já é Vyra</span>
+      <h2>A sua fibra, <em>sem precisar ligar.</em></h2>
+      <div class="checklist">${intro.map(([t, d]) => `<div><span class="ck">${icon('check')}</span><b>${t}</b><span>${d}</span></div>`).join('')}</div>
+    </div>
+  </div>
+
+  <div class="ca-dash" data-ca-dash hidden>
+    <div class="dhead">
+      <div><span class="kicker">Contrato ${s.contract}</span><h2>Olá, <em>${s.first}.</em></h2><p>Assinante Vyra desde ${s.since}. Dados de demonstração.</p></div>
+      <button class="btn btn-line sm" type="button" data-ca-logout>Sair da conta</button>
+    </div>
+
+    <div class="dgrid">
+      <article class="dplan">
+        <div class="top">${logo('logo', '#FF5A1F')}<span class="state">Ativo</span></div>
+        <span class="lbl">Plano contratado</span>
+        <h3>${p.name}</h3>
+        <div class="sp">${p.speed}<small>${p.unit}</small></div>
+        <div class="logos">${streamLogos(p.streams)}</div>
+        <div class="val"><span>Mensalidade</span><b>R$ ${p.price}<small>/mês</small></b></div>
+      </article>
+
+      <article class="ddetail">
+        <h3>Detalhamento do plano</h3>
+        <dl>
+          <div><dt>Vencimento</dt><dd>Todo dia ${a.dueDay}</dd></div>
+          <div><dt>Próxima fatura</dt><dd>${a.nextBill.date}<small>R$ ${p.price}, ${a.nextBill.status.toLowerCase()}</small></dd></div>
+          <div><dt>Fidelidade</dt><dd>${a.loyalty.months} meses<small>até ${a.loyalty.until}</small></dd></div>
+          <div><dt>Velocidade</dt><dd>${p.speed} ${p.unit}<small>download, via fibra até o roteador</small></dd></div>
+        </dl>
+        <h4>Benefícios incluídos</h4>
+        <ul class="perks">${perks.map(x => `<li>${icon('check')}${x}</li>`).join('')}</ul>
+      </article>
+
+      <article class="dcond">
+        <h3>Condições do contrato</h3>
+        <ul>${a.conditions.map(x => `<li>${x}</li>`).join('')}</ul>
+      </article>
+    </div>
+
+    <div class="dacts">
+      <article class="act act-speed">
+        <svg class="gauge" viewBox="0 0 200 120" aria-hidden="true"><defs><linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FF7A3D"/><stop offset="1" stop-color="#E11D2E"/></linearGradient></defs>
+          <path class="g-track" d="M20 105a80 80 0 0 1 160 0"/><path class="g-fill" d="M20 105a80 80 0 0 1 160 0" pathLength="100"/>
+          <g class="g-needle"><path d="M100 105L100 38"/><circle cx="100" cy="105" r="7"/></g></svg>
+        <div class="txt">
+          <h3>Teste sua conexão</h3>
+          <p>Mede download, upload e latência em menos de um minuto. Para ver os ${p.speed} ${p.unit} completos, teste num computador ligado ao roteador por cabo.</p>
+          <a class="btn btn-light" href="${a.speedTest}" target="_blank" rel="noopener" data-magnetic>Testar velocidade ${icon('arrow')}</a>
+        </div>
+      </article>
+
+      <article class="act act-sched">
+        <h3>Agende um serviço</h3>
+        <p>Escolha o que precisa. A mensagem vai pronta para o WhatsApp e a equipe confirma o dia com você.</p>
+        <div class="opts" role="radiogroup" aria-label="Tipo de serviço">${a.services.map((x, i) => `<label><input type="radio" name="servico" value="${esc(x)}"${i === 0 ? ' checked' : ''}><span>${x}</span></label>`).join('')}</div>
+        <a class="btn btn-primary" data-wa-sched data-tpl="${esc(schedMsg)}" href="${waText(c, schedMsg.replace('{servico}', a.services[0].toLowerCase()))}" target="_blank" rel="noopener" data-magnetic>${socialIcon('whatsapp')}Agendar pelo WhatsApp</a>
+      </article>
+
+      <article class="act act-talk">
+        <h3>Fale conosco</h3>
+        <p>Dúvida sobre a fatura, o Wi-Fi ou o plano? Gente da região responde, sem robô.</p>
+        <div class="when">${icon('clock')}<span>${c.contact.hours[0][0]}: ${c.contact.hours[0][1].replace(/\s*·\s*/g, '; ')}. ${c.contact.hours[1][0]}: ${c.contact.hours[1][1]}.</span></div>
+        <a class="btn btn-wa" href="${waText(c, talkMsg)}" target="_blank" rel="noopener" data-magnetic>${socialIcon('whatsapp')}Falar no WhatsApp</a>
+      </article>
+    </div>
+  </div>
+</div></section>`;
+}
+
 // ---------- páginas ----------
 const pages = {
   index: c => `${chrome(c, 'index')}
@@ -1440,6 +1687,13 @@ ${footer(c)}`,
     <aside class="wsum" aria-live="polite">${logo('logo', '#FF5A1F')}<span data-s="name" style="font:600 20px var(--f-display)">Vyra Família</span><div class="sp" data-s="speed">800<small>Mega</small></div><div class="logos" data-s="logos"></div>
       <div class="line"><span>Mensalidade</span><b data-s="price">R$ 129,90</b></div><div class="line"><span>Instalação</span><b>Grátis</b></div><div class="line"><span>Wi-Fi 6</span><b>Incluso</b></div><div class="line"><span>Suporte</span><b>24 horas</b></div></aside>
   </div></section>
+</main>
+${footer(c)}`,
+
+  cliente: c => `${chrome(c, 'cliente')}
+<main>
+  ${phero(c, 'mulher_celular_sofa.jpg', 'Mulher sorrindo no sofá enquanto usa o celular', 'Área do *cliente.*', 'Seu plano, vencimento, teste de velocidade e atendimento Vyra num lugar só.', 'Área do cliente')}
+  ${clientArea(c)}
 </main>
 ${footer(c)}`,
 };

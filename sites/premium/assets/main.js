@@ -203,6 +203,34 @@
   $$('form.cep').forEach(function (cep) { cep.addEventListener('submit', function (e) { e.preventDefault(); var v = $('input', cep).value.replace(/\D/g, ''), out = cep.parentNode.querySelector('.cep-result');
     if (v.length !== 8) { out.textContent = 'Digite os 8 números do CEP.'; return; } out.textContent = 'Boa notícia: temos fibra na sua região. Vamos para a assinatura...'; setTimeout(function () { location.href = 'assine.html#cep-' + v; }, 900); }); });
 
+  /* Área do cliente (demonstração: confere os dados fictícios no próprio navegador) */
+  var ca = $('.ca');
+  if (ca) {
+    var lf = $('form.login', ca), lgBox = $('[data-ca-login]', ca), dash = $('[data-ca-dash]', ca), err = $('.err', lf), KEY = 'vyra-cliente';
+    var store = function (k) { try { return k ? localStorage : sessionStorage; } catch (x) { return null; } };
+    var showDash = function (on, scroll) {
+      lgBox.hidden = on; dash.hidden = !on; dash.classList.remove('in');
+      if (on) requestAnimationFrame(function () { requestAnimationFrame(function () { dash.classList.add('in'); }); });
+      if (scroll) ca.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    };
+    try { if (sessionStorage.getItem(KEY) || localStorage.getItem(KEY)) showDash(true); } catch (x) {}
+    $$('input[data-mask=cpf]', ca).forEach(function (i) { i.addEventListener('input', function () { var v = i.value.replace(/\D/g, '').slice(0, 11), o = v.slice(0, 3);
+      if (v.length > 3) o += '.' + v.slice(3, 6); if (v.length > 6) o += '.' + v.slice(6, 9); if (v.length > 9) o += '-' + v.slice(9); i.value = o; }); });
+    var eye = $('.eye', lf), pw = $('#l-pass');
+    eye.addEventListener('click', function () { var show = pw.type === 'password'; pw.type = show ? 'text' : 'password'; eye.setAttribute('aria-pressed', show); eye.setAttribute('aria-label', show ? 'Esconder senha' : 'Mostrar senha'); });
+    lf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!lf.checkValidity()) { lf.reportValidity(); return; }
+      if ($('#l-cpf').value.replace(/\D/g, '') !== lf.dataset.cpf || pw.value !== lf.dataset.pw) { err.hidden = false; return; }
+      err.hidden = true; lf.classList.add('busy');
+      setTimeout(function () { var s = store($('#l-keep').checked); try { s && s.setItem(KEY, '1'); } catch (x) {} lf.classList.remove('busy'); showDash(true, true); }, 600);
+    });
+    $('[data-ca-logout]', ca).addEventListener('click', function () { try { sessionStorage.removeItem(KEY); localStorage.removeItem(KEY); } catch (x) {} showDash(false, true); });
+    var sched = $('[data-wa-sched]', ca), base = sched.getAttribute('href').split('?')[0];
+    $$('input[name=servico]', ca).forEach(function (r) { r.addEventListener('change', function () {
+      sched.setAttribute('href', base + '?text=' + encodeURIComponent(sched.dataset.tpl.replace('{servico}', r.value.toLowerCase()))); }); });
+  }
+
   /* Assinatura em etapas */
   var wz = $('.wizard form');
   if (wz) { var panels = $$('.wpanel', wz), marks = $$('.wsteps div', wz), cur2 = 0;

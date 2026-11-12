@@ -112,7 +112,7 @@ const html = `<!doctype html>
 
     <div class="painel-meio">
       <p class="painel-frase">${esc(M.frase)}</p>
-      <div class="painel-acoes">
+      <div class="painel-acoes" data-iguais>
         <a class="btn btn-mostarda" href="#cardapio" data-ir="cardapio">Fazer pedido</a>
         <a class="btn btn-linha" href="#reserva" data-ir="reserva">Reservar mesa</a>
       </div>
@@ -145,7 +145,7 @@ const html = `<!doctype html>
         <div class="capa-txt">
           <h1>A massa descansa <em>48 horas.</em> Você espera <em>90 segundos.</em></h1>
           <p>Fermentação lenta, forno a lenha a 450 graus e muito queijo puxando. Peça pra viagem, receba em casa ou venha pra mesa.</p>
-          <div class="capa-acoes">
+          <div class="capa-acoes" data-iguais>
             <a class="btn btn-tomate" href="#cardapio" data-ir="cardapio">Ver o cardápio</a>
             <a class="btn btn-claro" href="#roleta">Me ajuda a escolher</a>
           </div>
@@ -213,7 +213,7 @@ const html = `<!doctype html>
           ${C.categorias.map((c) => `<button type="button" role="tab" class="aba" data-cat="${c.id}" aria-selected="false">${c.nome}<small>${C.itens.filter((i) => i.cat === c.id).length}</small></button>`).join('\n          ')}
           <span class="aba-luz" aria-hidden="true"></span>
         </div>
-        <div class="filtros">
+        <div class="filtros" data-iguais=".filtro">
           <label class="busca">${I.lupa}<input type="search" placeholder="Buscar sabor, ingrediente..." data-busca aria-label="Buscar no cardápio"></label>
           <button type="button" class="filtro" data-filtro="veg" aria-pressed="false">${I.folha}Vegetariano</button>
           <button type="button" class="filtro" data-filtro="picante" aria-pressed="false">${I.pimenta}Picante</button>
@@ -258,7 +258,7 @@ const html = `<!doctype html>
           </fieldset>
           <fieldset>
             <legend>Qual a ocasião?</legend>
-            <div class="ocasioes">${C.ocasioes.map((o, i) => `<label><input type="radio" name="ocasiao" value="${o}"${i === 0 ? ' checked' : ''}><span>${o}</span></label>`).join('')}</div>
+            <div class="ocasioes" data-iguais>${C.ocasioes.map((o, i) => `<label><input type="radio" name="ocasiao" value="${o}"${i === 0 ? ' checked' : ''}><span>${o}</span></label>`).join('')}</div>
           </fieldset>
           <div class="campos">
             <label>Seu nome<input name="nome" autocomplete="name" required></label>
@@ -298,7 +298,7 @@ const html = `<!doctype html>
         <div class="onde">
           <h2>Onde <em>entregamos</em></h2>
           <p>Delivery próprio em Pinheiros e arredores. Fora da área? Retire no balcão e ganhe a limonada.</p>
-          <ul class="bairros">${C.bairros.map(([b, ok]) => `<li${ok ? ' class="on"' : ''}>${b}${ok ? '' : '<small>em breve</small>'}</li>`).join('')}</ul>
+          <ul class="bairros" data-iguais>${C.bairros.map(([b, ok]) => `<li${ok ? ' class="on"' : ''}>${b}${ok ? '' : '<small>em breve</small>'}</li>`).join('')}</ul>
         </div>
       </div>
       <div class="rodape-cols">

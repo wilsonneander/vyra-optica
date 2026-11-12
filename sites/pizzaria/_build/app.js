@@ -22,6 +22,21 @@
     avisoT = setTimeout(() => aviso.classList.remove('on'), 3200);
   };
 
+  /* ---------- grupos com fundo: todos com a largura do item mais longo ---------- */
+  const igualar = () => {
+    $$('[data-iguais]').forEach((g) => {
+      const sel = g.dataset.iguais;
+      const itens = [...g.children].filter((c) => !sel || c.matches(sel));
+      if (!g.offsetParent && getComputedStyle(g).position !== 'fixed') return; // escondido: mede quando aparecer
+      g.classList.remove('medido');
+      const maior = Math.max(...itens.map((c) => c.offsetWidth));
+      if (maior > 0) { g.style.setProperty('--larg', maior + 'px'); g.classList.add('medido'); }
+    });
+  };
+  window.addEventListener('resize', () => { clearTimeout(igualar.t); igualar.t = setTimeout(igualar, 120); });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(igualar);
+  igualar();
+
   /* ---------- capa: vídeo do pizzaiolo primeiro, depois a foto ---------- */
   (() => {
     const capa = $('.capa');
@@ -73,6 +88,7 @@
       document.body.dataset.vista = v;
       vistaAtual = v;
       moverLuz();
+      igualar();
       if (v === 'cardapio') requestAnimationFrame(() => { moverAba(); refazerEntrada(); });
       observar();
     }

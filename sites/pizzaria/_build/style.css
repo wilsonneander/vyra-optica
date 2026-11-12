@@ -210,6 +210,9 @@ h1 em, h2 em { font-style: normal; }
 .aba[aria-selected="true"] small { color: var(--mostarda); }
 .aba-luz { position: absolute; z-index: 0; top: 5px; bottom: 5px; left: 0; border-radius: 10px; background: var(--tomate); transition: transform .5s var(--mola), width .5s var(--mola); }
 .filtros { display: flex; flex-wrap: wrap; gap: 8px; }
+/* grupos com fundo: todos os itens com a largura do mais longo (DIRETRIZES-SITES) */
+[data-iguais].medido > * { width: var(--larg); max-width: 100%; justify-content: center; text-align: center; }
+[data-iguais].medido > .busca { width: auto; justify-content: flex-start; }
 .busca { display: flex; align-items: center; gap: 8px; height: 46px; padding: 0 14px; background: var(--farinha); border-radius: 12px; box-shadow: 0 3px 0 var(--massa-esc); color: var(--apoio); }
 .busca .ico { width: 19px; height: 19px; }
 .busca input { width: 200px; border: 0; background: none; outline: 0; color: var(--carvao); }
@@ -290,7 +293,9 @@ h1 em, h2 em { font-style: normal; }
 .passo output { min-width: 46px; text-align: center; font: 900 30px/1 var(--f-t); font-variation-settings: 'wdth' 70; }
 .passo output.pula { animation: saiu .4s var(--mola); }
 .ocasioes { display: flex; flex-wrap: wrap; gap: 8px; }
-.ocasioes label { cursor: pointer; }
+.ocasioes label { display: inline-block; cursor: pointer; }
+.ocasioes span { text-align: center; }
+.ocasioes.medido span { display: block; }
 .ocasioes input { position: absolute; opacity: 0; pointer-events: none; }
 .ocasioes span { display: inline-block; padding: 11px 16px; border-radius: 10px; background: var(--farinha); box-shadow: 0 3px 0 var(--massa-esc); font: 700 15px var(--f-c); transition: transform .35s var(--mola), background .2s, color .2s; }
 .ocasioes label:nth-child(odd) span { transform: rotate(-1.5deg); }

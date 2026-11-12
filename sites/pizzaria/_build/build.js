@@ -64,6 +64,9 @@ const ld = {
   hasMenu: M.url + '#cardapio', acceptsReservations: true,
 };
 
+// estado vazio dos horários: aviso em cima e uma folhinha de calendário desenhada
+const horasVazio = (txt, dia, rodape) => `<div class="horas-vazio"><p>${txt}</p><div class="folhinha" aria-hidden="true"><span class="folhinha-topo"><i></i><i></i><b>dia</b></span><strong>${dia}</strong><small>${rodape}</small></div></div>`;
+
 const html = `<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -243,7 +246,8 @@ const html = `<!doctype html>
               <button type="button" data-modo="mes" aria-pressed="false">${I.calendario}Calendário</button>
             </div>
             <div class="dias" data-dias></div>
-            <div class="cal" data-cal hidden>
+            <div class="cal-area" data-cal hidden>
+            <div class="cal">
               <div class="cal-topo">
                 <button type="button" class="cal-nav cal-volta" data-cal-mes="-1" aria-label="Mês anterior">${I.seta}</button>
                 <b data-cal-titulo aria-live="polite"></b>
@@ -252,11 +256,27 @@ const html = `<!doctype html>
               <div class="cal-sem" aria-hidden="true"><span>dom</span><span>seg</span><span>ter</span><span>qua</span><span>qui</span><span>sex</span><span>sáb</span></div>
               <div class="cal-grade" data-cal-grade></div>
             </div>
+            <aside class="cal-folha" aria-live="polite">
+              <div class="folhinha folhinha-g" data-folha>
+                <span class="folhinha-topo" aria-hidden="true"><i></i><i></i><b data-folha-mes></b></span>
+                <strong data-folha-dia></strong>
+                <small data-folha-sem></small>
+                <span class="folhinha-fatia" aria-hidden="true">${I.fatiaMini}</span>
+              </div>
+              <p class="folha-conta" data-folha-conta></p>
+              <p class="folha-forno" data-folha-forno></p>
+              <ul class="cal-legenda" aria-label="Legenda do calendário">
+                <li><i class="lg-hoje"></i>Hoje</li>
+                <li><i class="lg-sel"></i>Escolhido</li>
+                <li><i class="lg-fechado"></i>Fechado</li>
+              </ul>
+            </aside>
+            </div>
           </fieldset>
           <div class="res-par">
           <fieldset class="campo-horas">
             <legend>Que horas?</legend>
-            <div class="horas" data-horas><p class="dica">Escolha o dia primeiro.</p></div>
+            <div class="horas" data-horas>${horasVazio('Escolha o dia primeiro', '?', 'qual dia?')}</div>
           </fieldset>
           <fieldset class="pessoas">
             <legend>Quantas pessoas?</legend>

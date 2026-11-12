@@ -571,7 +571,8 @@
               <button type="button" data-modo="mes" aria-pressed="false"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="15" rx="2.8"/><path d="M3.5 10h17M8.5 3.5v4M15.5 3.5v4"/><path d="M8.3 14h.01M12 14h.01M15.7 14h.01M8.3 17.2h.01M12 17.2h.01"/></svg>Calendário</button>
             </div>
             <div class="dias" data-dias></div>
-            <div class="cal" data-cal hidden>
+            <div class="cal-area" data-cal hidden>
+            <div class="cal">
               <div class="cal-topo">
                 <button type="button" class="cal-nav cal-volta" data-cal-mes="-1" aria-label="Mês anterior"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12h14M13 6.5l5.5 5.5-5.5 5.5"/></svg></button>
                 <b data-cal-titulo aria-live="polite"></b>
@@ -580,11 +581,27 @@
               <div class="cal-sem" aria-hidden="true"><span>dom</span><span>seg</span><span>ter</span><span>qua</span><span>qui</span><span>sex</span><span>sáb</span></div>
               <div class="cal-grade" data-cal-grade></div>
             </div>
+            <aside class="cal-folha" aria-live="polite">
+              <div class="folhinha folhinha-g" data-folha>
+                <span class="folhinha-topo" aria-hidden="true"><i></i><i></i><b data-folha-mes></b></span>
+                <strong data-folha-dia></strong>
+                <small data-folha-sem></small>
+                <span class="folhinha-fatia" aria-hidden="true"><svg class="fatia-mini" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 7c7-3.5 17-3.5 24 0L16 29z" fill="#F4B41A"/><path d="M4 7c7-3.5 17-3.5 24 0l-1.6 3.2C20 7.4 12 7.4 5.6 10.2z" fill="#B5621F"/><circle cx="13" cy="14" r="2.4" fill="#C42E1A"/><circle cx="19.5" cy="13.5" r="2" fill="#C42E1A"/><circle cx="16" cy="20" r="2" fill="#C42E1A"/></svg></span>
+              </div>
+              <p class="folha-conta" data-folha-conta></p>
+              <p class="folha-forno" data-folha-forno></p>
+              <ul class="cal-legenda" aria-label="Legenda do calendário">
+                <li><i class="lg-hoje"></i>Hoje</li>
+                <li><i class="lg-sel"></i>Escolhido</li>
+                <li><i class="lg-fechado"></i>Fechado</li>
+              </ul>
+            </aside>
+            </div>
           </fieldset>
           <div class="res-par">
           <fieldset class="campo-horas">
             <legend>Que horas?</legend>
-            <div class="horas" data-horas><p class="dica">Escolha o dia primeiro.</p></div>
+            <div class="horas" data-horas><div class="horas-vazio"><p>Escolha o dia primeiro</p><div class="folhinha" aria-hidden="true"><span class="folhinha-topo"><i></i><i></i><b>dia</b></span><strong>?</strong><small>qual dia?</small></div></div></div>
           </fieldset>
           <fieldset class="pessoas">
             <legend>Quantas pessoas?</legend>

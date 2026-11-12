@@ -605,6 +605,24 @@
     if (!mes) { const sel = $('.dia[aria-pressed="true"]', diasBox); if (sel) sel.scrollIntoView({ block: 'nearest', inline: 'center' }); }
   }));
 
+  // folhinha ao lado do calendário
+  const SEM_LONGA = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+  const hTxt = (h) => `${Math.floor(h) % 24}h${h % 1 ? '30' : ''}`;
+  const folha = $('[data-folha]');
+  function atualizarFolha(d, k) {
+    const escolhido = d !== null;
+    if (!escolhido) { d = hoje; k = 0; }
+    $('[data-folha-mes]').textContent = MESES[d.getMonth()];
+    $('[data-folha-dia]').textContent = d.getDate();
+    $('[data-folha-sem]').textContent = SEM_LONGA[d.getDay()];
+    folha.classList.toggle('apagada', !escolhido);
+    folha.classList.remove('vira'); void folha.offsetWidth; folha.classList.add('vira');
+    const faixas = D.horarios[d.getDay()] || [];
+    $('[data-folha-conta]').textContent = !escolhido ? 'Toque num dia do calendário' : k === 0 ? 'É hoje!' : k === 1 ? 'É amanhã!' : `Faltam ${k} dias pra pizza`;
+    $('[data-folha-forno]').textContent = !escolhido ? 'A folhinha mostra o horário do forno no dia escolhido.' : `Forno aceso ${faixas.map(([a, z]) => `das ${hTxt(a)} às ${hTxt(z)}`).join(' e ')}`;
+  }
+  atualizarFolha(null);
+
   function escolherDia(k) {
     const d = diaK(k);
     R.dia = d; R.hora = null;
@@ -612,12 +630,13 @@
     $$('.cal-dia', calGrade).forEach((x) => x.setAttribute('aria-pressed', +x.dataset.k === k));
     marcar('dia', d.toLocaleDateString('pt-BR', { weekday: 'short', day: 'numeric', month: 'short' }).replace(/\./g, ''));
     marcar('hora', 'a escolher');
+    atualizarFolha(d, k);
     const agora = agoraSP();
     const slots = [];
     (D.horarios[d.getDay()] || []).forEach(([a, z]) => { for (let h = a; h <= z - 1; h += .5) if (k > 0 || h > agora.h + 1) slots.push(h); });
     $('[data-horas]').innerHTML = slots.length
       ? slots.map((h, i) => `<button type="button" class="hora-btn" style="--o:${i}" data-h="${h}" aria-pressed="false">${Math.floor(h)}:${h % 1 ? '30' : '00'}</button>`).join('')
-      : '<p class="dica">Hoje não dá mais tempo. Escolhe outro dia?</p>';
+      : `<div class="horas-vazio"><p>Hoje não dá mais tempo. Escolhe outro dia?</p><div class="folhinha" aria-hidden="true"><span class="folhinha-topo"><i></i><i></i><b>${MESES[d.getMonth()]}</b></span><strong>${d.getDate()}</strong><small>forno lotado</small></div></div>`;
   }
   [diasBox, calGrade].forEach((box) => box.addEventListener('click', (e) => {
     const b = e.target.closest('[data-k]');

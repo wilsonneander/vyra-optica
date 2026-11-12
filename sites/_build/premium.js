@@ -854,8 +854,37 @@ a.channel:hover { transform: translateX(8px); box-shadow: 0 0 0 1.5px var(--oran
 .opts label:hover span { box-shadow: inset 0 0 0 1px var(--orange-600); }
 .opts input:checked + span { background: var(--night); color: var(--white); box-shadow: none; }
 .opts input:focus-visible + span { outline: 2px solid var(--orange); outline-offset: 2px; }
-.act-bills { gap: 12px; }
-.act-bills .bh { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; }
+.act-bills { gap: 12px; position: relative; }
+.bexpand { position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border: 0; border-radius: 11px; display: grid; place-items: center; background: none; color: var(--orange-700); cursor: pointer; transition: background-color .3s, color .3s, transform .4s var(--ease); }
+.bexpand:hover { color: var(--orange); transform: scale(1.12); }
+.bexpand svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+/* Modal com a lista do ano inteiro */
+.bmodal.list .mpanel { width: min(880px, 100%); background: var(--white); color: var(--ink); }
+.bmodal.list .mclose { background: var(--mist); color: var(--ink); }
+.bmodal.list .mclose:hover { background: var(--peach); }
+.bmodal .mhead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; padding-right: 48px; }
+.bmodal .mhead h3 { padding-right: 0; }
+.bmodal .mhead span { font-size: 15px; color: var(--muted); }
+.bmodal .mlegend { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; color: var(--muted); }
+.bmodal .mlegend span { display: inline-flex; align-items: center; gap: 8px; }
+.bmodal .mlegend .bi { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; }
+.bmodal .mlegend .bi .ico { width: 15px; height: 15px; }
+.bmodal .mlegend .is-paga .bi { color: #15803D; background: #E3F6EA; } .bmodal .mlegend .is-prazo .bi { color: #8A8580; background: #EFEDEB; } .bmodal .mlegend .is-atraso .bi { color: #DC2626; background: #FDE7E7; }
+.mlist { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: column; grid-template-rows: repeat(6, auto); column-gap: 28px; }
+.mlist li { border-top: 1px solid var(--line); }
+.mlist .bill { cursor: default; padding: 12px 10px; }
+.mlist .bill:hover { background: transparent; }
+.mlist .bill[aria-pressed="true"] { background: var(--mist); }
+.mlist .bill .bm b, .mlist .bill .bv b { font-size: 17px; }
+.mlist .bill small { font-size: 13.5px; }
+@media (max-width: 700px) {
+  .mlist { grid-template-columns: 1fr; grid-auto-flow: row; grid-template-rows: none; }
+  .bmodal.list .mpanel { padding: 22px 18px; } .bmodal.list .mbody { gap: 10px; } .bmodal.list h3 { font-size: 22px; }
+  .mlist .bill { grid-template-columns: 26px minmax(0, 1fr) auto; gap: 10px; padding: 6px; margin: 1px 0; }
+  .mlist .bill .bi { width: 26px; height: 26px; } .mlist .bill .bi .ico { width: 15px; height: 15px; }
+  .mlist .bill .bm b, .mlist .bill .bv b { font-size: 15px; } .mlist .bill small { font-size: 12px; }
+}
+.act-bills .bh { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; padding-right: 30px; }
 .act-bills .bh span { font-size: 13.5px; color: var(--muted); }
 .bills { position: relative; list-style: none; margin: 0 -8px; padding: 0 8px; max-height: 300px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--peach) transparent; }
 .bills li + li { border-top: 1px solid var(--line); }
@@ -1174,8 +1203,8 @@ const js = `// Vyra · modelo Premium
       var say = function (cls, title, body) { info = { cls: cls, title: title, body: body };
         out.className = 'bout' + (cls ? ' ' + cls : ''); out.innerHTML = '<div class="bt"><b>' + title + '</b>' + TOOLS + '</div>' + body; out.hidden = false; };
       var collapse = function () { if (out.hidden) return; out.classList.add('closing'); setTimeout(function () { out.hidden = true; out.classList.remove('closing'); }, reduce ? 0 : 260); };
-      var openModal = function () { if (!modal) return; lastFocus = document.activeElement;
-        modal.className = 'bmodal' + (info.cls ? ' ' + info.cls : ''); mbody.innerHTML = '<h3>' + info.title + '</h3>' + info.body;
+      var openModal = function (cls, html) { if (!modal) return; lastFocus = document.activeElement;
+        modal.className = 'bmodal' + (cls ? ' ' + cls : ''); mbody.innerHTML = html;
         modal.hidden = false; document.documentElement.classList.add('modal-open'); requestAnimationFrame(function () { modal.classList.add('on'); $('.mclose', modal).focus(); }); };
       var closeModal = function () { if (!modal || modal.hidden) return; modal.classList.remove('on'); document.documentElement.classList.remove('modal-open');
         setTimeout(function () { modal.hidden = true; }, reduce ? 0 : 300); if (lastFocus) lastFocus.focus(); };
@@ -1199,8 +1228,14 @@ const js = `// Vyra · modelo Premium
         if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done(); };
       out.addEventListener('click', function (e) {
         if (e.target.closest('[data-collapse]')) return collapse();
-        if (e.target.closest('[data-expand]')) return openModal();
+        if (e.target.closest('[data-expand]')) return openModal(info.cls, '<h3>' + info.title + '</h3>' + info.body);
         onCopy(e, out); });
+      /* Lista completa do ano no modal, só para visualizar (sem rolagem) */
+      var allBtn = $('[data-bills-expand]', bl);
+      if (allBtn) allBtn.addEventListener('click', function () {
+        var rows = $('.bills', bl).innerHTML.replace(/<button/g, '<div').replace(/<\\/button>/g, '</div>');
+        openModal('list', '<div class="mhead"><h3>' + $('.bh h3', bl).textContent + '</h3><span>' + $('.bh span', bl).textContent + '</span></div>' +
+          '<div class="mlegend">' + $('.blegend', bl).innerHTML + '</div><ul class="mlist">' + rows + '</ul>'); });
       if (modal) {
         modal.addEventListener('click', function (e) { if (e.target === modal || e.target.closest('.mclose')) return closeModal(); onCopy(e, modal); });
         addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
@@ -1702,7 +1737,9 @@ function clientArea(c) {
       </article>
 
       <article class="act act-bills" data-bills data-contract="${s.contract.replace(/\W/g, '')}">
+        <button type="button" class="bexpand" data-bills-expand aria-label="Ver todas as faturas de ${a.invoices.year}" title="Ver todas as faturas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 9.5v-5h5M19.5 9.5v-5h-5M4.5 14.5v5h5M19.5 14.5v5h-5"/></svg></button>
         <div class="bh"><h3>Faturas ${a.invoices.year}</h3><span>${nPaid} pagas${nLate ? `, ${nLate} em atraso` : ''}</span></div>
+        <template class="blegend">${['paga', 'prazo', 'atraso'].map(k => `<span class="is-${k}"><i class="bi">${BILL_ST[k].ico}</i>${BILL_ST[k].label}</span>`).join('')}</template>
         <ul class="bills" aria-label="Faturas de ${a.invoices.year}">${bills.map((b, i) => `<li><button type="button" class="bill is-${b.st}" aria-pressed="${i === firstOpen}" data-label="${b.label}" data-due="${b.due}" data-value="${b.value}" data-st="${b.st}" data-mm="${b.mm}" data-paid="${b.paidOn}" data-late="${b.late}">
           <span class="bi" title="${BILL_ST[b.st].label}">${BILL_ST[b.st].ico}</span><span class="bm"><b>${b.label}</b><small>vence ${b.due}</small></span><span class="bv"><b>R$ ${b.value}</b><small>${BILL_ST[b.st].label}</small></span></button></li>`).join('')}</ul>
         <div class="bacts"><button class="btn btn-primary sm" type="button" data-bill="gerar">Gerar fatura</button><button class="btn btn-line sm" type="button" data-bill="antecipar">Antecipar fatura</button></div>

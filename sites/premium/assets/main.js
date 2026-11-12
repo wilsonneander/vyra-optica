@@ -241,8 +241,8 @@
       var say = function (cls, title, body) { info = { cls: cls, title: title, body: body };
         out.className = 'bout' + (cls ? ' ' + cls : ''); out.innerHTML = '<div class="bt"><b>' + title + '</b>' + TOOLS + '</div>' + body; out.hidden = false; };
       var collapse = function () { if (out.hidden) return; out.classList.add('closing'); setTimeout(function () { out.hidden = true; out.classList.remove('closing'); }, reduce ? 0 : 260); };
-      var openModal = function () { if (!modal) return; lastFocus = document.activeElement;
-        modal.className = 'bmodal' + (info.cls ? ' ' + info.cls : ''); mbody.innerHTML = '<h3>' + info.title + '</h3>' + info.body;
+      var openModal = function (cls, html) { if (!modal) return; lastFocus = document.activeElement;
+        modal.className = 'bmodal' + (cls ? ' ' + cls : ''); mbody.innerHTML = html;
         modal.hidden = false; document.documentElement.classList.add('modal-open'); requestAnimationFrame(function () { modal.classList.add('on'); $('.mclose', modal).focus(); }); };
       var closeModal = function () { if (!modal || modal.hidden) return; modal.classList.remove('on'); document.documentElement.classList.remove('modal-open');
         setTimeout(function () { modal.hidden = true; }, reduce ? 0 : 300); if (lastFocus) lastFocus.focus(); };
@@ -266,8 +266,14 @@
         if (navigator.clipboard) navigator.clipboard.writeText(code).then(done, done); else done(); };
       out.addEventListener('click', function (e) {
         if (e.target.closest('[data-collapse]')) return collapse();
-        if (e.target.closest('[data-expand]')) return openModal();
+        if (e.target.closest('[data-expand]')) return openModal(info.cls, '<h3>' + info.title + '</h3>' + info.body);
         onCopy(e, out); });
+      /* Lista completa do ano no modal, só para visualizar (sem rolagem) */
+      var allBtn = $('[data-bills-expand]', bl);
+      if (allBtn) allBtn.addEventListener('click', function () {
+        var rows = $('.bills', bl).innerHTML.replace(/<button/g, '<div').replace(/<\/button>/g, '</div>');
+        openModal('list', '<div class="mhead"><h3>' + $('.bh h3', bl).textContent + '</h3><span>' + $('.bh span', bl).textContent + '</span></div>' +
+          '<div class="mlegend">' + $('.blegend', bl).innerHTML + '</div><ul class="mlist">' + rows + '</ul>'); });
       if (modal) {
         modal.addEventListener('click', function (e) { if (e.target === modal || e.target.closest('.mclose')) return closeModal(); onCopy(e, modal); });
         addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });

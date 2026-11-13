@@ -141,10 +141,29 @@ svg { flex: none; }
 
 /* gaveta do produto */
 .gaveta { position: fixed; inset: 0; z-index: 50; }
-.gaveta-fundo { position: absolute; inset: 0; background: rgba(28, 19, 17, .5); animation: aparece .3s; }
-@keyframes aparece { from { opacity: 0; } }
-.gaveta-caixa { position: absolute; right: 0; top: 0; bottom: 0; width: min(560px, 100%); overflow-y: auto; display: grid; gap: 16px; align-content: start; padding: 26px; background: var(--creme); animation: daDireita .4s var(--suave); }
-@keyframes daDireita { from { transform: translateX(100%); } }
+.gaveta-fundo { position: absolute; inset: 0; background: rgba(28, 19, 17, .5); backdrop-filter: blur(3px); opacity: 0; transition: opacity .7s var(--suave); }
+.gaveta.aberta .gaveta-fundo { opacity: 1; }
+.gaveta-caixa { position: absolute; right: 0; top: 0; bottom: 0; width: min(560px, 100%); overflow-y: auto; display: grid; gap: 16px; align-content: start; padding: 26px; background: var(--creme); transform: translateX(104%); box-shadow: -30px 0 60px -30px rgba(28, 19, 17, .5); transition: transform .8s cubic-bezier(.16, 1, .3, 1); }
+.gaveta.aberta .gaveta-caixa { transform: none; }
+.gaveta.fechando .gaveta-caixa { transition-duration: .6s; transition-timing-function: cubic-bezier(.7, 0, .84, 0); }
+.gaveta-caixa > * { opacity: 0; transform: translateX(24px); transition: opacity .6s var(--suave), transform .7s var(--suave); }
+.gaveta.aberta .gaveta-caixa > * { opacity: 1; transform: none; }
+.gaveta.aberta .gaveta-caixa > :nth-child(n+3) { transition-delay: .1s; }
+.gaveta.aberta .gaveta-caixa > :nth-child(n+6) { transition-delay: .18s; }
+.gaveta.fechando .gaveta-caixa > * { transition-delay: 0s; transition-duration: .3s; }
+.fechar { transition: transform .5s var(--suave), background .3s; }
+.fechar:hover { transform: rotate(90deg); }
+/* troca de tela e entrada no painel */
+.tela { animation: telaEntra .6s var(--suave) both; }
+@keyframes telaEntra { from { opacity: 0; transform: translateY(14px); } }
+.app { animation: appEntra .8s var(--suave) both; }
+@keyframes appEntra { from { opacity: 0; } }
+.login.saindo { opacity: 0; transform: scale(.98); transition: opacity .45s var(--suave), transform .45s var(--suave); }
+.menu-lateral button, .menu-lateral a { transition: background .4s var(--suave), color .4s var(--suave); }
+.btn { transition: transform .4s var(--suave), background .4s var(--suave), color .4s var(--suave), border-color .4s var(--suave), opacity .3s; }
+.btn:not(:disabled):hover { transform: translateY(-2px); }
+.linha { transition: border-color .4s var(--suave), opacity .4s var(--suave), transform .4s var(--suave); }
+.linha:hover { transform: translateX(4px); }
 .gaveta-topo { display: flex; justify-content: space-between; align-items: center; }
 .gaveta-topo h2 { font-size: 30px; }
 .fechar { width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: #fff; border-radius: 12px; }
@@ -163,7 +182,7 @@ svg { flex: none; }
 .check input { width: 20px; height: 20px; accent-color: var(--ketchup); }
 .gaveta-btns { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px; justify-self: end; margin-top: 6px; }
 
-.aviso { position: fixed; left: 50%; bottom: 26px; z-index: 90; translate: -50% 0; padding: 12px 20px; background: var(--chapa); color: #fff; border-radius: 14px; font-weight: 600; opacity: 0; transform: translateY(20px); transition: opacity .3s, transform .3s var(--mola); pointer-events: none; }
+.aviso { position: fixed; left: 50%; bottom: 26px; z-index: 90; translate: -50% 0; padding: 12px 20px; background: var(--chapa); color: #fff; border-radius: 14px; font-weight: 600; opacity: 0; transform: translateY(24px) scale(.96); transition: opacity .5s var(--suave), transform .6s var(--suave); pointer-events: none; }
 .aviso.on { opacity: 1; transform: none; pointer-events: auto; }
 .aviso a { color: var(--mostarda); margin-left: 8px; }
 

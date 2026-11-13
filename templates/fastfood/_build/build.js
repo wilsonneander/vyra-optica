@@ -26,6 +26,7 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'assets', 'img'), { recursive: true });
 copiar(path.join(__dirname, 'img', 'fotos'), path.join(OUT, 'assets', 'img'));
 copiar(path.join(__dirname, 'img', 'video'), path.join(OUT, 'assets', 'video'));
+copiar(path.join(__dirname, 'img', 'logos'), path.join(OUT, 'assets', 'img', 'logos'));
 fs.mkdirSync(path.join(OUT, 'assets', 'img', 'camadas'), { recursive: true });
 for (const f of fs.readdirSync(path.join(__dirname, 'img', 'camadas'))) if (f.endsWith('.webp'))
   fs.copyFileSync(path.join(__dirname, 'img', 'camadas', f), path.join(OUT, 'assets', 'img', 'camadas', f));
@@ -76,6 +77,11 @@ const topoMo = centroPilha - ((mo.topo + mo.base) / 2) * escalaMo;
 const esqMo = 533 * 0.5 - ((mo.esq + mo.dir) / 2) * escalaMo;
 const montadoStyle = `left:${pct(esqMo / 533)};top:${pct((topoMo - Y0) / AH)};width:${pct(larguraMontado)}`;
 
+// faíscas que sobem no fundo de Os mais pedidos (posições pseudoaleatórias fixas)
+let semente = 7;
+const rnd = () => { semente = (semente * 9301 + 49297) % 233280; return semente / 233280; };
+const faiscas = Array.from({ length: 26 }, () => `<i style="--x:${(rnd() * 100).toFixed(1)}%;--t:${(6 + rnd() * 8).toFixed(1)}s;--a:-${(rnd() * 12).toFixed(1)}s;--s:${(3 + rnd() * 5).toFixed(1)}px;--d:${(rnd() * 80 - 40).toFixed(0)}px"></i>`).join('');
+
 const status = '<p class="status" data-status><span data-status-txt>Confira o horário</span></p>';
 
 // ---------- página principal ----------
@@ -102,7 +108,7 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
 
 <main>
   <section class="hero" id="inicio" data-hero>
-    <video class="hero-video" data-hero-video muted loop playsinline preload="auto" poster="assets/video/chapa.webp" aria-label="Chapeiro prensando o hambúrguer na chapa quente">
+    <video class="hero-video" data-hero-video autoplay muted loop playsinline preload="auto" poster="assets/video/chapa.webp" aria-label="Chapeiro prensando o hambúrguer na chapa quente">
       <source src="assets/video/chapa.mp4" type="video/mp4">
     </video>
     <div class="hero-veu" aria-hidden="true"></div>
@@ -123,7 +129,6 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
         <span class="off-brilho" aria-hidden="true"></span>
       </a>
     </div>
-    <button class="hero-pausa" type="button" data-hero-btn aria-label="Pausar vídeo">${I.pausa}</button>
     <a class="hero-desce" href="#montagem">Role e veja o burger se montar${I.desce}</a>
   </section>
 
@@ -174,10 +179,9 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
   <section class="chapa" id="chapa" aria-labelledby="t-chapa">
     <div class="chapa-in">
       <div class="chapa-video" data-video-box>
-        <video data-video data-cursor="video" muted loop playsinline preload="none" poster="assets/video/queijo.webp" aria-label="Cheddar derretendo no maçarico sobre o hambúrguer na chapa">
+        <video data-video autoplay muted loop playsinline preload="metadata" poster="assets/video/queijo.webp" aria-label="Cheddar derretendo no maçarico sobre o hambúrguer na chapa">
           <source src="assets/video/queijo.mp4" type="video/mp4">
         </video>
-        <button class="video-btn" type="button" data-video-btn aria-label="Pausar vídeo">${I.pausa}</button>
         <p class="video-leg">Cheddar no maçarico antes de fechar o pão</p>
       </div>
       <div class="chapa-txt">
@@ -209,31 +213,39 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
   </section>
 
   <section class="destaques" id="mais-pedidos" aria-labelledby="t-destaques">
-    <div class="sec-in">
-      <div class="destaques-topo rv">
+    <div class="dest-fundo" aria-hidden="true">
+      <span class="brasa b1"></span><span class="brasa b2"></span><span class="brasa b3"></span>
+      ${faiscas}
+    </div>
+    <div class="sec-in dest-in">
+      <div class="dest-lado rv">
+        <p class="dest-sobre">Promoção da semana</p>
         <h2 id="t-destaques">Os mais pedidos, <em>com preço de promoção</em></h2>
-        <p>Valem até domingo no site e no balcão.</p>
+        <p class="relogio-promo" data-relogio><span>A promoção acaba em</span><b data-rel-txt>domingo, 23h59</b></p>
+        <div class="dest-minis" data-dest-minis role="tablist" aria-label="Escolha a promoção"></div>
       </div>
-      <div class="destaques-grade" data-destaques></div>
+      <div class="dest-palco" data-dest-palco aria-live="polite"></div>
     </div>
   </section>
 
   <section class="sobre" id="sobre" aria-labelledby="t-sobre">
+    <img class="sobre-bg" data-parallax src="assets/img/balcao.webp" alt="" aria-hidden="true" width="900" height="600" loading="lazy">
+    <div class="sobre-veu" aria-hidden="true"></div>
     <div class="sec-in sobre-in">
-      <div class="sobre-fotos rv">
-        <img class="f1" src="assets/img/balcao.webp" alt="Balcão e salão da Monta Burger" width="900" height="600" loading="lazy">
-        <img class="f2" src="assets/img/chef-kenji.webp" alt="Kenji Tanaka, chapeiro-chefe, de braços cruzados na cozinha" width="700" height="820" loading="lazy">
-        <p class="f-leg">Kenji Tanaka, chapeiro-chefe desde a primeira chapa</p>
-      </div>
+      <figure class="sobre-chef rv">
+        <img src="assets/img/chef-kenji.webp" alt="Kenji Tanaka, chapeiro-chefe, de braços cruzados na cozinha" width="700" height="820" loading="lazy">
+        <figcaption>Kenji Tanaka, chapeiro-chefe desde a primeira chapa</figcaption>
+      </figure>
       <div class="sobre-txt">
+        <p class="sobre-sobre rv">Nossa casa na Savassi</p>
         <h2 id="t-sobre" class="rv">Começou com uma chapa e uma fila na calçada</h2>
-        <p>A Monta abriu em ${M.desde} num balcão de três metros na Savassi. O plano era simples: hambúrguer prensado na hora, pão de padaria e preço de lanchonete. A fila veio antes da placa.</p>
-        <p>Hoje são duas chapas, um salão pequeno e entrega própria pelos bairros vizinhos. O blend continua sendo moído toda manhã e o pão continua chegando da mesma padaria.</p>
+        <p class="rv">A Monta abriu em ${M.desde} num balcão de três metros na Savassi. O plano era simples: hambúrguer prensado na hora, pão de padaria e preço de lanchonete. A fila veio antes da placa.</p>
+        <p class="rv">Hoje são duas chapas, um salão pequeno e entrega própria pelos bairros vizinhos. O blend continua sendo moído toda manhã e o pão continua chegando da mesma padaria.</p>
         <ul class="sobre-num">
           <li><b><span data-conta="${M.desde}" data-de="1990">${M.desde}</span></b><span>abrimos a primeira chapa</span></li>
           <li><b><span data-conta="160">160</span> g</b><span>de blend no burger da casa</span></li>
           <li><b><span data-conta="25">25</span> min</b><span>de entrega, em média</span></li>
-          <li><b><span data-conta="40" data-milhar>40</span> mil</b><span>burgers prensados por ano</span></li>
+          <li><b><span data-conta="40">40</span> mil</b><span>burgers prensados por ano</span></li>
         </ul>
       </div>
     </div>
@@ -241,27 +253,36 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
 
   <section class="delivery" id="delivery" aria-labelledby="t-delivery">
     <div class="sec-in">
-      <h2 id="t-delivery" class="rv">Peça pelo app que você já usa</h2>
-      <p class="delivery-lead">O mesmo cardápio, os mesmos preços de balcão e o pedido sai da mesma chapa. Escolha o caminho mais fácil pra você.</p>
-      <div class="apps rv">
-        <article class="app app-ifood">
-          <h3>iFood</h3>
-          <p>Acompanhe o motoboy no mapa e pague pelo app. Entrega em toda a região da Savassi.</p>
-          <ul><li>${I.relogio}De 25 a 40 min</li><li>${I.moto}Taxa a partir de R$ 4,99</li></ul>
-          <a class="btn btn-claro" href="${M.ifood}" target="_blank" rel="noopener">Pedir no iFood ${I.seta}</a>
-        </article>
-        <article class="app app-99">
-          <h3>99Food</h3>
-          <p>Cupons da semana no app e entrega em bairros vizinhos. Busque por Monta Burger.</p>
-          <ul><li>${I.relogio}De 25 a 45 min</li><li>${I.moto}Taxa a partir de R$ 3,99</li></ul>
-          <a class="btn btn-escuro" href="${M.food99}" target="_blank" rel="noopener">Pedir no 99Food ${I.seta}</a>
-        </article>
-        <article class="app app-direto">
-          <h3>Direto com a gente</h3>
-          <p>Monte a sacola aqui no site e o pedido chega no nosso WhatsApp. Sem taxa de app e com 10% off.</p>
-          <ul><li>${I.relogio}De 20 a 35 min</li><li>${I.moto}Entrega própria</li></ul>
-          <button class="btn btn-verm" type="button" data-abrir-sacola>Abrir a sacola ${I.seta}</button>
-        </article>
+      <div class="delivery-topo rv">
+        <h2 id="t-delivery">Peça pelo app que você já usa</h2>
+        <p class="delivery-lead">O mesmo cardápio e o pedido sai da mesma chapa. Escolha o seu lado, ou peça direto com a gente e ganhe 10% off.</p>
+      </div>
+      <div class="duelo rv" data-duelo>
+        <a class="lado lado-ifood" href="${M.ifood}" target="_blank" rel="noopener" aria-label="Pedir no iFood">
+          <img class="lado-logo" src="assets/img/logos/ifood.svg" alt="iFood" width="190" height="100">
+          <p class="lado-frase">Acompanhe o motoboy no mapa e pague pelo app.</p>
+          <div class="lado-info"><span><small>entrega</small><b>25 a 40 min</b></span><span><small>taxa a partir de</small><b>R$ 4,99</b></span></div>
+          <span class="lado-cta">Pedir no iFood ${I.seta}</span>
+        </a>
+        <div class="duelo-meio" aria-hidden="true">
+          <img src="assets/img/camadas/montado.webp" alt="" width="657" height="661" loading="lazy">
+          <span class="duelo-ou">ou</span>
+        </div>
+        <a class="lado lado-99" href="${M.food99}" target="_blank" rel="noopener" aria-label="Pedir no 99Food">
+          <span class="logo-99"><img src="assets/img/logos/99.svg" alt="" width="70" height="70"><b>Food</b></span>
+          <p class="lado-frase">Cupons da semana no app. Busque por Monta Burger.</p>
+          <div class="lado-info"><span><small>entrega</small><b>25 a 45 min</b></span><span><small>taxa a partir de</small><b>R$ 3,99</b></span></div>
+          <span class="lado-cta">Pedir no 99Food ${I.seta}</span>
+        </a>
+      </div>
+      <div class="comanda rv">
+        <div class="comanda-papel">
+          <p class="comanda-topo"><b>Pedido direto</b>pelo site, chega no nosso WhatsApp</p>
+          <div class="comanda-linha"><span>Taxa de app</span><b>R$ 0,00</b></div>
+          <div class="comanda-linha"><span>Desconto do site</span><b>10% off</b></div>
+          <div class="comanda-linha"><span>Entrega própria</span><b>20 a 35 min</b></div>
+          <button class="btn btn-verm btn-cheio" type="button" data-abrir-sacola>Abrir a sacola ${I.seta}</button>
+        </div>
       </div>
       <div class="delivery-info">
         ${status}

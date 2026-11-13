@@ -38,14 +38,17 @@
   const app = $('[data-app]');
   const lf = $('[data-login-form]');
   const logado = () => { try { return sessionStorage.getItem(CHAVE_LOGIN) === '1'; } catch (e) { return false; } };
-  const entrar = () => { login.hidden = true; app.hidden = false; $('[data-quem]').textContent = A.responsavel; iniciar(); };
+  const entrar = (animar) => {
+    const mostra = () => { login.hidden = true; login.classList.remove('saindo'); app.hidden = false; $('[data-quem]').textContent = A.responsavel; iniciar(); };
+    if (animar) { login.classList.add('saindo'); setTimeout(mostra, 420); } else mostra();
+  };
   lf.addEventListener('submit', (e) => {
     e.preventDefault();
     const ok = lf.email.value.trim().toLowerCase() === A.email && lf.senha.value === A.senha;
     $('[data-login-erro]').hidden = ok;
     if (!ok) { lf.senha.select(); return; }
     try { sessionStorage.setItem(CHAVE_LOGIN, '1'); } catch (er) { /* sem armazenamento */ }
-    entrar();
+    entrar(true);
   });
   $('[data-preencher]').addEventListener('click', () => { lf.email.value = A.email; lf.senha.value = A.senha; lf.senha.focus(); });
   $('[data-ver-senha]').addEventListener('click', (e) => {
@@ -201,11 +204,18 @@
     fotoEscolhida = p.fotoData ? { fotoData: p.fotoData } : p.foto ? { foto: p.foto } : null;
     erro.hidden = true;
     mostrarFoto();
-    gaveta.hidden = false; document.body.style.overflow = 'hidden';
+    clearTimeout(gavetaT); gaveta.hidden = false; gaveta.classList.remove('fechando'); document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => requestAnimationFrame(() => gaveta.classList.add('aberta')));
     igualar();
     setTimeout(() => form.nome.focus(), 60);
   };
-  const fecharForm = () => { gaveta.hidden = true; document.body.style.overflow = ''; if (focoAntes) focoAntes.focus(); };
+  let gavetaT = 0;
+  const fecharForm = () => {
+    if (gaveta.hidden) return;
+    gaveta.classList.add('fechando'); gaveta.classList.remove('aberta'); document.body.style.overflow = '';
+    gavetaT = setTimeout(() => { gaveta.hidden = true; gaveta.classList.remove('fechando'); }, 650);
+    if (focoAntes) focoAntes.focus({ preventScroll: true });
+  };
   $('[data-novo]').addEventListener('click', () => abrirForm(null));
   $$('[data-fechar]', gaveta).forEach((b) => b.addEventListener('click', fecharForm));
   document.addEventListener('keydown', (e) => {

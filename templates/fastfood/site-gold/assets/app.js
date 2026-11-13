@@ -117,28 +117,18 @@
   };
   window.addEventListener('scroll', aoRolar, { passive: true }); aoRolar();
 
-  /* ---------- vídeo da chapa: toca quando aparece ---------- */
+  /* ---------- vídeos: sempre rodando em repetição, sem botão de pausa ---------- */
   const video = $('[data-video]');
-  const vBtn = $('[data-video-btn]');
-  let pausadoPeloUsuario = false;
-  const marcarBtn = () => {
-    const tocando = !video.paused;
-    vBtn.innerHTML = tocando ? ICO.pausa : ICO.play;
-    vBtn.setAttribute('aria-label', tocando ? 'Pausar vídeo' : 'Tocar vídeo');
+  const manterTocando = (v) => {
+    if (!v || reduz) return;
+    v.muted = true; v.loop = true;
+    const tocar = () => { if (v.paused) v.play().catch(() => {}); };
+    tocar();
+    v.addEventListener('pause', () => setTimeout(tocar, 300));
+    v.addEventListener('canplay', tocar);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) tocar(); });
   };
-  const economia = navigator.connection && navigator.connection.saveData;
-  if (reduz || economia) { marcarBtn(); }
-  else if ('IntersectionObserver' in window) {
-    new IntersectionObserver((es) => es.forEach((e) => {
-      if (e.isIntersecting && !pausadoPeloUsuario) { video.preload = 'auto'; video.play().catch(() => {}); }
-      else if (!e.isIntersecting) video.pause();
-    }), { threshold: 0.35 }).observe(video);
-  }
-  video.addEventListener('play', marcarBtn); video.addEventListener('pause', marcarBtn);
-  vBtn.addEventListener('click', () => {
-    if (video.paused) { pausadoPeloUsuario = false; video.play().catch(() => {}); }
-    else { pausadoPeloUsuario = true; video.pause(); }
-  });
+  manterTocando(video);
 
   /* ---------- cardápio ---------- */
   let dados = C.publicado();
@@ -218,18 +208,66 @@
     clearTimeout(busca.t); busca.t = setTimeout(() => desenharGrade(true), 140);
   });
 
-  /* ---------- os mais pedidos ---------- */
-  const destBox = $('[data-destaques]');
-  const desenharDestaques = () => {
-    const ds = C.visiveis(dados).filter((p) => p.destaque).slice(0, 4);
-    $('#mais-pedidos').hidden = !ds.length;
-    destBox.innerHTML = ds.map((p, i) => `<article class="dest${i ? '' : ' grande'}">
-        <img src="${esc(C.foto(p))}" alt="${esc(p.nome)}" width="600" height="500" loading="lazy">${seloOff(p)}
-        <div class="dest-txt"><h3>${esc(p.nome)}</h3><p>${esc(p.desc || '')}</p>
-          <div class="dest-pe"><span class="preco">${precoHtml(p)}</span><button class="add" type="button" data-add="${esc(p.id)}" aria-label="Pôr ${esc(p.nome)} na sacola">${ICO.mais}</button></div>
-        </div>
-      </article>`).join('');
+  /* ---------- os mais pedidos: vitrine giratória ---------- */
+  const minis = $('[data-dest-minis]');
+  const vitrine = $('[data-dest-palco]');
+  const DUR = 6500;
+  let destLista = [], destAtual = 0, destT = 0, destParado = false;
+  const palcoHtml = (p) => {
+    const off = p.promo && p.promo < p.preco ? Math.round((1 - p.promo / p.preco) * 100) : 0;
+    return `<div class="palco-disco" data-add-vitrine="${esc(p.id)}">
+        <svg class="anel-txt" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="anel-caminho" d="M100,100 m-92,0 a92,92 0 1,1 184,0 a92,92 0 1,1 -184,0"/></defs><text><textPath href="#anel-caminho">mais pedido da semana   preço de promoção   mais pedido da semana   preço de promoção   </textPath></text></svg>
+        <img class="palco-foto" src="${esc(C.foto(p))}" alt="${esc(p.nome)}" width="600" height="600">
+      </div>
+      <div class="palco-etiqueta">${off ? `<s>${C.real(p.preco)}</s>` : ''}<b>${C.real(preco(p))}</b>${off ? `<span>-${off}%</span>` : ''}</div>
+      <div class="palco-txt"><h3>${esc(p.nome)}</h3><p>${esc(p.desc || '')}</p>
+        <button class="btn btn-verm" type="button" data-add="${esc(p.id)}">Quero esse ${'<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 7l5 5-5 5"/></svg>'}</button></div>`;
   };
+  const mostrarDestaque = (i, animar) => {
+    if (!destLista.length) return;
+    destAtual = (i + destLista.length) % destLista.length;
+    const p = destLista[destAtual];
+    $$('.mini', minis).forEach((b, k) => b.setAttribute('aria-selected', String(k === destAtual)));
+    const pinta = () => {
+      vitrine.innerHTML = palcoHtml(p);
+      if (animar && !reduz) {
+        vitrine.classList.add('entrando'); void vitrine.offsetWidth;
+        requestAnimationFrame(() => vitrine.classList.remove('entrando'));
+      }
+    };
+    if (animar && !reduz && vitrine.firstElementChild) { vitrine.classList.add('saindo'); setTimeout(() => { vitrine.classList.remove('saindo'); pinta(); }, 520); }
+    else pinta();
+    clearTimeout(destT);
+    if (!destParado && !reduz) destT = setTimeout(() => mostrarDestaque(destAtual + 1, true), DUR);
+  };
+  const desenharDestaques = () => {
+    destLista = C.visiveis(dados).filter((p) => p.destaque).slice(0, 4);
+    $('#mais-pedidos').hidden = !destLista.length;
+    minis.style.setProperty('--dur', DUR + 'ms');
+    minis.innerHTML = destLista.map((p, i) => `<button class="mini" type="button" role="tab" aria-selected="false" data-mini="${i}">
+        <img src="${esc(C.foto(p))}" alt="" width="58" height="58" loading="lazy"><span><b>${esc(p.nome)}</b><small>${p.promo && p.promo < p.preco ? 'de ' + C.real(p.preco) : 'preço da casa'}</small></span><span class="mini-preco">${C.real(preco(p))}</span><span class="mini-tempo" aria-hidden="true"></span>
+      </button>`).join('');
+    mostrarDestaque(Math.min(destAtual, destLista.length - 1), false);
+  };
+  minis.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-mini]'); if (!b || +b.dataset.mini === destAtual) return;
+    mostrarDestaque(+b.dataset.mini, true);
+  });
+  // passar o mouse na vitrine segura o prato na tela
+  $('#mais-pedidos').addEventListener('pointerenter', (e) => { if (e.pointerType !== 'mouse') return; destParado = true; minis.classList.add('parado'); clearTimeout(destT); });
+  $('#mais-pedidos').addEventListener('pointerleave', () => { destParado = false; minis.classList.remove('parado'); mostrarDestaque(destAtual, false); });
+  vitrine.addEventListener('click', (e) => { const d = e.target.closest('[data-add-vitrine]'); if (d) $('[data-add]', vitrine).click(); });
+  // contagem até domingo 23h59 (horário de Brasília)
+  const relTxt = $('[data-rel-txt]');
+  const relogio = () => {
+    const { dia, h } = C.agora();
+    let falta = ((7 - dia) % 7) * 86400 + (23.9833 - h) * 3600;
+    if (falta < 0) falta += 7 * 86400;
+    const d = Math.floor(falta / 86400), hh = Math.floor((falta % 86400) / 3600), mm = Math.floor((falta % 3600) / 60), ss = Math.floor(falta % 60);
+    const p2 = (n) => String(n).padStart(2, '0');
+    relTxt.textContent = `${d ? d + (d > 1 ? ' dias ' : ' dia ') : ''}${p2(hh)}:${p2(mm)}:${p2(ss)}`;
+  };
+  relogio(); setInterval(relogio, 1000);
 
   /* ---------- sacola ---------- */
   const CHAVE_SACOLA = 'monta-sacola';
@@ -291,11 +329,22 @@
     it.qtd += +b.dataset.qtd; desenharSacola();
   });
   let focoAntes = null;
+  let sacolaT = 0;
   const abrirSacola = () => {
-    focoAntes = document.activeElement; sacolaBox.hidden = false; document.body.style.overflow = 'hidden';
-    desenharSacola(); igualar(); setTimeout(() => $('.fechar', sacolaBox).focus(), 50);
+    clearTimeout(sacolaT);
+    focoAntes = document.activeElement; sacolaBox.hidden = false; sacolaBox.classList.remove('fechando');
+    document.body.style.overflow = 'hidden';
+    desenharSacola(); igualar();
+    requestAnimationFrame(() => requestAnimationFrame(() => sacolaBox.classList.add('aberta')));
+    setTimeout(() => $('.fechar', sacolaBox).focus({ preventScroll: true }), 120);
   };
-  const fecharSacola = () => { sacolaBox.hidden = true; document.body.style.overflow = ''; if (focoAntes) focoAntes.focus(); };
+  const fecharSacola = () => {
+    if (sacolaBox.hidden || !sacolaBox.classList.contains('aberta')) return;
+    sacolaBox.classList.add('fechando'); sacolaBox.classList.remove('aberta');
+    document.body.style.overflow = '';
+    sacolaT = setTimeout(() => { sacolaBox.hidden = true; sacolaBox.classList.remove('fechando'); }, reduz ? 0 : 650);
+    if (focoAntes) focoAntes.focus({ preventScroll: true });
+  };
   $$('[data-abrir-sacola]').forEach((b) => b.addEventListener('click', abrirSacola));
   $$('[data-fechar-sacola]').forEach((b) => b.addEventListener('click', fecharSacola));
   document.addEventListener('keydown', (e) => {
@@ -373,24 +422,7 @@
   /* ---------- vídeo da capa ---------- */
   const hero = $('[data-hero]');
   const hVideo = $('[data-hero-video]');
-  const hBtn = $('[data-hero-btn]');
-  let hPausado = false;
-  const marcarHero = () => {
-    const tocando = !hVideo.paused;
-    hBtn.innerHTML = tocando ? ICO.pausa : ICO.play;
-    hBtn.setAttribute('aria-label', tocando ? 'Pausar vídeo' : 'Tocar vídeo');
-  };
-  hVideo.addEventListener('play', marcarHero); hVideo.addEventListener('pause', marcarHero);
-  if (reduz || economia) { hPausado = true; marcarHero(); }
-  else {
-    hVideo.play().catch(() => marcarHero());
-    new IntersectionObserver((es) => es.forEach((e) => {
-      if (e.isIntersecting && !hPausado) hVideo.play().catch(() => {}); else if (!e.isIntersecting) hVideo.pause();
-    }), { threshold: 0.1 }).observe(hero);
-  }
-  hBtn.addEventListener('click', () => {
-    if (hVideo.paused) { hPausado = false; hVideo.play().catch(() => {}); } else { hPausado = true; hVideo.pause(); }
-  });
+  manterTocando(hVideo);
   const topoNoVideo = () => topo.classList.toggle('sobre-video', scrollY < hero.offsetHeight - 70);
   window.addEventListener('scroll', topoNoVideo, { passive: true }); topoNoVideo();
 
@@ -456,7 +488,7 @@
     document.body.append(ponto, anel);
     doc.classList.add('cursor-on');
     let mx = innerWidth / 2, my = innerHeight / 2, ax = mx, ay = my, ativo = false;
-    const estados = ['cursor-link', 'cursor-pedir', 'cursor-video', 'cursor-arrasta'];
+    const estados = ['cursor-link', 'cursor-pedir', 'cursor-arrasta'];
     const definir = (estado, texto) => {
       estados.forEach((c) => doc.classList.toggle(c, c === estado));
       if (texto != null) rot.textContent = texto;
@@ -470,23 +502,41 @@
       const t = e.target;
       if (t.closest('input, textarea, select')) definir(null);
       else if (t.closest('.carrossel')) definir('cursor-arrasta', car.classList.contains('arrastando') ? 'solta' : 'arrasta');
-      else if (t.closest('.prato, .dest') && !t.closest('button')) definir('cursor-pedir', 'pedir');
-      else if (t.closest('[data-cursor="video"], .chapa-video')) definir('cursor-video', hVideo && $('[data-video]').paused ? 'tocar' : 'assistir');
+      else if (t.closest('.prato, .palco-disco') && !t.closest('button')) definir('cursor-pedir', 'pedir');
       else if (t.closest('a, button, label, [role="tab"]')) definir('cursor-link');
       else definir(null);
       doc.classList.toggle('cursor-escuro', !!t.closest('.hero, .chapa, .destaques, .rodape, .letreiro, .voz-verm'));
     }, { passive: true });
-    document.addEventListener('pointerdown', () => doc.classList.add('cursor-aperta'));
-    document.addEventListener('pointerup', () => doc.classList.remove('cursor-aperta'));
+    let aperto = 1, apertoAlvo = 1;
+    document.addEventListener('pointerdown', () => { apertoAlvo = 0.78; });
+    document.addEventListener('pointerup', () => { apertoAlvo = 1; });
     document.addEventListener('mouseleave', () => doc.classList.add('cursor-fora'));
     const segue = () => {
-      ax += (mx - ax) * 0.18; ay += (my - ay) * 0.18;
-      anel.style.transform = `translate(${ax.toFixed(1)}px, ${ay.toFixed(1)}px)`;
+      ax += (mx - ax) * 0.2; ay += (my - ay) * 0.2;
+      aperto += (apertoAlvo - aperto) * 0.3;
+      anel.style.transform = `translate(${ax.toFixed(1)}px, ${ay.toFixed(1)}px) scale(${aperto.toFixed(3)})`;
       requestAnimationFrame(segue);
     };
     requestAnimationFrame(segue);
-    // clicar no vídeo da chapa também toca e pausa
-    $('.chapa-video').addEventListener('click', (e) => { if (!e.target.closest('button')) vBtn.click(); });
+    // luz que segue o mouse nos lados do iFood e do 99Food
+    $$('.lado').forEach((l) => l.addEventListener('pointermove', (e) => {
+      const r = l.getBoundingClientRect();
+      l.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+      l.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+    }));
+  }
+
+  /* ---------- foto do salão desliza devagar atrás do texto ---------- */
+  const parallax = $('[data-parallax]');
+  if (parallax && !reduz) {
+    const sec = parallax.parentElement;
+    const mover = () => {
+      const r = sec.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      const k = (r.top + r.height / 2 - innerHeight / 2) / (innerHeight + r.height);
+      parallax.style.transform = `translate3d(0, ${(k * -12).toFixed(2)}%, 0) scale(1.04)`;
+    };
+    window.addEventListener('scroll', () => requestAnimationFrame(mover), { passive: true }); mover();
   }
 
   /* ---------- tudo junto ---------- */

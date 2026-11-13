@@ -50,7 +50,8 @@
     try { sessionStorage.setItem(CHAVE_LOGIN, '1'); } catch (er) { /* sem armazenamento */ }
     entrar(true);
   });
-  $('[data-preencher]').addEventListener('click', () => { lf.email.value = A.email; lf.senha.value = A.senha; lf.senha.focus(); });
+  const sd = $('[data-saudacao]');
+  if (sd) { const h = new Date().getHours(); sd.textContent = h < 5 ? 'Boa noite' : h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite'; }
   $('[data-ver-senha]').addEventListener('click', (e) => {
     const mostrar = lf.senha.type === 'password';
     lf.senha.type = mostrar ? 'text' : 'password';

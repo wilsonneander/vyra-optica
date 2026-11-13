@@ -14,25 +14,64 @@
 <body class="painel">
 <section class="login" data-login>
   <div class="login-arte" aria-hidden="true">
-    <img src="assets/img/camadas/montado.webp" alt="" width="657" height="661">
-  </div>
-  <form class="login-caixa" data-login-form>
-    <a class="logo" href="index.html" aria-label="Voltar ao site"><svg class="simbolo" viewBox="0 0 64 56" aria-hidden="true">
+    <video class="login-video" src="assets/video/chapa.mp4" poster="assets/video/chapa.webp" autoplay muted loop playsinline preload="metadata"></video>
+    <div class="login-veu"></div>
+    <a class="logo logo-claro login-marca" href="index.html" tabindex="-1"><svg class="simbolo" viewBox="0 0 64 56" aria-hidden="true">
   <path d="M6 24c0-12 11.6-19 26-19s26 7 26 19c0 1.7-1.3 3-3 3H9c-1.7 0-3-1.3-3-3z" fill="#E3262B"/>
   <g fill="#FFF3E6"><ellipse cx="22" cy="13" rx="2.2" ry="1.3" transform="rotate(-20 22 13)"/><ellipse cx="33" cy="10" rx="2.2" ry="1.3"/><ellipse cx="43" cy="14" rx="2.2" ry="1.3" transform="rotate(20 43 14)"/><ellipse cx="28" cy="19" rx="2" ry="1.2"/><ellipse cx="38" cy="20" rx="2" ry="1.2"/></g>
   <path d="M5 30h54l-4 5c-1.6 2-3.8 2-5.4 0l-1.2-1.5-2.4 4.5c-1.2 2.2-3.3 2.2-4.5 0L38.4 34H25.6l-3.1 4c-1.2 2.2-3.3 2.2-4.5 0l-2.4-4.5-1.2 1.5c-1.6 2-3.8 2-5.4 0z" fill="#FFC23A"/>
   <path d="M8 39c0-1.7 1.3-3 3-3h4.5l4.5 5 4.5-5h15l4.5 5 4.5-5H53c1.7 0 3 1.3 3 3v1.5c0 1.7-1.3 3-3 3H11c-1.7 0-3-1.3-3-3z" fill="#3A1A14"/>
   <path d="M7 47c0-1.1.9-2 2-2h46c1.1 0 2 .9 2 2 0 3.3-2.7 6-6 6H13c-3.3 0-6-2.7-6-6z" fill="#E3262B"/>
 </svg><span class="logo-txt"><b>monta</b><small>burger</small></span></a>
-    <h1>Área do cliente</h1>
-    <p>Entre para cadastrar produtos, organizar as categorias e publicar o cardápio no site.</p>
-    <label class="campo"><span>E-mail</span><input type="email" name="email" autocomplete="username" required></label>
-    <label class="campo"><span>Senha</span><span class="senha"><input type="password" name="senha" autocomplete="current-password" required><button type="button" data-ver-senha aria-label="Mostrar senha"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z"/><circle cx="12" cy="12" r="2.5"/></svg></button></span></label>
-    <p class="erro" data-login-erro hidden>E-mail ou senha não conferem.</p>
-    <button class="btn btn-verm btn-cheio" type="submit">Entrar <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 7l5 5-5 5"/></svg></button>
-    <p class="demo">Acesso de demonstração: <b>loja@montaburger.com.br</b> e senha <b>monta2026</b> <button type="button" class="link" data-preencher>preencher</button></p>
-    <a class="voltar" href="index.html"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H6M11 7l-5 5 5 5"/></svg>Voltar ao site</a>
-  </form>
+
+    <div class="flutua f-publicado">
+      <span class="f-simbolo"><svg class="simbolo" viewBox="0 0 64 56" aria-hidden="true">
+  <path d="M6 24c0-12 11.6-19 26-19s26 7 26 19c0 1.7-1.3 3-3 3H9c-1.7 0-3-1.3-3-3z" fill="#E3262B"/>
+  <g fill="#FFF3E6"><ellipse cx="22" cy="13" rx="2.2" ry="1.3" transform="rotate(-20 22 13)"/><ellipse cx="33" cy="10" rx="2.2" ry="1.3"/><ellipse cx="43" cy="14" rx="2.2" ry="1.3" transform="rotate(20 43 14)"/><ellipse cx="28" cy="19" rx="2" ry="1.2"/><ellipse cx="38" cy="20" rx="2" ry="1.2"/></g>
+  <path d="M5 30h54l-4 5c-1.6 2-3.8 2-5.4 0l-1.2-1.5-2.4 4.5c-1.2 2.2-3.3 2.2-4.5 0L38.4 34H25.6l-3.1 4c-1.2 2.2-3.3 2.2-4.5 0l-2.4-4.5-1.2 1.5c-1.6 2-3.8 2-5.4 0z" fill="#FFC23A"/>
+  <path d="M8 39c0-1.7 1.3-3 3-3h4.5l4.5 5 4.5-5h15l4.5 5 4.5-5H53c1.7 0 3 1.3 3 3v1.5c0 1.7-1.3 3-3 3H11c-1.7 0-3-1.3-3-3z" fill="#3A1A14"/>
+  <path d="M7 47c0-1.1.9-2 2-2h46c1.1 0 2 .9 2 2 0 3.3-2.7 6-6 6H13c-3.3 0-6-2.7-6-6z" fill="#E3262B"/>
+</svg></span>
+      <div><b>Cardápio publicado</b><small>25 produtos no site agora</small></div>
+    </div>
+
+    <div class="login-frase">
+      <h2>Seu cardápio no ar do jeito que sai da chapa.</h2>
+      <p>Aqui você cadastra novos produtos, troca preços e fotos, cria promoções e organiza as categorias do cardápio. Quando terminar, é só publicar: o site atualiza na hora.</p>
+      <ul class="login-pode">
+        <li><b>Produtos</b>Cadastre com foto, descrição e preço</li>
+        <li><b>Promoções</b>Preço promocional e destaque em Os mais pedidos</li>
+        <li><b>Categorias</b>Crie, renomeie e escolha a ordem das abas</li>
+        <li><b>Publicação</b>Revise o rascunho e mande para o site</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="login-lado">
+    <form class="login-caixa" data-login-form>
+      <a class="logo" href="index.html" aria-label="Voltar ao site"><svg class="simbolo" viewBox="0 0 64 56" aria-hidden="true">
+  <path d="M6 24c0-12 11.6-19 26-19s26 7 26 19c0 1.7-1.3 3-3 3H9c-1.7 0-3-1.3-3-3z" fill="#E3262B"/>
+  <g fill="#FFF3E6"><ellipse cx="22" cy="13" rx="2.2" ry="1.3" transform="rotate(-20 22 13)"/><ellipse cx="33" cy="10" rx="2.2" ry="1.3"/><ellipse cx="43" cy="14" rx="2.2" ry="1.3" transform="rotate(20 43 14)"/><ellipse cx="28" cy="19" rx="2" ry="1.2"/><ellipse cx="38" cy="20" rx="2" ry="1.2"/></g>
+  <path d="M5 30h54l-4 5c-1.6 2-3.8 2-5.4 0l-1.2-1.5-2.4 4.5c-1.2 2.2-3.3 2.2-4.5 0L38.4 34H25.6l-3.1 4c-1.2 2.2-3.3 2.2-4.5 0l-2.4-4.5-1.2 1.5c-1.6 2-3.8 2-5.4 0z" fill="#FFC23A"/>
+  <path d="M8 39c0-1.7 1.3-3 3-3h4.5l4.5 5 4.5-5h15l4.5 5 4.5-5H53c1.7 0 3 1.3 3 3v1.5c0 1.7-1.3 3-3 3H11c-1.7 0-3-1.3-3-3z" fill="#3A1A14"/>
+  <path d="M7 47c0-1.1.9-2 2-2h46c1.1 0 2 .9 2 2 0 3.3-2.7 6-6 6H13c-3.3 0-6-2.7-6-6z" fill="#E3262B"/>
+</svg><span class="logo-txt"><b>monta</b><small>burger</small></span></a>
+      <div class="login-titulo">
+        <p class="login-apoio">Área do cliente</p>
+        <h1><span data-saudacao>Olá</span>, Juliana.</h1>
+        <p>Entre para cadastrar produtos, organizar as categorias e publicar o cardápio no site.</p>
+      </div>
+      <label class="campo"><span>E-mail</span><span class="entrada"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="3"/><path d="M4.5 7.5l6.3 5a2 2 0 0 0 2.4 0l6.3-5"/></svg><input type="email" name="email" autocomplete="username" required value="loja@montaburger.com.br"></span></label>
+      <label class="campo"><span>Senha</span><span class="entrada senha"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5M12 14.5v2"/></svg><input type="password" name="senha" autocomplete="current-password" required value="monta2026"><button type="button" data-ver-senha aria-label="Mostrar senha"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z"/><circle cx="12" cy="12" r="2.5"/></svg></button></span></label>
+      <p class="erro" data-login-erro hidden>E-mail ou senha não conferem.</p>
+      <button class="btn btn-verm btn-cheio btn-entrar" type="submit"><span>Entrar no painel</span><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 7l5 5-5 5"/></svg></button>
+      <p class="demo">Modo demonstração: e-mail e senha já estão preenchidos.</p>
+    </form>
+    <div class="login-rodape">
+      <a class="voltar" href="index.html"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H6M11 7l-5 5 5 5"/></svg>Voltar ao site</a>
+      <a class="ajuda" href="https://wa.me/5531999990000?text=Ol%C3%A1!%20Preciso%20de%20ajuda%20com%20o%20painel%20da%20loja." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 19.5l1.2-3.7A8 8 0 1 1 8.4 18.5z"/><path d="M9 9.3c.2 2.7 2.6 5.3 5.6 5.7l1-1.3-1.8-1-.9.8c-.9-.4-1.8-1.3-2.2-2.2l.8-.9-1-1.8z" fill="currentColor" stroke-width="1"/></svg>Preciso de ajuda</a>
+    </div>
+  </div>
 </section>
 
 <div class="app" data-app hidden>

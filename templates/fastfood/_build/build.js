@@ -387,19 +387,46 @@ const painel = `${head(`Área do cliente | ${M.completo}`, 'Painel da loja: cada
 <body class="painel">
 <section class="login" data-login>
   <div class="login-arte" aria-hidden="true">
-    <img src="assets/img/camadas/montado.webp" alt="" width="657" height="661">
+    <video class="login-video" src="assets/video/chapa.mp4" poster="assets/video/chapa.webp" autoplay muted loop playsinline preload="metadata"></video>
+    <div class="login-veu"></div>
+    <a class="logo logo-claro login-marca" href="index.html" tabindex="-1">${I.logo}</a>
+
+    <div class="flutua f-publicado">
+      <span class="f-simbolo">${I.simbolo}</span>
+      <div><b>Cardápio publicado</b><small>${C.produtos.length} produtos no site agora</small></div>
+    </div>
+
+    <div class="login-frase">
+      <h2>Seu cardápio no ar do jeito que sai da chapa.</h2>
+      <p>Aqui você cadastra novos produtos, troca preços e fotos, cria promoções e organiza as categorias do cardápio. Quando terminar, é só publicar: o site atualiza na hora.</p>
+      <ul class="login-pode">
+        <li><b>Produtos</b>Cadastre com foto, descrição e preço</li>
+        <li><b>Promoções</b>Preço promocional e destaque em Os mais pedidos</li>
+        <li><b>Categorias</b>Crie, renomeie e escolha a ordem das abas</li>
+        <li><b>Publicação</b>Revise o rascunho e mande para o site</li>
+      </ul>
+    </div>
   </div>
-  <form class="login-caixa" data-login-form>
-    <a class="logo" href="index.html" aria-label="Voltar ao site">${I.logo}</a>
-    <h1>Área do cliente</h1>
-    <p>Entre para cadastrar produtos, organizar as categorias e publicar o cardápio no site.</p>
-    <label class="campo"><span>E-mail</span><input type="email" name="email" autocomplete="username" required></label>
-    <label class="campo"><span>Senha</span><span class="senha"><input type="password" name="senha" autocomplete="current-password" required><button type="button" data-ver-senha aria-label="Mostrar senha">${I.olho}</button></span></label>
-    <p class="erro" data-login-erro hidden>E-mail ou senha não conferem.</p>
-    <button class="btn btn-verm btn-cheio" type="submit">Entrar ${I.seta}</button>
-    <p class="demo">Acesso de demonstração: <b>${C.acesso.email}</b> e senha <b>${C.acesso.senha}</b> <button type="button" class="link" data-preencher>preencher</button></p>
-    <a class="voltar" href="index.html">${I.setaEsq}Voltar ao site</a>
-  </form>
+
+  <div class="login-lado">
+    <form class="login-caixa" data-login-form>
+      <a class="logo" href="index.html" aria-label="Voltar ao site">${I.logo}</a>
+      <div class="login-titulo">
+        <p class="login-apoio">Área do cliente</p>
+        <h1><span data-saudacao>Olá</span>, ${esc(C.acesso.responsavel.split(' ')[0])}.</h1>
+        <p>Entre para cadastrar produtos, organizar as categorias e publicar o cardápio no site.</p>
+      </div>
+      <label class="campo"><span>E-mail</span><span class="entrada">${I.arroba}<input type="email" name="email" autocomplete="username" required value="${esc(C.acesso.email)}"></span></label>
+      <label class="campo"><span>Senha</span><span class="entrada senha">${I.cadeado}<input type="password" name="senha" autocomplete="current-password" required value="${esc(C.acesso.senha)}"><button type="button" data-ver-senha aria-label="Mostrar senha">${I.olho}</button></span></label>
+      <p class="erro" data-login-erro hidden>E-mail ou senha não conferem.</p>
+      <button class="btn btn-verm btn-cheio btn-entrar" type="submit"><span>Entrar no painel</span>${I.seta}</button>
+      <p class="demo">Modo demonstração: e-mail e senha já estão preenchidos.</p>
+    </form>
+    <div class="login-rodape">
+      <a class="voltar" href="index.html">${I.setaEsq}Voltar ao site</a>
+      <a class="ajuda" href="https://wa.me/${M.whatsapp}?text=${encodeURIComponent('Olá! Preciso de ajuda com o painel da loja.')}" target="_blank" rel="noopener">${I.whats}Preciso de ajuda</a>
+    </div>
+  </div>
 </section>
 
 <div class="app" data-app hidden>

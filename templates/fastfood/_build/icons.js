@@ -36,6 +36,8 @@ module.exports = {
   sobe: s('<path d="M7 14l5-5 5 5"/>'),
   desce: s('<path d="M7 10l5 5 5-5"/>'),
   foto: s('<rect x="3.5" y="5.5" width="17" height="13" rx="3"/><circle cx="9" cy="10.5" r="1.8"/><path d="M20 16l-5-4.5-8 7"/>'),
+  arroba: s('<rect x="3.5" y="5.5" width="17" height="13" rx="3"/><path d="M4.5 7.5l6.3 5a2 2 0 0 0 2.4 0l6.3-5"/>'),
+  cadeado: s('<rect x="5" y="10.5" width="14" height="10" rx="3"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5M12 14.5v2"/>'),
   sair: s('<path d="M14 5h4a1.5 1.5 0 0 1 1.5 1.5v11A1.5 1.5 0 0 1 18 19h-4M10 8l-4 4 4 4M6 12h9"/>'),
   enviar: s('<path d="M4 12l16-7-6 15-3-6z"/>'),
   insta: s('<rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.6"/><path d="M16.8 7.2h.01"/>'),

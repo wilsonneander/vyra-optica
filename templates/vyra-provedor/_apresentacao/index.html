@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vyra | Modelos de site para provedores</title>
+<meta name="description" content="Três modelos de site para provedores de internet, do básico ao premium.">
+<link rel="icon" type="image/svg+xml" href="img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#FF5A1F;--orange-d:#E8480C;--red:#E11D2E;--ink:#1E1512;--text:#4A3A33;--muted:#6E5A52;--line:#F0DDD3;--paper:#FFF8F4}
+  *{box-sizing:border-box}
+  body{margin:0;font:400 17px/1.6 "Red Hat Display",Arial,sans-serif;color:var(--text);background:var(--paper)}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%;height:auto}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  header{background:var(--ink);color:#E9D6CC;padding:56px 0 64px}
+  .logo{width:130px;height:auto;color:#fff;margin-bottom:34px}
+  h1{margin:0 0 14px;font-size:clamp(2.1rem,5vw,3.5rem);font-weight:800;line-height:1.04;letter-spacing:-.03em;color:#fff;max-width:18ch}
+  h1 span{color:var(--orange)}
+  header p{margin:0;max-width:60ch;font-size:1.1rem}
+  main{padding:40px 0 70px}
+  .model{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(24px,4vw,56px);align-items:center;padding:40px 0;border-bottom:1px solid var(--line)}
+  .model:nth-child(even) .shot{order:2}
+  .shot{border-radius:14px;overflow:hidden;box-shadow:0 30px 60px -36px rgba(30,21,18,.6);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+  .shot:hover{transform:translateY(-6px)}
+  .lvl{display:block;margin-bottom:8px;font-weight:700;font-size:.86rem;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-d)}
+  h2{margin:0 0 10px;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;letter-spacing:-.02em;line-height:1.1;color:var(--ink)}
+  .model p{margin:0 0 16px}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 24px;padding:0;list-style:none}
+  .tags li{padding:6px 11px;border-radius:8px;background:#fff;border:1px solid var(--line);font-size:.88rem;font-weight:500;color:var(--muted)}
+  .go{display:inline-flex;align-items:center;gap:12px;padding:15px 22px;border-radius:10px;background:var(--orange);color:#fff;font-weight:700;transition:background .3s}
+  .go:hover{background:var(--ink)}
+  .go svg{width:18px;height:18px}
+  footer{padding:0 0 50px;font-size:.9rem;color:var(--muted)}
+  @media (max-width:800px){.model{grid-template-columns:1fr}.model:nth-child(even) .shot{order:0}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <svg class="logo" viewBox="0 0 232.50 70.60" role="img" aria-label="Vyra"><g transform="translate(0.10 49.90)"><path fill="currentColor" d="M35.20 0L19.80 0L-0.10-48.90L18.50-48.90L27.60-19.30L36.70-48.90L55.10-48.90L35.20 0ZM84.60 20.70L67.10 20.70L77.70-2.50L59.10-48.90L77.70-48.90L86.10-20.80L94.50-48.90L113.10-48.90L93 0.10L84.60 20.70ZM132.40 0L115 0L115-48.90L132.40-48.90L132.40-45.80Q137.20-49.90 144.80-49.90L144.80-49.90Q148.30-49.90 150.85-49Q153.40-48.10 155.20-46.20L155.20-46.20L145.10-32.70Q144.30-33.60 142.85-34.15Q141.40-34.70 139.60-34.70L139.60-34.70Q136.20-34.70 134.30-32.65Q132.40-30.60 132.40-26.60L132.40-26.60L132.40 0ZM175.70 1L175.70 1Q168.90 1 163.60-2.30Q158.30-5.60 155.30-11.35Q152.30-17.10 152.30-24.40L152.30-24.40Q152.30-31.80 155.30-37.600Q158.30-43.40 163.60-46.65Q168.90-49.90 175.70-49.90L175.70-49.90Q180.30-49.90 184.10-48.30L184.10-48.30Q186.50-47.20 188.30-45.70L188.30-45.70L188.30-48.90L205.40-48.90L205.40 0L188.30 0L188.30-3.30Q186.50-1.80 184.10-0.70L184.10-0.70Q180.30 1 175.70 1ZM179.40-14.50L179.40-14.50Q183.70-14.50 186.35-17.30Q189.00-20.10 189.00-24.50L189.00-24.50Q189.00-27.40 187.80-29.60Q186.60-31.80 184.45-33.10Q182.30-34.40 179.50-34.40Q176.70-34.40 174.55-33.10Q172.40-31.80 171.15-29.55Q169.90-27.30 169.90-24.50L169.90-24.50Q169.90-21.60 171.10-19.35Q172.30-17.10 174.50-15.80Q176.70-14.50 179.40-14.50Z"/><circle fill="#E11D2E" cx="222.40" cy="-10" r="10"/></g></svg>
+
+    <h1>Três modelos de site para <span>provedores de internet</span></h1>
+    <p>Cada modelo tem as mesmas páginas ligadas entre si: Início, Sobre nós, Residencial, Empresas, FAQ, Contato e Assine já. Abra um modelo e navegue pelo menu.</p>
+  </div>
+</header>
+<main class="wrap">
+  <section class="model">
+    <a class="shot" href="basico/index.html"><img src="img/basico.jpg" alt="Prévia do modelo Básico" width="1440" height="900" loading="lazy"></a>
+    <div>
+      <span class="lvl">Modelo Básico</span>
+      <h2>Direto ao ponto, em azul e verde</h2>
+      <p>Imagem única na abertura, planos com streaming logo abaixo e páginas Residencial e Empresas. Paleta azul e verde para se diferenciar dos outros modelos.</p>
+      <ul class="tags"><li>Carrossel</li><li>Pacotes com streaming</li><li>Muitas fotos</li><li>WhatsApp fixo</li></ul>
+      <a class="go" href="basico/index.html">Abrir o modelo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M3 12h13M14 6.5 19.5 12 14 17.5"/></svg></a>
+    </div>
+  </section>
+  <section class="model">
+    <a class="shot" href="intermediario/index.html"><img src="img/intermediario.jpg" alt="Prévia do modelo Intermediário" width="1440" height="900" loading="lazy"></a>
+    <div>
+      <span class="lvl">Modelo Intermediário</span>
+      <h2>Vende mais, com interação</h2>
+      <p>Palco de ofertas com abas, faixa de streamings, comparativo de planos, cards flutuantes, linha que se desenha ao rolar, galeria arrastável e mapa no rodapé.</p>
+      <ul class="tags"><li>Comparativo</li><li>Linha animada</li><li>Galeria arrastável</li><li>Mapa</li></ul>
+      <a class="go" href="intermediario/index.html">Abrir o modelo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M3 12h13M14 6.5 19.5 12 14 17.5"/></svg></a>
+    </div>
+  </section>
+  <section class="model">
+    <a class="shot" href="premium/index.html"><img src="img/premium.jpg" alt="Prévia do modelo Premium" width="1440" height="900" loading="lazy"></a>
+    <div>
+      <span class="lvl">Modelo Premium</span>
+      <h2>Cinematográfico e interativo</h2>
+      <p>Hero em tela cheia com miniaturas, pontos clicáveis na foto, comparador antes e depois, galeria que anda com a rolagem, avaliações em 3D, cursor próprio e mapa no rodapé.</p>
+      <ul class="tags"><li>Cursor animado</li><li>Imagens interativas</li><li>Galeria presa</li><li>Carrossel 3D</li></ul>
+      <a class="go" href="premium/index.html">Abrir o modelo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M3 12h13M14 6.5 19.5 12 14 17.5"/></svg></a>
+    </div>
+  </section>
+</main>
+<footer class="wrap">Prévia para avaliação. Preços, telefone, endereço e depoimentos são exemplos.</footer>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THD Engenharia | Propostas do novo site</title>
+<meta name="description" content="Três propostas de design para o novo site da THD Engenharia.">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--orange:#FE5710;--navy:#021430;--ink:#071330;--text:#3A4560;--muted:#66708A;--line:#D9E0EC;--paper:#F3F5F9}
+  *{box-sizing:border-box}
+  body{margin:0;font:400 17px/1.6 "Familjen Grotesk",Arial,sans-serif;color:var(--text);background:var(--paper)}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%;height:auto}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  header{background:var(--navy);color:#B9C5DC;padding:56px 0 64px}
+  header img{width:150px;margin-bottom:36px}
+  h1{margin:0 0 14px;font-size:clamp(2rem,5vw,3.4rem);line-height:1.05;letter-spacing:-.03em;color:#fff;max-width:20ch}
+  header p{margin:0;max-width:60ch;font-size:1.1rem}
+  main{padding:56px 0 80px}
+  .model{display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(24px,4vw,56px);align-items:center;padding:36px 0;border-bottom:1px solid var(--line)}
+  .model:nth-child(even) .shot{order:2}
+  .shot{border-radius:14px;overflow:hidden;box-shadow:0 30px 60px -36px rgba(2,20,48,.55);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+  .shot:hover{transform:translateY(-6px)}
+  h2{margin:0 0 10px;font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:-.02em;color:var(--ink)}
+  .model p{margin:0 0 22px}
+  .go{display:inline-flex;align-items:center;gap:12px;padding:15px 22px;border-radius:10px;background:var(--orange);color:#fff;font-weight:700;transition:background .3s}
+  .go:hover{background:var(--navy)}
+  .go svg{width:18px;height:18px}
+  footer{padding:0 0 50px;font-size:.9rem;color:var(--muted)}
+  @media (max-width:800px){.model{grid-template-columns:1fr}.model:nth-child(even) .shot{order:0}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <img src="img/logo.png" alt="THD Engenharia" width="440" height="308">
+    <h1>Três propostas para o novo site da THD Engenharia</h1>
+    <p>Os três modelos têm o mesmo conteúdo, as mesmas cores e o mesmo logo. O que muda é o design e as animações. Abra cada um, navegue pelas páginas e role até o fim: boa parte das interações aparece com a rolagem.</p>
+  </div>
+</header>
+<main class="wrap">
+  <section class="model">
+    <a class="shot" href="blocos/index.html"><img src="img/blocos.jpg" alt="Prévia do modelo Blocos" width="1440" height="900" loading="lazy"></a>
+    <div>
+      <h2>Modelo Blocos</h2>
+      <p>Seu provedor montado peça por peça. Formas geométricas nas cores da marca se encaixam numa grade e trocam de lugar, ligadas por trilhas de circuito como as letras do logo. Jornada presa na rolagem e diagnóstico interativo.</p>
+      <a class="go" href="blocos/index.html">Abrir o modelo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h13M14 6.5 19.5 12 14 17.5"/></svg></a>
+    </div>
+  </section>
+  <section class="model">
+    <a class="shot" href="orbita/index.html"><img src="img/orbita.jpg" alt="Prévia do modelo Órbita" width="1440" height="900" loading="lazy"></a>
+    <div>
+      <h2>Modelo Órbita</h2>
+      <p>Inspirado nos anéis do logo. Fundo escuro com um giroscópio 3D que inclina com o mouse, seções que sobem como lâminas, pilha 3D de serviços, jornada em trilho horizontal e diagnóstico em baralho de cartas.</p>
+      <a class="go" href="orbita/index.html">Abrir o modelo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h13M14 6.5 19.5 12 14 17.5"/></svg></a>
+    </div>
+  </section>
+  <section class="model">
+    <a class="shot" href="fibra/index.html"><img src="img/fibra.jpg" alt="Prévia do modelo Fibra" width="1440" height="900" loading="lazy"></a>
+    <div>
+      <h2>Modelo Fibra</h2>
+      <p>A luz que corre pela fibra óptica. Base clara e editorial com títulos grandes, menu lateral, fios de luz no fundo, prisma 3D que gira com os serviços, trilha de fibra na jornada e rack 3D no diagnóstico.</p>
+      <a class="go" href="fibra/index.html">Abrir o modelo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h13M14 6.5 19.5 12 14 17.5"/></svg></a>
+    </div>
+  </section>
+</main>
+<footer class="wrap">Prévia para avaliação interna. Os formulários e botões de WhatsApp já apontam para o número real da THD.</footer>
+</body>
+</html>

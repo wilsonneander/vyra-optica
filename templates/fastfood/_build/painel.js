@@ -96,6 +96,27 @@
   const lista = $('[data-lista]');
   const pBusca = $('[data-p-busca]');
   const fBox = $('[data-filtros]');
+  // dropdown de categorias (só aparece no celular)
+  const fSel = $('[data-filtro-sel]'), fsBotao = $('[data-fs-botao]'), fsLista = $('[data-fs-lista]');
+  const fsAbrir = (abrir) => {
+    fSel.classList.toggle('aberto', abrir);
+    fsBotao.setAttribute('aria-expanded', abrir);
+    if (abrir) { const on = fsLista.querySelector('[aria-selected="true"]'); if (on) on.focus({ preventScroll: true }); }
+  };
+  fsBotao.addEventListener('click', () => fsAbrir(!fSel.classList.contains('aberto')));
+  fsLista.addEventListener('click', (e) => {
+    const op = e.target.closest('[data-fs-op]'); if (!op) return;
+    fsAbrir(false); fsBotao.focus({ preventScroll: true });
+    if (op.dataset.fsOp === filtro) return;
+    filtro = op.dataset.fsOp; desenharFiltros(); trocar(desenharLista);
+  });
+  fsLista.addEventListener('keydown', (e) => {
+    const ops = [...fsLista.querySelectorAll('[data-fs-op]')], i = ops.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') { e.preventDefault(); (ops[i + 1] || ops[0]).focus(); }
+    if (e.key === 'ArrowUp') { e.preventDefault(); (ops[i - 1] || ops[ops.length - 1]).focus(); }
+  });
+  document.addEventListener('click', (e) => { if (!fSel.contains(e.target)) fsAbrir(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && fSel.classList.contains('aberto')) { fsAbrir(false); fsBotao.focus(); } });
   // marcador escuro que desliza até o filtro escolhido
   const moverMarca = (animar = true) => {
     const m = fBox.querySelector('.filtro-marca'), on = fBox.querySelector('[aria-pressed="true"]');
@@ -122,6 +143,11 @@
       bt.setAttribute('aria-pressed', filtro === c.id);
       bt.querySelector('small').textContent = cont(c.id);
     });
+    // no celular os filtros viram uma lista suspensa
+    fsLista.innerHTML = cats.map((c) => `<li><button type="button" role="option" data-fs-op="${esc(c.id)}" aria-selected="${filtro === c.id}"><span>${esc(c.nome)}</span><small>${cont(c.id)}</small></button></li>`).join('');
+    const atual = cats.find((c) => c.id === filtro) || cats[0];
+    $('[data-fs-atual]').textContent = atual.nome;
+    $('[data-fs-n]').textContent = cont(atual.id);
     if (novo) { igualar(); requestAnimationFrame(() => moverMarca(false)); } else moverMarca();
   };
   // lista ou grade (guardado neste navegador)

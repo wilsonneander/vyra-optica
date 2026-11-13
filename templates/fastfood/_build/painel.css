@@ -136,6 +136,27 @@ svg { flex: none; }
 .filtros button[aria-pressed="true"] { color: #fff; border-color: transparent; background: transparent; }
 .filtros button[aria-pressed="true"] small { background: var(--ketchup); color: #fff; }
 .filtros .filtro-marca { position: absolute; left: 0; top: 0; z-index: 0; width: 0; height: 0; padding: 0; background: var(--chapa); border-radius: 12px; opacity: 0; pointer-events: none; box-shadow: 0 10px 20px -10px rgba(28, 19, 17, .6); transition: transform .5s var(--suave), width .5s var(--suave), height .5s var(--suave), opacity .3s; }
+.filtro-sel { display: none; position: relative; }
+.fs-botao { width: 100%; height: 52px; display: flex; align-items: center; gap: 10px; padding: 0 14px 0 16px; border: 2px solid var(--linha); border-radius: 14px; background: #fff; text-align: left; transition: border-color .3s var(--suave), box-shadow .3s var(--suave); }
+.fs-rot { font-size: 13px; font-weight: 600; color: var(--apoio); }
+.fs-botao b { font-size: 15.5px; }
+.fs-botao small, .fs-lista small { display: grid; place-items: center; min-width: 24px; height: 22px; padding: 0 6px; border-radius: 7px; background: var(--rosa); color: var(--ketchup-esc); font-size: 12px; font-weight: 700; }
+.fs-botao svg { margin-left: auto; width: 20px; height: 20px; color: var(--ketchup); transition: transform .4s var(--suave); }
+.filtro-sel.aberto .fs-botao { border-color: var(--ketchup); box-shadow: 0 0 0 4px rgba(227, 38, 43, .12); }
+.filtro-sel.aberto .fs-botao svg { transform: rotate(180deg); }
+.fs-lista { position: absolute; left: 0; right: 0; top: calc(100% + 8px); z-index: 30; list-style: none; margin: 0; padding: 6px; display: grid; gap: 2px; background: #fff; border-radius: 16px; box-shadow: 0 24px 48px -16px rgba(40, 12, 6, .35), 0 0 0 1px var(--linha); opacity: 0; visibility: hidden; transform: translateY(-8px) scale(.98); transform-origin: top center; transition: opacity .3s var(--suave), transform .4s var(--suave), visibility 0s .4s; }
+.filtro-sel.aberto .fs-lista { opacity: 1; visibility: visible; transform: none; transition: opacity .3s var(--suave), transform .4s var(--suave), visibility 0s; }
+.fs-lista button { width: 100%; height: 46px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 12px 0 14px; border: 0; border-radius: 11px; background: none; font-weight: 600; font-size: 15px; text-align: left; transition: background .25s var(--suave), color .25s var(--suave); }
+.fs-lista button:hover, .fs-lista button:focus-visible { background: var(--creme); outline: none; }
+.fs-lista button[aria-selected="true"] { background: var(--chapa); color: #fff; }
+.fs-lista button[aria-selected="true"] small { background: var(--ketchup); color: #fff; }
+.filtro-sel.aberto .fs-lista li { animation: fsItem .35s var(--suave) both; }
+.filtro-sel.aberto .fs-lista li:nth-child(2) { animation-delay: .03s; }
+.filtro-sel.aberto .fs-lista li:nth-child(3) { animation-delay: .06s; }
+.filtro-sel.aberto .fs-lista li:nth-child(4) { animation-delay: .09s; }
+.filtro-sel.aberto .fs-lista li:nth-child(5) { animation-delay: .12s; }
+.filtro-sel.aberto .fs-lista li:nth-child(n+6) { animation-delay: .15s; }
+@keyframes fsItem { from { opacity: 0; transform: translateY(-4px); } }
 .vista { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; padding: 4px; background: #fff; border: 2px solid var(--linha); border-radius: 14px; }
 .vista button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 36px; padding: 0 12px; border: 0; border-radius: 10px; background: none; color: var(--apoio); font-size: 13.5px; font-weight: 600; transition: background .4s var(--suave), color .4s var(--suave); }
 .vista button svg { width: 18px; height: 18px; }
@@ -267,7 +288,9 @@ svg { flex: none; }
   .login-lado { padding: 24px 16px 28px; }
   .login-caixa { padding: 32px 20px 26px; }
   .login-titulo h1 { font-size: 34px; }
-  .app { grid-template-columns: 1fr; }
+  .app { grid-template-columns: minmax(0, 1fr); }
+  .area { min-width: 0; }
+  .lateral { min-width: 0; }
   .lateral { position: sticky; top: 0; z-index: 20; height: auto; flex-direction: row; align-items: center; gap: 10px; padding: 10px 14px; }
   .lateral .logo-txt { display: none; }
   .menu-lateral { display: flex; gap: 4px; flex: 1; overflow-x: auto; }
@@ -285,9 +308,25 @@ svg { flex: none; }
   .barra .btn { width: 100%; }
   .lista.grade { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
   .grade .linha .cat { display: none; }
+  /* celular: sem descrição, só nome, etiquetas, preço e ações */
+  .lista .linha .desc { display: none; }
+  .grade .linha { grid-template-rows: auto 1fr auto auto; }
+  .lista:not(.grade) .linha { grid-template-columns: 60px minmax(0, 1fr) auto; gap: 6px 12px; padding: 10px; align-items: center; }
+  .lista:not(.grade) .linha > img, .lista:not(.grade) .linha > .sem-foto { grid-column: 1; grid-row: 1 / span 2; width: 60px; height: 60px; align-self: center; }
+  .lista:not(.grade) .linha > div:not(.acoes) { grid-column: 2 / -1; grid-row: 1; min-width: 0; }
+  .lista:not(.grade) .linha > div:not(.acoes) > b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lista:not(.grade) .linha .preco { grid-column: 2; grid-row: 2; display: grid; gap: 0; white-space: nowrap; }
+  .lista:not(.grade) .linha .preco b { font-size: 17px; }
+  .lista:not(.grade) .linha .acoes { grid-column: 3; grid-row: 2; flex-direction: row; gap: 6px; }
+  .lista:not(.grade) .linha .acoes button { width: 36px; height: 36px; }
+  .lista:not(.grade) .linha:hover { transform: none; }
+  .menu-lateral button, .menu-lateral a { flex: none; white-space: nowrap; padding: 0 10px; }
+  .quem button { font-size: 0; gap: 0; }
+  .quem button svg { width: 22px; height: 22px; }
   .grade .linha .preco { grid-column: 1 / -1; justify-items: start; text-align: left; }
   .vista span { display: none; }
-  .filtros { flex-wrap: nowrap; overflow-x: auto; flex-basis: 100%; padding-bottom: 4px; }
+  .filtros { display: none; }
+  .filtro-sel { display: block; flex-basis: 100%; }
   .filtros button { flex: none; }
   .cats li { grid-template-columns: minmax(0, 1fr) auto; }
   .cats .n { grid-column: 1; grid-row: 2; padding-left: 12px; }

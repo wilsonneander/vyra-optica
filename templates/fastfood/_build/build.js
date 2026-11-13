@@ -455,6 +455,13 @@ const painel = `${head(`Área do cliente | ${M.completo}`, 'Painel da loja: cada
     <section class="tela" data-tela-box="produtos">
       <div class="barra">
         <div class="filtros" data-filtros data-iguais></div>
+        <div class="filtro-sel" data-filtro-sel>
+          <button type="button" class="fs-botao" aria-haspopup="listbox" aria-expanded="false" aria-label="Filtrar por categoria" data-fs-botao>
+            <span class="fs-rot">Categoria</span><b data-fs-atual>Todas</b><small data-fs-n></small>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg>
+          </button>
+          <ul class="fs-lista" role="listbox" aria-label="Categorias" data-fs-lista></ul>
+        </div>
         <div class="vista" role="group" aria-label="Formato da lista">
           <button type="button" data-vista="lista" aria-pressed="true" title="Ver em lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="5" width="4" height="4" rx="1.2"/><rect x="4" y="15" width="4" height="4" rx="1.2"/><path d="M12 7h8M12 17h8"/></svg><span>Lista</span></button>
           <button type="button" data-vista="grade" aria-pressed="false" title="Ver em grade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg><span>Grade</span></button>

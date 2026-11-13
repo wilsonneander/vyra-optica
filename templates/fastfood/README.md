@@ -33,15 +33,19 @@ NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js ketchup img/mapa_sav
 
 ## Como é
 
-- **Capa que monta o hambúrguer**: a foto do lanche desmontado foi cortada em oito camadas (pão, alface, tomate, cebola e pepino, queijo, carne, alface, pão). O corte segue a cor de cada ingrediente, então nada sai pela metade. Ao rolar, a capa fica parada e as camadas descem e sobem até se encaixarem (as de baixo chegam primeiro), com rótulos de cada ingrediente que somem conforme o lanche fecha. No fim, a pilha dá lugar à foto do lanche montado com um pulinho. A sombra sobe junto com o pão de baixo e o círculo vermelho cresce. Com movimento reduzido, mostra direto o lanche montado
+- **Capa em vídeo**: o chapeiro prensando o smash ocupa a tela inteira, com zoom lento, véu escuro, título, botões e status do horário. O **cartão de 10% off** entra com mola, conta de 0 a 10, flutua, tem um brilho que passa e inclina seguindo o mouse. Botão de pausar o vídeo
+- **Letreiro**: faixa vermelha inclinada que corre com as frases da casa e o símbolo do burger entre elas (pausa no hover)
+- **Segunda seção: hambúrguer que se monta**: a foto do lanche desmontado foi cortada em oito camadas (pão, alface, tomate, cebola e pepino, queijo, carne, alface, pão). O corte segue a cor de cada ingrediente, então nada sai pela metade. Ao rolar, a capa fica parada e as camadas descem e sobem até se encaixarem (as de baixo chegam primeiro), com rótulos de cada ingrediente que somem conforme o lanche fecha. No fim, a pilha dá lugar à foto do lanche montado com um pulinho. A sombra sobe junto com o pão de baixo e o círculo vermelho cresce. Com movimento reduzido, mostra direto o lanche montado
 - **Canais**: faixa com iFood, 99Food, WhatsApp e retirada (nomes em texto, sem logos de terceiros)
-- **Vídeo da chapa**: toca sem som quando aparece na tela e pausa quando sai; botão de pausar; não toca com economia de dados
-- **Cardápio**: abas por categoria (Hambúrguer, Bebidas, Pizza, Combos, Promoção) com contador, busca sem acento, selo de desconto, botão + que joga a foto voando até a sacola
+- **Vídeo do queijo**: cheddar no maçarico (segundo clipe do Pexels, o mesmo da capa do Braseiro), toca sem som quando aparece na tela e pausa quando sai; botão de pausar; não toca com economia de dados
+- **Cardápio**: busca na mesma linha das abas; marcador vermelho que desliza até a aba escolhida e a grade some e volta suave na troca; abas por categoria (Hambúrguer, Bebidas, Pizza, Combos, Promoção) com contador, busca sem acento, selo de desconto, botão + que joga a foto voando até a sacola
 - **Os mais pedidos (promoção)**: produtos marcados como destaque no painel; o primeiro ganha o cartão grande
-- **Sobre**: história, fotos do salão e do chapeiro, números da casa
+- **Sobre**: história, fotos do salão e do chapeiro, números da casa que contam ao aparecer (2017, 160 g, 25 min, 40 mil)
 - **Peça pelo app**: blocos do iFood e do 99Food com tempo e taxa, mais o pedido direto pelo site (10% off), status "Chapa ligada agora" pelo horário de Brasília
+- **Detalhes**: botões com a cor entrando deslizando e leve atração do mouse nos principais, títulos que sobem ao aparecer, barra de rolagem ketchup e vinho, **cursor da marca** só nesta página (ponto ketchup e anel que segue com atraso; vira "pedir" com o símbolo do burger sobre os pratos, "assistir" no vídeo, "arrasta" no carrossel e fica mostarda nas seções escuras). Só aparece com mouse; a Área do Cliente usa o cursor normal
 - **Sacola**: quantidade, entrega ou retirada, pagamento, 10% off e o pedido vai formatado para o WhatsApp
-- **Rodapé**: mapa padrão do OpenStreetMap (`.map-box`) na paleta ketchup, "Onde entregamos", contatos e redes (Instagram, Facebook, TikTok, WhatsApp)
+- **Depoimentos em carrossel**: seis cartões (um vinho a cada três), setas, arrastar com o mouse, barra de progresso e passagem automática que para no hover
+- **Rodapé** em vinho de churrascaria: mapa padrão do OpenStreetMap (`.map-box`) na paleta ketchup, "Onde entregamos", contatos e redes (Instagram, Facebook, TikTok, WhatsApp)
 
 ## Área do Cliente (`painel.html`)
 
@@ -57,7 +61,7 @@ Por ser demonstração sem servidor, o cardápio publicado fica no `localStorage
 
 ## Identidade
 
-- Cores: ketchup `#E3262B`, ketchup escuro `#B8161B`, rosa `#FCE7E3`, creme `#FFF8F2`, chapa `#1C1311`, mostarda `#FFC23A`, alface `#3E9B47`
+- Cores: vinho de churrascaria `#7A1118` (rodapé, preenchimento dos botões), ketchup `#E3262B`, ketchup escuro `#B8161B`, rosa `#FCE7E3`, creme `#FFF8F2`, chapa `#1C1311`, mostarda `#FFC23A`, alface `#3E9B47`
 - Fontes: **Bricolage Grotesque** (títulos) + **Onest** (texto). Dupla ainda não usada em outro projeto
 - Logo: burger empilhado (pão vermelho com gergelim, queijo mostarda escorrendo, carne e pão de baixo) ao lado de "monta / BURGER"
 

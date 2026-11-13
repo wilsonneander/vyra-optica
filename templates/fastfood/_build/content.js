@@ -88,6 +88,9 @@ module.exports = {
     { nome: 'Ana Ribeiro', papel: 'Pede toda sexta pelo iFood', foto: 'cliente-ana', texto: 'O Bacon Duplo chega quente e o pão não fica molhado. Já virou o lanche oficial da sexta aqui em casa.' },
     { nome: 'Davi Santos', papel: 'Cliente do balcão desde 2019', foto: 'cliente-davi', texto: 'Dá pra ver o smash sendo prensado na chapa enquanto espera. O cheiro já resolve a fome.' },
     { nome: 'Júlia Moreira', papel: 'Pediu pelo 99Food', foto: 'cliente-julia', texto: 'Chegou em vinte e cinco minutos, bem embalado e com o molho à parte. O shake de Oreo é perigoso.' },
+    { nome: 'Rafael Costa', papel: 'Combo Galera no aniversário', foto: null, texto: 'Pedi o Combo Galera pra oito pessoas e sobrou fritas. Todo mundo perguntou de onde era.' },
+    { nome: 'Marina Lopes', papel: 'Vegetariana e cliente fiel', foto: null, texto: 'Finalmente um veggie que não parece castigo. O de grão-de-bico tem crosta de chapa de verdade.' },
+    { nome: 'Thiago Alves', papel: 'Pede direto pelo site', foto: null, texto: 'Monto a sacola no site, mando no WhatsApp e ainda ganho 10%. Em meia hora tá na porta.' },
   ],
 
   // bairros de entrega: [nome, entrega ativa]

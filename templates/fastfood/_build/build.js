@@ -101,17 +101,46 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
 </header>
 
 <main>
-  <section class="capa" id="inicio" data-capa>
-    <div class="capa-fixa">
-      <div class="capa-txt">
-        <p class="capa-sobre">Hambúrguer, pizza e combos na Savassi</p>
-        <h1><em>Monta</em> o seu. A gente prensa na chapa e entrega quentinho.</h1>
-        <p class="capa-lead">Pão brioche selado na manteiga, blend moído no dia e o queijo que escorre. Peça pelo site, pelo iFood ou pelo 99Food.</p>
-        <div class="capa-btns" data-iguais>
-          <a class="btn btn-verm" href="#cardapio">Peça agora ${I.seta}</a>
-          <a class="btn btn-borda" href="#mais-pedidos">Ver promoções</a>
+  <section class="hero" id="inicio" data-hero>
+    <video class="hero-video" data-hero-video muted loop playsinline preload="auto" poster="assets/video/chapa.webp" aria-label="Chapeiro prensando o hambúrguer na chapa quente">
+      <source src="assets/video/chapa.mp4" type="video/mp4">
+    </video>
+    <div class="hero-veu" aria-hidden="true"></div>
+    <div class="hero-in">
+      <div class="hero-txt">
+        <p class="hero-sobre rv">Hambúrguer, pizza e combos na Savassi</p>
+        <h1 class="rv"><em>Monta</em> o seu. A gente prensa na chapa e entrega quentinho.</h1>
+        <p class="hero-lead rv">Pão brioche selado na manteiga, blend moído no dia e o queijo que escorre. Peça pelo site, pelo iFood ou pelo 99Food.</p>
+        <div class="hero-btns rv" data-iguais>
+          <a class="btn btn-verm" data-ima href="#cardapio">Peça agora ${I.seta}</a>
+          <a class="btn btn-vidro" data-ima href="#montagem">Veja como montamos</a>
         </div>
         ${status}
+      </div>
+      <a class="cartao-off" href="#delivery" data-off aria-label="10% off no pedido feito direto pelo site">
+        <span class="off-num"><b data-conta="10" data-de="0">10</b><i>%</i></span>
+        <span class="off-txt"><b>off</b>no pedido feito direto pelo site</span>
+        <span class="off-brilho" aria-hidden="true"></span>
+      </a>
+    </div>
+    <button class="hero-pausa" type="button" data-hero-btn aria-label="Pausar vídeo">${I.pausa}</button>
+    <a class="hero-desce" href="#montagem">Role e veja o burger se montar${I.desce}</a>
+  </section>
+
+  <div class="letreiro" aria-hidden="true">
+    <div class="letreiro-trilho">${Array(2).fill(['Prensado na hora', 'Brioche na manteiga', 'Cheddar que escorre', 'Blend moído no dia', 'Entrega em 25 min', 'Combos pra galera'].map((t) => `<span>${t}</span>${I.simbolo}`).join('')).join('')}</div>
+  </div>
+
+  <section class="capa" id="montagem" data-capa aria-labelledby="t-montagem">
+    <div class="capa-fixa">
+      <div class="capa-txt">
+        <p class="capa-sobre">Do jeito que chega na sua casa</p>
+        <h2 id="t-montagem">Cada camada <em>no lugar certo</em></h2>
+        <p class="capa-lead">Brioche selado, alface americana, tomate, cebola roxa, cheddar e o blend de 160 g. Continue rolando e veja o lanche fechar.</p>
+        <div class="capa-btns" data-iguais>
+          <a class="btn btn-verm" data-ima href="#cardapio">Ver o cardápio ${I.seta}</a>
+          <a class="btn btn-borda" data-ima href="#mais-pedidos">Ver promoções</a>
+        </div>
       </div>
       <div class="capa-palco" data-palco>
         <div class="disco" aria-hidden="true"></div>
@@ -121,10 +150,6 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
           <ul class="rotulos" aria-hidden="true">${rotulos}</ul>
         </div>
         <div class="sombra-chao" data-sombra aria-hidden="true"></div>
-        <div class="cartao-off">
-          <b>10% off</b>
-          <span>no pedido feito direto pelo site</span>
-        </div>
         <figure class="cartao-voz">
           <img src="assets/img/cliente-davi.webp" alt="" width="48" height="48">
           <figcaption>"Chegou em vinte minutos e o queijo ainda escorria."</figcaption>
@@ -149,14 +174,14 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
   <section class="chapa" id="chapa" aria-labelledby="t-chapa">
     <div class="chapa-in">
       <div class="chapa-video" data-video-box>
-        <video data-video muted loop playsinline preload="none" poster="assets/video/chapa.webp" aria-label="Chapeiro prensando o hambúrguer na chapa">
-          <source src="assets/video/chapa.mp4" type="video/mp4">
+        <video data-video data-cursor="video" muted loop playsinline preload="none" poster="assets/video/queijo.webp" aria-label="Cheddar derretendo no maçarico sobre o hambúrguer na chapa">
+          <source src="assets/video/queijo.mp4" type="video/mp4">
         </video>
         <button class="video-btn" type="button" data-video-btn aria-label="Pausar vídeo">${I.pausa}</button>
-        <p class="video-leg">Chapa de ferro a 230 graus, ao vivo na cozinha da Savassi</p>
+        <p class="video-leg">Cheddar no maçarico antes de fechar o pão</p>
       </div>
       <div class="chapa-txt">
-        <h2 id="t-chapa">Prensado na chapa só depois que você pede</h2>
+        <h2 id="t-chapa" class="rv">Prensado na chapa só depois que você pede</h2>
         <p>Nada fica pronto esperando. A bolinha de blend vai pra chapa quente, leva a prensa e forma aquela casquinha tostada por fora, suculenta por dentro.</p>
         <dl class="chapa-fatos">
           <div><dt>Blend</dt><dd>Acém e peito moídos todo dia de manhã</dd></div>
@@ -169,14 +194,14 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
 
   <section class="cardapio" id="cardapio" aria-labelledby="t-cardapio">
     <div class="sec-in">
-      <div class="cardapio-topo">
-        <div>
-          <h2 id="t-cardapio">Cardápio</h2>
-          <p>Escolha a categoria, toque no + e o lanche vai pra sacola.</p>
-        </div>
+      <div class="cardapio-topo rv">
+        <h2 id="t-cardapio">Cardápio</h2>
+        <p>Escolha a categoria, toque no + e o lanche vai pra sacola.</p>
+      </div>
+      <div class="filtros-linha">
+        <div class="abas" role="tablist" aria-label="Categorias do cardápio" data-abas data-iguais></div>
         <label class="busca"><span class="sr">Buscar no cardápio</span><input type="search" placeholder="Buscar: bacon, shake, pizza..." data-busca></label>
       </div>
-      <div class="abas" role="tablist" aria-label="Categorias do cardápio" data-abas data-iguais></div>
       <div class="grade" data-grade aria-live="polite"></div>
       <p class="vazio" data-vazio hidden>Nada encontrado com esse nome. Tente outra palavra.</p>
       <noscript><p>Ative o JavaScript para ver o cardápio completo ou chame no WhatsApp ${M.whatsappTexto}.</p></noscript>
@@ -185,7 +210,7 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
 
   <section class="destaques" id="mais-pedidos" aria-labelledby="t-destaques">
     <div class="sec-in">
-      <div class="destaques-topo">
+      <div class="destaques-topo rv">
         <h2 id="t-destaques">Os mais pedidos, <em>com preço de promoção</em></h2>
         <p>Valem até domingo no site e no balcão.</p>
       </div>
@@ -195,19 +220,20 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
 
   <section class="sobre" id="sobre" aria-labelledby="t-sobre">
     <div class="sec-in sobre-in">
-      <div class="sobre-fotos">
+      <div class="sobre-fotos rv">
         <img class="f1" src="assets/img/balcao.webp" alt="Balcão e salão da Monta Burger" width="900" height="600" loading="lazy">
         <img class="f2" src="assets/img/chef-kenji.webp" alt="Kenji Tanaka, chapeiro-chefe, de braços cruzados na cozinha" width="700" height="820" loading="lazy">
         <p class="f-leg">Kenji Tanaka, chapeiro-chefe desde a primeira chapa</p>
       </div>
       <div class="sobre-txt">
-        <h2 id="t-sobre">Começou com uma chapa e uma fila na calçada</h2>
+        <h2 id="t-sobre" class="rv">Começou com uma chapa e uma fila na calçada</h2>
         <p>A Monta abriu em ${M.desde} num balcão de três metros na Savassi. O plano era simples: hambúrguer prensado na hora, pão de padaria e preço de lanchonete. A fila veio antes da placa.</p>
         <p>Hoje são duas chapas, um salão pequeno e entrega própria pelos bairros vizinhos. O blend continua sendo moído toda manhã e o pão continua chegando da mesma padaria.</p>
         <ul class="sobre-num">
-          <li><b>${M.desde}</b><span>abrimos a primeira chapa</span></li>
-          <li><b>160 g</b><span>de blend no burger da casa</span></li>
-          <li><b>25 min</b><span>de entrega, em média</span></li>
+          <li><b><span data-conta="${M.desde}" data-de="1990">${M.desde}</span></b><span>abrimos a primeira chapa</span></li>
+          <li><b><span data-conta="160">160</span> g</b><span>de blend no burger da casa</span></li>
+          <li><b><span data-conta="25">25</span> min</b><span>de entrega, em média</span></li>
+          <li><b><span data-conta="40" data-milhar>40</span> mil</b><span>burgers prensados por ano</span></li>
         </ul>
       </div>
     </div>
@@ -215,9 +241,9 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
 
   <section class="delivery" id="delivery" aria-labelledby="t-delivery">
     <div class="sec-in">
-      <h2 id="t-delivery">Peça pelo app que você já usa</h2>
+      <h2 id="t-delivery" class="rv">Peça pelo app que você já usa</h2>
       <p class="delivery-lead">O mesmo cardápio, os mesmos preços de balcão e o pedido sai da mesma chapa. Escolha o caminho mais fácil pra você.</p>
-      <div class="apps">
+      <div class="apps rv">
         <article class="app app-ifood">
           <h3>iFood</h3>
           <p>Acompanhe o motoboy no mapa e pague pelo app. Entrega em toda a região da Savassi.</p>
@@ -246,20 +272,23 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
   </section>
 
   <section class="vozes" aria-labelledby="t-vozes">
-    <div class="sec-in vozes-in">
-      <div class="vozes-txt">
-        <h2 id="t-vozes">O que dizem os <em>clientes</em></h2>
-        <p>Quem pede uma vez costuma voltar na sexta seguinte.</p>
-        <div class="vozes-setas"><button type="button" data-voz="-1" aria-label="Depoimento anterior">${I.setaEsq}</button><button type="button" data-voz="1" aria-label="Próximo depoimento">${I.seta}</button></div>
-      </div>
-      <div class="vozes-palco" data-vozes aria-live="polite">
-        ${C.depoimentos.map((d, i) => `<figure class="voz${i ? '' : ' on'}"${i ? ' hidden' : ''}>
-          <svg class="aspas" viewBox="0 0 60 44" aria-hidden="true"><path d="M4 44V26C4 12 10 4 24 2l2 7c-7 2-10 6-10 13h10v22zm32 0V26c0-14 6-22 20-24l2 7c-7 2-10 6-10 13h10v22z" fill="currentColor"/></svg>
-          <blockquote>${esc(d.texto)}</blockquote>
-          <figcaption><img src="assets/img/${d.foto}.webp" alt="" width="56" height="56" loading="lazy"><span><b>${esc(d.nome)}</b>${esc(d.papel)}</span></figcaption>
-        </figure>`).join('\n        ')}
+    <div class="sec-in">
+      <div class="vozes-topo">
+        <div class="rv">
+          <h2 id="t-vozes">O que dizem os <em>clientes</em></h2>
+          <p>Quem pede uma vez costuma voltar na sexta seguinte.</p>
+        </div>
+        <div class="vozes-setas"><button type="button" data-car="-1" aria-label="Depoimentos anteriores">${I.setaEsq}</button><button type="button" data-car="1" aria-label="Próximos depoimentos">${I.seta}</button></div>
       </div>
     </div>
+    <div class="carrossel" data-carrossel tabindex="0" aria-label="Depoimentos de clientes, role para os lados">
+      ${C.depoimentos.map((d, i) => `<figure class="voz${i % 3 === 1 ? ' voz-verm' : ''}">
+        <svg class="aspas" viewBox="0 0 60 44" aria-hidden="true"><path d="M4 44V26C4 12 10 4 24 2l2 7c-7 2-10 6-10 13h10v22zm32 0V26c0-14 6-22 20-24l2 7c-7 2-10 6-10 13h10v22z" fill="currentColor"/></svg>
+        <blockquote>${esc(d.texto)}</blockquote>
+        <figcaption>${d.foto ? `<img src="assets/img/${d.foto}.webp" alt="" width="56" height="56" loading="lazy">` : `<span class="inicial" aria-hidden="true">${esc(d.nome[0])}</span>`}<span><b>${esc(d.nome)}</b>${esc(d.papel)}</span></figcaption>
+      </figure>`).join('\n      ')}
+    </div>
+    <div class="sec-in"><div class="car-trilho" aria-hidden="true"><span data-car-barra></span></div></div>
   </section>
 </main>
 

@@ -19,7 +19,7 @@
     $$('[data-iguais]').forEach((g) => {
       if (!g.offsetParent && getComputedStyle(g).position !== 'fixed') return;
       g.style.removeProperty('--larg');
-      const maior = Math.max(...[...g.children].map((c) => c.offsetWidth));
+      const maior = Math.max(...[...g.children].filter((c) => !c.classList.contains('marcador')).map((c) => c.offsetWidth));
       if (maior > 0) g.style.setProperty('--larg', maior + 'px');
     });
   };
@@ -159,26 +159,51 @@
       <div class="prato-pe"><span class="preco">${precoHtml(p)}</span><button class="add" type="button" data-add="${esc(p.id)}" aria-label="Pôr ${esc(p.nome)} na sacola">${ICO.mais}</button></div>
     </article>`;
 
-  const desenharCardapio = () => {
+  // marcador vermelho que desliza até a aba escolhida
+  const moverMarcador = (instantaneo) => {
+    const m = $('.marcador', abas); if (!m) return;
+    const b = $('[aria-selected="true"]', abas);
+    if (!b) { m.style.opacity = '0'; return; }
+    if (instantaneo) m.style.transition = 'none';
+    Object.assign(m.style, { opacity: '1', width: b.offsetWidth + 'px', height: b.offsetHeight + 'px', transform: `translate(${b.offsetLeft}px, ${b.offsetTop}px)` });
+    if (instantaneo) { void m.offsetWidth; m.style.transition = ''; }
+  };
+  const desenharAbas = () => {
     const vis = C.visiveis(dados);
     const cats = dados.categorias.filter((c) => vis.some((p) => p.cat === c.id));
     if (!cats.some((c) => c.id === catAtual)) catAtual = cats[0] ? cats[0].id : null;
-    const termo = C.semAcento(busca.value.trim());
-    abas.innerHTML = cats.map((c) => {
+    const termo = busca.value.trim();
+    abas.innerHTML = '<span class="marcador" aria-hidden="true"></span>' + cats.map((c) => {
       const n = vis.filter((p) => p.cat === c.id).length;
-      const sel = !termo && c.id === catAtual;
-      return `<button type="button" role="tab" aria-selected="${sel}" data-cat="${esc(c.id)}">${esc(c.nome)}<small>${n}</small></button>`;
+      return `<button type="button" role="tab" aria-selected="${!termo && c.id === catAtual}" data-cat="${esc(c.id)}">${esc(c.nome)}<small>${n}</small></button>`;
     }).join('');
+    igualar();
+    moverMarcador(true);
+  };
+  let trocaT = 0;
+  const desenharGrade = (animar) => {
+    const vis = C.visiveis(dados);
+    const termo = C.semAcento(busca.value.trim());
     const lista = termo
       ? vis.filter((p) => C.semAcento(`${p.nome} ${p.desc || ''}`).includes(termo))
       : vis.filter((p) => p.cat === catAtual);
-    grade.innerHTML = lista.map(cartao).join('');
-    vazio.hidden = lista.length > 0;
-    igualar();
+    const pinta = () => {
+      grade.innerHTML = lista.map(cartao).join('');
+      vazio.hidden = lista.length > 0;
+      grade.classList.remove('saindo');
+    };
+    clearTimeout(trocaT);
+    if (animar && !reduz) { grade.classList.add('saindo'); trocaT = setTimeout(pinta, 230); } else pinta();
   };
+  const desenharCardapio = () => { desenharAbas(); desenharGrade(false); };
+  window.addEventListener('resize', () => moverMarcador(true));
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(() => moverMarcador(true), 60));
   abas.addEventListener('click', (e) => {
-    const b = e.target.closest('[data-cat]'); if (!b) return;
-    catAtual = b.dataset.cat; busca.value = ''; desenharCardapio();
+    const b = e.target.closest('[data-cat]'); if (!b || (b.getAttribute('aria-selected') === 'true')) return;
+    catAtual = b.dataset.cat; busca.value = '';
+    $$('[data-cat]', abas).forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+    moverMarcador();
+    desenharGrade(true);
   });
   abas.addEventListener('keydown', (e) => {
     if (!['ArrowRight', 'ArrowLeft'].includes(e.key)) return;
@@ -186,7 +211,12 @@
     const prox = bs[(i + (e.key === 'ArrowRight' ? 1 : bs.length - 1)) % bs.length];
     prox.focus(); prox.click();
   });
-  busca.addEventListener('input', desenharCardapio);
+  busca.addEventListener('input', () => {
+    const termo = busca.value.trim();
+    $$('[data-cat]', abas).forEach((x) => x.setAttribute('aria-selected', String(!termo && x.dataset.cat === catAtual)));
+    moverMarcador();
+    clearTimeout(busca.t); busca.t = setTimeout(() => desenharGrade(true), 140);
+  });
 
   /* ---------- os mais pedidos ---------- */
   const destBox = $('[data-destaques]');
@@ -298,16 +328,166 @@
     window.open(`https://wa.me/${M.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
   });
 
-  /* ---------- depoimentos ---------- */
-  const vozes = $$('.voz');
-  let vi = 0;
-  const mostrarVoz = (d) => {
-    vozes[vi].hidden = true; vozes[vi].classList.remove('on');
-    vi = (vi + d + vozes.length) % vozes.length;
-    vozes[vi].hidden = false; vozes[vi].classList.add('on');
+  /* ---------- depoimentos em carrossel: setas, arrastar, barra de progresso e passagem automática ---------- */
+  const car = $('[data-carrossel]');
+  const barra = $('[data-car-barra]');
+  const setas = $$('[data-car]');
+  const passo = () => { const v = $('.voz', car); return v ? v.offsetWidth + parseFloat(getComputedStyle(car).columnGap || 22) : 300; };
+  const atualizarCar = () => {
+    const max = car.scrollWidth - car.clientWidth;
+    const fr = max > 0 ? car.scrollLeft / max : 0;
+    const vis = car.clientWidth / car.scrollWidth;
+    barra.style.width = (vis * 100).toFixed(1) + '%';
+    barra.style.transform = `translateX(${(fr * (1 / vis - 1) * 100).toFixed(1)}%)`;
+    setas[0].disabled = car.scrollLeft < 4; setas[1].disabled = car.scrollLeft > max - 4;
   };
-  $$('[data-voz]').forEach((b) => b.addEventListener('click', () => { mostrarVoz(+b.dataset.voz); clearInterval(vozAuto); }));
-  const vozAuto = reduz ? 0 : setInterval(() => { if (!document.hidden) mostrarVoz(1); }, 7000);
+  const andar = (d) => {
+    const max = car.scrollWidth - car.clientWidth;
+    if (d > 0 && car.scrollLeft > max - 4) car.scrollTo({ left: 0 }); else car.scrollBy({ left: d * passo() });
+  };
+  setas.forEach((b) => b.addEventListener('click', () => { andar(+b.dataset.car); pararAuto(); }));
+  car.addEventListener('scroll', () => requestAnimationFrame(atualizarCar), { passive: true });
+  car.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') { e.preventDefault(); andar(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); andar(-1); } });
+  window.addEventListener('resize', atualizarCar); atualizarCar();
+  // arrastar com o mouse
+  let arr = null;
+  car.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; arr = { x: e.clientX, s: car.scrollLeft, moveu: false }; });
+  window.addEventListener('pointermove', (e) => {
+    if (!arr) return;
+    const dx = e.clientX - arr.x;
+    if (Math.abs(dx) > 4 && !arr.moveu) { arr.moveu = true; car.classList.add('arrastando'); pararAuto(); }
+    if (arr.moveu) car.scrollLeft = arr.s - dx;
+  });
+  window.addEventListener('pointerup', () => {
+    if (!arr) return;
+    const moveu = arr.moveu; arr = null;
+    if (moveu) { car.classList.remove('arrastando'); const p = passo(); car.scrollTo({ left: Math.round(car.scrollLeft / p) * p }); }
+  });
+  let carAuto = 0;
+  const pararAuto = () => { clearInterval(carAuto); carAuto = 0; };
+  if (!reduz) {
+    carAuto = setInterval(() => { if (!document.hidden && !car.matches(':hover')) andar(1); }, 5200);
+    car.addEventListener('focusin', pararAuto);
+  }
+
+  /* ---------- vídeo da capa ---------- */
+  const hero = $('[data-hero]');
+  const hVideo = $('[data-hero-video]');
+  const hBtn = $('[data-hero-btn]');
+  let hPausado = false;
+  const marcarHero = () => {
+    const tocando = !hVideo.paused;
+    hBtn.innerHTML = tocando ? ICO.pausa : ICO.play;
+    hBtn.setAttribute('aria-label', tocando ? 'Pausar vídeo' : 'Tocar vídeo');
+  };
+  hVideo.addEventListener('play', marcarHero); hVideo.addEventListener('pause', marcarHero);
+  if (reduz || economia) { hPausado = true; marcarHero(); }
+  else {
+    hVideo.play().catch(() => marcarHero());
+    new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting && !hPausado) hVideo.play().catch(() => {}); else if (!e.isIntersecting) hVideo.pause();
+    }), { threshold: 0.1 }).observe(hero);
+  }
+  hBtn.addEventListener('click', () => {
+    if (hVideo.paused) { hPausado = false; hVideo.play().catch(() => {}); } else { hPausado = true; hVideo.pause(); }
+  });
+  const topoNoVideo = () => topo.classList.toggle('sobre-video', scrollY < hero.offsetHeight - 70);
+  window.addEventListener('scroll', topoNoVideo, { passive: true }); topoNoVideo();
+
+  /* ---------- números que contam ---------- */
+  const contar = (el) => {
+    const fim = +el.dataset.conta, ini = el.dataset.de ? +el.dataset.de : 0;
+    if (reduz) { el.textContent = fim; return; }
+    const dur = 1600, t0 = performance.now();
+    const tick = (t) => {
+      const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 4);
+      el.textContent = Math.round(ini + (fim - ini) * e);
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    el.textContent = ini; requestAnimationFrame(tick);
+  };
+
+  /* ---------- entrada suave ao aparecer ---------- */
+  if ('IntersectionObserver' in window && !reduz) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('vis');
+      $$('[data-conta]', e.target).forEach(contar);
+      if (e.target.matches('[data-conta]')) contar(e.target);
+      io.unobserve(e.target);
+    }), { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
+    $$('.rv, .sobre-num').forEach((el) => io.observe(el));
+    // o 10% do cartão conta quando o cartão termina de entrar
+    const off = $('[data-off] [data-conta]');
+    if (off) { off.textContent = '0'; setTimeout(() => contar(off), 1300); }
+  } else $$('.rv').forEach((el) => el.classList.add('vis'));
+
+  const comMouse = matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  /* ---------- cartão de 10% inclina seguindo o mouse ---------- */
+  const offCard = $('[data-off]');
+  if (comMouse && !reduz) {
+    offCard.addEventListener('pointermove', (e) => {
+      const r = offCard.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+      offCard.style.setProperty('--ry', (x * 18).toFixed(1) + 'deg'); offCard.style.setProperty('--rx', (-y * 18).toFixed(1) + 'deg');
+    });
+    offCard.addEventListener('pointerleave', () => { offCard.style.setProperty('--ry', '0deg'); offCard.style.setProperty('--rx', '0deg'); });
+  }
+
+  /* ---------- botões principais puxam o mouse de leve ---------- */
+  if (comMouse && !reduz) {
+    $$('[data-ima]').forEach((b) => {
+      b.addEventListener('pointermove', (e) => {
+        const r = b.getBoundingClientRect();
+        b.style.translate = `${((e.clientX - r.left - r.width / 2) * 0.18).toFixed(1)}px ${((e.clientY - r.top - r.height / 2) * 0.3).toFixed(1)}px`;
+      });
+      b.addEventListener('pointerleave', () => { b.style.translate = ''; });
+    });
+  }
+
+  /* ---------- cursor da marca: ponto ketchup + anel que segue com atraso ---------- */
+  if (comMouse && !reduz) {
+    const doc = document.documentElement;
+    const ponto = document.createElement('div'); ponto.className = 'cur-ponto';
+    const anel = document.createElement('div'); anel.className = 'cur-anel';
+    anel.innerHTML = `${$('.logo .simbolo').outerHTML}<span></span>`;
+    const rot = $('span', anel);
+    document.body.append(ponto, anel);
+    doc.classList.add('cursor-on');
+    let mx = innerWidth / 2, my = innerHeight / 2, ax = mx, ay = my, ativo = false;
+    const estados = ['cursor-link', 'cursor-pedir', 'cursor-video', 'cursor-arrasta'];
+    const definir = (estado, texto) => {
+      estados.forEach((c) => doc.classList.toggle(c, c === estado));
+      if (texto != null) rot.textContent = texto;
+    };
+    window.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      mx = e.clientX; my = e.clientY;
+      ponto.style.transform = `translate(${mx}px, ${my}px)`;
+      doc.classList.remove('cursor-fora');
+      if (!ativo) { ativo = true; ax = mx; ay = my; }
+      const t = e.target;
+      if (t.closest('input, textarea, select')) definir(null);
+      else if (t.closest('.carrossel')) definir('cursor-arrasta', car.classList.contains('arrastando') ? 'solta' : 'arrasta');
+      else if (t.closest('.prato, .dest') && !t.closest('button')) definir('cursor-pedir', 'pedir');
+      else if (t.closest('[data-cursor="video"], .chapa-video')) definir('cursor-video', hVideo && $('[data-video]').paused ? 'tocar' : 'assistir');
+      else if (t.closest('a, button, label, [role="tab"]')) definir('cursor-link');
+      else definir(null);
+      doc.classList.toggle('cursor-escuro', !!t.closest('.hero, .chapa, .destaques, .rodape, .letreiro, .voz-verm'));
+    }, { passive: true });
+    document.addEventListener('pointerdown', () => doc.classList.add('cursor-aperta'));
+    document.addEventListener('pointerup', () => doc.classList.remove('cursor-aperta'));
+    document.addEventListener('mouseleave', () => doc.classList.add('cursor-fora'));
+    const segue = () => {
+      ax += (mx - ax) * 0.18; ay += (my - ay) * 0.18;
+      anel.style.transform = `translate(${ax.toFixed(1)}px, ${ay.toFixed(1)}px)`;
+      requestAnimationFrame(segue);
+    };
+    requestAnimationFrame(segue);
+    // clicar no vídeo da chapa também toca e pausa
+    $('.chapa-video').addEventListener('click', (e) => { if (!e.target.closest('button')) vBtn.click(); });
+  }
 
   /* ---------- tudo junto ---------- */
   const desenharTudo = () => { desenharCardapio(); desenharDestaques(); desenharSacola(); };

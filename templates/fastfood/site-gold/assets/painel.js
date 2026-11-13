@@ -23,11 +23,11 @@
     $$('[data-iguais]').forEach((g) => {
       if (!g.offsetParent) return;
       g.style.removeProperty('--larg');
-      const maior = Math.max(...[...g.children].map((c) => c.offsetWidth));
+      const maior = Math.max(...[...g.children].filter((c) => !c.classList.contains('filtro-marca')).map((c) => c.offsetWidth));
       if (maior > 0) g.style.setProperty('--larg', maior + 'px');
     });
   };
-  window.addEventListener('resize', () => { clearTimeout(igualar.t); igualar.t = setTimeout(igualar, 120); });
+  window.addEventListener('resize', () => { clearTimeout(igualar.t); igualar.t = setTimeout(() => { igualar(); if (window.moverMarca) window.moverMarca(false); }, 120); });
   (document.fonts ? document.fonts.ready : Promise.resolve()).then(igualar);
 
   const aviso = $('[data-aviso]');
@@ -95,12 +95,57 @@
   /* ---------- produtos ---------- */
   const lista = $('[data-lista]');
   const pBusca = $('[data-p-busca]');
+  const fBox = $('[data-filtros]');
+  // marcador escuro que desliza até o filtro escolhido
+  const moverMarca = (animar = true) => {
+    const m = fBox.querySelector('.filtro-marca'), on = fBox.querySelector('[aria-pressed="true"]');
+    if (!m || !on || !fBox.offsetParent) return;
+    if (!animar) m.style.transition = 'none';
+    Object.assign(m.style, { width: on.offsetWidth + 'px', height: on.offsetHeight + 'px', transform: `translate(${on.offsetLeft}px, ${on.offsetTop}px)`, opacity: 1 });
+    if (!animar) { void m.offsetWidth; m.style.transition = ''; }
+  };
+  window.moverMarca = moverMarca;
   const desenharFiltros = () => {
     const cont = (id) => d.produtos.filter((p) => id === 'todas' || p.cat === id).length;
     if (filtro !== 'todas' && !d.categorias.some((c) => c.id === filtro)) filtro = 'todas';
-    $('[data-filtros]').innerHTML = [{ id: 'todas', nome: 'Todas' }, ...d.categorias]
-      .map((c) => `<button type="button" data-filtro="${esc(c.id)}" aria-pressed="${filtro === c.id}">${esc(c.nome)}<small>${cont(c.id)}</small></button>`).join('');
+    const cats = [{ id: 'todas', nome: 'Todas' }, ...d.categorias];
+    const chave = cats.map((c) => c.id + ':' + c.nome).join('|');
+    let novo = false;
+    if (fBox.dataset.chave !== chave) {
+      novo = true;
+      fBox.dataset.chave = chave;
+      fBox.innerHTML = '<span class="filtro-marca" aria-hidden="true"></span>' + cats
+        .map((c) => `<button type="button" data-filtro="${esc(c.id)}" aria-pressed="false">${esc(c.nome)}<small></small></button>`).join('');
+    }
+    cats.forEach((c) => {
+      const bt = fBox.querySelector(`[data-filtro="${CSS.escape(c.id)}"]`);
+      bt.setAttribute('aria-pressed', filtro === c.id);
+      bt.querySelector('small').textContent = cont(c.id);
+    });
+    if (novo) { igualar(); requestAnimationFrame(() => moverMarca(false)); } else moverMarca();
   };
+  // lista ou grade (guardado neste navegador)
+  const CHAVE_VISTA = 'monta-painel-vista';
+  let vista = 'lista';
+  try { if (localStorage.getItem(CHAVE_VISTA) === 'grade') vista = 'grade'; } catch (e) { /* sem armazenamento */ }
+  const aplicarVista = () => {
+    lista.classList.toggle('grade', vista === 'grade');
+    $$('[data-vista]').forEach((bt) => bt.setAttribute('aria-pressed', bt.dataset.vista === vista));
+  };
+  aplicarVista();
+  // troca suave: a lista some, redesenha e volta
+  const trocar = (fn) => {
+    clearTimeout(trocar.t);
+    lista.classList.add('trocando');
+    trocar.t = setTimeout(() => { fn(); lista.classList.remove('trocando'); }, 200);
+  };
+  $$('[data-vista]').forEach((bt) => bt.addEventListener('click', () => {
+    if (bt.dataset.vista === vista) return;
+    vista = bt.dataset.vista;
+    try { localStorage.setItem(CHAVE_VISTA, vista); } catch (e) { /* nada */ }
+    $$('[data-vista]').forEach((x) => x.setAttribute('aria-pressed', x === bt));
+    trocar(() => { aplicarVista(); desenharLista(); });
+  }));
   const desenharLista = () => {
     desenharFiltros();
     const termo = C.semAcento(pBusca.value.trim());
@@ -123,8 +168,8 @@
         <span class="cat">${esc(nomeCat(p.cat))}</span>
         <span class="preco">${promo ? `<s>${C.real(p.preco)}</s><b>${C.real(p.promo)}</b>` : `<b>${C.real(p.preco)}</b>`}</span>
         <div class="acoes">
-          <button type="button" data-editar="${esc(p.id)}" aria-label="Editar ${esc(p.nome)}" title="Editar">${ICO.lapis}</button>
-          <button type="button" data-ocultar="${esc(p.id)}" aria-label="${p.oculto ? 'Mostrar no site' : 'Esconder do site'}: ${esc(p.nome)}" title="${p.oculto ? 'Mostrar no site' : 'Esconder do site'}">${p.oculto ? ICO.olhoF : ICO.olho}</button>
+          <button type="button" class="b-editar" data-editar="${esc(p.id)}" aria-label="Editar ${esc(p.nome)}" title="Editar">${ICO.lapis}</button>
+          <button type="button" class="b-ver" data-ocultar="${esc(p.id)}" aria-label="${p.oculto ? 'Mostrar no site' : 'Esconder do site'}: ${esc(p.nome)}" title="${p.oculto ? 'Mostrar no site' : 'Esconder do site'}">${p.oculto ? ICO.olhoF : ICO.olho}</button>
           <button type="button" class="perigo" data-apagar="${esc(p.id)}" aria-label="Apagar ${esc(p.nome)}" title="Apagar">${ICO.lixo}</button>
         </div>
       </article>`;
@@ -133,7 +178,8 @@
   };
   $('[data-filtros]').addEventListener('click', (e) => {
     const b = e.target.closest('[data-filtro]'); if (!b) return;
-    filtro = b.dataset.filtro; desenharLista();
+    if (b.dataset.filtro === filtro) return;
+    filtro = b.dataset.filtro; desenharFiltros(); trocar(desenharLista);
   });
   pBusca.addEventListener('input', desenharLista);
   lista.addEventListener('click', (e) => {

@@ -106,6 +106,10 @@
     <section class="tela" data-tela-box="produtos">
       <div class="barra">
         <div class="filtros" data-filtros data-iguais></div>
+        <div class="vista" role="group" aria-label="Formato da lista">
+          <button type="button" data-vista="lista" aria-pressed="true" title="Ver em lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="5" width="4" height="4" rx="1.2"/><rect x="4" y="15" width="4" height="4" rx="1.2"/><path d="M12 7h8M12 17h8"/></svg><span>Lista</span></button>
+          <button type="button" data-vista="grade" aria-pressed="false" title="Ver em grade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg><span>Grade</span></button>
+        </div>
         <label class="busca"><span class="sr">Buscar produto</span><input type="search" placeholder="Buscar produto" data-p-busca></label>
         <button class="btn btn-escuro" type="button" data-novo><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg>Novo produto</button>
       </div>

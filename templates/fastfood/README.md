@@ -54,7 +54,7 @@ Só neste modelo Gold. Link "Área do cliente" no topo e no rodapé.
 
 - Login de demonstração: `loja@montaburger.com.br` / `monta2026`, já vêm preenchidos nos campos por enquanto (tirar o `value` dos inputs em `build.js` quando for para cliente)
 - Tela de login: vídeo da chapa à esquerda com o cartão flutuante "Cardápio publicado", título e texto do que dá para fazer no painel (produtos, promoções, categorias, publicação); à direita, formulário em cartão de comanda picotada, saudação pelo horário com o nome do responsável e link de ajuda no WhatsApp
-- **Produtos**: lista com foto, categoria, preço e promoção; filtro por categoria; busca; editar, esconder do site e apagar. Cada mudança fica marcada como "não publicada"
+- **Produtos**: em lista ou em grade (botão Lista/Grade, a escolha fica salva no navegador), com foto, categoria, preço e promoção; filtro por categoria com marcador escuro que desliza e contador com fundo; busca; botões editar (azul), esconder do site (verde) e apagar (vermelho), que ficam com a cor cheia no hover. A lista some e volta suave ao trocar de filtro ou de formato. Cada mudança fica marcada como "não publicada"
 - **Novo produto**: nome, categoria, preço, preço de promoção, descrição, foto (envio do computador, recortada quadrada e reduzida no navegador, ou escolha da galeria), "Mostrar em Os mais pedidos" e "Esconder do site"
 - **Categorias**: criar, renomear, mudar a ordem (é a ordem das abas no site) e apagar quando vazia
 - **Publicar no site**: o rascunho vira o cardápio do site. Se o site estiver aberto em outra aba, ele atualiza na hora. "Descartar alterações" e "Voltar ao cardápio original"

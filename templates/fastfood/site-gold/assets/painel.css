@@ -129,15 +129,23 @@ svg { flex: none; }
 @keyframes chama { 50% { box-shadow: 0 0 0 6px rgba(227, 38, 43, .18); } }
 
 .barra { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 24px 0 18px; }
-.filtros { display: flex; gap: 8px; flex-wrap: wrap; flex: 1; }
-.filtros button { display: inline-flex; align-items: center; gap: 6px; height: 42px; padding: 0 14px; border-radius: 12px; border: 2px solid var(--linha); background: #fff; font-weight: 600; font-size: 14px; }
-.filtros button small { color: var(--apoio); font-size: 12px; }
-.filtros button[aria-pressed="true"] { background: var(--chapa); border-color: var(--chapa); color: #fff; }
-.filtros button[aria-pressed="true"] small { color: rgba(255, 255, 255, .7); }
+.filtros { position: relative; display: flex; gap: 8px; flex-wrap: wrap; flex: 1; }
+.filtros button { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 8px 0 14px; border-radius: 12px; border: 2px solid var(--linha); background: transparent; font-weight: 600; font-size: 14px; transition: color .45s var(--suave), border-color .45s var(--suave), background .3s; }
+.filtros button:hover { background: #fff; border-color: rgba(34, 21, 15, .22); }
+.filtros button small { display: grid; place-items: center; min-width: 24px; height: 22px; padding: 0 6px; border-radius: 7px; background: var(--rosa); color: var(--ketchup-esc); font-size: 12px; font-weight: 700; transition: background .45s var(--suave), color .45s var(--suave); }
+.filtros button[aria-pressed="true"] { color: #fff; border-color: transparent; background: transparent; }
+.filtros button[aria-pressed="true"] small { background: var(--ketchup); color: #fff; }
+.filtros .filtro-marca { position: absolute; left: 0; top: 0; z-index: 0; width: 0; height: 0; padding: 0; background: var(--chapa); border-radius: 12px; opacity: 0; pointer-events: none; box-shadow: 0 10px 20px -10px rgba(28, 19, 17, .6); transition: transform .5s var(--suave), width .5s var(--suave), height .5s var(--suave), opacity .3s; }
+.vista { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; padding: 4px; background: #fff; border: 2px solid var(--linha); border-radius: 14px; }
+.vista button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 36px; padding: 0 12px; border: 0; border-radius: 10px; background: none; color: var(--apoio); font-size: 13.5px; font-weight: 600; transition: background .4s var(--suave), color .4s var(--suave); }
+.vista button svg { width: 18px; height: 18px; }
+.vista button:hover { color: var(--texto); background: var(--creme); }
+.vista button[aria-pressed="true"] { background: var(--chapa); color: #fff; }
 .busca input { height: 46px; width: 220px; padding: 0 14px; border: 2px solid var(--linha); border-radius: 12px; background: #fff; }
 .busca input:focus { outline: none; border-color: var(--ketchup); }
 
-.lista { display: grid; gap: 10px; }
+.lista { display: grid; gap: 10px; transition: opacity .2s var(--suave), transform .2s var(--suave); }
+.lista.trocando { opacity: 0; transform: translateY(8px); }
 .linha { display: grid; grid-template-columns: 72px minmax(0, 1fr) 130px 120px auto; gap: 18px; align-items: center; padding: 10px 14px 10px 10px; background: #fff; border-radius: 18px; border: 2px solid transparent; animation: entra .35s var(--suave) both; }
 @keyframes entra { from { opacity: 0; transform: translateY(8px); } }
 .linha.mudou { border-color: rgba(255, 194, 58, .8); }
@@ -156,9 +164,26 @@ svg { flex: none; }
 .linha .preco b { font: 800 18px var(--f-t); color: var(--ketchup); }
 .linha .preco s { font-size: 12.5px; color: var(--apoio); }
 .acoes { display: flex; gap: 6px; }
-.acoes button { width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 10px; background: var(--creme); color: var(--texto); transition: background .2s, color .2s; }
+.acoes button { width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 10px; background: var(--creme); color: var(--texto); transition: background .3s var(--suave), color .3s var(--suave), transform .35s var(--mola), box-shadow .3s var(--suave); }
 .acoes button:hover { background: var(--chapa); color: #fff; }
-.acoes button.perigo:hover { background: var(--ketchup); }
+.acoes .b-editar { background: #E5EEFF; color: #1F5BC9; }
+.acoes .b-ver { background: #E2F3E4; color: #23743A; }
+.acoes .perigo { background: #FDE5E3; color: #C4161C; }
+.acoes .b-editar:hover { background: #1F5BC9; color: #fff; box-shadow: 0 8px 16px -8px rgba(31, 91, 201, .8); transform: translateY(-2px); }
+.acoes .b-ver:hover { background: #23743A; color: #fff; box-shadow: 0 8px 16px -8px rgba(35, 116, 58, .8); transform: translateY(-2px); }
+.acoes .perigo:hover { background: #C4161C; color: #fff; box-shadow: 0 8px 16px -8px rgba(196, 22, 28, .8); transform: translateY(-2px); }
+.linha.oculto .b-ver { background: #EDEAE7; color: var(--apoio); }
+
+/* produtos em grade */
+.lista.grade { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+.grade .linha { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 1fr auto auto; grid-template-areas: "foto foto" "info info" "cat preco" "acoes acoes"; gap: 10px 12px; align-items: end; padding: 10px 10px 12px; }
+.grade .linha > img, .grade .linha > .sem-foto { grid-area: foto; align-self: start; width: 100%; height: auto; aspect-ratio: 4 / 3; border-radius: 12px; }
+.grade .linha > div:not(.acoes) { grid-area: info; align-self: start; padding: 2px 4px 0; }
+.grade .linha .desc { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; min-height: 2.9em; line-height: 1.45; }
+.grade .linha .cat { grid-area: cat; padding-left: 4px; font-size: 13px; }
+.grade .linha .preco { grid-area: preco; justify-items: end; text-align: right; }
+.grade .linha .acoes { grid-area: acoes; display: grid; grid-template-columns: repeat(3, 1fr); padding-top: 10px; border-top: 1px solid var(--linha); }
+.grade .linha .acoes button { width: 100%; }
 .acoes svg { width: 19px; height: 19px; }
 .lista-vazia { padding: 40px; text-align: center; color: var(--apoio); background: #fff; border-radius: 18px; }
 
@@ -201,6 +226,7 @@ svg { flex: none; }
 .btn:not(:disabled):hover { transform: translateY(-2px); }
 .linha { transition: border-color .4s var(--suave), opacity .4s var(--suave), transform .4s var(--suave); }
 .linha:hover { transform: translateX(4px); }
+.grade .linha:hover { transform: translateY(-4px); box-shadow: 0 18px 30px -20px rgba(60, 20, 10, .35); }
 .gaveta-topo { display: flex; justify-content: space-between; align-items: center; }
 .gaveta-topo h2 { font-size: 30px; }
 .fechar { width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: #fff; border-radius: 12px; }
@@ -224,11 +250,11 @@ svg { flex: none; }
 .aviso a { color: var(--mostarda); margin-left: 8px; }
 
 @media (max-width: 1000px) {
-  .linha { grid-template-columns: 64px minmax(0, 1fr) auto; }
-  .linha img, .linha .sem-foto { width: 64px; height: 64px; }
-  .linha .cat { display: none; }
-  .linha .preco { grid-column: 2; grid-row: 2; display: flex; gap: 10px; align-items: baseline; }
-  .linha .acoes { grid-column: 3; grid-row: 1 / span 2; flex-direction: column; }
+  .lista:not(.grade) .linha { grid-template-columns: 64px minmax(0, 1fr) auto; }
+  .lista:not(.grade) .linha img, .lista:not(.grade) .linha .sem-foto { width: 64px; height: 64px; }
+  .lista:not(.grade) .linha .cat { display: none; }
+  .lista:not(.grade) .linha .preco { grid-column: 2; grid-row: 2; display: flex; gap: 10px; align-items: baseline; }
+  .lista:not(.grade) .linha .acoes { grid-column: 3; grid-row: 1 / span 2; flex-direction: column; }
 }
 @media (max-width: 800px) {
   .login { grid-template-columns: 1fr; }
@@ -257,6 +283,10 @@ svg { flex: none; }
   .barra .busca { flex: 1; }
   .busca input { width: 100%; }
   .barra .btn { width: 100%; }
+  .lista.grade { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .grade .linha .cat { display: none; }
+  .grade .linha .preco { grid-column: 1 / -1; justify-items: start; text-align: left; }
+  .vista span { display: none; }
   .filtros { flex-wrap: nowrap; overflow-x: auto; flex-basis: 100%; padding-bottom: 4px; }
   .filtros button { flex: none; }
   .cats li { grid-template-columns: minmax(0, 1fr) auto; }

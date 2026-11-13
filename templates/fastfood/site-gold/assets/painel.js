@@ -37,27 +37,90 @@
   const login = $('[data-login]');
   const app = $('[data-app]');
   const lf = $('[data-login-form]');
-  const logado = () => { try { return sessionStorage.getItem(CHAVE_LOGIN) === '1'; } catch (e) { return false; } };
+  const cf = $('[data-cadastro-form]');
+  // contas: a de demonstração e as criadas no cadastro (demonstração: ficam neste navegador)
+  const CHAVE_CONTAS = 'monta-painel-contas';
+  const DEMO = { responsavel: A.responsavel, loja: 'Monta Burger, Savassi', email: A.email, senha: A.senha };
+  const contasCriadas = () => { try { return JSON.parse(localStorage.getItem(CHAVE_CONTAS)) || []; } catch (e) { return []; } };
+  const contas = () => [DEMO, ...contasCriadas()];
+  const sessao = () => { try { return sessionStorage.getItem(CHAVE_LOGIN); } catch (e) { return null; } };
+  const logado = () => !!sessao();
+  const usuario = () => { const s = sessao(); return contas().find((c) => c.email === s) || DEMO; };
+  const guardarSessao = (email) => { try { sessionStorage.setItem(CHAVE_LOGIN, email); } catch (er) { /* sem armazenamento */ } };
   const entrar = (animar) => {
-    const mostra = () => { login.hidden = true; login.classList.remove('saindo'); app.hidden = false; $('[data-quem]').textContent = A.responsavel; iniciar(); };
+    const mostra = () => {
+      login.hidden = true; login.classList.remove('saindo'); app.hidden = false;
+      const u = usuario();
+      $('[data-quem]').textContent = u.responsavel;
+      $('[data-quem-loja]').textContent = u.loja;
+      iniciar();
+    };
     if (animar) { login.classList.add('saindo'); setTimeout(mostra, 420); } else mostra();
   };
   lf.addEventListener('submit', (e) => {
     e.preventDefault();
-    const ok = lf.email.value.trim().toLowerCase() === A.email && lf.senha.value === A.senha;
-    $('[data-login-erro]').hidden = ok;
-    if (!ok) { lf.senha.select(); return; }
-    try { sessionStorage.setItem(CHAVE_LOGIN, '1'); } catch (er) { /* sem armazenamento */ }
+    const email = lf.email.value.trim().toLowerCase();
+    const conta = contas().find((c) => c.email === email && c.senha === lf.senha.value);
+    $('[data-login-erro]').hidden = !!conta;
+    if (!conta) { lf.senha.select(); return; }
+    guardarSessao(conta.email);
     entrar(true);
+  });
+
+  // alternar entre entrar e cadastrar
+  const telaLogin = (qual, animar = true) => {
+    const mostrar = qual === 'cadastro' ? cf : lf, esconder = qual === 'cadastro' ? lf : cf;
+    if (!mostrar.hidden) return;
+    const troca = () => {
+      esconder.hidden = true; esconder.classList.remove('sai'); mostrar.hidden = false;
+      const primeiro = mostrar.querySelector(qual === 'cadastro' ? 'input' : '.btn-entrar');
+      if (animar && primeiro && matchMedia('(min-width: 801px)').matches) primeiro.focus({ preventScroll: true });
+      if (animar) mostrar.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    };
+    if (animar) { esconder.classList.add('sai'); setTimeout(troca, 260); } else troca();
+  };
+  $$('[data-ir]').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    history.replaceState(null, '', a.dataset.ir === 'cadastro' ? '#cadastro' : location.pathname + location.search);
+    telaLogin(a.dataset.ir);
+  }));
+  if (location.hash === '#cadastro') telaLogin('cadastro', false);
+
+  // máscara do WhatsApp: (31) 99999-0000
+  $('[data-mascara-tel]').addEventListener('input', (e) => {
+    const n = e.target.value.replace(/\D/g, '').slice(0, 11);
+    e.target.value = n.length > 6 ? `(${n.slice(0, 2)}) ${n.slice(2, n.length - 4)}-${n.slice(-4)}` : n.length > 2 ? `(${n.slice(0, 2)}) ${n.slice(2)}` : n;
+  });
+
+  cf.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const erro = $('[data-cad-erro]');
+    const v = { responsavel: cf.nome.value.trim(), loja: cf.loja.value.trim(), email: cf.email.value.trim().toLowerCase(), whats: cf.whats.value.trim(), senha: cf.senha.value };
+    const falha = (msg, campo) => { erro.textContent = msg; erro.hidden = false; campo.focus(); };
+    if (v.responsavel.length < 3) return falha('Digite seu nome.', cf.nome);
+    if (v.loja.length < 2) return falha('Digite o nome do estabelecimento.', cf.loja);
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email)) return falha('Confira o e-mail.', cf.email);
+    if (contas().some((c) => c.email === v.email)) return falha('Já existe um acesso com este e-mail. Entre com ele ou use outro.', cf.email);
+    if (v.whats.replace(/\D/g, '').length < 10) return falha('Confira o WhatsApp com DDD.', cf.whats);
+    if (v.senha.length < 6) return falha('A senha precisa ter pelo menos 6 caracteres.', cf.senha);
+    if (v.senha !== cf.senha2.value) return falha('As senhas não conferem.', cf.senha2);
+    if (!cf.dono.checked) return falha('Confirme que você é o dono ou responsável.', cf.dono);
+    erro.hidden = true;
+    try { localStorage.setItem(CHAVE_CONTAS, JSON.stringify([...contasCriadas(), v])); } catch (er) { /* sem armazenamento */ }
+    guardarSessao(v.email);
+    history.replaceState(null, '', location.pathname + location.search);
+    entrar(true);
+    setTimeout(() => avisar(`Acesso criado. Boas-vindas, ${esc(v.responsavel.split(' ')[0])}!`), 700);
   });
   const sd = $('[data-saudacao]');
   if (sd) { const h = new Date().getHours(); sd.textContent = h < 5 ? 'Boa noite' : h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite'; }
-  $('[data-ver-senha]').addEventListener('click', (e) => {
-    const mostrar = lf.senha.type === 'password';
-    lf.senha.type = mostrar ? 'text' : 'password';
+  $$('[data-ver-senha]').forEach((bt) => bt.addEventListener('click', (e) => {
+    const campo = e.currentTarget.parentElement.querySelector('input');
+    const mostrar = campo.type === 'password';
+    campo.type = mostrar ? 'text' : 'password';
     e.currentTarget.innerHTML = mostrar ? ICO.olhoF : ICO.olho;
     e.currentTarget.setAttribute('aria-label', mostrar ? 'Esconder senha' : 'Mostrar senha');
-  });
+  }));
   $('[data-sair]').addEventListener('click', () => { try { sessionStorage.removeItem(CHAVE_LOGIN); } catch (e) { /* nada */ } location.reload(); });
 
   /* ---------- estado ---------- */

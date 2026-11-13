@@ -22,7 +22,8 @@ const copiar = (de, para) => {
     if (fs.statSync(a).isDirectory()) copiar(a, b); else fs.copyFileSync(a, b);
   }
 };
-fs.rmSync(OUT, { recursive: true, force: true });
+// esvazia a pasta em vez de apagá-la (assim funciona com a prévia aberta, ex.: Live Server)
+if (fs.existsSync(OUT)) for (const f of fs.readdirSync(OUT)) fs.rmSync(path.join(OUT, f), { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'assets', 'img'), { recursive: true });
 copiar(path.join(__dirname, 'img', 'fotos'), path.join(OUT, 'assets', 'img'));
 copiar(path.join(__dirname, 'img', 'video'), path.join(OUT, 'assets', 'video'));
@@ -421,6 +422,30 @@ const painel = `${head(`Área do cliente | ${M.completo}`, 'Painel da loja: cada
       <p class="erro" data-login-erro hidden>E-mail ou senha não conferem.</p>
       <button class="btn btn-verm btn-cheio btn-entrar" type="submit"><span>Entrar no painel</span>${I.seta}</button>
       <p class="demo">Modo demonstração: e-mail e senha já estão preenchidos.</p>
+      <p class="trocar">Ainda não tem acesso? <a class="link" href="#cadastro" data-ir="cadastro">Cadastre seu estabelecimento</a></p>
+    </form>
+
+    <form class="login-caixa" data-cadastro-form hidden novalidate>
+      <a class="logo" href="index.html" aria-label="Voltar ao site">${I.logo}</a>
+      <div class="login-titulo">
+        <p class="login-apoio">Novo acesso</p>
+        <h1>Cadastre seu estabelecimento.</h1>
+        <p>Crie o acesso do dono ou responsável. Com ele você entra no painel, cadastra os produtos e publica o cardápio no site.</p>
+      </div>
+      <div class="dupla">
+        <label class="campo"><span>Seu nome</span><span class="entrada">${I.pessoa}<input name="nome" autocomplete="name" required maxlength="40" placeholder="Nome completo"></span></label>
+        <label class="campo"><span>Estabelecimento</span><span class="entrada">${I.loja}<input name="loja" autocomplete="organization" required maxlength="40" placeholder="Nome da loja"></span></label>
+      </div>
+      <label class="campo"><span>E-mail</span><span class="entrada">${I.arroba}<input type="email" name="email" autocomplete="email" required placeholder="voce@seuestabelecimento.com.br"></span></label>
+      <label class="campo"><span>WhatsApp</span><span class="entrada">${I.whats}<input type="tel" name="whats" autocomplete="tel" inputmode="tel" required placeholder="(31) 99999-0000" data-mascara-tel></span></label>
+      <div class="dupla">
+        <label class="campo"><span>Senha <small class="dica">(mín. 6)</small></span><span class="entrada senha">${I.cadeado}<input type="password" name="senha" autocomplete="new-password" required minlength="6"><button type="button" data-ver-senha aria-label="Mostrar senha">${I.olho}</button></span></label>
+        <label class="campo"><span>Confirmar senha</span><span class="entrada senha">${I.cadeado}<input type="password" name="senha2" autocomplete="new-password" required><button type="button" data-ver-senha aria-label="Mostrar senha">${I.olho}</button></span></label>
+      </div>
+      <label class="check"><input type="checkbox" name="dono" required><span>Sou o dono ou responsável por este estabelecimento.</span></label>
+      <p class="erro" data-cad-erro hidden></p>
+      <button class="btn btn-verm btn-cheio btn-entrar" type="submit"><span>Criar acesso e entrar</span>${I.seta}</button>
+      <p class="trocar">Já tem acesso? <a class="link" href="#entrar" data-ir="entrar">Entrar no painel</a></p>
     </form>
     <div class="login-rodape">
       <a class="voltar" href="index.html">${I.setaEsq}Voltar ao site</a>
@@ -437,7 +462,7 @@ const painel = `${head(`Área do cliente | ${M.completo}`, 'Painel da loja: cada
       <button type="button" data-tela="categorias">${I.menu}Categorias</button>
       <a href="index.html#cardapio" target="_blank" rel="noopener">${I.olho}Ver o site</a>
     </nav>
-    <div class="quem"><b data-quem></b><span>Monta Burger, Savassi</span><button type="button" data-sair>${I.sair}Sair</button></div>
+    <div class="quem"><b data-quem></b><span data-quem-loja>Monta Burger, Savassi</span><button type="button" data-sair>${I.sair}Sair</button></div>
   </aside>
 
   <main class="area">

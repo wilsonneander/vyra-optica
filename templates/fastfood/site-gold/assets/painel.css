@@ -100,6 +100,12 @@ svg { flex: none; }
 .btn-entrar svg { transition: transform .4s var(--mola); }
 .btn-entrar:hover svg { transform: translateX(5px); }
 .demo { font-size: 13px; color: var(--apoio); text-align: center; }
+.trocar { font-size: 14.5px; color: var(--apoio); text-align: center; padding-top: 16px; border-top: 1px solid var(--linha); }
+.trocar .link { margin-left: 4px; }
+.login-caixa .dupla { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.login-caixa .check { font-size: 14px; color: var(--apoio); align-items: flex-start; }
+.login-caixa .check input { margin: 1px 0 0; flex: none; }
+.login-caixa.sai { opacity: 0; transform: translateY(10px) scale(.985); transition: opacity .26s var(--suave), transform .26s var(--suave); }
 .login-rodape { justify-self: center; width: min(460px, 100%); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .voltar, .ajuda { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14.5px; color: var(--apoio); text-decoration: none; transition: color .3s; }
 .voltar:hover, .ajuda:hover { color: var(--ketchup); }
@@ -288,6 +294,7 @@ svg { flex: none; }
   .login-lado { padding: 24px 16px 28px; }
   .login-caixa { padding: 32px 20px 26px; }
   .login-titulo h1 { font-size: 34px; }
+  .login-caixa .dupla { grid-template-columns: 1fr; }
   .app { grid-template-columns: minmax(0, 1fr); }
   .area { min-width: 0; }
   .lateral { min-width: 0; }
@@ -339,3 +346,4 @@ svg { flex: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+.campo .dica { font-weight: 500; color: var(--apoio); font-size: 12.5px; }

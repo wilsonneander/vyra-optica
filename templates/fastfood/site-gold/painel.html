@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Área do cliente | Monta Burger</title>
+<meta name="description" content="Painel da loja: cadastre produtos e categorias e publique o cardápio no site.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#E3262B">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/painel.css">
+</head>
+<body class="painel">
+<section class="login" data-login>
+  <div class="login-arte" aria-hidden="true">
+    <img src="assets/img/camadas/montado.webp" alt="" width="657" height="661">
+  </div>
+  <form class="login-caixa" data-login-form>
+    <a class="logo" href="index.html" aria-label="Voltar ao site"><svg class="simbolo" viewBox="0 0 64 56" aria-hidden="true">
+  <path d="M6 24c0-12 11.6-19 26-19s26 7 26 19c0 1.7-1.3 3-3 3H9c-1.7 0-3-1.3-3-3z" fill="#E3262B"/>
+  <g fill="#FFF3E6"><ellipse cx="22" cy="13" rx="2.2" ry="1.3" transform="rotate(-20 22 13)"/><ellipse cx="33" cy="10" rx="2.2" ry="1.3"/><ellipse cx="43" cy="14" rx="2.2" ry="1.3" transform="rotate(20 43 14)"/><ellipse cx="28" cy="19" rx="2" ry="1.2"/><ellipse cx="38" cy="20" rx="2" ry="1.2"/></g>
+  <path d="M5 30h54l-4 5c-1.6 2-3.8 2-5.4 0l-1.2-1.5-2.4 4.5c-1.2 2.2-3.3 2.2-4.5 0L38.4 34H25.6l-3.1 4c-1.2 2.2-3.3 2.2-4.5 0l-2.4-4.5-1.2 1.5c-1.6 2-3.8 2-5.4 0z" fill="#FFC23A"/>
+  <path d="M8 39c0-1.7 1.3-3 3-3h4.5l4.5 5 4.5-5h15l4.5 5 4.5-5H53c1.7 0 3 1.3 3 3v1.5c0 1.7-1.3 3-3 3H11c-1.7 0-3-1.3-3-3z" fill="#3A1A14"/>
+  <path d="M7 47c0-1.1.9-2 2-2h46c1.1 0 2 .9 2 2 0 3.3-2.7 6-6 6H13c-3.3 0-6-2.7-6-6z" fill="#E3262B"/>
+</svg><span class="logo-txt"><b>monta</b><small>burger</small></span></a>
+    <h1>Área do cliente</h1>
+    <p>Entre para cadastrar produtos, organizar as categorias e publicar o cardápio no site.</p>
+    <label class="campo"><span>E-mail</span><input type="email" name="email" autocomplete="username" required></label>
+    <label class="campo"><span>Senha</span><span class="senha"><input type="password" name="senha" autocomplete="current-password" required><button type="button" data-ver-senha aria-label="Mostrar senha"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z"/><circle cx="12" cy="12" r="2.5"/></svg></button></span></label>
+    <p class="erro" data-login-erro hidden>E-mail ou senha não conferem.</p>
+    <button class="btn btn-verm btn-cheio" type="submit">Entrar <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 7l5 5-5 5"/></svg></button>
+    <p class="demo">Acesso de demonstração: <b>loja@montaburger.com.br</b> e senha <b>monta2026</b> <button type="button" class="link" data-preencher>preencher</button></p>
+    <a class="voltar" href="index.html"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H6M11 7l-5 5 5 5"/></svg>Voltar ao site</a>
+  </form>
+</section>
+
+<div class="app" data-app hidden>
+  <aside class="lateral">
+    <a class="logo logo-claro" href="index.html" aria-label="Ver site"><svg class="simbolo" viewBox="0 0 64 56" aria-hidden="true">
+  <path d="M6 24c0-12 11.6-19 26-19s26 7 26 19c0 1.7-1.3 3-3 3H9c-1.7 0-3-1.3-3-3z" fill="#E3262B"/>
+  <g fill="#FFF3E6"><ellipse cx="22" cy="13" rx="2.2" ry="1.3" transform="rotate(-20 22 13)"/><ellipse cx="33" cy="10" rx="2.2" ry="1.3"/><ellipse cx="43" cy="14" rx="2.2" ry="1.3" transform="rotate(20 43 14)"/><ellipse cx="28" cy="19" rx="2" ry="1.2"/><ellipse cx="38" cy="20" rx="2" ry="1.2"/></g>
+  <path d="M5 30h54l-4 5c-1.6 2-3.8 2-5.4 0l-1.2-1.5-2.4 4.5c-1.2 2.2-3.3 2.2-4.5 0L38.4 34H25.6l-3.1 4c-1.2 2.2-3.3 2.2-4.5 0l-2.4-4.5-1.2 1.5c-1.6 2-3.8 2-5.4 0z" fill="#FFC23A"/>
+  <path d="M8 39c0-1.7 1.3-3 3-3h4.5l4.5 5 4.5-5h15l4.5 5 4.5-5H53c1.7 0 3 1.3 3 3v1.5c0 1.7-1.3 3-3 3H11c-1.7 0-3-1.3-3-3z" fill="#3A1A14"/>
+  <path d="M7 47c0-1.1.9-2 2-2h46c1.1 0 2 .9 2 2 0 3.3-2.7 6-6 6H13c-3.3 0-6-2.7-6-6z" fill="#E3262B"/>
+</svg><span class="logo-txt"><b>monta</b><small>burger</small></span></a>
+    <nav class="menu-lateral" aria-label="Painel">
+      <button type="button" class="on" data-tela="produtos"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg>Produtos</button>
+      <button type="button" data-tela="categorias"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h16M4 16h11"/></svg>Categorias</button>
+      <a href="index.html#cardapio" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z"/><circle cx="12" cy="12" r="2.5"/></svg>Ver o site</a>
+    </nav>
+    <div class="quem"><b data-quem></b><span>Monta Burger, Savassi</span><button type="button" data-sair><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h4a1.5 1.5 0 0 1 1.5 1.5v11A1.5 1.5 0 0 1 18 19h-4M10 8l-4 4 4 4M6 12h9"/></svg>Sair</button></div>
+  </aside>
+
+  <main class="area">
+    <header class="area-topo">
+      <div>
+        <h1 data-titulo>Produtos</h1>
+        <p class="estado" data-estado>Tudo publicado</p>
+      </div>
+      <div class="area-acoes">
+        <button class="btn btn-borda" type="button" data-descartar hidden>Descartar alterações</button>
+        <button class="btn btn-verm" type="button" data-publicar disabled><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l16-7-6 15-3-6z"/></svg>Publicar no site</button>
+      </div>
+    </header>
+
+    <section class="tela" data-tela-box="produtos">
+      <div class="barra">
+        <div class="filtros" data-filtros data-iguais></div>
+        <label class="busca"><span class="sr">Buscar produto</span><input type="search" placeholder="Buscar produto" data-p-busca></label>
+        <button class="btn btn-escuro" type="button" data-novo><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg>Novo produto</button>
+      </div>
+      <div class="lista" data-lista></div>
+    </section>
+
+    <section class="tela" data-tela-box="categorias" hidden>
+      <form class="cat-nova" data-cat-form>
+        <label class="campo"><span>Nova categoria</span><input name="nome" placeholder="Ex.: Sobremesas" required maxlength="24"></label>
+        <button class="btn btn-escuro" type="submit"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg>Adicionar</button>
+      </form>
+      <ul class="cats" data-cats></ul>
+      <p class="nota">A ordem aqui é a ordem das abas no cardápio do site. Uma categoria só pode ser apagada quando estiver vazia.</p>
+      <p class="nota">Demonstração: tudo fica salvo neste navegador. <button type="button" class="link" data-restaurar>Voltar ao cardápio original</button></p>
+    </section>
+  </main>
+</div>
+
+<!-- formulário de produto -->
+<div class="gaveta" data-gaveta hidden>
+  <div class="gaveta-fundo" data-fechar></div>
+  <form class="gaveta-caixa" data-form role="dialog" aria-modal="true" aria-labelledby="t-form">
+    <div class="gaveta-topo"><h2 id="t-form" data-form-titulo>Novo produto</h2><button type="button" class="fechar" data-fechar aria-label="Fechar"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7l10 10M17 7 7 17"/></svg></button></div>
+    <div class="foto-campo">
+      <div class="foto-prev" data-foto-prev><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="3"/><circle cx="9" cy="10.5" r="1.8"/><path d="M20 16l-5-4.5-8 7"/></svg><span>Sem foto</span></div>
+      <div class="foto-acoes">
+        <label class="btn btn-borda"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="3"/><circle cx="9" cy="10.5" r="1.8"/><path d="M20 16l-5-4.5-8 7"/></svg>Enviar foto<input type="file" accept="image/*" data-foto-arquivo hidden></label>
+        <p>Ou escolha uma da galeria:</p>
+        <div class="galeria" data-galeria></div>
+      </div>
+    </div>
+    <label class="campo"><span>Nome</span><input name="nome" required maxlength="40"></label>
+    <label class="campo"><span>Categoria</span><select name="cat" data-form-cat required></select></label>
+    <div class="dupla">
+      <label class="campo"><span>Preço (R$)</span><input name="preco" inputmode="decimal" required placeholder="29,90"></label>
+      <label class="campo"><span>Preço de promoção (opcional)</span><input name="promo" inputmode="decimal" placeholder="24,90"></label>
+    </div>
+    <label class="campo"><span>Descrição</span><textarea name="desc" rows="3" maxlength="160"></textarea></label>
+    <label class="check"><input type="checkbox" name="destaque"><span>Mostrar em <b>Os mais pedidos</b></span></label>
+    <label class="check"><input type="checkbox" name="oculto"><span>Esconder do site por enquanto</span></label>
+    <p class="erro" data-form-erro hidden></p>
+    <div class="gaveta-btns" data-iguais>
+      <button type="button" class="btn btn-borda" data-fechar>Cancelar</button>
+      <button type="submit" class="btn btn-verm">Salvar produto</button>
+    </div>
+  </form>
+</div>
+<p class="aviso" data-aviso role="status" aria-live="polite"></p>
+
+<script id="dados" type="application/json">{"marca":{"nome":"Monta","completo":"Monta Burger","frase":"Burger prensado na chapa na hora em que você pede. Pão brioche, blend moído no dia e entrega rápida na Savassi.","whatsapp":"5531999990000","whatsappTexto":"(31) 99999-0000","telefone":"(31) 3333-0000","endereco":"Av. Getúlio Vargas, 1300","bairro":"Savassi","cidade":"Belo Horizonte, MG","instagram":"https://www.instagram.com/","instagramUser":"@montaburger","facebook":"https://www.facebook.com/","tiktok":"https://www.tiktok.com/","ifood":"https://www.ifood.com.br/","food99":"https://food.99app.com/","site":"https://montaburger.com.br/","desde":2017},"horarios":{"0":[11,23],"1":null,"2":[11,23],"3":[11,23],"4":[11,23.5],"5":[11,24],"6":[11,24]},"categorias":[{"id":"hamburguer","nome":"Hambúrguer"},{"id":"bebidas","nome":"Bebidas"},{"id":"pizza","nome":"Pizza"},{"id":"combos","nome":"Combos"},{"id":"promocao","nome":"Promoção"}],"produtos":[{"id":"smash","cat":"hamburguer","nome":"Smash da Casa","foto":"smash","preco":29.9,"desc":"Dois smash de 80 g prensados na chapa, cheddar duplo, cebola na manteiga e molho Monta no brioche."},{"id":"classico","cat":"hamburguer","nome":"Clássico Monta","foto":"classico","preco":27.9,"desc":"Blend de 160 g, queijo prato, alface, tomate, cebola roxa e maionese da casa."},{"id":"bacon","cat":"hamburguer","nome":"Bacon Duplo","foto":"bacon","preco":36.9,"promo":31.9,"destaque":true,"desc":"Dois blends de 120 g, bacon crocante, cheddar derretido e barbecue de rapadura."},{"id":"melt","cat":"hamburguer","nome":"Cheddar Melt","foto":"escuro","preco":33.9,"desc":"Blend de 160 g afogado no cheddar cremoso, cebola caramelizada e picles."},{"id":"crispy","cat":"hamburguer","nome":"Crispy Chicken","foto":"crispy","preco":28.9,"desc":"Sobrecoxa empanada no flocão, salada de repolho e maionese de alho."},{"id":"costela","cat":"hamburguer","nome":"Costela BBQ","foto":"costela","preco":38.9,"desc":"Costela desfiada prensada na chapa, queijo coalho, barbecue e cebola crispy."},{"id":"veggie","cat":"hamburguer","nome":"Veggie do Grão","foto":"veggie","preco":26.9,"desc":"Burger de grão-de-bico e beterraba, queijo, rúcula, tomate e maionese verde."},{"id":"trufado","cat":"hamburguer","nome":"Triplo Trufado","foto":"trufado","preco":44.9,"desc":"Três blends de 100 g, três fatias de cheddar e maionese trufada. Pra quem chegou com fome."},{"id":"cola","cat":"bebidas","nome":"Cola com gelo e limão","foto":"cha","preco":8.9,"desc":"Lata de 350 ml servida no copo com gelo e limão."},{"id":"limonada","cat":"bebidas","nome":"Limonada suíça","foto":"limonada","preco":12.9,"desc":"Limão batido com casca, açúcar e gelo. 500 ml."},{"id":"shake-oreo","cat":"bebidas","nome":"Shake de Oreo","foto":"shake-oreo","preco":19.9,"desc":"Sorvete de baunilha, biscoito Oreo e calda de chocolate. 400 ml."},{"id":"shake-morango","cat":"bebidas","nome":"Shake de morango","foto":"shake-morango","preco":18.9,"desc":"Sorvete de creme com morango fresco batido. 400 ml."},{"id":"chopp","cat":"bebidas","nome":"Chopp pilsen","foto":"chopp","preco":14.9,"desc":"Caneca de 500 ml, tirado na hora. Só no balcão e no delivery próprio."},{"id":"margherita","cat":"pizza","nome":"Margherita","foto":"margherita","preco":49.9,"desc":"Molho de tomate, muçarela, manjericão fresco e azeite. 8 fatias."},{"id":"pepperoni","cat":"pizza","nome":"Pepperoni","foto":"pepperoni","preco":56.9,"promo":49.9,"destaque":true,"desc":"Muçarela e pepperoni fatiado fininho, que fica crocante na borda. 8 fatias."},{"id":"calabresa","cat":"pizza","nome":"Calabresa","foto":"calabresa","preco":52.9,"desc":"Calabresa artesanal, cebola roxa, muçarela e orégano. 8 fatias."},{"id":"portuguesa","cat":"pizza","nome":"Portuguesa","foto":"portuguesa","preco":54.9,"desc":"Presunto, ovo, cebola, azeitona, ervilha e muçarela. 8 fatias."},{"id":"combo-monta","cat":"combos","nome":"Combo Monta","foto":"combo","preco":39.9,"promo":34.9,"destaque":true,"desc":"Clássico Monta, fritas média e uma bebida de lata."},{"id":"combo-casal","cat":"combos","nome":"Combo Casal","foto":"cesta","preco":79.9,"desc":"Dois burgers à escolha, fritas grande e duas bebidas de lata."},{"id":"combo-duplo","cat":"combos","nome":"Combo Smash em dobro","foto":"categoria-burger","preco":54.9,"desc":"Dois Smash da Casa e uma porção de onion rings."},{"id":"combo-galera","cat":"combos","nome":"Combo Galera","foto":"mesa","preco":149.9,"desc":"Quatro burgers, duas porções de fritas, onion rings e quatro bebidas."},{"id":"fritas-cheddar","cat":"promocao","nome":"Fritas cheddar e bacon","foto":"fritas","preco":22.9,"promo":17.9,"destaque":true,"desc":"Porção grande com cheddar cremoso e farofa de bacon por cima."},{"id":"burger-dia","cat":"promocao","nome":"Burger do dia","foto":"derretido","preco":24.9,"promo":19.9,"desc":"Muda todo dia, sempre com queijo escorrendo. Pergunte no pedido qual é o de hoje."},{"id":"asinhas","cat":"promocao","nome":"Asinhas BBQ","foto":"wings","preco":29.9,"promo":24.9,"desc":"Dez asinhas assadas e pinceladas no barbecue picante, com molho ranch."},{"id":"onion","cat":"promocao","nome":"Onion rings","foto":"onion","preco":21.9,"promo":16.9,"desc":"Anéis de cebola empanados na cerveja, com maionese defumada."}],"acesso":{"email":"loja@montaburger.com.br","senha":"monta2026","responsavel":"Juliana Prado"}}</script>
+<script src="assets/cardapio.js"></script>
+<script src="assets/painel.js"></script>
+</body>
+</html>

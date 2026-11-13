@@ -1,0 +1,56 @@
+{
+  "desmontado": {
+    "largura": 533,
+    "altura": 800,
+    "camadas": [
+      {
+        "nome": "pao-cima",
+        "topo": 80,
+        "altura": 130
+      },
+      {
+        "nome": "alface",
+        "topo": 167,
+        "altura": 89
+      },
+      {
+        "nome": "tomate",
+        "topo": 230,
+        "altura": 92
+      },
+      {
+        "nome": "cebola",
+        "topo": 273,
+        "altura": 119
+      },
+      {
+        "nome": "queijo",
+        "topo": 340,
+        "altura": 102
+      },
+      {
+        "nome": "carne",
+        "topo": 394,
+        "altura": 119
+      },
+      {
+        "nome": "alface-baixo",
+        "topo": 477,
+        "altura": 53
+      },
+      {
+        "nome": "pao-baixo",
+        "topo": 512,
+        "altura": 127
+      }
+    ]
+  },
+  "montado": {
+    "largura": 657,
+    "altura": 661,
+    "topo": 168,
+    "base": 528,
+    "esq": 53,
+    "dir": 589
+  }
+}

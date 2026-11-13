@@ -517,7 +517,8 @@ html { scrollbar-color: var(--ketchup) var(--rosa); scrollbar-width: thin; }
   .duelo-meio { width: 170px; }
 }
 @media (max-width: 900px) {
-  .topo-in { padding: 12px 18px; gap: 12px; }
+  .topo-in { padding: 12px 18px; gap: 12px; justify-content: space-between; }
+  .topo-acoes { margin-left: auto; gap: 10px; }
   .logo .simbolo { width: 42px; height: 37px; }
   .logo-txt b { font-size: 25px; }
   .btn-menu { display: grid; }

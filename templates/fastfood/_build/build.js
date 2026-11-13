@@ -116,13 +116,12 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
     <div class="hero-in">
       <div class="hero-txt">
         <p class="hero-sobre rv">Hambúrguer, pizza e combos na Savassi</p>
-        <h1 class="rv"><em>Monta</em> o seu. A gente prensa na chapa e entrega quentinho.</h1>
+        <h1 class="rv"><em>Monte</em> o seu!<br> A gente prensa na chapa e entrega quentinho.</h1>
         <p class="hero-lead rv">Pão brioche selado na manteiga, blend moído no dia e o queijo que escorre. Peça pelo site, pelo iFood ou pelo 99Food.</p>
         <div class="hero-btns rv" data-iguais>
           <a class="btn btn-verm" data-ima href="#cardapio">Peça agora ${I.seta}</a>
           <a class="btn btn-vidro" data-ima href="#montagem">Veja como montamos</a>
         </div>
-        ${status}
       </div>
       <a class="cartao-off" href="#delivery" data-off aria-label="10% off no pedido feito direto pelo site">
         <span class="off-num"><b data-conta="10" data-de="0">10</b><i>%</i></span>

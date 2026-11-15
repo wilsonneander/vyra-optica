@@ -90,6 +90,8 @@ module.exports = {
   setaDiag: s('<path d="M7 17 17 7M9 7h8v8"/>'),
   mais: s('<path d="M12 4v16M4 12h16"/>'),
   menos: s('<path d="M4 12h16"/>'),
+  // área do cliente: cabeça e ombros
+  cliente: s('<path d="M12 3.5a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="M4 20.5c.8-4 4-6.5 8-6.5s7.2 2.5 8 6.5"/>'),
   // painel do dono: lixeira, olho (mostrar senha), porta de saída, foto, caixa de peça e baixar/subir arquivo
   lixeira: s('<path d="M4 7h16M9.5 7V4h5v3M6 7l1 13h10l1-13M10 11v5M14 11v5"/>'),
   olho: s('<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/>'),

@@ -36,14 +36,14 @@
         <h1>Área do dono</h1>
         <p>Cadastre peças e acessórios, controle o estoque e acompanhe os agendamentos e reservas que chegam pelo site.</p>
       </div>
-      <label class="campo"><span>E-mail</span><input name="email" type="email" autocomplete="username" required placeholder="voce@suaoficina.com.br"></label>
+      <label class="campo"><span>E-mail</span><input name="email" type="email" autocomplete="username" required placeholder="voce@suaoficina.com.br" value="dono@pistaoauto.com.br"></label>
       <div class="campo"><label for="senha"><span>Senha</span></label>
-        <div class="senha"><input id="senha" name="senha" type="password" autocomplete="current-password" required placeholder="Sua senha"><button type="button" data-mostra-senha aria-label="Mostrar senha" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg></button></div>
+        <div class="senha"><input id="senha" name="senha" type="password" autocomplete="current-password" required placeholder="Sua senha" value="pistao2026"><button type="button" data-mostra-senha aria-label="Mostrar senha" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg></button></div>
       </div>
       <label class="marcar"><input type="checkbox" name="manter"><span>Manter conectado neste aparelho</span></label>
       <button class="btn" type="submit"><span class="rola" data-rola>Entrar no painel</span></button>
       <p class="aviso" data-aviso role="status"></p>
-      <p class="login-demo">Acesso de demonstração: <b>dono@pistaoauto.com.br</b> e senha <b>pistao2026</b></p>
+      <p class="login-demo">Acesso de demonstração já preenchido: <b>dono@pistaoauto.com.br</b> e senha <b>pistao2026</b></p>
     </form>
     <a class="link-mais" href="../index.html"><span class="rola" data-rola>Voltar ao site</span></a>
   </div>
@@ -82,10 +82,10 @@
     <div class="ola">
       <div class="cab"><span class="cab-fundo" aria-hidden="true">Oficina</span><h1 data-ola>Olá, Carlos</h1><p data-ola-txt>Veja como está a loja hoje.</p></div>
       <ul class="resumo" data-resumo>
-        <li><button type="button" data-ir-filtro="vitrine"><b data-res="vitrine">0</b><span>na vitrine</span></button></li>
-        <li><button type="button" data-ir-filtro="baixo"><b data-res="baixo">0</b><span>estoque baixo</span></button></li>
-        <li><button type="button" data-ir-filtro="zero"><b data-res="zero">0</b><span>sem estoque</span></button></li>
-        <li><button type="button" data-ir-filtro="novos"><b data-res="novos">0</b><span>pedidos novos</span></button></li>
+        <li style="--i:0"><button type="button" data-ir-filtro="vitrine"><b data-res="vitrine">0</b><span>na vitrine</span></button></li>
+        <li style="--i:1"><button type="button" data-ir-filtro="baixo"><b data-res="baixo">0</b><span>estoque baixo</span></button></li>
+        <li style="--i:2"><button type="button" data-ir-filtro="zero"><b data-res="zero">0</b><span>sem estoque</span></button></li>
+        <li style="--i:3"><button type="button" data-ir-filtro="novos"><b data-res="novos">0</b><span>pedidos novos</span></button></li>
       </ul>
     </div>
 
@@ -184,6 +184,7 @@
 </dialog>
 
 <div class="recado" data-recado role="status" aria-live="polite"></div>
+<div class="veu" aria-hidden="true"></div>
 
 <script src="../assets/loja.js" defer></script>
 <script src="../assets/painel.js" defer></script>

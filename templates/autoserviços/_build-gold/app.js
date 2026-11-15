@@ -531,5 +531,15 @@
     });
   }
 
+  /* ---------- ida para a área do cliente: a tela esmaece antes de trocar de página ---------- */
+  $$('a[href^="painel/"]').forEach((a) => a.addEventListener('click', (e) => {
+    if (calmo || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+    e.preventDefault();
+    document.body.classList.add('indo');
+    setTimeout(() => { location.href = a.href; }, 420);
+  }));
+  // voltar pelo navegador (página guardada na memória) não pode trazer a tela escura
+  window.addEventListener('pageshow', () => document.body.classList.remove('indo'));
+
   $$('[data-ano]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 })();

@@ -157,12 +157,16 @@ a:hover .rola .l, button:hover .rola .l { transform: translateY(-1.3em); }
 .menu ul a { display: block; padding: 10px 8px; font: 500 16px var(--f-c); text-transform: uppercase; text-decoration: none; color: var(--tinta); transition: color .3s; }
 .menu ul a:hover, .menu ul a.atual { color: var(--rubi); }
 .menu-cta, .menu .menu-tema { display: none; }
-.topo-fone { display: flex; align-items: center; gap: 18px; text-decoration: none; color: var(--tinta); }
-.topo-fone .pulso { width: 50px; height: 50px; box-shadow: none; }
-.topo-fone .pulso svg { width: 21px; height: 21px; }
-.topo-fone span:last-child { display: grid; line-height: 1.15; }
-.topo-fone small { font: 500 12px var(--f-c); color: var(--apoio); }
-.topo-fone b { font: 700 22px var(--f-t); }
+/* botão da área do cliente no topo: retângulo com contorno que enche de vermelho */
+.topo-area { position: relative; isolation: isolate; display: inline-flex; align-items: center; justify-content: center; gap: 12px; height: 52px; padding: 0 24px; border: 1px solid var(--tinta); color: var(--tinta); overflow: hidden; font: 500 16px var(--f-c); text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: color .4s var(--suave), border-color .4s; }
+.topo-area svg { width: 20px; height: 20px; flex: none; }
+.topo-area::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--rubi); transform: scaleY(0); transform-origin: bottom; transition: transform .45s var(--suave); }
+.topo-area:hover { color: #fff; border-color: var(--rubi); }
+.topo-area:hover::before { transform: scaleY(1); }
+.menu-botoes, .menu .menu-area { display: none; }
+/* véu da troca de página (site para a área do cliente e de volta) */
+.veu { position: fixed; inset: 0; z-index: 700; background: var(--fundo); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .42s ease, visibility 0s .42s; }
+body.indo .veu { opacity: 1; visibility: visible; transition: opacity .42s ease; }
 .burger { display: none; position: relative; z-index: 2; width: 48px; height: 48px; padding: 0; border: 0; background: var(--rubi); cursor: pointer; }
 .burger i { position: absolute; left: 13px; width: 22px; height: 2px; background: var(--branco); transition: transform .4s var(--suave), opacity .3s; }
 .burger i:nth-child(1) { top: 17px; } .burger i:nth-child(2) { top: 23px; } .burger i:nth-child(3) { top: 29px; }
@@ -585,7 +589,7 @@ a.caixa-btn { text-decoration: none; }
 
 /* ---------- responsivo ---------- */
 @media (max-width: 1240px) {
-  .topo-fone small { display: none; }
+  .topo-in > .topo-area { padding: 0 18px; }
   .menu ul { gap: 6px; }
   .capa-social, .capa-pag { display: none; }
   .capa-info .wrap { gap: 14px 50px; }
@@ -597,7 +601,7 @@ a.caixa-btn { text-decoration: none; }
 @media (max-width: 960px) {
   :root { --topo: 76px; }
   .burger { display: block; margin-left: auto; }
-  .topo-fone { display: none; }
+  .topo-in > .topo-area { display: none; }
   .menu { position: fixed; inset: 0; z-index: 1; flex-direction: column; justify-content: center; align-items: flex-start; gap: 34px; padding: 100px 32px 40px; background: var(--fundo); visibility: hidden; opacity: 0; transition: opacity .45s var(--suave), visibility .45s; }
   .menu ul { display: grid; gap: 4px; }
   .menu ul li { overflow: hidden; }
@@ -608,7 +612,9 @@ a.caixa-btn { text-decoration: none; }
   .menu-aberto .menu li:nth-child(4) a { transition-delay: .15s; } .menu-aberto .menu li:nth-child(5) a { transition-delay: .2s; }
   .menu-aberto .menu li:nth-child(6) a { transition-delay: .25s; }
   .vitrine { grid-template-columns: repeat(2, 1fr); }
-  .menu-cta { display: inline-flex; }
+  .menu-botoes { display: grid; gap: 10px; }
+  .menu-cta, .menu .menu-area { display: inline-flex; }
+  .menu .menu-area { height: 58px; }
   /* com o menu aberto o topo não pode ter desfoque nem transform, senão o menu fixo fica preso dentro dele */
   .menu-aberto .topo { background: var(--fundo); backdrop-filter: none; transform: none; --tinta: inherit; --linha: inherit; --apoio: inherit; }
   .menu { overflow-y: auto; }

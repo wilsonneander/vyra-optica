@@ -6,6 +6,36 @@ html.logado [data-tela-login] { display: none; }
 [hidden] { display: none !important; }
 .pn .cab h1 { position: relative; z-index: 1; font-size: clamp(34px, 3.4vw, 50px); text-transform: uppercase; }
 
+/* ---------- transições leves ---------- */
+/* a página chega coberta pelo véu (continuação do esmaecer do site) e ele some devagar */
+.pn .veu { opacity: 1; visibility: visible; }
+.pn.pronto .veu { opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility 0s .6s; }
+.pn.indo .veu { opacity: 1; visibility: visible; transition: opacity .42s ease; }
+@keyframes sobe-suave { from { opacity: 0; transform: translateY(18px); } }
+@keyframes desce-suave { from { opacity: 0; transform: translateY(-14px); } }
+@keyframes aparece { from { opacity: 0; } }
+/* login: blocos entram um depois do outro */
+.login-lado > *, .login-form > * { animation: sobe-suave .8s var(--suave) both; }
+.login-lado > :nth-child(2) { animation-delay: .08s; }
+.login-lado > :nth-child(3) { animation-delay: .5s; }
+.login-form > :nth-child(2) { animation-delay: .16s; } .login-form > :nth-child(3) { animation-delay: .22s; }
+.login-form > :nth-child(4) { animation-delay: .28s; } .login-form > :nth-child(5) { animation-delay: .34s; }
+.login-form > :nth-child(n+6) { animation-delay: .4s; }
+.login-foto { animation: aparece 1s ease both; }
+/* login saindo: tudo esmaece e desliza de leve */
+.login { transition: opacity .45s ease, transform .55s var(--suave); }
+.saindo-login .login { opacity: 0; transform: translateY(-12px); }
+.saindo-app .app { opacity: 0; transform: translateY(12px); transition: opacity .4s ease, transform .5s var(--suave); }
+/* painel chegando: topo desce, saudação, resumo, barra e linhas sobem em sequência */
+.app.chega .app-topo { animation: desce-suave .7s var(--suave) both; }
+.app.chega .ola .cab { animation: sobe-suave .8s var(--suave) .1s both; }
+.app.chega .resumo li { animation: sobe-suave .8s var(--suave) both; animation-delay: calc(.18s + var(--i, 0) * .07s); }
+.app.chega .barra { animation: sobe-suave .8s var(--suave) .3s both; }
+.app.chega .tabela-cab, .app.chega .pedidos, .app.chega .ajustes { animation: aparece .8s ease .38s both; }
+.app.chega .linha { animation: sobe-suave .7s var(--suave) both; animation-delay: calc(.4s + var(--i, 0) * .05s); }
+/* troca de aba */
+.aba:not([hidden]) { animation: aparece .45s ease; }
+
 /* ---------- login ---------- */
 .login { display: grid; grid-template-columns: 1.05fr 1fr; min-height: 100svh; }
 .login-foto { position: relative; overflow: hidden; }

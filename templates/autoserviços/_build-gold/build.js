@@ -131,10 +131,10 @@ ${fontes}
         <li><a href="#faq">${rola('FAQ')}</a></li>
         <li><a href="#contato">${rola('Contato')}</a></li>
       </ul>
-      <a class="btn menu-cta" href="#contato">Agendar serviço</a>
+      <div class="menu-botoes"><a class="btn menu-cta" href="#contato">Agendar serviço</a><a class="topo-area menu-area" href="painel/index.html">${I.cliente}<span>Área do cliente</span></a></div>
       ${seletorTema('menu-tema')}
     </nav>
-    <a class="topo-fone" href="tel:${tel}"><span class="pulso">${I.fone}</span><span><small data-status>Ligue agora</small><b>${M.telefone}</b></span></a>
+    <a class="topo-area" href="painel/index.html">${I.cliente}${rola('Área do cliente')}</a>
     <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
   </div>
 </header>
@@ -393,7 +393,7 @@ ${seletorTema('tema-lado')}
         <p>${esc(M.frase)}</p>
         <a class="rodape-fone" href="tel:${tel}"><span class="pulso">${I.fone}</span>${M.telefone}</a>
       </div>
-      <div><h3>Navegação</h3><ul><li><a href="#inicio">${rola('Início')}</a></li><li><a href="#servicos">${rola('Serviços')}</a></li><li><a href="#produtos">${rola('Produtos')}</a></li><li><a href="#sobre">${rola('Sobre nós')}</a></li><li><a href="#faq">${rola('FAQ')}</a></li><li><a href="#contato">${rola('Contato')}</a></li><li><a href="painel/index.html">${rola('Área do dono')}</a></li></ul></div>
+      <div><h3>Navegação</h3><ul><li><a href="#inicio">${rola('Início')}</a></li><li><a href="#servicos">${rola('Serviços')}</a></li><li><a href="#produtos">${rola('Produtos')}</a></li><li><a href="#sobre">${rola('Sobre nós')}</a></li><li><a href="#faq">${rola('FAQ')}</a></li><li><a href="#contato">${rola('Contato')}</a></li><li><a href="painel/index.html">${rola('Área do cliente')}</a></li></ul></div>
       <div><h3>Serviços</h3><ul>${S.slice(0, 5).map((s) => `<li><a href="#${s.id}">${rola(s.nome)}</a></li>`).join('')}</ul></div>
       <div><h3>Endereço e contato</h3>
         <ul class="rodape-contato"><li>${I.pino}<span>${M.endereco}, ${M.bairro}<br>${M.cidade}</span></li><li>${I.email}<a href="mailto:${M.email}">${M.email}</a></li><li>${I.relogio}<span>${C.horarioTexto}</span></li></ul>
@@ -457,6 +457,8 @@ ${seletorTema('tema-lado')}
 <a class="whats-flutua" href="${wa('Olá, Pistão! Quero agendar um serviço.')}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">${I.whats}</a>
 <a class="sobe-topo" href="#inicio" aria-label="Voltar ao topo"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="anel" cx="24" cy="24" r="21"/><path d="M24 32V16M17 23l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></a>
 
+<div class="veu" aria-hidden="true"></div>
+
 <script src="assets/loja.js" defer></script>
 <script src="assets/app.js" defer></script>
 </body>
@@ -497,14 +499,14 @@ ${fontes}
         <h1>Área do dono</h1>
         <p>Cadastre peças e acessórios, controle o estoque e acompanhe os agendamentos e reservas que chegam pelo site.</p>
       </div>
-      <label class="campo"><span>E-mail</span><input name="email" type="email" autocomplete="username" required placeholder="voce@suaoficina.com.br"></label>
+      <label class="campo"><span>E-mail</span><input name="email" type="email" autocomplete="username" required placeholder="voce@suaoficina.com.br" value="${P.email}"></label>
       <div class="campo"><label for="senha"><span>Senha</span></label>
-        <div class="senha"><input id="senha" name="senha" type="password" autocomplete="current-password" required placeholder="Sua senha"><button type="button" data-mostra-senha aria-label="Mostrar senha" aria-pressed="false">${I.olho}</button></div>
+        <div class="senha"><input id="senha" name="senha" type="password" autocomplete="current-password" required placeholder="Sua senha" value="${P.senha}"><button type="button" data-mostra-senha aria-label="Mostrar senha" aria-pressed="false">${I.olho}</button></div>
       </div>
       <label class="marcar"><input type="checkbox" name="manter"><span>Manter conectado neste aparelho</span></label>
       <button class="btn" type="submit">${rola('Entrar no painel')}</button>
       <p class="aviso" data-aviso role="status"></p>
-      <p class="login-demo">Acesso de demonstração: <b>${P.email}</b> e senha <b>${P.senha}</b></p>
+      <p class="login-demo">Acesso de demonstração já preenchido: <b>${P.email}</b> e senha <b>${P.senha}</b></p>
     </form>
     <a class="link-mais" href="../index.html">${rola('Voltar ao site')}</a>
   </div>
@@ -531,10 +533,10 @@ ${fontes}
     <div class="ola">
       <div class="cab"><span class="cab-fundo" aria-hidden="true">Oficina</span><h1 data-ola>Olá, ${P.dono}</h1><p data-ola-txt>Veja como está a loja hoje.</p></div>
       <ul class="resumo" data-resumo>
-        <li><button type="button" data-ir-filtro="vitrine"><b data-res="vitrine">0</b><span>na vitrine</span></button></li>
-        <li><button type="button" data-ir-filtro="baixo"><b data-res="baixo">0</b><span>estoque baixo</span></button></li>
-        <li><button type="button" data-ir-filtro="zero"><b data-res="zero">0</b><span>sem estoque</span></button></li>
-        <li><button type="button" data-ir-filtro="novos"><b data-res="novos">0</b><span>pedidos novos</span></button></li>
+        <li style="--i:0"><button type="button" data-ir-filtro="vitrine"><b data-res="vitrine">0</b><span>na vitrine</span></button></li>
+        <li style="--i:1"><button type="button" data-ir-filtro="baixo"><b data-res="baixo">0</b><span>estoque baixo</span></button></li>
+        <li style="--i:2"><button type="button" data-ir-filtro="zero"><b data-res="zero">0</b><span>sem estoque</span></button></li>
+        <li style="--i:3"><button type="button" data-ir-filtro="novos"><b data-res="novos">0</b><span>pedidos novos</span></button></li>
       </ul>
     </div>
 
@@ -633,6 +635,7 @@ ${fontes}
 </dialog>
 
 <div class="recado" data-recado role="status" aria-live="polite"></div>
+<div class="veu" aria-hidden="true"></div>
 
 <script src="../assets/loja.js" defer></script>
 <script src="../assets/painel.js" defer></script>

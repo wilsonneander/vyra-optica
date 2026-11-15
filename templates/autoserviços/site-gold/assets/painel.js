@@ -10,6 +10,26 @@
   const esc = L.esc;
   const BASE = '../';
   document.documentElement.classList.add('js');
+  const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const corpo = document.body;
+  const espera = (ms) => new Promise((ok) => setTimeout(ok, calmo ? 0 : ms));
+  // painel aparecendo: topo, resumo e linhas sobem em sequência; a classe sai depois para não repetir a cada filtro
+  const animaChegada = () => {
+    const app = $('[data-tela-app]');
+    app.classList.remove('chega'); void app.offsetWidth; app.classList.add('chega');
+    clearTimeout(animaChegada.t);
+    animaChegada.t = setTimeout(() => app.classList.remove('chega'), 1800);
+  };
+  // véu que veio do site some devagar
+  requestAnimationFrame(() => requestAnimationFrame(() => corpo.classList.add('pronto')));
+  window.addEventListener('pageshow', () => corpo.classList.remove('indo'));
+  // voltar ao site: esmaece antes de trocar de página
+  $$('a[href^="../index.html"]:not([target])').forEach((a) => a.addEventListener('click', (e) => {
+    if (calmo || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+    e.preventDefault();
+    corpo.classList.add('indo');
+    setTimeout(() => { location.href = a.href; }, 420);
+  }));
 
   /* ---------- utilidades ---------- */
   const recado = (txt, erro = false) => {
@@ -98,8 +118,14 @@
     if (email === L.painel.email.toLowerCase() && (await confere(senha))) {
       erros = 0;
       avisoLogin.textContent = '';
+      const manter = login.elements.manter.checked;
+      // login esmaece, depois o painel entra em sequência
+      corpo.classList.add('saindo-login');
+      await espera(460);
+      sessao.entra(manter);
+      corpo.classList.remove('saindo-login');
       login.reset();
-      sessao.entra(login.elements.manter.checked);
+      scrollTo(0, 0);
       abreApp();
       return;
     }
@@ -109,7 +135,14 @@
     login.classList.remove('treme'); void login.offsetWidth; login.classList.add('treme');
     login.elements.senha.select();
   });
-  $('[data-sair]').addEventListener('click', () => { sessao.sai(); scrollTo(0, 0); login.elements.email.focus(); });
+  $('[data-sair]').addEventListener('click', async () => {
+    corpo.classList.add('saindo-app');
+    await espera(420);
+    sessao.sai();
+    corpo.classList.remove('saindo-app');
+    scrollTo(0, 0);
+    login.elements.senha.focus();
+  });
 
   /* ---------- abas ---------- */
   const abas = $$('[data-aba]');
@@ -183,10 +216,10 @@
       if (sit === 'zero' && p.estoque > 0) return false;
       return true;
     });
-    lista.innerHTML = vis.map((p) => {
+    lista.innerHTML = vis.map((p, i) => {
       const [s, sTxt] = L.situacao(p);
       const off = L.desconto(p);
-      return `<li class="linha${p.vitrine === false ? ' oculto' : ''}" data-id="${esc(p.id)}">
+      return `<li class="linha${p.vitrine === false ? ' oculto' : ''}" data-id="${esc(p.id)}" style="--i:${Math.min(i, 12)}">
         <div class="linha-prod">${p.foto ? `<img src="${esc(L.foto(p.foto, BASE))}" alt="" width="76" height="58" loading="lazy">` : `<span class="linha-sem-foto">${I.foto}</span>`}<div><b title="${esc(p.nome)}">${esc(p.nome)}</b><span>${esc(p.categoria)}</span></div></div>
         <div class="linha-preco"><b>${L.preco(p.preco)}</b>${off ? `<s>${L.preco(p.de)}</s>` : ''}</div>
         <div class="linha-estoque"><div class="qtd"><button type="button" data-est="-1" aria-label="Tirar uma unidade de ${esc(p.nome)}">${I.menos}</button><input type="number" min="0" value="${p.estoque}" inputmode="numeric" aria-label="Estoque de ${esc(p.nome)}" data-est-campo><button type="button" data-est="1" aria-label="Somar uma unidade a ${esc(p.nome)}">${I.mais}</button></div><small class="s-${s}">${sTxt}</small></div>
@@ -466,10 +499,11 @@
     let aba = 'produtos';
     try { aba = sessionStorage.getItem('pistao-aba') || aba; } catch (e) { /* nada */ }
     mostraAba(abas.some((b) => b.dataset.aba === aba) ? aba : 'produtos');
+    if (!calmo) animaChegada();
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(igualar);
   }
   // um pedido feito no site em outra aba aparece aqui sem recarregar
   window.addEventListener('storage', (e) => { if (sessao.ativa() && (e.key === L.chaves.agenda || e.key === L.chaves.produtos)) carrega(); });
   if (sessao.ativa()) abreApp();
-  else { raiz.classList.remove('logado'); login.elements.email.focus(); }
+  else { raiz.classList.remove('logado'); }
 })();

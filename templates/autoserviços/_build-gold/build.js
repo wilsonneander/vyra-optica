@@ -37,7 +37,13 @@ const sprite = C.marcas.map(([id]) => {
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
 fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(OUT, 'assets', 'style.css'));
 fs.writeFileSync(path.join(OUT, 'assets', 'app.js'), fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
-  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura })));
+  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura, icones: { whats: I.whats, mais: I.mais, menos: I.menos } })));
+// loja (vitrine, reservas e agendamentos) e painel do dono
+fs.writeFileSync(path.join(OUT, 'assets', 'loja.js'), fs.readFileSync(path.join(__dirname, 'loja.js'), 'utf8')
+  .replace('/*SEMENTE*/', JSON.stringify({ categorias: C.categorias, produtos: C.produtos, agendamentosExemplo: C.agendamentosExemplo, painel: C.painel, whatsapp: M.whatsapp })));
+fs.copyFileSync(path.join(__dirname, 'painel.css'), path.join(OUT, 'assets', 'painel.css'));
+fs.writeFileSync(path.join(OUT, 'assets', 'painel.js'), fs.readFileSync(path.join(__dirname, 'painel.js'), 'utf8')
+  .replace('/*DADOS*/', JSON.stringify({ icones: { mais: I.mais, menos: I.menos, lixeira: I.lixeira, whats: I.whats, foto: I.foto } })));
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
 const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700;800&family=Sarabun:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">';
@@ -120,6 +126,7 @@ ${fontes}
       <ul>
         <li><a href="#inicio">${rola('Início')}</a></li>
         <li><a href="#servicos">${rola('Serviços')}</a></li>
+        <li><a href="#produtos">${rola('Produtos')}</a></li>
         <li><a href="#sobre">${rola('Sobre nós')}</a></li>
         <li><a href="#faq">${rola('FAQ')}</a></li>
         <li><a href="#contato">${rola('Contato')}</a></li>
@@ -292,6 +299,17 @@ ${seletorTema('tema-lado')}
     </div>
   </section>
 
+  <section class="produtos" id="produtos" aria-labelledby="produtos-t">
+    <div class="wrap">
+      <div class="produtos-topo">
+        ${titulo('Loja', 'Peças e<br>acessórios', { id: 'produtos-t', txt: 'Peças com nota fiscal e garantia, escolhidas pela nossa equipe. Reserve pelo site, retire no balcão ou deixe que a gente instala junto com o serviço.' })}
+        <div class="filtros" role="group" aria-label="Filtrar produtos por categoria" data-filtros data-iguais></div>
+      </div>
+      <div class="vitrine" data-vitrine aria-live="polite"></div>
+      <p class="vitrine-vazia" data-vitrine-vazia hidden>Nenhum produto nesta categoria agora. Pergunte pelo WhatsApp que a gente encomenda.</p>
+    </div>
+  </section>
+
   <section class="faq" id="faq">
     <div class="wrap faq-grid">
       <div class="faq-lado">
@@ -375,7 +393,7 @@ ${seletorTema('tema-lado')}
         <p>${esc(M.frase)}</p>
         <a class="rodape-fone" href="tel:${tel}"><span class="pulso">${I.fone}</span>${M.telefone}</a>
       </div>
-      <div><h3>Navegação</h3><ul><li><a href="#inicio">${rola('Início')}</a></li><li><a href="#servicos">${rola('Serviços')}</a></li><li><a href="#sobre">${rola('Sobre nós')}</a></li><li><a href="#faq">${rola('FAQ')}</a></li><li><a href="#contato">${rola('Contato')}</a></li></ul></div>
+      <div><h3>Navegação</h3><ul><li><a href="#inicio">${rola('Início')}</a></li><li><a href="#servicos">${rola('Serviços')}</a></li><li><a href="#produtos">${rola('Produtos')}</a></li><li><a href="#sobre">${rola('Sobre nós')}</a></li><li><a href="#faq">${rola('FAQ')}</a></li><li><a href="#contato">${rola('Contato')}</a></li><li><a href="painel/index.html">${rola('Área do dono')}</a></li></ul></div>
       <div><h3>Serviços</h3><ul>${S.slice(0, 5).map((s) => `<li><a href="#${s.id}">${rola(s.nome)}</a></li>`).join('')}</ul></div>
       <div><h3>Endereço e contato</h3>
         <ul class="rodape-contato"><li>${I.pino}<span>${M.endereco}, ${M.bairro}<br>${M.cidade}</span></li><li>${I.email}<a href="mailto:${M.email}">${M.email}</a></li><li>${I.relogio}<span>${C.horarioTexto}</span></li></ul>
@@ -413,9 +431,33 @@ ${seletorTema('tema-lado')}
   <video controls playsinline preload="none" poster="${v('oficina')}.webp"><source src="${v('oficina')}.mp4" type="video/mp4"></video>
 </dialog>
 
+<dialog class="reserva" data-reserva aria-labelledby="reserva-t">
+  <form class="form" data-reserva-form novalidate>
+    <button type="button" class="reserva-fecha" data-reserva-fecha aria-label="Fechar">${I.fechar}</button>
+    <div class="reserva-item">
+      <img src="" alt="" width="160" height="120" data-reserva-foto>
+      <div><h3 id="reserva-t" data-reserva-nome>Reservar produto</h3><p data-reserva-preco></p><small data-reserva-sit></small></div>
+    </div>
+    <div class="duas">
+      <label class="campo"><span>Seu nome</span><input name="nome" required autocomplete="name" placeholder="Nome completo"></label>
+      <label class="campo"><span>WhatsApp</span><input name="fone" required inputmode="tel" autocomplete="tel" placeholder="(31) 9 0000-0000" data-mascara></label>
+    </div>
+    <div class="duas">
+      <div class="campo"><span id="qtd-t">Quantidade</span>
+        <div class="qtd" role="group" aria-labelledby="qtd-t"><button type="button" data-qtd="-1" aria-label="Menos uma">${I.menos}</button><input name="quantidade" type="number" min="1" max="20" value="1" inputmode="numeric" aria-labelledby="qtd-t"><button type="button" data-qtd="1" aria-label="Mais uma">${I.mais}</button></div>
+      </div>
+      <fieldset class="campo periodo"><legend>Como prefere</legend><div class="opcoes" data-iguais><label><input type="radio" name="entrega" value="Retirar no balcão" checked><span>Retirar</span></label><label><input type="radio" name="entrega" value="Instalar na oficina"><span>Instalar aqui</span></label></div></fieldset>
+    </div>
+    <p class="reserva-total">Total estimado <b data-reserva-total>R$ 0,00</b></p>
+    <button class="btn" type="submit">${I.whats}Reservar pelo WhatsApp</button>
+    <p class="aviso" data-aviso role="status"></p>
+  </form>
+</dialog>
+
 <a class="whats-flutua" href="${wa('Olá, Pistão! Quero agendar um serviço.')}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">${I.whats}</a>
 <a class="sobe-topo" href="#inicio" aria-label="Voltar ao topo"><svg viewBox="0 0 48 48" aria-hidden="true"><circle class="anel" cx="24" cy="24" r="21"/><path d="M24 32V16M17 23l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.2"/></svg></a>
 
+<script src="assets/loja.js" defer></script>
 <script src="assets/app.js" defer></script>
 </body>
 </html>
@@ -423,3 +465,180 @@ ${seletorTema('tema-lado')}
 
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 console.log('ok', path.relative(process.cwd(), OUT), Math.round(html.length / 1024) + 'k');
+
+// ---------- painel do dono (painel/index.html) ----------
+const P = C.painel;
+const painel = `<!doctype html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Área do dono | ${M.completo}</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#101010">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem('pistao-tema');if(t==='claro'||t==='escuro')document.documentElement.dataset.tema=t;if(sessionStorage.getItem('pistao-sessao')||localStorage.getItem('pistao-sessao'))document.documentElement.classList.add('logado');}catch(e){}</script>
+${fontes}
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/painel.css">
+</head>
+<body class="pn">
+
+<main class="login" data-tela-login>
+  <div class="login-foto" aria-hidden="true">
+    <span class="login-vinho"></span>
+    <div class="login-img"><img src="../assets/img/oficina.webp" alt="" width="1300" height="900"></div>
+  </div>
+  <div class="login-lado">
+    <a class="logo" href="../index.html" aria-label="Voltar ao site da ${M.completo}">${I.logo}</a>
+    <form class="form login-form" data-login novalidate>
+      <div class="cab">
+        <span class="cab-fundo" aria-hidden="true">Painel</span>
+        <h1>Área do dono</h1>
+        <p>Cadastre peças e acessórios, controle o estoque e acompanhe os agendamentos e reservas que chegam pelo site.</p>
+      </div>
+      <label class="campo"><span>E-mail</span><input name="email" type="email" autocomplete="username" required placeholder="voce@suaoficina.com.br"></label>
+      <div class="campo"><label for="senha"><span>Senha</span></label>
+        <div class="senha"><input id="senha" name="senha" type="password" autocomplete="current-password" required placeholder="Sua senha"><button type="button" data-mostra-senha aria-label="Mostrar senha" aria-pressed="false">${I.olho}</button></div>
+      </div>
+      <label class="marcar"><input type="checkbox" name="manter"><span>Manter conectado neste aparelho</span></label>
+      <button class="btn" type="submit">${rola('Entrar no painel')}</button>
+      <p class="aviso" data-aviso role="status"></p>
+      <p class="login-demo">Acesso de demonstração: <b>${P.email}</b> e senha <b>${P.senha}</b></p>
+    </form>
+    <a class="link-mais" href="../index.html">${rola('Voltar ao site')}</a>
+  </div>
+</main>
+
+<div class="app" data-tela-app>
+  <header class="app-topo">
+    <div class="wrap app-topo-in">
+      <a class="logo" href="../index.html" aria-label="Abrir o site da ${M.completo}">${I.logo}</a>
+      <nav class="abas" role="tablist" aria-label="Seções do painel">
+        <button type="button" role="tab" id="t-produtos" aria-controls="aba-produtos" aria-selected="true" data-aba="produtos">Produtos</button>
+        <button type="button" role="tab" id="t-agenda" aria-controls="aba-agenda" aria-selected="false" data-aba="agenda" tabindex="-1">Pedidos<b class="novos" data-cont-novos hidden></b></button>
+        <button type="button" role="tab" id="t-ajustes" aria-controls="aba-ajustes" aria-selected="false" data-aba="ajustes" tabindex="-1">Ajustes</button>
+      </nav>
+      <div class="app-acoes">
+        <a class="link-mais" href="../index.html#produtos" target="_blank" rel="noopener">${rola('Ver vitrine')}</a>
+        ${seletorTema('app-tema')}
+        <button type="button" class="caixa-btn" data-sair>${I.sair}<span>Sair</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap app-main" id="conteudo">
+    <div class="ola">
+      <div class="cab"><span class="cab-fundo" aria-hidden="true">Oficina</span><h1 data-ola>Olá, ${P.dono}</h1><p data-ola-txt>Veja como está a loja hoje.</p></div>
+      <ul class="resumo" data-resumo>
+        <li><button type="button" data-ir-filtro="vitrine"><b data-res="vitrine">0</b><span>na vitrine</span></button></li>
+        <li><button type="button" data-ir-filtro="baixo"><b data-res="baixo">0</b><span>estoque baixo</span></button></li>
+        <li><button type="button" data-ir-filtro="zero"><b data-res="zero">0</b><span>sem estoque</span></button></li>
+        <li><button type="button" data-ir-filtro="novos"><b data-res="novos">0</b><span>pedidos novos</span></button></li>
+      </ul>
+    </div>
+
+    <section class="aba" id="aba-produtos" role="tabpanel" aria-labelledby="t-produtos" data-painel="produtos">
+      <div class="barra">
+        <label class="campo busca"><span class="sr">Buscar produto</span><input type="search" placeholder="Buscar pelo nome" data-busca></label>
+        <label class="campo"><span class="sr">Categoria</span><select data-filtro-cat><option value="">Todas as categorias</option>${C.categorias.map((c) => `<option>${c}</option>`).join('')}</select></label>
+        <label class="campo"><span class="sr">Situação</span><select data-filtro-sit><option value="">Todos os produtos</option><option value="vitrine">Na vitrine</option><option value="oculto">Fora da vitrine</option><option value="baixo">Estoque baixo</option><option value="zero">Sem estoque</option></select></label>
+        <button type="button" class="btn btn-novo" data-novo>${I.mais}Novo produto</button>
+      </div>
+      <div class="tabela">
+        <div class="tabela-cab" aria-hidden="true"><span>Produto</span><span>Preço</span><span>Estoque</span><span>Vitrine</span><span>Destaque</span><span></span></div>
+        <ul class="lista" data-lista></ul>
+      </div>
+      <p class="vazio" data-vazio hidden>Nenhum produto encontrado com esses filtros.</p>
+    </section>
+
+    <section class="aba" id="aba-agenda" role="tabpanel" aria-labelledby="t-agenda" data-painel="agenda" hidden>
+      <div class="barra">
+        <div class="filtros" role="group" aria-label="Filtrar pedidos pela situação" data-filtro-status data-iguais>
+          <button type="button" aria-pressed="true" data-st="">Todos</button><button type="button" aria-pressed="false" data-st="novo">Novos</button><button type="button" aria-pressed="false" data-st="confirmado">Confirmados</button><button type="button" aria-pressed="false" data-st="concluido">Concluídos</button><button type="button" aria-pressed="false" data-st="cancelado">Cancelados</button>
+        </div>
+        <label class="campo"><span class="sr">Tipo de pedido</span><select data-filtro-tipo><option value="">Agendamentos e reservas</option><option>Agendamento</option><option>Reserva</option></select></label>
+      </div>
+      <div class="pedidos" data-pedidos></div>
+      <p class="vazio" data-vazio-pedidos hidden>Nenhum pedido aqui. Os agendamentos e reservas feitos no site aparecem nesta lista.</p>
+    </section>
+
+    <section class="aba" id="aba-ajustes" role="tabpanel" aria-labelledby="t-ajustes" data-painel="ajustes" hidden>
+      <div class="ajustes">
+        <form class="form" data-troca-senha novalidate>
+          <h2>Trocar senha</h2>
+          <label class="campo"><span>Senha atual</span><input name="atual" type="password" autocomplete="current-password" required></label>
+          <div class="duas">
+            <label class="campo"><span>Nova senha</span><input name="nova" type="password" autocomplete="new-password" minlength="6" required></label>
+            <label class="campo"><span>Repita a nova senha</span><input name="repete" type="password" autocomplete="new-password" required></label>
+          </div>
+          <button class="btn" type="submit">Salvar nova senha</button>
+          <p class="aviso" data-aviso role="status"></p>
+        </form>
+        <div class="form">
+          <h2>Cópia de segurança</h2>
+          <p>Os produtos, fotos e pedidos ficam salvos neste navegador. Baixe uma cópia de vez em quando e use o mesmo arquivo para levar tudo para outro computador.</p>
+          <div class="botoes" data-iguais>
+            <button type="button" class="caixa-btn" data-exporta>${I.baixar}<span>Baixar cópia</span></button>
+            <label class="caixa-btn">${I.subir}<span>Carregar cópia</span><input type="file" accept="application/json,.json" class="sr" data-importa></label>
+          </div>
+          <p class="aviso" data-aviso-backup role="status"></p>
+        </div>
+        <div class="form">
+          <h2>Voltar ao exemplo</h2>
+          <p>Apaga os produtos cadastrados e volta para a lista de demonstração do modelo. Os pedidos não são apagados.</p>
+          <button type="button" class="caixa-btn perigo" data-restaura>${I.lixeira}<span>Restaurar produtos de exemplo</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<dialog class="gaveta" data-gaveta aria-labelledby="gaveta-t">
+  <form class="form gaveta-form" data-form-produto novalidate>
+    <div class="gaveta-topo"><h2 id="gaveta-t">Novo produto</h2><button type="button" class="reserva-fecha" data-fecha aria-label="Fechar">${I.fechar}</button></div>
+    <div class="foto-zona" data-foto-zona>
+      <img src="" alt="Foto do produto" data-foto-prev hidden>
+      <div class="foto-vazia" data-foto-vazia>${I.foto}<span>Arraste a foto aqui</span></div>
+      <div class="foto-botoes" data-iguais>
+        <label class="caixa-btn"><span data-foto-rotulo>Escolher foto</span><input type="file" accept="image/*" class="sr" data-foto-input></label>
+        <button type="button" class="caixa-btn" data-foto-tira hidden>Remover foto</button>
+      </div>
+    </div>
+    <label class="campo"><span>Nome do produto</span><input name="nome" required maxlength="80" placeholder="Ex.: Kit óleo 5W30 com filtro"></label>
+    <div class="duas">
+      <label class="campo"><span>Categoria</span><select name="categoria">${C.categorias.map((c) => `<option>${c}</option>`).join('')}</select></label>
+      <label class="campo"><span>Estoque (unidades)</span><input name="estoque" type="number" min="0" step="1" inputmode="numeric" value="1"></label>
+    </div>
+    <div class="duas">
+      <label class="campo"><span>Preço (R$)</span><input name="preco" inputmode="decimal" required placeholder="219,90"></label>
+      <label class="campo"><span>Preço antigo, se tiver promoção</span><input name="de" inputmode="decimal" placeholder="259,90"></label>
+    </div>
+    <label class="campo"><span>Descrição curta</span><textarea name="descricao" rows="3" maxlength="220" placeholder="O que vem no produto e se a instalação está inclusa"></textarea></label>
+    <div class="marcas-chave">
+      <label class="marcar"><input type="checkbox" name="vitrine" checked><span>Mostrar na vitrine do site</span></label>
+      <label class="marcar"><input type="checkbox" name="destaque"><span>Destaque (aparece primeiro)</span></label>
+    </div>
+    <p class="aviso" data-aviso role="status"></p>
+    <div class="gaveta-acoes"><button class="btn" type="submit">Salvar produto</button><button type="button" class="caixa-btn" data-fecha>Cancelar</button></div>
+  </form>
+</dialog>
+
+<dialog class="confirma" data-confirma aria-labelledby="confirma-t">
+  <form method="dialog" class="form">
+    <h2 id="confirma-t" data-confirma-t>Excluir?</h2>
+    <p data-confirma-p></p>
+    <div class="confirma-acoes"><button class="btn perigo" value="sim">Excluir</button><button class="caixa-btn" value="nao">Cancelar</button></div>
+  </form>
+</dialog>
+
+<div class="recado" data-recado role="status" aria-live="polite"></div>
+
+<script src="../assets/loja.js" defer></script>
+<script src="../assets/painel.js" defer></script>
+</body>
+</html>
+`;
+fs.mkdirSync(path.join(OUT, 'painel'), { recursive: true });
+fs.writeFileSync(path.join(OUT, 'painel', 'index.html'), painel);
+console.log('ok', path.relative(process.cwd(), path.join(OUT, 'painel')), Math.round(painel.length / 1024) + 'k');

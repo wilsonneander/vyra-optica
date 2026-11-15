@@ -3,13 +3,25 @@
 Nicho **autosserviços** (oficina mecânica, revisão e estética automotiva). Mesma empresa fictícia do Silver (Pistão Auto Center, Silveira, Belo Horizonte), em versão mais completa.
 Referência visual: template "CRAS Car Repair & Auto Services" (https://cras-three.vercel.app/cras-main/index.html), copiado no visual e na ordem das seções: topo com telefone em destaque, faixa de contatos no alto da capa, cartões pretos chapados, palavra gigante em degradê metálico atrás dos títulos, foto inclinada sobre bloco vinho, serviços em cartões largos, vídeo em largura total, números vazados em vermelho, depoimento com foto inclinada, equipe com nome em caixa sobreposta, preços em colunas coladas sobre fundo vinho, newsletter centralizada no rodapé e seletor de tema na lateral.
 
-Uma página só, com as seções do menu: Início, Serviços, Sobre nós, FAQ e Contato (com formulário). Sem loja, galeria, blog ou páginas extras.
+Uma página só, com as seções do menu: Início, Serviços, Produtos, Sobre nós, FAQ e Contato (com formulário), mais a **Área do dono** (`painel/index.html`) para cadastrar produtos e acompanhar os pedidos. Sem galeria, blog ou outras páginas.
+
+## Loja e Área do dono
+
+- **Vitrine "Peças e acessórios"** (`#produtos`): cartões com foto, categoria, preço, preço antigo riscado com "% off", situação do estoque (em estoque, últimas unidades, sob encomenda) e filtro por categoria. Destaques aparecem primeiro. "Reservar" abre uma janela com nome, WhatsApp, quantidade e "retirar ou instalar"; a reserva fica salva para o painel e abre o WhatsApp com a mensagem pronta.
+- **Área do dono** (`painel/index.html`, link no rodapé): login com e-mail e senha (trava 30 s depois de 5 erros, opção "manter conectado").
+  - **Produtos**: cadastrar, editar e excluir; foto por arrastar ou escolher (reduzida para 900 px em WebP); estoque com + e -; liga/desliga vitrine e destaque; busca e filtros por categoria e situação.
+  - **Pedidos**: agendamentos do formulário de contato e reservas da vitrine, com situação (novo, confirmado, concluído, cancelado), botão "Responder" no WhatsApp do cliente e contador de novos.
+  - **Ajustes**: trocar senha, baixar e carregar cópia de segurança (JSON) e restaurar os produtos de exemplo.
+- Acesso de demonstração: `dono@pistaoauto.com.br` / `pistao2026` (`painel` em `content.js`).
+- **Importante:** neste modelo os dados ficam no navegador (`localStorage`, código em `_build-gold/loja.js`). Serve para demonstrar e para uma oficina que usa um computador só. Para o dono cadastrar de um aparelho e os clientes verem no deles, `loja.js` precisa ser ligado a um banco de dados com login de verdade (ex.: Supabase ou Firebase); `app.js` e `painel.js` não mudam, porque só falam com `PistaoLoja`.
 
 | Pasta | O que é |
 |---|---|
 | `_build-gold/content.js` | Todo o conteúdo: marca, contatos, horários, slides, etapas, equipe, serviços, números, pacotes com preço, montadoras, depoimentos, FAQ, bairros e Instagram. `[EXEMPLO]` = trocar por cliente |
 | `_build-gold/build.js` | Gera o `index.html` e copia CSS, JS, fotos e vídeos |
 | `_build-gold/style.css`, `_build-gold/app.js` | Design e interação, sem bibliotecas (copiados para `site-gold/assets/`) |
+| `_build-gold/loja.js` | Dados da loja (produtos, pedidos, senha) guardados no navegador, usados pelo site e pelo painel |
+| `_build-gold/painel.js`, `_build-gold/painel.css` | Área do dono: login, produtos, pedidos e ajustes |
 | `_build-gold/icons.js` | Logo, conta-giros do preloader e ícones desenhados para a marca |
 | `_build-gold/img/fotos/` | Fotos em WebP (as mesmas do Silver, Unsplash; `imagens.js`) |
 | `_build-gold/img/video/` | Vídeos MP4 sem som e pôsteres WebP, montados por `videos.js` com clipes do Mixkit (licença livre Mixkit) |

@@ -57,9 +57,9 @@ p { margin: 0; }
 .topo { position: fixed; inset: 0 0 auto; z-index: 50; transition: transform .45s var(--suave); }
 .barra-sup { background: var(--asfalto); color: var(--aco); font-size: 13px; border-bottom: 1px solid #1f2024; transition: margin .45s var(--suave); }
 .barra-sup .wrap { display: flex; justify-content: space-between; align-items: center; height: 38px; gap: 20px; }
-.atalhos { display: flex; gap: 22px; }
-.atalhos a, .info-sup a { text-decoration: none; transition: color .25s; }
-.atalhos a:hover, .info-sup a:hover { color: #fff; }
+.endereco-sup, .info-sup a { display: inline-flex; gap: 6px; align-items: center; text-decoration: none; transition: color .25s; }
+.endereco-sup svg { width: 15px; height: 15px; color: var(--pinca); }
+.endereco-sup:hover, .info-sup a:hover { color: #fff; }
 .info-sup { display: flex; gap: 22px; align-items: center; }
 .info-sup a { display: inline-flex; gap: 6px; align-items: center; color: #fff; font-weight: 600; }
 .info-sup svg { width: 15px; height: 15px; color: var(--pinca); }
@@ -74,12 +74,24 @@ p { margin: 0; }
 .logo-txt b { font: italic 900 25px/1 var(--f-t); font-stretch: 125%; letter-spacing: -.01em; }
 .logo-txt small { font: 600 10.5px/1 var(--f-c); letter-spacing: .3em; text-transform: uppercase; color: var(--aco); margin-top: 5px; }
 .menu { margin-left: auto; }
-.menu ul { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
-.menu ul a { position: relative; display: block; padding: 10px 12px; font: 800 14px/1 var(--f-t); font-stretch: 100%; text-transform: uppercase; letter-spacing: .03em; text-decoration: none; color: #E9E9E6; transition: color .25s; }
-.menu ul a::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 2px; height: 3px; background: var(--pinca); transform: scaleX(0); transform-origin: right; transition: transform .4s var(--suave); }
-.menu ul a:hover, .menu ul a.atual { color: #fff; }
-.menu ul a:hover::after, .menu ul a.atual::after { transform: scaleX(1); transform-origin: left; }
-.menu-extra { display: none; }
+.menu ul { list-style: none; margin: 0; padding: 0; }
+.menu-lista { display: flex; gap: 10px; align-items: center; }
+.menu-lista > li > a, .sub-btn { position: relative; display: inline-flex; align-items: center; gap: 6px; padding: 10px 14px; border: 0; background: none; cursor: pointer; font: 800 15px/1 var(--f-t); font-stretch: 100%; text-transform: uppercase; letter-spacing: .03em; text-decoration: none; color: #E9E9E6; transition: color .25s; }
+.menu-lista > li > a::after, .sub-btn::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 2px; height: 3px; background: var(--pinca); transform: scaleX(0); transform-origin: right; transition: transform .4s var(--suave); }
+.menu-lista > li > a:hover, .sub-btn:hover, .tem-sub.aberto .sub-btn, .sub-btn.atual { color: #fff; }
+.menu-lista > li > a:hover::after, .sub-btn:hover::after, .tem-sub.aberto .sub-btn::after, .sub-btn.atual::after { transform: scaleX(1); transform-origin: left; }
+.sub-btn svg { width: 16px; height: 16px; stroke-width: 2.6; color: var(--pinca); transition: transform .4s var(--suave); }
+.tem-sub { position: relative; }
+.tem-sub.aberto .sub-btn svg { transform: rotate(180deg); }
+.sub { position: absolute; left: 0; top: calc(100% + 18px); width: 280px; padding: 8px; background: var(--carvao); border-top: 3px solid var(--pinca); border-radius: 0 0 4px 4px; box-shadow: 0 30px 50px -20px #000; opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .3s, transform .4s var(--suave), visibility 0s .4s; }
+.sub::before { content: ""; position: absolute; left: 0; right: 0; top: -22px; height: 22px; }
+.tem-sub.aberto .sub { opacity: 1; visibility: visible; transform: none; transition: opacity .3s, transform .4s var(--suave); }
+.sub a { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 13px 14px; border-radius: 3px; font: 700 14.5px/1.1 var(--f-c); color: #D9DADD; text-decoration: none; transition: background .25s, color .25s, padding .35s var(--suave); }
+.sub a svg { width: 18px; height: 18px; color: var(--pinca); opacity: 0; transform: translateX(-6px); transition: opacity .25s, transform .35s var(--suave); }
+.sub a:hover, .sub a.atual { background: var(--grafite); color: #fff; padding-left: 18px; }
+.sub a:hover svg, .sub a.atual svg { opacity: 1; transform: none; }
+.sub-todos { margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--linha); }
+.sub-todos a { color: var(--aco); font-weight: 600; font-size: 13.5px; }
 .btn-orc { height: 50px; padding: 0 22px; }
 .burger { display: none; width: 46px; height: 46px; border: 0; background: var(--grafite); border-radius: 4px; cursor: pointer; padding: 13px 12px; flex-direction: column; justify-content: space-between; }
 .burger i { display: block; height: 2px; background: #fff; transition: transform .35s var(--suave), opacity .25s; }
@@ -98,10 +110,10 @@ p { margin: 0; }
 .orcar { margin-top: 32px; max-width: 600px; padding: 20px; background: var(--carvao); border: 1px solid var(--linha); border-left: 4px solid var(--pinca); border-radius: 4px; }
 .orcar fieldset { border: 0; margin: 0; padding: 0; }
 .orcar legend { font: 800 14px/1 var(--f-t); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 12px; padding: 0; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chips label { position: relative; display: inline-flex; cursor: pointer; }
+.chips { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.chips label { position: relative; display: flex; cursor: pointer; }
 .chips input { position: absolute; opacity: 0; pointer-events: none; }
-.chips span { display: flex; align-items: center; justify-content: center; width: 100%; height: 40px; padding: 0 14px; border-radius: 3px; background: var(--grafite); color: #D9DADD; font-size: 14px; font-weight: 600; transition: background .3s, color .3s, transform .3s var(--suave); }
+.chips span { display: flex; align-items: center; justify-content: center; width: 100%; height: 46px; padding: 0 14px; border-radius: 3px; background: var(--grafite); color: #D9DADD; font-size: 14px; font-weight: 600; transition: background .3s, color .3s, transform .3s var(--suave); }
 .chips label:hover span { background: #303238; color: #fff; }
 .chips input:checked + span { background: var(--pinca); color: #fff; transform: translateY(-2px); }
 .chips input:focus-visible + span { outline: 3px solid var(--sinal); outline-offset: 2px; }
@@ -321,7 +333,6 @@ p { margin: 0; }
 
 /* ---------- responsivo ---------- */
 @media (max-width: 1180px) {
-  .menu ul a { padding: 10px 8px; font-size: 13px; }
   .nav .wrap { gap: 18px; }
 }
 @media (max-width: 1040px) {
@@ -331,11 +342,14 @@ p { margin: 0; }
   .menu { position: fixed; left: 0; right: 0; top: var(--topo-h); margin: 0; background: var(--carvao); padding: 16px 20px 26px; transform: translateY(-12px); opacity: 0; visibility: hidden; transition: transform .45s var(--suave), opacity .35s, visibility 0s .45s; box-shadow: 0 30px 40px -20px #000; }
   .topo.rolou .menu { top: 70px; }
   .menu.aberto { transform: none; opacity: 1; visibility: visible; transition: transform .45s var(--suave), opacity .35s; }
-  .menu ul { flex-direction: column; gap: 0; }
-  .menu ul a { padding: 16px 4px; font-size: 18px; border-bottom: 1px solid var(--linha); }
-  .menu ul a::after { display: none; }
-  .menu-extra { display: flex; gap: 22px; padding-top: 16px; color: var(--aco); }
-  .menu-extra a { text-decoration: none; }
+  .menu-lista { flex-direction: column; align-items: stretch; gap: 0; }
+  .menu-lista > li > a, .sub-btn { width: 100%; justify-content: space-between; padding: 16px 4px; font-size: 18px; border-bottom: 1px solid var(--linha); }
+  .menu-lista > li > a::after, .sub-btn::after { display: none; }
+  .sub { position: static; width: auto; padding: 0 0 0 12px; border: 0; box-shadow: none; background: none; opacity: 1; visibility: visible; transform: none; display: none; }
+  .sub::before { display: none; }
+  .tem-sub.aberto .sub { display: block; }
+  .sub a { padding: 13px 8px; font-size: 16px; border-bottom: 1px solid var(--linha); border-radius: 0; }
+  .sub-todos { margin: 0; padding: 0; border: 0; }
   .btn-orc { margin-left: auto; }
   .capa-grid { grid-template-columns: 1fr; }
   .capa-visual { min-height: 520px; max-width: 560px; }
@@ -353,7 +367,7 @@ p { margin: 0; }
   .num:nth-child(n+3) { border-top: 1px solid var(--linha); }
 }
 @media (max-width: 760px) {
-  .barra-sup .atalhos, .status { display: none; }
+  .barra-sup .endereco-sup, .status { display: none; }
   .barra-sup .wrap { justify-content: flex-end; }
   .btn-orc span { display: none; }
   .btn-orc { width: 50px; padding: 0; }
@@ -369,8 +383,6 @@ p { margin: 0; }
   .selo { left: auto; right: 6px; bottom: 150px; width: 110px; height: 110px; }
   .nota-capa { left: auto; right: 0; bottom: -18px; }
   .orcar-linha { flex-direction: column; align-items: stretch; }
-  .chips { display: grid; grid-template-columns: repeat(3, 1fr); }
-  .chips label { width: 100% !important; }
   .difs, .duas { grid-template-columns: 1fr; }
   .sobre-fotos { min-height: 400px; }
   .aval { width: 300px; }
@@ -399,9 +411,7 @@ p { margin: 0; }
 <header class="topo" id="topo">
   <div class="barra-sup">
     <div class="wrap">
-      <nav class="atalhos" aria-label="Páginas">
-        <a href="#inicio">Início</a><a href="#servicos">Serviços</a><a href="#sobre">Sobre nós</a><a href="#contato">Contato</a>
-      </nav>
+      <a class="endereco-sup" href="https://www.openstreetmap.org/search?query=Av.%20Pedro%20II%2C%202150%2C%20Carlos%20Prates%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><path d="M9.5 10h5"/></svg>Av. Pedro II, 2150, Carlos Prates, Belo Horizonte</a>
       <div class="info-sup">
         <span class="status" data-status>Seg. a sex. 7h30 às 18h, sáb. 8h às 13h</span>
         <a href="tel:3133330000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg>(31) 3333-0000</a>
@@ -416,9 +426,16 @@ p { margin: 0; }
   <path d="M12.5 14.5h23v7.2h-7.8v13.8h-7.4V21.7h-7.8Z" fill="#0F1012"/>
   <path d="M15.5 14.5l2 7.2M20.5 14.5l2 7.2M25.5 14.5l2 7.2M30.5 14.5l2 7.2M20.3 25.5l3.7 2.6 3.7-2.6M20.3 30.5l3.7 2.6 3.7-2.6" stroke="var(--pinca, #D42A1E)" stroke-width="1.6" fill="none"/>
 </svg><span class="logo-txt"><b>TRAÇÃO</b><small>centro automotivo</small></span></a>
-      <nav class="menu" id="menu" aria-label="Serviços">
-        <ul><li><a href="#pneus" data-ir="pneus">Pneus e rodas</a></li><li><a href="#mecanica" data-ir="mecanica">Mecânica</a></li><li><a href="#oleo" data-ir="oleo">Troca de óleo</a></li><li><a href="#freio" data-ir="freio">Sistema de freio</a></li><li><a href="#suspensao" data-ir="suspensao">Suspensão</a></li></ul>
-        <div class="menu-extra"><a href="#sobre">Sobre nós</a><a href="#contato">Contato</a></div>
+      <nav class="menu" id="menu" aria-label="Principal">
+        <ul class="menu-lista">
+          <li><a href="#inicio">Início</a></li>
+          <li class="tem-sub">
+            <button class="sub-btn" type="button" aria-expanded="false" aria-controls="sub-servicos">Serviços<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M6 9.5l6 6 6-6"/></svg></button>
+            <ul class="sub" id="sub-servicos"><li><a href="#pneus" data-ir="pneus">Pneus e rodas<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></li><li><a href="#mecanica" data-ir="mecanica">Mecânica<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></li><li><a href="#oleo" data-ir="oleo">Troca de óleo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></li><li><a href="#freio" data-ir="freio">Sistema de freio<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></li><li><a href="#suspensao" data-ir="suspensao">Suspensão<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></li><li class="sub-todos"><a href="#servicos">Ver todos os serviços</a></li></ul>
+          </li>
+          <li><a href="#sobre">Sobre nós</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
       </nav>
       <a class="btn btn-pinca btn-orc" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tra%C3%A7%C3%A3o!%20Quero%20um%20or%C3%A7amento%20gr%C3%A1tis." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg><span>Orçamento grátis</span></a>
       <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
@@ -732,7 +749,16 @@ p { margin: 0; }
     const abre = !menu.classList.contains('aberto');
     menu.classList.toggle('aberto', abre); burger.setAttribute('aria-expanded', String(abre));
   });
-  $$('#menu a').forEach((a) => a.addEventListener('click', fecharMenu));
+  // submenu Serviços: abre no hover (mouse) e no clique (toque e teclado)
+  const sub = $('.tem-sub'), subBtn = $('.sub-btn');
+  const abrirSub = (on) => { sub.classList.toggle('aberto', on); subBtn.setAttribute('aria-expanded', String(on)); };
+  const temMouse = matchMedia('(hover: hover) and (min-width: 1041px)');
+  sub.addEventListener('mouseenter', () => { if (temMouse.matches) abrirSub(true); });
+  sub.addEventListener('mouseleave', () => { if (temMouse.matches) abrirSub(false); });
+  subBtn.addEventListener('click', () => abrirSub(!sub.classList.contains('aberto')));
+  document.addEventListener('click', (e) => { if (temMouse.matches && !sub.contains(e.target)) abrirSub(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && sub.classList.contains('aberto')) { abrirSub(false); subBtn.focus(); } });
+  $$('#menu a').forEach((a) => a.addEventListener('click', () => { fecharMenu(); abrirSub(false); }));
 
   // grupos com a mesma largura (regra das diretrizes)
   const igualar = () => $$('[data-iguais]').forEach((g) => {
@@ -754,7 +780,8 @@ p { margin: 0; }
     if (!aba) return false;
     abas.forEach((a) => { const on = a === aba; a.classList.toggle('ativa', on); a.setAttribute('aria-selected', String(on)); });
     $$('.painel').forEach((p) => p.classList.toggle('ativo', p.id === 'painel-' + id));
-    $$('.menu ul a').forEach((a) => a.classList.toggle('atual', a.dataset.ir === id));
+    $$('.sub a').forEach((a) => a.classList.toggle('atual', a.dataset.ir === id));
+    subBtn.classList.toggle('atual', $$('.sub a').some((a) => a.dataset.ir === id));
     const lista = aba.closest('.abas');
     if (lista.scrollWidth > lista.clientWidth) lista.scrollTo({ left: aba.parentElement.offsetLeft - (lista.clientWidth - aba.offsetWidth) / 2, behavior: calmo ? 'auto' : 'smooth' });
     if (foco) { aba.classList.remove('piscar'); void aba.offsetWidth; aba.classList.add('piscar'); }

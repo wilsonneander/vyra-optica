@@ -12,7 +12,7 @@
 <meta property="og:image" content="assets/img/og.jpg">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>try{var t=localStorage.getItem('pistao-tema');if(t==='claro'||t==='escuro')document.documentElement.dataset.tema=t;}catch(e){}</script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700;800&family=Sarabun:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/video/capa.webp">
 <link rel="stylesheet" href="assets/style.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"Pistão Auto Center","telephone":"(31) 3333-0000","email":"contato@pistaoauto.com.br","address":{"@type":"PostalAddress","streetAddress":"Rua Carlos Turner, 520","addressLocality":"Belo Horizonte","addressRegion":"MG","addressCountry":"BR"},"openingHours":["Mo-Fr 07:30-18:30","Sa 08:00-14:00"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"486"}}</script>
@@ -34,7 +34,6 @@
   </div>
 </div>
 <div class="cursor" aria-hidden="true"><i></i></div>
-<div class="barra-rolagem" aria-hidden="true"><i></i></div>
 
 <a class="pular" href="#servicos">Pular para os serviços</a>
 
@@ -58,55 +57,56 @@
         <li><a href="#faq"><span class="rola" data-rola>FAQ</span></a></li>
         <li><a href="#contato"><span class="rola" data-rola>Contato</span></a></li>
       </ul>
-      <a class="btn btn-rubi menu-cta" href="#contato">Agendar serviço</a>
+      <a class="btn menu-cta" href="#contato">Agendar serviço</a>
     </nav>
-    <button class="tema" type="button" data-tema aria-label="Mudar para o tema claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="currentColor" d="M18 6A8.5 8.5 0 0 1 6 18Z"/></svg></button>
-    <a class="topo-fone" href="tel:3133330000"><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg></span><span><small data-status>Ligue agora</small>(31) 3333-0000</span></a>
+    <a class="topo-fone" href="tel:3133330000"><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg></span><span><small data-status>Ligue agora</small><b>(31) 3333-0000</b></span></a>
     <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
   </div>
-  <span class="topo-linha" aria-hidden="true"></span>
 </header>
 
+<div class="tema-lado" role="group" aria-label="Tema do site">
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="currentColor"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2.4 2.3"/></svg></button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.5 3.2a9 9 0 1 0 6.3 12.6A7.2 7.2 0 0 1 14.5 3.2Z"/></svg></button>
+</div>
+
 <main>
-  <section class="capa escuro" id="inicio" aria-roledescription="carrossel" aria-label="Destaques">
+  <section class="capa" id="inicio" aria-roledescription="carrossel" aria-label="Destaques">
     <div class="slides">
-      <div class="slide ativo" data-slide="0">
+      <div class="slide ativo">
         <div class="slide-fundo"><video class="slide-bg" data-slide-video muted loop playsinline preload="auto" poster="assets/video/capa.webp" aria-label="Montagem em vídeo: carro na garagem, farol aceso, painel, mecânico trabalhando no motor, polimento e estrada"><source src="assets/video/capa.mp4" type="video/mp4"></video></div>
         <div class="wrap slide-txt">
-          <h1 class="slide-t"><span class="ln" data-px="300"><span>Mecânica e</span></span><span class="ln ln-vazada" data-px="100"><span>revisão completa</span></span></h1>
+          <h1 class="slide-t"><span class="ln" data-px="300"><span>Mecânica e</span></span><span class="ln" data-px="100"><span>revisão completa</span></span></h1>
           <p class="slide-p" data-px="400">Equipe certificada, scanner multimarcas e peças com nota. Seu carro sai daqui rodando como saiu da concessionária.</p>
-          <div class="slide-btns" data-px="300" data-iguais>
-            <a class="btn btn-rubi" href="#contato"><span class="rola" data-rola>Agendar serviço</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
-            <a class="btn btn-vazado" href="#servicos"><span class="rola" data-rola>Ver serviços</span></a>
-          </div>
+          <div data-px="300"><a class="btn" href="#contato"><span class="rola" data-rola>Agendar serviço</span></a></div>
         </div>
       </div>
-      <div class="slide" data-slide="1" aria-hidden="true">
+      <div class="slide" aria-hidden="true">
         <div class="slide-fundo"><img class="slide-bg" src="assets/img/slide-estrada.webp" alt="Carro preto rodando numa estrada ao entardecer" width="1920" height="1080" loading="lazy"></div>
         <div class="wrap slide-txt">
-          <p class="slide-t"><span class="ln" data-px="300"><span>Pronto para</span></span><span class="ln ln-vazada" data-px="100"><span>a próxima viagem</span></span></p>
+          <p class="slide-t"><span class="ln" data-px="300"><span>Pronto para</span></span><span class="ln" data-px="100"><span>a próxima viagem</span></span></p>
           <p class="slide-p" data-px="400">Check-up de 40 itens antes de pegar a estrada: freio, pneus, suspensão, fluidos, luzes e bateria.</p>
-          <div class="slide-btns" data-px="300" data-iguais>
-            <a class="btn btn-rubi" href="#contato"><span class="rola" data-rola>Agendar serviço</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
-            <a class="btn btn-vazado" href="#servicos"><span class="rola" data-rola>Ver serviços</span></a>
-          </div>
+          <div data-px="300"><a class="btn" href="#contato"><span class="rola" data-rola>Agendar serviço</span></a></div>
         </div>
       </div>
-      <div class="slide" data-slide="2" aria-hidden="true">
+      <div class="slide" aria-hidden="true">
         <div class="slide-fundo"><img class="slide-bg" src="assets/img/slide-noite.webp" alt="Frente de um carro preto com faróis de LED acesos à noite" width="1920" height="1080" loading="lazy"></div>
         <div class="wrap slide-txt">
-          <p class="slide-t"><span class="ln" data-px="300"><span>Estética que</span></span><span class="ln ln-vazada" data-px="100"><span>renova o carro</span></span></p>
+          <p class="slide-t"><span class="ln" data-px="300"><span>Estética que</span></span><span class="ln" data-px="100"><span>renova o carro</span></span></p>
           <p class="slide-p" data-px="400">Polimento técnico, vitrificação e higienização interna. O brilho de carro novo com proteção que dura.</p>
-          <div class="slide-btns" data-px="300" data-iguais>
-            <a class="btn btn-rubi" href="#contato"><span class="rola" data-rola>Agendar serviço</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
-            <a class="btn btn-vazado" href="#servicos"><span class="rola" data-rola>Ver serviços</span></a>
-          </div>
+          <div data-px="300"><a class="btn" href="#contato"><span class="rola" data-rola>Agendar serviço</span></a></div>
         </div>
       </div>
     </div>
+    <div class="capa-info">
+      <div class="wrap">
+        <a href="mailto:contato@pistaoauto.com.br"><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 5h18v14H3z"/><path d="m3 6 9 7 9-7"/></svg></span>contato@pistaoauto.com.br</a>
+        <a href="https://www.openstreetmap.org/search?query=Rua%20Carlos%20Turner%2C%20520%2C%20Silveira%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><path d="M12 7.5v5"/></svg></span>Rua Carlos Turner, 520, Silveira</a>
+        <span><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 7v5h4"/></svg></span>Seg. a sex. 7h30 às 18h30, sáb. 8h às 14h</span>
+      </div>
+    </div>
     <div class="capa-ctrl">
-      <button type="button" class="circ" data-ant aria-label="Slide anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
-      <button type="button" class="circ" data-prox aria-label="Próximo slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+      <button type="button" data-ant aria-label="Slide anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+      <button type="button" data-prox aria-label="Próximo slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
     </div>
     <div class="capa-pag" role="tablist" aria-label="Escolher slide"><button type="button" role="tab" aria-label="Slide: Mecânica e revisão completa" aria-selected="true" data-ir-slide="0"><i></i></button><button type="button" role="tab" aria-label="Slide: Pronto para a próxima viagem" aria-selected="false" data-ir-slide="1"><i></i></button><button type="button" role="tab" aria-label="Slide: Estética que renova o carro" aria-selected="false" data-ir-slide="2"><i></i></button></div>
     <div class="capa-social">
@@ -116,28 +116,33 @@
       <span class="capa-social-fio" aria-hidden="true"></span>
       <span>Siga a Pistão</span>
     </div>
-    <div class="capa-info">
-      <div class="wrap">
-        <a href="mailto:contato@pistaoauto.com.br"><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 5h18v14H3z"/><path d="m3 6 9 7 9-7"/></svg></span>contato@pistaoauto.com.br</a>
-        <a href="https://www.openstreetmap.org/search?query=Rua%20Carlos%20Turner%2C%20520%2C%20Silveira%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><path d="M12 7.5v5"/></svg></span>Rua Carlos Turner, 520, Silveira</a>
-        <span><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 7v5h4"/></svg></span>Seg. a sex. 7h30 às 18h30, sáb. 8h às 14h</span>
-      </div>
-    </div>
   </section>
 
-  <section class="etapas" id="etapas" aria-label="Como cuidamos do seu carro">
+  <section class="etapas" aria-label="Como cuidamos do seu carro">
     <div class="wrap etapas-in">
       <div class="etapa" data-anima="sobe">
-        <span class="etapa-barra" aria-hidden="true"><i></i></span>
-        <div class="etapa-corpo"><span class="pulso grande"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 5A14 14 0 0 0 2 19c0 2.3.6 4.5 1.6 6.4l1.1 2H27.3l1.1-2A14 14 0 0 0 16 5Zm0 3.2a10.8 10.8 0 0 1 10.6 13.6H5.4A10.8 10.8 0 0 1 16 8.2Z"/><path d="m21.6 11.2 2 1.6-5.4 7a2.6 2.6 0 1 1-2-1.6Z"/></svg></span><div><h2>Diagnóstico</h2><p>Scanner, teste de rodagem e checklist com fotos enviado no seu WhatsApp.</p></div></div>
+        <div class="etapa-topo" aria-hidden="true"><span class="etapa-seta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><i></i></div>
+        <div class="etapa-card">
+          <span class="pulso"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16 5A14 14 0 0 0 2 19c0 2.3.6 4.5 1.6 6.4l1.1 2H27.3l1.1-2A14 14 0 0 0 16 5Zm0 3.2a10.8 10.8 0 0 1 10.6 13.6H5.4A10.8 10.8 0 0 1 16 8.2Z"/><path d="m21.6 11.2 2 1.6-5.4 7a2.6 2.6 0 1 1-2-1.6Z"/></svg></span>
+          <h2>Diagnóstico</h2>
+          <p>Scanner, teste de rodagem e checklist com fotos enviado no seu WhatsApp.</p>
+        </div>
       </div>
       <div class="etapa" data-anima="sobe">
-        <span class="etapa-barra" aria-hidden="true"><i></i></span>
-        <div class="etapa-corpo"><span class="pulso grande"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M21.6 2.6a7.4 7.4 0 0 0-7 9.6L3.4 23.4a3 3 0 0 0 4.2 4.2l11.2-11.2a7.4 7.4 0 0 0 9.6-7L24 13.8l-4.6-1.2-1.2-4.6 4.4-4.4c-.3-.6-.6-.9-1-1Z"/></svg></span><div><h2>Reparo</h2><p>Só começamos depois que você aprova o orçamento, peça por peça.</p></div></div>
+        <div class="etapa-topo" aria-hidden="true"><span class="etapa-seta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><i></i></div>
+        <div class="etapa-card">
+          <span class="pulso"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M21.6 2.6a7.4 7.4 0 0 0-7 9.6L3.4 23.4a3 3 0 0 0 4.2 4.2l11.2-11.2a7.4 7.4 0 0 0 9.6-7L24 13.8l-4.6-1.2-1.2-4.6 4.4-4.4c-.3-.6-.6-.9-1-1Z"/></svg></span>
+          <h2>Reparo</h2>
+          <p>Só começamos depois que você aprova o orçamento, peça por peça.</p>
+        </div>
       </div>
       <div class="etapa" data-anima="sobe">
-        <span class="etapa-barra" aria-hidden="true"><i></i></span>
-        <div class="etapa-corpo"><span class="pulso grande"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M5 18.5 8.2 11c.6-1.5 2-2.5 3.6-2.5h8.4c1.6 0 3 1 3.6 2.5l3.2 7.5c1.5.6 2.5 2 2.5 3.6V27h-3v2.5h-4.5V27h-12v2.5H5.5V27h-3v-4.9c0-1.6 1-3 2.5-3.6Zm3.3-.5h15.4L21.4 12.3a1 1 0 0 0-1-.6h-8.8a1 1 0 0 0-1 .6Zm-.8 3.2a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6Zm17 0a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6Z"/></svg></span><div><h2>Entrega</h2><p>Carro lavado, peça velha no porta-malas e garantia de 6 meses na nota.</p></div></div>
+        <div class="etapa-topo" aria-hidden="true"><span class="etapa-seta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span><i></i></div>
+        <div class="etapa-card">
+          <span class="pulso"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M5 18.5 8.2 11c.6-1.5 2-2.5 3.6-2.5h8.4c1.6 0 3 1 3.6 2.5l3.2 7.5c1.5.6 2.5 2 2.5 3.6V27h-3v2.5h-4.5V27h-12v2.5H5.5V27h-3v-4.9c0-1.6 1-3 2.5-3.6Zm3.3-.5h15.4L21.4 12.3a1 1 0 0 0-1-.6h-8.8a1 1 0 0 0-1 .6Zm-.8 3.2a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6Zm17 0a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6Z"/></svg></span>
+          <h2>Entrega</h2>
+          <p>Carro lavado, peça velha no porta-malas e garantia de 6 meses na nota.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -145,27 +150,21 @@
   <section class="sobre" id="sobre">
     <div class="wrap sobre-grid">
       <div class="sobre-txt">
-        <div class="titulo">
-          <span class="fundo-txt" aria-hidden="true">Sobre</span>
-          <p class="apoio">Sobre nós</p>
+        <div class="cab">
+          <span class="cab-fundo" aria-hidden="true">Sobre</span>
           <h2 data-letras>Por que a Pistão</h2>
+          <p data-anima="sobe">Começamos em 2009 com dois elevadores e uma regra: ninguém mexe no carro sem o dono aprovar. Hoje são oito boxes, alinhador 3D, scanner multimarcas e 14 mecânicos certificados. Você recebe fotos e vídeo de cada etapa no WhatsApp e a garantia vem escrita na nota.</p>
         </div>
-        <p data-anima="sobe">Começamos em 2009 com dois elevadores e uma regra: ninguém mexe no carro sem o dono aprovar. Hoje são oito boxes, alinhador 3D, scanner multimarcas e uma equipe de 14 mecânicos certificados.</p>
-        <p data-anima="sobe">Você recebe fotos e vídeo de cada etapa no WhatsApp, a peça velha volta no porta-malas e a garantia vem escrita na nota.</p>
-        <ul class="contorno"><li data-preenche>Mecânicos certificados</li><li data-preenche>Orçamento antes do serviço</li><li data-preenche>Nota 4,9 no Google</li><li data-preenche>Garantia de 6 meses</li></ul>
-        <a class="btn btn-rubi" href="#contato" data-anima="sobe"><span class="rola" data-rola>Conhecer a oficina</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+        <ul class="contorno"><li>Mecânicos certificados</li><li>Orçamento antes do serviço</li><li>Nota 4,9 no Google</li><li>Garantia de 6 meses</li></ul>
+        <a class="btn" href="#contato" data-anima="sobe"><span class="rola" data-rola>Conhecer a oficina</span></a>
       </div>
-      <div class="sobre-fotos">
-        <div class="sobre-principal" data-revela>
-          <img src="assets/img/capa.webp" alt="Mecânico da Pistão ajustando peças no motor de um carro" loading="lazy" width="1300" height="1950">
-        </div>
-        <div class="sobre-menor" data-revela>
-          <img src="assets/img/oficina.webp" alt="Boxes da oficina com carros nos elevadores" loading="lazy" width="1300" height="900">
-        </div>
-        <div class="sobre-anos" data-anima="sobe"><b><span data-conta="16">16</span></b><span>anos cuidando de carros em BH</span></div>
-        <div class="selo-gira" aria-label="Desde 2009">
-          <svg viewBox="0 0 160 160" aria-hidden="true"><defs><path id="circulo" d="M80 80m-62 0a62 62 0 1 1 124 0a62 62 0 1 1-124 0"/></defs><text><textPath href="#circulo" textLength="384" lengthAdjust="spacing">PISTÃO AUTO CENTER   DESDE 2009   BH   </textPath></text></svg>
-          <span><svg class="simbolo" viewBox="0 0 52 48" aria-hidden="true">
+    </div>
+    <div class="sobre-foto" data-anima="dir">
+      <span class="sobre-vinho" aria-hidden="true"></span>
+      <div class="sobre-img"><img src="assets/img/capa.webp" alt="Mecânico da Pistão ajustando peças no motor de um carro" loading="lazy" width="1300" height="1950"></div>
+      <div class="selo-gira" aria-label="Desde 2009">
+        <svg viewBox="0 0 160 160" aria-hidden="true"><defs><path id="circulo" d="M80 80m-60 0a60 60 0 1 1 120 0a60 60 0 1 1-120 0"/></defs><text><textPath href="#circulo" textLength="372" lengthAdjust="spacing">PISTÃO AUTO CENTER   DESDE 2009   </textPath></text></svg>
+        <span><svg class="simbolo" viewBox="0 0 52 48" aria-hidden="true">
   <path d="M10 2h40L42 46H2Z" fill="var(--rubi, #FF3D24)"/>
   <g transform="skewX(-9) translate(7 0)">
     <path d="M14 9h20v4H14zM14 15h20v3H14z" fill="#101010"/>
@@ -175,65 +174,43 @@
     <path d="M18 38h12v4H18z" fill="#101010"/>
   </g>
 </svg></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="wrap equipe">
-      <div class="equipe-topo">
-        <div class="titulo">
-          <span class="fundo-txt" aria-hidden="true">Equipe</span>
-          <p class="apoio">Quem cuida do seu carro</p>
-          <h2 data-letras>Nossa equipe</h2>
-        </div>
-        <p data-anima="sobe">Mecânicos com certificação das montadoras e curso de atualização todo ano. Passe o mouse para ver cada um trabalhando.</p>
-      </div>
-      <div class="equipe-cartoes">
-        <figure class="pessoa" data-anima="sobe">
-          <video muted loop playsinline preload="none" poster="assets/video/equipe-andre.webp" data-hover-video aria-label="André, chefe de oficina, de braços cruzados segurando uma chave, ao lado de um carro com o capô aberto"><source src="assets/video/equipe-andre.mp4" type="video/mp4"></video>
-          <figcaption><b>André Ribeiro</b><span>Chefe de oficina</span></figcaption>
-          <span class="pessoa-play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg></span>
-        </figure>
-        <figure class="pessoa" data-anima="sobe">
-          <video muted loop playsinline preload="none" poster="assets/video/equipe-marcos.webp" data-hover-video aria-label="Marcos trabalhando no motor de um carro com o scanner de diagnóstico"><source src="assets/video/equipe-marcos.mp4" type="video/mp4"></video>
-          <figcaption><b>Marcos Vinícius</b><span>Injeção e elétrica</span></figcaption>
-          <span class="pessoa-play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg></span>
-        </figure>
-        <figure class="pessoa" data-anima="sobe">
-          <video muted loop playsinline preload="none" poster="assets/video/equipe-tiago.webp" data-hover-video aria-label="Tiago fazendo o acabamento na grade dianteira de um carro preto"><source src="assets/video/equipe-tiago.mp4" type="video/mp4"></video>
-          <figcaption><b>Tiago Moreira</b><span>Estética automotiva</span></figcaption>
-          <span class="pessoa-play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg></span>
-        </figure>
       </div>
     </div>
   </section>
 
   <section class="servicos" id="servicos">
-    <div class="servicos-grade" aria-hidden="true"></div>
-    <div class="wrap servicos-in">
+    <div class="wrap">
+      <div class="servicos-topo">
+        <div class="cab">
+          <span class="cab-fundo" aria-hidden="true">Serviços</span>
+          <h2 data-letras>Serviços<br>dedicados</h2>
+          <p data-anima="sobe">Da troca de óleo ao motor aberto, da suspensão ao polimento. Passe o mouse nos cartões para ver o serviço em vídeo e peça o orçamento pelo WhatsApp.</p>
+        </div>
+        <a class="link-mais" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento." target="_blank" rel="noopener"><span class="rola" data-rola>Orçamento no WhatsApp</span></a>
+      </div>
       <div class="servicos-lista">
         <article class="servico" id="mecanica" data-anima="esq">
           <a class="servico-midia" href="#contato" data-servico="Mecânica geral" tabindex="-1" aria-hidden="true">
             <img src="assets/img/mecanica.webp" alt="" loading="lazy" width="960" height="680">
-            <video muted loop playsinline preload="none" data-hover-video><source src="assets/video/reel-mecanico.mp4" type="video/mp4"></video>
+            <video muted loop playsinline preload="none" data-hover-video><source src="assets/video/reel-mecanico.mp4" type="video/mp4"></video><span class="servico-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg></span>
           </a>
           <div class="servico-txt">
             <h3><a href="#contato" data-servico="Mecânica geral">Mecânica geral</a></h3>
             <p>Motor, câmbio, embreagem, arrefecimento e correias. Diagnóstico por scanner e orçamento por foto antes de abrir qualquer peça.</p>
-            <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Correia dentada</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Embreagem</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Arrefecimento</li></ul>
-            <a class="link-seta" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20mec%C3%A2nica%20geral.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            <p class="servico-itens">Correia dentada, Embreagem, Arrefecimento</p>
+            <a class="link-mais" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20mec%C3%A2nica%20geral.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span></a>
           </div>
         </article>
         <article class="servico" id="revisao" data-anima="esq">
           <a class="servico-midia" href="#contato" data-servico="Revisão e troca de óleo" tabindex="-1" aria-hidden="true">
             <img src="assets/img/oleo.webp" alt="" loading="lazy" width="960" height="680">
-            <video muted loop playsinline preload="none" data-hover-video><source src="assets/video/reel-motor.mp4" type="video/mp4"></video>
+            <video muted loop playsinline preload="none" data-hover-video><source src="assets/video/reel-motor.mp4" type="video/mp4"></video><span class="servico-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg></span>
           </a>
           <div class="servico-txt">
             <h3><a href="#contato" data-servico="Revisão e troca de óleo">Revisão e troca de óleo</a></h3>
             <p>Revisão por quilometragem seguindo o manual do fabricante, sem perder a garantia de fábrica. Óleo certo e todos os filtros.</p>
-            <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Óleo e filtros</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Fluidos e níveis</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Etiqueta da próxima troca</li></ul>
-            <a class="link-seta" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20revis%C3%A3o%20e%20troca%20de%20%C3%B3leo.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            <p class="servico-itens">Óleo e filtros, Fluidos e níveis, Etiqueta da próxima troca</p>
+            <a class="link-mais" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20revis%C3%A3o%20e%20troca%20de%20%C3%B3leo.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span></a>
           </div>
         </article>
         <article class="servico" id="freios" data-anima="esq">
@@ -244,8 +221,8 @@
           <div class="servico-txt">
             <h3><a href="#contato" data-servico="Freios">Freios</a></h3>
             <p>Medimos discos e pastilhas na sua frente e só trocamos o que precisa. Fluido DOT 4 e teste de frenagem no fim.</p>
-            <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Pastilhas e discos</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Fluido de freio</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>ABS</li></ul>
-            <a class="link-seta" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20freios.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            <p class="servico-itens">Pastilhas e discos, Fluido de freio, ABS</p>
+            <a class="link-mais" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20freios.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span></a>
           </div>
         </article>
         <article class="servico" id="suspensao" data-anima="esq">
@@ -256,68 +233,54 @@
           <div class="servico-txt">
             <h3><a href="#contato" data-servico="Suspensão">Suspensão</a></h3>
             <p>Amortecedores, molas, bandejas, pivôs e buchas. Teste de rodagem antes e depois para você sentir a diferença na lombada.</p>
-            <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Amortecedores</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Bandejas e pivôs</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Buchas e coxins</li></ul>
-            <a class="link-seta" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20suspens%C3%A3o.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            <p class="servico-itens">Amortecedores, Bandejas e pivôs, Buchas e coxins</p>
+            <a class="link-mais" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20suspens%C3%A3o.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span></a>
           </div>
         </article>
         <article class="servico" id="pneus" data-anima="esq">
           <a class="servico-midia" href="#contato" data-servico="Pneus e alinhamento 3D" tabindex="-1" aria-hidden="true">
             <img src="assets/img/pneus.webp" alt="" loading="lazy" width="960" height="680">
-            <video muted loop playsinline preload="none" data-hover-video><source src="assets/video/reel-pneus.mp4" type="video/mp4"></video>
+            <video muted loop playsinline preload="none" data-hover-video><source src="assets/video/reel-pneus.mp4" type="video/mp4"></video><span class="servico-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg></span>
           </a>
           <div class="servico-txt">
             <h3><a href="#contato" data-servico="Pneus e alinhamento 3D">Pneus e alinhamento 3D</a></h3>
             <p>Pneus das principais marcas, montagem sem riscar a roda, balanceamento computadorizado e alinhamento por câmeras 3D.</p>
-            <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Alinhamento 3D</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Balanceamento</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Venda de pneus</li></ul>
-            <a class="link-seta" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20pneus%20e%20alinhamento%203d.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            <p class="servico-itens">Alinhamento 3D, Balanceamento, Venda de pneus</p>
+            <a class="link-mais" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20pneus%20e%20alinhamento%203d.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span></a>
           </div>
         </article>
         <article class="servico" id="injecao" data-anima="esq">
           <a class="servico-midia" href="#contato" data-servico="Injeção e elétrica" tabindex="-1" aria-hidden="true">
             <img src="assets/img/diagnostico.webp" alt="" loading="lazy" width="960" height="680">
-            <video muted loop playsinline preload="none" data-hover-video><source src="assets/video/reel-farol.mp4" type="video/mp4"></video>
+            <video muted loop playsinline preload="none" data-hover-video><source src="assets/video/reel-farol.mp4" type="video/mp4"></video><span class="servico-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg></span>
           </a>
           <div class="servico-txt">
             <h3><a href="#contato" data-servico="Injeção e elétrica">Injeção e elétrica</a></h3>
             <p>Luz de injeção acesa, falha, consumo alto, bateria arriando. Leitura de códigos e teste de cada sensor até achar a causa.</p>
-            <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Scanner multimarcas</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Bateria e alternador</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Ar-condicionado</li></ul>
-            <a class="link-seta" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20inje%C3%A7%C3%A3o%20e%20el%C3%A9trica.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            <p class="servico-itens">Scanner multimarcas, Bateria e alternador, Ar-condicionado</p>
+            <a class="link-mais" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20inje%C3%A7%C3%A3o%20e%20el%C3%A9trica.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span></a>
           </div>
         </article>
         <article class="servico" id="estetica" data-anima="esq">
           <a class="servico-midia" href="#contato" data-servico="Estética automotiva" tabindex="-1" aria-hidden="true">
             <img src="assets/img/estetica.webp" alt="" loading="lazy" width="960" height="680">
-            <video muted loop playsinline preload="none" data-hover-video><source src="assets/video/reel-polimento.mp4" type="video/mp4"></video>
+            <video muted loop playsinline preload="none" data-hover-video><source src="assets/video/reel-polimento.mp4" type="video/mp4"></video><span class="servico-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg></span>
           </a>
           <div class="servico-txt">
             <h3><a href="#contato" data-servico="Estética automotiva">Estética automotiva</a></h3>
             <p>Lavagem detalhada, polimento técnico, vitrificação de pintura e higienização de bancos e teto.</p>
-            <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Polimento</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Vitrificação</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Higienização interna</li></ul>
-            <a class="link-seta" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20est%C3%A9tica%20automotiva.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a>
+            <p class="servico-itens">Polimento, Vitrificação, Higienização interna</p>
+            <a class="link-mais" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20est%C3%A9tica%20automotiva.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Pedir orçamento</span></a>
           </div>
         </article>
       </div>
-      <aside class="servicos-lado">
-        <div class="titulo">
-          <span class="fundo-txt" aria-hidden="true">Serviços</span>
-          <p class="apoio">Serviços</p>
-          <h2 data-letras>Serviços dedicados</h2>
-        </div>
-        <p data-anima="sobe">Da troca de óleo ao motor aberto, da suspensão ao polimento. Passe o mouse nos cartões para ver o serviço em vídeo e peça o orçamento direto pelo WhatsApp.</p>
-        <ol class="servicos-indice" aria-label="Lista de serviços"><li><a href="#mecanica" data-indice="mecanica">Mecânica geral</a></li><li><a href="#revisao" data-indice="revisao">Revisão e troca de óleo</a></li><li><a href="#freios" data-indice="freios">Freios</a></li><li><a href="#suspensao" data-indice="suspensao">Suspensão</a></li><li><a href="#pneus" data-indice="pneus">Pneus e alinhamento 3D</a></li><li><a href="#injecao" data-indice="injecao">Injeção e elétrica</a></li><li><a href="#estetica" data-indice="estetica">Estética automotiva</a></li></ol>
-        <a class="btn btn-vazado" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg><span class="rola" data-rola>Orçamento no WhatsApp</span></a>
-      </aside>
     </div>
   </section>
 
-  <section class="video-sec escuro" aria-labelledby="video-t">
+  <section class="video-sec" aria-label="Vídeo da oficina">
     <div class="video-moldura" data-video-moldura>
       <video class="video-fundo" muted loop playsinline preload="none" poster="assets/video/oficina.webp" data-auto-video aria-hidden="true"><source src="assets/video/oficina.mp4" type="video/mp4"></video>
-      <div class="video-conteudo">
-        <button type="button" class="play-grande" data-abre-video aria-label="Assistir ao vídeo da oficina"><span class="pulso-play" aria-hidden="true"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg></button>
-        <h2 id="video-t" data-letras>Veja a oficina por dentro</h2>
-        <p data-anima="sobe">Oito boxes, alinhador 3D, cabine de estética e uma equipe que trabalha com a porta aberta para você acompanhar.</p>
-      </div>
+      <button type="button" class="play" data-abre-video aria-label="Assistir ao vídeo da oficina"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg></button>
     </div>
   </section>
 
@@ -330,134 +293,152 @@
   </section>
 
   <section class="marcas" aria-labelledby="marcas-t">
-    <div class="wrap marcas-in">
-      <h2 id="marcas-t">Atendemos <br>todas as marcas</h2>
-      <div class="esteira"><ul class="esteira-trilho"><li><span class="marca-logo" title="Volkswagen"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-volkswagen"/></svg></span><span class="marca-nome">Volkswagen</span></li><li><span class="marca-logo" title="Fiat"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-fiat"/></svg></span><span class="marca-nome">Fiat</span></li><li><span class="marca-logo" title="Chevrolet"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-chevrolet"/></svg></span><span class="marca-nome">Chevrolet</span></li><li><span class="marca-logo" title="Peugeot"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-peugeot"/></svg></span><span class="marca-nome">Peugeot</span></li><li><span class="marca-logo" title="Renault"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-renault"/></svg></span><span class="marca-nome">Renault</span></li><li><span class="marca-logo" title="Honda"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-honda"/></svg></span><span class="marca-nome">Honda</span></li><li><span class="marca-logo" title="Hyundai"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-hyundai"/></svg></span><span class="marca-nome">Hyundai</span></li><li><span class="marca-logo" title="Toyota"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-toyota"/></svg></span><span class="marca-nome">Toyota</span></li><li><span class="marca-logo" title="Ford"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-ford"/></svg></span><span class="marca-nome">Ford</span></li><li><span class="marca-logo" title="Nissan"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-nissan"/></svg></span><span class="marca-nome">Nissan</span></li><li><span class="marca-logo" title="Jeep"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-jeep"/></svg></span><span class="marca-nome">Jeep</span></li><li><span class="marca-logo" title="Citroën"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-citroen"/></svg></span><span class="marca-nome">Citroën</span></li><li aria-hidden="true"><span class="marca-logo" title="Volkswagen"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-volkswagen"/></svg></span><span class="marca-nome">Volkswagen</span></li><li aria-hidden="true"><span class="marca-logo" title="Fiat"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-fiat"/></svg></span><span class="marca-nome">Fiat</span></li><li aria-hidden="true"><span class="marca-logo" title="Chevrolet"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-chevrolet"/></svg></span><span class="marca-nome">Chevrolet</span></li><li aria-hidden="true"><span class="marca-logo" title="Peugeot"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-peugeot"/></svg></span><span class="marca-nome">Peugeot</span></li><li aria-hidden="true"><span class="marca-logo" title="Renault"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-renault"/></svg></span><span class="marca-nome">Renault</span></li><li aria-hidden="true"><span class="marca-logo" title="Honda"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-honda"/></svg></span><span class="marca-nome">Honda</span></li><li aria-hidden="true"><span class="marca-logo" title="Hyundai"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-hyundai"/></svg></span><span class="marca-nome">Hyundai</span></li><li aria-hidden="true"><span class="marca-logo" title="Toyota"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-toyota"/></svg></span><span class="marca-nome">Toyota</span></li><li aria-hidden="true"><span class="marca-logo" title="Ford"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-ford"/></svg></span><span class="marca-nome">Ford</span></li><li aria-hidden="true"><span class="marca-logo" title="Nissan"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-nissan"/></svg></span><span class="marca-nome">Nissan</span></li><li aria-hidden="true"><span class="marca-logo" title="Jeep"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-jeep"/></svg></span><span class="marca-nome">Jeep</span></li><li aria-hidden="true"><span class="marca-logo" title="Citroën"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-citroen"/></svg></span><span class="marca-nome">Citroën</span></li></ul></div>
+    <h2 id="marcas-t">Montadoras que atendemos</h2>
+    <div class="wrap">
+      <div class="esteira"><ul class="esteira-trilho"><li><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-volkswagen"/></svg><span>Volkswagen</span></li><li><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-fiat"/></svg><span>Fiat</span></li><li><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-chevrolet"/></svg><span>Chevrolet</span></li><li><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-peugeot"/></svg><span>Peugeot</span></li><li><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-renault"/></svg><span>Renault</span></li><li><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-honda"/></svg><span>Honda</span></li><li><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-hyundai"/></svg><span>Hyundai</span></li><li><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-toyota"/></svg><span>Toyota</span></li><li><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-ford"/></svg><span>Ford</span></li><li><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-nissan"/></svg><span>Nissan</span></li><li><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-jeep"/></svg><span>Jeep</span></li><li><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-citroen"/></svg><span>Citroën</span></li><li aria-hidden="true"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-volkswagen"/></svg><span>Volkswagen</span></li><li aria-hidden="true"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-fiat"/></svg><span>Fiat</span></li><li aria-hidden="true"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-chevrolet"/></svg><span>Chevrolet</span></li><li aria-hidden="true"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-peugeot"/></svg><span>Peugeot</span></li><li aria-hidden="true"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-renault"/></svg><span>Renault</span></li><li aria-hidden="true"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-honda"/></svg><span>Honda</span></li><li aria-hidden="true"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-hyundai"/></svg><span>Hyundai</span></li><li aria-hidden="true"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-toyota"/></svg><span>Toyota</span></li><li aria-hidden="true"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-ford"/></svg><span>Ford</span></li><li aria-hidden="true"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-nissan"/></svg><span>Nissan</span></li><li aria-hidden="true"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-jeep"/></svg><span>Jeep</span></li><li aria-hidden="true"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-citroen"/></svg><span>Citroën</span></li></ul></div>
     </div>
   </section>
 
   <section class="depo" aria-labelledby="depo-t">
     <div class="wrap">
       <div class="depo-topo">
-        <div class="titulo">
-          <span class="fundo-txt" aria-hidden="true">Clientes</span>
-          <p class="apoio">Depoimentos</p>
-          <h2 id="depo-t" data-letras>O que dizem nossos clientes</h2>
+        <div class="cab">
+          <span class="cab-fundo" aria-hidden="true">Clientes</span>
+          <h2 id="depo-t" data-letras>O que dizem nossos<br>clientes</h2>
+          
         </div>
         <div class="depo-ctrl">
-          <button type="button" class="seta-txt" data-dep-ant aria-label="Depoimento anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg><span>Anterior</span></button>
-          <button type="button" class="seta-txt" data-dep-prox aria-label="Próximo depoimento"><span>Próximo</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+          <button type="button" class="caixa-btn" data-dep-ant><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg><span>Anterior</span></button>
+          <button type="button" class="caixa-btn" data-dep-prox><span>Próximo</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
         </div>
       </div>
       <div class="depo-palco" data-depo aria-live="polite">
         <figure class="depo-slide ativo">
           <div class="depo-info">
-            <div class="depo-quem"><div><b>Larissa Mendes</b><span>Onix 2020</span></div><span class="aspas"><svg viewBox="0 0 48 40" aria-hidden="true"><path fill="currentColor" d="M8 4h14l-6 16h6v16H2V20Zm24 0h14l-6 16h6v16H26V20Z"/></svg></span></div>
+            <div class="depo-quem"><div><b>Larissa Mendes</b><span>Onix 2020</span></div><span class="aspas"><svg viewBox="0 0 64 48" aria-hidden="true"><path fill="currentColor" d="M14 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 14 0Zm36 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 50 0Z"/></svg></span></div>
+            <blockquote>“Me mandaram foto e vídeo de cada peça antes de trocar. Paguei exatamente o que aprovei e o carro ficou perfeito.”</blockquote>
             <span class="estrelas" aria-label="5 de 5 estrelas"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></span>
-            <blockquote>Me mandaram foto e vídeo de cada peça antes de trocar. Paguei exatamente o que aprovei e o carro ficou perfeito.</blockquote>
           </div>
-          <div class="depo-foto"><img src="assets/img/insta-bmw.webp" alt="Carro de Larissa atendido pela Pistão" loading="lazy" width="640" height="640"></div>
+          <div class="depo-foto"><span class="depo-vinho" aria-hidden="true"></span><div class="depo-img"><img src="assets/img/insta-bmw.webp" alt="Carro de Larissa atendido pela Pistão" loading="lazy" width="640" height="640"></div></div>
         </figure>
         <figure class="depo-slide" aria-hidden="true">
           <div class="depo-info">
-            <div class="depo-quem"><div><b>Ricardo Souza</b><span>Hilux 2018</span></div><span class="aspas"><svg viewBox="0 0 48 40" aria-hidden="true"><path fill="currentColor" d="M8 4h14l-6 16h6v16H2V20Zm24 0h14l-6 16h6v16H26V20Z"/></svg></span></div>
+            <div class="depo-quem"><div><b>Ricardo Souza</b><span>Hilux 2018</span></div><span class="aspas"><svg viewBox="0 0 64 48" aria-hidden="true"><path fill="currentColor" d="M14 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 14 0Zm36 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 50 0Z"/></svg></span></div>
+            <blockquote>“Revisão de 60 mil feita no prazo, com o manual carimbado. Atendimento de concessionária com preço justo.”</blockquote>
             <span class="estrelas" aria-label="5 de 5 estrelas"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></span>
-            <blockquote>Revisão de 60 mil feita no prazo, com o manual carimbado. Atendimento de concessionária com preço justo.</blockquote>
           </div>
-          <div class="depo-foto"><img src="assets/img/insta-amg.webp" alt="Carro de Ricardo atendido pela Pistão" loading="lazy" width="640" height="640"></div>
+          <div class="depo-foto"><span class="depo-vinho" aria-hidden="true"></span><div class="depo-img"><img src="assets/img/insta-amg.webp" alt="Carro de Ricardo atendido pela Pistão" loading="lazy" width="640" height="640"></div></div>
         </figure>
         <figure class="depo-slide" aria-hidden="true">
           <div class="depo-info">
-            <div class="depo-quem"><div><b>Patrícia Alves</b><span>HB20 2021</span></div><span class="aspas"><svg viewBox="0 0 48 40" aria-hidden="true"><path fill="currentColor" d="M8 4h14l-6 16h6v16H2V20Zm24 0h14l-6 16h6v16H26V20Z"/></svg></span></div>
+            <div class="depo-quem"><div><b>Patrícia Alves</b><span>HB20 2021</span></div><span class="aspas"><svg viewBox="0 0 64 48" aria-hidden="true"><path fill="currentColor" d="M14 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 14 0Zm36 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 50 0Z"/></svg></span></div>
+            <blockquote>“A luz da injeção acendia toda semana. Acharam o sensor com defeito em uma manhã e não voltou mais.”</blockquote>
             <span class="estrelas" aria-label="5 de 5 estrelas"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></span>
-            <blockquote>A luz da injeção acendia toda semana. Acharam o sensor com defeito em uma manhã e não voltou mais.</blockquote>
           </div>
-          <div class="depo-foto"><img src="assets/img/insta-m5.webp" alt="Carro de Patrícia atendido pela Pistão" loading="lazy" width="640" height="640"></div>
+          <div class="depo-foto"><span class="depo-vinho" aria-hidden="true"></span><div class="depo-img"><img src="assets/img/insta-m5.webp" alt="Carro de Patrícia atendido pela Pistão" loading="lazy" width="640" height="640"></div></div>
         </figure>
         <figure class="depo-slide" aria-hidden="true">
           <div class="depo-info">
-            <div class="depo-quem"><div><b>Fernando Lima</b><span>Corolla 2017</span></div><span class="aspas"><svg viewBox="0 0 48 40" aria-hidden="true"><path fill="currentColor" d="M8 4h14l-6 16h6v16H2V20Zm24 0h14l-6 16h6v16H26V20Z"/></svg></span></div>
+            <div class="depo-quem"><div><b>Fernando Lima</b><span>Corolla 2017</span></div><span class="aspas"><svg viewBox="0 0 64 48" aria-hidden="true"><path fill="currentColor" d="M14 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 14 0Zm36 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 50 0Z"/></svg></span></div>
+            <blockquote>“Fiz suspensão e alinhamento 3D. Recebi o relatório antes e depois e o carro parou de puxar na hora.”</blockquote>
             <span class="estrelas" aria-label="5 de 5 estrelas"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></span>
-            <blockquote>Fiz suspensão e alinhamento 3D. Recebi o relatório antes e depois e o carro parou de puxar na hora.</blockquote>
           </div>
-          <div class="depo-foto"><img src="assets/img/insta-camaro.webp" alt="Carro de Fernando atendido pela Pistão" loading="lazy" width="640" height="640"></div>
+          <div class="depo-foto"><span class="depo-vinho" aria-hidden="true"></span><div class="depo-img"><img src="assets/img/insta-camaro.webp" alt="Carro de Fernando atendido pela Pistão" loading="lazy" width="640" height="640"></div></div>
         </figure>
         <figure class="depo-slide" aria-hidden="true">
           <div class="depo-info">
-            <div class="depo-quem"><div><b>Juliana Costa</b><span>Renegade 2019</span></div><span class="aspas"><svg viewBox="0 0 48 40" aria-hidden="true"><path fill="currentColor" d="M8 4h14l-6 16h6v16H2V20Zm24 0h14l-6 16h6v16H26V20Z"/></svg></span></div>
+            <div class="depo-quem"><div><b>Juliana Costa</b><span>Renegade 2019</span></div><span class="aspas"><svg viewBox="0 0 64 48" aria-hidden="true"><path fill="currentColor" d="M14 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 14 0Zm36 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 50 0Z"/></svg></span></div>
+            <blockquote>“Polimento e vitrificação deixaram o carro melhor que quando comprei. Equipe muito caprichosa.”</blockquote>
             <span class="estrelas" aria-label="5 de 5 estrelas"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></span>
-            <blockquote>Polimento e vitrificação deixaram o carro melhor que quando comprei. Equipe muito caprichosa.</blockquote>
           </div>
-          <div class="depo-foto"><img src="assets/img/insta-laranja.webp" alt="Carro de Juliana atendido pela Pistão" loading="lazy" width="640" height="640"></div>
+          <div class="depo-foto"><span class="depo-vinho" aria-hidden="true"></span><div class="depo-img"><img src="assets/img/insta-laranja.webp" alt="Carro de Juliana atendido pela Pistão" loading="lazy" width="640" height="640"></div></div>
         </figure>
       </div>
-      <div class="depo-pontos" role="tablist" aria-label="Escolher depoimento"><button type="button" role="tab" aria-label="Depoimento de Larissa Mendes" aria-selected="true" data-ir-depo="0"><i></i></button><button type="button" role="tab" aria-label="Depoimento de Ricardo Souza" aria-selected="false" data-ir-depo="1"><i></i></button><button type="button" role="tab" aria-label="Depoimento de Patrícia Alves" aria-selected="false" data-ir-depo="2"><i></i></button><button type="button" role="tab" aria-label="Depoimento de Fernando Lima" aria-selected="false" data-ir-depo="3"><i></i></button><button type="button" role="tab" aria-label="Depoimento de Juliana Costa" aria-selected="false" data-ir-depo="4"><i></i></button></div>
     </div>
   </section>
 
-  <section class="pacotes escuro" aria-labelledby="pacotes-t">
-    <div class="pacotes-bg" aria-hidden="true"><img src="assets/img/faixa.webp" alt="" loading="lazy" width="1920" height="1000"></div>
-    <div class="wrap">
-      <div class="titulo centro">
-        <span class="fundo-txt" aria-hidden="true">Pacotes</span>
-        <p class="apoio">Preço fechado</p>
-        <h2 id="pacotes-t" data-letras>Pacotes de revisão</h2>
-        <p class="titulo-txt" data-anima="sobe">Valor de carro de passeio até 2.0, com peças e mão de obra. Sem surpresa no fim.</p>
+  <section class="equipe" aria-labelledby="equipe-t">
+    <div class="wrap equipe-in">
+      <div class="equipe-txt">
+        <div class="cab">
+          <span class="cab-fundo" aria-hidden="true">Equipe</span>
+          <h2 id="equipe-t" data-letras>Nossa equipe</h2>
+          <p data-anima="sobe">Mecânicos com certificação das montadoras e curso de atualização todo ano. Passe o mouse para ver cada um trabalhando.</p>
+        </div>
+        <a class="link-mais" href="#contato"><span class="rola" data-rola>Agendar com a equipe</span></a>
       </div>
+      <div class="equipe-cartoes">
+        <figure class="pessoa" data-anima="sobe">
+          <div class="pessoa-midia"><video muted loop playsinline preload="none" poster="assets/video/equipe-andre.webp" data-hover-video aria-label="André, chefe de oficina, de braços cruzados segurando uma chave, ao lado de um carro com o capô aberto"><source src="assets/video/equipe-andre.mp4" type="video/mp4"></video><span class="pessoa-play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg></span></div>
+          <figcaption><b>André Ribeiro</b><span>Chefe de oficina</span></figcaption>
+        </figure>
+        <figure class="pessoa" data-anima="sobe">
+          <div class="pessoa-midia"><video muted loop playsinline preload="none" poster="assets/video/equipe-marcos.webp" data-hover-video aria-label="Marcos trabalhando no motor de um carro com o scanner de diagnóstico"><source src="assets/video/equipe-marcos.mp4" type="video/mp4"></video><span class="pessoa-play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg></span></div>
+          <figcaption><b>Marcos Vinícius</b><span>Injeção e elétrica</span></figcaption>
+        </figure>
+        <figure class="pessoa" data-anima="sobe">
+          <div class="pessoa-midia"><video muted loop playsinline preload="none" poster="assets/video/equipe-tiago.webp" data-hover-video aria-label="Tiago fazendo o acabamento na grade dianteira de um carro preto"><source src="assets/video/equipe-tiago.mp4" type="video/mp4"></video><span class="pessoa-play" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg></span></div>
+          <figcaption><b>Tiago Moreira</b><span>Estética automotiva</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="pacotes" aria-labelledby="pacotes-t">
+    <div class="wrap">
+      <div class="cab centro">
+          <span class="cab-fundo" aria-hidden="true">Pacotes</span>
+          <h2 id="pacotes-t" data-letras>Pacotes de revisão</h2>
+          <p data-anima="sobe">Valor de carro de passeio até 2.0, com peças e mão de obra. Sem surpresa no fim.</p>
+        </div>
       <div class="pacotes-janela">
         <div class="pacotes-trilho" data-pacotes>
           <article class="pacote">
-            
             <h3>Check-up viagem</h3>
-            <p class="pacote-txt">Antes de pegar a estrada.</p>
-            <p class="preco"><small>R$</small>189<s>R$ 240</s></p>
-            <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Checklist de 40 itens</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Freios e pneus</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Suspensão e direção</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Luzes e bateria</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Relatório com fotos</li></ul>
-            <a class="btn btn-rubi" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20agendar%20o%20pacote%20Check-up%20viagem%20(R%24%20189).%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Agendar pacote</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+            <p class="preco"><small>R$</small>189</p>
+            <p class="preco-de">R$ 240</p>
+            <ul><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Checklist de 40 itens</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Freios e pneus</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Suspensão e direção</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Luzes e bateria</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Relatório com fotos</li></ul>
+            <a class="pacote-btn" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20agendar%20o%20pacote%20Check-up%20viagem%20(R%24%20189).%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Agendar</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
           </article>
           <article class="pacote">
-            
             <h3>Revisão essencial</h3>
-            <p class="pacote-txt">Para o dia a dia.</p>
-            <p class="preco"><small>R$</small>289<s>R$ 349</s></p>
-            <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Óleo e filtro de óleo</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Checklist de 40 itens</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Nível de todos os fluidos</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Leitura do scanner</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Etiqueta da próxima troca</li></ul>
-            <a class="btn btn-rubi" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20agendar%20o%20pacote%20Revis%C3%A3o%20essencial%20(R%24%20289).%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Agendar pacote</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+            <p class="preco"><small>R$</small>289</p>
+            <p class="preco-de">R$ 349</p>
+            <ul><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Óleo e filtro de óleo</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Checklist de 40 itens</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Nível de todos os fluidos</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Leitura do scanner</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Etiqueta da próxima troca</li></ul>
+            <a class="pacote-btn" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20agendar%20o%20pacote%20Revis%C3%A3o%20essencial%20(R%24%20289).%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Agendar</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
           </article>
           <article class="pacote destaque">
-            <span class="pacote-selo">Mais pedido</span>
             <h3>Revisão completa</h3>
-            <p class="pacote-txt">A mais pedida.</p>
-            <p class="preco"><small>R$</small>549<s>R$ 690</s></p>
-            <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Tudo da revisão essencial</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Filtros de ar, cabine e combustível</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Alinhamento 3D e balanceamento</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Higienização do ar-condicionado</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Lavagem detalhada</li></ul>
-            <a class="btn btn-claro" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20agendar%20o%20pacote%20Revis%C3%A3o%20completa%20(R%24%20549).%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Agendar pacote</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+            <p class="preco"><small>R$</small>549</p>
+            <p class="preco-de">R$ 690</p>
+            <ul><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Tudo da revisão essencial</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Filtros de ar, cabine e combustível</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Alinhamento 3D e balanceamento</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Higienização do ar-condicionado</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Lavagem detalhada</li></ul>
+            <a class="pacote-btn" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20agendar%20o%20pacote%20Revis%C3%A3o%20completa%20(R%24%20549).%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Agendar</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
           </article>
           <article class="pacote">
-            
             <h3>Estética premium</h3>
-            <p class="pacote-txt">Brilho de carro novo.</p>
-            <p class="preco"><small>R$</small>890<s>R$ 1.090</s></p>
-            <ul><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Lavagem técnica</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Polimento em duas etapas</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Vitrificação da pintura</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Higienização dos bancos</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Hidratação do couro</li></ul>
-            <a class="btn btn-rubi" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20agendar%20o%20pacote%20Est%C3%A9tica%20premium%20(R%24%20890).%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Agendar pacote</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+            <p class="preco"><small>R$</small>890</p>
+            <p class="preco-de">R$ 1.090</p>
+            <ul><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Lavagem técnica</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Polimento em duas etapas</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Vitrificação da pintura</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Higienização dos bancos</li><li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>Hidratação do couro</li></ul>
+            <a class="pacote-btn" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20agendar%20o%20pacote%20Est%C3%A9tica%20premium%20(R%24%20890).%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Agendar</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
           </article>
         </div>
       </div>
       <div class="pacotes-ctrl">
-        <button type="button" class="circ" data-pac-ant aria-label="Pacote anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
-        <div class="pacotes-barra" aria-hidden="true"><i data-pac-barra></i></div>
-        <button type="button" class="circ" data-pac-prox aria-label="Próximo pacote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+        <button type="button" class="caixa-btn" data-pac-ant aria-label="Pacote anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button type="button" class="caixa-btn" data-pac-prox aria-label="Próximo pacote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
       </div>
     </div>
   </section>
 
   <section class="faq" id="faq">
-    <div class="faq-roda" aria-hidden="true"><svg viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="2"><circle cx="200" cy="200" r="196"/><circle cx="200" cy="200" r="172"/><g class="aro"><circle cx="200" cy="200" r="160" stroke="currentColor" stroke-width="6"/></g><circle cx="200" cy="200" r="148"/><path transform="rotate(0 200 200)" d="M188 150 178 52q22-6 44 0l-10 98"/><path transform="rotate(60 200 200)" d="M188 150 178 52q22-6 44 0l-10 98"/><path transform="rotate(120 200 200)" d="M188 150 178 52q22-6 44 0l-10 98"/><path transform="rotate(180 200 200)" d="M188 150 178 52q22-6 44 0l-10 98"/><path transform="rotate(240 200 200)" d="M188 150 178 52q22-6 44 0l-10 98"/><path transform="rotate(300 200 200)" d="M188 150 178 52q22-6 44 0l-10 98"/><circle cx="200" cy="200" r="50"/><circle cx="200.0" cy="172.0" r="6"/><circle cx="226.6" cy="191.3" r="6"/><circle cx="216.5" cy="222.7" r="6"/><circle cx="183.5" cy="222.7" r="6"/><circle cx="173.4" cy="191.3" r="6"/></svg></div>
     <div class="wrap faq-grid">
       <div class="faq-lado">
-        <div class="titulo">
-          <span class="fundo-txt" aria-hidden="true">FAQ</span>
-          <p class="apoio">Perguntas frequentes</p>
-          <h2 data-letras>Tire suas dúvidas</h2>
+        <div class="cab">
+          <span class="cab-fundo" aria-hidden="true">FAQ</span>
+          <h2 data-letras>Tire suas<br>dúvidas</h2>
+          <p data-anima="sobe">As perguntas que mais ouvimos no balcão. Não achou a sua? Fale com a gente no WhatsApp.</p>
         </div>
-        <figure class="faq-foto" data-revela><img src="assets/img/ferramentas.webp" alt="Parede de ferramentas organizada na oficina" loading="lazy" width="1200" height="1400"></figure>
+        <a class="link-mais" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Tenho%20uma%20d%C3%BAvida%3A%20" target="_blank" rel="noopener"><span class="rola" data-rola>Perguntar no WhatsApp</span></a>
       </div>
       <div class="faq-lista">
         <details class="pergunta" data-anima="sobe" open>
@@ -488,26 +469,23 @@
           <summary><span>Quais formas de pagamento vocês aceitam?</span><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg></i></summary>
           <div class="resposta"><p>Pix, débito e crédito em até 6 vezes sem juros. Para frotas e empresas, faturamento mensal com nota.</p></div>
         </details>
-        <p class="faq-mais">Não achou a sua dúvida? <a href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Tenho%20uma%20d%C3%BAvida%3A%20" target="_blank" rel="noopener">Pergunte no WhatsApp</a></p>
       </div>
     </div>
   </section>
 
-  <section class="contato escuro" id="contato">
-    <div class="contato-bg" aria-hidden="true"><img src="assets/img/lanterna.webp" alt="" loading="lazy" width="1920" height="1100"></div>
+  <section class="contato" id="contato">
     <div class="wrap contato-grid">
       <div class="contato-txt">
-        <div class="titulo">
-          <span class="fundo-txt" aria-hidden="true">Contato</span>
-          <p class="apoio">Contato</p>
-          <h2 data-letras>Agende o seu horário</h2>
+        <div class="cab">
+          <span class="cab-fundo" aria-hidden="true">Contato</span>
+          <h2 data-letras>Agende o seu<br>horário</h2>
+          <p data-anima="sobe">Preencha o formulário e a mensagem chega pronta no nosso WhatsApp. Respondemos em poucos minutos no horário de atendimento.</p>
         </div>
-        <p data-anima="sobe">Preencha o formulário e a mensagem chega pronta no nosso WhatsApp. Respondemos em poucos minutos no horário de atendimento.</p>
         <ul class="canais">
-          <li data-anima="sobe"><a href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!" target="_blank" rel="noopener"><span class="pulso"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg></span><span><small>WhatsApp</small>(31) 99999-0000</span></a></li>
-          <li data-anima="sobe"><a href="tel:3133330000"><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg></span><span><small>Telefone</small>(31) 3333-0000</span></a></li>
-          <li data-anima="sobe"><a href="mailto:contato@pistaoauto.com.br"><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 5h18v14H3z"/><path d="m3 6 9 7 9-7"/></svg></span><span><small>E-mail</small>contato@pistaoauto.com.br</span></a></li>
-          <li data-anima="sobe"><a href="https://www.openstreetmap.org/search?query=Rua%20Carlos%20Turner%2C%20520%2C%20Silveira%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><path d="M12 7.5v5"/></svg></span><span><small>Endereço</small>Rua Carlos Turner, 520, Silveira</span></a></li>
+          <li><a href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!" target="_blank" rel="noopener"><span class="pulso"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg></span><span><small>WhatsApp</small>(31) 99999-0000</span></a></li>
+          <li><a href="tel:3133330000"><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg></span><span><small>Telefone</small>(31) 3333-0000</span></a></li>
+          <li><a href="mailto:contato@pistaoauto.com.br"><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 5h18v14H3z"/><path d="m3 6 9 7 9-7"/></svg></span><span><small>E-mail</small>contato@pistaoauto.com.br</span></a></li>
+          <li><a href="https://www.openstreetmap.org/search?query=Rua%20Carlos%20Turner%2C%20520%2C%20Silveira%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><span class="pulso"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><path d="M12 7.5v5"/></svg></span><span><small>Endereço</small>Rua Carlos Turner, 520, Silveira</span></a></li>
         </ul>
         <table class="horas"><caption>Horário de atendimento</caption><tr><th scope="row">Segunda a sexta</th><td>7h30 às 18h30</td></tr><tr><th scope="row">Sábado</th><td>8h às 14h</td></tr><tr><th scope="row">Domingo e feriado</th><td>Fechado</td></tr></table>
       </div>
@@ -527,7 +505,7 @@
           <fieldset class="campo periodo"><legend>Período</legend><div class="opcoes" data-iguais><label><input type="radio" name="periodo" value="Manhã" checked><span>Manhã</span></label><label><input type="radio" name="periodo" value="Tarde"><span>Tarde</span></label></div></fieldset>
         </div>
         <label class="campo"><span>O que está acontecendo com o carro?</span><textarea name="msg" rows="3" placeholder="Ex.: barulho na roda dianteira ao frear"></textarea></label>
-        <button class="btn btn-rubi" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg><span class="rola" data-rola>Enviar pelo WhatsApp</span></button>
+        <button class="btn" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg><span class="rola" data-rola>Enviar pelo WhatsApp</span></button>
         <p class="aviso" data-aviso role="status"></p>
       </form>
     </div>
@@ -535,13 +513,14 @@
 
   <section class="insta" aria-labelledby="insta-t">
     <div class="wrap insta-topo">
-      <div>
-        <p class="apoio">Nosso Instagram</p>
-        <h2 id="insta-t"><a href="https://www.instagram.com/" target="_blank" rel="noopener">@pistaoautocenter</a></h2>
-      </div>
-      <a class="btn btn-vazado" href="https://www.instagram.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="M16.5 6.8v.4"/></svg><span class="rola" data-rola>Seguir no Instagram</span></a>
+      <div class="cab">
+          <span class="cab-fundo" aria-hidden="true">Instagram</span>
+          <h2 id="insta-t"><a href="https://www.instagram.com/" target="_blank" rel="noopener">@pistaoautocenter</a></h2>
+          
+        </div>
+      <a class="link-mais" href="https://www.instagram.com/" target="_blank" rel="noopener"><span class="rola" data-rola>Seguir no Instagram</span></a>
     </div>
-    <div class="insta-esteira" data-insta>
+    <div class="insta-esteira">
       <ul class="insta-trilho"><li><a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Reel: polimento técnico na pintura preta (abre o Instagram)">
         <video muted loop playsinline preload="none" poster="assets/video/reel-polimento.webp" data-reel><source src="assets/video/reel-polimento.mp4" type="video/mp4"></video><span class="reel-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 3.5 20 12 7 20.5Z"/></svg>Reel</span>
         <span class="insta-veu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="M16.5 6.8v.4"/></svg></span>
@@ -619,32 +598,17 @@
   </section>
 </main>
 
-<footer class="rodape escuro">
+<footer class="rodape">
   <div class="wrap">
-    <div class="rodape-chamada">
-      <span class="fundo-txt" aria-hidden="true">Lembrete</span>
-      <h2>Receba o lembrete da próxima revisão no WhatsApp</h2>
+    <div class="rodape-news">
+      <span class="cab-fundo" aria-hidden="true">Lembrete</span>
+      <h2>Receba o lembrete da próxima revisão no seu WhatsApp, sem spam</h2>
       <form class="lembrete" data-lembrete novalidate>
         <label class="sr" for="lembrete-fone">Seu WhatsApp</label>
         <input id="lembrete-fone" name="fone" inputmode="tel" autocomplete="tel" placeholder="Seu WhatsApp com DDD" data-mascara>
-        <button type="submit" aria-label="Quero receber o lembrete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+        <button type="submit" aria-label="Quero receber o lembrete"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.5 2.5 2.5 10l7 3 3 7Zm-11 10.2 6.8-6.8-5.2 8.6Z"/></svg></button>
         <p class="aviso" data-aviso role="status"></p>
       </form>
-    </div>
-    <div class="rodape-mapa">
-      <div class="map-box">
-        <img src="assets/img/mapa_silveira.webp" alt="Mapa do bairro Silveira, Belo Horizonte, com a localização da Pistão Auto Center" width="1240" height="760" loading="lazy">
-        <span class="pin" style="left:68%" aria-hidden="true"><b>Pistão</b></span>
-        <div class="map-info"><b>Pistão Auto Center</b><span>Rua Carlos Turner, 520, Silveira, Belo Horizonte, MG</span><span>Seg. a sex. 7h30 às 18h30, sáb. 8h às 14h</span>
-          <div class="mbtns" data-iguais><a href="https://www.openstreetmap.org/search?query=Rua%20Carlos%20Turner%2C%20520%2C%20Silveira%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><path d="M12 7.5v5"/></svg>Abrir no Maps</a><a href="https://www.google.com/maps/dir/?api=1&destination=Rua%20Carlos%20Turner%2C%20520%2C%20Silveira%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>Como chegar</a></div>
-        </div>
-        <span class="attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
-      </div>
-      <div class="onde">
-        <h2>Onde atendemos</h2>
-        <p>Leva e traz grátis nos bairros abaixo. Fora da lista, combine pelo WhatsApp.</p>
-        <ul class="bairros" data-iguais><li>Silveira</li><li>Cidade Nova</li><li>Nova Floresta</li><li>Renascença</li><li>Cachoeirinha</li><li>União</li><li>Sagrada Família</li><li>Floresta</li></ul>
-      </div>
     </div>
     <div class="rodape-cols">
       <div class="rodape-marca">
@@ -665,6 +629,21 @@
       <div><h3>Serviços</h3><ul><li><a href="#mecanica"><span class="rola" data-rola>Mecânica geral</span></a></li><li><a href="#revisao"><span class="rola" data-rola>Revisão e troca de óleo</span></a></li><li><a href="#freios"><span class="rola" data-rola>Freios</span></a></li><li><a href="#suspensao"><span class="rola" data-rola>Suspensão</span></a></li><li><a href="#pneus"><span class="rola" data-rola>Pneus e alinhamento 3D</span></a></li></ul></div>
       <div><h3>Endereço e contato</h3>
         <ul class="rodape-contato"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><path d="M12 7.5v5"/></svg><span>Rua Carlos Turner, 520, Silveira<br>Belo Horizonte, MG</span></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 5h18v14H3z"/><path d="m3 6 9 7 9-7"/></svg><a href="mailto:contato@pistaoauto.com.br">contato@pistaoauto.com.br</a></li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 7v5h4"/></svg><span>Seg. a sex. 7h30 às 18h30, sáb. 8h às 14h</span></li></ul>
+      </div>
+    </div>
+    <div class="rodape-mapa">
+      <div class="map-box">
+        <img src="assets/img/mapa_silveira.webp" alt="Mapa do bairro Silveira, Belo Horizonte, com a localização da Pistão Auto Center" width="1240" height="760" loading="lazy">
+        <span class="pin" style="left:68%" aria-hidden="true"><b>Pistão</b></span>
+        <div class="map-info"><b>Pistão Auto Center</b><span>Rua Carlos Turner, 520, Silveira, Belo Horizonte, MG</span><span>Seg. a sex. 7h30 às 18h30, sáb. 8h às 14h</span>
+          <div class="mbtns" data-iguais><a href="https://www.openstreetmap.org/search?query=Rua%20Carlos%20Turner%2C%20520%2C%20Silveira%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><path d="M12 7.5v5"/></svg>Abrir no Maps</a><a href="https://www.google.com/maps/dir/?api=1&destination=Rua%20Carlos%20Turner%2C%20520%2C%20Silveira%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>Como chegar</a></div>
+        </div>
+        <span class="attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
+      </div>
+      <div class="onde">
+        <h2>Onde atendemos</h2>
+        <p>Leva e traz grátis nos bairros abaixo. Fora da lista, combine pelo WhatsApp.</p>
+        <ul class="bairros" data-iguais><li>Silveira</li><li>Cidade Nova</li><li>Nova Floresta</li><li>Renascença</li><li>Cachoeirinha</li><li>União</li><li>Sagrada Família</li><li>Floresta</li></ul>
       </div>
     </div>
     <div class="rodape-fim">

@@ -39,15 +39,15 @@
 
   /* ---------- tema claro ou escuro ---------- */
   const raiz = document.documentElement;
-  const btnTema = $('[data-tema]');
-  const rotulo = () => btnTema.setAttribute('aria-label', raiz.dataset.tema === 'claro' ? 'Mudar para o tema escuro' : 'Mudar para o tema claro');
-  btnTema.addEventListener('click', () => {
-    raiz.dataset.tema = raiz.dataset.tema === 'claro' ? 'escuro' : 'claro';
+  const botoesTema = $$('[data-tema-ir]');
+  const marcaTema = () => botoesTema.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.temaIr === raiz.dataset.tema)));
+  botoesTema.forEach((b) => b.addEventListener('click', () => {
+    raiz.dataset.tema = b.dataset.temaIr;
     try { localStorage.setItem('pistao-tema', raiz.dataset.tema); } catch (e) { /* sem armazenamento, o tema vale só nesta visita */ }
     $('meta[name="theme-color"]').content = raiz.dataset.tema === 'claro' ? '#ffffff' : '#101010';
-    rotulo();
-  });
-  rotulo();
+    marcaTema();
+  }));
+  marcaTema();
 
   /* ---------- letras que rolam no hover ---------- */
   $$('[data-rola]').forEach((el) => {
@@ -104,10 +104,11 @@
 
   /* ---------- título em letras ---------- */
   $$('[data-letras]').forEach((el) => {
-    const txt = el.textContent.trim();
+    // respeita as quebras de linha (<br>) do título
+    const linhas = el.innerHTML.split(/<br\s*\/?>/i).map((l) => l.replace(/<[^>]+>/g, '').trim());
     let n = 0;
-    el.setAttribute('aria-label', txt);
-    el.innerHTML = txt.split(' ').map((p) => `<span class="pal" aria-hidden="true">${[...p].map((l) => `<span class="let" style="--n:${n++}">${l}</span>`).join('')}</span>`).join(' ');
+    el.setAttribute('aria-label', linhas.join(' '));
+    el.innerHTML = linhas.map((ln) => ln.split(' ').map((p) => `<span class="pal" aria-hidden="true">${[...p].map((l) => `<span class="let" style="--n:${n++}">${l}</span>`).join('')}</span>`).join(' ')).join('<br>');
   });
 
   /* ---------- números que contam ---------- */
@@ -265,11 +266,10 @@
     depoObs.observe(palco);
   }
 
-  /* ---------- pacotes: carrossel com setas, arrastar e barra ---------- */
+  /* ---------- pacotes: carrossel com setas e arrastar ---------- */
   const trilho = $('[data-pacotes]');
   if (trilho) {
     const cards = [...trilho.children];
-    const barra = $('[data-pac-barra]');
     let i = 0;
     const porTela = () => (innerWidth <= 640 ? 1 : innerWidth <= 1240 ? 2 : 3);
     const max = () => Math.max(0, cards.length - porTela());
@@ -277,8 +277,6 @@
     const mostra = () => {
       i = Math.max(0, Math.min(i, max()));
       trilho.style.transform = `translateX(${-i * passo()}px)`;
-      barra.style.width = `${(porTela() / cards.length) * 100}%`;
-      barra.style.left = `${(i / cards.length) * 100}%`;
     };
     $('[data-pac-prox]').addEventListener('click', () => { i = i >= max() ? 0 : i + 1; mostra(); });
     $('[data-pac-ant]').addEventListener('click', () => { i = i <= 0 ? max() : i - 1; mostra(); });
@@ -322,14 +320,10 @@
   }
 
   /* ---------- efeitos ligados à rolagem ---------- */
-  const fundos = $$('.fundo-txt');
-  const contornos = $$('.contorno li');
-  const paralaxe = $$('.pacotes-bg, .contato-bg, .sobre-menor');
-  const servicos = $$('.servico');
-  const indice = $$('[data-indice]');
+  const fundos = $$('.cab-fundo');
+  const paralaxe = $$('.sobre-vinho');
   const moldura = $('[data-video-moldura]');
   const sobe = $('.sobe-topo');
-  const barraRol = $('.barra-rolagem');
   let ultimoY = scrollY, pedido = false;
   const quadro = () => {
     pedido = false;
@@ -341,26 +335,18 @@
     const total = document.documentElement.scrollHeight - H;
     const rolado = total > 0 ? (y / total).toFixed(4) : 0;
     sobe.style.setProperty('--rolado', rolado);
-    barraRol.style.setProperty('--rolado', rolado);
     sobe.classList.toggle('mostra', y > H * .8);
-    let ativo = null;
-    servicos.forEach((c) => { if (c.getBoundingClientRect().top < H * .5) ativo = c.id; });
-    indice.forEach((a) => a.classList.toggle('atual', a.dataset.indice === ativo));
     if (calmo) return;
+    // palavra metálica atrás dos títulos desliza de leve com a rolagem
     fundos.forEach((f) => {
       const r = f.parentElement.getBoundingClientRect();
       if (r.bottom < -200 || r.top > H + 200) return;
-      f.style.setProperty('--desloc', `${((r.top + r.height / 2) / H - .5) * -180}px`);
-    });
-    contornos.forEach((li) => {
-      const r = li.getBoundingClientRect();
-      li.style.setProperty('--p', Math.min(1, Math.max(0, (H * .82 - r.top) / (H * .35))).toFixed(3));
+      f.style.setProperty('--desloc', `${((r.top + r.height / 2) / H - .5) * -120}px`);
     });
     paralaxe.forEach((el) => {
       const r = el.parentElement.getBoundingClientRect();
       if (r.bottom < 0 || r.top > H) return;
-      const k = el.classList.contains('sobre-menor') ? .1 : .18;
-      el.style.setProperty('--para', `${((r.top + r.height / 2) - H / 2) * -k}px`);
+      el.style.setProperty('--para', `${((r.top + r.height / 2) - H / 2) * -.08}px`);
     });
     // moldura do vídeo abre até a tela cheia conforme a seção sobe
     if (moldura) {

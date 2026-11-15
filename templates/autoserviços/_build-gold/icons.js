@@ -72,6 +72,13 @@ module.exports = {
   // alternar tema: círculo dividido na diagonal, metade cheia
   tema: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="currentColor" d="M18 6A8.5 8.5 0 0 1 6 18Z"/></svg>`,
   fechar: s('<path d="M5 5l14 14M19 5 5 19"/>'),
+  // seletor de tema da lateral: claro = disco cheio com anel; escuro = meia-lua de dois círculos
+  claro: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="currentColor"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2.4 2.3"/></svg>`,
+  escuro: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.5 3.2a9 9 0 1 0 6.3 12.6A7.2 7.2 0 0 1 14.5 3.2Z"/></svg>`,
+  // aspas do depoimento em gota, como na referência
+  aspasGota: `<svg viewBox="0 0 64 48" aria-hidden="true"><path fill="currentColor" d="M14 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 14 0Zm36 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 50 0Z"/></svg>`,
+  enviar: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.5 2.5 2.5 10l7 3 3 7Zm-11 10.2 6.8-6.8-5.2 8.6Z"/></svg>`,
+  checkCirc: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".18"/><path d="m7.5 12.3 3 3 6-6.3" fill="none" stroke="currentColor" stroke-width="2"/></svg>`,
   logo, favicon, simbolo, carro, etapas, numeros,
   whats: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg>`,
   fone: s('<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/>'),

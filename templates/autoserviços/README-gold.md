@@ -1,7 +1,7 @@
 # Autosserviços: modelo Gold "Pistão Auto Center"
 
 Nicho **autosserviços** (oficina mecânica, revisão e estética automotiva). Mesma empresa fictícia do Silver (Pistão Auto Center, Silveira, Belo Horizonte), em versão mais completa.
-Referência visual: tema "CRAS Car Repair & Auto Services" (https://cras-three.vercel.app/cras-main/index.html), seguido seção por seção: capa em slides com paralaxe, etapas, "por que nos escolher", serviços com lado fixo, vídeo, números vazados, marcas, depoimentos, equipe, preços, rodapé com chamada, e o alternador de tema claro/escuro.
+Referência visual: template "CRAS Car Repair & Auto Services" (https://cras-three.vercel.app/cras-main/index.html), copiado no visual e na ordem das seções: topo com telefone em destaque, faixa de contatos no alto da capa, cartões pretos chapados, palavra gigante em degradê metálico atrás dos títulos, foto inclinada sobre bloco vinho, serviços em cartões largos, vídeo em largura total, números vazados em vermelho, depoimento com foto inclinada, equipe com nome em caixa sobreposta, preços em colunas coladas sobre fundo vinho, newsletter centralizada no rodapé e seletor de tema na lateral.
 
 Uma página só, com as seções do menu: Início, Serviços, Sobre nós, FAQ e Contato (com formulário). Sem loja, galeria, blog ou páginas extras.
 
@@ -31,18 +31,20 @@ FFMPEG=<caminho do ffmpeg> CLIPES=<pasta dos clipes> node "templates/autoserviç
 ## Como é
 
 - **Preloader**: conta-giros que enche de vermelho com o ponteiro subindo e a porcentagem, depois abre em duas cortinas
-- **Topo**: links com letras que rolam no hover, sublinhado vermelho na seção atual, botão de tema claro/escuro (fica salvo), telefone pulsando com "Aberto agora" ou "Fechado agora". Some ao descer e volta ao subir. Barra de progresso de leitura no topo da tela e cursor personalizado (só com mouse)
-- **Capa em slides**: o primeiro é **vídeo** (garagem, farol, painel, mecânico, motor, polimento e estrada, 17 s) e os outros dois são fotos. Troca em cortina com o fundo deslizando por trás, camadas de texto entrando deslocadas como o parallax do Swiper da referência, segunda linha do título vazada que se preenche de vermelho, texto acompanhando o mouse, setas, barras de progresso, redes na vertical e faixa com e-mail, endereço e horário
-- **Etapas** (Diagnóstico, Reparo, Entrega): cartões com barra que enche em sequência e ícone pulsando
-- **Sobre nós**: frases em contorno que se preenchem ao rolar e acendem em vermelho no hover, duas fotos que se revelam em cortina com paralaxe, bloco "16+ anos" contando e selo girando. Logo abaixo, **Nossa equipe**: três retratos em **vídeo** que tocam ao passar o mouse (no celular, quando aparecem) e ganham cor
-- **Serviços**: lista à esquerda e lado fixo à direita com o índice que marca o serviço da vez (como a referência). Cinco cartões tocam um **vídeo** do serviço no hover; clicar no cartão já escolhe o serviço no formulário
-- **Vídeo da oficina**: moldura com cantos arredondados que abre até a tela cheia conforme a rolagem, vídeo de fundo em loop e botão de play pulsando que abre o player em tela cheia
-- **Números**: 16+, 23 mil e 98% em letra vazada gigante que se enche de vermelho de baixo para cima enquanto conta
-- **Montadoras**: esteira contínua com logos que acendem no hover
-- **Depoimentos**: slide grande com cartão do cliente e foto do carro, cortina vermelha revelando a foto, botões "Anterior / Próximo", barras de tempo, arrastar e troca automática
-- **Pacotes de revisão**: carrossel de preços (Check-up viagem, Revisão essencial, Revisão completa em destaque, Estética premium) com setas, arrastar e barra; cada um agenda pelo WhatsApp
-- **FAQ**: sete perguntas, uma aberta por vez, roda de liga leve girando no fundo
-- **Contato**: canais, tabela de horário com o dia de hoje destacado e formulário de agendamento (serviço ou pacote) que valida e abre o WhatsApp com a mensagem pronta
-- **Instagram** em cima do rodapé: esteira contínua misturando fotos e **reels** que tocam sozinhos quando aparecem; pausa no hover
-- **Rodapé**: chamada "lembrete da próxima revisão" com campo de WhatsApp, mapa padrão do OpenStreetMap (`.map-box`), "Onde atendemos", navegação, serviços, contatos e redes
+- **Topo** (como o CRAS): logo, menu centralizado em caixa-alta com letras que rolam no hover, telefone grande com círculo vermelho e status "Aberto agora" ou "Fechado agora". Linha fina embaixo; ganha fundo ao rolar, some ao descer e volta ao subir
+- **Seletor de tema** na lateral direita (pílula branca com claro e escuro), salvo no navegador
+- **Capa**: faixa de e-mail, endereço e horário com ícones vermelhos no alto; slides com o primeiro em **vídeo** e os outros em foto, troca em cortina com o texto entrando em camadas (parallax do Swiper da referência), botão vermelho retangular, setas redondas translúcidas, barras de progresso e redes na vertical
+- **Etapas**: seta e linha que se desenha acima de três cartões pretos centralizados com ícone vermelho
+- **Sobre nós**: título com "SOBRE" metálico atrás, frases em contorno que acendem em vermelho no hover, foto inclinada encostada na borda da tela sobre bloco vinho com paralaxe e selo cinza girando
+- **Serviços**: sete cartões largos, foto à esquerda (cinco tocam **vídeo** no hover) e texto à direita sobre degradê preto, com "Pedir orçamento" sublinhado de vermelho
+- **Vídeo da oficina**: em largura total, com zoom ao rolar, vídeo de fundo em loop e botão de play vermelho pulsando que abre o player
+- **Números**: 16+, 23 mil e 98% vazados em vermelho, contando ao aparecer
+- **Montadoras**: esteira de logos vermelhas com o nome
+- **Depoimentos**: botões "Anterior / Próximo" em caixa, cartão preto com nome, aspas em gota vermelhas e texto em itálico, foto inclinada com bloco vinho atrás; troca automática e arrastar
+- **Nossa equipe**: texto à esquerda e três retratos em **vídeo** (tocam no hover) com o nome numa caixa preta sobreposta que fica vermelha
+- **Pacotes de revisão**: fundo vinho, colunas coladas com preço, preço antigo riscado e lista; a Revisão completa em vermelho. Carrossel com setas e arrastar
+- **FAQ**: perguntas em cartões pretos, uma aberta por vez, título fixo ao lado
+- **Contato**: canais, horário com o dia de hoje destacado e formulário de agendamento (serviço ou pacote) que abre o WhatsApp com a mensagem pronta
+- **Instagram** em cima do rodapé: esteira com fotos e **reels** que tocam sozinhos quando aparecem
+- **Rodapé**: chamada "lembrete da próxima revisão" no lugar da newsletter, logo, telefone grande, colunas de links, mapa padrão do OpenStreetMap (`.map-box`) com "Onde atendemos", copyright e redes
 - Vídeos só carregam quando necessários (`preload="none"`), não tocam com economia de dados ligada e param com "reduzir movimento"

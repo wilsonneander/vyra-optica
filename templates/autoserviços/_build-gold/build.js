@@ -1,6 +1,8 @@
 // Gera o modelo Gold de autosserviços (Pistão Auto Center) em templates/autoserviços/site-gold/.
-// Gold: uma página só (Início, Serviços, Sobre nós, FAQ, Contato) seguindo a estrutura da referência CRAS,
-// com vídeo na capa, vídeo da oficina, equipe em vídeo, pacotes, carrosséis e tema claro/escuro.
+// Gold: uma página só (Início, Serviços, Sobre nós, FAQ, Contato) com o visual do template CRAS
+// (https://cras-three.vercel.app/cras-main/index.html): faixa de contatos no topo da capa, cartões pretos chapados,
+// texto de fundo em degradê metálico, foto inclinada sobre bloco vinho, preços em colunas coladas e newsletter no rodapé.
+// Por cima disso: vídeo na capa, vídeo da oficina, equipe e serviços em vídeo, reels e tema claro/escuro.
 // Uso: node "templates/autoserviços/_build-gold/build.js"
 const fs = require('fs');
 const path = require('path');
@@ -26,7 +28,6 @@ for (const f of fs.readdirSync(path.join(__dirname, 'img', 'video')))
   fs.copyFileSync(path.join(__dirname, 'img', 'video', f), path.join(OUT, 'assets', 'video', f));
 for (const f of ['mapa_silveira.webp', 'og.jpg'])
   fs.copyFileSync(path.join(__dirname, 'img', f), path.join(OUT, 'assets', 'img', f));
-// logos das montadoras: cada SVG do Simple Icons vira um <symbol> no sprite e é usado com <use>
 const sprite = C.marcas.map(([id]) => {
   const svg = fs.readFileSync(path.join(__dirname, 'img', 'marcas', `${id}.svg`), 'utf8');
   const vb = svg.match(/viewBox="([^"]+)"/)[1];
@@ -39,56 +40,34 @@ fs.writeFileSync(path.join(OUT, 'assets', 'app.js'), fs.readFileSync(path.join(_
   .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura })));
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
-const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">';
+const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700;800&family=Sarabun:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">';
 
-// texto gigante vazado atrás do título da seção (decorativo, desliza com a rolagem)
-const fundoTxt = (t) => `<span class="fundo-txt" aria-hidden="true">${t}</span>`;
-// link com as letras que rolam no hover (como o "text-hover-animation" da referência)
+// título de seção no padrão da referência: palavra gigante em degradê metálico atrás do título
+const titulo = (fundo, h2, { id = '', txt = '', centro = false } = {}) => `<div class="cab${centro ? ' centro' : ''}">
+          <span class="cab-fundo" aria-hidden="true">${fundo}</span>
+          <h2${id ? ` id="${id}"` : ''}${h2.includes('<a') ? '' : ' data-letras'}>${h2}</h2>
+          ${txt ? `<p data-anima="sobe">${txt}</p>` : ''}
+        </div>`;
+// link com as letras que rolam no hover (o "text-hover-animation" da referência)
 const rola = (t) => `<span class="rola" data-rola>${t}</span>`;
 const S = C.servicos;
 const v = (n) => `assets/video/${n}`;
 
-// ---------- capa em slides (o primeiro é vídeo) ----------
+// ---------- capa ----------
 const slides = C.slides.map((s, i) => {
   const fundo = s.video
     ? `<video class="slide-bg" data-slide-video muted loop playsinline preload="auto" poster="${v(s.video)}.webp" aria-label="${esc(s.alt)}"><source src="${v(s.video)}.mp4" type="video/mp4"></video>`
     : `<img class="slide-bg" src="assets/img/${s.foto}.webp" alt="${esc(s.alt)}" width="1920" height="1080" loading="lazy">`;
   const tag = i ? 'p' : 'h1';
-  return `<div class="slide${i ? '' : ' ativo'}" data-slide="${i}"${i ? ' aria-hidden="true"' : ''}>
+  return `<div class="slide${i ? '' : ' ativo'}"${i ? ' aria-hidden="true"' : ''}>
         <div class="slide-fundo">${fundo}</div>
         <div class="wrap slide-txt">
-          <${tag} class="slide-t"><span class="ln" data-px="300"><span>${s.t1}</span></span><span class="ln ln-vazada" data-px="100"><span>${s.t2}</span></span></${tag}>
+          <${tag} class="slide-t"><span class="ln" data-px="300"><span>${s.t1}</span></span><span class="ln" data-px="100"><span>${s.t2}</span></span></${tag}>
           <p class="slide-p" data-px="400">${esc(s.texto)}</p>
-          <div class="slide-btns" data-px="300" data-iguais>
-            <a class="btn btn-rubi" href="#contato">${rola('Agendar serviço')}${I.seta}</a>
-            <a class="btn btn-vazado" href="#servicos">${rola('Ver serviços')}</a>
-          </div>
+          <div data-px="300"><a class="btn" href="#contato">${rola('Agendar serviço')}</a></div>
         </div>
       </div>`;
 }).join('\n      ');
-
-// ---------- serviços ----------
-const cartoes = S.map((s, i) => `<article class="servico" id="${s.id}" data-anima="esq">
-          <a class="servico-midia" href="#contato" data-servico="${esc(s.nome)}" tabindex="-1" aria-hidden="true">
-            <img src="assets/img/${s.foto}.webp" alt="" loading="lazy" width="960" height="680">
-            ${s.video ? `<video muted loop playsinline preload="none" data-hover-video><source src="${v(s.video)}.mp4" type="video/mp4"></video>` : ''}
-          </a>
-          <div class="servico-txt">
-            <h3><a href="#contato" data-servico="${esc(s.nome)}">${s.nome}</a></h3>
-            <p>${esc(s.texto)}</p>
-            <ul>${s.itens.map((t) => `<li>${I.check}${t}</li>`).join('')}</ul>
-            <a class="link-seta" href="${wa(`Olá, Pistão! Quero um orçamento de ${s.nome.toLowerCase()}. Meu carro é: `)}" target="_blank" rel="noopener">${rola('Pedir orçamento')}${I.setaDiag}</a>
-          </div>
-        </article>`).join('\n        ');
-
-const marcasHtml = (copia) => C.marcas.map(([id, nome]) => `<li${copia ? ' aria-hidden="true"' : ''}><span class="marca-logo" title="${nome}"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-${id}"/></svg></span><span class="marca-nome">${nome}</span></li>`).join('');
-
-const insta = (copia) => C.instagram.map((it, i) => `<li${copia ? ' aria-hidden="true"' : ''}><a href="${M.instagram}" target="_blank" rel="noopener"${copia ? ' tabindex="-1"' : ''} aria-label="${esc(it.alt)} (abre o Instagram)">
-        ${it.reel
-          ? `<video muted loop playsinline preload="none" poster="${v(it.reel)}.webp" data-reel><source src="${v(it.reel)}.mp4" type="video/mp4"></video><span class="reel-tag">${I.play}Reel</span>`
-          : `<img src="assets/img/${it.foto}.webp" alt="" loading="lazy" width="640" height="640">`}
-        <span class="insta-veu">${I.insta}</span>
-      </a></li>`).join('');
 
 const html = `<!doctype html>
 <html lang="pt-BR" data-tema="escuro">
@@ -126,7 +105,6 @@ ${fontes}
   </div>
 </div>
 <div class="cursor" aria-hidden="true"><i></i></div>
-<div class="barra-rolagem" aria-hidden="true"><i></i></div>
 
 <a class="pular" href="#servicos">Pular para os serviços</a>
 
@@ -141,23 +119,33 @@ ${fontes}
         <li><a href="#faq">${rola('FAQ')}</a></li>
         <li><a href="#contato">${rola('Contato')}</a></li>
       </ul>
-      <a class="btn btn-rubi menu-cta" href="#contato">Agendar serviço</a>
+      <a class="btn menu-cta" href="#contato">Agendar serviço</a>
     </nav>
-    <button class="tema" type="button" data-tema aria-label="Mudar para o tema claro">${I.tema}</button>
-    <a class="topo-fone" href="tel:${tel}"><span class="pulso">${I.fone}</span><span><small data-status>Ligue agora</small>${M.telefone}</span></a>
+    <a class="topo-fone" href="tel:${tel}"><span class="pulso">${I.fone}</span><span><small data-status>Ligue agora</small><b>${M.telefone}</b></span></a>
     <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
   </div>
-  <span class="topo-linha" aria-hidden="true"></span>
 </header>
 
+<div class="tema-lado" role="group" aria-label="Tema do site">
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="false">${I.claro}</button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="true">${I.escuro}</button>
+</div>
+
 <main>
-  <section class="capa escuro" id="inicio" aria-roledescription="carrossel" aria-label="Destaques">
+  <section class="capa" id="inicio" aria-roledescription="carrossel" aria-label="Destaques">
     <div class="slides">
       ${slides}
     </div>
+    <div class="capa-info">
+      <div class="wrap">
+        <a href="mailto:${M.email}"><span class="pulso">${I.email}</span>${M.email}</a>
+        <a href="${mapsUrl}" target="_blank" rel="noopener"><span class="pulso">${I.pino}</span>${M.endereco}, ${M.bairro}</a>
+        <span><span class="pulso">${I.relogio}</span>${C.horarioTexto}</span>
+      </div>
+    </div>
     <div class="capa-ctrl">
-      <button type="button" class="circ" data-ant aria-label="Slide anterior">${I.setaEsq}</button>
-      <button type="button" class="circ" data-prox aria-label="Próximo slide">${I.seta}</button>
+      <button type="button" data-ant aria-label="Slide anterior">${I.setaEsq}</button>
+      <button type="button" data-prox aria-label="Próximo slide">${I.seta}</button>
     </div>
     <div class="capa-pag" role="tablist" aria-label="Escolher slide">${C.slides.map((s, i) => `<button type="button" role="tab" aria-label="Slide: ${s.t1} ${s.t2}" aria-selected="${i ? 'false' : 'true'}" data-ir-slide="${i}"><i></i></button>`).join('')}</div>
     <div class="capa-social">
@@ -167,20 +155,17 @@ ${fontes}
       <span class="capa-social-fio" aria-hidden="true"></span>
       <span>Siga a Pistão</span>
     </div>
-    <div class="capa-info">
-      <div class="wrap">
-        <a href="mailto:${M.email}"><span class="pulso">${I.email}</span>${M.email}</a>
-        <a href="${mapsUrl}" target="_blank" rel="noopener"><span class="pulso">${I.pino}</span>${M.endereco}, ${M.bairro}</a>
-        <span><span class="pulso">${I.relogio}</span>${C.horarioTexto}</span>
-      </div>
-    </div>
   </section>
 
-  <section class="etapas" id="etapas" aria-label="Como cuidamos do seu carro">
+  <section class="etapas" aria-label="Como cuidamos do seu carro">
     <div class="wrap etapas-in">
       ${C.etapas.map(([k, t, d]) => `<div class="etapa" data-anima="sobe">
-        <span class="etapa-barra" aria-hidden="true"><i></i></span>
-        <div class="etapa-corpo"><span class="pulso grande">${I.etapas[k]}</span><div><h2>${t}</h2><p>${d}</p></div></div>
+        <div class="etapa-topo" aria-hidden="true"><span class="etapa-seta">${I.seta}</span><i></i></div>
+        <div class="etapa-card">
+          <span class="pulso">${I.etapas[k]}</span>
+          <h2>${t}</h2>
+          <p>${d}</p>
+        </div>
       </div>`).join('\n      ')}
     </div>
   </section>
@@ -188,77 +173,48 @@ ${fontes}
   <section class="sobre" id="sobre">
     <div class="wrap sobre-grid">
       <div class="sobre-txt">
-        <div class="titulo">
-          ${fundoTxt('Sobre')}
-          <p class="apoio">Sobre nós</p>
-          <h2 data-letras>Por que a Pistão</h2>
-        </div>
-        <p data-anima="sobe">Começamos em ${M.desde} com dois elevadores e uma regra: ninguém mexe no carro sem o dono aprovar. Hoje são oito boxes, alinhador 3D, scanner multimarcas e uma equipe de 14 mecânicos certificados.</p>
-        <p data-anima="sobe">Você recebe fotos e vídeo de cada etapa no WhatsApp, a peça velha volta no porta-malas e a garantia vem escrita na nota.</p>
-        <ul class="contorno">${C.porque.map((t) => `<li data-preenche>${t}</li>`).join('')}</ul>
-        <a class="btn btn-rubi" href="#contato" data-anima="sobe">${rola('Conhecer a oficina')}${I.seta}</a>
-      </div>
-      <div class="sobre-fotos">
-        <div class="sobre-principal" data-revela>
-          <img src="assets/img/capa.webp" alt="Mecânico da Pistão ajustando peças no motor de um carro" loading="lazy" width="1300" height="1950">
-        </div>
-        <div class="sobre-menor" data-revela>
-          <img src="assets/img/oficina.webp" alt="Boxes da oficina com carros nos elevadores" loading="lazy" width="1300" height="900">
-        </div>
-        <div class="sobre-anos" data-anima="sobe"><b><span data-conta="16">16</span></b><span>anos cuidando de carros em BH</span></div>
-        <div class="selo-gira" aria-label="Desde ${M.desde}">
-          <svg viewBox="0 0 160 160" aria-hidden="true"><defs><path id="circulo" d="M80 80m-62 0a62 62 0 1 1 124 0a62 62 0 1 1-124 0"/></defs><text><textPath href="#circulo" textLength="384" lengthAdjust="spacing">PISTÃO AUTO CENTER   DESDE ${M.desde}   BH   </textPath></text></svg>
-          <span>${I.simbolo}</span>
-        </div>
+        ${titulo('Sobre', 'Por que a Pistão', { txt: `Começamos em ${M.desde} com dois elevadores e uma regra: ninguém mexe no carro sem o dono aprovar. Hoje são oito boxes, alinhador 3D, scanner multimarcas e 14 mecânicos certificados. Você recebe fotos e vídeo de cada etapa no WhatsApp e a garantia vem escrita na nota.` })}
+        <ul class="contorno">${C.porque.map((t) => `<li>${t}</li>`).join('')}</ul>
+        <a class="btn" href="#contato" data-anima="sobe">${rola('Conhecer a oficina')}</a>
       </div>
     </div>
-
-    <div class="wrap equipe">
-      <div class="equipe-topo">
-        <div class="titulo">
-          ${fundoTxt('Equipe')}
-          <p class="apoio">Quem cuida do seu carro</p>
-          <h2 data-letras>Nossa equipe</h2>
-        </div>
-        <p data-anima="sobe">Mecânicos com certificação das montadoras e curso de atualização todo ano. Passe o mouse para ver cada um trabalhando.</p>
-      </div>
-      <div class="equipe-cartoes">
-        ${C.equipe.map((p) => `<figure class="pessoa" data-anima="sobe">
-          <video muted loop playsinline preload="none" poster="${v(p.video)}.webp" data-hover-video aria-label="${esc(p.alt)}"><source src="${v(p.video)}.mp4" type="video/mp4"></video>
-          <figcaption><b>${p.nome}</b><span>${p.cargo}</span></figcaption>
-          <span class="pessoa-play" aria-hidden="true">${I.play}</span>
-        </figure>`).join('\n        ')}
+    <div class="sobre-foto" data-anima="dir">
+      <span class="sobre-vinho" aria-hidden="true"></span>
+      <div class="sobre-img"><img src="assets/img/capa.webp" alt="Mecânico da Pistão ajustando peças no motor de um carro" loading="lazy" width="1300" height="1950"></div>
+      <div class="selo-gira" aria-label="Desde ${M.desde}">
+        <svg viewBox="0 0 160 160" aria-hidden="true"><defs><path id="circulo" d="M80 80m-60 0a60 60 0 1 1 120 0a60 60 0 1 1-120 0"/></defs><text><textPath href="#circulo" textLength="372" lengthAdjust="spacing">PISTÃO AUTO CENTER   DESDE ${M.desde}   </textPath></text></svg>
+        <span>${I.simbolo}</span>
       </div>
     </div>
   </section>
 
   <section class="servicos" id="servicos">
-    <div class="servicos-grade" aria-hidden="true"></div>
-    <div class="wrap servicos-in">
-      <div class="servicos-lista">
-        ${cartoes}
+    <div class="wrap">
+      <div class="servicos-topo">
+        ${titulo('Serviços', 'Serviços<br>dedicados', { txt: 'Da troca de óleo ao motor aberto, da suspensão ao polimento. Passe o mouse nos cartões para ver o serviço em vídeo e peça o orçamento pelo WhatsApp.' })}
+        <a class="link-mais" href="${wa('Olá, Pistão! Quero um orçamento.')}" target="_blank" rel="noopener">${rola('Orçamento no WhatsApp')}</a>
       </div>
-      <aside class="servicos-lado">
-        <div class="titulo">
-          ${fundoTxt('Serviços')}
-          <p class="apoio">Serviços</p>
-          <h2 data-letras>Serviços dedicados</h2>
-        </div>
-        <p data-anima="sobe">Da troca de óleo ao motor aberto, da suspensão ao polimento. Passe o mouse nos cartões para ver o serviço em vídeo e peça o orçamento direto pelo WhatsApp.</p>
-        <ol class="servicos-indice" aria-label="Lista de serviços">${S.map((s) => `<li><a href="#${s.id}" data-indice="${s.id}">${s.nome}</a></li>`).join('')}</ol>
-        <a class="btn btn-vazado" href="${wa('Olá, Pistão! Quero um orçamento.')}" target="_blank" rel="noopener">${I.whats}${rola('Orçamento no WhatsApp')}</a>
-      </aside>
+      <div class="servicos-lista">
+        ${S.map((s) => `<article class="servico" id="${s.id}" data-anima="esq">
+          <a class="servico-midia" href="#contato" data-servico="${esc(s.nome)}" tabindex="-1" aria-hidden="true">
+            <img src="assets/img/${s.foto}.webp" alt="" loading="lazy" width="960" height="680">
+            ${s.video ? `<video muted loop playsinline preload="none" data-hover-video><source src="${v(s.video)}.mp4" type="video/mp4"></video><span class="servico-play">${I.play}</span>` : ''}
+          </a>
+          <div class="servico-txt">
+            <h3><a href="#contato" data-servico="${esc(s.nome)}">${s.nome}</a></h3>
+            <p>${esc(s.texto)}</p>
+            <p class="servico-itens">${s.itens.join(', ')}</p>
+            <a class="link-mais" href="${wa(`Olá, Pistão! Quero um orçamento de ${s.nome.toLowerCase()}. Meu carro é: `)}" target="_blank" rel="noopener">${rola('Pedir orçamento')}</a>
+          </div>
+        </article>`).join('\n        ')}
+      </div>
     </div>
   </section>
 
-  <section class="video-sec escuro" aria-labelledby="video-t">
+  <section class="video-sec" aria-label="Vídeo da oficina">
     <div class="video-moldura" data-video-moldura>
       <video class="video-fundo" muted loop playsinline preload="none" poster="${v('oficina')}.webp" data-auto-video aria-hidden="true"><source src="${v('oficina')}.mp4" type="video/mp4"></video>
-      <div class="video-conteudo">
-        <button type="button" class="play-grande" data-abre-video aria-label="Assistir ao vídeo da oficina"><span class="pulso-play" aria-hidden="true"></span>${I.play}</button>
-        <h2 id="video-t" data-letras>Veja a oficina por dentro</h2>
-        <p data-anima="sobe">Oito boxes, alinhador 3D, cabine de estética e uma equipe que trabalha com a porta aberta para você acompanhar.</p>
-      </div>
+      <button type="button" class="play" data-abre-video aria-label="Assistir ao vídeo da oficina">${I.play}</button>
     </div>
   </section>
 
@@ -269,104 +225,94 @@ ${fontes}
   </section>
 
   <section class="marcas" aria-labelledby="marcas-t">
-    <div class="wrap marcas-in">
-      <h2 id="marcas-t">Atendemos <br>todas as marcas</h2>
-      <div class="esteira"><ul class="esteira-trilho">${marcasHtml(false)}${marcasHtml(true)}</ul></div>
+    <h2 id="marcas-t">Montadoras que atendemos</h2>
+    <div class="wrap">
+      <div class="esteira"><ul class="esteira-trilho">${[false, true].map((copia) => C.marcas.map(([id, nome]) => `<li${copia ? ' aria-hidden="true"' : ''}><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-${id}"/></svg><span>${nome}</span></li>`).join('')).join('')}</ul></div>
     </div>
   </section>
 
   <section class="depo" aria-labelledby="depo-t">
     <div class="wrap">
       <div class="depo-topo">
-        <div class="titulo">
-          ${fundoTxt('Clientes')}
-          <p class="apoio">Depoimentos</p>
-          <h2 id="depo-t" data-letras>O que dizem nossos clientes</h2>
-        </div>
+        ${titulo('Clientes', 'O que dizem nossos<br>clientes', { id: 'depo-t' })}
         <div class="depo-ctrl">
-          <button type="button" class="seta-txt" data-dep-ant aria-label="Depoimento anterior">${I.setaEsq}<span>Anterior</span></button>
-          <button type="button" class="seta-txt" data-dep-prox aria-label="Próximo depoimento"><span>Próximo</span>${I.seta}</button>
+          <button type="button" class="caixa-btn" data-dep-ant>${I.setaEsq}<span>Anterior</span></button>
+          <button type="button" class="caixa-btn" data-dep-prox><span>Próximo</span>${I.seta}</button>
         </div>
       </div>
       <div class="depo-palco" data-depo aria-live="polite">
         ${C.avaliacoes.map(([n, carro, t, foto], i) => `<figure class="depo-slide${i ? '' : ' ativo'}"${i ? ' aria-hidden="true"' : ''}>
           <div class="depo-info">
-            <div class="depo-quem"><div><b>${n}</b><span>${carro}</span></div><span class="aspas">${I.aspas}</span></div>
+            <div class="depo-quem"><div><b>${n}</b><span>${carro}</span></div><span class="aspas">${I.aspasGota}</span></div>
+            <blockquote>“${esc(t)}”</blockquote>
             <span class="estrelas" aria-label="5 de 5 estrelas">${I.estrela.repeat(5)}</span>
-            <blockquote>${esc(t)}</blockquote>
           </div>
-          <div class="depo-foto"><img src="assets/img/${foto}.webp" alt="Carro de ${n.split(' ')[0]} atendido pela Pistão" loading="lazy" width="640" height="640"></div>
+          <div class="depo-foto"><span class="depo-vinho" aria-hidden="true"></span><div class="depo-img"><img src="assets/img/${foto}.webp" alt="Carro de ${n.split(' ')[0]} atendido pela Pistão" loading="lazy" width="640" height="640"></div></div>
         </figure>`).join('\n        ')}
       </div>
-      <div class="depo-pontos" role="tablist" aria-label="Escolher depoimento">${C.avaliacoes.map(([n], i) => `<button type="button" role="tab" aria-label="Depoimento de ${n}" aria-selected="${i ? 'false' : 'true'}" data-ir-depo="${i}"><i></i></button>`).join('')}</div>
     </div>
   </section>
 
-  <section class="pacotes escuro" aria-labelledby="pacotes-t">
-    <div class="pacotes-bg" aria-hidden="true"><img src="assets/img/faixa.webp" alt="" loading="lazy" width="1920" height="1000"></div>
-    <div class="wrap">
-      <div class="titulo centro">
-        ${fundoTxt('Pacotes')}
-        <p class="apoio">Preço fechado</p>
-        <h2 id="pacotes-t" data-letras>Pacotes de revisão</h2>
-        <p class="titulo-txt" data-anima="sobe">Valor de carro de passeio até 2.0, com peças e mão de obra. Sem surpresa no fim.</p>
+  <section class="equipe" aria-labelledby="equipe-t">
+    <div class="wrap equipe-in">
+      <div class="equipe-txt">
+        ${titulo('Equipe', 'Nossa equipe', { id: 'equipe-t', txt: 'Mecânicos com certificação das montadoras e curso de atualização todo ano. Passe o mouse para ver cada um trabalhando.' })}
+        <a class="link-mais" href="#contato">${rola('Agendar com a equipe')}</a>
       </div>
+      <div class="equipe-cartoes">
+        ${C.equipe.map((p) => `<figure class="pessoa" data-anima="sobe">
+          <div class="pessoa-midia"><video muted loop playsinline preload="none" poster="${v(p.video)}.webp" data-hover-video aria-label="${esc(p.alt)}"><source src="${v(p.video)}.mp4" type="video/mp4"></video><span class="pessoa-play" aria-hidden="true">${I.play}</span></div>
+          <figcaption><b>${p.nome}</b><span>${p.cargo}</span></figcaption>
+        </figure>`).join('\n        ')}
+      </div>
+    </div>
+  </section>
+
+  <section class="pacotes" aria-labelledby="pacotes-t">
+    <div class="wrap">
+      ${titulo('Pacotes', 'Pacotes de revisão', { id: 'pacotes-t', centro: true, txt: 'Valor de carro de passeio até 2.0, com peças e mão de obra. Sem surpresa no fim.' })}
       <div class="pacotes-janela">
         <div class="pacotes-trilho" data-pacotes>
           ${C.pacotes.map((p) => `<article class="pacote${p.destaque ? ' destaque' : ''}">
-            ${p.destaque ? '<span class="pacote-selo">Mais pedido</span>' : ''}
             <h3>${p.nome}</h3>
-            <p class="pacote-txt">${p.texto}</p>
-            <p class="preco"><small>R$</small>${p.preco}<s>R$ ${p.de}</s></p>
-            <ul>${p.itens.map((t) => `<li>${I.check}${t}</li>`).join('')}</ul>
-            <a class="btn ${p.destaque ? 'btn-claro' : 'btn-rubi'}" href="${wa(`Olá, Pistão! Quero agendar o pacote ${p.nome} (R$ ${p.preco}). Meu carro é: `)}" target="_blank" rel="noopener">${rola('Agendar pacote')}${I.seta}</a>
+            <p class="preco"><small>R$</small>${p.preco}</p>
+            <p class="preco-de">R$ ${p.de}</p>
+            <ul>${p.itens.map((t) => `<li>${I.checkCirc}${t}</li>`).join('')}</ul>
+            <a class="pacote-btn" href="${wa(`Olá, Pistão! Quero agendar o pacote ${p.nome} (R$ ${p.preco}). Meu carro é: `)}" target="_blank" rel="noopener">${rola('Agendar')}${I.seta}</a>
           </article>`).join('\n          ')}
         </div>
       </div>
       <div class="pacotes-ctrl">
-        <button type="button" class="circ" data-pac-ant aria-label="Pacote anterior">${I.setaEsq}</button>
-        <div class="pacotes-barra" aria-hidden="true"><i data-pac-barra></i></div>
-        <button type="button" class="circ" data-pac-prox aria-label="Próximo pacote">${I.seta}</button>
+        <button type="button" class="caixa-btn" data-pac-ant aria-label="Pacote anterior">${I.setaEsq}</button>
+        <button type="button" class="caixa-btn" data-pac-prox aria-label="Próximo pacote">${I.seta}</button>
       </div>
     </div>
   </section>
 
   <section class="faq" id="faq">
-    <div class="faq-roda" aria-hidden="true">${I.rodaFundo}</div>
     <div class="wrap faq-grid">
       <div class="faq-lado">
-        <div class="titulo">
-          ${fundoTxt('FAQ')}
-          <p class="apoio">Perguntas frequentes</p>
-          <h2 data-letras>Tire suas dúvidas</h2>
-        </div>
-        <figure class="faq-foto" data-revela><img src="assets/img/ferramentas.webp" alt="Parede de ferramentas organizada na oficina" loading="lazy" width="1200" height="1400"></figure>
+        ${titulo('FAQ', 'Tire suas<br>dúvidas', { txt: 'As perguntas que mais ouvimos no balcão. Não achou a sua? Fale com a gente no WhatsApp.' })}
+        <a class="link-mais" href="${wa('Olá, Pistão! Tenho uma dúvida: ')}" target="_blank" rel="noopener">${rola('Perguntar no WhatsApp')}</a>
       </div>
       <div class="faq-lista">
         ${C.faq.map(([q, r], i) => `<details class="pergunta" data-anima="sobe"${i ? '' : ' open'}>
           <summary><span>${q}</span><i aria-hidden="true">${I.mais}</i></summary>
           <div class="resposta"><p>${esc(r)}</p></div>
         </details>`).join('\n        ')}
-        <p class="faq-mais">Não achou a sua dúvida? <a href="${wa('Olá, Pistão! Tenho uma dúvida: ')}" target="_blank" rel="noopener">Pergunte no WhatsApp</a></p>
       </div>
     </div>
   </section>
 
-  <section class="contato escuro" id="contato">
-    <div class="contato-bg" aria-hidden="true"><img src="assets/img/lanterna.webp" alt="" loading="lazy" width="1920" height="1100"></div>
+  <section class="contato" id="contato">
     <div class="wrap contato-grid">
       <div class="contato-txt">
-        <div class="titulo">
-          ${fundoTxt('Contato')}
-          <p class="apoio">Contato</p>
-          <h2 data-letras>Agende o seu horário</h2>
-        </div>
-        <p data-anima="sobe">Preencha o formulário e a mensagem chega pronta no nosso WhatsApp. Respondemos em poucos minutos no horário de atendimento.</p>
+        ${titulo('Contato', 'Agende o seu<br>horário', { txt: 'Preencha o formulário e a mensagem chega pronta no nosso WhatsApp. Respondemos em poucos minutos no horário de atendimento.' })}
         <ul class="canais">
-          <li data-anima="sobe"><a href="${wa('Olá, Pistão!')}" target="_blank" rel="noopener"><span class="pulso">${I.whats}</span><span><small>WhatsApp</small>${M.whatsappTexto}</span></a></li>
-          <li data-anima="sobe"><a href="tel:${tel}"><span class="pulso">${I.fone}</span><span><small>Telefone</small>${M.telefone}</span></a></li>
-          <li data-anima="sobe"><a href="mailto:${M.email}"><span class="pulso">${I.email}</span><span><small>E-mail</small>${M.email}</span></a></li>
-          <li data-anima="sobe"><a href="${mapsUrl}" target="_blank" rel="noopener"><span class="pulso">${I.pino}</span><span><small>Endereço</small>${M.endereco}, ${M.bairro}</span></a></li>
+          <li><a href="${wa('Olá, Pistão!')}" target="_blank" rel="noopener"><span class="pulso">${I.whats}</span><span><small>WhatsApp</small>${M.whatsappTexto}</span></a></li>
+          <li><a href="tel:${tel}"><span class="pulso">${I.fone}</span><span><small>Telefone</small>${M.telefone}</span></a></li>
+          <li><a href="mailto:${M.email}"><span class="pulso">${I.email}</span><span><small>E-mail</small>${M.email}</span></a></li>
+          <li><a href="${mapsUrl}" target="_blank" rel="noopener"><span class="pulso">${I.pino}</span><span><small>Endereço</small>${M.endereco}, ${M.bairro}</span></a></li>
         </ul>
         <table class="horas"><caption>Horário de atendimento</caption>${C.horarios.map(([d, h]) => `<tr><th scope="row">${d}</th><td>${h}</td></tr>`).join('')}</table>
       </div>
@@ -386,7 +332,7 @@ ${fontes}
           <fieldset class="campo periodo"><legend>Período</legend><div class="opcoes" data-iguais><label><input type="radio" name="periodo" value="Manhã" checked><span>Manhã</span></label><label><input type="radio" name="periodo" value="Tarde"><span>Tarde</span></label></div></fieldset>
         </div>
         <label class="campo"><span>O que está acontecendo com o carro?</span><textarea name="msg" rows="3" placeholder="Ex.: barulho na roda dianteira ao frear"></textarea></label>
-        <button class="btn btn-rubi" type="submit">${I.whats}${rola('Enviar pelo WhatsApp')}</button>
+        <button class="btn" type="submit">${I.whats}${rola('Enviar pelo WhatsApp')}</button>
         <p class="aviso" data-aviso role="status"></p>
       </form>
     </div>
@@ -394,29 +340,43 @@ ${fontes}
 
   <section class="insta" aria-labelledby="insta-t">
     <div class="wrap insta-topo">
-      <div>
-        <p class="apoio">Nosso Instagram</p>
-        <h2 id="insta-t"><a href="${M.instagram}" target="_blank" rel="noopener">${M.instagramUser}</a></h2>
-      </div>
-      <a class="btn btn-vazado" href="${M.instagram}" target="_blank" rel="noopener">${I.insta}${rola('Seguir no Instagram')}</a>
+      ${titulo('Instagram', `<a href="${M.instagram}" target="_blank" rel="noopener">${M.instagramUser}</a>`, { id: 'insta-t' })}
+      <a class="link-mais" href="${M.instagram}" target="_blank" rel="noopener">${rola('Seguir no Instagram')}</a>
     </div>
-    <div class="insta-esteira" data-insta>
-      <ul class="insta-trilho">${insta(false)}${insta(true)}</ul>
+    <div class="insta-esteira">
+      <ul class="insta-trilho">${[false, true].map((copia) => C.instagram.map((it) => `<li${copia ? ' aria-hidden="true"' : ''}><a href="${M.instagram}" target="_blank" rel="noopener"${copia ? ' tabindex="-1"' : ''} aria-label="${esc(it.alt)} (abre o Instagram)">
+        ${it.reel
+          ? `<video muted loop playsinline preload="none" poster="${v(it.reel)}.webp" data-reel><source src="${v(it.reel)}.mp4" type="video/mp4"></video><span class="reel-tag">${I.play}Reel</span>`
+          : `<img src="assets/img/${it.foto}.webp" alt="" loading="lazy" width="640" height="640">`}
+        <span class="insta-veu">${I.insta}</span>
+      </a></li>`).join('')).join('')}</ul>
     </div>
   </section>
 </main>
 
-<footer class="rodape escuro">
+<footer class="rodape">
   <div class="wrap">
-    <div class="rodape-chamada">
-      ${fundoTxt('Lembrete')}
-      <h2>Receba o lembrete da próxima revisão no WhatsApp</h2>
+    <div class="rodape-news">
+      <span class="cab-fundo" aria-hidden="true">Lembrete</span>
+      <h2>Receba o lembrete da próxima revisão no seu WhatsApp, sem spam</h2>
       <form class="lembrete" data-lembrete novalidate>
         <label class="sr" for="lembrete-fone">Seu WhatsApp</label>
         <input id="lembrete-fone" name="fone" inputmode="tel" autocomplete="tel" placeholder="Seu WhatsApp com DDD" data-mascara>
-        <button type="submit" aria-label="Quero receber o lembrete">${I.seta}</button>
+        <button type="submit" aria-label="Quero receber o lembrete">${I.enviar}</button>
         <p class="aviso" data-aviso role="status"></p>
       </form>
+    </div>
+    <div class="rodape-cols">
+      <div class="rodape-marca">
+        <a class="logo" href="#inicio" aria-label="${M.completo}">${I.logo}</a>
+        <p>${esc(M.frase)}</p>
+        <a class="rodape-fone" href="tel:${tel}"><span class="pulso">${I.fone}</span>${M.telefone}</a>
+      </div>
+      <div><h3>Navegação</h3><ul><li><a href="#inicio">${rola('Início')}</a></li><li><a href="#servicos">${rola('Serviços')}</a></li><li><a href="#sobre">${rola('Sobre nós')}</a></li><li><a href="#faq">${rola('FAQ')}</a></li><li><a href="#contato">${rola('Contato')}</a></li></ul></div>
+      <div><h3>Serviços</h3><ul>${S.slice(0, 5).map((s) => `<li><a href="#${s.id}">${rola(s.nome)}</a></li>`).join('')}</ul></div>
+      <div><h3>Endereço e contato</h3>
+        <ul class="rodape-contato"><li>${I.pino}<span>${M.endereco}, ${M.bairro}<br>${M.cidade}</span></li><li>${I.email}<a href="mailto:${M.email}">${M.email}</a></li><li>${I.relogio}<span>${C.horarioTexto}</span></li></ul>
+      </div>
     </div>
     <div class="rodape-mapa">
       <div class="map-box">
@@ -431,18 +391,6 @@ ${fontes}
         <h2>Onde atendemos</h2>
         <p>Leva e traz grátis nos bairros abaixo. Fora da lista, combine pelo WhatsApp.</p>
         <ul class="bairros" data-iguais>${C.bairros.map((b) => `<li>${b}</li>`).join('')}</ul>
-      </div>
-    </div>
-    <div class="rodape-cols">
-      <div class="rodape-marca">
-        <a class="logo" href="#inicio" aria-label="${M.completo}">${I.logo}</a>
-        <p>${esc(M.frase)}</p>
-        <a class="rodape-fone" href="tel:${tel}"><span class="pulso">${I.fone}</span>${M.telefone}</a>
-      </div>
-      <div><h3>Navegação</h3><ul><li><a href="#inicio">${rola('Início')}</a></li><li><a href="#servicos">${rola('Serviços')}</a></li><li><a href="#sobre">${rola('Sobre nós')}</a></li><li><a href="#faq">${rola('FAQ')}</a></li><li><a href="#contato">${rola('Contato')}</a></li></ul></div>
-      <div><h3>Serviços</h3><ul>${S.slice(0, 5).map((s) => `<li><a href="#${s.id}">${rola(s.nome)}</a></li>`).join('')}</ul></div>
-      <div><h3>Endereço e contato</h3>
-        <ul class="rodape-contato"><li>${I.pino}<span>${M.endereco}, ${M.bairro}<br>${M.cidade}</span></li><li>${I.email}<a href="mailto:${M.email}">${M.email}</a></li><li>${I.relogio}<span>${C.horarioTexto}</span></li></ul>
       </div>
     </div>
     <div class="rodape-fim">

@@ -1,4 +1,4 @@
-// Interação do modelo Bronze da Tração (sem bibliotecas).
+// Interação do modelo Bronze da Pistão (sem bibliotecas).
 (() => {
   const D = /*DADOS*/;
   const $ = (s, el = document) => el.querySelector(s);
@@ -149,7 +149,7 @@
     e.preventDefault();
     const servs = $$('input[name="serv"]:checked', orcar).map((i) => i.value);
     const carro = orcar.carro.value.trim();
-    let msg = 'Olá, Tração! Quero um orçamento grátis.';
+    let msg = 'Olá, Pistão! Quero um orçamento grátis.';
     if (servs.length) msg += `\nServiço: ${servs.join(', ')}`;
     if (carro) msg += `\nCarro: ${carro}`;
     open(wa(msg), '_blank', 'noopener');
@@ -168,7 +168,7 @@
     falta.forEach((n) => form[n].closest('.campo').classList.add('erro'));
     if (falta.length) { aviso.textContent = 'Preencha seu nome e o carro para a gente orçar.'; form[falta[0]].focus(); return; }
     aviso.textContent = '';
-    let msg = `Olá, Tração! Meu nome é ${form.nome.value.trim()}.\nCarro: ${form.carro.value.trim()}\nServiço: ${form.servico.value}`;
+    let msg = `Olá, Pistão! Meu nome é ${form.nome.value.trim()}.\nCarro: ${form.carro.value.trim()}\nServiço: ${form.servico.value}`;
     if (form.fone.value) msg += `\nWhatsApp: ${form.fone.value}`;
     if (form.msg.value.trim()) msg += `\n${form.msg.value.trim()}`;
     open(wa(msg), '_blank', 'noopener');

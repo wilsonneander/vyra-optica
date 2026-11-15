@@ -1,4 +1,4 @@
-// Gera o modelo Bronze de autosserviços (Tração Centro Automotivo) em templates/autoserviços/site-bronze/.
+// Gera o modelo Bronze de autosserviços (Pistão Auto Center) em templates/autoserviços/site-bronze/.
 // Bronze: uma página só, CSS e JS embutidos no index.html, fotos em assets/img.
 // Uso: node "templates/autoserviços/_build/build.js"
 const fs = require('fs');
@@ -30,7 +30,7 @@ const css = fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8')
 const js = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
   .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura }));
 
-const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,100,600;0,100,800;0,125,800;1,125,900&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">';
+const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,100,600;0,100,800;0,125,800;1,125,900&family=Oxanium:wght@500;800&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">';
 
 const S = C.servicos;
 const estrelas = (n) => `<span class="estrelas" aria-label="${n} de 5 estrelas">${Array.from({ length: 5 }, (_, i) => `<i class="${i < n ? 'on' : ''}">${I.estrela}</i>`).join('')}</span>`;
@@ -46,7 +46,7 @@ const paineis = S.map((s, i) => `<article class="painel${i ? '' : ' ativo'}" id=
             <ul class="inclui">${s.itens.map((t) => `<li>${I.check}${esc(t)}</li>`).join('')}</ul>
             <div class="painel-pe">
               <span class="tempo">${I.relogio}${s.tempo}</span>
-              <a class="btn btn-pinca" href="${wa(`Olá, Tração! Quero um orçamento de ${s.nome.toLowerCase()}. Meu carro é: `)}" target="_blank" rel="noopener">${I.whats}Orçar ${s.curto.toLowerCase()}</a>
+              <a class="btn btn-pinca" href="${wa(`Olá, Pistão! Quero um orçamento de ${s.nome.toLowerCase()}. Meu carro é: `)}" target="_blank" rel="noopener">${I.whats}Orçar ${s.curto.toLowerCase()}</a>
             </div>
           </div>
         </article>`).join('\n        ');
@@ -103,7 +103,7 @@ ${css}
           <li><a href="#contato">Contato</a></li>
         </ul>
       </nav>
-      <a class="btn btn-pinca btn-orc" href="${wa('Olá, Tração! Quero um orçamento grátis.')}" target="_blank" rel="noopener">${I.whats}<span>Orçamento grátis</span></a>
+      <a class="btn btn-pinca btn-orc" href="${wa('Olá, Pistão! Quero um orçamento grátis.')}" target="_blank" rel="noopener">${I.whats}<span>Orçamento grátis</span></a>
       <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
     </div>
   </div>
@@ -129,7 +129,7 @@ ${css}
       </div>
       <div class="capa-visual">
         <div class="pneu-gira" aria-hidden="true">${I.pneu}</div>
-        <figure class="capa-foto"><img src="assets/img/capa.webp" alt="Mecânico da Tração trabalhando no motor de um carro" width="1300" height="1950" fetchpriority="high"></figure>
+        <figure class="capa-foto"><img src="assets/img/capa.webp" alt="Mecânico da Pistão trabalhando no motor de um carro" width="1300" height="1950" fetchpriority="high"></figure>
         <div class="selo" aria-label="Garantia de 90 dias por escrito">
           <svg viewBox="0 0 120 120" aria-hidden="true"><defs><path id="circ" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><text><textPath href="#circ" textLength="284" lengthAdjust="spacing">GARANTIA POR ESCRITO  PEÇA E MÃO DE OBRA</textPath></text></svg>
           <b>90<small>dias</small></b>
@@ -140,7 +140,7 @@ ${css}
     <div class="rastro" aria-hidden="true"></div>
   </section>
 
-  <section class="numeros" aria-label="A Tração em números">
+  <section class="numeros" aria-label="A Pistão em números">
     <div class="wrap">
       ${C.numeros.map(([v, suf, t]) => `<div class="num"><b><span data-conta="${v}">${fmtNum(v)}</span>${suf}</b><span>${t}</span></div>`).join('\n      ')}
     </div>
@@ -180,7 +180,7 @@ ${css}
         <p class="apoio">Alinhamento 3D</p>
         <h2 id="alinha-t" class="revela">Você vê cada roda voltar para o zero.</h2>
         <p>Câmeras de alta precisão leem os alvos presos nas rodas e mostram cambagem, caster e convergência na tela, em tempo real. No fim, você leva o relatório impresso com o antes e o depois.</p>
-        <a class="btn btn-claro" href="${wa('Olá, Tração! Quero agendar um alinhamento 3D. Meu carro é: ')}" target="_blank" rel="noopener">${I.whats}Agendar alinhamento</a>
+        <a class="btn btn-claro" href="${wa('Olá, Pistão! Quero agendar um alinhamento 3D. Meu carro é: ')}" target="_blank" rel="noopener">${I.whats}Agendar alinhamento</a>
       </div>
     </div>
   </section>
@@ -195,7 +195,7 @@ ${css}
       <div class="sobre-txt">
         <p class="apoio">Sobre nós</p>
         <h2 class="revela">Oficina de bairro, <span class="quebra">padrão de concessionária.</span></h2>
-        <p>A Tração nasceu em ${M.desde} num galpão de dois elevadores na Av. Pedro II. Hoje são seis boxes, alinhador 3D, scanner multimarcas e uma equipe que explica o que vai fazer antes de abrir o capô.</p>
+        <p>A Pistão nasceu em ${M.desde} num galpão de dois elevadores na Av. Pedro II. Hoje são seis boxes, alinhador 3D, scanner multimarcas e uma equipe que explica o que vai fazer antes de abrir o capô.</p>
         <p>A regra da casa é simples: ninguém mexe no carro sem você aprovar o orçamento, e tudo o que sai dele volta para você.</p>
         <dl class="difs">${C.diferenciais.map(([t, d]) => `<div><dt>${t}</dt><dd>${d}</dd></div>`).join('')}</dl>
       </div>
@@ -220,7 +220,7 @@ ${css}
         <h2 class="revela">Conte o que está acontecendo com o carro.</h2>
         <p>Respondemos em poucos minutos no horário de atendimento. Se puder, mande uma foto ou um vídeo do barulho.</p>
         <ul class="canais">
-          <li><a href="${wa('Olá, Tração!')}" target="_blank" rel="noopener">${I.whats}<span><small>WhatsApp</small>${M.whatsappTexto}</span></a></li>
+          <li><a href="${wa('Olá, Pistão!')}" target="_blank" rel="noopener">${I.whats}<span><small>WhatsApp</small>${M.whatsappTexto}</span></a></li>
           <li><a href="tel:${M.telefone.replace(/\D/g, '')}">${I.fone}<span><small>Telefone</small>${M.telefone}</span></a></li>
           <li><a href="${mapsUrl}" target="_blank" rel="noopener">${I.pino}<span><small>Endereço</small>${M.endereco}, ${M.bairro}</span></a></li>
         </ul>
@@ -246,7 +246,7 @@ ${css}
   <div class="wrap">
     <div class="rodape-mapa">
       <div class="map-box">
-        <img src="assets/img/mapa_carlos-prates.webp" alt="Mapa do Carlos Prates, Belo Horizonte, com a localização da Tração Centro Automotivo" width="1240" height="760" loading="lazy">
+        <img src="assets/img/mapa_carlos-prates.webp" alt="Mapa do Carlos Prates, Belo Horizonte, com a localização da Pistão Auto Center" width="1240" height="760" loading="lazy">
         <span class="pin" style="left:68%" aria-hidden="true"><b>${M.nome}</b></span>
         <div class="map-info"><b>${M.completo}</b><span>${enderecoCompleto}</span><span>${C.horarioTexto}</span>
           <div class="mbtns" data-iguais><a href="${mapsUrl}" target="_blank" rel="noopener">${I.pino}Abrir no Maps</a><a href="${rotaUrl}" target="_blank" rel="noopener">${I.seta}Como chegar</a></div>
@@ -262,12 +262,12 @@ ${css}
     <div class="rodape-cols">
       <div class="rodape-marca"><a class="logo" href="#inicio" aria-label="${M.completo}">${I.logo}</a><p>${esc(M.frase)}</p></div>
       <div><h3>Serviços</h3><ul>${S.map((s) => `<li><a href="#${s.id}" data-ir="${s.id}">${s.nome}</a></li>`).join('')}</ul></div>
-      <div><h3>Fale com a gente</h3><ul><li><a href="${wa('Olá, Tração!')}" target="_blank" rel="noopener">WhatsApp ${M.whatsappTexto}</a></li><li><a href="tel:${M.telefone.replace(/\D/g, '')}">Telefone ${M.telefone}</a></li><li>${M.email}</li><li>${M.endereco}, ${M.bairro}</li></ul></div>
+      <div><h3>Fale com a gente</h3><ul><li><a href="${wa('Olá, Pistão!')}" target="_blank" rel="noopener">WhatsApp ${M.whatsappTexto}</a></li><li><a href="tel:${M.telefone.replace(/\D/g, '')}">Telefone ${M.telefone}</a></li><li>${M.email}</li><li>${M.endereco}, ${M.bairro}</li></ul></div>
       <div><h3>Redes</h3>
         <div class="redes">
           <a href="${M.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${I.insta}</a>
           <a href="${M.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${I.face}</a>
-          <a href="${wa('Olá, Tração!')}" target="_blank" rel="noopener" aria-label="WhatsApp">${I.whats}</a>
+          <a href="${wa('Olá, Pistão!')}" target="_blank" rel="noopener" aria-label="WhatsApp">${I.whats}</a>
         </div>
         <p class="user">${M.instagramUser}</p>
       </div>
@@ -276,7 +276,7 @@ ${css}
   </div>
 </footer>
 
-<a class="whats-flutua" href="${wa('Olá, Tração! Quero um orçamento.')}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">${I.whats}</a>
+<a class="whats-flutua" href="${wa('Olá, Pistão! Quero um orçamento.')}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">${I.whats}</a>
 
 <script>
 ${js}

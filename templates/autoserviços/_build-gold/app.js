@@ -290,6 +290,107 @@
     mostra();
   }
 
+  /* ---------- vitrine de peças e acessórios (vem do painel do dono) ---------- */
+  const L = window.PistaoLoja;
+  const vitrine = $('[data-vitrine]');
+  const filtros = $('[data-filtros]');
+  let catAtual = '';
+  const desenhaVitrine = () => {
+    if (!L || !vitrine) return;
+    const todos = L.vitrine();
+    const cats = L.categorias.filter((c) => todos.some((p) => p.categoria === c));
+    todos.forEach((p) => { if (!cats.includes(p.categoria)) cats.push(p.categoria); });
+    if (catAtual && !cats.includes(catAtual)) catAtual = '';
+    filtros.innerHTML = ['', ...cats].map((c) => `<button type="button" data-cat="${L.esc(c)}" aria-pressed="${c === catAtual}">${c ? L.esc(c) : 'Todos'}</button>`).join('');
+    filtros.hidden = cats.length < 2;
+    const lista = todos.filter((p) => !catAtual || p.categoria === catAtual);
+    vitrine.innerHTML = lista.map((p) => {
+      const [sit, sitTxt] = L.situacao(p);
+      const off = L.desconto(p);
+      return `<article class="produto${p.destaque ? ' destaque' : ''}">
+        <div class="produto-foto">${p.foto ? `<img src="${L.esc(L.foto(p.foto))}" alt="${L.esc(p.nome)}" loading="lazy" width="640" height="480">` : ''}${off ? `<span class="produto-off">${off}% off</span>` : ''}</div>
+        <div class="produto-txt">
+          <span class="produto-cat">${L.esc(p.categoria)}</span>
+          <h3>${L.esc(p.nome)}</h3>
+          ${p.descricao ? `<p>${L.esc(p.descricao)}</p>` : ''}
+          <div class="produto-preco"><b>${L.preco(p.preco)}</b>${off ? `<s>${L.preco(p.de)}</s>` : ''}</div>
+          <span class="produto-sit s-${sit}">${sitTxt}</span>
+          <button type="button" class="pacote-btn produto-btn" data-reservar="${L.esc(p.id)}">${p.estoque > 0 ? 'Reservar' : 'Encomendar'}${D.icones.whats}</button>
+        </div>
+      </article>`;
+    }).join('');
+    $('[data-vitrine-vazia]').hidden = lista.length > 0;
+    igualar();
+  };
+  filtros?.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-cat]');
+    if (!b) return;
+    catAtual = b.dataset.cat;
+    desenhaVitrine();
+  });
+  // o painel aberto em outra aba salvou algo: a vitrine se atualiza sozinha
+  window.addEventListener('storage', (e) => { if (L && e.key === L.chaves.produtos) desenhaVitrine(); });
+  desenhaVitrine();
+
+  /* ---------- reserva de produto: pede nome e WhatsApp, guarda para o painel e abre o WhatsApp ---------- */
+  const reserva = $('[data-reserva]');
+  if (reserva && L) {
+    const rf = $('[data-reserva-form]', reserva);
+    const qtd = rf.elements.quantidade;
+    const aviso = $('[data-aviso]', rf);
+    let item = null;
+    const total = () => { $('[data-reserva-total]', rf).textContent = L.preco(item.preco * Math.max(1, +qtd.value || 1)); };
+    const limita = () => { qtd.value = Math.min(+qtd.max, Math.max(1, Math.round(+qtd.value || 1))); total(); };
+    vitrine?.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-reservar]');
+      if (!b) return;
+      item = L.produtos().find((p) => p.id === b.dataset.reservar);
+      if (!item) return;
+      const [, sitTxt] = L.situacao(item);
+      const foto = $('[data-reserva-foto]', rf);
+      foto.hidden = !item.foto;
+      foto.src = item.foto ? L.foto(item.foto) : '';
+      $('[data-reserva-nome]', rf).textContent = item.nome;
+      $('[data-reserva-preco]', rf).textContent = `${L.preco(item.preco)} cada`;
+      $('[data-reserva-sit]', rf).textContent = item.estoque > 0 ? `${sitTxt}: ${item.estoque} ${item.estoque === 1 ? 'unidade' : 'unidades'}` : 'Sob encomenda: avisamos o prazo pelo WhatsApp';
+      qtd.max = item.estoque > 0 ? Math.min(20, item.estoque) : 20;
+      qtd.value = 1;
+      aviso.textContent = '';
+      total();
+      reserva.showModal();
+      igualar();
+    });
+    $$('[data-qtd]', rf).forEach((b) => b.addEventListener('click', () => { qtd.value = (+qtd.value || 1) + +b.dataset.qtd; limita(); }));
+    qtd.addEventListener('change', limita);
+    qtd.addEventListener('input', () => { if (qtd.value) total(); });
+    $('[data-reserva-fecha]', reserva).addEventListener('click', () => reserva.close());
+    reserva.addEventListener('click', (e) => { if (e.target === reserva) reserva.close(); });
+    rf.addEventListener('submit', (e) => {
+      e.preventDefault();
+      limita();
+      const nome = rf.elements.nome.value.trim();
+      const fone = rf.elements.fone.value.trim();
+      $$('.erro', rf).forEach((el) => el.classList.remove('erro'));
+      const faltam = [];
+      if (!nome) { faltam.push('seu nome'); rf.elements.nome.classList.add('erro'); }
+      if (fone.replace(/\D/g, '').length < 10) { faltam.push('o WhatsApp com DDD'); rf.elements.fone.classList.add('erro'); }
+      if (faltam.length) { aviso.className = 'aviso'; aviso.textContent = `Falta preencher ${faltam.join(' e ')}.`; rf.querySelector('.erro').focus(); return; }
+      const q = +qtd.value;
+      const entrega = new FormData(rf).get('entrega');
+      L.novoAgendamento({ tipo: 'Reserva', nome, fone, produto: item.nome, produtoId: item.id, quantidade: q, preco: item.preco, entrega });
+      abreWhats([
+        `Olá, Pistão! Quero ${item.estoque > 0 ? 'reservar' : 'encomendar'}:`,
+        `${q}x ${item.nome} (${L.preco(item.preco)} cada, total ${L.preco(item.preco * q)})`,
+        `Prefiro: ${String(entrega).toLowerCase()}`,
+        `Nome: ${nome}`,
+        `WhatsApp: ${fone}`,
+      ].join('\n'));
+      aviso.className = 'aviso ok';
+      aviso.textContent = 'Reserva enviada! Confirme a mensagem no WhatsApp.';
+      setTimeout(() => reserva.close(), 1800);
+    });
+  }
+
   /* ---------- FAQ: uma pergunta aberta por vez ---------- */
   const perguntas = $$('.pergunta');
   perguntas.forEach((d) => d.addEventListener('toggle', () => { if (d.open) perguntas.forEach((o) => { if (o !== d) o.open = false; }); }));
@@ -392,6 +493,11 @@
         return;
       }
       const dt = f.get('data') ? f.get('data').split('-').reverse().join('/') : 'a combinar';
+      // guarda o pedido para o dono ver no painel
+      if (window.PistaoLoja) window.PistaoLoja.novoAgendamento({
+        tipo: 'Agendamento', nome: f.get('nome'), fone: f.get('fone'), carro: `${f.get('marca')} ${f.get('carro')}`,
+        servico: f.get('servico'), data: f.get('data') || '', periodo: f.get('periodo'), msg: f.get('msg') || '',
+      });
       abreWhats([
         'Olá, Pistão! Quero agendar um serviço.',
         `Nome: ${f.get('nome')}`,
@@ -424,6 +530,16 @@
       aviso.textContent = 'Pronto! Confirme a mensagem no WhatsApp.';
     });
   }
+
+  /* ---------- ida para a área do cliente: a tela esmaece antes de trocar de página ---------- */
+  $$('a[href^="painel/"]').forEach((a) => a.addEventListener('click', (e) => {
+    if (calmo || e.ctrlKey || e.metaKey || e.shiftKey || e.button) return;
+    e.preventDefault();
+    document.body.classList.add('indo');
+    setTimeout(() => { location.href = a.href; }, 420);
+  }));
+  // voltar pelo navegador (página guardada na memória) não pode trazer a tela escura
+  window.addEventListener('pageshow', () => document.body.classList.remove('indo'));
 
   $$('[data-ano]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 })();

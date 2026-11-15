@@ -138,6 +138,29 @@ module.exports = {
     ['Quais formas de pagamento vocês aceitam?', 'Pix, débito e crédito em até 6 vezes sem juros. Para frotas e empresas, faturamento mensal com nota.'],
   ],
 
+  // ---------- loja: peças e acessórios ----------
+  // Produtos iniciais da vitrine. O dono edita tudo pelo painel (painel/index.html); o que ele salva
+  // fica no navegador e substitui esta lista. foto = nome do arquivo em img/fotos (sem .webp). [EXEMPLO]
+  categorias: ['Óleos e fluidos', 'Pneus', 'Freios', 'Suspensão', 'Elétrica', 'Estética', 'Acessórios'],
+  produtos: [
+    { id: 'p-oleo', nome: 'Kit óleo sintético 5W30 com filtro', categoria: 'Óleos e fluidos', descricao: 'Quatro litros de óleo API SP e filtro de óleo original. Troca grátis se comprar aqui.', preco: 219.9, de: 259.9, estoque: 18, foto: 'oleo', vitrine: true, destaque: true },
+    { id: 'p-pneu', nome: 'Pneu 185/65 R15 linha premium', categoria: 'Pneus', descricao: 'Montagem, balanceamento e válvula nova inclusos. Garantia de 5 anos do fabricante.', preco: 449.9, de: 499.9, estoque: 24, foto: 'pneus', vitrine: true, destaque: true },
+    { id: 'p-pastilha', nome: 'Pastilha de freio dianteira cerâmica', categoria: 'Freios', descricao: 'Menos pó nas rodas e frenagem silenciosa. Medimos o disco na instalação.', preco: 189.9, de: null, estoque: 9, foto: 'freio', vitrine: true, destaque: false },
+    { id: 'p-amortecedor', nome: 'Par de amortecedores dianteiros', categoria: 'Suspensão', descricao: 'Pressurizados, com kit de batente e coifa. Alinhamento 3D de cortesia na instalação.', preco: 689.9, de: 790, estoque: 4, foto: 'suspensao', vitrine: true, destaque: false },
+    { id: 'p-bateria', nome: 'Bateria 60Ah selada', categoria: 'Elétrica', descricao: 'Teste de alternador grátis na troca e descarte correto da bateria velha.', preco: 529.9, de: null, estoque: 2, foto: 'diagnostico', vitrine: true, destaque: false },
+    { id: 'p-led', nome: 'Par de lâmpadas LED para farol H4', categoria: 'Elétrica', descricao: 'Luz branca de 6.000 K, foco regulado na instalação para não ofuscar quem vem.', preco: 159.9, de: 199.9, estoque: 12, foto: 'lanterna', vitrine: true, destaque: false },
+    { id: 'p-vitrificador', nome: 'Kit vitrificador de pintura', categoria: 'Estética', descricao: 'O mesmo produto que usamos na oficina, com aplicador e flanelas de microfibra.', preco: 289.9, de: null, estoque: 0, foto: 'estetica', vitrine: true, destaque: false },
+    { id: 'p-chaves', nome: 'Jogo de chaves combinadas com 12 peças', categoria: 'Acessórios', descricao: 'Aço cromo vanádio, de 8 a 19 mm, com estojo. Bom para deixar no porta-malas.', preco: 239.9, de: null, estoque: 6, foto: 'ferramentas', vitrine: true, destaque: false },
+  ],
+  // pedidos de exemplo que aparecem no painel até o dono receber os primeiros de verdade [EXEMPLO]
+  agendamentosExemplo: [
+    { id: 'a-ex1', tipo: 'Agendamento', recebido: '2026-11-14T09:12:00', status: 'novo', nome: 'Larissa Mendes', fone: '(31) 9 8811-2233', carro: 'Chevrolet Onix 2020', servico: 'Pacote Revisão completa', data: '2026-11-18', periodo: 'Manhã', msg: 'Está chegando nos 40 mil km.' },
+    { id: 'a-ex2', tipo: 'Reserva', recebido: '2026-11-13T16:40:00', status: 'confirmado', nome: 'Fernando Lima', fone: '(31) 9 9722-4410', produto: 'Pneu 185/65 R15 linha premium', quantidade: 4, preco: 449.9, entrega: 'Instalar na oficina' },
+    { id: 'a-ex3', tipo: 'Agendamento', recebido: '2026-11-12T11:05:00', status: 'concluido', nome: 'Patrícia Alves', fone: '(31) 9 9105-7788', carro: 'Hyundai HB20 2021', servico: 'Injeção e elétrica', data: '2026-11-12', periodo: 'Tarde', msg: 'Luz da injeção acesa de novo.' },
+  ],
+  // acesso de demonstração ao painel. Num site de verdade o login vai para um servidor (ver README-gold.md). [EXEMPLO]
+  painel: { dono: 'Carlos', email: 'dono@pistaoauto.com.br', senha: 'pistao2026' },
+
   bairros: ['Silveira', 'Cidade Nova', 'Nova Floresta', 'Renascença', 'Cachoeirinha', 'União', 'Sagrada Família', 'Floresta'],
 
   // Instagram: fotos e reels (vídeo curto que toca sozinho quando aparece na tela)

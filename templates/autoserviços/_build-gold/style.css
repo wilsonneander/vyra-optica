@@ -157,12 +157,16 @@ a:hover .rola .l, button:hover .rola .l { transform: translateY(-1.3em); }
 .menu ul a { display: block; padding: 10px 8px; font: 500 16px var(--f-c); text-transform: uppercase; text-decoration: none; color: var(--tinta); transition: color .3s; }
 .menu ul a:hover, .menu ul a.atual { color: var(--rubi); }
 .menu-cta, .menu .menu-tema { display: none; }
-.topo-fone { display: flex; align-items: center; gap: 18px; text-decoration: none; color: var(--tinta); }
-.topo-fone .pulso { width: 50px; height: 50px; box-shadow: none; }
-.topo-fone .pulso svg { width: 21px; height: 21px; }
-.topo-fone span:last-child { display: grid; line-height: 1.15; }
-.topo-fone small { font: 500 12px var(--f-c); color: var(--apoio); }
-.topo-fone b { font: 700 22px var(--f-t); }
+/* botão da área do cliente no topo: retângulo com contorno que enche de vermelho */
+.topo-area { position: relative; isolation: isolate; display: inline-flex; align-items: center; justify-content: center; gap: 12px; height: 52px; padding: 0 24px; border: 1px solid var(--tinta); color: var(--tinta); overflow: hidden; font: 500 16px var(--f-c); text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: color .4s var(--suave), border-color .4s; }
+.topo-area svg { width: 20px; height: 20px; flex: none; }
+.topo-area::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--rubi); transform: scaleY(0); transform-origin: bottom; transition: transform .45s var(--suave); }
+.topo-area:hover { color: #fff; border-color: var(--rubi); }
+.topo-area:hover::before { transform: scaleY(1); }
+.menu-botoes, .menu .menu-area { display: none; }
+/* véu da troca de página (site para a área do cliente e de volta) */
+.veu { position: fixed; inset: 0; z-index: 700; background: var(--fundo); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .42s ease, visibility 0s .42s; }
+body.indo .veu { opacity: 1; visibility: visible; transition: opacity .42s ease; }
 .burger { display: none; position: relative; z-index: 2; width: 48px; height: 48px; padding: 0; border: 0; background: var(--rubi); cursor: pointer; }
 .burger i { position: absolute; left: 13px; width: 22px; height: 2px; background: var(--branco); transition: transform .4s var(--suave), opacity .3s; }
 .burger i:nth-child(1) { top: 17px; } .burger i:nth-child(2) { top: 23px; } .burger i:nth-child(3) { top: 29px; }
@@ -381,6 +385,64 @@ a:hover .rola .l, button:hover .rola .l { transform: translateY(-1.3em); }
 .pacote.destaque .pacote-btn:hover { background: #fff; color: #a8291a; }
 .pacotes-ctrl { display: flex; justify-content: center; gap: 14px; margin-top: 40px; }
 
+/* ---------- loja: peças e acessórios ---------- */
+.produtos { padding: 160px 0 0; }
+.produtos-topo { display: grid; gap: 40px; margin-bottom: 40px; }
+.produtos-topo .cab { margin: 0; }
+.filtros { display: flex; flex-wrap: wrap; gap: 8px; }
+.filtros button { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 16px; border: 1px solid var(--linha); background: transparent; color: var(--texto); cursor: pointer; font: 500 14px var(--f-c); text-transform: uppercase; transition: background .3s, color .3s, border-color .3s; }
+.filtros button:hover { border-color: var(--rubi); color: var(--tinta); }
+.filtros button[aria-pressed="true"] { background: var(--rubi); border-color: var(--rubi); color: #fff; }
+.vitrine { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.produto { display: flex; flex-direction: column; background: var(--cartao); border-bottom: 3px solid transparent; transition: transform .5s var(--suave), border-color .4s; }
+.produto:hover { transform: translateY(-6px); border-color: var(--rubi); }
+.produto.destaque { border-color: var(--rubi); }
+.produto-foto { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: var(--cartao-2); }
+.produto-foto img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--suave); }
+.produto:hover .produto-foto img { transform: scale(1.07); }
+.produto-off { position: absolute; left: 0; top: 14px; padding: 5px 12px; background: var(--rubi); color: #fff; font: 700 14px var(--f-t); text-transform: uppercase; letter-spacing: .04em; }
+.produto-txt { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 22px 22px 24px; }
+.produto-cat { font: 600 12px var(--f-t); letter-spacing: .16em; text-transform: uppercase; color: var(--rubi); }
+.produto h3 { font-size: 20px; line-height: 1.25; }
+.produto-txt > p { font-size: 15px; line-height: 1.5; color: var(--texto); }
+.produto-preco { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-top: auto; padding-top: 10px; }
+.produto-preco b { font: 700 28px/1.1 var(--f-t); color: var(--tinta); }
+.produto-preco s { font: 600 16px var(--f-t); color: var(--apoio); }
+.produto-sit { font: 600 13px var(--f-c); text-transform: uppercase; letter-spacing: .04em; color: #3fbf55; }
+.produto-sit.s-baixo { color: #ff9a1e; }
+.produto-sit.s-zero { color: var(--apoio); }
+.produto-btn { justify-content: center; margin-top: 12px; border: 0; background: var(--rubi); color: #fff; cursor: pointer; }
+.produto-btn svg { width: 18px; height: 18px; }
+.produto-btn:hover { background: var(--branco); color: var(--preto); }
+.vitrine-vazia { padding: 40px 0; color: var(--apoio); }
+
+/* janela de reserva */
+.reserva { width: min(640px, 94vw); max-width: none; max-height: 94vh; padding: 0; border: 0; background: var(--cartao); color: var(--texto); overflow: auto; }
+.reserva::backdrop { background: rgba(8,8,8,.82); backdrop-filter: blur(6px); }
+.reserva[open] { animation: abre .45s var(--suave); }
+.reserva .form { position: relative; padding: 40px 38px 34px; }
+.reserva-fecha { position: absolute; right: 0; top: 0; display: grid; place-items: center; width: 46px; height: 46px; padding: 0; border: 0; background: var(--rubi); color: #fff; cursor: pointer; transition: background .3s; }
+.reserva-fecha:hover { background: var(--tinta); color: var(--fundo); }
+.reserva-fecha svg { width: 20px; height: 20px; }
+.reserva-item { display: grid; grid-template-columns: 120px 1fr; gap: 20px; align-items: center; padding-right: 40px; }
+.reserva-item img { width: 120px; height: 90px; object-fit: cover; }
+.reserva-item h3 { font-size: 22px; text-transform: none; }
+.reserva-item p { margin-top: 4px; font: 700 18px var(--f-t); color: var(--tinta); }
+.reserva-item small { font-size: 14px; color: var(--apoio); }
+.qtd { display: grid; grid-template-columns: 46px 1fr 46px; border: 1px solid var(--linha); }
+.qtd button { display: grid; place-items: center; height: 46px; padding: 0; border: 0; background: transparent; color: var(--tinta); cursor: pointer; transition: background .3s, color .3s; }
+.qtd button:hover { background: var(--rubi); color: #fff; }
+.qtd button svg { width: 16px; height: 16px; }
+.campo .qtd input { padding: 0; border: 0; text-align: center; font: 700 18px var(--f-t); -moz-appearance: textfield; }
+.qtd input::-webkit-inner-spin-button, .qtd input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.reserva-total { display: flex; justify-content: space-between; align-items: baseline; padding-top: 14px; border-top: 1px solid var(--linha); font: 500 15px var(--f-c); text-transform: uppercase; color: var(--apoio); }
+.reserva-total b { font: 700 28px var(--f-t); color: var(--tinta); text-transform: none; }
+.reserva .form .btn { justify-self: stretch; }
+.reserva .opcoes { display: grid; grid-template-columns: 1fr 1fr; }
+.reserva .opcoes.medido > label { width: auto; }
+.reserva .opcoes span { padding: 0 8px; }
+a.caixa-btn { text-decoration: none; }
+
 /* ---------- FAQ ---------- */
 .faq { padding: 160px 0 0; }
 .faq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; align-items: start; }
@@ -527,18 +589,19 @@ a:hover .rola .l, button:hover .rola .l { transform: translateY(-1.3em); }
 
 /* ---------- responsivo ---------- */
 @media (max-width: 1240px) {
-  .topo-fone small { display: none; }
+  .topo-in > .topo-area { padding: 0 18px; }
   .menu ul { gap: 6px; }
   .capa-social, .capa-pag { display: none; }
   .capa-info .wrap { gap: 14px 50px; }
   .sobre-foto { width: 44%; }
   .rodape-cols { grid-template-columns: 1fr 1fr; }
   .pacote { flex-basis: 50%; }
+  .vitrine { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 960px) {
   :root { --topo: 76px; }
   .burger { display: block; margin-left: auto; }
-  .topo-fone { display: none; }
+  .topo-in > .topo-area { display: none; }
   .menu { position: fixed; inset: 0; z-index: 1; flex-direction: column; justify-content: center; align-items: flex-start; gap: 34px; padding: 100px 32px 40px; background: var(--fundo); visibility: hidden; opacity: 0; transition: opacity .45s var(--suave), visibility .45s; }
   .menu ul { display: grid; gap: 4px; }
   .menu ul li { overflow: hidden; }
@@ -547,7 +610,11 @@ a:hover .rola .l, button:hover .rola .l { transform: translateY(-1.3em); }
   .menu-aberto .menu ul a { transform: none; }
   .menu-aberto .menu li:nth-child(2) a { transition-delay: .05s; } .menu-aberto .menu li:nth-child(3) a { transition-delay: .1s; }
   .menu-aberto .menu li:nth-child(4) a { transition-delay: .15s; } .menu-aberto .menu li:nth-child(5) a { transition-delay: .2s; }
-  .menu-cta { display: inline-flex; }
+  .menu-aberto .menu li:nth-child(6) a { transition-delay: .25s; }
+  .vitrine { grid-template-columns: repeat(2, 1fr); }
+  .menu-botoes { display: grid; gap: 10px; }
+  .menu-cta, .menu .menu-area { display: inline-flex; }
+  .menu .menu-area { height: 58px; }
   /* com o menu aberto o topo não pode ter desfoque nem transform, senão o menu fixo fica preso dentro dele */
   .menu-aberto .topo { background: var(--fundo); backdrop-filter: none; transform: none; --tinta: inherit; --linha: inherit; --apoio: inherit; }
   .menu { overflow-y: auto; }
@@ -616,6 +683,18 @@ a:hover .rola .l, button:hover .rola .l { transform: translateY(-1.3em); }
   .equipe-cartoes::-webkit-scrollbar { display: none; }
   .pessoa { flex: 0 0 72%; scroll-snap-align: start; }
   .pacote { flex-basis: 100%; }
+  .produtos { padding-top: 120px; }
+  .filtros { display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; }
+  .filtros.medido > button { width: auto; }
+  .filtros button { white-space: normal; padding: 0 8px; }
+  .vitrine { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 14px; margin-right: -16px; padding: 0 16px 8px 0; scrollbar-width: none; }
+  .vitrine::-webkit-scrollbar { display: none; }
+  .produto { flex: 0 0 80%; scroll-snap-align: start; }
+  .produto:hover { transform: none; }
+  .reserva .form { padding: 34px 20px 26px; }
+  .reserva-item { grid-template-columns: 84px 1fr; gap: 14px; }
+  .reserva-item img { width: 84px; height: 68px; }
+  .reserva-item h3 { font-size: 18px; }
   .pergunta summary { padding: 20px 18px; font-size: 17px; }
   .resposta { padding: 0 18px 22px; }
   .form { padding: 34px 22px; }

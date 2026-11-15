@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tração Centro Automotivo | Pneus, freio, suspensão e mecânica em BH</title>
+<meta name="description" content="Centro automotivo no Carlos Prates, Belo Horizonte, MG: pneus e rodas, mecânica geral, troca de óleo, freio, suspensão e alinhamento 3D. Orçamento grátis pelo WhatsApp.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0F1012">
+<meta property="og:title" content="Tração Centro Automotivo">
+<meta property="og:description" content="Pneus, freio, suspensão, óleo e alinhamento 3D no Carlos Prates. Orçamento grátis pelo WhatsApp.">
+<meta property="og:image" content="assets/img/oficina.webp">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,100,600;0,100,800;0,125,800;1,125,900&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Tração Centro Automotivo: modelo Bronze de autosserviços */
+:root {
+  --asfalto: #0F1012; --carvao: #17181B; --grafite: #24262B; --linha: #34363C;
+  --aco: #9AA0A8; --giz: #F3F2EE; --papel: #FAFAF7; --branco: #fff;
+  --pinca: #D42A1E; --pinca-esc: #A81D14; --sinal: #FFC21A;
+  --texto: #17181B; --apoio-cor: #5C6068;
+  --f-t: 'Anybody', 'Arial Narrow', sans-serif; --f-c: 'Schibsted Grotesk', 'Segoe UI', sans-serif;
+  --suave: cubic-bezier(.22, .8, .24, 1);
+  --topo-h: 118px;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--topo-h) - 30px); -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--papel); color: var(--texto); font: 400 16px/1.6 var(--f-c); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
+h1, h2, h3 { font-family: var(--f-t); font-stretch: 100%; font-weight: 800; line-height: 1.02; margin: 0; letter-spacing: -.01em; text-transform: uppercase; }
+h2 { font-size: clamp(32px, 4.4vw, 58px); }
+p { margin: 0; }
+.wrap { width: min(1240px, 100% - 40px); margin-inline: auto; }
+.quebra { display: block; }
+.apoio { font: 700 13px/1 var(--f-c); letter-spacing: .16em; text-transform: uppercase; color: var(--pinca); margin-bottom: 16px; }
+.pular { position: absolute; left: -999em; }
+.pular:focus { left: 12px; top: 12px; z-index: 99; background: #fff; padding: 8px 12px; }
+::selection { background: var(--pinca); color: #fff; }
+:focus-visible { outline: 3px solid var(--sinal); outline-offset: 2px; }
+[data-iguais] > * { width: var(--larg, auto); max-width: 100%; justify-content: center; text-align: center; }
+
+/* botões: a cor entra deslizando da esquerda */
+.btn { position: relative; isolation: isolate; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 52px; padding: 0 24px; border: 0; border-radius: 4px; font: 800 15px/1 var(--f-t); font-stretch: 100%; text-transform: uppercase; letter-spacing: .02em; text-decoration: none; cursor: pointer; white-space: nowrap; transition: transform .35s var(--suave), color .35s; }
+.btn svg { width: 20px; height: 20px; flex: none; }
+.btn::after { content: ""; position: absolute; inset: 0; z-index: -1; transform: translateX(-101%); transition: transform .45s var(--suave); }
+.btn:hover::after { transform: none; }
+.btn:active { transform: scale(.97); }
+.btn-pinca { background: var(--pinca); color: #fff; box-shadow: 0 10px 24px -12px rgba(212, 42, 30, .9); }
+.btn-pinca::after { background: var(--pinca-esc); }
+.btn-claro { background: #fff; color: var(--asfalto); }
+.btn-claro::after { background: var(--sinal); }
+
+/* ---------- topo ---------- */
+.topo { position: fixed; inset: 0 0 auto; z-index: 50; transition: transform .45s var(--suave); }
+.barra-sup { background: var(--asfalto); color: var(--aco); font-size: 13px; border-bottom: 1px solid #1f2024; transition: margin .45s var(--suave); }
+.barra-sup .wrap { display: flex; justify-content: space-between; align-items: center; height: 38px; gap: 20px; }
+.atalhos { display: flex; gap: 22px; }
+.atalhos a, .info-sup a { text-decoration: none; transition: color .25s; }
+.atalhos a:hover, .info-sup a:hover { color: #fff; }
+.info-sup { display: flex; gap: 22px; align-items: center; }
+.info-sup a { display: inline-flex; gap: 6px; align-items: center; color: #fff; font-weight: 600; }
+.info-sup svg { width: 15px; height: 15px; color: var(--pinca); }
+.status.aberto { color: #fff; }
+.status.aberto b { color: var(--sinal); font-weight: 700; }
+.nav { background: rgba(23, 24, 27, .97); backdrop-filter: blur(10px); color: #fff; box-shadow: 0 12px 30px -20px rgba(0, 0, 0, .9); }
+.nav .wrap { display: flex; align-items: center; height: 80px; gap: 28px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; flex: none; }
+.logo .simbolo { width: 44px; height: 44px; transition: transform .8s var(--suave); }
+.logo:hover .simbolo { transform: rotate(60deg); }
+.logo-txt { display: grid; line-height: 1; }
+.logo-txt b { font: italic 900 25px/1 var(--f-t); font-stretch: 125%; letter-spacing: -.01em; }
+.logo-txt small { font: 600 10.5px/1 var(--f-c); letter-spacing: .3em; text-transform: uppercase; color: var(--aco); margin-top: 5px; }
+.menu { margin-left: auto; }
+.menu ul { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.menu ul a { position: relative; display: block; padding: 10px 12px; font: 800 14px/1 var(--f-t); font-stretch: 100%; text-transform: uppercase; letter-spacing: .03em; text-decoration: none; color: #E9E9E6; transition: color .25s; }
+.menu ul a::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 2px; height: 3px; background: var(--pinca); transform: scaleX(0); transform-origin: right; transition: transform .4s var(--suave); }
+.menu ul a:hover, .menu ul a.atual { color: #fff; }
+.menu ul a:hover::after, .menu ul a.atual::after { transform: scaleX(1); transform-origin: left; }
+.menu-extra { display: none; }
+.btn-orc { height: 50px; padding: 0 22px; }
+.burger { display: none; width: 46px; height: 46px; border: 0; background: var(--grafite); border-radius: 4px; cursor: pointer; padding: 13px 12px; flex-direction: column; justify-content: space-between; }
+.burger i { display: block; height: 2px; background: #fff; transition: transform .35s var(--suave), opacity .25s; }
+.burger[aria-expanded="true"] i:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.burger[aria-expanded="true"] i:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] i:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+.topo.rolou .barra-sup { margin-top: -38px; }
+
+/* ---------- capa ---------- */
+.capa { position: relative; background: var(--asfalto); color: #fff; padding: calc(var(--topo-h) + 56px) 0 0; overflow: hidden; }
+.capa::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 70% at 78% 40%, rgba(212, 42, 30, .16), transparent 70%), repeating-linear-gradient(90deg, rgba(255, 255, 255, .025) 0 1px, transparent 1px 120px); pointer-events: none; }
+.capa-grid { position: relative; display: grid; grid-template-columns: 1.08fr .92fr; gap: 48px; align-items: center; padding-bottom: 86px; }
+.capa h1 { font-size: clamp(44px, 6.4vw, 92px); font-stretch: 100%; line-height: .94; }
+.capa h1 .quebra { color: var(--pinca); font-style: italic; font-stretch: 125%; font-weight: 900; }
+.capa-sub { margin-top: 22px; max-width: 520px; font-size: 18px; color: #C9CBCF; }
+.orcar { margin-top: 32px; max-width: 600px; padding: 20px; background: var(--carvao); border: 1px solid var(--linha); border-left: 4px solid var(--pinca); border-radius: 4px; }
+.orcar fieldset { border: 0; margin: 0; padding: 0; }
+.orcar legend { font: 800 14px/1 var(--f-t); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 12px; padding: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips label { position: relative; display: inline-flex; cursor: pointer; }
+.chips input { position: absolute; opacity: 0; pointer-events: none; }
+.chips span { display: flex; align-items: center; justify-content: center; width: 100%; height: 40px; padding: 0 14px; border-radius: 3px; background: var(--grafite); color: #D9DADD; font-size: 14px; font-weight: 600; transition: background .3s, color .3s, transform .3s var(--suave); }
+.chips label:hover span { background: #303238; color: #fff; }
+.chips input:checked + span { background: var(--pinca); color: #fff; transform: translateY(-2px); }
+.chips input:focus-visible + span { outline: 3px solid var(--sinal); outline-offset: 2px; }
+.orcar-linha { display: flex; gap: 10px; margin-top: 14px; align-items: end; }
+.orcar .campo { flex: 1; }
+.campo { display: grid; gap: 6px; }
+.campo span { font-size: 13px; font-weight: 600; color: var(--aco); }
+.campo input, .campo select, .campo textarea { width: 100%; min-height: 52px; padding: 12px 14px; border: 1px solid var(--linha); border-radius: 4px; background: var(--asfalto); color: #fff; outline: none; transition: border-color .25s, box-shadow .25s; }
+.campo textarea { resize: vertical; min-height: 92px; }
+.campo input:focus, .campo select:focus, .campo textarea:focus { border-color: var(--pinca); box-shadow: 0 0 0 3px rgba(212, 42, 30, .25); }
+.campo input::placeholder, .campo textarea::placeholder { color: #6E727A; }
+
+.capa-visual { position: relative; min-height: 600px; }
+.pneu-gira { position: absolute; width: 560px; right: -170px; top: 40px; opacity: .95; will-change: transform; }
+.pneu-gira svg { width: 100%; height: auto; animation: rodar 22s linear infinite; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .6)); }
+@keyframes rodar { to { transform: rotate(360deg); } }
+.capa-foto { position: relative; margin: 0; width: 76%; aspect-ratio: 4 / 5.2; clip-path: polygon(0 0, 100% 0, 100% 88%, 84% 100%, 0 100%); box-shadow: 0 40px 80px -40px #000; animation: entraFoto 1.2s var(--suave) both .15s; }
+.capa-foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; transform: scale(1.08); animation: zoomLento 14s ease-out both; }
+@keyframes entraFoto { from { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); } }
+@keyframes zoomLento { to { transform: scale(1); } }
+.selo { position: absolute; left: -40px; bottom: 70px; width: 128px; height: 128px; display: grid; place-items: center; background: var(--pinca); color: #fff; border-radius: 50%; box-shadow: 0 20px 40px -16px rgba(212, 42, 30, .8); }
+.selo svg { position: absolute; inset: 0; width: 100%; height: 100%; animation: rodar 16s linear infinite reverse; }
+.selo text { font: 700 9.6px var(--f-c); letter-spacing: .06em; fill: #fff; }
+.selo b { display: grid; text-align: center; font: italic 900 38px/.9 var(--f-t); font-stretch: 125%; }
+.selo small { font: 600 11px/1 var(--f-c); letter-spacing: .2em; text-transform: uppercase; font-style: normal; }
+.nota-capa { position: absolute; right: 0; bottom: 36px; display: flex; gap: 12px; align-items: center; padding: 14px 18px; background: #fff; color: var(--texto); border-radius: 4px; box-shadow: 0 20px 40px -18px rgba(0, 0, 0, .8); animation: flutua 5s ease-in-out infinite; }
+.nota-capa > svg { width: 30px; height: 30px; }
+.nota-capa div { display: grid; grid-template-columns: auto auto; column-gap: 8px; align-items: center; }
+.nota-capa b { font: 900 26px/1 var(--f-t); }
+.nota-capa span:last-child { grid-column: 1 / -1; font-size: 12px; color: var(--apoio-cor); margin-top: 3px; }
+@keyframes flutua { 50% { transform: translateY(-8px); } }
+.estrelas { display: inline-flex; gap: 2px; }
+.estrelas i { width: 15px; height: 15px; color: #D6D7D9; }
+.estrelas i.on { color: var(--sinal); }
+.estrelas svg { width: 100%; height: 100%; display: block; }
+/* faixa de marca de pneu correndo no pé da capa */
+.rastro { position: relative; height: 46px; background: var(--pinca); overflow: hidden; }
+.rastro::before { content: ""; position: absolute; inset: 3px 0; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2244%22%20height%3D%2240%22%20viewBox%3D%220%200%2044%2040%22%3E%3Cg%20fill%3D%22%23000%22%3E%3Cpath%20d%3D%22M2%201h16l8%208.5-8%208.5H2l8-8.5Z%22%2F%3E%3Cpath%20d%3D%22M24%2022h16l-8%208.5%208%208.5H24l-8-8.5Z%22%20opacity%3D%22.75%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") 0 0 / 44px 40px repeat-x; opacity: .3; animation: rastro 1.2s linear infinite; }
+@keyframes rastro { to { background-position: 44px 0; } }
+
+/* ---------- números ---------- */
+.numeros { background: var(--carvao); color: #fff; }
+.numeros .wrap { display: grid; grid-template-columns: repeat(4, 1fr); }
+.num { padding: 34px 24px; border-left: 1px solid var(--linha); display: grid; gap: 6px; }
+.num:last-child { border-right: 1px solid var(--linha); }
+.num b { font: italic 900 clamp(36px, 4vw, 54px)/1 var(--f-t); font-stretch: 125%; }
+.num > span { color: var(--aco); font-size: 15px; }
+
+/* ---------- serviços ---------- */
+.servicos { position: relative; padding: 110px 0 120px; background: var(--giz); overflow: hidden; }
+.servicos::before { content: ""; position: absolute; left: -20%; right: -20%; top: 46%; height: 80px; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2244%22%20height%3D%2240%22%20viewBox%3D%220%200%2044%2040%22%3E%3Cg%20fill%3D%22%23000%22%3E%3Cpath%20d%3D%22M2%201h16l8%208.5-8%208.5H2l8-8.5Z%22%2F%3E%3Cpath%20d%3D%22M24%2022h16l-8%208.5%208%208.5H24l-8-8.5Z%22%20opacity%3D%22.75%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") 0 0 / 44px 40px; opacity: .05; transform: rotate(-9deg); pointer-events: none; }
+.sec-topo { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; margin-bottom: 48px; }
+.sec-desc { color: var(--apoio-cor); font-size: 17px; max-width: 440px; }
+.oficina-board { position: relative; display: grid; grid-template-columns: 340px 1fr; background: var(--asfalto); color: #fff; border-radius: 6px; overflow: hidden; box-shadow: 0 50px 90px -50px rgba(15, 16, 18, .7); }
+.abas { list-style: none; margin: 0; padding: 14px; display: grid; align-content: start; gap: 4px; background: var(--carvao); }
+.aba { position: relative; width: 100%; display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; column-gap: 12px; align-items: center; text-align: left; padding: 18px 18px; border: 0; border-radius: 4px; background: transparent; cursor: pointer; overflow: hidden; isolation: isolate; transition: background .35s; scroll-margin-top: 160px; }
+.aba span { font: 800 19px/1.1 var(--f-t); text-transform: uppercase; letter-spacing: .01em; color: #D4D5D8; transition: color .3s; }
+.aba em { grid-row: 2; font-style: normal; font-size: 13px; color: var(--aco); margin-top: 4px; }
+.aba svg { grid-row: 1 / 3; grid-column: 2; width: 22px; height: 22px; color: var(--aco); transform: translateX(-6px); opacity: 0; transition: transform .4s var(--suave), opacity .3s; }
+.aba::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--pinca); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--suave); }
+.aba:hover { background: var(--grafite); }
+.aba:hover svg { opacity: 1; transform: none; }
+.aba.ativa::before { transform: none; }
+.aba.ativa span, .aba.ativa em, .aba.ativa svg { color: #fff; }
+.aba.ativa svg { opacity: 1; transform: none; }
+.aba.piscar { animation: piscar 1.1s var(--suave) 2; }
+@keyframes piscar { 50% { box-shadow: inset 0 0 0 3px var(--sinal); } }
+.paineis { position: relative; min-height: 520px; }
+.painel { display: grid; grid-template-columns: 1.05fr 1fr; height: 100%; }
+.js .paineis { display: grid; }
+.js .painel { grid-area: 1 / 1; visibility: hidden; }
+.js .painel.ativo { visibility: visible; }
+.painel-foto { position: relative; margin: 0; overflow: hidden; min-height: 320px; }
+.painel-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.painel-foto figcaption { position: absolute; left: 0; bottom: 22px; padding: 10px 16px 10px 20px; background: var(--pinca); font: italic 900 22px/1 var(--f-t); font-stretch: 125%; text-transform: uppercase; }
+.painel.ativo .painel-foto img { animation: fotoEntra .9s var(--suave) both; }
+.painel.ativo .painel-foto figcaption { animation: legendaEntra .7s var(--suave) both .25s; }
+@keyframes fotoEntra { from { clip-path: inset(0 100% 0 0); transform: scale(1.12); } to { clip-path: inset(0); transform: scale(1); } }
+@keyframes legendaEntra { from { transform: translateX(-100%); } }
+.painel-txt { padding: 44px 40px; display: flex; flex-direction: column; gap: 18px; }
+.painel.ativo .painel-txt > * { animation: sobe .6s var(--suave) both; }
+.painel.ativo .painel-txt > :nth-child(2) { animation-delay: .08s; }
+.painel.ativo .painel-txt > :nth-child(3) { animation-delay: .16s; }
+.painel.ativo .painel-txt > :nth-child(4) { animation-delay: .24s; }
+@keyframes sobe { from { opacity: 0; transform: translateY(18px); } }
+.painel-txt h3 { font-size: clamp(24px, 2.4vw, 32px); text-transform: none; font-stretch: 100%; line-height: 1.08; }
+.painel-txt p { color: #BFC1C5; }
+.inclui { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--linha); }
+.inclui li { display: flex; gap: 12px; align-items: center; padding: 11px 0; border-bottom: 1px solid var(--linha); font-weight: 500; }
+.inclui svg { width: 18px; height: 18px; color: var(--pinca); flex: none; stroke-width: 3; }
+.painel-pe { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: auto; }
+.tempo { display: inline-flex; gap: 8px; align-items: center; color: var(--aco); font-size: 14px; }
+.tempo svg { width: 18px; height: 18px; }
+
+/* ---------- alinhamento 3D ---------- */
+.alinha { position: relative; background: var(--carvao); color: #fff; padding: 100px 0; overflow: hidden; }
+.alinha-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.medidor { position: relative; background: var(--asfalto); border: 1px solid var(--linha); border-radius: 6px; padding: 18px; }
+.medidor svg { width: 100%; height: auto; display: block; overflow: visible; }
+.medidor .grade path { stroke: #23252a; stroke-width: 1; }
+.medidor .carro { fill: #1d1f23; stroke: #4b4f57; stroke-width: 2; }
+.medidor .vidro { fill: #2b2e34; }
+.medidor .roda rect { fill: #0b0b0c; stroke: var(--pinca); stroke-width: 2.5; }
+.medidor .roda .eixo { stroke: var(--sinal); stroke-width: 1.5; stroke-dasharray: 4 4; }
+.medidor .roda { transition: transform 2.4s var(--suave); }
+.medidor .graus { font: 800 22px var(--f-t); fill: var(--pinca); transition: fill .6s; }
+.medidor.ok .graus { fill: #5CCB7A; }
+.medidor .scan { stroke: var(--pinca); stroke-width: 2; opacity: .7; animation: scan 3.2s ease-in-out infinite; }
+@keyframes scan { 0%, 100% { transform: translateY(8px); } 50% { transform: translateY(292px); } }
+.alinha-txt p:not(.apoio) { margin: 20px 0 30px; color: #BFC1C5; font-size: 17px; max-width: 520px; }
+
+/* ---------- sobre ---------- */
+.sobre { position: relative; padding: 120px 0; background: var(--asfalto); color: #fff; overflow: hidden; }
+.sobre::before { content: ""; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22360%22%20height%3D%22360%22%20viewBox%3D%220%200%20360%20360%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%223%22%3E%0A%3Cg%20transform%3D%22rotate(-35%2090%2090)%22%3E%3Cpath%20d%3D%22M40%2082h100v16H40z%22%2F%3E%3Cpath%20d%3D%22M40%2090a18%2018%200%201%201-6-14l-8%208%204%2012%2012%204%208-8%22%2F%3E%3Ccircle%20cx%3D%22152%22%20cy%3D%2290%22%20r%3D%2216%22%2F%3E%3Cpath%20d%3D%22M146%2084l12%2012M158%2084l-12%2012%22%2F%3E%3C%2Fg%3E%0A%3Cg%20transform%3D%22translate(250%2070)%22%3E%3Cpath%20d%3D%22M-22%20-30h44v60h-44z%22%2F%3E%3Cpath%20d%3D%22M-14%20-44h28v14h-28z%22%2F%3E%3Cpath%20d%3D%22M-10%200h20M0%20-10v20%22%2F%3E%3C%2Fg%3E%0A%3Cg%20transform%3D%22rotate(20%20250%20250)%22%3E%3Cpath%20d%3D%22M180%20250h140M250%20180v140%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22250%22%20r%3D%2210%22%2F%3E%3Ccircle%20cx%3D%22320%22%20cy%3D%22250%22%20r%3D%2210%22%2F%3E%3Ccircle%20cx%3D%22250%22%20cy%3D%22180%22%20r%3D%2210%22%2F%3E%3Ccircle%20cx%3D%22250%22%20cy%3D%22320%22%20r%3D%2210%22%2F%3E%3C%2Fg%3E%0A%3Cg%20transform%3D%22rotate(50%2080%20270)%22%3E%3Cpath%20d%3D%22M20%20262h110v14H20z%22%2F%3E%3Cpath%20d%3D%22M130%20254l24%208v14l-24%208z%22%2F%3E%3C%2Fg%3E%0A%3C%2Fg%3E%3C%2Fsvg%3E") 0 0 / 360px 360px; opacity: .05; pointer-events: none; }
+.sobre-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+.sobre-fotos { position: relative; min-height: 540px; }
+.sobre-fotos img { position: absolute; object-fit: cover; border-radius: 4px; box-shadow: 0 40px 70px -40px #000; }
+.sobre-fotos .f1 { left: 0; top: 0; width: 82%; height: 72%; }
+.sobre-fotos .f2 { right: 0; bottom: 0; width: 58%; height: 50%; border: 8px solid var(--asfalto); }
+.desde { position: absolute; left: 26px; bottom: 30px; display: grid; padding: 16px 20px; background: var(--pinca); }
+.desde small { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; }
+.desde b { font: italic 900 46px/1 var(--f-t); font-stretch: 125%; }
+.sobre-txt > p:not(.apoio) { margin-top: 18px; color: #BFC1C5; font-size: 17px; }
+.sobre-txt h2 + p { margin-top: 24px; }
+.difs { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; margin: 32px 0 0; }
+.difs div { padding: 18px 0; border-top: 2px solid var(--linha); transition: border-color .4s; }
+.difs div:hover { border-color: var(--pinca); }
+.difs dt { font: 800 17px/1.1 var(--f-t); text-transform: uppercase; }
+.difs dd { margin: 6px 0 0; color: var(--aco); font-size: 15px; }
+
+/* ---------- avaliações ---------- */
+.avaliacoes { padding: 110px 0 120px; background: var(--giz); overflow: hidden; }
+.aval-topo { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 48px; }
+.nota-geral { display: flex; align-items: center; gap: 14px; padding: 16px 22px; background: #fff; border-radius: 4px; box-shadow: 0 20px 40px -30px rgba(0, 0, 0, .5); }
+.nota-geral > svg { width: 34px; height: 34px; }
+.nota-geral > b { font: 900 46px/1 var(--f-t); }
+.nota-geral div { display: grid; gap: 4px; }
+.nota-geral .estrelas i { width: 18px; height: 18px; }
+.nota-geral span:last-child { font-size: 13px; color: var(--apoio-cor); }
+.esteira { overflow: hidden; padding: 8px 0; -webkit-mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.esteira + .esteira { margin-top: 14px; }
+.esteira-trilho { display: flex; gap: 16px; width: max-content; animation: esteira 60s linear infinite; }
+.esteira.volta .esteira-trilho { animation-direction: reverse; animation-duration: 70s; }
+.esteira:hover .esteira-trilho { animation-play-state: paused; }
+@keyframes esteira { to { transform: translateX(calc(-50% - 8px)); } }
+.aval { margin: 0; width: 380px; padding: 24px 26px; background: #fff; border-radius: 4px; border-bottom: 3px solid transparent; display: flex; flex-direction: column; gap: 14px; transition: transform .4s var(--suave), border-color .4s; }
+.aval:hover { transform: translateY(-4px); border-color: var(--pinca); }
+.aval blockquote { margin: 0; font-size: 16px; line-height: 1.5; }
+.aval figcaption { margin-top: auto; display: flex; justify-content: space-between; gap: 10px; font-size: 14px; }
+.aval figcaption span { color: var(--apoio-cor); }
+
+/* ---------- contato ---------- */
+.contato { position: relative; padding: 120px 0; color: #fff; background: linear-gradient(rgba(15, 16, 18, .88), rgba(15, 16, 18, .94)), url(assets/img/chave.webp) center / cover; }
+.contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+.contato-txt > p:not(.apoio) { margin-top: 18px; color: #BFC1C5; font-size: 17px; max-width: 480px; }
+.canais { list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 10px; max-width: 460px; }
+.canais a { display: flex; align-items: center; gap: 16px; padding: 14px 18px; background: rgba(255, 255, 255, .05); border-left: 3px solid var(--pinca); text-decoration: none; font-weight: 600; font-size: 17px; transition: background .3s, transform .35s var(--suave); }
+.canais a:hover { background: rgba(255, 255, 255, .1); transform: translateX(6px); }
+.canais svg { width: 24px; height: 24px; color: var(--pinca); flex: none; }
+.canais span { display: grid; }
+.canais small { font-size: 12px; font-weight: 500; color: var(--aco); letter-spacing: .08em; text-transform: uppercase; }
+.horas { margin-top: 28px; border-collapse: collapse; width: 100%; max-width: 460px; }
+.horas caption { text-align: left; font: 800 15px var(--f-t); text-transform: uppercase; margin-bottom: 8px; }
+.horas th, .horas td { padding: 9px 0; border-bottom: 1px solid var(--linha); text-align: left; font-weight: 500; }
+.horas td { text-align: right; color: #D4D5D8; }
+.horas tr.hoje th, .horas tr.hoje td { color: var(--sinal); }
+.form { display: grid; gap: 14px; padding: 34px; background: var(--carvao); border-top: 4px solid var(--pinca); border-radius: 4px; box-shadow: 0 40px 80px -40px #000; }
+.form h3 { font-size: 26px; margin-bottom: 6px; }
+.duas { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form .btn { width: 100%; margin-top: 6px; }
+.form .campo.erro input { border-color: var(--sinal); }
+.aviso { min-height: 20px; font-size: 14px; color: var(--sinal); }
+
+/* ---------- rodapé ---------- */
+.rodape { background: var(--asfalto); color: #fff; padding: 80px 0 30px; }
+.rodape-mapa { display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: center; }
+.map-box { position: relative; height: 320px; border-radius: 6px; overflow: hidden; background: var(--giz); box-shadow: 0 30px 60px -36px rgba(0, 0, 0, .9); }
+.map-box img { width: 100%; height: 100%; object-fit: cover; object-position: 68% 50%; transition: transform 1.2s var(--suave); }
+.map-box:hover img { transform: scale(1.06); }
+.map-box .pin { position: absolute; left: 50%; top: 50%; z-index: 2; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: var(--pinca); border: 4px solid #fff; box-shadow: 0 8px 18px -6px rgba(140, 10, 10, .8); }
+.map-box .pin::before { content: ""; position: absolute; inset: -11px; border-radius: 50%; border: 3px solid rgba(212, 42, 30, .55); animation: ping 2.2s ease-out infinite; }
+@keyframes ping { from { transform: scale(.5); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+.map-box .pin b { position: absolute; left: 26px; top: -5px; white-space: nowrap; font: 800 16px var(--f-t); text-transform: uppercase; color: var(--asfalto); text-shadow: 0 0 4px #fff, 0 0 4px #fff, 0 0 4px #fff; }
+.map-info { position: absolute; left: 14px; top: 14px; z-index: 3; display: grid; gap: 3px; max-width: 320px; padding: 14px 16px; background: #fff; color: var(--texto); border-radius: 4px; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .5); }
+.map-info b { font: 800 17px var(--f-t); text-transform: uppercase; }
+.map-info span { font-size: 12.5px; color: var(--apoio-cor); line-height: 1.35; }
+.map-info .mbtns { display: flex; gap: 6px; margin-top: 8px; }
+.mbtns a { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; white-space: nowrap; border-radius: 3px; background: var(--pinca); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; transition: background .35s var(--suave), transform .35s var(--suave); }
+.mbtns a:hover { background: var(--pinca-esc); transform: translateY(-2px); }
+.mbtns svg { width: 16px; height: 16px; }
+.attr { position: absolute; right: 8px; bottom: 6px; z-index: 3; font-size: 11px; background: rgba(255, 255, 255, .85); color: var(--texto); padding: 2px 6px; border-radius: 3px; }
+.onde h2 { font-size: clamp(28px, 3vw, 38px); }
+.onde p { margin-top: 12px; color: var(--aco); }
+.bairros { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.bairros li { white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 4px 14px; border-radius: 3px; background: var(--grafite); font-weight: 600; font-size: 14px; transition: background .3s; }
+.bairros li:hover { background: var(--pinca); }
+.rodape-cols { display: grid; grid-template-columns: 1.6fr 1fr 1.2fr 1fr; gap: 40px; margin-top: 70px; padding-top: 50px; border-top: 1px solid var(--linha); }
+.rodape-marca p { margin-top: 16px; color: var(--aco); max-width: 340px; font-size: 15px; }
+.rodape h3 { font-size: 15px; margin-bottom: 14px; }
+.rodape-cols ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; color: var(--aco); font-size: 15px; }
+.rodape-cols ul a { text-decoration: none; transition: color .25s; }
+.rodape-cols ul a:hover { color: #fff; }
+.redes { display: flex; gap: 8px; }
+.redes a { width: 44px; height: 44px; display: grid; place-items: center; background: var(--grafite); border-radius: 4px; transition: background .3s, transform .35s var(--suave); }
+.redes a:hover { background: var(--pinca); transform: translateY(-3px); }
+.redes svg { width: 20px; height: 20px; }
+.user { margin-top: 10px; color: var(--aco); font-size: 14px; }
+.rodape-fim { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 50px; padding-top: 22px; border-top: 1px solid var(--linha); color: #73777F; font-size: 13px; }
+
+.whats-flutua { position: fixed; right: 20px; bottom: 20px; z-index: 40; width: 60px; height: 60px; display: grid; place-items: center; background: #1FA855; color: #fff; border-radius: 50%; box-shadow: 0 14px 30px -10px rgba(0, 0, 0, .6); transition: transform .4s var(--suave); }
+.whats-flutua svg { width: 32px; height: 32px; }
+.whats-flutua:hover { transform: scale(1.08) rotate(-6deg); }
+
+/* entrada ao rolar */
+.js .revela { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--suave), transform .8s var(--suave); }
+.js .revela.visto { opacity: 1; transform: none; }
+
+/* ---------- responsivo ---------- */
+@media (max-width: 1180px) {
+  .menu ul a { padding: 10px 8px; font-size: 13px; }
+  .nav .wrap { gap: 18px; }
+}
+@media (max-width: 1040px) {
+  :root { --topo-h: 108px; }
+  .nav .wrap { height: 70px; }
+  .burger { display: flex; }
+  .menu { position: fixed; left: 0; right: 0; top: var(--topo-h); margin: 0; background: var(--carvao); padding: 16px 20px 26px; transform: translateY(-12px); opacity: 0; visibility: hidden; transition: transform .45s var(--suave), opacity .35s, visibility 0s .45s; box-shadow: 0 30px 40px -20px #000; }
+  .topo.rolou .menu { top: 70px; }
+  .menu.aberto { transform: none; opacity: 1; visibility: visible; transition: transform .45s var(--suave), opacity .35s; }
+  .menu ul { flex-direction: column; gap: 0; }
+  .menu ul a { padding: 16px 4px; font-size: 18px; border-bottom: 1px solid var(--linha); }
+  .menu ul a::after { display: none; }
+  .menu-extra { display: flex; gap: 22px; padding-top: 16px; color: var(--aco); }
+  .menu-extra a { text-decoration: none; }
+  .btn-orc { margin-left: auto; }
+  .capa-grid { grid-template-columns: 1fr; }
+  .capa-visual { min-height: 520px; max-width: 560px; }
+  .oficina-board { grid-template-columns: 1fr; }
+  .abas { grid-auto-flow: column; grid-auto-columns: minmax(170px, 1fr); overflow-x: auto; scrollbar-width: none; }
+  .abas::-webkit-scrollbar { display: none; }
+  .aba { padding: 14px; height: 100%; }
+  .aba span { font-size: 16px; }
+  .aba svg { display: none; }
+  .alinha-grid, .sobre-grid, .contato-grid, .rodape-mapa { grid-template-columns: 1fr; gap: 48px; }
+  .sec-topo { grid-template-columns: 1fr; gap: 16px; }
+  .rodape-cols { grid-template-columns: 1fr 1fr; }
+  .numeros .wrap { grid-template-columns: 1fr 1fr; }
+  .num:nth-child(2) { border-right: 1px solid var(--linha); }
+  .num:nth-child(n+3) { border-top: 1px solid var(--linha); }
+}
+@media (max-width: 760px) {
+  .barra-sup .atalhos, .status { display: none; }
+  .barra-sup .wrap { justify-content: flex-end; }
+  .btn-orc span { display: none; }
+  .btn-orc { width: 50px; padding: 0; }
+  .painel { grid-template-columns: 1fr; }
+  .painel-foto { min-height: 240px; }
+  .painel-txt { padding: 28px 22px; }
+  .paineis { min-height: 0; }
+  .pneu-gira { width: 420px; right: -190px; }
+  .capa-visual { min-height: 0; }
+  .capa-grid { padding-bottom: 56px; gap: 36px; }
+  .capa-foto { width: 84%; }
+  .num b { font-size: 34px; }
+  .selo { left: auto; right: 6px; bottom: 150px; width: 110px; height: 110px; }
+  .nota-capa { left: auto; right: 0; bottom: -18px; }
+  .orcar-linha { flex-direction: column; align-items: stretch; }
+  .chips { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .chips label { width: 100% !important; }
+  .difs, .duas { grid-template-columns: 1fr; }
+  .sobre-fotos { min-height: 400px; }
+  .aval { width: 300px; }
+  .form { padding: 24px 20px; }
+  .map-box { height: 380px; }
+  .map-info { right: 14px; max-width: none; }
+}
+@media (max-width: 480px) {
+  .wrap { width: calc(100% - 32px); }
+  .logo-txt small { display: none; }
+  .chips { grid-template-columns: repeat(2, 1fr); }
+  .rodape-cols { grid-template-columns: 1fr; }
+  .num { padding: 24px 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+  html { scroll-behavior: auto; }
+}
+
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"Tração Centro Automotivo","telephone":"(31) 3333-0000","email":"contato@tracaoauto.com.br","address":{"@type":"PostalAddress","streetAddress":"Av. Pedro II, 2150","addressLocality":"Belo Horizonte","addressRegion":"MG","addressCountry":"BR"},"openingHours":["Mo-Fr 07:30-18:00","Sa 08:00-13:00"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"312"}}</script>
+</head>
+<body>
+<a class="pular" href="#servicos">Pular para os serviços</a>
+
+<header class="topo" id="topo">
+  <div class="barra-sup">
+    <div class="wrap">
+      <nav class="atalhos" aria-label="Páginas">
+        <a href="#inicio">Início</a><a href="#servicos">Serviços</a><a href="#sobre">Sobre nós</a><a href="#contato">Contato</a>
+      </nav>
+      <div class="info-sup">
+        <span class="status" data-status>Seg. a sex. 7h30 às 18h, sáb. 8h às 13h</span>
+        <a href="tel:3133330000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg>(31) 3333-0000</a>
+      </div>
+    </div>
+  </div>
+  <div class="nav">
+    <div class="wrap">
+      <a class="logo" href="#inicio" aria-label="Tração Centro Automotivo, voltar ao início"><svg class="simbolo" viewBox="0 0 48 48" aria-hidden="true">
+  <path d="M24 2.5 42.6 13.25v21.5L24 45.5 5.4 34.75v-21.5Z" fill="var(--pinca, #D42A1E)"/>
+  <path d="M24 7.2 38.5 15.6v16.8L24 40.8 9.5 32.4V15.6Z" fill="none" stroke="#0F1012" stroke-opacity=".28" stroke-width="1.4"/>
+  <path d="M12.5 14.5h23v7.2h-7.8v13.8h-7.4V21.7h-7.8Z" fill="#0F1012"/>
+  <path d="M15.5 14.5l2 7.2M20.5 14.5l2 7.2M25.5 14.5l2 7.2M30.5 14.5l2 7.2M20.3 25.5l3.7 2.6 3.7-2.6M20.3 30.5l3.7 2.6 3.7-2.6" stroke="var(--pinca, #D42A1E)" stroke-width="1.6" fill="none"/>
+</svg><span class="logo-txt"><b>TRAÇÃO</b><small>centro automotivo</small></span></a>
+      <nav class="menu" id="menu" aria-label="Serviços">
+        <ul><li><a href="#pneus" data-ir="pneus">Pneus e rodas</a></li><li><a href="#mecanica" data-ir="mecanica">Mecânica</a></li><li><a href="#oleo" data-ir="oleo">Troca de óleo</a></li><li><a href="#freio" data-ir="freio">Sistema de freio</a></li><li><a href="#suspensao" data-ir="suspensao">Suspensão</a></li></ul>
+        <div class="menu-extra"><a href="#sobre">Sobre nós</a><a href="#contato">Contato</a></div>
+      </nav>
+      <a class="btn btn-pinca btn-orc" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tra%C3%A7%C3%A3o!%20Quero%20um%20or%C3%A7amento%20gr%C3%A1tis." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg><span>Orçamento grátis</span></a>
+      <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="capa" id="inicio">
+    <div class="wrap capa-grid">
+      <div class="capa-txt">
+        <p class="apoio revela">Centro automotivo no Carlos Prates, BH</p>
+        <h1 class="revela">Seu carro <span class="quebra">pisando firme</span> de novo.</h1>
+        <p class="capa-sub revela">Pneus, freio, suspensão, óleo e alinhamento 3D com orçamento por foto no WhatsApp antes de qualquer serviço.</p>
+        <form class="orcar revela" data-orcar>
+          <fieldset>
+            <legend>O que o carro precisa?</legend>
+            <div class="chips" data-iguais><label><input type="checkbox" name="serv" value="Pneus e rodas"><span>Pneus</span></label><label><input type="checkbox" name="serv" value="Mecânica geral"><span>Mecânica</span></label><label><input type="checkbox" name="serv" value="Troca de óleo"><span>Óleo</span></label><label><input type="checkbox" name="serv" value="Sistema de freio"><span>Freio</span></label><label><input type="checkbox" name="serv" value="Suspensão"><span>Suspensão</span></label><label><input type="checkbox" name="serv" value="Alinhamento 3D"><span>Alinhamento</span></label></div>
+          </fieldset>
+          <div class="orcar-linha">
+            <label class="campo"><span>Modelo e ano</span><input name="carro" type="text" placeholder="Ex.: Onix 2019" autocomplete="off"></label>
+            <button class="btn btn-pinca" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg>Pedir orçamento</button>
+          </div>
+        </form>
+      </div>
+      <div class="capa-visual">
+        <div class="pneu-gira" aria-hidden="true"><svg class="pneu" viewBox="0 0 500 500" aria-hidden="true">
+  <circle cx="250" cy="250" r="236" fill="#141518"/>
+  <g fill="#26282d"><path transform="rotate(0 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(4.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(9 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(13.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(18 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(22.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(27 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(31.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(36 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(40.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(45 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(49.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(54 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(58.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(63 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(67.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(72 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(76.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(81 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(85.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(90 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(94.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(99 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(103.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(108 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(112.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(117 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(121.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(126 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(130.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(135 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(139.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(144 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(148.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(153 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(157.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(162 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(166.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(171 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(175.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(180 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(184.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(189 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(193.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(198 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(202.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(207 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(211.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(216 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(220.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(225 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(229.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(234 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(238.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(243 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(247.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(252 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(256.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(261 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(265.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(270 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(274.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(279 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(283.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(288 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(292.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(297 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(301.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(306 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(310.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(315 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(319.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(324 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(328.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(333 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(337.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(342 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(346.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/><path transform="rotate(351 250 250)" d="M242 4h16l-3 30h-10Z"/><path transform="rotate(355.5 250 250)" d="M246 12h8l-1 16h-6Z" opacity=".55"/></g>
+  <circle cx="250" cy="250" r="200" fill="none" stroke="#2e3036" stroke-width="3"/>
+  <circle cx="250" cy="250" r="172" fill="#1a1b1f"/>
+  <circle cx="250" cy="250" r="150" fill="#3a3d44"/>
+  <circle cx="250" cy="250" r="140" fill="#1a1b1f"/>
+  <g fill="#5d626b"><path transform="rotate(0 250 250)" d="M236 196 226 112q24-8 48 0l-10 84q-14 6-28 0Z"/><path transform="rotate(72 250 250)" d="M236 196 226 112q24-8 48 0l-10 84q-14 6-28 0Z"/><path transform="rotate(144 250 250)" d="M236 196 226 112q24-8 48 0l-10 84q-14 6-28 0Z"/><path transform="rotate(216 250 250)" d="M236 196 226 112q24-8 48 0l-10 84q-14 6-28 0Z"/><path transform="rotate(288 250 250)" d="M236 196 226 112q24-8 48 0l-10 84q-14 6-28 0Z"/></g>
+  <circle cx="250" cy="250" r="56" fill="#6b7079"/>
+  <circle cx="250" cy="250" r="44" fill="#2a2c31"/>
+  <g fill="#9aa0a8"><circle cx="250.0" cy="220.0" r="6"/><circle cx="278.5" cy="240.7" r="6"/><circle cx="267.6" cy="274.3" r="6"/><circle cx="232.4" cy="274.3" r="6"/><circle cx="221.5" cy="240.7" r="6"/></g>
+  <circle cx="250" cy="250" r="12" fill="var(--pinca, #D42A1E)"/>
+  <path d="M190 120a150 150 0 0 1 120 0" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="6"/>
+</svg></div>
+        <figure class="capa-foto"><img src="assets/img/capa.webp" alt="Mecânico da Tração trabalhando no motor de um carro" width="1300" height="1950" fetchpriority="high"></figure>
+        <div class="selo" aria-label="Garantia de 90 dias por escrito">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><defs><path id="circ" d="M60 60m-46 0a46 46 0 1 1 92 0a46 46 0 1 1-92 0"/></defs><text><textPath href="#circ" textLength="284" lengthAdjust="spacing">GARANTIA POR ESCRITO  PEÇA E MÃO DE OBRA</textPath></text></svg>
+          <b>90<small>dias</small></b>
+        </div>
+        <div class="nota-capa"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.3Z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22Z"/><path fill="#FBBC05" d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2Z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.1 7.4L6.4 10c.8-2.3 3-4.1 5.6-4.1Z"/></svg><div><b>4,9</b><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><span>312 avaliações no Google</span></div></div>
+      </div>
+    </div>
+    <div class="rastro" aria-hidden="true"></div>
+  </section>
+
+  <section class="numeros" aria-label="A Tração em números">
+    <div class="wrap">
+      <div class="num"><b><span data-conta="13">13</span></b><span>anos no Carlos Prates</span></div>
+      <div class="num"><b><span data-conta="18">18</span> mil</b><span>carros atendidos</span></div>
+      <div class="num"><b><span data-conta="4.9">4,9</span></b><span>de nota no Google</span></div>
+      <div class="num"><b><span data-conta="90">90</span> dias</b><span>de garantia por escrito</span></div>
+    </div>
+  </section>
+
+  <section class="servicos" id="servicos">
+    <div class="wrap">
+      <div class="sec-topo">
+        <div>
+          <p class="apoio">Serviços</p>
+          <h2 class="revela">Tudo o que o carro pede, <span class="quebra">num endereço só.</span></h2>
+        </div>
+        <p class="sec-desc revela">Escolha o serviço para ver o que está incluso e o tempo médio. O orçamento é grátis e chega por foto no WhatsApp.</p>
+      </div>
+      <div class="oficina-board" data-abas>
+        <ul class="abas" role="tablist" aria-label="Serviços"><li><button type="button" class="aba ativa" id="pneus" data-aba="pneus" aria-controls="painel-pneus" aria-selected="true" role="tab"><span>Pneus e rodas</span><em>a partir de 40 min</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button></li><li><button type="button" class="aba" id="mecanica" data-aba="mecanica" aria-controls="painel-mecanica" aria-selected="false" role="tab"><span>Mecânica geral</span><em>diagnóstico em até 1 h</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button></li><li><button type="button" class="aba" id="oleo" data-aba="oleo" aria-controls="painel-oleo" aria-selected="false" role="tab"><span>Troca de óleo</span><em>cerca de 30 min</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button></li><li><button type="button" class="aba" id="freio" data-aba="freio" aria-controls="painel-freio" aria-selected="false" role="tab"><span>Sistema de freio</span><em>a partir de 1 h</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button></li><li><button type="button" class="aba" id="suspensao" data-aba="suspensao" aria-controls="painel-suspensao" aria-selected="false" role="tab"><span>Suspensão</span><em>a partir de 2 h</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button></li><li><button type="button" class="aba" id="alinhamento" data-aba="alinhamento" aria-controls="painel-alinhamento" aria-selected="false" role="tab"><span>Alinhamento 3D</span><em>cerca de 40 min</em><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button></li></ul>
+        <div class="paineis">
+        <article class="painel ativo" id="painel-pneus" role="tabpanel" aria-labelledby="pneus">
+          <figure class="painel-foto"><img src="assets/img/pneus.webp" alt="Mecânico montando um pneu na roda com a máquina desmontadora" loading="eager" width="1400" height="933"><figcaption>Pneus e rodas</figcaption></figure>
+          <div class="painel-txt">
+            <h3>Pneu novo, montado e balanceado no mesmo dia.</h3>
+            <p>Trabalhamos com as principais marcas em todas as medidas de aro. Montagem com máquina sem alavanca, que não risca a roda, e balanceamento computadorizado.</p>
+            <ul class="inclui"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Venda de pneus nacionais e importados</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Montagem sem riscar a roda</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Balanceamento computadorizado</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Rodízio e calibragem com nitrogênio</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Reparo de roda amassada</li></ul>
+            <div class="painel-pe">
+              <span class="tempo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 7v5h4"/></svg>a partir de 40 min</span>
+              <a class="btn btn-pinca" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tra%C3%A7%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20pneus%20e%20rodas.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg>Orçar pneus</a>
+            </div>
+          </div>
+        </article>
+        <article class="painel" id="painel-mecanica" role="tabpanel" aria-labelledby="mecanica">
+          <figure class="painel-foto"><img src="assets/img/mecanica.webp" alt="Dois mecânicos trabalhando no motor de um carro com o capô aberto" loading="lazy" width="1400" height="933"><figcaption>Mecânica geral</figcaption></figure>
+          <div class="painel-txt">
+            <h3>Do barulho estranho à revisão completa.</h3>
+            <p>Diagnóstico com scanner, motor, câmbio, embreagem, arrefecimento e correias. Antes de qualquer serviço você recebe o orçamento por foto no WhatsApp.</p>
+            <ul class="inclui"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Diagnóstico por scanner</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Revisão preventiva por quilometragem</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Correia dentada e de acessórios</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Embreagem e câmbio</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Arrefecimento e radiador</li></ul>
+            <div class="painel-pe">
+              <span class="tempo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 7v5h4"/></svg>diagnóstico em até 1 h</span>
+              <a class="btn btn-pinca" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tra%C3%A7%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20mec%C3%A2nica%20geral.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg>Orçar mecânica</a>
+            </div>
+          </div>
+        </article>
+        <article class="painel" id="painel-oleo" role="tabpanel" aria-labelledby="oleo">
+          <figure class="painel-foto"><img src="assets/img/oleo.webp" alt="Mecânico colocando óleo novo no motor de um carro" loading="lazy" width="1400" height="933"><figcaption>Troca de óleo</figcaption></figure>
+          <div class="painel-txt">
+            <h3>O óleo certo para o seu motor, sem empurrar o mais caro.</h3>
+            <p>Seguimos a especificação do fabricante do seu carro. Trocamos filtro de óleo, ar, combustível e cabine e anotamos a próxima troca na etiqueta do para-brisa.</p>
+            <ul class="inclui"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Óleo sintético, semissintético e mineral</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Filtros de óleo, ar, combustível e cabine</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Conferência de níveis e fluidos</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Etiqueta com a próxima troca</li></ul>
+            <div class="painel-pe">
+              <span class="tempo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 7v5h4"/></svg>cerca de 30 min</span>
+              <a class="btn btn-pinca" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tra%C3%A7%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20troca%20de%20%C3%B3leo.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg>Orçar óleo</a>
+            </div>
+          </div>
+        </article>
+        <article class="painel" id="painel-freio" role="tabpanel" aria-labelledby="freio">
+          <figure class="painel-foto"><img src="assets/img/freio.webp" alt="Disco de freio e pinça vermelha de um carro suspenso no elevador" loading="lazy" width="1400" height="933"><figcaption>Sistema de freio</figcaption></figure>
+          <div class="painel-txt">
+            <h3>Pedal firme e carro parando reto.</h3>
+            <p>Medimos a espessura dos discos e o desgaste das pastilhas na sua frente. Só trocamos o que precisa e a peça velha volta para você.</p>
+            <ul class="inclui"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Pastilhas e lonas</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Discos e tambores</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Fluido de freio DOT 4</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Pinças e cilindros</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Freio de mão e ABS</li></ul>
+            <div class="painel-pe">
+              <span class="tempo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 7v5h4"/></svg>a partir de 1 h</span>
+              <a class="btn btn-pinca" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tra%C3%A7%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20sistema%20de%20freio.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg>Orçar freio</a>
+            </div>
+          </div>
+        </article>
+        <article class="painel" id="painel-suspensao" role="tabpanel" aria-labelledby="suspensao">
+          <figure class="painel-foto"><img src="assets/img/suspensao.webp" alt="Quatro amortecedores com molas vermelhas lado a lado" loading="lazy" width="1400" height="933"><figcaption>Suspensão</figcaption></figure>
+          <div class="painel-txt">
+            <h3>Fim do barulho na lombada e do carro batendo seco.</h3>
+            <p>Amortecedores, molas, bandejas, pivôs, buchas e terminais. Teste de rodagem antes e depois para você sentir a diferença.</p>
+            <ul class="inclui"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Amortecedores e molas</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Bandejas, pivôs e buchas</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Terminais e barras axiais</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Coxins e batentes</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Teste de rodagem</li></ul>
+            <div class="painel-pe">
+              <span class="tempo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 7v5h4"/></svg>a partir de 2 h</span>
+              <a class="btn btn-pinca" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tra%C3%A7%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20suspens%C3%A3o.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg>Orçar suspensão</a>
+            </div>
+          </div>
+        </article>
+        <article class="painel" id="painel-alinhamento" role="tabpanel" aria-labelledby="alinhamento">
+          <figure class="painel-foto"><img src="assets/img/alinhamento.webp" alt="Mecânico com luvas segurando o pneu de um carro na oficina" loading="lazy" width="1400" height="933"><figcaption>Alinhamento 3D</figcaption></figure>
+          <div class="painel-txt">
+            <h3>Volante reto e pneu gastando por igual.</h3>
+            <p>Câmeras leem os alvos presos nas rodas e mostram cada ângulo na tela, antes e depois. Você leva o relatório impresso.</p>
+            <ul class="inclui"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Medição por câmeras 3D</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Cambagem, caster e convergência</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Relatório antes e depois</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>Balanceamento junto com desconto</li></ul>
+            <div class="painel-pe">
+              <span class="tempo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z"/><path d="M12 7v5h4"/></svg>cerca de 40 min</span>
+              <a class="btn btn-pinca" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tra%C3%A7%C3%A3o!%20Quero%20um%20or%C3%A7amento%20de%20alinhamento%203d.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg>Orçar alinhamento</a>
+            </div>
+          </div>
+        </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alinha" aria-labelledby="alinha-t">
+    <div class="wrap alinha-grid">
+      <div class="medidor" data-medidor aria-hidden="true">
+        <svg viewBox="0 0 360 300">
+          <g class="grade"><path d="M0 50h360M0 100h360M0 150h360M0 200h360M0 250h360M60 0v300M120 0v300M180 0v300M240 0v300M300 0v300"/></g>
+          <path class="carro" d="M128 40q52-22 104 0l8 40v140l-8 40q-52 22-104 0l-8-40V80Z"/>
+          <path class="vidro" d="M138 92h84l-8 30h-68ZM146 196h68l8 24h-84Z"/>
+          <g class="roda" data-roda="de" data-de="-1.8" style="transform-origin:96px 74px"><rect x="85" y="46" width="22" height="56" rx="3"/><path class="eixo" d="M96 34v80"/></g>
+          <text class="graus" x="30" y="79" data-grau="de">-1,8°</text>
+          <g class="roda" data-roda="dd" data-de="1.2" style="transform-origin:264px 74px"><rect x="253" y="46" width="22" height="56" rx="3"/><path class="eixo" d="M264 34v80"/></g>
+          <text class="graus" x="286" y="79" data-grau="dd">1,2°</text>
+          <g class="roda" data-roda="te" data-de="-0.9" style="transform-origin:96px 226px"><rect x="85" y="198" width="22" height="56" rx="3"/><path class="eixo" d="M96 186v80"/></g>
+          <text class="graus" x="30" y="231" data-grau="te">-0,9°</text>
+          <g class="roda" data-roda="td" data-de="0.6" style="transform-origin:264px 226px"><rect x="253" y="198" width="22" height="56" rx="3"/><path class="eixo" d="M264 186v80"/></g>
+          <text class="graus" x="286" y="231" data-grau="td">0,6°</text>
+          <path class="scan" d="M0 0h360"/>
+        </svg>
+      </div>
+      <div class="alinha-txt">
+        <p class="apoio">Alinhamento 3D</p>
+        <h2 id="alinha-t" class="revela">Você vê cada roda voltar para o zero.</h2>
+        <p>Câmeras de alta precisão leem os alvos presos nas rodas e mostram cambagem, caster e convergência na tela, em tempo real. No fim, você leva o relatório impresso com o antes e o depois.</p>
+        <a class="btn btn-claro" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tra%C3%A7%C3%A3o!%20Quero%20agendar%20um%20alinhamento%203D.%20Meu%20carro%20%C3%A9%3A%20" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg>Agendar alinhamento</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sobre" id="sobre">
+    <div class="wrap sobre-grid">
+      <div class="sobre-fotos">
+        <img class="f1" src="assets/img/oficina.webp" alt="Oficina ampla com carros nos elevadores" loading="lazy" width="1600" height="789">
+        <img class="f2" src="assets/img/mecanico.webp" alt="Mecânico sorrindo ao lado de um carro com o capô aberto" loading="lazy" width="1200" height="800">
+        <div class="desde"><small>desde</small><b>2013</b></div>
+      </div>
+      <div class="sobre-txt">
+        <p class="apoio">Sobre nós</p>
+        <h2 class="revela">Oficina de bairro, <span class="quebra">padrão de concessionária.</span></h2>
+        <p>A Tração nasceu em 2013 num galpão de dois elevadores na Av. Pedro II. Hoje são seis boxes, alinhador 3D, scanner multimarcas e uma equipe que explica o que vai fazer antes de abrir o capô.</p>
+        <p>A regra da casa é simples: ninguém mexe no carro sem você aprovar o orçamento, e tudo o que sai dele volta para você.</p>
+        <dl class="difs"><div><dt>Orçamento por foto</dt><dd>Mostramos o problema no WhatsApp antes de mexer. Sem susto na hora de pagar.</dd></div><div><dt>A peça velha é sua</dt><dd>Tudo o que sai do carro volta para você no porta-malas.</dd></div><div><dt>Garantia de 90 dias</dt><dd>Peça e mão de obra, escrito na nota.</dd></div><div><dt>Leva e traz</dt><dd>Buscamos e entregamos o carro em casa ou no trabalho na região.</dd></div></dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="avaliacoes" id="avaliacoes" aria-labelledby="aval-t">
+    <div class="wrap aval-topo">
+      <div>
+        <p class="apoio">Avaliações</p>
+        <h2 id="aval-t" class="revela">Quem roda com a gente, volta.</h2>
+      </div>
+      <div class="nota-geral"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.3Z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.8-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22Z"/><path fill="#FBBC05" d="M6.4 14c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V7.4H3.1a10 10 0 0 0 0 9.2Z"/><path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.1 7.4L6.4 10c.8-2.3 3-4.1 5.6-4.1Z"/></svg><b>4,9</b><div><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><span>312 avaliações no Google</span></div></div>
+    </div>
+    <div class="esteira"><div class="esteira-trilho"><figure class="aval"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Fui trocar a pastilha e me mostraram pelo WhatsApp que o disco ainda estava bom. Economizei e confiei na hora.</blockquote><figcaption><b>Larissa M.</b><span>Onix 2019</span></figcaption></figure><figure class="aval"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Alinhamento 3D de verdade, com relatório antes e depois. O volante voltou reto e o carro parou de puxar.</blockquote><figcaption><b>Ricardo S.</b><span>Hilux 2017</span></figcaption></figure><figure class="aval"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Troca de óleo rápida, me explicaram o óleo certo para o motor e não tentaram empurrar nada.</blockquote><figcaption><b>Patrícia A.</b><span>HB20 2021</span></figcaption></figure><figure class="aval"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Barulho na suspensão que duas oficinas não acharam. Aqui resolveram em uma manhã.</blockquote><figcaption><b>Fernando L.</b><span>Corolla 2016</span></figcaption></figure><figure class="aval" aria-hidden="true"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Fui trocar a pastilha e me mostraram pelo WhatsApp que o disco ainda estava bom. Economizei e confiei na hora.</blockquote><figcaption><b>Larissa M.</b><span>Onix 2019</span></figcaption></figure><figure class="aval" aria-hidden="true"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Alinhamento 3D de verdade, com relatório antes e depois. O volante voltou reto e o carro parou de puxar.</blockquote><figcaption><b>Ricardo S.</b><span>Hilux 2017</span></figcaption></figure><figure class="aval" aria-hidden="true"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Troca de óleo rápida, me explicaram o óleo certo para o motor e não tentaram empurrar nada.</blockquote><figcaption><b>Patrícia A.</b><span>HB20 2021</span></figcaption></figure><figure class="aval" aria-hidden="true"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Barulho na suspensão que duas oficinas não acharam. Aqui resolveram em uma manhã.</blockquote><figcaption><b>Fernando L.</b><span>Corolla 2016</span></figcaption></figure></div></div>
+    <div class="esteira volta"><div class="esteira-trilho"><figure class="aval"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Buscaram o carro no meu trabalho e devolveram no fim do dia. Atendimento muito educado.</blockquote><figcaption><b>Juliana C.</b><span>Kicks 2020</span></figcaption></figure><figure class="aval"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Comprei quatro pneus com montagem e balanceamento. Preço justo e roda sem nenhum risco.</blockquote><figcaption><b>Marcos V.</b><span>Saveiro 2015</span></figcaption></figure><figure class="aval"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Me entregaram a peça velha na mão e explicaram o que tinha acontecido. É raro achar oficina assim.</blockquote><figcaption><b>Aline R.</b><span>Fox 2014</span></figcaption></figure><figure class="aval"><span class="estrelas" aria-label="4 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Revisão completa no prazo combinado. Voltei para o alinhamento e já virei cliente.</blockquote><figcaption><b>Bruno T.</b><span>Renegade 2018</span></figcaption></figure><figure class="aval" aria-hidden="true"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Buscaram o carro no meu trabalho e devolveram no fim do dia. Atendimento muito educado.</blockquote><figcaption><b>Juliana C.</b><span>Kicks 2020</span></figcaption></figure><figure class="aval" aria-hidden="true"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Comprei quatro pneus com montagem e balanceamento. Preço justo e roda sem nenhum risco.</blockquote><figcaption><b>Marcos V.</b><span>Saveiro 2015</span></figcaption></figure><figure class="aval" aria-hidden="true"><span class="estrelas" aria-label="5 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Me entregaram a peça velha na mão e explicaram o que tinha acontecido. É raro achar oficina assim.</blockquote><figcaption><b>Aline R.</b><span>Fox 2014</span></figcaption></figure><figure class="aval" aria-hidden="true"><span class="estrelas" aria-label="4 de 5 estrelas"><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i><i class=""><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg></i></span><blockquote>Revisão completa no prazo combinado. Voltei para o alinhamento e já virei cliente.</blockquote><figcaption><b>Bruno T.</b><span>Renegade 2018</span></figcaption></figure></div></div>
+  </section>
+
+  <section class="contato" id="contato">
+    <div class="wrap contato-grid">
+      <div class="contato-txt">
+        <p class="apoio">Contato</p>
+        <h2 class="revela">Conte o que está acontecendo com o carro.</h2>
+        <p>Respondemos em poucos minutos no horário de atendimento. Se puder, mande uma foto ou um vídeo do barulho.</p>
+        <ul class="canais">
+          <li><a href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tra%C3%A7%C3%A3o!" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg><span><small>WhatsApp</small>(31) 99999-0000</span></a></li>
+          <li><a href="tel:3133330000"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z"/></svg><span><small>Telefone</small>(31) 3333-0000</span></a></li>
+          <li><a href="https://www.openstreetmap.org/search?query=Av.%20Pedro%20II%2C%202150%2C%20Carlos%20Prates%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><path d="M9.5 10h5"/></svg><span><small>Endereço</small>Av. Pedro II, 2150, Carlos Prates</span></a></li>
+        </ul>
+        <table class="horas"><caption>Horário de atendimento</caption><tr><th scope="row">Segunda a sexta</th><td>7h30 às 18h</td></tr><tr><th scope="row">Sábado</th><td>8h às 13h</td></tr><tr><th scope="row">Domingo e feriado</th><td>Fechado</td></tr></table>
+      </div>
+      <form class="form" data-form novalidate>
+        <h3>Pedir orçamento grátis</h3>
+        <label class="campo"><span>Seu nome</span><input name="nome" required autocomplete="name"></label>
+        <div class="duas">
+          <label class="campo"><span>WhatsApp</span><input name="fone" inputmode="tel" autocomplete="tel" placeholder="(31) 9 0000-0000"></label>
+          <label class="campo"><span>Carro e ano</span><input name="carro" required placeholder="Ex.: HB20 2021"></label>
+        </div>
+        <label class="campo"><span>Serviço</span><select name="servico"><option>Pneus e rodas</option><option>Mecânica geral</option><option>Troca de óleo</option><option>Sistema de freio</option><option>Suspensão</option><option>Alinhamento 3D</option><option>Outro / não sei</option></select></label>
+        <label class="campo"><span>O que está acontecendo?</span><textarea name="msg" rows="3" placeholder="Ex.: barulho na roda dianteira ao frear"></textarea></label>
+        <button class="btn btn-pinca" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg>Enviar pelo WhatsApp</button>
+        <p class="aviso" data-aviso role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="wrap">
+    <div class="rodape-mapa">
+      <div class="map-box">
+        <img src="assets/img/mapa_carlos-prates.webp" alt="Mapa do Carlos Prates, Belo Horizonte, com a localização da Tração Centro Automotivo" width="1240" height="760" loading="lazy">
+        <span class="pin" style="left:68%" aria-hidden="true"><b>Tração</b></span>
+        <div class="map-info"><b>Tração Centro Automotivo</b><span>Av. Pedro II, 2150, Carlos Prates, Belo Horizonte, MG</span><span>Seg. a sex. 7h30 às 18h, sáb. 8h às 13h</span>
+          <div class="mbtns" data-iguais><a href="https://www.openstreetmap.org/search?query=Av.%20Pedro%20II%2C%202150%2C%20Carlos%20Prates%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><path d="M9.5 10h5"/></svg>Abrir no Maps</a><a href="https://www.google.com/maps/dir/?api=1&destination=Av.%20Pedro%20II%2C%202150%2C%20Carlos%20Prates%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>Como chegar</a></div>
+        </div>
+        <span class="attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
+      </div>
+      <div class="onde">
+        <h2>Onde atendemos</h2>
+        <p>Leva e traz grátis nos bairros abaixo. Fora da lista, combine pelo WhatsApp.</p>
+        <ul class="bairros" data-iguais><li>Carlos Prates</li><li>Padre Eustáquio</li><li>Lagoinha</li><li>Bonfim</li><li>Caiçara</li><li>Coração Eucarístico</li><li>Centro</li><li>Prado</li></ul>
+      </div>
+    </div>
+    <div class="rodape-cols">
+      <div class="rodape-marca"><a class="logo" href="#inicio" aria-label="Tração Centro Automotivo"><svg class="simbolo" viewBox="0 0 48 48" aria-hidden="true">
+  <path d="M24 2.5 42.6 13.25v21.5L24 45.5 5.4 34.75v-21.5Z" fill="var(--pinca, #D42A1E)"/>
+  <path d="M24 7.2 38.5 15.6v16.8L24 40.8 9.5 32.4V15.6Z" fill="none" stroke="#0F1012" stroke-opacity=".28" stroke-width="1.4"/>
+  <path d="M12.5 14.5h23v7.2h-7.8v13.8h-7.4V21.7h-7.8Z" fill="#0F1012"/>
+  <path d="M15.5 14.5l2 7.2M20.5 14.5l2 7.2M25.5 14.5l2 7.2M30.5 14.5l2 7.2M20.3 25.5l3.7 2.6 3.7-2.6M20.3 30.5l3.7 2.6 3.7-2.6" stroke="var(--pinca, #D42A1E)" stroke-width="1.6" fill="none"/>
+</svg><span class="logo-txt"><b>TRAÇÃO</b><small>centro automotivo</small></span></a><p>Oficina de bairro com equipamento de concessionária. Orçamento antes de mexer, peça na sua mão e garantia por escrito.</p></div>
+      <div><h3>Serviços</h3><ul><li><a href="#pneus" data-ir="pneus">Pneus e rodas</a></li><li><a href="#mecanica" data-ir="mecanica">Mecânica geral</a></li><li><a href="#oleo" data-ir="oleo">Troca de óleo</a></li><li><a href="#freio" data-ir="freio">Sistema de freio</a></li><li><a href="#suspensao" data-ir="suspensao">Suspensão</a></li><li><a href="#alinhamento" data-ir="alinhamento">Alinhamento 3D</a></li></ul></div>
+      <div><h3>Fale com a gente</h3><ul><li><a href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tra%C3%A7%C3%A3o!" target="_blank" rel="noopener">WhatsApp (31) 99999-0000</a></li><li><a href="tel:3133330000">Telefone (31) 3333-0000</a></li><li>contato@tracaoauto.com.br</li><li>Av. Pedro II, 2150, Carlos Prates</li></ul></div>
+      <div><h3>Redes</h3>
+        <div class="redes">
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/><path d="M16.5 6.8v.4"/></svg></a>
+          <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M14.5 21v-8h3l.5-3.5h-3.5V7.8c0-1 .3-1.8 1.8-1.8H18V3.2A24 24 0 0 0 15.4 3c-2.6 0-4.4 1.6-4.4 4.5v2H8V13h3v8"/></svg></a>
+          <a href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tra%C3%A7%C3%A3o!" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg></a>
+        </div>
+        <p class="user">@tracaoauto</p>
+      </div>
+    </div>
+    <div class="rodape-fim"><span>© <span data-ano>2026</span> Tração Centro Automotivo. Marca fictícia de demonstração.</span><span>Fotos ilustrativas do Unsplash.</span></div>
+  </div>
+</footer>
+
+<a class="whats-flutua" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tra%C3%A7%C3%A3o!%20Quero%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg></a>
+
+<script>
+// Interação do modelo Bronze da Tração (sem bibliotecas).
+(() => {
+  const D = {"whatsapp":"5531999990000","abertura":{"1":[450,1080],"2":[450,1080],"3":[450,1080],"4":[450,1080],"5":[450,1080],"6":[480,780]}};
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const wa = (msg) => `https://wa.me/${D.whatsapp}?text=${encodeURIComponent(msg)}`;
+  document.documentElement.classList.add('js');
+
+  // ano do rodapé
+  $$('[data-ano]').forEach((e) => { e.textContent = new Date().getFullYear(); });
+
+  // aberto agora / horário de hoje
+  const agora = new Date(), dia = agora.getDay(), min = agora.getHours() * 60 + agora.getMinutes();
+  const faixa = D.abertura[dia];
+  const status = $('[data-status]');
+  if (status && faixa && min >= faixa[0] && min < faixa[1]) {
+    const f = faixa[1], h = Math.floor(f / 60), m = f % 60;
+    status.innerHTML = `<b>Aberto agora</b>, até ${h}h${m ? String(m).padStart(2, '0') : ''}`;
+    status.classList.add('aberto');
+  }
+  const linhas = $$('.horas tr');
+  const idx = dia === 0 ? 2 : dia === 6 ? 1 : 0;
+  if (linhas[idx]) linhas[idx].classList.add('hoje');
+
+  // topo: esconde a barrinha de cima ao rolar
+  const topo = $('#topo');
+  const aoRolar = () => topo.classList.toggle('rolou', scrollY > 40);
+  addEventListener('scroll', aoRolar, { passive: true }); aoRolar();
+
+  // menu do celular
+  const burger = $('.burger'), menu = $('#menu');
+  const fecharMenu = () => { menu.classList.remove('aberto'); burger.setAttribute('aria-expanded', 'false'); };
+  burger.addEventListener('click', () => {
+    const abre = !menu.classList.contains('aberto');
+    menu.classList.toggle('aberto', abre); burger.setAttribute('aria-expanded', String(abre));
+  });
+  $$('#menu a').forEach((a) => a.addEventListener('click', fecharMenu));
+
+  // grupos com a mesma largura (regra das diretrizes)
+  const igualar = () => $$('[data-iguais]').forEach((g) => {
+    g.style.removeProperty('--larg');
+    const filhos = [...g.children];
+    filhos.forEach((f) => { f.style.width = 'auto'; });
+    const maior = Math.max(...filhos.map((f) => f.getBoundingClientRect().width));
+    filhos.forEach((f) => { f.style.width = ''; });
+    g.style.setProperty('--larg', Math.ceil(maior) + 'px');
+  });
+  igualar();
+  if (document.fonts) document.fonts.ready.then(igualar);
+  addEventListener('resize', igualar);
+
+  // serviços em abas; links da nav levam direto ao serviço
+  const abas = $$('.aba');
+  const ativar = (id, foco) => {
+    const aba = abas.find((a) => a.dataset.aba === id);
+    if (!aba) return false;
+    abas.forEach((a) => { const on = a === aba; a.classList.toggle('ativa', on); a.setAttribute('aria-selected', String(on)); });
+    $$('.painel').forEach((p) => p.classList.toggle('ativo', p.id === 'painel-' + id));
+    $$('.menu ul a').forEach((a) => a.classList.toggle('atual', a.dataset.ir === id));
+    const lista = aba.closest('.abas');
+    if (lista.scrollWidth > lista.clientWidth) lista.scrollTo({ left: aba.parentElement.offsetLeft - (lista.clientWidth - aba.offsetWidth) / 2, behavior: calmo ? 'auto' : 'smooth' });
+    if (foco) { aba.classList.remove('piscar'); void aba.offsetWidth; aba.classList.add('piscar'); }
+    return true;
+  };
+  abas.forEach((a) => a.addEventListener('click', () => ativar(a.dataset.aba)));
+  $('.abas').addEventListener('keydown', (e) => {
+    const i = abas.indexOf(document.activeElement);
+    if (i < 0 || !['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+    e.preventDefault();
+    const n = abas[(i + (e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : -1) + abas.length) % abas.length];
+    n.focus(); ativar(n.dataset.aba);
+  });
+  const irPara = (id) => {
+    if (!ativar(id, true)) return;
+    const alvo = $('#servicos .oficina-board');
+    const y = alvo.getBoundingClientRect().top + scrollY - (innerWidth > 1040 ? 104 : 90);
+    scrollTo({ top: y, behavior: calmo ? 'auto' : 'smooth' });
+    history.replaceState(null, '', '#' + id);
+  };
+  $$('[data-ir]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); irPara(a.dataset.ir); }));
+  if (location.hash && abas.some((a) => a.dataset.aba === location.hash.slice(1))) setTimeout(() => irPara(location.hash.slice(1)), 200);
+
+  // aparecer ao rolar, contadores e medidor do alinhamento
+  const contar = (el) => {
+    const fim = parseFloat(el.dataset.conta), dec = String(fim).includes('.') ? 1 : 0, t0 = performance.now(), dur = 1600;
+    const passo = (t) => {
+      const k = Math.min(1, (t - t0) / dur), v = fim * (1 - Math.pow(1 - k, 3));
+      el.textContent = v.toFixed(dec).replace('.', ',');
+      if (k < 1) requestAnimationFrame(passo);
+    };
+    requestAnimationFrame(passo);
+  };
+  const medir = (m) => {
+    $$('.roda', m).forEach((r) => { r.style.transform = `rotate(${r.dataset.de * 4}deg)`; });
+    setTimeout(() => {
+      $$('.roda', m).forEach((r) => { r.style.transform = 'rotate(0deg)'; });
+      $$('[data-grau]', m).forEach((g) => {
+        const de = parseFloat(m.querySelector(`[data-roda="${g.dataset.grau}"]`).dataset.de), t0 = performance.now();
+        const passo = (t) => {
+          const k = Math.min(1, (t - t0) / 2400), v = de * (1 - (1 - Math.pow(1 - k, 3)));
+          g.textContent = (Math.abs(v) < 0.05 ? '0,0' : v.toFixed(1).replace('.', ',')) + '°';
+          if (k < 1) requestAnimationFrame(passo); else m.classList.add('ok');
+        };
+        requestAnimationFrame(passo);
+      });
+    }, 900);
+  };
+  const medidor = $('[data-medidor]');
+  if (medidor) $$('.roda', medidor).forEach((r) => { r.style.transform = `rotate(${r.dataset.de * 4}deg)`; });
+  if ('IntersectionObserver' in window && !calmo) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      if (el.classList.contains('revela')) el.classList.add('visto');
+      if (el.dataset.conta) contar(el);
+      if (el.hasAttribute('data-medidor')) medir(el);
+      io.unobserve(el);
+    }), { threshold: 0.25 });
+    $$('.revela, [data-conta], [data-medidor]').forEach((el) => io.observe(el));
+  } else {
+    $$('.revela').forEach((el) => el.classList.add('visto'));
+    if (medidor) { $$('.roda', medidor).forEach((r) => { r.style.transform = 'none'; }); $$('[data-grau]', medidor).forEach((g) => { g.textContent = '0,0°'; }); medidor.classList.add('ok'); }
+  }
+
+  // pneu da capa acelera com a rolagem
+  const pneu = $('.pneu-gira');
+  if (pneu && !calmo) {
+    let ultimo = scrollY, giro = 0, pedido = false;
+    addEventListener('scroll', () => {
+      giro += (scrollY - ultimo) * 0.35; ultimo = scrollY;
+      if (!pedido) { pedido = true; requestAnimationFrame(() => { pneu.style.transform = `rotate(${giro}deg) translateY(${scrollY * 0.12}px)`; pedido = false; }); }
+    }, { passive: true });
+  }
+
+  // orçamento rápido da capa
+  const orcar = $('[data-orcar]');
+  orcar.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const servs = $$('input[name="serv"]:checked', orcar).map((i) => i.value);
+    const carro = orcar.carro.value.trim();
+    let msg = 'Olá, Tração! Quero um orçamento grátis.';
+    if (servs.length) msg += `\nServiço: ${servs.join(', ')}`;
+    if (carro) msg += `\nCarro: ${carro}`;
+    open(wa(msg), '_blank', 'noopener');
+  });
+
+  // formulário de contato vai para o WhatsApp
+  const form = $('[data-form]'), aviso = $('[data-aviso]');
+  form.fone.addEventListener('input', () => {
+    const d = form.fone.value.replace(/\D/g, '').slice(0, 11);
+    form.fone.value = d.length > 10 ? `(${d.slice(0, 2)}) ${d.slice(2, 3)} ${d.slice(3, 7)}-${d.slice(7)}` : d.length > 6 ? `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}` : d.length > 2 ? `(${d.slice(0, 2)}) ${d.slice(2)}` : d;
+  });
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const falta = ['nome', 'carro'].filter((n) => !form[n].value.trim());
+    $$('.campo', form).forEach((c) => c.classList.remove('erro'));
+    falta.forEach((n) => form[n].closest('.campo').classList.add('erro'));
+    if (falta.length) { aviso.textContent = 'Preencha seu nome e o carro para a gente orçar.'; form[falta[0]].focus(); return; }
+    aviso.textContent = '';
+    let msg = `Olá, Tração! Meu nome é ${form.nome.value.trim()}.\nCarro: ${form.carro.value.trim()}\nServiço: ${form.servico.value}`;
+    if (form.fone.value) msg += `\nWhatsApp: ${form.fone.value}`;
+    if (form.msg.value.trim()) msg += `\n${form.msg.value.trim()}`;
+    open(wa(msg), '_blank', 'noopener');
+  });
+})();
+
+</script>
+</body>
+</html>

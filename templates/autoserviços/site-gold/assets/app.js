@@ -329,13 +329,12 @@
     pedido = false;
     const y = scrollY, H = innerHeight;
     topo.classList.toggle('rolou', y > 40);
-    if (!document.body.classList.contains('menu-aberto')) topo.classList.toggle('some', y > 700 && y > ultimoY + 2);
-    if (y < ultimoY - 2) topo.classList.remove('some');
     ultimoY = y;
     const total = document.documentElement.scrollHeight - H;
     const rolado = total > 0 ? (y / total).toFixed(4) : 0;
     sobe.style.setProperty('--rolado', rolado);
     sobe.classList.toggle('mostra', y > H * .8);
+    document.body.classList.toggle('passou-capa', y > H * .5);
     if (calmo) return;
     // palavra metálica atrás dos títulos desliza de leve com a rolagem
     fundos.forEach((f) => {

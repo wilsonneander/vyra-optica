@@ -146,7 +146,6 @@ a:hover .rola .l, button:hover .rola .l { transform: translateY(-1.3em); }
 .topo:not(.rolou) { --tinta: #fff; --linha: rgba(255,255,255,.22); --apoio: #c9c9c9; }
 .topo-in { display: flex; align-items: center; gap: 30px; height: var(--topo); }
 .topo.rolou { background: var(--vidro); backdrop-filter: blur(14px); }
-.topo.some { transform: translateY(-100%); }
 .logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; flex: none; }
 .logo .simbolo { width: 46px; height: 42px; transition: transform .6s var(--mola); }
 .logo:hover .simbolo { transform: rotate(-8deg); }
@@ -157,7 +156,7 @@ a:hover .rola .l, button:hover .rola .l { transform: translateY(-1.3em); }
 .menu ul { display: flex; gap: 22px; margin: 0; padding: 0; list-style: none; }
 .menu ul a { display: block; padding: 10px 8px; font: 500 16px var(--f-c); text-transform: uppercase; text-decoration: none; color: var(--tinta); transition: color .3s; }
 .menu ul a:hover, .menu ul a.atual { color: var(--rubi); }
-.menu-cta { display: none; }
+.menu-cta, .menu .menu-tema { display: none; }
 .topo-fone { display: flex; align-items: center; gap: 18px; text-decoration: none; color: var(--tinta); }
 .topo-fone .pulso { width: 50px; height: 50px; box-shadow: none; }
 .topo-fone .pulso svg { width: 21px; height: 21px; }
@@ -171,12 +170,14 @@ a:hover .rola .l, button:hover .rola .l { transform: translateY(-1.3em); }
 .menu-aberto .burger i:nth-child(2) { opacity: 0; }
 .menu-aberto .burger i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-/* seletor de tema na lateral direita (como o da referência) */
-.tema-lado { position: fixed; right: 18px; top: 50%; z-index: 95; display: grid; gap: 6px; padding: 6px; background: #fff; border-radius: 30px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.5); transform: translateY(-50%); }
-.tema-lado button { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #9a9a9a; cursor: pointer; transition: background .3s, color .3s, transform .4s var(--mola); }
-.tema-lado button svg { width: 20px; height: 20px; }
-.tema-lado button:hover { transform: scale(1.1); color: var(--rubi); }
-.tema-lado button[aria-pressed="true"] { background: var(--rubi); color: #fff; box-shadow: 0 0 0 4px rgba(255,61,36,.25); }
+/* seletor de tema: pílula branca com dois botões redondos (componente único) */
+.tema-pilula { display: inline-grid; gap: 6px; padding: 6px; background: #fff; border-radius: 30px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.5); }
+.tema-pilula button { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #8a8a8a; cursor: pointer; transition: background .3s, color .3s, transform .4s var(--mola); }
+.tema-pilula button svg { width: 21px; height: 21px; }
+.tema-pilula button:hover { transform: scale(1.1); color: var(--rubi); }
+.tema-pilula button[aria-pressed="true"] { background: var(--rubi); color: #fff; box-shadow: 0 0 0 4px rgba(255,61,36,.25); }
+/* na lateral direita, em pé (desktop) */
+.tema-lado { position: fixed; right: 18px; top: 50%; z-index: 95; transform: translateY(-50%); }
 
 /* ---------- capa ---------- */
 .capa { height: 100svh; min-height: 720px; max-height: 1000px; overflow: hidden; background: #101010; }
@@ -547,10 +548,18 @@ a:hover .rola .l, button:hover .rola .l { transform: translateY(-1.3em); }
   .menu-aberto .menu li:nth-child(2) a { transition-delay: .05s; } .menu-aberto .menu li:nth-child(3) a { transition-delay: .1s; }
   .menu-aberto .menu li:nth-child(4) a { transition-delay: .15s; } .menu-aberto .menu li:nth-child(5) a { transition-delay: .2s; }
   .menu-cta { display: inline-flex; }
-  .menu-aberto .topo { background: transparent; transform: none; }
+  /* com o menu aberto o topo não pode ter desfoque nem transform, senão o menu fixo fica preso dentro dele */
+  .menu-aberto .topo { background: var(--fundo); backdrop-filter: none; transform: none; --tinta: inherit; --linha: inherit; --apoio: inherit; }
+  .menu { overflow-y: auto; }
+  .menu .rola { height: auto; overflow: visible; }
+  .menu .rola .l { text-shadow: none; transform: none !important; }
+  /* no menu do celular, a mesma pílula deitada */
+  .menu .menu-tema { display: inline-grid; grid-auto-flow: column; }
+  .tema-lado { display: none; }
   .topo .logo { position: relative; z-index: 2; }
-  .tema-lado { right: 10px; padding: 4px; }
-  .tema-lado button { width: 34px; height: 34px; }
+  /* no celular os flutuantes só aparecem depois da capa, para não cobrir o endereço */
+  .whats-flutua { transition: opacity .4s, visibility .4s, transform .35s var(--mola); }
+  body:not(.passou-capa) .whats-flutua { opacity: 0; visibility: hidden; }
   .capa-info { top: auto; bottom: 0; padding: 18px 0; background: rgba(0,0,0,.55); }
   .capa-info .wrap { justify-content: flex-start; }
   .capa-info .wrap > a:first-child, .capa-info .wrap > span { display: none; }
@@ -577,6 +586,12 @@ a:hover .rola .l, button:hover .rola .l { transform: translateY(-1.3em); }
   .faq-lado { position: static; }
   .rodape-news { margin-bottom: 80px; }
   .lembrete .aviso { position: static; margin-top: 0; }
+  /* bairros em grade que ocupa a largura toda, todos do mesmo tamanho */
+  .bairros { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .bairros.medido > li { width: auto; }
+  .bairros li { justify-content: center; text-align: center; min-height: 46px; }
+  .map-box { height: 360px; }
+  .rodape-mapa { gap: 34px; }
 }
 @media (max-width: 640px) {
   .wrap { width: calc(100% - 32px); }
@@ -612,6 +627,10 @@ a:hover .rola .l, button:hover .rola .l { transform: translateY(-1.3em); }
   .map-info { right: 14px; max-width: none; }
   .rodape-cols { grid-template-columns: 1fr; gap: 34px; }
   .rodape { padding-top: 100px; }
+  .bairros { grid-template-columns: repeat(2, 1fr); }
+  .bairros li { padding: 10px 8px; white-space: normal; }
+  .onde p { margin-bottom: 18px; }
+  .rodape-fim { flex-direction: column; align-items: flex-start; padding-bottom: 110px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

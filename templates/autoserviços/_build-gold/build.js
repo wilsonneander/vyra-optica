@@ -51,6 +51,11 @@ const titulo = (fundo, h2, { id = '', txt = '', centro = false } = {}) => `<div 
 // link com as letras que rolam no hover (o "text-hover-animation" da referência)
 const rola = (t) => `<span class="rola" data-rola>${t}</span>`;
 const S = C.servicos;
+// seletor de tema (pílula branca com sol e lua, como o da referência): o mesmo componente na lateral e no menu do celular
+const seletorTema = (onde) => `<div class="tema-pilula ${onde}" role="group" aria-label="Tema do site">
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="false">${I.claro}</button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="true">${I.escuro}</button>
+</div>`;
 const v = (n) => `assets/video/${n}`;
 
 // ---------- capa ----------
@@ -120,16 +125,14 @@ ${fontes}
         <li><a href="#contato">${rola('Contato')}</a></li>
       </ul>
       <a class="btn menu-cta" href="#contato">Agendar serviço</a>
+      ${seletorTema('menu-tema')}
     </nav>
     <a class="topo-fone" href="tel:${tel}"><span class="pulso">${I.fone}</span><span><small data-status>Ligue agora</small><b>${M.telefone}</b></span></a>
     <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
   </div>
 </header>
 
-<div class="tema-lado" role="group" aria-label="Tema do site">
-  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="false">${I.claro}</button>
-  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="true">${I.escuro}</button>
-</div>
+${seletorTema('tema-lado')}
 
 <main>
   <section class="capa" id="inicio" aria-roledescription="carrossel" aria-label="Destaques">

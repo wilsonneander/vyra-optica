@@ -72,9 +72,9 @@ module.exports = {
   // alternar tema: círculo dividido na diagonal, metade cheia
   tema: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path fill="currentColor" d="M18 6A8.5 8.5 0 0 1 6 18Z"/></svg>`,
   fechar: s('<path d="M5 5l14 14M19 5 5 19"/>'),
-  // seletor de tema da lateral: claro = disco cheio com anel; escuro = meia-lua de dois círculos
-  claro: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5" fill="currentColor"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2.4 2.3"/></svg>`,
-  escuro: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14.5 3.2a9 9 0 1 0 6.3 12.6A7.2 7.2 0 0 1 14.5 3.2Z"/></svg>`,
+  // seletor de tema: sol com raios e lua em contorno (traço fino)
+  claro: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>`,
+  escuro: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M14.8 3.4a8.7 8.7 0 1 0 5.8 12.4A7 7 0 0 1 14.8 3.4Z"/></svg>`,
   // aspas do depoimento em gota, como na referência
   aspasGota: `<svg viewBox="0 0 64 48" aria-hidden="true"><path fill="currentColor" d="M14 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 14 0Zm36 0a14 14 0 0 1 14 14c0 14-8 26-20 34l-3-4c6-5 10-11 11-17A14 14 0 1 1 50 0Z"/></svg>`,
   enviar: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.5 2.5 2.5 10l7 3 3 7Zm-11 10.2 6.8-6.8-5.2 8.6Z"/></svg>`,

@@ -82,9 +82,7 @@ ${css}
 <header class="topo" id="topo">
   <div class="barra-sup">
     <div class="wrap">
-      <nav class="atalhos" aria-label="Páginas">
-        <a href="#inicio">Início</a><a href="#servicos">Serviços</a><a href="#sobre">Sobre nós</a><a href="#contato">Contato</a>
-      </nav>
+      <a class="endereco-sup" href="${mapsUrl}" target="_blank" rel="noopener">${I.pino}${M.endereco}, ${M.bairro}, Belo Horizonte</a>
       <div class="info-sup">
         <span class="status" data-status>${C.horarioTexto}</span>
         <a href="tel:${M.telefone.replace(/\D/g, '')}">${I.fone}${M.telefone}</a>
@@ -94,9 +92,16 @@ ${css}
   <div class="nav">
     <div class="wrap">
       <a class="logo" href="#inicio" aria-label="${M.completo}, voltar ao início">${I.logo}</a>
-      <nav class="menu" id="menu" aria-label="Serviços">
-        <ul>${C.nav.map(([id, t]) => `<li><a href="#${id}" data-ir="${id}">${t}</a></li>`).join('')}</ul>
-        <div class="menu-extra"><a href="#sobre">Sobre nós</a><a href="#contato">Contato</a></div>
+      <nav class="menu" id="menu" aria-label="Principal">
+        <ul class="menu-lista">
+          <li><a href="#inicio">Início</a></li>
+          <li class="tem-sub">
+            <button class="sub-btn" type="button" aria-expanded="false" aria-controls="sub-servicos">Serviços${I.desce}</button>
+            <ul class="sub" id="sub-servicos">${C.nav.map(([id, t]) => `<li><a href="#${id}" data-ir="${id}">${t}${I.seta}</a></li>`).join('')}<li class="sub-todos"><a href="#servicos">Ver todos os serviços</a></li></ul>
+          </li>
+          <li><a href="#sobre">Sobre nós</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
       </nav>
       <a class="btn btn-pinca btn-orc" href="${wa('Olá, Tração! Quero um orçamento grátis.')}" target="_blank" rel="noopener">${I.whats}<span>Orçamento grátis</span></a>
       <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>

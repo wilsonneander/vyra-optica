@@ -35,7 +35,16 @@
     const abre = !menu.classList.contains('aberto');
     menu.classList.toggle('aberto', abre); burger.setAttribute('aria-expanded', String(abre));
   });
-  $$('#menu a').forEach((a) => a.addEventListener('click', fecharMenu));
+  // submenu Serviços: abre no hover (mouse) e no clique (toque e teclado)
+  const sub = $('.tem-sub'), subBtn = $('.sub-btn');
+  const abrirSub = (on) => { sub.classList.toggle('aberto', on); subBtn.setAttribute('aria-expanded', String(on)); };
+  const temMouse = matchMedia('(hover: hover) and (min-width: 1041px)');
+  sub.addEventListener('mouseenter', () => { if (temMouse.matches) abrirSub(true); });
+  sub.addEventListener('mouseleave', () => { if (temMouse.matches) abrirSub(false); });
+  subBtn.addEventListener('click', () => abrirSub(!sub.classList.contains('aberto')));
+  document.addEventListener('click', (e) => { if (temMouse.matches && !sub.contains(e.target)) abrirSub(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && sub.classList.contains('aberto')) { abrirSub(false); subBtn.focus(); } });
+  $$('#menu a').forEach((a) => a.addEventListener('click', () => { fecharMenu(); abrirSub(false); }));
 
   // grupos com a mesma largura (regra das diretrizes)
   const igualar = () => $$('[data-iguais]').forEach((g) => {
@@ -57,7 +66,8 @@
     if (!aba) return false;
     abas.forEach((a) => { const on = a === aba; a.classList.toggle('ativa', on); a.setAttribute('aria-selected', String(on)); });
     $$('.painel').forEach((p) => p.classList.toggle('ativo', p.id === 'painel-' + id));
-    $$('.menu ul a').forEach((a) => a.classList.toggle('atual', a.dataset.ir === id));
+    $$('.sub a').forEach((a) => a.classList.toggle('atual', a.dataset.ir === id));
+    subBtn.classList.toggle('atual', $$('.sub a').some((a) => a.dataset.ir === id));
     const lista = aba.closest('.abas');
     if (lista.scrollWidth > lista.clientWidth) lista.scrollTo({ left: aba.parentElement.offsetLeft - (lista.clientWidth - aba.offsetWidth) / 2, behavior: calmo ? 'auto' : 'smooth' });
     if (foco) { aba.classList.remove('piscar'); void aba.offsetWidth; aba.classList.add('piscar'); }

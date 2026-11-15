@@ -27,7 +27,8 @@ NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js asfalto img/mapa_car
 
 ## Como é
 
-- **Topo**: barrinha com Início, Serviços, Sobre nós, Contato, horário (vira "Aberto agora, até 18h" no horário de atendimento) e telefone. Abaixo, a nav escura do print: logo, **Pneus e rodas, Mecânica, Troca de óleo, Sistema de freio, Suspensão** e o botão vermelho "Orçamento grátis". Cada link da nav rola até os serviços, abre o serviço certo e pisca a aba. A barrinha some ao rolar
+- **Topo**: barrinha com endereço, horário (vira "Aberto agora, até 18h" no horário de atendimento) e telefone; some ao rolar. Abaixo, a nav escura: logo, **Início, Serviços, Sobre nós, Contato** e o botão vermelho "Orçamento grátis". **Serviços** abre um submenu (hover no computador, toque no celular) com Pneus e rodas, Mecânica, Troca de óleo, Sistema de freio, Suspensão e "Ver todos os serviços"; cada item rola até os serviços, abre o serviço certo e pisca a aba
+- **"O que o carro precisa?"**: os seis serviços em grade de três colunas e duas linhas ocupando toda a largura do cartão (duas colunas no celular pequeno)
 - **Capa**: título grande "Seu carro pisando firme de novo", foto do mecânico com recorte em diagonal que entra deslizando, **pneu desenhado que gira** atrás da foto (acelera com a rolagem), selo vermelho "90 dias" com texto circular girando e nota 4,9 do Google flutuando. **Orçamento rápido**: o cliente marca os serviços, digita o carro e o pedido sai pronto no WhatsApp
 - **Faixa de marca de pneu** vermelha correndo no pé da capa
 - **Números** que contam ao aparecer (13 anos, 18 mil carros, 4,9, 90 dias)

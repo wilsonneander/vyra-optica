@@ -608,6 +608,8 @@ h2 { font-weight: 900; font-size: clamp(34px, 4.4vw, 58px); line-height: 1.02; l
   .insta-topo { flex-direction: column; align-items: flex-start; }
   .map-box { height: 400px; }
   .map-info { right: 14px; max-width: none; }
+  .bairros { display: grid; grid-template-columns: 1fr 1fr; }
+  .bairros li, .bairros.medido > li { width: 100%; justify-content: center; }
   .rodape-cols { grid-template-columns: 1fr; gap: 34px; }
   .whats-flutua { width: 56px; height: 56px; right: 16px; bottom: 16px; }
   .sobe-topo { right: 20px; bottom: 84px; }

@@ -1,17 +1,21 @@
-// Logo e ícones desenhados para a Tração (traço 2, pontas quadradas, sem bibliotecas prontas).
+// Logo da Pistão Auto Center (a mesma do Silver e do Gold) e ícones desenhados para o Bronze (traço 2, pontas quadradas, sem bibliotecas prontas).
 const s = (body, vb = '0 0 24 24') => `<svg viewBox="${vb}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">${body}</svg>`;
 
-// símbolo: porca sextavada vermelha com um "T" feito de banda de rodagem
-const simbolo = `<svg class="simbolo" viewBox="0 0 48 48" aria-hidden="true">
-  <path d="M24 2.5 42.6 13.25v21.5L24 45.5 5.4 34.75v-21.5Z" fill="var(--pinca, #D42A1E)"/>
-  <path d="M24 7.2 38.5 15.6v16.8L24 40.8 9.5 32.4V15.6Z" fill="none" stroke="#0F1012" stroke-opacity=".28" stroke-width="1.4"/>
-  <path d="M12.5 14.5h23v7.2h-7.8v13.8h-7.4V21.7h-7.8Z" fill="#0F1012"/>
-  <path d="M15.5 14.5l2 7.2M20.5 14.5l2 7.2M25.5 14.5l2 7.2M30.5 14.5l2 7.2M20.3 25.5l3.7 2.6 3.7-2.6M20.3 30.5l3.7 2.6 3.7-2.6" stroke="var(--pinca, #D42A1E)" stroke-width="1.6" fill="none"/>
+// símbolo: pistão inclinado (cabeça com dois anéis e biela), dentro de um paralelogramo vermelho (igual ao Silver e ao Gold)
+const simbolo = `<svg class="simbolo" viewBox="0 0 52 48" aria-hidden="true">
+  <path d="M10 2h40L42 46H2Z" fill="var(--rubi, #FF3D24)"/>
+  <g transform="skewX(-9) translate(7 0)">
+    <path d="M14 9h20v4H14zM14 15h20v3H14z" fill="#101010"/>
+    <path d="M14 20h20v6l-3 3H17l-3-3Z" fill="#101010"/>
+    <circle cx="24" cy="24.5" r="2.2" fill="var(--rubi, #FF3D24)"/>
+    <path d="M21.5 29h5l1.5 10h-8Z" fill="#101010"/>
+    <path d="M18 38h12v4H18z" fill="#101010"/>
+  </g>
 </svg>`;
 
-const logo = `${simbolo}<span class="logo-txt"><b>TRAÇÃO</b><small>centro automotivo</small></span>`;
+const logo = `${simbolo}<span class="logo-txt"><b>PISTÃO</b><small>auto center</small></span>`;
 
-const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path d="M24 2.5 42.6 13.25v21.5L24 45.5 5.4 34.75v-21.5Z" fill="#D42A1E"/><path d="M12.5 14.5h23v7.2h-7.8v13.8h-7.4V21.7h-7.8Z" fill="#0F1012"/></svg>`;
+const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 48"><path d="M10 2h40L42 46H2Z" fill="#FF3D24"/><g transform="skewX(-9) translate(7 0)"><path d="M14 9h20v4H14zM14 15h20v3H14zM14 20h20v6l-3 3H17l-3-3ZM21.5 29h5l1.5 10h-8ZM18 38h12v4H18z" fill="#101010"/></g></svg>`;
 
 // pneu grande da capa: banda de rodagem em blocos, roda de cinco raios e porcas
 function pneu() {

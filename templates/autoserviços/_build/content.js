@@ -1,19 +1,19 @@
-// Conteúdo do modelo Bronze de autosserviços (empresa fictícia Tração Centro Automotivo).
+// Conteúdo do modelo Bronze de autosserviços (empresa fictícia Pistão Auto Center).
 // [EXEMPLO] = trocar pelos dados do cliente.
 module.exports = {
   marca: {
-    nome: 'Tração',
-    completo: 'Tração Centro Automotivo',
+    nome: 'Pistão',
+    completo: 'Pistão Auto Center',
     frase: 'Oficina de bairro com equipamento de concessionária. Orçamento antes de mexer, peça na sua mão e garantia por escrito.',
     whatsapp: '5531999990000', // [EXEMPLO]
     whatsappTexto: '(31) 99999-0000', // [EXEMPLO]
     telefone: '(31) 3333-0000', // [EXEMPLO]
-    email: 'contato@tracaoauto.com.br', // [EXEMPLO]
+    email: 'contato@pistaoauto.com.br', // [EXEMPLO]
     endereco: 'Av. Pedro II, 2150', // [EXEMPLO]
     bairro: 'Carlos Prates',
     cidade: 'Belo Horizonte, MG',
     instagram: 'https://www.instagram.com/',
-    instagramUser: '@tracaoauto',
+    instagramUser: '@pistaoautocenter',
     facebook: 'https://www.facebook.com/',
     desde: 2013,
   },

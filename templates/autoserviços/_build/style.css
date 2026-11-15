@@ -1,7 +1,8 @@
-/* Tração Centro Automotivo: modelo Bronze de autosserviços */
+/* Pistão Auto Center: modelo Bronze de autosserviços */
 :root {
   --asfalto: #0F1012; --carvao: #17181B; --grafite: #24262B; --linha: #34363C;
   --aco: #9AA0A8; --giz: #F3F2EE; --papel: #FAFAF7; --branco: #fff;
+  --rubi: #FF3D24; --f-logo: 'Oxanium', 'Arial Narrow', sans-serif;
   --pinca: #D42A1E; --pinca-esc: #A81D14; --sinal: #FFC21A;
   --texto: #17181B; --apoio-cor: #5C6068;
   --f-t: 'Anybody', 'Arial Narrow', sans-serif; --f-c: 'Schibsted Grotesk', 'Segoe UI', sans-serif;
@@ -51,12 +52,12 @@ p { margin: 0; }
 .status.aberto b { color: var(--sinal); font-weight: 700; }
 .nav { background: rgba(23, 24, 27, .97); backdrop-filter: blur(10px); color: #fff; box-shadow: 0 12px 30px -20px rgba(0, 0, 0, .9); }
 .nav .wrap { display: flex; align-items: center; height: 80px; gap: 28px; }
-.logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; flex: none; }
-.logo .simbolo { width: 44px; height: 44px; transition: transform .8s var(--suave); }
-.logo:hover .simbolo { transform: rotate(60deg); }
+.logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; flex: none; }
+.logo .simbolo { width: 50px; height: 46px; transition: transform .6s var(--suave); }
+.logo:hover .simbolo { transform: translateX(3px) skewX(-4deg); }
 .logo-txt { display: grid; line-height: 1; }
-.logo-txt b { font: italic 900 25px/1 var(--f-t); font-stretch: 125%; letter-spacing: -.01em; }
-.logo-txt small { font: 600 10.5px/1 var(--f-c); letter-spacing: .3em; text-transform: uppercase; color: var(--aco); margin-top: 5px; }
+.logo-txt b { font: 800 26px/1 var(--f-logo); letter-spacing: .08em; color: #fff; }
+.logo-txt small { margin-top: 4px; font: 500 11.5px/1 var(--f-logo); letter-spacing: .5em; text-transform: uppercase; color: var(--rubi); }
 .menu { margin-left: auto; }
 .menu ul { list-style: none; margin: 0; padding: 0; }
 .menu-lista { display: flex; gap: 10px; align-items: center; }
@@ -380,7 +381,8 @@ p { margin: 0; }
 }
 @media (max-width: 480px) {
   .wrap { width: calc(100% - 32px); }
-  .logo-txt small { display: none; }
+  .logo-txt b { font-size: 22px; }
+  .logo-txt small { font-size: 10px; letter-spacing: .4em; }
   .chips { grid-template-columns: repeat(2, 1fr); }
   .bairros { display: grid; grid-template-columns: 1fr 1fr; }
   .bairros li { width: auto; white-space: normal; text-align: center; font-size: 13.5px; padding: 6px 8px; }

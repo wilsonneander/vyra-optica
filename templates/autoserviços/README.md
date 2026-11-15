@@ -1,6 +1,6 @@
-# Autosserviços: modelo Bronze "Tração Centro Automotivo"
+# Autosserviços: modelo Bronze "Pistão Auto Center"
 
-Nicho **autosserviços** (centro automotivo, oficina mecânica, pneus). Landing page de vitrine, objetiva, com empresa fictícia (Tração Centro Automotivo, Carlos Prates, Belo Horizonte).
+Nicho **autosserviços** (centro automotivo, oficina mecânica, pneus). Landing page de vitrine, objetiva, com empresa fictícia (Pistão Auto Center, Carlos Prates, Belo Horizonte).
 Referências enviadas: automec-react.netlify.app/home-2 e pscarcentroautomotivo.com.br, mais o print da nav escura com botão vermelho "Orçamento grátis".
 
 | Pasta | O que é |
@@ -41,7 +41,7 @@ NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js asfalto img/mapa_car
 
 ## Identidade
 
-- Nome fictício **Tração Centro Automotivo** (tração = pneu agarrando no chão)
+- Nome fictício **Pistão Auto Center** (tração = pneu agarrando no chão)
 - Cores: asfalto `#0F1012`, carvão `#17181B`, grafite `#24262B`, aço `#9AA0A8`, giz `#F3F2EE`, vermelho pinça de freio `#D42A1E`, amarelo sinalização `#FFC21A` (estrelas e foco)
 - Fontes: **Anybody** (títulos, larga e itálica no destaque) + **Schibsted Grotesk** (texto). Dupla ainda não usada em outro projeto
 

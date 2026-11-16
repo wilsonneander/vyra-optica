@@ -35,11 +35,12 @@ NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js ouro img/mapa_flores
 - **Topo** transparente, ganha fundo com desfoque ao rolar; links em caixa alta espaçada, botão "Comprar" e carrinho
 - **Capa**: Heineken, Red Label e Tanqueray em pé sobre a água escura, com reflexo, anéis se abrindo na água, gotas suspensas e "TAMPINHA" vazado gigante ao fundo. As garrafas acompanham o mouse
 - **Fita** com entrega, iFood, 99Food, site 100% seguro e WhatsApp
-- **Momentos**: mosaico de fotos de gente brindando e se divertindo, com paralaxe
-- **Tampinha Reserva (3D)**: seção presa na tela enquanto a lata gira com a rolagem. Três capítulos de texto trocam no caminho (marcadores em losango à direita) e no fim aparece a ficha (teor, amargor, temperatura, harmonização) com preço e botão de compra. A lata entra no catálogo e no carrinho como qualquer bebida
-- **Categorias** em índice editorial: nome grande em Bodoni, contagem, e as garrafas da categoria aparecem seguindo o mouse
-- **Seleção da casa** (carrossel), **faixa de foto** com frase, **marcas** em esteira (fotos em cinza que ganham cor)
+- **Tampinha Reserva (3D)**, logo depois da capa: seção presa na tela enquanto a lata gira com a rolagem. Três capítulos de texto trocam no caminho (marcadores em losango à direita) e no fim aparece a ficha (teor, amargor, temperatura, harmonização) com preço e botão de compra. A lata entra no catálogo e no carrinho como qualquer bebida
 - **Catálogo** com busca, filtros do mesmo tamanho, ordenação e "Ver mais"
+- **Categorias** em índice editorial: nome grande em Bodoni, contagem, e as garrafas da categoria aparecem seguindo o mouse. O clique volta ao catálogo já filtrado
+- **Seleção da casa** (carrossel)
+- **Momentos**: mosaico de fotos de gente brindando e se divertindo, com paralaxe
+- **Faixa de foto** com frase e **marcas** em esteira (fotos em cinza que ganham cor)
 - **Kits** em blocos alternados com foto, garrafas em leque e lista de itens
 - **Como pedir**: linha dourada que desce com a rolagem acendendo os passos, foto e a mensagem do WhatsApp aparecendo linha a linha
 - **Entrega**: dados, botões iFood e 99Food, selo "Site 100% seguro" girando, atendimento no WhatsApp

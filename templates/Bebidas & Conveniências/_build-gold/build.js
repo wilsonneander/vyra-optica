@@ -202,7 +202,7 @@ ${fontes}
   <div class="topo-in">
     <a class="logo" href="#inicio" aria-label="${M.completo}, início">${I.logo}</a>
     <nav class="menu" id="menu" aria-label="Principal">
-      <a href="#momentos">Momentos</a><a href="#reserva">Reserva</a><a href="#categorias">Categorias</a><a href="#bebidas">Bebidas</a><a href="#kits">Kits</a><a href="#entrega">Entrega</a>
+      <a href="#reserva">Reserva</a><a href="#bebidas">Bebidas</a><a href="#categorias">Categorias</a><a href="#momentos">Momentos</a><a href="#kits">Kits</a><a href="#entrega">Entrega</a>
     </nav>
     <div class="topo-acoes">
       <span class="status" data-status>Aberto agora</span>
@@ -232,22 +232,10 @@ ${fontes}
         <div class="capa-btns" data-iguais><a class="btn btn-ouro" href="#bebidas">Montar meu pedido</a><a class="btn btn-linha" href="${wa(`Olá, ${M.nome}! Quero fazer um pedido.`)}" target="_blank" rel="noopener">${I.whats}Pedir no WhatsApp</a></div>
       </div>
     </div>
-    <a class="capa-rolar" href="#momentos" aria-label="Rolar para baixo"><span></span></a>
+    <a class="capa-rolar" href="#reserva" aria-label="Rolar para baixo"><span></span></a>
   </section>
 
   <div class="fita" aria-label="Vantagens"><div class="fita-trilho">${fita}${fita}</div></div>
-
-  <section class="momentos" id="momentos">
-    <div class="wrap">
-      <header class="sec-cab sec-dupla">
-        <div><p class="apoio">Momentos</p><h2>Bebida boa é a que <em>junta gente.</em></h2></div>
-        <p class="sec-txt">Do happy hour na varanda ao brinde de madrugada, a Tampinha separa a bebida certa para cada noite e entrega gelada, do jeito que a turma gosta.</p>
-      </header>
-      <div class="mosaico">
-        ${momentos}
-      </div>
-    </div>
-  </section>
 
   <section class="reserva" id="reserva" data-reserva>
     <div class="reserva-palco">
@@ -267,6 +255,26 @@ ${fontes}
         <div class="reserva-pe">${preco(R.preco)}${compra(reservaProd)}</div>
       </div>
       <p class="reserva-dica" aria-hidden="true">Role para girar a lata</p>
+    </div>
+  </section>
+
+  <section class="catalogo" id="bebidas">
+    <div class="wrap">
+      <header class="sec-cab sec-linha">
+        <div><p class="apoio">Catálogo</p><h2>Todas as bebidas</h2></div>
+        <div class="busca-linha">
+          <label class="busca">${I.busca}<input type="search" placeholder="Buscar bebida ou marca" data-busca aria-label="Buscar bebida ou marca"></label>
+          <label class="ordem"><span>Ordenar</span><select data-ordem><option value="">Sugestão da casa</option><option value="menor">Menor preço</option><option value="maior">Maior preço</option><option value="az">Nome de A a Z</option></select></label>
+        </div>
+      </header>
+      <div class="chips" data-chips data-iguais role="group" aria-label="Filtrar por categoria">${chips}</div>
+      <div class="filtro-marca" data-filtro-marca hidden><span>Mostrando a marca <b data-marca-nome></b></span><button type="button" data-limpar-marca>${I.fechar}Ver todas as marcas</button></div>
+      <p class="contagem" data-contagem aria-live="polite"></p>
+      <div class="grade" data-grade>
+        ${catalogo}
+      </div>
+      <div class="mais-linha"><button type="button" class="btn btn-linha" data-ver-mais>Ver mais bebidas</button></div>
+      <p class="vazio" data-vazio hidden>Não achamos essa bebida. Chama no <a href="${wa(`Olá, ${M.nome}! Vocês têm `)}" target="_blank" rel="noopener">WhatsApp</a> que a gente confere no estoque.</p>
     </div>
   </section>
 
@@ -295,6 +303,18 @@ ${fontes}
     <div class="wrap"><div class="trilho-barra"><span data-trilho-barra></span></div></div>
   </section>
 
+  <section class="momentos" id="momentos">
+    <div class="wrap">
+      <header class="sec-cab sec-dupla">
+        <div><p class="apoio">Momentos</p><h2>Bebida boa é a que <em>junta gente.</em></h2></div>
+        <p class="sec-txt">Do happy hour na varanda ao brinde de madrugada, a Tampinha separa a bebida certa para cada noite e entrega gelada, do jeito que a turma gosta.</p>
+      </header>
+      <div class="mosaico">
+        ${momentos}
+      </div>
+    </div>
+  </section>
+
   <section class="faixa-foto" aria-label="Brinde">
     <div class="faixa-img" data-paralaxe>${imgDe('pessoas/brinde', 'Amigos brindando com copos de cerveja e drinks')}</div>
     <div class="wrap faixa-txt">
@@ -311,26 +331,6 @@ ${fontes}
       </header>
     </div>
     ${esteira()}
-  </section>
-
-  <section class="catalogo" id="bebidas">
-    <div class="wrap">
-      <header class="sec-cab sec-linha">
-        <div><p class="apoio">Catálogo</p><h2>Todas as bebidas</h2></div>
-        <div class="busca-linha">
-          <label class="busca">${I.busca}<input type="search" placeholder="Buscar bebida ou marca" data-busca aria-label="Buscar bebida ou marca"></label>
-          <label class="ordem"><span>Ordenar</span><select data-ordem><option value="">Sugestão da casa</option><option value="menor">Menor preço</option><option value="maior">Maior preço</option><option value="az">Nome de A a Z</option></select></label>
-        </div>
-      </header>
-      <div class="chips" data-chips data-iguais role="group" aria-label="Filtrar por categoria">${chips}</div>
-      <div class="filtro-marca" data-filtro-marca hidden><span>Mostrando a marca <b data-marca-nome></b></span><button type="button" data-limpar-marca>${I.fechar}Ver todas as marcas</button></div>
-      <p class="contagem" data-contagem aria-live="polite"></p>
-      <div class="grade" data-grade>
-        ${catalogo}
-      </div>
-      <div class="mais-linha"><button type="button" class="btn btn-linha" data-ver-mais>Ver mais bebidas</button></div>
-      <p class="vazio" data-vazio hidden>Não achamos essa bebida. Chama no <a href="${wa(`Olá, ${M.nome}! Vocês têm `)}" target="_blank" rel="noopener">WhatsApp</a> que a gente confere no estoque.</p>
-    </div>
   </section>
 
   <section class="kits" id="kits">
@@ -441,7 +441,7 @@ ${fontes}
         <p>${esc(M.frase)}</p>
         <div class="redes"><a href="${M.instagram}" target="_blank" rel="noopener" aria-label="Instagram ${M.instagramUser}">${I.insta}</a><a href="${M.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${I.face}</a><a href="${wa(`Olá, ${M.nome}!`)}" target="_blank" rel="noopener" aria-label="WhatsApp">${I.whats}</a></div>
       </div>
-      <nav aria-label="Rodapé"><h3>Navegar</h3><a href="#momentos">Momentos</a><a href="#reserva">Tampinha Reserva</a><a href="#bebidas">Bebidas</a><a href="#kits">Kits</a><a href="#entrega">Entrega</a><a href="#duvidas">Dúvidas</a></nav>
+      <nav aria-label="Rodapé"><h3>Navegar</h3><a href="#reserva">Tampinha Reserva</a><a href="#bebidas">Bebidas</a><a href="#momentos">Momentos</a><a href="#kits">Kits</a><a href="#entrega">Entrega</a><a href="#duvidas">Dúvidas</a></nav>
       <div><h3>Contato</h3><a href="${wa(`Olá, ${M.nome}!`)}" target="_blank" rel="noopener">WhatsApp ${M.whatsappTexto}</a><a href="tel:+55${tel}">Telefone ${M.telefone}</a><a href="mailto:${M.email}">${M.email}</a><span>${enderecoCompleto}</span></div>
       <div><h3>Horário</h3><ul class="horas">${horarios}</ul></div>
     </div>

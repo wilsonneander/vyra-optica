@@ -971,7 +971,7 @@
           </svg>
         </div>
       <p><b>Venda proibida para menores de 18 anos.</b> Se beber, não dirija. Aprecie com moderação.</p>
-      <p>© 2026 Tampinha Bebidas & Conveniência. Preços e estoque sujeitos a alteração. Modelo de demonstração.</p>
+      <p>© 2026 Tampinha Bebidas & Conveniência. Preços e estoque sujeitos a alteração. Modelo de demonstração. <button type="button" class="ck-reabre" data-ck-abre>Preferências de cookies</button></p>
     </div>
   </div>
 </footer>
@@ -1039,6 +1039,21 @@
     <div class="idade-btns" data-iguais><button type="button" class="btn btn-verm" data-idade-sim>Sim, tenho 18+</button><button type="button" class="btn btn-linha" data-idade-nao>Não tenho</button></div>
   </div>
 </div>
+
+<section class="ck" data-ck hidden role="dialog" aria-modal="false" aria-labelledby="ck-t" aria-describedby="ck-d">
+  <div class="ck-tampa"><svg viewBox="0 0 48 48" aria-hidden="true"><polygon points="24.00,1.00 27.01,4.03 30.78,2.02 32.76,5.80 36.96,5.00 37.74,9.19 41.98,9.66 41.49,13.90 45.41,15.60 43.69,19.51 46.94,22.28 44.14,25.51 46.42,29.12 42.80,31.38 43.92,35.50 39.79,36.59 39.64,40.86 35.38,40.69 33.98,44.72 29.95,43.30 27.43,46.74 24.00,44.20 20.57,46.74 18.05,43.30 14.02,44.72 12.62,40.69 8.36,40.86 8.21,36.59 4.08,35.50 5.20,31.38 1.58,29.12 3.86,25.51 1.06,22.28 4.31,19.51 2.59,15.60 6.51,13.90 6.02,9.66 10.26,9.19 11.04,5.00 15.24,5.80 17.22,2.02 20.99,4.03" fill="#D7261E"/><circle cx="24" cy="24" r="17" fill="#B81C15"/><circle cx="24" cy="24" r="14.5" fill="#D7261E"/>
+<path d="M13.5 17 A12 12 0 0 1 21 12.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".45"/></svg></div>
+  <h2 id="ck-t">Posso guardar seus cookies?</h2>
+  <p id="ck-d">Usamos cookies para lembrar o seu carrinho e entender quais bebidas saem mais. Os de estatística e marketing só ligam se você deixar.</p>
+  <div class="ck-pref" data-ck-pref hidden>
+    <div class="ck-item"><div><b>Necessários</b><span>Carrinho, idade confirmada e esta escolha. Sem eles o site não funciona.</span></div><span class="ck-fixo">Sempre ligados</span></div>
+    <label class="ck-item"><div><b>Estatística</b><span>Contagem anônima de visitas e das bebidas mais vistas.</span></div><input type="checkbox" class="ck-chave" data-ck-tipo="estatistica"></label>
+    <label class="ck-item"><div><b>Marketing</b><span>Ofertas e anúncios da Tampinha em outros sites e redes sociais.</span></div><input type="checkbox" class="ck-chave" data-ck-tipo="marketing"></label>
+  </div>
+  <div class="ck-btns" data-ck-btns><button type="button" class="btn btn-verm" data-ck-todos>Aceitar todos</button><button type="button" class="btn btn-linha" data-ck-nec>Só os necessários</button></div>
+  <button type="button" class="btn btn-escuro btn-cheio" data-ck-salva hidden>Salvar minhas escolhas</button>
+  <button type="button" class="ck-ajusta" data-ck-ajusta aria-expanded="false">Escolher quais cookies</button>
+</section>
 
 <div class="aviso" data-aviso role="status" aria-live="polite"></div>
 

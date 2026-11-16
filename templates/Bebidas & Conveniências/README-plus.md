@@ -49,3 +49,7 @@ Sem WebGL, o site continua legível (classe `sem-3d`). Com "reduzir movimento" l
 1. Nome e textos no `index.html`; sabores e cores em `window.N3_SABORES`.
 2. O desenho do rótulo fica em `desenhaRotulo()` no `n3-3d.js` (textos, tabela nutricional, posições dos pontos explicados).
 3. Mapa do rodapé: gerar com `_build-silver/gerar-mapa.js` para o endereço do cliente.
+
+## Aviso de cookies
+
+Cartão escuro arredondado no canto inferior esquerdo (no celular ocupa a largura toda), com o lacre da logo dando um estalo, apoio em Martian Mono, título em Archivo larga e os botões da marca (creme com seta laranja e contorno): "Aceitar todos", "Só os necessários" e "Escolher quais cookies" (necessários sempre ligados; estatística e marketing com chave que fica laranja ao ligar). A escolha fica em `localStorage` (`n3-cookies`) e vira `window.n3Cookies`, com o evento `cookies` disparado no `document`: qualquer script de estatística ou anúncio deve esperar esse sinal. O link "Preferências de cookies" no rodapé reabre o cartão.

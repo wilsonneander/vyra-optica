@@ -297,6 +297,37 @@
     }
   });
 
+  // ---------- cookies ----------
+  // a escolha fica em localStorage ('n3-cookies'). Scripts de estatística e marketing devem ouvir o evento 'cookies'
+  // no document e só carregar quando window.n3Cookies.estatistica / .marketing for true.
+  const ck = $('[data-ck]');
+  if (ck) {
+    const ler = () => { try { return JSON.parse(localStorage.getItem('n3-cookies')); } catch (e) { return null; } };
+    const por = v => { try { localStorage.setItem('n3-cookies', JSON.stringify(v)); } catch (e) { /* sem armazenamento */ } };
+    const pref = $('[data-ck-pref]', ck), ajusta = $('[data-ck-ajusta]', ck), salva = $('[data-ck-salva]', ck), btns = $('[data-ck-btns]', ck);
+    const chaves = $$('[data-ck-tipo]', ck);
+    const aplica = e => { window.n3Cookies = e; document.dispatchEvent(new CustomEvent('cookies', { detail: e })); };
+    const prefs = on => {
+      pref.hidden = !on; salva.hidden = !on; btns.hidden = on;
+      ajusta.setAttribute('aria-expanded', on); ajusta.textContent = on ? 'Voltar' : 'Escolher quais cookies';
+    };
+    const mostra = abrePrefs => {
+      const e = ler() || {};
+      chaves.forEach(c => { c.checked = Boolean(e[c.dataset.ckTipo]); });
+      prefs(Boolean(abrePrefs));
+      ck.hidden = false; void ck.offsetWidth; ck.classList.add('on');
+    };
+    const fecha = () => { ck.classList.remove('on'); setTimeout(() => { if (!ck.classList.contains('on')) ck.hidden = true; }, reduz ? 0 : 800); };
+    const guarda = (est, mkt) => { const e = { necessarios: true, estatistica: est, marketing: mkt, quando: new Date().toISOString() }; por(e); aplica(e); fecha(); };
+    $('[data-ck-todos]', ck).addEventListener('click', () => guarda(true, true));
+    $('[data-ck-nec]', ck).addEventListener('click', () => guarda(false, false));
+    salva.addEventListener('click', () => guarda(...chaves.map(c => c.checked)));
+    ajusta.addEventListener('click', () => prefs(pref.hidden));
+    $$('[data-ck-abre]').forEach(b => b.addEventListener('click', () => mostra(true)));
+    const salvo = ler();
+    if (salvo) aplica(salvo); else setTimeout(() => mostra(false), reduz ? 0 : 1400);
+  }
+
   // ---------- cursor animado (só com mouse) ----------
   const cursor = $('.cursor');
   if (cursor && matchMedia('(hover: hover) and (pointer: fine)').matches && !reduz) {

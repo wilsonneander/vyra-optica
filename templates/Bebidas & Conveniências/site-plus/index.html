@@ -541,10 +541,30 @@
     <p data-gigante>N3 Drinks</p>
   </div>
   <div class="rodape-base">
-    <p>© 2026 N3 Drinks. Marca fictícia criada para demonstração.</p>
+    <p>© 2026 N3 Drinks. Marca fictícia criada para demonstração. <button type="button" class="ck-reabre" data-ck-abre>Preferências de cookies</button></p>
     <p>Não recomendado para crianças, gestantes e pessoas sensíveis à cafeína. Recicle a lata.</p>
   </div>
 </footer>
+
+<section class="ck" data-ck hidden role="dialog" aria-modal="false" aria-labelledby="ck-t" aria-describedby="ck-d">
+  <div class="ck-cab">
+    <svg viewBox="0 0 40 40" aria-hidden="true" class="ck-lacre"><rect x="9" y="3" width="22" height="34" rx="11" fill="currentColor"/><ellipse cx="20" cy="27" rx="6.2" ry="5.4" fill="var(--tinta)"/><circle cx="20" cy="11.5" r="3.2" fill="var(--laranja)"/></svg>
+    <p class="ck-apoio">Cookies</p>
+  </div>
+  <h2 id="ck-t">Antes do primeiro gole</h2>
+  <p id="ck-d" class="ck-txt">A gente usa cookies para o site funcionar e para saber qual sabor está fazendo mais barulho. Estatística e marketing só entram com o seu sim.</p>
+  <div class="ck-pref" data-ck-pref hidden>
+    <div class="ck-item"><div><b>Necessários</b><span>Lembram esta escolha e mantêm o site de pé.</span></div><span class="ck-fixo">Sempre on</span></div>
+    <label class="ck-item"><div><b>Estatística</b><span>Visitas e sabores mais vistos, sem saber quem é você.</span></div><input type="checkbox" class="ck-chave" data-ck-tipo="estatistica"></label>
+    <label class="ck-item"><div><b>Marketing</b><span>Anúncios da N3 Drinks no Instagram, TikTok e YouTube.</span></div><input type="checkbox" class="ck-chave" data-ck-tipo="marketing"></label>
+  </div>
+  <div class="ck-btns" data-ck-btns>
+    <button type="button" class="btn btn-claro" data-ck-todos>Aceitar todos<span class="seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></svg></span></button>
+    <button type="button" class="btn btn-linha" data-ck-nec>Só os necessários</button>
+  </div>
+  <button type="button" class="btn btn-claro ck-salva" data-ck-salva hidden>Salvar escolhas<span class="seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></svg></span></button>
+  <button type="button" class="ck-ajusta" data-ck-ajusta aria-expanded="false">Escolher quais cookies</button>
+</section>
 
 <script>
 // sabores: campo = cor do rótulo, fundo = tom escuro da faixa da marca

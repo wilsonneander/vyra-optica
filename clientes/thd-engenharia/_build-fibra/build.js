@@ -13,7 +13,9 @@ const crypto = require('crypto');
 const C = require('../_build/content');
 const I = require('../_build/icons');
 const { css } = require('./style');
-const { js } = require('./script');
+const { js: baseJs } = require('./script');
+const TH = require('../_build/theme');
+const js = TH.themeJs + baseJs;
 
 const PREVIEW = process.argv.includes('--preview');
 const OUT = path.join(__dirname, '..', PREVIEW ? '_preview-fibra' : 'site-fibra');
@@ -91,6 +93,7 @@ function header(slug) {
   </a>
   <nav class="rail-nav" aria-label="Principal">${PAGES.map((p) => `<a href="${link(slug, p.slug)}"${p.slug === AREA ? ' class="rn-acc"' : ''}${p.slug === slug ? ' aria-current="page"' : ''}>${IC[p.ico]}<span class="rn-tip">${p.tip}</span></a>`).join('')}</nav>
   <span class="rail-prog" aria-hidden="true"><i></i></span>
+  ${TH.themeNav()}
   ${slug === AREA ? '' : `<a class="rail-acc" href="${link(slug, AREA)}">${IC.navCliente}<span>Área do Cliente</span></a>`}
   <button class="menu-btn" data-menu aria-controls="mmenu" aria-expanded="false" aria-label="Abrir menu"><span class="mb-t">Menu</span><span class="mb-i"><i></i><i></i></span></button>
 </header>
@@ -108,6 +111,7 @@ function header(slug) {
     <a href="${C.waOrcamento}" target="_blank" rel="noopener">WhatsApp ${C.contato.whatsappTexto}</a>
     <a href="mailto:${C.contato.email}">${C.contato.email}</a>
     <span>${C.contato.endereco}</span>
+    ${TH.themeMenu()}
   </div>
 </div>`;
 }
@@ -194,7 +198,7 @@ function layout({ slug, title, desc, body, jsonld = '', noindex = false }) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${asset(slug, 'css/style.css')}?v=${ver(css)}">
-${headScript}${ga}${jsonld}
+${headScript}${TH.head}${ga}${jsonld}
 </head>
 <body>
 ${header(slug)}

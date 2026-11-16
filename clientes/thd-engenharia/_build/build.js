@@ -9,7 +9,9 @@ const path = require('path');
 const crypto = require('crypto');
 const C = require('./content');
 const { css } = require('./style');
-const { js } = require('./script');
+const { js: baseJs } = require('./script');
+const TH = require('./theme');
+const js = TH.themeJs + baseJs;
 const { globeJs } = require('./globe');
 const I = require('./icons');
 
@@ -98,6 +100,7 @@ function header(slug) {
       <img src="${asset(slug, 'img/logo-simbolo.png')}" alt="THD Engenharia, consultoria de provedores de internet" width="360" height="217">
     </a>
     <nav class="nav" aria-label="Principal">${items}</nav>
+    ${TH.themeNav()}
     <a class="btn btn-o btn-sm" href="${C.waOrcamento}" target="_blank" rel="noopener" data-magnetic><span>Solicitar orçamento</span>${I.seta}</a>
     <button class="menu-btn" data-menu aria-controls="mmenu" aria-expanded="false" aria-label="Abrir menu"><span></span><span></span><span></span></button>
   </div>
@@ -107,6 +110,7 @@ function header(slug) {
   <div class="mmenu-foot">
     <a href="${C.waOrcamento}" target="_blank" rel="noopener">WhatsApp ${C.contato.whatsappTexto}</a>
     <a href="mailto:${C.contato.email}">${C.contato.email}</a>
+    ${TH.themeMenu()}
   </div>
   ${geo([T('qa', 'o', 0, 0), T('sq', 'l', 1, 0), T('ci', 'b', 2, 0), T('st', 'l', 0, 1), T('ar', 'o', 1, 1, 2), T('x', 'w', 2, 1), T('sq', 'b', 0, 2), T('tr', 'o', 1, 2, 1), T('ci', 'l', 2, 2)], { wires: false, sats: false })}
 </div>`;
@@ -193,7 +197,7 @@ function layout({ slug, title, desc, body, jsonld = '' }) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${asset(slug, 'css/style.css')}?v=${ver(css)}">
-${headScript}${ga}${jsonld}
+${headScript}${TH.head}${ga}${jsonld}
 </head>
 <body>
 ${header(slug)}

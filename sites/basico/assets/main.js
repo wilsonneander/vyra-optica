@@ -17,6 +17,32 @@
     if (b) { b.setAttribute('aria-expanded', 'false'); if (b.dataset.open) b.innerHTML = b.dataset.open; }
   });
 })();
+// Vyra · tema claro/escuro
+(function () {
+  var root = document.documentElement, meta = document.querySelector('meta[name="theme-color"]');
+  var light = meta && meta.content;
+  function sync() {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    document.querySelectorAll('[data-theme-toggle]').forEach(function (b) {
+      b.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      b.setAttribute('aria-label', dark ? 'Ativar tema claro' : 'Ativar tema escuro');
+      b.title = dark ? 'Tema claro' : 'Tema escuro';
+    });
+    if (meta) meta.content = dark ? getComputedStyle(root).getPropertyValue('--bg').trim() || light : light;
+  }
+  sync();
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-theme-toggle]');
+    if (!b) return;
+    var dark = root.getAttribute('data-theme') !== 'dark';
+    root.classList.add('theme-anim');
+    if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+    try { localStorage.setItem('vyra-tema', dark ? 'dark' : 'light'); } catch (err) {}
+    sync();
+    document.dispatchEvent(new CustomEvent('vyra:tema', { detail: { dark: dark } }));
+    setTimeout(function () { root.classList.remove('theme-anim'); }, 400);
+  });
+})();
 
 // Vyra · modelo Básico
 (function () {

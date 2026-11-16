@@ -5,6 +5,7 @@ const crypto = require('crypto');
 // versão pelo conteúdo: o navegador baixa o CSS/JS de novo só quando o arquivo muda
 const ver = s => crypto.createHash('md5').update(s).digest('hex').slice(0, 8);
 const content = require('./content');
+const { THEME_JS } = require('./helpers');
 
 const ROOT = path.join(__dirname, '..');
 const FAVICON = path.join(__dirname, '..', '..', 'brand', 'logo', 'favicon.svg');
@@ -42,7 +43,7 @@ for (const tier of tiers) {
   fs.mkdirSync(path.join(dir, 'assets'), { recursive: true });
   // remove páginas que não fazem mais parte do modelo
   for (const old of fs.readdirSync(dir).filter(f => f.endsWith('.html') && !(f in pages))) fs.unlinkSync(path.join(dir, old));
-  const mainJs = COMMON_JS + '\n' + js, cssV = ver(css), jsV = ver(mainJs);
+  const mainJs = COMMON_JS + THEME_JS + '\n' + js, cssV = ver(css), jsV = ver(mainJs);
   for (const [file, html] of Object.entries(pages)) fs.writeFileSync(path.join(dir, file), html
     .replace(/href="assets\/style\.css"/g, `href="assets/style.css?v=${cssV}"`)
     .replace(/src="assets\/main\.js"/g, `src="assets/main.js?v=${jsV}"`));

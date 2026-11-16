@@ -12,6 +12,67 @@
     por(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* sem armazenamento */ } },
   };
 
+  // ---------- o que a loja publicou na Área do Cliente (painel.html) ----------
+  // Sem publicação, o site fica como foi gerado. Com publicação, catálogo, categorias, seleção da casa,
+  // preço da lata e horário são redesenhados a partir dos dados salvos (loja.js).
+  const L = window.Loja, HR = window.Horario;
+  if (L && L.temPublicado()) {
+    const P = L.publicado();
+    const e = L.esc;
+    const cats = P.categorias;
+    const nomeCat = (id) => (cats.find((c) => c.id === id) || {}).nome || '';
+    const vis = L.visiveis(P);
+    const icMais = ($('.add svg') || {}).outerHTML || '+';
+    const icMenos = ($('[data-menos] svg') || {}).outerHTML || '-';
+    const icSeta = ($('.ind-seta svg') || {}).outerHTML || '';
+    const etiqueta = (v) => { const [r, c] = Number(v).toFixed(2).split('.'); return `<span class="etiqueta"><small>R$</small>${r}<i>,${c}</i></span>`; };
+    const compraHTML = (p) => `<div class="compra" data-compra="${e(p.id)}"><button class="add" type="button" data-add="${e(p.id)}" aria-label="Pôr ${e(p.nome)} ${e(p.vol)} no carrinho">${icMais}<span>Adicionar</span></button><div class="qtd" aria-label="Quantidade de ${e(p.nome)}"><button type="button" data-menos="${e(p.id)}" aria-label="Tirar um">${icMenos}</button><output data-qtd="${e(p.id)}">0</output><button type="button" data-mais="${e(p.id)}" aria-label="Pôr mais um">${icMais}</button></div></div>`;
+    const arte = (p, alt = true) => { const src = L.foto(p); const amb = p.amb && !p.fotoData; return src ? `<img class="arte${amb ? ' arte-amb' : ''}" src="${e(src)}" alt="${alt ? e(`${p.nome} ${p.vol}`) : ''}" loading="lazy" decoding="async" data-arte="${e(p.id)}">` : ''; };
+    const normal = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    const cardHTML = (p, cls = '') => `<article class="card${p.amb && !p.fotoData ? ' card-amb' : ''}${cls ? ' ' + cls : ''}" data-id="${e(p.id)}" data-cat="${e(p.cat)}" data-marca="${e(p.marca || '')}" data-preco="${p.preco}" data-busca="${e(normal(`${p.nome} ${p.marca || ''} ${p.vol} ${nomeCat(p.cat)}`))}"${p.alc ? ' data-alc' : ''} style="--tinta:${e(p.cor || '#B08D57')}">
+          <div class="card-arte" data-tilt><span class="card-halo"></span>${arte(p)}</div>
+          <div class="card-info"><small>${e(p.marca || nomeCat(p.cat))}${p.alc ? '<em>+18</em>' : ''}</small><h3>${e(p.nome)}</h3><span>${e(p.vol)}</span></div>
+          <div class="card-pe">${etiqueta(p.preco)}${compraHTML(p)}</div>
+        </article>`;
+    // catálogo e seleção da casa
+    const grade = $('[data-grade]');
+    if (grade) grade.innerHTML = vis.map((p) => cardHTML(p)).join('');
+    const trilhoEl = $('[data-trilho]');
+    if (trilhoEl) trilhoEl.innerHTML = vis.filter((p) => p.destaque).map((p) => cardHTML(p, 'card-g')).join('');
+    // filtros do catálogo
+    const chipsEl = $('[data-chips]');
+    if (chipsEl) chipsEl.innerHTML = [{ id: 'tudo', nome: 'Tudo' }, ...cats].map((c) => `<button type="button" class="chip${c.id === 'tudo' ? ' on' : ''}" data-chip="${e(c.id)}" aria-pressed="${c.id === 'tudo'}">${e(c.chip || c.nome)}</button>`).join('');
+    // categorias em índice: as garrafas que aparecem são as primeiras da categoria
+    const indiceEl = $('[data-indice]');
+    if (indiceEl) indiceEl.innerHTML = cats.map((c) => {
+      const da = vis.filter((p) => p.cat === c.id);
+      const garrafas = da.filter((p) => !p.amb || p.fotoData).slice(0, 3);
+      const artes = garrafas.length ? garrafas.map((p) => arte(p, false)).join('') : da[0] ? `<img class="ind-foto" src="${e(L.foto(da[0]))}" alt="" loading="lazy">` : '';
+      const maior = c.alc || da.some((p) => p.alc);
+      return `<li><button type="button" class="ind" data-filtro="${e(c.id)}" aria-label="${e(c.nome)}: ver ${da.length} opções"><span class="ind-nome">${e(c.nome)}</span><span class="ind-artes" aria-hidden="true">${artes}</span><span class="ind-info">${da.length} ${da.length === 1 ? 'opção' : 'opções'}${maior ? ' <em>+18</em>' : ''}</span><span class="ind-seta">${icSeta}</span></button></li>`;
+    }).join('');
+    // dados do carrinho
+    vis.forEach((p) => { D.produtos[p.id] = { n: p.nome, v: p.vol, p: p.preco, c: p.cat, a: p.alc ? 1 : 0 }; });
+    D.cats = Object.fromEntries([...cats.map((c) => [c.id, c.nome]), ['extra', 'Conveniência']]);
+    // kits só aparecem se todas as bebidas deles continuam no site
+    const ok = new Set([...vis.map((p) => p.id), ...(L.base.extras || [])]);
+    $$('[data-kit]').forEach((b) => { const k = D.kits[b.dataset.kit]; if (k && !k.every(([id]) => ok.has(id))) b.closest('.kit').hidden = true; });
+    // preço da lata da casa
+    const res = vis.find((p) => p.id === 'reserva');
+    const pe = $('.reserva-pe');
+    if (pe) { if (res) pe.querySelector('.etiqueta').outerHTML = etiqueta(res.preco); else pe.hidden = true; }
+    D.abertura = P.abertura;
+  }
+  // horário (o padrão ou o publicado)
+  if (HR) {
+    const horas = $('[data-horas]');
+    if (horas) horas.innerHTML = HR.grupos(D.abertura).map(([d, h]) => `<li><span>${d}</span><b>${h}</b></li>`).join('');
+    const ht = $('[data-horario-texto]');
+    if (ht) ht.textContent = HR.texto(D.abertura);
+  }
+  // publicou no painel em outra aba: o site atualiza sozinho
+  addEventListener('storage', (ev) => { if (L && ev.key === L.CHAVE_PUB) location.reload(); });
+
   // ---------- preloader ----------
   const t0 = performance.now();
   const pronto = () => setTimeout(() => { body.classList.add('pronto'); body.classList.remove('carregando'); }, Math.max(0, (calmo ? 0 : 1900) - (performance.now() - t0)));
@@ -65,12 +126,9 @@
 
   // aberto ou fechado agora
   const status = $('[data-status]');
-  const agora = new Date();
-  const h = agora.getHours() + agora.getMinutes() / 60;
-  const hoje = D.abertura[agora.getDay()], ontem = D.abertura[(agora.getDay() + 6) % 7];
-  const aberto = (h >= hoje[0] && h < hoje[1]) || (ontem[1] > 24 && h < ontem[1] - 24);
-  status.textContent = aberto ? 'Aberto agora' : 'Fechado agora';
-  status.classList.toggle('fechado', !aberto);
+  const st = HR ? HR.status(D.abertura) : { aberto: true, txt: 'Aberto agora' };
+  status.textContent = st.txt;
+  status.classList.toggle('fechado', !st.aberto);
 
   // ---------- capa: garrafas sobre a água ----------
   const capa = $('[data-capa]');

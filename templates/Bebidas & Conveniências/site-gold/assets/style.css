@@ -699,3 +699,13 @@ body.na-reserva .flutua-wa, body.na-reserva .topo-volta { opacity: 0; pointer-ev
   .fita-trilho, .esteira-trilho { animation: none; }
 }
 .topo.menu-on { backdrop-filter: none; -webkit-backdrop-filter: none; background: transparent; border-color: transparent; transform: none; }
+
+/* Área do cliente: botão no topo e link no menu do celular */
+.topo-pedir { gap: 9px; }
+.topo-pedir svg { width: 17px; height: 17px; }
+.menu-area { display: none; }
+@media (max-width: 980px) {
+  .menu .menu-area { display: inline-flex; align-items: center; justify-content: center; margin-top: 14px; padding: 14px 26px; border: 1px solid var(--ouro); border-radius: 2px; font: 600 13px var(--f-c); letter-spacing: .2em; text-transform: uppercase; color: var(--ouro-claro); }
+}
+.status { white-space: nowrap; }
+@media (max-width: 1320px) { .status { display: none; } }

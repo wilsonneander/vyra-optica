@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
+const H = require('./horario');
 const medidas = require('../_build-silver/img/fotos/medidas.json');
 
 const OUT = path.join(__dirname, '..', 'site-gold');
@@ -48,6 +49,23 @@ const foto = (p, { cls = '', alt = true, lazy = true } = {}) => {
   return `<img class="arte${p.amb ? ' arte-amb' : ''}${cls ? ' ' + cls : ''}" src="assets/img/${k}.webp" alt="${alt ? esc(`${p.nome} ${p.vol}`) : ''}" width="${w}" height="${h}"${lazy ? ' loading="lazy"' : ''} decoding="async" data-arte="${p.id}">`;
 };
 const imgDe = (k, alt = '', cls = '', lazy = true) => { const [w, h] = medidas[k]; return `<img${cls ? ` class="${cls}"` : ''} src="assets/img/${k}.webp" alt="${esc(alt)}" width="${w}" height="${h}"${lazy ? ' loading="lazy"' : ''} decoding="async">`; };
+const caminho = (p) => (p.propria ? 'assets/img/reserva.svg' : `assets/img/${p.amb ? 'ambiente' : 'produtos'}/${p.foto}.webp`);
+
+// ---------- dados da loja (o site e a Área do Cliente leem; o painel publica por cima no navegador) ----------
+const destaqueIds = new Set(['reserva', ...C.destaques]);
+const catalogoBase = [reservaProd, ...C.produtos];
+const dadosLoja = {
+  categorias: C.categorias.map((c) => ({ id: c.id, nome: c.nome, ...(c.chip ? { chip: c.chip } : {}), ...(c.alc ? { alc: true } : {}) })),
+  produtos: catalogoBase.map((p) => ({
+    id: p.id, cat: p.cat, nome: p.nome, vol: p.vol, preco: p.preco, marca: p.marca || '', cor: p.cor, img: caminho(p),
+    ...(p.amb ? { amb: true } : {}), alc: alc(p), ...(destaqueIds.has(p.id) ? { destaque: true } : {}),
+  })),
+  abertura: C.abertura,
+  extras: C.extras.map((p) => p.id),
+  acesso: C.acesso,
+  galeria: [...C.produtos.filter((p) => !p.amb).map(caminho), 'assets/img/reserva.svg', ...C.produtos.filter((p) => p.amb).map(caminho)],
+};
+const dadosJson = JSON.stringify(dadosLoja).replace(/</g, '\\u003c');
 
 // ---------- arquivos ----------
 if (fs.existsSync(OUT)) for (const f of fs.readdirSync(OUT)) fs.rmSync(path.join(OUT, f), { recursive: true, force: true });
@@ -59,7 +77,7 @@ copiaPasta(path.join(__dirname, 'img', 'pessoas'), path.join(OUT, 'assets', 'img
 fs.copyFileSync(path.join(__dirname, 'img', 'mapa_floresta_ouro.webp'), path.join(OUT, 'assets', 'img', 'mapa_floresta_ouro.webp'));
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
 fs.writeFileSync(path.join(OUT, 'assets', 'img', 'reserva.svg'), I.lataReserva);
-fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(OUT, 'assets', 'style.css'));
+for (const f of ['style.css', 'painel.css', 'painel.js', 'loja.js', 'horario.js']) fs.copyFileSync(path.join(__dirname, f), path.join(OUT, 'assets', f));
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
 // Three.js vem como módulo ES; vira script comum (window.THREE) para o site abrir até direto do arquivo, sem servidor
@@ -166,10 +184,11 @@ const selo = (cls = '') => `<div class="selo ${cls}" role="img" aria-label="Site
 
 const faqs = C.faq.map(([q, r], i) => `<details class="faq-item"${i ? '' : ' open'}><summary><span>${esc(q)}</span><i>${I.mais}</i></summary><div class="faq-r"><p>${esc(r)}</p></div></details>`).join('\n          ');
 const bairros = C.bairros.map((b) => `<li>${esc(b)}</li>`).join('');
-const horarios = C.horarios.map(([d, h]) => `<li><span>${d}</span><b>${h}</b></li>`).join('');
-const horarioTexto = C.horarios.map(([d, h]) => `${d}: ${h}`).join('. ');
+// horário sai da abertura de cada dia (a mesma que a Área do Cliente edita)
+const horarios = H.grupos(C.abertura).map(([d, h]) => `<li><span>${d}</span><b>${h}</b></li>`).join('');
+const horarioTexto = H.texto(C.abertura);
 const extras = C.extras.map((p) => `<div class="extra" data-id="${p.id}">${foto(p, { alt: false })}<div><b>${esc(p.nome)}</b><span>${p.vol}</span><strong>${real(p.preco)}</strong></div><button type="button" class="extra-add" data-add="${p.id}" aria-label="Pôr ${esc(p.nome)} no carrinho">${I.mais}</button></div>`).join('');
-const destaques = ['reserva', ...C.destaques].map((id) => card(porId[id], 'card-g')).join('\n        ');
+const destaques = catalogoBase.filter((p) => destaqueIds.has(p.id)).map((p) => card(p, 'card-g')).join('\n        ');
 const catalogo = [reservaProd, ...C.produtos].map((p) => card(p)).join('\n        ');
 const creditos = C.creditos.map(([f, id]) => `<a href="https://unsplash.com/photos/${id}" target="_blank" rel="noopener">${f}</a>`).join(', ');
 
@@ -203,11 +222,12 @@ ${fontes}
     <a class="logo" href="#inicio" aria-label="${M.completo}, início">${I.logo}</a>
     <nav class="menu" id="menu" aria-label="Principal">
       <a href="#reserva">Reserva</a><a href="#bebidas">Bebidas</a><a href="#categorias">Categorias</a><a href="#momentos">Momentos</a><a href="#kits">Kits</a><a href="#entrega">Entrega</a>
+      <a class="menu-area" href="painel.html">Área do cliente</a>
     </nav>
     <div class="topo-acoes">
       <span class="status" data-status>Aberto agora</span>
       <button type="button" class="topo-carrinho" data-abrir-carrinho aria-label="Abrir carrinho">${I.sacola}<span data-conta>0</span></button>
-      <a class="btn btn-linha topo-pedir" href="#bebidas">Comprar</a>
+      <a class="btn btn-linha topo-pedir" href="painel.html">${I.pessoa}Área do cliente</a>
       <button type="button" class="hamb" data-hamb aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i></button>
     </div>
   </div>
@@ -424,7 +444,7 @@ ${fontes}
       <div class="map-box">
         <img src="assets/img/mapa_floresta_ouro.webp" alt="Mapa da região do bairro Floresta, em Belo Horizonte, com a localização da ${M.completo}" loading="lazy" width="1240" height="760">
         <span class="pin" aria-hidden="true"><b>${M.nome}</b></span>
-        <div class="map-info"><b>${M.completo}</b><span>${enderecoCompleto}</span><span>${horarioTexto}</span>
+        <div class="map-info"><b>${M.completo}</b><span>${enderecoCompleto}</span><span data-horario-texto>${horarioTexto}</span>
           <div class="mbtns" data-iguais><a href="${mapsUrl}" target="_blank" rel="noopener">${I.pino}Abrir no Maps</a><a href="${rotaUrl}" target="_blank" rel="noopener">${I.seta}Como chegar</a></div>
         </div>
         <span class="attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
@@ -441,9 +461,9 @@ ${fontes}
         <p>${esc(M.frase)}</p>
         <div class="redes"><a href="${M.instagram}" target="_blank" rel="noopener" aria-label="Instagram ${M.instagramUser}">${I.insta}</a><a href="${M.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${I.face}</a><a href="${wa(`Olá, ${M.nome}!`)}" target="_blank" rel="noopener" aria-label="WhatsApp">${I.whats}</a></div>
       </div>
-      <nav aria-label="Rodapé"><h3>Navegar</h3><a href="#reserva">Tampinha Reserva</a><a href="#bebidas">Bebidas</a><a href="#momentos">Momentos</a><a href="#kits">Kits</a><a href="#entrega">Entrega</a><a href="#duvidas">Dúvidas</a></nav>
+      <nav aria-label="Rodapé"><h3>Navegar</h3><a href="#reserva">Tampinha Reserva</a><a href="#bebidas">Bebidas</a><a href="#momentos">Momentos</a><a href="#kits">Kits</a><a href="#entrega">Entrega</a><a href="#duvidas">Dúvidas</a><a href="painel.html">Área do cliente</a></nav>
       <div><h3>Contato</h3><a href="${wa(`Olá, ${M.nome}!`)}" target="_blank" rel="noopener">WhatsApp ${M.whatsappTexto}</a><a href="tel:+55${tel}">Telefone ${M.telefone}</a><a href="mailto:${M.email}">${M.email}</a><span>${enderecoCompleto}</span></div>
-      <div><h3>Horário</h3><ul class="horas">${horarios}</ul></div>
+      <div><h3>Horário</h3><ul class="horas" data-horas>${horarios}</ul></div>
     </div>
     <div class="rodape-base">
       <p><b>Venda proibida para menores de 18 anos.</b> Se beber, não dirija. Aprecie com moderação.</p>
@@ -520,6 +540,9 @@ ${fontes}
 
 <div class="aviso" data-aviso role="status" aria-live="polite"></div>
 
+<script id="dados" type="application/json">${dadosJson}</script>
+<script src="assets/horario.js" defer></script>
+<script src="assets/loja.js" defer></script>
 <script src="assets/three.min.js" defer></script>
 <script src="assets/lata.js" defer></script>
 <script src="assets/app.js" defer></script>
@@ -528,4 +551,5 @@ ${fontes}
 `;
 
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
+fs.writeFileSync(path.join(OUT, 'painel.html'), require('./painel-html')({ M, C, I, H, esc, imgDe, fontes, dadosJson, nProdutos: catalogoBase.length }));
 console.log('ok', path.relative(process.cwd(), OUT), (html.length / 1024).toFixed(0) + ' KB');

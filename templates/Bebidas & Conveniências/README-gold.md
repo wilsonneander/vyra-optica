@@ -12,7 +12,10 @@ Uma página só, com catálogo, carrinho e pedido montado para o WhatsApp. O des
 | `_build-gold/img/pessoas/` | Fotos de pessoas (Unsplash): brindes à noite, varanda, terraço, bar. Créditos no rodapé |
 | `_build-gold/img/mapa_floresta_ouro.webp` | Mapa do OpenStreetMap no tema `ouro` (`gerar-mapa.js`) |
 | `_build-gold/icons.js` | Logo da tampinha em dourado, ícones e a lata desenhada em SVG (miniatura do carrinho e reserva sem WebGL) |
-| `_build-gold/build.js`, `style.css`, `app.js` | Gerador, design e interação |
+| `_build-gold/build.js`, `style.css`, `app.js` | Gerador, design e interação do site |
+| `_build-gold/painel-html.js`, `painel.css`, `painel.js` | Área do Cliente (`painel.html`) |
+| `_build-gold/loja.js` | Dados compartilhados entre site e painel: catálogo, categorias e horário publicados |
+| `_build-gold/horario.js` | Horário de funcionamento: "aberto agora", próxima abertura e texto agrupado ("Segunda a quinta: 10h às 23h"). Usado no build, no site e no painel |
 | `site-gold/` | **Site pronto** (abre direto pelo `index.html`) |
 
 Fotos de produto, ambiente e logos vêm do Silver (`_build-silver/img/fotos/`), não são duplicadas.
@@ -32,7 +35,7 @@ NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js ouro img/mapa_flores
 ## Como é
 
 - **Preloader**: a tampinha dourada gira como moeda, o nome aparece e a tela sobe
-- **Topo** transparente, ganha fundo com desfoque ao rolar; links em caixa alta espaçada, botão "Comprar" e carrinho
+- **Topo** transparente, ganha fundo com desfoque ao rolar; links em caixa alta espaçada, status do horário, carrinho e botão **Área do cliente** (no celular, dentro do menu)
 - **Capa**: Heineken, Red Label e Tanqueray em pé sobre a água escura, com reflexo, anéis se abrindo na água, gotas suspensas e "TAMPINHA" vazado gigante ao fundo. As garrafas acompanham o mouse
 - **Fita** com entrega, iFood, 99Food, site 100% seguro e WhatsApp
 - **Tampinha Reserva (3D)**, logo depois da capa: seção presa na tela enquanto a lata gira com a rolagem. Três capítulos de texto trocam no caminho (marcadores em losango à direita) e no fim aparece a ficha (teor, amargor, temperatura, harmonização) com preço e botão de compra. A lata entra no catálogo e no carrinho como qualquer bebida
@@ -47,6 +50,20 @@ NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js ouro img/mapa_flores
 - **Dúvidas** em sanfona e **rodapé** com o mapa padrão `.map-box` do OpenStreetMap em preto e dourado
 - **Carrinho**, confirmação de 18 anos, barra fixa no celular e pedido separado por categoria no WhatsApp (mesma lógica do Silver)
 - Sem WebGL, a seção mostra a lata desenhada; com "reduzir movimento", as animações automáticas param
+
+## Área do Cliente (`painel.html`)
+
+Mesmo modelo do painel do fast food (Monta Burger), na paleta preta e dourada. Botão "Área do cliente" no topo, no menu do celular e no rodapé.
+
+- **Login** com foto de bar à esquerda e formulário à direita. Demonstração: `loja@tampinhabebidas.com.br` / `tampinha2026`, já preenchidos (tirar o `value` dos inputs em `painel-html.js` para cliente real)
+- **Cadastro do estabelecimento** (`painel.html#cadastro`): responsável, loja, e-mail, WhatsApp com máscara, senha e confirmação, declaração de dono. Contas ficam no navegador (`tampinha-gold-contas`)
+- **Produtos**: lista ou grade, filtro por categoria, busca, editar, esconder do site e apagar. Cada mudança fica marcada como "não publicada"
+- **Nova bebida**: foto (envio do computador, reduzida no navegador mantendo o fundo transparente, ou galeria com as fotos do catálogo), nome, marca, embalagem, categoria, preço, "+18", "Seleção da casa" e "Esconder do site"
+- **Categorias**: criar, renomear, marcar como +18, mudar a ordem (ordem dos filtros e do índice no site) e apagar quando vazia
+- **Horários**: cada dia da semana com chave Aberto/Fechado e horas de abrir e fechar. Fechar depois da meia-noite vira o dia sozinho ("fecha no dia seguinte"). Atalhos para copiar a segunda para os dias úteis ou para a semana toda. Prévia ao lado mostra o status de agora e o texto que vai para o site
+- **Publicar no site**: catálogo, seleção da casa, filtros, índice de categorias, preço da lata da casa e horário (status do topo, rodapé e cartão do mapa) passam a vir do que foi publicado. Kits com alguma bebida apagada ou escondida somem. Com o site aberto em outra aba, ele recarrega na hora. "Descartar alterações" e "Voltar ao catálogo e horário originais"
+
+Por ser demonstração sem servidor, tudo fica no `localStorage` (`tampinha-gold-publicado` e `tampinha-gold-rascunho`). Para cliente real, trocar `ler`/`gravar` de `loja.js` por chamadas à API da loja e o login por autenticação real.
 
 ## Identidade
 

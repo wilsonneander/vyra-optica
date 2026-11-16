@@ -202,4 +202,7 @@ const creditos = [
   ['gin', '1656442954583-cc07a4d11ccf'], ['moto', '1572195577046-2f25894c06fc'],
 ];
 
-module.exports = { vitrine, reserva, momentos, creditos, capa, passos, faixas, marca, entrega, abertura, horarios, categorias, produtos, extras, destaques, marcas, kits, promessas, faq, bairros };
+// acesso de demonstração da Área do Cliente (painel.html). Trocar por login real com servidor no cliente.
+const acesso = { responsavel: 'Toninho Ribeiro', email: 'loja@tampinhabebidas.com.br', senha: 'tampinha2026' }; // [EXEMPLO]
+
+module.exports = { acesso, vitrine, reserva, momentos, creditos, capa, passos, faixas, marca, entrega, abertura, horarios, categorias, produtos, extras, destaques, marcas, kits, promessas, faq, bairros };

@@ -383,8 +383,8 @@ ${fontes}
         </ul>
         <p class="parceiros-txt">Prefere pedir pelo aplicativo? Estamos no iFood e no 99Food com o mesmo estoque.</p>
         <div class="parceiros" data-iguais>
-          <a class="parc" href="${M.ifood}" target="_blank" rel="noopener">${imgDe('logos/logo-ifood', 'iFood')}<span>Pedir no iFood</span></a>
-          <a class="parc" href="${M.food99}" target="_blank" rel="noopener">${imgDe('logos/logo-99food-largo', '99Food')}<span>Pedir no 99Food</span></a>
+          <a class="parc parc-ifood" href="${M.ifood}" target="_blank" rel="noopener">${imgDe('logos/logo-ifood', 'iFood')}<span>Pedir no iFood</span></a>
+          <a class="parc parc-99" href="${M.food99}" target="_blank" rel="noopener">${imgDe('logos/logo-99food-largo', '99Food')}<span>Pedir no 99Food</span></a>
         </div>
       </div>
       <div class="entrega-lado">

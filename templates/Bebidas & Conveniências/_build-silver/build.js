@@ -121,6 +121,25 @@ const kits = C.kits.map((k, i) => `<article class="kit${i ? '' : ' kit-g'}">
 
 const passos = C.passos.map(([ic, t, d]) => `<li class="passo"><span class="passo-ic">${I[ic]}</span><h3>${t}</h3><p>${esc(d)}</p></li>`).join('');
 
+// preloader: tampa coroa de long neck vista de cima (21 dentes, metal vermelho, anel de crimpagem, "t" da marca e brilho)
+const tampaLN = `<svg viewBox="0 0 140 140" aria-hidden="true"><defs>
+  <radialGradient id="tp-m" cx="36%" cy="30%" r="78%"><stop offset="0" stop-color="#FF7B6F"/><stop offset=".32" stop-color="#E2342A"/><stop offset=".7" stop-color="#BE1C14"/><stop offset="1" stop-color="#7A0E09"/></radialGradient>
+  <linearGradient id="tp-s" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C9241B"/><stop offset="1" stop-color="#6E0C08"/></linearGradient>
+  <linearGradient id="tp-b" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  <clipPath id="tp-c"><circle cx="70" cy="70" r="60"/></clipPath></defs>
+  <polygon points="${I.coroa(70, 70, 69, 60, 21)}" fill="url(#tp-s)"/>
+  <circle cx="70" cy="70" r="60" fill="#A3160F"/>
+  <circle cx="70" cy="70" r="55" fill="url(#tp-m)"/>
+  <circle cx="70" cy="70" r="50" fill="none" stroke="#000" stroke-opacity=".18" stroke-width="3"/>
+  <circle cx="70" cy="70" r="46" fill="none" stroke="#fff" stroke-opacity=".22" stroke-width="1.5"/>
+  <path d="M23 14.5 V28 Q23 33 28 33 H30 M17.5 20 H29" transform="translate(17.2 17.2) scale(2.2)" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M33 52 A40 40 0 0 1 58 30" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="4" stroke-linecap="round"/>
+  <g clip-path="url(#tp-c)"><g transform="skewX(-18)"><rect class="tp-brilho" x="-50" y="0" width="34" height="140" fill="url(#tp-b)"/></g></g>
+</svg>`;
+// respingos que saltam quando a tampa bate no chão (ângulo e distância de cada gota)
+const respingos = [[-168, 64], [-148, 48], [-128, 70], [-108, 44], [-72, 46], [-52, 72], [-32, 50], [-12, 62]]
+  .map(([a, d], i) => `<i style="--a:${a}deg;--d:${d}px${i % 3 ? '' : ';background:var(--verm)'}"></i>`).join('');
+
 // selo de site seguro: texto girando em volta do cadeado (sem caractere separador, só espaço)
 const selo = (cls = '') => `<div class="selo ${cls}" role="img" aria-label="Site 100% seguro">
           <svg viewBox="0 0 200 200" aria-hidden="true"><defs><path id="selo-c${cls}" d="M100 100 m-78 0 a78 78 0 1 1 156 0 a78 78 0 1 1 -156 0"/></defs>
@@ -157,10 +176,11 @@ ${fontes}
 <body class="carregando">
 
 <div class="preload" aria-hidden="true">
-  <div class="preload-garrafa">
-    <svg viewBox="0 0 120 200"><path d="M50 20 L70 20 L70 70 C70 92 94 98 94 124 L94 200 L26 200 L26 124 C26 98 50 92 50 70 Z" fill="#2A1A12"/><rect x="50" y="48" width="20" height="10" fill="#D7261E"/><rect x="26" y="140" width="68" height="34" fill="#F4EFE8"/><text x="60" y="162" text-anchor="middle" font-size="16" fill="#120E0C">tampinha</text></svg>
-    <span class="preload-tampa">${I.tampaPura}</span>
-    <span class="preload-espuma"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+  <div class="tp">
+    <div class="tp-queda"><div class="tp-giro">${tampaLN}</div></div>
+    <span class="tp-sombra"></span>
+    <span class="tp-respingos">${respingos}</span>
+    <p class="tp-nome">tampinha<small>bebidas &amp; conveniência</small></p>
   </div>
 </div>
 

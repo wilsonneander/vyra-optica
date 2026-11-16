@@ -14,9 +14,9 @@
 
   // ---------- preloader ----------
   const t0 = performance.now();
-  const pronto = () => setTimeout(() => { body.classList.add('pronto'); body.classList.remove('carregando'); }, Math.max(0, (calmo ? 0 : 1700) - (performance.now() - t0)));
+  const pronto = () => setTimeout(() => { body.classList.add('pronto'); body.classList.remove('carregando'); }, Math.max(0, (calmo ? 0 : 2250) - (performance.now() - t0)));
   if (document.readyState === 'complete') pronto(); else addEventListener('load', pronto);
-  setTimeout(() => body.classList.add('pronto') || body.classList.remove('carregando'), 3200);
+  setTimeout(() => body.classList.add('pronto') || body.classList.remove('carregando'), 3800);
 
   // ---------- grupos com a mesma largura ----------
   const iguala = () => $$('[data-iguais]').forEach((g) => {

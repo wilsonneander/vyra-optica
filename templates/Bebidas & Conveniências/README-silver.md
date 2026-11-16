@@ -35,7 +35,7 @@ NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js noite img/mapa_flore
 
 ## Como é
 
-- **Preloader**: garrafa com a tampinha saltando girando e espuma subindo; a tela abre num círculo que se fecha
+- **Preloader**: tampa coroa de long neck (metal vermelho, 21 dentes, "t" da marca) cai girando como moeda, quica, balança até assentar, solta respingos no impacto e ganha um brilho metálico; o nome aparece embaixo e a tela abre num círculo que se fecha
 - **Topo** transparente sobre a capa, ganha fundo com desfoque ao rolar, some ao descer e volta ao subir. Status "Aberto agora" ou "Fechado agora" pelo horário, WhatsApp e carrinho com contador que pula a cada item. No celular, menu em tela cheia abrindo em círculo
 - **Capa com palco interativo**: seis bebidas em destaque (Coca-Cola, Sol, Schweppes, Skol, Sprite, Del Valle). A garrafa principal cai no palco com mola, flutua, tem gotas escorrendo e inclina em 3D seguindo o mouse; duas bebidas da mesma linha ao lado, cubos de gelo boiando com paralaxe e bolhas subindo no fundo. A cada troca, o fundo muda para o tom da marca e o nome dela passa gigante vazado atrás. Miniaturas com barra de progresso (troca automática, pausa no hover), setas e arrastar no celular. Ficha com preço e botão de pôr no carrinho
 - **Fita vermelha inclinada** correndo com entrega, iFood, 99Food, site seguro, WhatsApp e frete grátis

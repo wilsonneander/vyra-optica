@@ -1,10 +1,10 @@
-/* ESTALO, motor 3D das latas (three.js r149, script clássico para abrir direto pelo index.html).
+/* N3 Drinks, motor 3D das latas (three.js r149, script clássico para abrir direto pelo index.html).
    Tudo o que mexe é função do scroll: o hero (lata abrindo em câmera lenta) e o rótulo que se desenrola.
    As latas paradas dos cards são renderizadas uma vez num renderizador fora da tela e viram <img>. */
 (function () {
   'use strict';
   const T = window.THREE;
-  const SABORES = window.ESTALO_SABORES;
+  const SABORES = window.N3_SABORES;
   const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---------- utilidades ----------
@@ -120,8 +120,13 @@
     g.fillStyle = s.fundo;
     g.beginPath(); g.moveTo(cx - fw / 2 + 26, 0); g.lineTo(cx + fw / 2 + 26, 0); g.lineTo(cx + fw / 2 - 26, LH); g.lineTo(cx - fw / 2 - 26, LH); g.closePath(); g.fill();
     g.save(); g.translate(cx, LH * 0.5); g.rotate(-Math.PI / 2 - 0.035);
-    fonte(g, 900, 250, F_T, true); g.fillStyle = s.faixaTexto || '#F4F2EC'; g.textAlign = 'center'; g.textBaseline = 'middle';
-    g.fillText('ESTALO', 0, 8);
+    // nome da marca na faixa: N3 grande e DRINKS menor, centralizados ao longo da faixa
+    g.fillStyle = s.faixaTexto || '#F4F2EC'; g.textBaseline = 'middle'; g.textAlign = 'left';
+    fonte(g, 900, 330, F_T, true); const wN = g.measureText('N3').width;
+    fonte(g, 900, 118, F_T, true); const wD = g.measureText('DRINKS').width;
+    const gap = 46, x0 = -(wN + gap + wD) / 2;
+    fonte(g, 900, 330, F_T, true); g.fillText('N3', x0, 14);
+    fonte(g, 900, 118, F_T, true); g.fillText('DRINKS', x0 + wN + gap, 20);
     g.restore();
 
     // lado esquerdo: chamada e tabela nutricional
@@ -420,7 +425,7 @@
       sec.querySelectorAll('[data-sabor]').forEach(b => b.setAttribute('aria-pressed', b.dataset.sabor === id));
       const nome = sec.querySelector('[data-hero-nome]'), nota = sec.querySelector('[data-hero-nota]');
       if (nome) { nome.textContent = s.nome; nota.textContent = s.sabor + '. ' + s.nota + '.'; }
-      document.dispatchEvent(new CustomEvent('estalo:sabor', { detail: s }));
+      document.dispatchEvent(new CustomEvent('n3:sabor', { detail: s }));
     }
     sec.querySelectorAll('[data-sabor]').forEach(b => b.addEventListener('click', () => trocaSabor(b.dataset.sabor)));
     trocaSabor(saborAtual.id);
@@ -604,6 +609,75 @@
     }
   }
 
+  // ---------- MODAL: lata grande que gira no arrasto e lata pequena mostrando o verso ----------
+  function iniciaModal() {
+    const canvas = document.querySelector('canvas.modal-3d');
+    if (!canvas) return;
+    let renderer = null, cena, cam, grande, pequena, sombraG, sombraP;
+    let aberto = false, rodando = false, t0 = 0, rot = 0, rotAlvo = 0, arrasto = null, ultimoX = 0, inercia = 0;
+
+    function cria() {
+      renderer = criaRenderer(canvas);
+      cena = new T.Scene(); cena.environment = criaAmbiente(renderer);
+      const luz = new T.DirectionalLight(0xffffff, 0.55); luz.position.set(-5, 9, 8); cena.add(luz);
+      cam = new T.PerspectiveCamera(26, 1, 0.5, 200);
+      grande = criaLata(SABORES[0].id); cena.add(grande.grupo);
+      pequena = criaLata(SABORES[0].id); pequena.grupo.scale.setScalar(0.5); cena.add(pequena.grupo);
+      sombraG = criaSombra(0.34, 4.6); cena.add(sombraG);
+      sombraP = criaSombra(0.26, 2.6); cena.add(sombraP);
+      new ResizeObserver(ajusta).observe(canvas); ajusta();
+      // arrastar para girar (mouse e toque)
+      canvas.addEventListener('pointerdown', e => { arrasto = e.pointerId; ultimoX = e.clientX; inercia = 0; canvas.setPointerCapture(e.pointerId); canvas.classList.add('girando'); });
+      canvas.addEventListener('pointermove', e => {
+        if (arrasto !== e.pointerId) return;
+        const dx = e.clientX - ultimoX; ultimoX = e.clientX;
+        rotAlvo += dx * 0.012; inercia = dx * 0.012;
+      });
+      const solta = () => { arrasto = null; canvas.classList.remove('girando'); };
+      canvas.addEventListener('pointerup', solta); canvas.addEventListener('pointercancel', solta);
+    }
+    function ajusta() {
+      const W = canvas.clientWidth, H = canvas.clientHeight; if (!W || !H) return;
+      renderer.setSize(W, H, false); cam.aspect = W / H;
+      const tanV = Math.tan(T.MathUtils.degToRad(cam.fov / 2)) * 2;
+      // enquadra a dupla de latas (mais ou menos 6,4 de largura por 7,4 de altura)
+      const d = Math.max(7.4 / tanV, 6.6 / (tanV * cam.aspect));
+      cam.position.set(0.5, 3.1, d); cam.lookAt(0.5, 2.55, 0);
+      cam.updateProjectionMatrix();
+    }
+    function laco() {
+      if (rodando) return; rodando = true;
+      const passo = now => {
+        if (!aberto) { rodando = false; return; }
+        const k = clamp((now - t0) / 900), e = easeOut(k);
+        const k2 = clamp((now - t0 - 220) / 900), e2 = easeOut(k2);
+        if (arrasto === null) { rotAlvo += inercia; inercia *= 0.93; if (!reduz) rotAlvo += 0.0025; }
+        rot = lerp(rot, rotAlvo, 0.12);
+        // entrada: a lata grande cai girando, a pequena chega flutuando de lado
+        grande.grupo.position.set(-0.75, lerp(3.2, 0, e), 0);
+        grande.grupo.rotation.y = -0.35 + rot + (1 - e) * 4;
+        const bob = reduz ? 0 : Math.sin(now / 900) * 0.08;
+        pequena.grupo.position.set(lerp(4.6, 2.35, e2), 0.35 + bob, 1.3);
+        pequena.grupo.rotation.set(0, 1.45 + (1 - e2) * -2, -0.3);
+        sombraG.position.set(-0.75, 0.004, 0); sombraG.material.opacity = 0.34 * e;
+        sombraP.position.set(2.45, 0.004, 1.3); sombraP.material.opacity = 0.26 * e2;
+        renderer.render(cena, cam);
+        requestAnimationFrame(passo);
+      };
+      requestAnimationFrame(passo);
+    }
+    document.addEventListener('n3:modal', ev => {
+      if (!renderer) cria();
+      const id = ev.detail.id;
+      grande.setSabor(id); pequena.setSabor(id);
+      if (!ev.detail.troca) { t0 = performance.now(); rot = rotAlvo = 0; }
+      else { t0 = performance.now() - 500; }
+      ajusta();
+      aberto = true; laco();
+    });
+    document.addEventListener('n3:modal-fecha', () => { aberto = false; });
+  }
+
   // ---------- início ----------
   async function inicia() {
     if (!T || !suportaWebGL()) { document.documentElement.classList.add('sem-3d'); return; }
@@ -620,6 +694,7 @@
     rApoio.dispose(); if (rApoio.forceContextLoss) rApoio.forceContextLoss();
     iniciaHero();
     iniciaRotulo();
+    iniciaModal();
     document.documentElement.classList.add('com-3d');
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inicia); else inicia();

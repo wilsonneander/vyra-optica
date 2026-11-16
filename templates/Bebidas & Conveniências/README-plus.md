@@ -1,6 +1,6 @@
-# Bebidas & Conveniências: modelo Plus "ESTALO" (marca própria)
+# Bebidas & Conveniências: modelo Plus "N3 Drinks" (marca própria)
 
-Modelo **Plus** do nicho bebidas: site de **marca específica** (uma bebida própria, não uma loja que revende). Demonstração com a marca fictícia **ESTALO**, energético com gás em cinco sabores brasileiros (Pitanga, Limão-cravo, Maracujá, Açaí, Hortelã) e uma edição limitada (Breu).
+Modelo **Plus** do nicho bebidas: site de **marca específica** (uma bebida própria, não uma loja que revende). Demonstração com a marca fictícia **N3 Drinks** (logo N3, slogan "Abre no estalo"), energético com gás em cinco sabores brasileiros (Pitanga, Limão-cravo, Maracujá, Açaí, Hortelã) e uma edição limitada (Breu).
 
 Referência de design: template Framer "KLAXA" (https://physical-hyacinth-083721.framer.app/). Layout, paleta e animações 3D seguem a referência; marca, textos e lata foram refeitos, e as regras de [DIRETRIZES-SITES.md](../../DIRETRIZES-SITES.md) têm prioridade (sem numeração de tópicos, sem "·" e travessão, sem cápsulas, sem traço antes de títulos, mapa OpenStreetMap no rodapé).
 
@@ -8,9 +8,9 @@ Uma página só, HTML/CSS/JS puros, abre direto pelo `index.html` (sem build).
 
 | Arquivo | O que é |
 |---|---|
-| `site-plus/index.html` | Página inteira e a lista de sabores (`window.ESTALO_SABORES`: nome, cores do rótulo, nota) |
-| `site-plus/assets/js/estalo-3d.js` | Motor 3D: lata, rótulo, hero e rótulo que desenrola |
-| `site-plus/assets/js/app.js` | Interações ligadas ao scroll (trilho, contadores, paralaxe, FAQ, topo) |
+| `site-plus/index.html` | Página inteira e a lista de sabores (`window.N3_SABORES`: nome, cores do rótulo e os dados do modal: frase, descrição, notas, preço e ficha) |
+| `site-plus/assets/js/n3-3d.js` | Motor 3D: lata, rótulo, hero, rótulo que desenrola e a cena do modal |
+| `site-plus/assets/js/app.js` | Interações ligadas ao scroll (trilho, contadores, paralaxe, FAQ, topo), modal do sabor e cursor |
 | `site-plus/assets/js/three.min.js` | three.js r149 (build UMD local, funciona em `file://`) |
 | `site-plus/assets/css/style.css` | Design |
 | `site-plus/assets/img/` | Mapa do OpenStreetMap (mesmo do Silver) e fotos de drinks |
@@ -22,7 +22,7 @@ Fontes: **Archivo** larga (wdth 125, peso 900) nos títulos, **Hanken Grotesk** 
 Nada é vídeo nem imagem pronta: a lata é montada em three.js na hora.
 
 - **Lata**: corpo de alumínio torneado (`LatheGeometry`), tampa com lacre articulado e boca que se abre, reflexo de um estúdio com softboxes gerado no navegador (`PMREMGenerator`), gotas de condensação em relevo.
-- **Rótulo**: desenhado num `<canvas>` por sabor (faixa da marca, tabela nutricional, código de barras, ícone do estalo) e aplicado numa malha própria que pode ir de cilindro a folha plana.
+- **Rótulo**: "N3 DRINKS" na faixa da frente; desenhado num `<canvas>` por sabor (faixa da marca, tabela nutricional, código de barras, ícone do estalo) e aplicado numa malha própria que pode ir de cilindro a folha plana.
 - **Latas dos cards** (linha de sabores, pela hora, quem bebe, chamada final): renderizadas uma vez num renderizador fora da tela e trocadas por `<img>`; leve e sem vários WebGL rodando.
 
 ## Comportamento no scroll
@@ -37,10 +37,15 @@ Nada é vídeo nem imagem pronta: a lata é montada em three.js na hora.
 - **Chamada final**: as palavras crescem e as cinco latas sobem e se abrem em leque.
 - **Rodapé**: mapa padrão OpenStreetMap (`.map-box`), "Onde atendemos", e a marca gigante que se fecha com os lacres coloridos subindo.
 
+## Modal do sabor e cursor
+
+- Clicar em qualquer lata (cards da linha, pela hora, quem bebe, latas da chamada final) abre o modal do sabor: painel na cor do sabor com a lata 3D grande, que gira ao arrastar (com inércia), e uma lata menor inclinada mostrando o verso com a tabela nutricional; ao lado, etiqueta, nome, frase, descrição, notas, preço da lata e do fardo, botões, ficha (cafeína, calorias, açúcar, sódio) e navegação para o sabor anterior e o próximo. Fecha no X, clicando fora ou com Esc; setas do teclado trocam de sabor; o foco fica preso no modal.
+- Cursor próprio (só com mouse): ponto laranja e um anel que vem atrás com atraso e estica na direção do movimento. Cresce e inverte as cores sobre links e botões, vira um círculo laranja com "Abrir" sobre as latas, "Arrastar" na régua do hero e "Girar" na lata do modal. No toque e com "reduzir movimento" fica o cursor normal.
+
 Sem WebGL, o site continua legível (classe `sem-3d`). Com "reduzir movimento" ligado, as transições param e o scroll leva direto ao estado final.
 
 ## Trocar para outro cliente
 
-1. Nome e textos no `index.html`; sabores e cores em `window.ESTALO_SABORES`.
-2. O desenho do rótulo fica em `desenhaRotulo()` no `estalo-3d.js` (textos, tabela nutricional, posições dos pontos explicados).
+1. Nome e textos no `index.html`; sabores e cores em `window.N3_SABORES`.
+2. O desenho do rótulo fica em `desenhaRotulo()` no `n3-3d.js` (textos, tabela nutricional, posições dos pontos explicados).
 3. Mapa do rodapé: gerar com `_build-silver/gerar-mapa.js` para o endereço do cliente.

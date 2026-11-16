@@ -1,4 +1,4 @@
-/* ESTALO, interações da página. Quase tudo aqui é função da posição do scroll. */
+/* N3 Drinks, interações da página. Quase tudo aqui é função da posição do scroll. */
 (function () {
   'use strict';
   const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -167,4 +167,116 @@
       }
     });
   });
+
+  // ---------- modal do sabor ----------
+  const SAB = window.N3_SABORES || [];
+  const modal = $('[data-modal]');
+  let modalId = null, focoAntes = null;
+  function preencheModal(s) {
+    const i = SAB.indexOf(s);
+    const ant = SAB[(i - 1 + SAB.length) % SAB.length], prox = SAB[(i + 1) % SAB.length];
+    const claro = (() => { const n = parseInt(s.campo.slice(1), 16); return (0.2126 * (n >> 16 & 255) + 0.7152 * (n >> 8 & 255) + 0.0722 * (n & 255)) / 255 > 0.45; })();
+    modal.style.setProperty('--campo', s.campo);
+    modal.style.setProperty('--fundo', s.fundo);
+    modal.classList.toggle('palco-escuro', !claro);
+    const m = k => modal.querySelector(`[data-m="${k}"]`);
+    m('tag').textContent = s.tag; m('nome').textContent = s.nome; m('frase').textContent = s.frase;
+    m('desc').textContent = s.desc; m('notas').textContent = s.notas.join(', ');
+    m('preco').textContent = s.preco; m('fardo').textContent = s.fardo;
+    m('cafeina').textContent = s.cafeina; m('kcal').textContent = s.kcal; m('acucar').textContent = s.acucar; m('sodio').textContent = s.sodio;
+    m('anterior').textContent = ant.nome; m('proximo').textContent = prox.nome;
+  }
+  function abreModal(id, troca) {
+    const s = SAB.find(x => x.id === id); if (!s || !modal) return;
+    modalId = id;
+    preencheModal(s);
+    if (!troca) {
+      focoAntes = document.activeElement;
+      modal.hidden = false;
+      document.documentElement.classList.add('modal-aberto');
+      requestAnimationFrame(() => { modal.classList.add('on'); iguala(); });
+      setTimeout(() => modal.querySelector('.modal-x').focus(), 60);
+    } else {
+      const info = modal.querySelector('.modal-info');
+      info.classList.remove('troca'); void info.offsetWidth; info.classList.add('troca');
+    }
+    document.dispatchEvent(new CustomEvent('n3:modal', { detail: { id, troca: !!troca } }));
+  }
+  function fechaModal() {
+    if (!modal || modal.hidden) return;
+    modal.classList.remove('on');
+    document.dispatchEvent(new CustomEvent('n3:modal-fecha'));
+    setTimeout(() => {
+      modal.hidden = true; document.documentElement.classList.remove('modal-aberto');
+      if (focoAntes && focoAntes.focus) focoAntes.focus({ preventScroll: true });
+    }, reduz ? 0 : 380);
+  }
+  document.addEventListener('click', e => {
+    const gat = e.target.closest('[data-abre]');
+    if (gat && !e.target.closest('[data-modal]')) { e.preventDefault(); abreModal(gat.dataset.abre); return; }
+    const fecha = e.target.closest('[data-fecha]');
+    if (fecha) { if (fecha.tagName !== 'A') e.preventDefault(); fechaModal(); return; }
+    const ir = e.target.closest('[data-modal-ir]');
+    if (ir) {
+      const i = SAB.findIndex(x => x.id === modalId), n = SAB.length;
+      abreModal(SAB[(i + +ir.dataset.modalIr + n) % n].id, true);
+    }
+  });
+  document.addEventListener('keydown', e => {
+    if (!modal || modal.hidden) return;
+    if (e.key === 'Escape') { fechaModal(); return; }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+      if (document.activeElement && document.activeElement.matches('input, textarea')) return;
+      const i = SAB.findIndex(x => x.id === modalId), n = SAB.length, d = e.key === 'ArrowRight' ? 1 : -1;
+      abreModal(SAB[(i + d + n) % n].id, true); return;
+    }
+    if (e.key === 'Tab') {
+      // mantém o foco dentro do modal
+      const f = $$('a[href], button:not([disabled])', modal).filter(el => el.offsetParent !== null);
+      if (!f.length) return;
+      const pri = f[0], ult = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === pri) { e.preventDefault(); ult.focus(); }
+      else if (!e.shiftKey && document.activeElement === ult) { e.preventDefault(); pri.focus(); }
+    }
+  });
+
+  // ---------- cursor animado (só com mouse) ----------
+  const cursor = $('.cursor');
+  if (cursor && matchMedia('(hover: hover) and (pointer: fine)').matches && !reduz) {
+    document.documentElement.classList.add('tem-cursor');
+    const ponto = $('.cursor-ponto', cursor), anel = $('.cursor-anel', cursor), rotulo = $('b', anel);
+    let mx = innerWidth / 2, my = innerHeight / 2, ax = mx, ay = my, px = mx, py = my, visto = false;
+    addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse') return;
+      mx = e.clientX; my = e.clientY;
+      if (!visto) { visto = true; ax = mx; ay = my; cursor.classList.add('on'); }
+      const alvo = e.target.closest ? e.target : null;
+      let modo = '', texto = '';
+      if (alvo) {
+        if (alvo.closest('.modal-3d')) { modo = 'rotulo'; texto = 'Girar'; }
+        else if (alvo.closest('[data-regua]')) { modo = 'rotulo'; texto = 'Arrastar'; }
+        else if (alvo.closest('[data-abre]')) { modo = 'rotulo'; texto = 'Abrir'; }
+        else if (alvo.closest('input, textarea')) modo = 'texto';
+        else if (alvo.closest('a, button, summary, label, [role="slider"]')) modo = 'link';
+      }
+      cursor.dataset.modo = modo;
+      if (texto && rotulo.textContent !== texto) rotulo.textContent = texto;
+    }, { passive: true });
+    document.addEventListener('pointerleave', () => cursor.classList.remove('on'));
+    document.addEventListener('pointerenter', () => { if (visto) cursor.classList.add('on'); });
+    addEventListener('pointerdown', () => cursor.classList.add('aperta'));
+    addEventListener('pointerup', () => cursor.classList.remove('aperta'));
+    (function segue() {
+      // o anel vem atrás do ponto com atraso e estica na direção do movimento
+      ax += (mx - ax) * 0.16; ay += (my - ay) * 0.16;
+      const vx = mx - px, vy = my - py; px = mx; py = my;
+      const vel = Math.min(Math.hypot(vx, vy), 60);
+      const ang = Math.atan2(vy, vx) * 180 / Math.PI;
+      const estica = cursor.dataset.modo ? 1 : 1 + vel / 90;
+      ponto.style.transform = `translate3d(${mx}px,${my}px,0)`;
+      anel.style.transform = `translate3d(${ax}px,${ay}px,0) rotate(${ang}deg) scale(${estica}, ${1 / Math.sqrt(estica)})`;
+      rotulo.style.transform = `rotate(${-ang}deg)`;
+      requestAnimationFrame(segue);
+    })();
+  }
 })();

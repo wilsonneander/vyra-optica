@@ -1,13 +1,14 @@
 # Bebidas & Conveniências: modelo Silver "Tampinha"
 
-Nicho **bebidas e conveniência** (adega, depósito de bebidas, conveniência de bairro). Template de demonstração com empresa fictícia (Tampinha Bebidas & Conveniência, Floresta, Belo Horizonte), a mesma marca do modelo Bronze.
+Nicho **bebidas e conveniência** (adega, depósito de bebidas, conveniência de bairro). Template de demonstração com loja fictícia (Tampinha Bebidas & Conveniência, Floresta, Belo Horizonte) que revende marcas reais: fotos reais dos produtos (Coca-Cola, Guaraná, Fanta, Sprite, Heineken, Budweiser, Skol, Brahma, Monster, Red Bull, Smirnoff, Tanqueray, vinhos etc.), fotos de ambiente (brinde, bar, drinks) e logos reais do iFood, 99Food e das marcas.
 
 Uma página só, com catálogo, carrinho e pedido montado para o WhatsApp. Paleta preto, marrom café e creme com o vermelho da tampinha nos detalhes. Títulos em **Gloock**, texto em **Schibsted Grotesk** (dupla diferente do Bronze).
 
 | Pasta | O que é |
 |---|---|
-| `_build-silver/content.js` | Todo o conteúdo: marca, contatos, entrega, horários, slides da capa, categorias, 50 bebidas, extras (gelo, copos, carvão), marcas, kits, passos do pedido, FAQ e bairros. `[EXEMPLO]` = trocar pelo cliente |
-| `_build-silver/arte.js` | Ilustrações SVG próprias das embalagens (lata, latão, long neck, litrão, PET, garrafa, caixinha, galão etc.) com gotas de condensação. Sem logos reais: só forma, cores e nome |
+| `_build-silver/content.js` | Todo o conteúdo: marca, contatos, entrega, horários, slides da capa, categorias, 46 bebidas, extras (gelo, copos, carvão), marcas, kits, passos do pedido, FAQ e bairros. `[EXEMPLO]` = trocar pelo cliente |
+| `_build-silver/imagens.js` | Trata as fotos reais: recorta o fundo claro dos produtos (vira transparente), apara e gera WebP em `img/fotos/` (produtos, ambiente, logos) com as medidas em `medidas.json` |
+| `_build-silver/img/originais/` | Fotos originais (enviadas pelo cliente e baixadas de lojas online). **Fora do git** por tamanho (30 MB); só os WebP tratados vão para o repositório |
 | `_build-silver/build.js` | Gera o `index.html` e copia CSS, JS, favicon e mapa |
 | `_build-silver/style.css`, `_build-silver/app.js` | Design e interação (copiados para `site-silver/assets/`) |
 | `_build-silver/icons.js` | Logo da tampinha, favicon e ícones desenhados para a marca |
@@ -18,6 +19,12 @@ Uma página só, com catálogo, carrinho e pedido montado para o WhatsApp. Palet
 
 ```bash
 node "templates/Bebidas & Conveniências/_build-silver/build.js"
+```
+
+As fotos só precisam ser tratadas de novo se mudarem (precisa de `img/originais/` e do `sharp`):
+
+```bash
+NODE_PATH=<pasta com node_modules/sharp> node "templates/Bebidas & Conveniências/_build-silver/imagens.js"
 ```
 
 O mapa só precisa ser gerado de novo se o endereço mudar (precisa do `sharp` instalado fora do projeto; rodar dentro de `_build-silver/`):

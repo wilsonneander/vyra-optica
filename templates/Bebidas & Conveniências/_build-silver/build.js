@@ -1,11 +1,11 @@
 // Gera o modelo Silver de bebidas e conveniência (Tampinha) em "templates/Bebidas & Conveniências/site-silver/".
-// Silver: uma página só, CSS e JS em assets/. As bebidas são ilustrações SVG próprias (arte.js), sem fotos nem logos reais.
+// Silver: uma página só, CSS e JS em assets/. Fotos reais dos produtos (recortadas por imagens.js) e logos das marcas.
 // Uso: node "templates/Bebidas & Conveniências/_build-silver/build.js"
 const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
-const { arte } = require('./arte');
+const medidas = require('./img/fotos/medidas.json');
 
 const OUT = path.join(__dirname, '..', 'site-silver');
 const M = C.marca;
@@ -21,10 +21,16 @@ const normal = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 const todos = [...C.produtos, ...C.extras];
 const porId = Object.fromEntries(todos.map((p) => [p.id, p]));
 const cat = Object.fromEntries(C.categorias.map((c) => [c.id, c]));
-const alc = (p) => Boolean(cat[p.cat] && cat[p.cat].alc);
-// cor de destaque do card: o rótulo quando o corpo é claro demais
-const claro = (h) => { const n = parseInt(h.slice(1), 16); return (0.299 * (n >> 16) + 0.587 * ((n >> 8) & 255) + 0.114 * (n & 255)) > 200; };
-const tinta = (p) => (claro(p.cor) ? p.rot : p.cor);
+const alc = (p) => (p.alc !== undefined ? p.alc : Boolean(cat[p.cat] && cat[p.cat].alc));
+const tinta = (p) => p.cor;
+
+// foto de produto (recorte transparente) ou de ambiente (drinks); alt vazio quando é repetição decorativa
+const foto = (p, { cls = '', alt = true, lazy = true } = {}) => {
+  const k = `${p.amb ? 'ambiente' : 'produtos'}/${p.foto}`;
+  const [w, h] = medidas[k];
+  return `<img class="arte${p.amb ? ' arte-amb' : ''}${cls ? ' ' + cls : ''}" src="assets/img/${k}.webp" alt="${alt ? esc(`${p.nome} ${p.vol}`) : ''}" width="${w}" height="${h}"${lazy ? ' loading="lazy"' : ''} decoding="async" data-arte="${p.id}">`;
+};
+const imgDe = (k, alt = '', cls = '', lazy = true) => { const [w, h] = medidas[k]; return `<img class="${cls}" src="assets/img/${k}.webp" alt="${esc(alt)}" width="${w}" height="${h}"${lazy ? ' loading="lazy"' : ''} decoding="async">`; };
 
 // tom de cada categoria (painéis da prateleira)
 const tomCat = { cerveja: '#B8861F', energetico: '#4F7A22', destilado: '#7A3B17', cha: '#9C5A1C', drink: '#8E1F2A', agua: '#2C5F86', refri: '#C21D24' };
@@ -33,6 +39,11 @@ const tomCat = { cerveja: '#B8861F', energetico: '#4F7A22', destilado: '#7A3B17'
 if (fs.existsSync(OUT)) for (const f of fs.readdirSync(OUT)) fs.rmSync(path.join(OUT, f), { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'assets', 'img'), { recursive: true });
 fs.copyFileSync(path.join(__dirname, 'img', 'mapa_floresta_noite.webp'), path.join(OUT, 'assets', 'img', 'mapa_floresta_noite.webp'));
+// cópia arquivo por arquivo (fs.cpSync derruba o Node 24 no Windows com acento no caminho)
+for (const d of ['produtos', 'ambiente', 'logos']) {
+  fs.mkdirSync(path.join(OUT, 'assets', 'img', d), { recursive: true });
+  for (const f of fs.readdirSync(path.join(__dirname, 'img', 'fotos', d))) fs.copyFileSync(path.join(__dirname, 'img', 'fotos', d, f), path.join(OUT, 'assets', 'img', d, f));
+}
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
 fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(OUT, 'assets', 'style.css'));
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
@@ -53,8 +64,8 @@ const compra = (p) => `<div class="compra" data-compra="${p.id}">
             <button class="add" type="button" data-add="${p.id}" aria-label="Pôr ${esc(p.nome)} ${p.vol} no carrinho">${I.addTampa}</button>
             <div class="qtd" aria-label="Quantidade de ${esc(p.nome)}"><button type="button" data-menos="${p.id}" aria-label="Tirar um">${I.menos}</button><output data-qtd="${p.id}">0</output><button type="button" data-mais="${p.id}" aria-label="Pôr mais um">${I.mais}</button></div>
           </div>`;
-const card = (p, cls = '') => `<article class="card ${cls}" data-id="${p.id}" data-cat="${p.cat}" data-marca="${esc(p.marca || '')}" data-preco="${p.preco}" data-busca="${esc(normal(`${p.nome} ${p.marca || ''} ${p.vol} ${cat[p.cat] ? cat[p.cat].nome : ''}`))}"${alc(p) ? ' data-alc' : ''} style="--tinta:${tinta(p)}">
-          <div class="card-arte" data-tilt><span class="card-halo"></span>${arte(p, '', true)}<span class="card-chao"></span></div>
+const card = (p, cls = '') => `<article class="card${p.amb ? ' card-amb' : ''} ${cls}" data-id="${p.id}" data-cat="${p.cat}" data-marca="${esc(p.marca || '')}" data-preco="${p.preco}" data-busca="${esc(normal(`${p.nome} ${p.marca || ''} ${p.vol} ${cat[p.cat] ? cat[p.cat].nome : ''}`))}"${alc(p) ? ' data-alc' : ''} style="--tinta:${tinta(p)}">
+          <div class="card-arte" data-tilt><span class="card-halo"></span>${foto(p)}<span class="card-chao"></span></div>
           <div class="card-info"><small>${esc(p.marca || cat[p.cat].nome)}${alc(p) ? '<em>+18</em>' : ''}</small><h3>${esc(p.nome)}</h3><span>${p.vol}</span></div>
           <div class="card-pe">${preco(p.preco)}${compra(p)}</div>
         </article>`;
@@ -63,17 +74,18 @@ const card = (p, cls = '') => `<article class="card ${cls}" data-id="${p.id}" da
 const cenas = C.capa.map((s, i) => {
   const p = porId[s.id];
   return `<div class="cena${i ? '' : ' on'}" data-cena="${i}" aria-hidden="${i ? 'true' : 'false'}">
-          <div class="cena-lado l">${arte(porId[s.lado[0]])}</div>
-          <div class="cena-heroi">${arte(p, '', true)}</div>
-          <div class="cena-lado r">${arte(porId[s.lado[1]])}</div>
+          <div class="cena-lado l">${foto(porId[s.lado[0]], { alt: false, lazy: i > 0 })}</div>
+          <div class="cena-heroi">${foto(p, { lazy: i > 0 })}</div>
+          <div class="cena-lado r">${foto(porId[s.lado[1]], { alt: false, lazy: i > 0 })}</div>
           <div class="cena-ficha">
             <div><small>${esc(p.marca || '')}</small><b>${esc(p.nome)}</b><span>${p.vol}</span></div>
             ${preco(p.preco)}${compra(p)}
           </div>
         </div>`;
 }).join('\n        ');
+const capaFundos = C.capa.map((s, i) => (s.fundo ? `<div class="capa-foto${i ? '' : ' on'}" data-fundo="${i}">${imgDe('ambiente/' + s.fundo, '', '', i > 0)}</div>` : '')).join('');
 const capaTextos = C.capa.map((s, i) => `<div class="capa-slide${i ? '' : ' on'}" data-slide="${i}"><h2>${esc(s.titulo)}</h2><p>${esc(s.texto)}</p></div>`).join('');
-const miniaturas = C.capa.map((s, i) => `<button type="button" class="mini${i ? '' : ' on'}" data-ir="${i}" aria-label="Ver ${esc(porId[s.id].nome)}"><span>${arte(porId[s.id])}</span><i></i></button>`).join('');
+const miniaturas = C.capa.map((s, i) => `<button type="button" class="mini${i ? '' : ' on'}" data-ir="${i}" aria-label="Ver ${esc(porId[s.id].nome)}"><span>${foto(porId[s.id], { alt: false, lazy: false })}</span><i></i></button>`).join('');
 
 // cubo de gelo desenhado (flutua no palco)
 const cubo = (cls) => `<svg class="cubo ${cls}" viewBox="0 0 60 60" aria-hidden="true"><path d="M8 18 L32 8 L54 20 L30 30 Z" fill="#EAF6FF" opacity=".8"/><path d="M8 18 L30 30 L30 54 L8 42 Z" fill="#CFE6F5" opacity=".55"/><path d="M30 30 L54 20 L54 44 L30 54 Z" fill="#A9CBE0" opacity=".45"/><path d="M14 20 L28 14" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".9"/></svg>`;
@@ -84,20 +96,21 @@ const fita = fitaItens.map((t) => `<span>${esc(t)}</span><i>${I.tampaPura}</i>`)
 const contagem = (id) => C.produtos.filter((p) => p.cat === id).length;
 const prateleira = C.categorias.map((c, i) => `<li><button type="button" class="cat${i ? '' : ' on'}" data-filtro="${c.id}" style="--c:${tomCat[c.id]}" aria-label="${c.nome}: ver ${contagem(c.id)} opções">
             <span class="cat-nome">${c.nome}</span>
-            <span class="cat-artes">${c.vitrine.map((id) => arte(porId[id])).join('')}</span>
+            ${c.fundo ? `<span class="cat-fundo">${imgDe('ambiente/' + c.fundo)}</span>` : ''}<span class="cat-artes">${c.vitrine.map((id) => foto(porId[id], { alt: false })).join('')}</span>
             <span class="cat-info"><b>${contagem(c.id)} opções${c.alc ? ' <em>+18</em>' : ''}</b><span>Ver ${c.nome.toLowerCase()} ${I.seta}</span></span>
           </button></li>`).join('\n          ');
 
-const chips = [['tudo', 'Tudo'], ...C.categorias.map((c) => [c.id, c.nome])]
+const chips = [['tudo', 'Tudo'], ...C.categorias.map((c) => [c.id, c.chip || c.nome])]
   .map(([id, nome]) => `<button type="button" class="chip${id === 'tudo' ? ' on' : ''}" data-chip="${id}" aria-pressed="${id === 'tudo'}">${nome}</button>`).join('');
 
-const marcaBloco = ([n, fundo, cor]) => `<button type="button" class="marca" data-marca="${esc(n)}" style="--fundo:${fundo};--cor:${cor}"><span>${esc(n)}</span></button>`;
+const marcaBloco = ([n, cor, prod, logo]) => `<button type="button" class="marca" data-marca="${esc(n)}" style="--cor:${cor}" aria-label="Ver bebidas ${esc(n)}">${foto(porId[prod], { alt: false })}<span class="marca-nome">${logo ? imgDe('logos/' + logo, n, 'marca-logo') : esc(n)}</span></button>`;
 const meio = Math.ceil(C.marcas.length / 2);
 const esteira = (lista, rev) => { const b = lista.map(marcaBloco).join(''); return `<div class="esteira${rev ? ' contra' : ''}"><div class="esteira-trilho">${b}${b.replace(/<button /g, '<button tabindex="-1" aria-hidden="true" ')}</div></div>`; };
 
 const kitTotal = (k) => k.itens.reduce((s, [id, q]) => s + porId[id].preco * q, 0);
 const kits = C.kits.map((k, i) => `<article class="kit${i ? '' : ' kit-g'}">
-          <div class="kit-arte">${k.arte.map((id, j) => arte(porId[id], j === 1 ? 'meio' : '', j === 1)).join('')}</div>
+          ${k.fundo ? `<span class="kit-fundo">${imgDe('ambiente/' + k.fundo)}</span>` : ''}
+          <div class="kit-arte">${k.arte.map((id, j) => foto(porId[id], { cls: j === 1 ? 'meio' : '', alt: j === 1 })).join('')}</div>
           <div class="kit-txt">
             <h3>${k.nome}</h3>
             <p>${esc(k.texto)}</p>
@@ -123,7 +136,7 @@ const bairros = C.bairros.map((b) => `<li>${esc(b)}</li>`).join('');
 const horarios = C.horarios.map(([d, h]) => `<li><span>${d}</span><b>${h}</b></li>`).join('');
 const horarioTexto = C.horarios.map(([d, h]) => `${d}: ${h}`).join('. ');
 
-const extras = C.extras.map((p) => `<div class="extra" data-id="${p.id}">${arte(p)}<div><b>${esc(p.nome)}</b><span>${p.vol}</span><strong>${real(p.preco)}</strong></div><button type="button" class="extra-add" data-add="${p.id}" aria-label="Pôr ${esc(p.nome)} no carrinho">${I.mais}</button></div>`).join('');
+const extras = C.extras.map((p) => `<div class="extra" data-id="${p.id}">${foto(p, { alt: false })}<div><b>${esc(p.nome)}</b><span>${p.vol}</span><strong>${real(p.preco)}</strong></div><button type="button" class="extra-add" data-add="${p.id}" aria-label="Pôr ${esc(p.nome)} no carrinho">${I.mais}</button></div>`).join('');
 
 const destaques = C.destaques.map((id) => card(porId[id], 'card-g')).join('\n        ');
 const catalogo = C.produtos.map((p) => card(p)).join('\n        ');
@@ -170,7 +183,7 @@ ${fontes}
 
 <main>
   <section class="capa" id="inicio" data-capa style="--tom:${C.capa[0].tom};--luz:${C.capa[0].luz}">
-    <div class="capa-fundo" aria-hidden="true"><span class="capa-nome" data-capa-nome>${esc(porId[C.capa[0].id].marca)}</span></div>
+    <div class="capa-fundo" aria-hidden="true">${capaFundos}<span class="capa-nome" data-capa-nome>${esc(porId[C.capa[0].id].marca)}</span></div>
     <div class="bolhas" data-bolhas aria-hidden="true"></div>
     <div class="wrap capa-in">
       <div class="capa-txt">
@@ -225,6 +238,15 @@ ${fontes}
         ${destaques}
     </div>
     <div class="wrap"><div class="trilho-barra"><span data-trilho-barra></span></div></div>
+  </section>
+
+  <section class="faixa-foto" aria-label="${esc(C.faixas.brinde.titulo)}">
+    <div class="faixa-img" data-paralaxe>${imgDe('ambiente/' + C.faixas.brinde.foto, 'Amigos brindando com copos de cerveja')}</div>
+    <div class="wrap faixa-txt">
+      <h2>${esc(C.faixas.brinde.titulo)}</h2>
+      <p>${esc(C.faixas.brinde.texto)}</p>
+      <button type="button" class="btn btn-verm" data-ir-cat="cerveja">${I.engradado}Ver cervejas</button>
+    </div>
   </section>
 
   <section class="marcas" id="marcas">
@@ -283,6 +305,7 @@ ${fontes}
         <ol class="passos">${passos}</ol>
       </div>
       <div class="como-msg">
+        <div class="como-foto">${imgDe('ambiente/amb-skol-litrao', 'Garrafa de Skol gelada com gelo e cevada')}</div>
         <div class="msg-bolha" aria-label="Exemplo da mensagem que chega no WhatsApp">
           <b>Pedido Tampinha</b>
           <span><u>Cervejas</u>12x Skol Pilsen lata 350ml</span>
@@ -310,8 +333,8 @@ ${fontes}
         </ul>
         <p class="parceiros-txt">Prefere pedir pelo aplicativo? Estamos no iFood e no 99Food com o mesmo estoque.</p>
         <div class="parceiros" data-iguais>
-          <a class="parc parc-ifood" href="${M.ifood}" target="_blank" rel="noopener"><b>iFood</b><span>pedir no app</span></a>
-          <a class="parc parc-99" href="${M.food99}" target="_blank" rel="noopener"><b>99Food</b><span>pedir no app</span></a>
+          <a class="parc parc-ifood" href="${M.ifood}" target="_blank" rel="noopener">${imgDe('logos/logo-ifood', 'iFood')}<span>pedir no app</span></a>
+          <a class="parc parc-99" href="${M.food99}" target="_blank" rel="noopener">${imgDe('logos/logo-99food-largo', '99Food')}<span>pedir no app</span></a>
         </div>
       </div>
       <div class="entrega-lado">

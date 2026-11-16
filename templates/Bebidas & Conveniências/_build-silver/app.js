@@ -89,6 +89,7 @@
     cenas[i].classList.add('on'); cenas[i].setAttribute('aria-hidden', 'false');
     slides.forEach((s, k) => s.classList.toggle('on', k === i));
     minis.forEach((m, k) => m.classList.toggle('on', k === i));
+    $$('[data-fundo]').forEach((f) => f.classList.toggle('on', +f.dataset.fundo === i));
     capa.style.setProperty('--tom', D.capa[i].tom);
     capa.style.setProperty('--luz', D.capa[i].luz);
     nome.classList.add('troca');
@@ -212,6 +213,7 @@
   $('[data-ordem]').addEventListener('change', (e) => { filtro.ordem = e.target.value; aplica(); });
   $('[data-limpar-marca]').addEventListener('click', () => { filtro.marca = ''; aplica(); });
   const irCatalogo = () => $('#bebidas').scrollIntoView({ behavior: calmo ? 'auto' : 'smooth' });
+  $$('[data-ir-cat]').forEach((b) => b.addEventListener('click', () => { filtro.cat = b.dataset.irCat; filtro.marca = ''; aplica(); irCatalogo(); }));
   $$('.marca[data-marca]').forEach((m) => m.addEventListener('click', () => {
     filtro.marca = m.dataset.marca; filtro.cat = 'tudo'; filtro.busca = ''; $('[data-busca]').value = '';
     aplica(); irCatalogo();
@@ -242,12 +244,13 @@
   const retirada = () => form.modo.value === 'retirada';
   const taxa = () => (retirada() || !cart.size || subtotal() >= D.entrega.gratisAcima ? 0 : D.entrega.taxa);
   const temAlcool = () => [...cart.keys()].some((id) => D.produtos[id].a);
-  const arteDe = (id) => { const s = document.querySelector(`svg[data-arte="${id}"]`); return s ? s.outerHTML.replace(/<g class="gotas">[\s\S]*?<\/g>/, '') : ''; };
+  // copia a foto do produto (sem lazy, sem alt repetido) para o carrinho, o aviso e o voo
+  const arteDe = (id) => { const s = document.querySelector(`img[data-arte="${id}"]`); return s ? s.outerHTML.replace(' loading="lazy"', '').replace(/ alt="[^"]*"/, ' alt=""') : ''; };
 
   const aviso = $('[data-aviso]');
   let tAviso;
   const avisa = (txt, id) => {
-    aviso.innerHTML = (id ? arteDe(id).replace('<svg ', '<svg style="width:14px;height:28px" ') : '') + `<span>${txt}</span>`;
+    aviso.innerHTML = (id ? arteDe(id).replace('<img ', '<img style="width:22px;height:34px;object-fit:contain" ') : '') + `<span>${txt}</span>`;
     aviso.classList.add('on');
     clearTimeout(tAviso); tAviso = setTimeout(() => aviso.classList.remove('on'), 2400);
   };
@@ -300,7 +303,7 @@
   // garrafa voando até o carrinho
   const alvo = () => { const b = $('.barra-carrinho button'); return b && b.offsetParent && body.classList.contains('tem-itens') ? b : $('.topo-carrinho'); };
   const voa = (id, origem) => {
-    const svg = origem && (origem.closest('.card, .cena, .extra, .kit') || {}).querySelector && origem.closest('.card, .cena, .extra, .kit').querySelector('svg.arte');
+    const svg = origem && (origem.closest('.card, .cena, .extra, .kit') || {}).querySelector && origem.closest('.card, .cena, .extra, .kit').querySelector('.arte');
     const destino = alvo();
     const pulso = () => { const t = $('.topo-carrinho'); t.classList.remove('pula'); void t.offsetWidth; t.classList.add('pula'); };
     if (calmo || !svg) return pulso();
@@ -477,6 +480,17 @@
   const revs = $$('.sec-cab, .cats-lista, .kit, .entrega-txt, .entrega-lado, .bairros-faixa, .faq, .map-box, .onde, .rodape-col, .msg-bolha');
   const obs = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('ver'); obs.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
   revs.forEach((el) => { if (!el.classList.contains('msg-bolha')) el.classList.add('rev'); obs.observe(el); });
+
+  // paralaxe das faixas de foto: a imagem anda mais devagar que a página
+  const paralaxes = $$('[data-paralaxe]');
+  if (!calmo && paralaxes.length) {
+    const move = () => paralaxes.forEach((el) => {
+      const r = el.parentElement.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      el.style.transform = `translate3d(0, ${((r.top + r.height / 2 - innerHeight / 2) * -0.18).toFixed(1)}px, 0)`;
+    });
+    addEventListener('scroll', move, { passive: true }); move();
+  }
 
   aoRolar();
 })();

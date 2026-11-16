@@ -1,0 +1,1554 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tampinha Bebidas & Conveniência | Bebida gelada com entrega na Floresta, BH</title>
+<meta name="description" content="Adega e conveniência na Floresta, BH: cervejas, refrigerantes, energéticos, destilados, drinks, chás, água e gelo. Monte o carrinho e peça pelo WhatsApp. Também no iFood e 99Food.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#2A1A12">
+<meta property="og:title" content="Tampinha Bebidas & Conveniência">
+<meta property="og:description" content="Bebida gelada na porta: monte o carrinho e feche o pedido pelo WhatsApp.">
+<meta property="og:image" content="assets/img/capa.webp">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" as="image" href="assets/img/capa.webp">
+<script>document.documentElement.classList.add("js");try{if(localStorage.getItem("tampinha-idade")==="nao")document.documentElement.classList.add("sem-alcool")}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Epilogue:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Tampinha Bebidas & Conveniência, modelo Bronze. Branco quente, café quase preto e vermelho tampinha. */
+:root {
+  --branco: #FFFDF9;
+  --papel: #F6F0E8;
+  --creme: #EADFD1;
+  --cafe: #2A1A12;
+  --cafe-2: #3D281C;
+  --breu: #1A100B;
+  --tampa: #D7261E;
+  --tampa-esc: #A8170F;
+  --texto: #2A1A12;
+  --apoio: #74604F;
+  --whats: #1FAF57;
+  --f-t: 'Bricolage Grotesque', 'Epilogue', sans-serif;
+  --f-c: 'Epilogue', 'Syne', sans-serif;
+  --suave: cubic-bezier(.22, .8, .24, 1);
+  --mola: cubic-bezier(.34, 1.56, .64, 1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--branco); color: var(--texto); font: 400 16px/1.55 var(--f-c); overflow-x: hidden; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+h1, h2, h3 { font-family: var(--f-t); line-height: 1.05; margin: 0; letter-spacing: -.01em; }
+p { margin: 0; }
+ul { list-style: none; margin: 0; padding: 0; }
+.wrap { width: min(1240px, 100%); margin: 0 auto; padding: 0 24px; }
+.pular { position: absolute; left: -999px; top: 8px; z-index: 300; background: var(--cafe); color: #fff; padding: 10px 14px; }
+.pular:focus { left: 8px; }
+:focus-visible { outline: 3px solid var(--tampa); outline-offset: 3px; }
+.sem-alcool [data-alc] { display: none !important; }
+[data-iguais] > * { width: var(--larg, auto); max-width: 100%; justify-content: center; text-align: center; }
+
+/* revelar ao rolar */
+.js .revela { opacity: 0; transform: translateY(22px); transition: opacity .8s var(--suave), transform .8s var(--suave); }
+.js .revela.visto { opacity: 1; transform: none; }
+
+/* ---------- botões ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 22px; border-radius: 4px; font: 700 15.5px var(--f-c); transition: transform .3s var(--mola), background .25s, color .25s, box-shadow .3s; white-space: nowrap; }
+.btn svg { width: 20px; height: 20px; flex: none; }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(1px) scale(.98); }
+.btn-tampa { background: var(--tampa); color: #fff; box-shadow: 0 14px 26px -14px rgba(168, 23, 15, .9); }
+.btn-tampa:hover { background: var(--tampa-esc); }
+.btn-linha { background: transparent; color: var(--cafe); box-shadow: inset 0 0 0 2px var(--cafe); }
+.btn-linha:hover { background: var(--cafe); color: #fff; }
+.btn-claro { background: #fff; color: var(--cafe); }
+.btn-claro svg { color: var(--whats); }
+.btn-claro:hover { background: var(--papel); }
+
+/* ---------- topo ---------- */
+.topo { position: sticky; top: 0; z-index: 60; }
+.barra-sup { background: var(--cafe); color: #F3E8DC; font-size: 13px; overflow: hidden; max-height: 40px; transition: max-height .4s var(--suave); }
+.barra-sup .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; height: 36px; }
+.status { font-weight: 600; color: #fff; }
+.status.aberto { color: #9BE3B5; }
+.topo.rolou .barra-sup { max-height: 0; }
+.nav { background: rgba(255, 253, 249, .94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--creme); transition: box-shadow .3s; }
+.topo.rolou .nav { box-shadow: 0 12px 30px -22px rgba(42, 26, 18, .7); }
+.nav .wrap { display: flex; align-items: center; gap: 22px; height: 74px; }
+.logo { color: var(--cafe); flex: none; }
+.logo-svg { height: 44px; width: auto; overflow: visible; }
+.logo-svg polygon, .logo-svg circle { transition: transform .7s var(--mola); transform-origin: 24px 24px; }
+.logo:hover .logo-svg polygon { transform: rotate(60deg); }
+.logo-nome { font-family: var(--f-t); font-weight: 800; letter-spacing: -.02em; }
+.logo-sub { font-family: var(--f-c); font-weight: 700; }
+.menu { display: flex; gap: 4px; margin-left: auto; }
+.menu a { position: relative; padding: 10px 12px; font-weight: 600; font-size: 15px; border-radius: 4px; transition: background .2s, color .2s; }
+.menu a:hover { background: var(--papel); color: var(--tampa); }
+.nav-whats { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14.5px; color: var(--cafe); }
+.nav-whats svg { width: 22px; height: 22px; color: var(--whats); }
+.carrinho-btn { position: relative; display: inline-flex; align-items: center; gap: 10px; height: 48px; padding: 0 16px 0 14px; border-radius: 4px; background: var(--cafe); color: #fff; font-weight: 700; font-size: 14.5px; transition: background .2s, transform .3s var(--mola); }
+.carrinho-btn:hover { background: var(--tampa); }
+.carrinho-btn svg { width: 24px; height: 24px; }
+.carrinho-btn b { position: absolute; left: 26px; top: 4px; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 50%; background: var(--tampa); color: #fff; font-size: 11.5px; line-height: 20px; text-align: center; box-shadow: 0 0 0 2px var(--cafe); }
+.carrinho-btn:hover b { background: var(--cafe); }
+.carrinho-btn.pulo { animation: pulo .55s var(--mola); }
+@keyframes pulo { 30% { transform: scale(1.14) rotate(-4deg); } 60% { transform: scale(.96) rotate(2deg); } }
+.burger { display: none; width: 46px; height: 46px; border-radius: 4px; background: var(--papel); flex-direction: column; justify-content: center; align-items: center; gap: 5px; }
+.burger i { display: block; width: 20px; height: 2px; background: var(--cafe); border-radius: 2px; transition: transform .3s, opacity .3s; }
+.burger[aria-expanded="true"] i:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded="true"] i:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] i:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------- capa ---------- */
+.capa { position: relative; display: flex; align-items: flex-end; min-height: min(780px, calc(100vh - 110px)); padding: 120px 0 56px; overflow: hidden; background: var(--breu); color: #fff; isolation: isolate; }
+.capa-foto { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; animation: aproxima 2.6s var(--suave) both; }
+@keyframes aproxima { from { transform: scale(1.1); } }
+.capa::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(26, 16, 11, .92) 0%, rgba(26, 16, 11, .74) 38%, rgba(26, 16, 11, .2) 72%, rgba(26, 16, 11, .05) 100%), linear-gradient(0deg, rgba(26, 16, 11, .7) 0%, transparent 40%); }
+.capa-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 40px; align-items: end; width: min(1240px, 100%); }
+.apoio { font-weight: 700; color: var(--tampa); font-size: 15px; margin-bottom: 16px; }
+.capa .apoio { color: #FF8A7F; }
+.capa h1 { max-width: 700px; font-size: clamp(42px, 6vw, 84px); font-weight: 800; letter-spacing: -.035em; line-height: .98; }
+.capa h1 em { font-style: normal; color: #FF5A4E; }
+.capa-sub { max-width: 540px; margin-top: 22px; font-size: 18.5px; color: rgba(255, 255, 255, .85); }
+.capa-btns { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 12px; margin-top: 30px; }
+.capa-selos { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 30px; font-size: 14.5px; font-weight: 600; color: rgba(255, 255, 255, .88); }
+.capa-selos li { display: flex; align-items: center; gap: 9px; }
+.capa-selos svg { width: 22px; height: 22px; color: #FF8A7F; }
+.selo-ifood { height: 20px; width: auto; padding: 3px 6px; background: #fff; border-radius: 3px; box-sizing: content-box; }
+.atende { display: grid; grid-template-columns: 92px 1fr; gap: 14px; align-items: center; padding: 14px 16px 14px 14px; background: var(--branco); color: var(--texto); border-radius: 6px; box-shadow: 0 30px 50px -24px rgba(0, 0, 0, .8); transition-delay: .5s; }
+.atende img { width: 92px; height: 92px; object-fit: cover; object-position: 30% 30%; border-radius: 4px; }
+.atende b { font: 700 16px var(--f-t); }
+.atende p { margin-top: 4px; font-size: 14px; color: var(--apoio); line-height: 1.4; }
+.online { display: block; margin-top: 6px; font-size: 12.5px; font-weight: 700; color: #157A3E; }
+.online.fora { color: var(--apoio); }
+
+/* ---------- marcas ---------- */
+.marcas { padding: 46px 0 40px; border-bottom: 1px solid var(--creme); overflow: hidden; }
+.marcas-cab { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 20px; margin-bottom: 20px; }
+.marcas h2 { font-size: 22px; font-weight: 700; }
+.marcas-cab p { color: var(--apoio); font-size: 14.5px; }
+.esteira { overflow: hidden; padding: 4px 0; -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.esteira-trilho { display: flex; gap: 12px; width: max-content; animation: corre 60s linear infinite; }
+.esteira:hover .esteira-trilho { animation-play-state: paused; }
+@keyframes corre { to { transform: translateX(-50%); } }
+.logo-marca { display: grid; place-items: center; width: 168px; height: 88px; padding: 14px 20px; background: #fff; border: 1px solid var(--creme); border-radius: 6px; transition: transform .35s var(--mola), border-color .25s, box-shadow .3s; }
+.logo-marca img { max-width: 100%; max-height: 52px; width: auto; height: auto; object-fit: contain; filter: grayscale(1) contrast(.9); opacity: .72; transition: filter .3s, opacity .3s; }
+.logo-marca:hover { transform: translateY(-4px); border-color: var(--cafe); box-shadow: 0 16px 26px -20px rgba(42, 26, 18, .7); }
+.logo-marca:hover img { filter: none; opacity: 1; }
+
+/* ---------- promessas ---------- */
+.promessas { padding: 50px 0 30px; }
+.promessas ul { display: grid; grid-template-columns: repeat(4, 1fr); }
+.promessas li { display: flex; gap: 14px; padding: 6px 22px; border-left: 1px solid var(--creme); }
+.promessas li:first-child { border-left: 0; padding-left: 0; }
+.prom-ic svg { width: 32px; height: 32px; color: var(--tampa); }
+.promessas b { display: block; font: 700 17px var(--f-t); margin-bottom: 4px; }
+.promessas p { font-size: 14px; color: var(--apoio); }
+
+/* ---------- cabeçalhos de seção ---------- */
+.cab { max-width: 760px; margin-bottom: 30px; }
+.cab h2 { font-size: clamp(30px, 3.6vw, 48px); font-weight: 800; letter-spacing: -.03em; }
+.cab p { margin-top: 10px; color: var(--apoio); font-size: 17px; }
+.cab-linha { max-width: none; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; }
+
+/* ---------- categorias ---------- */
+.categorias { padding: 70px 0 80px; }
+.cats { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 210px; gap: 12px; }
+.cats li:first-child { grid-column: span 2; grid-row: span 2; }
+.cats li:nth-child(6), .cats li:nth-child(7) { grid-column: span 2; }
+.sem-alcool .cats { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 240px; }
+.sem-alcool .cats li { grid-column: auto !important; grid-row: auto !important; }
+.cat { position: relative; display: block; width: 100%; height: 100%; overflow: hidden; border-radius: 6px; text-align: left; color: #fff; background: var(--cafe); isolation: isolate; }
+.cat img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--suave); }
+.cat::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(20, 12, 8, .85) 0%, rgba(20, 12, 8, .25) 50%, transparent 75%); transition: background .4s; }
+.cat:hover img { transform: scale(1.08); }
+.cat:hover::after { background: linear-gradient(0deg, rgba(168, 23, 15, .88) 0%, rgba(20, 12, 8, .3) 55%, transparent 80%); }
+.cat-txt { position: absolute; left: 18px; bottom: 16px; right: 70px; display: grid; }
+.cat-txt b { font: 700 22px/1.1 var(--f-t); }
+.cat-grande .cat-txt b { font-size: clamp(30px, 3vw, 42px); }
+.cat-txt small { margin-top: 3px; font-size: 13.5px; color: rgba(255, 255, 255, .8); }
+.cat-ir { position: absolute; right: 16px; bottom: 16px; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: #fff; color: var(--cafe); transform: translateX(-6px); opacity: 0; transition: transform .4s var(--mola), opacity .3s; }
+.cat-ir svg { width: 20px; height: 20px; }
+.cat:hover .cat-ir, .cat:focus-visible .cat-ir { transform: none; opacity: 1; }
+
+/* ---------- produto ---------- */
+.prod { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--creme); border-radius: 6px; overflow: hidden; transition: transform .4s var(--suave), box-shadow .4s, border-color .3s; }
+.prod:hover { transform: translateY(-4px); border-color: #D9C9B6; box-shadow: 0 24px 36px -28px rgba(42, 26, 18, .65); }
+.prod-foto { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--papel); }
+.prod-foto img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--suave); }
+.prod:hover .prod-foto img { transform: scale(1.06); }
+.prod-logo { display: grid; place-items: center; background: var(--fundo); }
+.prod-logo img { width: 62%; height: auto; max-height: 40%; object-fit: contain; }
+.prod:hover .prod-logo img { transform: scale(1.04); }
+.prod-logo span { position: absolute; left: 10px; bottom: 8px; font-size: 11px; font-weight: 600; color: rgba(42, 26, 18, .55); }
+.prod-info { display: grid; gap: 2px; padding: 14px 14px 0; }
+.prod-marca { font-size: 12px; font-weight: 700; color: var(--tampa); letter-spacing: .02em; }
+.prod-info h3 { font: 700 16px/1.2 var(--f-t); letter-spacing: -.005em; }
+.prod-vol { font-size: 13.5px; color: var(--apoio); }
+.prod-nota { margin-top: 4px; font-size: 12.5px; color: #157A3E; font-weight: 600; }
+.prod-pe { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding: 14px; }
+.preco { font: 800 23px/1 var(--f-t); letter-spacing: -.02em; white-space: nowrap; }
+.preco small { font-size: 12px; font-weight: 700; margin-right: 3px; }
+.preco i { font-style: normal; font-size: 15px; }
+.compra { position: relative; display: flex; justify-content: flex-end; }
+.add { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 14px 0 11px; border-radius: 4px; background: var(--tampa); color: #fff; font-weight: 700; font-size: 14px; transition: background .2s, transform .3s var(--mola); }
+.add svg { width: 17px; height: 17px; stroke-width: 2.6; }
+.add:hover { background: var(--tampa-esc); transform: translateY(-1px); }
+.add:active { transform: scale(.95); }
+.qtd { display: none; align-items: center; height: 40px; background: var(--cafe); color: #fff; border-radius: 4px; }
+.qtd button { width: 34px; height: 40px; display: grid; place-items: center; border-radius: 4px; transition: background .2s; }
+.qtd button:hover { background: var(--tampa); }
+.qtd button svg { width: 16px; height: 16px; }
+.qtd output { min-width: 24px; text-align: center; font: 700 15px var(--f-c); }
+.compra.tem .add { display: none; }
+.compra.tem .qtd { display: inline-flex; animation: abre .4s var(--mola); }
+@keyframes abre { from { transform: scale(.6); opacity: 0; } }
+.voa { position: fixed; z-index: 400; overflow: hidden; pointer-events: none; border-radius: 6px; background: #fff; box-shadow: 0 18px 30px -10px rgba(26, 16, 11, .6); transform-origin: 50% 50%; }
+.voa img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- destaques ---------- */
+.destaques { padding: 70px 0 80px; background: var(--papel); }
+.setas { display: inline-grid; grid-auto-flow: column; gap: 8px; }
+.setas button { width: 50px; height: 50px; display: grid; place-items: center; border-radius: 50%; background: var(--cafe); color: #fff; transition: background .2s, transform .3s var(--mola); }
+.setas button:hover { background: var(--tampa); transform: scale(1.06); }
+.setas svg { width: 22px; height: 22px; }
+.carrossel { display: grid; grid-auto-flow: column; grid-auto-columns: 250px; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 6px 2px 22px; scrollbar-width: none; }
+.carrossel::-webkit-scrollbar { display: none; }
+.carrossel .prod { scroll-snap-align: start; }
+.progresso { height: 4px; background: var(--creme); border-radius: 4px; overflow: hidden; }
+.progresso i { display: block; height: 100%; width: 20%; background: var(--tampa); border-radius: 4px; transition: width .2s, transform .2s; }
+
+/* ---------- catálogo ---------- */
+.catalogo { padding: 90px 0; }
+.filtros { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { display: inline-flex; align-items: center; height: 44px; padding: 0 14px; border-radius: 4px; background: var(--papel); font-weight: 600; font-size: 14.5px; transition: background .2s, color .2s; }
+.chip:hover { background: var(--creme); }
+.chip.on { background: var(--cafe); color: #fff; }
+.busca { position: relative; display: flex; align-items: center; width: min(340px, 100%); height: 48px; padding: 0 14px; background: var(--papel); border-radius: 4px; transition: box-shadow .2s; }
+.busca:focus-within { box-shadow: inset 0 0 0 2px var(--cafe); }
+.busca svg { width: 20px; height: 20px; flex: none; color: var(--apoio); }
+.busca input { flex: 1; min-width: 0; height: 100%; border: 0; background: transparent; padding: 0 10px; outline: 0; font-size: 15px; }
+.busca input::-webkit-search-cancel-button { display: none; }
+.busca button svg { width: 18px; height: 18px; }
+.achados { min-height: 22px; margin-bottom: 14px; font-size: 14px; color: var(--apoio); }
+.grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.grade .prod[hidden] { display: none; }
+.grade .prod.entra { animation: entra .55s var(--suave) both; animation-delay: calc(var(--i, 0) * 35ms); }
+@keyframes entra { from { opacity: 0; transform: translateY(18px); } }
+.ver-mais { display: flex; justify-content: center; margin-top: 30px; }
+.ver-mais [hidden] { display: none; }
+.ver-mais svg { width: 18px; height: 18px; }
+.vazio { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 30px; background: var(--papel); border-radius: 6px; }
+.vazio[hidden] { display: none; }
+
+/* ---------- kits ---------- */
+.kits { padding: 90px 0; background: var(--cafe); color: #fff; }
+.kits .cab p { color: rgba(255, 255, 255, .72); }
+.kits-grade { display: grid; grid-template-columns: 1.2fr 1fr; grid-auto-rows: minmax(320px, auto); gap: 16px; }
+.kit { position: relative; display: flex; align-items: flex-end; min-height: 320px; overflow: hidden; border-radius: 6px; isolation: isolate; }
+.kit-grande { grid-row: span 2; min-height: 660px; }
+.kit-foto { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--suave); }
+.kit:hover .kit-foto { transform: scale(1.06); }
+.kit::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, rgba(20, 12, 8, .95) 0%, rgba(20, 12, 8, .7) 45%, rgba(20, 12, 8, .1) 100%); }
+.kit-txt { padding: 26px; width: 100%; }
+.kit h3 { font-size: 28px; font-weight: 800; }
+.kit-grande h3 { font-size: clamp(32px, 3.4vw, 46px); }
+.kit p { margin-top: 8px; max-width: 520px; color: rgba(255, 255, 255, .82); font-size: 15px; }
+.kit ul { margin-top: 12px; display: grid; gap: 3px; font-size: 14.5px; }
+.kit li span { color: rgba(255, 255, 255, .6); font-size: 13px; }
+.kit-pe { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin-top: 18px; }
+.kit-preco { font: 800 28px var(--f-t); }
+.kit-preco small { display: block; font: 500 12.5px var(--f-c); color: rgba(255, 255, 255, .7); }
+
+/* ---------- quem somos ---------- */
+.nos { padding: 100px 0; }
+.nos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.nos-fotos { position: relative; padding: 0 60px 80px 0; }
+.nos-f1 { width: 100%; height: 540px; object-fit: cover; border-radius: 6px; }
+.nos-f2 { position: absolute; right: 0; bottom: 0; width: 52%; height: 300px; object-fit: cover; border-radius: 6px; border: 8px solid var(--branco); box-shadow: 0 30px 50px -30px rgba(42, 26, 18, .7); }
+.nos-txt h2 { font-size: clamp(30px, 3.6vw, 48px); font-weight: 800; letter-spacing: -.03em; }
+.nos-txt > p:not(.apoio) { margin-top: 16px; color: var(--apoio); font-size: 17px; }
+.numeros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 34px 0 0; padding-top: 26px; border-top: 1px solid var(--creme); }
+.numeros dt { font: 800 clamp(28px, 3vw, 40px)/1 var(--f-t); color: var(--tampa); letter-spacing: -.02em; }
+.numeros dd { margin: 6px 0 0; font-size: 14px; color: var(--apoio); }
+
+/* ---------- como pedir ---------- */
+.como { padding: 90px 0; background: var(--papel); }
+.como-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 60px; align-items: center; }
+.como-foto { width: 100%; height: 600px; object-fit: cover; border-radius: 6px; }
+.passos { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.passos li { position: relative; display: grid; grid-template-columns: 44px 1fr; gap: 18px; padding-bottom: 30px; }
+.passos li:not(:last-child)::before { content: ""; position: absolute; left: 21px; top: 50px; bottom: 6px; width: 2px; background: var(--creme); }
+.passos li:nth-child(2) { transition-delay: .15s; } .passos li:nth-child(3) { transition-delay: .3s; }
+.passo-ic { display: grid; place-items: center; width: 44px; height: 44px; color: var(--tampa); }
+.passo-ic svg { width: 30px; height: 30px; }
+.passos li:last-child .passo-ic { color: var(--whats); }
+.passos h3 { font-size: 21px; font-weight: 700; margin-top: 8px; }
+.passos p { margin-top: 6px; color: var(--apoio); font-size: 15.5px; max-width: 460px; }
+.seguro { display: flex; gap: 16px; align-items: flex-start; margin-top: 10px; padding: 20px 22px; background: var(--branco); border-radius: 6px; }
+.seguro > svg { flex: none; width: 34px; height: 34px; color: #157A3E; }
+.seguro b { font: 700 18px var(--f-t); }
+.seguro p { margin-top: 4px; color: var(--apoio); font-size: 14.5px; }
+
+/* ---------- entrega ---------- */
+.entrega { padding: 90px 0; }
+.entrega-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: center; }
+.entrega h2 { font-size: clamp(30px, 3.6vw, 48px); font-weight: 800; letter-spacing: -.03em; }
+.entrega-info > p { margin-top: 14px; color: var(--apoio); font-size: 17px; max-width: 520px; }
+.horarios { width: 100%; max-width: 480px; margin-top: 30px; border-collapse: collapse; font-size: 15px; }
+.horarios caption { text-align: left; font: 700 17px var(--f-t); margin-bottom: 8px; }
+.horarios th, .horarios td { padding: 11px 12px; text-align: left; border-bottom: 1px solid var(--creme); }
+.horarios th { font-weight: 500; }
+.horarios td { text-align: right; font-weight: 700; }
+.horarios tr.hoje { background: var(--papel); }
+.horarios tr.hoje th { font-weight: 700; color: var(--tampa); }
+.entrega-foto { position: relative; padding-bottom: 120px; }
+.entrega-foto > img { width: 100%; height: 440px; object-fit: cover; object-position: 60% 50%; border-radius: 6px; }
+.apps { position: absolute; left: 30px; right: 30px; bottom: 0; padding: 24px; background: #fff; border-radius: 6px; box-shadow: 0 30px 50px -30px rgba(42, 26, 18, .7); }
+.apps h3 { font-size: 21px; font-weight: 700; }
+.apps > p { margin-top: 4px; color: var(--apoio); font-size: 14.5px; }
+.apps-btns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
+.app { display: grid; place-items: center; height: 64px; border-radius: 4px; transition: transform .35s var(--mola), box-shadow .3s; }
+.app:hover { transform: translateY(-3px); box-shadow: 0 14px 24px -16px rgba(42, 26, 18, .7); }
+.app-ifood { background: #fff; border: 1.5px solid var(--creme); }
+.app-ifood img { height: 30px; width: auto; }
+.app-99 { background: #FFD400; color: #1D1D1B; }
+.app-99 b { font: 800 24px var(--f-t); letter-spacing: -.02em; }
+
+/* ---------- dúvidas ---------- */
+.duvidas { padding: 30px 0 100px; }
+.duvidas-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; align-items: start; }
+.duvidas .cab .btn { margin-top: 22px; }
+.faq details { border-bottom: 1px solid var(--creme); }
+.faq summary { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 0; font: 700 18px var(--f-t); cursor: pointer; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary i { flex: none; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--papel); transition: transform .4s var(--mola), background .2s, color .2s; }
+.faq summary i svg { width: 18px; height: 18px; }
+.faq details[open] summary i { transform: rotate(135deg); background: var(--tampa); color: #fff; }
+.faq details p { padding: 0 50px 20px 0; color: var(--apoio); }
+
+/* ---------- rodapé ---------- */
+.rodape { background: var(--breu); color: #EADFD1; padding: 70px 0 30px; }
+.rodape-mapa { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: start; }
+.map-box { position: relative; height: 320px; border-radius: 6px; overflow: hidden; background: var(--papel); box-shadow: 0 30px 60px -36px rgba(0, 0, 0, .9); }
+.map-box img { width: 100%; height: 100%; object-fit: cover; object-position: 68% 50%; transition: transform 1.2s var(--suave); }
+.map-box:hover img { transform: scale(1.06); }
+.map-box .pin { position: absolute; left: 50%; top: 50%; z-index: 2; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: var(--tampa); border: 4px solid #fff; box-shadow: 0 8px 18px -6px rgba(140, 10, 10, .8); }
+.map-box .pin::before { content: ""; position: absolute; inset: -11px; border-radius: 50%; border: 3px solid rgba(215, 38, 30, .55); animation: ping 2.2s ease-out infinite; }
+@keyframes ping { from { transform: scale(.5); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
+.map-box .pin b { position: absolute; left: 26px; top: -5px; white-space: nowrap; font: 800 16px var(--f-t); color: var(--cafe); text-shadow: 0 0 4px #fff, 0 0 4px #fff, 0 0 4px #fff; }
+.map-info { position: absolute; left: 14px; top: 14px; z-index: 3; display: grid; gap: 3px; max-width: 320px; padding: 14px 16px; background: #fff; color: var(--texto); border-radius: 4px; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .5); }
+.map-info b { font: 700 15px var(--f-t); }
+.map-info span { font-size: 12.5px; color: var(--apoio); line-height: 1.35; }
+.mbtns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.mbtns a { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; border-radius: 4px; background: var(--cafe); color: #fff; font-size: 12.5px; font-weight: 700; transition: background .2s; }
+.mbtns a:hover { background: var(--tampa); }
+.mbtns svg { width: 15px; height: 15px; }
+.map-box .attr { position: absolute; right: 6px; bottom: 6px; z-index: 3; padding: 2px 6px; font-size: 10.5px; background: rgba(255, 255, 255, .85); color: #333; border-radius: 2px; }
+.onde h2 { font-size: 28px; color: #fff; font-weight: 700; }
+.onde p { margin: 10px 0 18px; color: rgba(234, 223, 209, .75); font-size: 15px; }
+.rodape .bairros { display: flex; flex-wrap: wrap; gap: 8px; color: #EADFD1; }
+.bairros li { display: inline-flex; align-items: center; height: 38px; padding: 0 12px; border-radius: 4px; background: rgba(255, 255, 255, .07); font-size: 13.5px; font-weight: 600; }
+.rodape-cols { display: grid; grid-template-columns: 1.4fr 1fr 1.2fr 1fr; gap: 30px; margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(255, 255, 255, .1); }
+.rodape .logo { color: #fff; }
+.rodape-marca p { margin-top: 14px; max-width: 280px; font-size: 14.5px; color: rgba(234, 223, 209, .75); }
+.rodape h3 { font: 700 15px var(--f-t); color: #fff; margin-bottom: 14px; }
+.rodape ul { display: grid; gap: 8px; font-size: 14.5px; color: rgba(234, 223, 209, .78); }
+.rodape ul a:hover { color: #fff; }
+.redes { display: flex; gap: 8px; }
+.redes a { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: rgba(255, 255, 255, .08); transition: background .2s, transform .3s var(--mola); }
+.redes a:hover { background: var(--tampa); transform: translateY(-3px); }
+.redes svg { width: 20px; height: 20px; }
+.user { margin-top: 10px; font-size: 14px; }
+.rodape-seguro { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; padding: 8px 12px; border-radius: 4px; background: rgba(255, 255, 255, .07); font-size: 13px; font-weight: 700; }
+.rodape-seguro svg { width: 18px; height: 18px; color: #9BE3B5; }
+.aviso18 { margin-top: 40px; padding: 16px 18px; border-radius: 4px; background: rgba(215, 38, 30, .14); color: #fff; font-size: 14px; font-weight: 600; }
+.aviso18 button { margin-left: 6px; text-decoration: underline; color: rgba(255, 255, 255, .75); font-weight: 500; }
+.rodape-fim { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-top: 26px; font-size: 13px; color: rgba(234, 223, 209, .55); }
+
+/* ---------- flutuantes ---------- */
+.whats-flutua { position: fixed; right: 20px; bottom: 20px; z-index: 50; width: 58px; height: 58px; display: grid; place-items: center; border-radius: 50%; background: var(--whats); color: #fff; box-shadow: 0 14px 28px -12px rgba(10, 80, 40, .8); transition: transform .35s var(--mola), bottom .35s var(--suave); }
+.whats-flutua:hover { transform: scale(1.08) rotate(-6deg); }
+.whats-flutua svg { width: 30px; height: 30px; }
+.barra-carrinho { display: none; }
+
+/* ---------- idade ---------- */
+.idade { position: fixed; inset: 0; z-index: 250; display: grid; place-items: center; padding: 16px; background: rgba(26, 16, 11, .74); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); animation: some-in .4s; }
+.idade[hidden] { display: none; }
+@keyframes some-in { from { opacity: 0; } }
+.idade-caixa { width: min(500px, 100%); overflow: hidden; background: var(--branco); border-radius: 6px; text-align: center; animation: sobe-caixa .6s var(--mola); }
+.idade-foto { width: 100%; height: 190px; object-fit: cover; object-position: 50% 35%; }
+.idade-txt { padding: 26px 28px 30px; }
+@keyframes sobe-caixa { from { transform: translateY(40px) scale(.95); opacity: 0; } }
+.idade h2 { font-size: 23px; font-weight: 700; letter-spacing: -.02em; }
+.idade p { margin-top: 12px; color: var(--apoio); font-size: 15px; }
+.idade-btns { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px; margin-top: 24px; }
+
+/* ---------- carrinho ---------- */
+.veu { position: fixed; inset: 0; z-index: 90; background: rgba(26, 16, 11, .5); opacity: 0; transition: opacity .35s; }
+.veu.on { opacity: 1; }
+.carrinho { position: fixed; top: 0; right: 0; bottom: 0; z-index: 100; display: flex; flex-direction: column; width: min(450px, 100%); background: var(--branco); box-shadow: -30px 0 60px -30px rgba(26, 16, 11, .6); transform: translateX(104%); transition: transform .5s var(--suave); visibility: hidden; }
+.carrinho.aberto { transform: none; visibility: visible; }
+.car-topo { display: flex; justify-content: space-between; align-items: center; padding: 18px 22px; border-bottom: 1px solid var(--creme); }
+.car-topo h2 { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 800; }
+.car-topo h2 svg { width: 26px; height: 26px; color: var(--tampa); }
+.car-fechar { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: var(--papel); transition: transform .4s var(--mola), background .2s; }
+.car-fechar:hover { transform: rotate(90deg); background: var(--creme); }
+.car-fechar svg { width: 20px; height: 20px; }
+.car-corpo { flex: 1; overflow-y: auto; padding: 16px 22px 24px; overscroll-behavior: contain; }
+.frete { padding: 12px 14px; background: var(--papel); border-radius: 4px; font-size: 13.5px; }
+.frete b { color: var(--tampa); }
+.frete.gratis b { color: #157A3E; }
+.frete-barra { height: 6px; margin-top: 8px; background: var(--creme); border-radius: 4px; overflow: hidden; }
+.frete-barra i { display: block; height: 100%; width: 0; background: var(--tampa); border-radius: 4px; transition: width .6s var(--suave), background .3s; }
+.frete.gratis .frete-barra i { background: #1FAF57; }
+.car-itens { margin-top: 10px; }
+.car-itens li { display: grid; grid-template-columns: 52px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--creme); animation: entra .4s var(--suave); }
+.car-itens .mini { display: block; }
+.mini { display: block; width: 52px; height: 52px; border-radius: 4px; overflow: hidden; background: var(--papel); }
+.mini img { width: 100%; height: 100%; object-fit: cover; }
+.mini img.eh-logo { object-fit: contain; padding: 8px; }
+.car-itens b { display: block; font: 700 14.5px/1.2 var(--f-t); }
+.car-itens span { font-size: 13px; color: var(--apoio); }
+.car-itens .qtd { display: inline-flex; height: 38px; }
+.car-itens .qtd button { width: 32px; height: 38px; }
+.car-vazio { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 30px 10px 10px; text-align: center; color: var(--apoio); }
+.car-vazio[hidden] { display: none; }
+.car-vazio img { width: 100%; max-width: 300px; height: 150px; object-fit: cover; border-radius: 6px; }
+.leve { margin-top: 22px; }
+.leve h3, .pedido h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.extra { display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; padding: 8px 0; }
+.extra .mini { width: 44px; height: 44px; }
+.extra b { display: block; font-size: 14px; }
+.extra span { font-size: 12.5px; color: var(--apoio); }
+.extra .add { height: 36px; padding: 0 10px 0 8px; font-size: 13px; }
+.extra .add span { display: none; }
+.extra .qtd { height: 38px; }
+.extra .qtd button { width: 32px; height: 38px; }
+.pedido { margin-top: 24px; display: grid; gap: 14px; }
+.pedido[hidden] { display: none; }
+.campo { display: grid; gap: 6px; }
+.campo[hidden] { display: none; }
+.campo span { font-size: 13px; font-weight: 600; }
+.campo input { height: 48px; padding: 0 14px; border: 1.5px solid var(--creme); border-radius: 4px; background: #fff; outline: 0; font-size: 15px; transition: border-color .2s; }
+.campo input:focus { border-color: var(--cafe); }
+.campo.falta input { border-color: var(--tampa); }
+.opcoes { border: 0; margin: 0; padding: 0; }
+.opcoes legend { padding: 0; margin-bottom: 6px; font-size: 13px; font-weight: 600; }
+.opcoes > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.opcoes label { position: relative; display: flex; }
+.opcoes input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.opcoes label span { display: flex; align-items: center; justify-content: center; width: 100%; height: 44px; padding: 0 14px; border-radius: 4px; background: var(--papel); font-weight: 600; font-size: 14px; transition: background .2s, color .2s; }
+.opcoes input:checked + span { background: var(--cafe); color: #fff; }
+.opcoes input:focus-visible + span { outline: 3px solid var(--tampa); outline-offset: 2px; }
+.erro { min-height: 0; color: var(--tampa); font-size: 13.5px; font-weight: 600; }
+.car-pe { padding: 16px 22px 20px; border-top: 1px solid var(--creme); background: var(--branco); }
+.contas { margin: 0 0 14px; display: grid; gap: 4px; font-size: 14.5px; }
+.contas div { display: flex; justify-content: space-between; }
+.contas dt { color: var(--apoio); }
+.contas dd { margin: 0; font-weight: 600; }
+.contas .total { margin-top: 4px; font: 800 20px var(--f-t); }
+.contas .total dt { color: var(--cafe); }
+.btn-enviar { width: 100%; }
+.btn-enviar:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+.car-seguro { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 10px; font-size: 12.5px; color: var(--apoio); }
+.car-seguro svg { width: 16px; height: 16px; color: #157A3E; }
+body.travado { overflow: hidden; }
+
+/* ---------- responsivo ---------- */
+@media (max-width: 1120px) {
+  .nav-whats span { display: none; }
+  .capa-grid { grid-template-columns: 1fr; }
+  .atende { max-width: 460px; }
+}
+@media (max-width: 980px) {
+  .menu { position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; gap: 0; padding: 10px 16px 18px; background: var(--branco); border-bottom: 1px solid var(--creme); box-shadow: 0 20px 30px -20px rgba(42, 26, 18, .5); transform: translateY(-8px); opacity: 0; visibility: hidden; transition: opacity .25s, transform .25s, visibility .25s; }
+  .menu.aberto { opacity: 1; transform: none; visibility: visible; }
+  .menu a { padding: 14px 10px; font-size: 17px; border-bottom: 1px solid var(--papel); }
+  .nav .wrap { position: relative; gap: 12px; }
+  .nav-whats { margin-left: auto; }
+  .burger { display: flex; }
+  .promessas ul { grid-template-columns: 1fr 1fr; gap: 26px 0; }
+  .promessas li:nth-child(3) { border-left: 0; padding-left: 0; }
+  .cats { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
+  .cats li:nth-child(6), .cats li:nth-child(7) { grid-column: auto; }
+  .cats li:first-child { grid-row: span 1; }
+  .kits-grade { grid-template-columns: 1fr; }
+  .kit-grande { grid-row: auto; min-height: 460px; }
+  .nos-grid, .como-grid, .entrega-grid, .duvidas-grid, .rodape-mapa { grid-template-columns: 1fr; gap: 40px; }
+  .como-foto { height: 380px; }
+  .rodape-cols { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .wrap { padding: 0 16px; }
+  .barra-sup .wrap > span:first-child { display: none; }
+  .barra-sup .wrap { justify-content: center; }
+  .nav .wrap { height: 64px; }
+  .logo-svg { height: 38px; }
+  .carrinho-btn span { display: none; }
+  .carrinho-btn { padding: 0 12px; }
+  .capa { min-height: 0; padding: 260px 0 34px; }
+  .capa::before { background: linear-gradient(0deg, rgba(26, 16, 11, .96) 0%, rgba(26, 16, 11, .82) 55%, rgba(26, 16, 11, .2) 100%); }
+  .capa-foto { height: 62%; object-position: 50% 30%; }
+  .capa-sub { font-size: 16.5px; }
+  .capa-btns { display: grid; grid-auto-flow: row; width: 100%; }
+  .capa-selos { gap: 10px 18px; font-size: 13.5px; }
+  .atende { grid-template-columns: 70px 1fr; }
+  .atende img { width: 70px; height: 70px; }
+  .marcas { padding: 34px 0 30px; }
+  .logo-marca { width: 132px; height: 72px; padding: 12px 14px; }
+  .logo-marca img { max-height: 40px; }
+  .promessas { padding: 40px 0 10px; }
+  .promessas ul { grid-template-columns: 1fr; gap: 20px; }
+  .promessas li { border-left: 0; padding: 0; }
+  .categorias { padding: 50px 0 60px; }
+  .cats { gap: 10px; grid-auto-rows: 150px; }
+  .cats li:first-child { grid-column: span 2; grid-row: span 1; }
+  .sem-alcool .cats { grid-auto-rows: 160px; }
+  .cat-txt { left: 14px; bottom: 12px; right: 12px; }
+  .cat-txt b { font-size: 18px; }
+  .cat-grande .cat-txt b { font-size: 26px; }
+  .cat-ir { display: none; }
+  .cab-linha { align-items: flex-start; flex-direction: column; }
+  .carrossel { grid-auto-columns: 70%; margin: 0 -16px; padding: 6px 16px 22px; scroll-padding: 0 16px; }
+  .destaques, .catalogo, .kits, .nos, .como, .entrega { padding: 64px 0; }
+  .chips { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
+  .chips > * { width: auto; }
+  .busca { width: 100%; }
+  .grade { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .prod-info { padding: 10px 10px 0; }
+  .prod-info h3 { font-size: 14.5px; }
+  .prod-vol, .prod-nota { font-size: 12.5px; }
+  .prod-pe { flex-direction: column; align-items: stretch; gap: 10px; padding: 10px; }
+  .preco { font-size: 20px; }
+  .compra { justify-content: stretch; }
+  .add, .qtd { width: 100%; justify-content: center; }
+  .qtd { justify-content: space-between; }
+  .kit-txt { padding: 20px; }
+  .kit h3 { font-size: 24px; }
+  .nos-fotos { padding: 0 30px 60px 0; }
+  .nos-f1 { height: 380px; }
+  .nos-f2 { height: 200px; width: 56%; border-width: 6px; }
+  .numeros { gap: 10px; }
+  .numeros dd { font-size: 12.5px; }
+  .como-foto { height: 300px; }
+  .entrega-foto { padding-bottom: 0; }
+  .entrega-foto > img { height: 260px; }
+  .apps { position: relative; left: auto; right: auto; bottom: auto; z-index: 1; margin-top: -40px; margin-inline: 12px; padding: 20px; }
+  .faq summary { font-size: 16.5px; }
+  .faq details p { padding-right: 0; }
+  .map-box { height: 300px; }
+  .map-info { left: 10px; top: 10px; right: 10px; max-width: none; }
+  .rodape .bairros { display: grid; grid-template-columns: 1fr 1fr; }
+  .rodape .bairros > * { width: auto; }
+  .rodape-cols { grid-template-columns: 1fr; }
+  .idade-foto { height: 140px; }
+  .barra-carrinho:not([hidden]) { display: block; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 55; animation: sobe-caixa .5s var(--mola); }
+  .barra-carrinho button { display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 10px; width: 100%; height: 58px; padding: 0 16px; border-radius: 6px; background: var(--cafe); color: #fff; box-shadow: 0 18px 30px -14px rgba(26, 16, 11, .8); text-align: left; font-size: 14px; }
+  .barra-carrinho svg { width: 24px; height: 24px; color: #fff; }
+  .barra-carrinho strong { font: 800 17px var(--f-t); }
+  .barra-carrinho em { font-style: normal; font-weight: 700; padding: 8px 10px; border-radius: 4px; background: var(--tampa); }
+  body.tem-itens .whats-flutua { bottom: 84px; }
+  .whats-flutua { width: 54px; height: 54px; right: 14px; bottom: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .js .revela { opacity: 1; transform: none; }
+}
+
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LiquorStore","name":"Tampinha Bebidas & Conveniência","telephone":"(31) 3333-0000","email":"pedidos@tampinhabebidas.com.br","address":{"@type":"PostalAddress","streetAddress":"Rua Pouso Alegre, 1200","addressLocality":"Belo Horizonte","addressRegion":"MG","addressCountry":"BR"},"openingHours":["Mo-Th 10:00-23:00","Fr-Sa 10:00-01:00","Su 10:00-22:00"]}</script>
+</head>
+<body>
+<a class="pular" href="#catalogo">Pular para as bebidas</a>
+
+<div class="idade" id="idade" role="dialog" aria-modal="true" aria-labelledby="idade-t" hidden>
+  <div class="idade-caixa">
+    <img class="idade-foto" src="assets/img/brinde.webp" alt="" width="1400" height="933">
+    <div class="idade-txt">
+      <h2 id="idade-t">Antes de entrar: você tem 18 anos ou mais?</h2>
+      <p>Vendemos bebida alcoólica só para maiores de idade. Se ainda não tiver 18, mostramos apenas refrigerante, água, chá, suco e energético.</p>
+      <div class="idade-btns"><button type="button" class="btn btn-tampa" data-idade="sim">Tenho 18 ou mais</button><button type="button" class="btn btn-linha" data-idade="nao">Ainda não tenho</button></div>
+    </div>
+  </div>
+</div>
+
+<header class="topo" id="topo">
+  <div class="barra-sup">
+    <div class="wrap">
+      <span>Entrega grátis a partir de R$ 99,00 na Floresta e região</span>
+      <span class="status" data-status>Entregas das 10h às 23h</span>
+    </div>
+  </div>
+  <div class="nav">
+    <div class="wrap">
+      <a class="logo" href="#inicio" aria-label="Tampinha Bebidas & Conveniência, voltar ao início"><svg class="logo-svg" viewBox="0 0 214 48" role="img" aria-label="Tampinha Bebidas e Conveniência"><polygon points="24.00,1.00 27.01,4.03 30.78,2.02 32.76,5.80 36.96,5.00 37.74,9.19 41.98,9.66 41.49,13.90 45.41,15.60 43.69,19.51 46.94,22.28 44.14,25.51 46.42,29.12 42.80,31.38 43.92,35.50 39.79,36.59 39.64,40.86 35.38,40.69 33.98,44.72 29.95,43.30 27.43,46.74 24.00,44.20 20.57,46.74 18.05,43.30 14.02,44.72 12.62,40.69 8.36,40.86 8.21,36.59 4.08,35.50 5.20,31.38 1.58,29.12 3.86,25.51 1.06,22.28 4.31,19.51 2.59,15.60 6.51,13.90 6.02,9.66 10.26,9.19 11.04,5.00 15.24,5.80 17.22,2.02 20.99,4.03" fill="#D7261E"/><circle cx="24" cy="24" r="17" fill="#B81C15"/><circle cx="24" cy="24" r="14.5" fill="#D7261E"/>
+<path d="M13.5 17 A12 12 0 0 1 21 12.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".45"/><path d="M23 14.5 V28 Q23 33 28 33 H30 M17.5 20 H29" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="56" y="27" class="logo-nome" font-size="27" fill="currentColor">tampinha</text>
+<text x="57" y="42" class="logo-sub" font-size="9.4" fill="currentColor" letter-spacing="1.6">BEBIDAS &amp; CONVENIÊNCIA</text></svg></a>
+      <nav class="menu" id="menu" aria-label="Principal">
+        <a href="#categorias">Categorias</a>
+        <a href="#catalogo">Bebidas</a>
+        <a href="#kits">Kits</a>
+        <a href="#nos">Quem somos</a>
+        <a href="#entrega">Entrega</a>
+      </nav>
+      <a class="nav-whats" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tampinha!" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.2-.2-.5-.3Z"/></svg><span>(31) 99999-0000</span></a>
+      <button class="carrinho-btn" type="button" data-abrir-carrinho aria-label="Abrir carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 H21 L19.6 20 H4.4 Z"/><path d="M8 9 V20 M12 9 V20 M16 9 V20"/><path d="M7 9 V5.5 M12 9 V3.5 M17 9 V5.5"/></svg><b data-conta>0</b><span data-total-nav>R$ 0,00</span></button>
+      <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="capa" id="inicio">
+    <img class="capa-foto" src="assets/img/capa.webp" alt="Amigos brindando com cerveja num bar" width="2000" height="1333" fetchpriority="high">
+    <div class="wrap capa-grid">
+      <div class="capa-txt">
+        <p class="apoio revela">Adega e conveniência na Floresta, BH</p>
+        <h1 class="revela">A cerveja gelada chega antes da <em>turma.</em></h1>
+        <p class="capa-sub revela">Cerveja, refri, energético, destilado e gelo com preço de distribuidora. Monte o carrinho aqui e o pedido chega pronto no nosso WhatsApp.</p>
+        <div class="capa-btns revela"><a class="btn btn-tampa" href="#catalogo"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 H21 L19.6 20 H4.4 Z"/><path d="M8 9 V20 M12 9 V20 M16 9 V20"/><path d="M7 9 V5.5 M12 9 V3.5 M17 9 V5.5"/></svg>Montar meu pedido</a><a class="btn btn-claro" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tampinha!%20Quero%20fazer%20um%20pedido." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.2-.2-.5-.3Z"/></svg>Chamar no WhatsApp</a></div>
+        <ul class="capa-selos revela">
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2"/><path d="M8 10.5 V7.5 A4 4 0 0 1 16 7.5 V10.5"/><path d="M12 14.5 V17"/></svg><span>Site 100% seguro</span></li>
+          <li><img src="assets/logos/ifood.svg" alt="iFood" class="selo-ifood"><span>e 99Food</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17" r="3"/><circle cx="18.5" cy="17" r="3"/><path d="M5.5 17 H11 L14 11 H18 L18.5 17"/><path d="M9 11 H13"/><path d="M16 11 L15 7 H12.5"/><rect x="2.5" y="7" width="6" height="5" rx="1"/></svg><span>Entrega em 30 a 45 min</span></li>
+        </ul>
+      </div>
+      <aside class="atende revela" aria-label="Atendimento">
+        <img src="assets/img/balcao.webp" alt="Toninho, atendente da Tampinha, no balcão da adega" width="1400" height="933">
+        <div>
+          <b>Toninho, do balcão</b>
+          <p>"Mandou o pedido, eu confiro e já separo da câmara fria. Em poucos minutos te respondo."</p>
+          <span class="online" data-online>Respondendo agora no WhatsApp</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="marcas" aria-labelledby="marcas-t">
+    <div class="wrap marcas-cab"><h2 id="marcas-t">As marcas que você já conhece</h2><p>Toque num logo para ver o que temos da marca.</p></div>
+    <div class="esteira"><div class="esteira-trilho"><button type="button" class="logo-marca" data-marca="Coca-Cola" aria-label="Ver bebidas Coca-Cola"><img src="assets/logos/coca-cola.svg" alt="Coca-Cola" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Heineken" aria-label="Ver bebidas Heineken"><img src="assets/logos/heineken.svg" alt="Heineken" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Skol" aria-label="Ver bebidas Skol"><img src="assets/logos/skol.svg" alt="Skol" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Fanta" aria-label="Ver bebidas Fanta"><img src="assets/logos/fanta.svg" alt="Fanta" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Brahma" aria-label="Ver bebidas Brahma"><img src="assets/logos/brahma.svg" alt="Brahma" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Schweppes" aria-label="Ver bebidas Schweppes"><img src="assets/logos/schweppes.svg" alt="Schweppes" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Sprite" aria-label="Ver bebidas Sprite"><img src="assets/logos/sprite.svg" alt="Sprite" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Corona" aria-label="Ver bebidas Corona"><img src="assets/logos/corona.svg" alt="Corona" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Guaraná Antarctica" aria-label="Ver bebidas Guaraná Antarctica"><img src="assets/logos/guarana.svg" alt="Guaraná Antarctica" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Red Bull" aria-label="Ver bebidas Red Bull"><img src="assets/logos/redbull.svg" alt="Red Bull" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Monster" aria-label="Ver bebidas Monster"><img src="assets/logos/monster.png" alt="Monster" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Budweiser" aria-label="Ver bebidas Budweiser"><img src="assets/logos/budweiser.svg" alt="Budweiser" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Stella Artois" aria-label="Ver bebidas Stella Artois"><img src="assets/logos/stella.png" alt="Stella Artois" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Del Valle" aria-label="Ver bebidas Del Valle"><img src="assets/logos/del-valle.png" alt="Del Valle" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Ades" aria-label="Ver bebidas Ades"><img src="assets/logos/ades.svg" alt="Ades" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Absolut" aria-label="Ver bebidas Absolut"><img src="assets/logos/absolut.png" alt="Absolut" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Johnnie Walker" aria-label="Ver bebidas Johnnie Walker"><img src="assets/logos/johnnie-walker.svg" alt="Johnnie Walker" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Tanqueray" aria-label="Ver bebidas Tanqueray"><img src="assets/logos/tanqueray.png" alt="Tanqueray" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Aperol" aria-label="Ver bebidas Aperol"><img src="assets/logos/aperol.svg" alt="Aperol" loading="lazy"></button><button type="button" class="logo-marca" data-marca="Campari" aria-label="Ver bebidas Campari"><img src="assets/logos/campari.svg" alt="Campari" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Coca-Cola" aria-label="Ver bebidas Coca-Cola"><img src="assets/logos/coca-cola.svg" alt="Coca-Cola" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Heineken" aria-label="Ver bebidas Heineken"><img src="assets/logos/heineken.svg" alt="Heineken" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Skol" aria-label="Ver bebidas Skol"><img src="assets/logos/skol.svg" alt="Skol" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Fanta" aria-label="Ver bebidas Fanta"><img src="assets/logos/fanta.svg" alt="Fanta" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Brahma" aria-label="Ver bebidas Brahma"><img src="assets/logos/brahma.svg" alt="Brahma" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Schweppes" aria-label="Ver bebidas Schweppes"><img src="assets/logos/schweppes.svg" alt="Schweppes" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Sprite" aria-label="Ver bebidas Sprite"><img src="assets/logos/sprite.svg" alt="Sprite" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Corona" aria-label="Ver bebidas Corona"><img src="assets/logos/corona.svg" alt="Corona" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Guaraná Antarctica" aria-label="Ver bebidas Guaraná Antarctica"><img src="assets/logos/guarana.svg" alt="Guaraná Antarctica" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Red Bull" aria-label="Ver bebidas Red Bull"><img src="assets/logos/redbull.svg" alt="Red Bull" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Monster" aria-label="Ver bebidas Monster"><img src="assets/logos/monster.png" alt="Monster" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Budweiser" aria-label="Ver bebidas Budweiser"><img src="assets/logos/budweiser.svg" alt="Budweiser" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Stella Artois" aria-label="Ver bebidas Stella Artois"><img src="assets/logos/stella.png" alt="Stella Artois" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Del Valle" aria-label="Ver bebidas Del Valle"><img src="assets/logos/del-valle.png" alt="Del Valle" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Ades" aria-label="Ver bebidas Ades"><img src="assets/logos/ades.svg" alt="Ades" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Absolut" aria-label="Ver bebidas Absolut"><img src="assets/logos/absolut.png" alt="Absolut" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Johnnie Walker" aria-label="Ver bebidas Johnnie Walker"><img src="assets/logos/johnnie-walker.svg" alt="Johnnie Walker" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Tanqueray" aria-label="Ver bebidas Tanqueray"><img src="assets/logos/tanqueray.png" alt="Tanqueray" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Aperol" aria-label="Ver bebidas Aperol"><img src="assets/logos/aperol.svg" alt="Aperol" loading="lazy"></button><button tabindex="-1" aria-hidden="true" type="button" class="logo-marca" data-marca="Campari" aria-label="Ver bebidas Campari"><img src="assets/logos/campari.svg" alt="Campari" loading="lazy"></button></div></div>
+  </section>
+
+  <section class="promessas" aria-label="Por que pedir na Tampinha">
+    <ul class="wrap"><li class="revela"><span class="prom-ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17" r="3"/><circle cx="18.5" cy="17" r="3"/><path d="M5.5 17 H11 L14 11 H18 L18.5 17"/><path d="M9 11 H13"/><path d="M16 11 L15 7 H12.5"/><rect x="2.5" y="7" width="6" height="5" rx="1"/></svg></span><div><b>Entrega em 30 a 45 min</b><p>A bebida sai da câmara fria direto para a sua porta.</p></div></li><li class="revela"><span class="prom-ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 8 H19.5 L18.4 21 H5.6 Z"/><path d="M8.5 10.5 V6.5 A3.5 3.5 0 0 1 15.5 6.5 V10.5"/></svg></span><div><b>No iFood e no 99Food</b><p>Prefere aplicativo? Estamos nos dois, com o mesmo estoque.</p></div></li><li class="revela"><span class="prom-ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2"/><path d="M8 10.5 V7.5 A4 4 0 0 1 16 7.5 V10.5"/><path d="M12 14.5 V17"/></svg></span><div><b>Site 100% seguro</b><p>Conexão protegida. Aqui você não digita cartão nem senha.</p></div></li><li class="revela"><span class="prom-ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5 H20 V16 H11 L6.5 20 V16 H4 Z"/><path d="M8 10.5 H16"/></svg></span><div><b>Atendimento no WhatsApp</b><p>Gente de verdade do outro lado, do pedido até a entrega.</p></div></li></ul>
+  </section>
+
+  <section class="categorias" id="categorias">
+    <div class="wrap">
+      <div class="cab revela">
+        <h2>O que vai gelar hoje?</h2>
+        <p>Escolha uma categoria e a gente separa as bebidas para você.</p>
+      </div>
+      <ul class="cats">
+        <li class="revela" data-alc><button type="button" class="cat cat-grande" data-filtro="cerveja">
+          <img src="assets/img/chopp.webp" alt="Amigos brindando com copos de cerveja" loading="lazy">
+          <span class="cat-txt"><b>Cervejas</b><small>9 opções</small></span>
+          <span class="cat-ir" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 H19 M13.5 6.5 L19 12 L13.5 17.5"/></svg></span>
+        </button></li>
+        <li class="revela"><button type="button" class="cat" data-filtro="refri">
+          <img src="assets/img/latas-gelo.webp" alt="Latas de Coca-Cola geladas no gelo" loading="lazy">
+          <span class="cat-txt"><b>Refrigerantes</b><small>6 opções</small></span>
+          <span class="cat-ir" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 H19 M13.5 6.5 L19 12 L13.5 17.5"/></svg></span>
+        </button></li>
+        <li class="revela"><button type="button" class="cat" data-filtro="energetico">
+          <img src="assets/img/monster.webp" alt="Latas de energético Monster em fila" loading="lazy">
+          <span class="cat-txt"><b>Energéticos</b><small>3 opções</small></span>
+          <span class="cat-ir" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 H19 M13.5 6.5 L19 12 L13.5 17.5"/></svg></span>
+        </button></li>
+        <li class="revela" data-alc><button type="button" class="cat" data-filtro="destilado">
+          <img src="assets/img/red-label.webp" alt="Garrafa de Johnnie Walker Red Label com uvas" loading="lazy">
+          <span class="cat-txt"><b>Destilados</b><small>5 opções</small></span>
+          <span class="cat-ir" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 H19 M13.5 6.5 L19 12 L13.5 17.5"/></svg></span>
+        </button></li>
+        <li class="revela" data-alc><button type="button" class="cat" data-filtro="drink">
+          <img src="assets/img/aperol.webp" alt="Taça de Aperol Spritz com gelo e laranja" loading="lazy">
+          <span class="cat-txt"><b>Drinks</b><small>2 opções</small></span>
+          <span class="cat-ir" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 H19 M13.5 6.5 L19 12 L13.5 17.5"/></svg></span>
+        </button></li>
+        <li class="revela"><button type="button" class="cat" data-filtro="cha">
+          <img src="assets/img/matte-15.webp" alt="Garrafas de Matte Leão" loading="lazy">
+          <span class="cat-txt"><b>Chás e sucos</b><small>4 opções</small></span>
+          <span class="cat-ir" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 H19 M13.5 6.5 L19 12 L13.5 17.5"/></svg></span>
+        </button></li>
+        <li class="revela"><button type="button" class="cat" data-filtro="agua">
+          <img src="assets/img/agua.webp" alt="Garrafa de água mineral" loading="lazy">
+          <span class="cat-txt"><b>Água e gelo</b><small>3 opções</small></span>
+          <span class="cat-ir" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 H19 M13.5 6.5 L19 12 L13.5 17.5"/></svg></span>
+        </button></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="destaques" id="destaques">
+    <div class="wrap">
+      <div class="cab cab-linha revela">
+        <div><h2>Os que mais saem do freezer</h2><p>Os pedidos campeões da semana, já gelados.</p></div>
+        <div class="setas"><button type="button" data-rolar="-1" aria-label="Voltar"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 L8 12 L15 19"/></svg></button><button type="button" data-rolar="1" aria-label="Avançar"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5 L16 12 L9 19"/></svg></button></div>
+      </div>
+      <div class="carrossel" data-carrossel tabindex="0" aria-label="Bebidas mais pedidas">
+        <article class="prod prod-carr" data-id="heineken-ln" data-cat="cerveja" data-busca="heineken long neck heineken 330ml cervejas" data-alc>
+          <div class="prod-foto"><img src="assets/img/heineken-ln.webp" alt="Heineken Long Neck 330ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Heineken</span><h3>Heineken Long Neck</h3><span class="prod-vol">330ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>6<i>,49</i></span><div class="compra " data-compra="heineken-ln">
+            <button class="add" type="button" data-add="heineken-ln" aria-label="Adicionar Heineken Long Neck 330ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Heineken Long Neck"><button type="button" data-menos="heineken-ln" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="heineken-ln">0</output><button type="button" data-mais="heineken-ln" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod prod-carr" data-id="coca-lata" data-cat="refri" data-busca="coca-cola lata coca-cola 350ml refrigerantes">
+          <div class="prod-foto"><img src="assets/img/coca-lata.webp" alt="Coca-Cola Lata 350ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Coca-Cola</span><h3>Coca-Cola Lata</h3><span class="prod-vol">350ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>4<i>,49</i></span><div class="compra " data-compra="coca-lata">
+            <button class="add" type="button" data-add="coca-lata" aria-label="Adicionar Coca-Cola Lata 350ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Coca-Cola Lata"><button type="button" data-menos="coca-lata" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="coca-lata">0</output><button type="button" data-mais="coca-lata" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod prod-carr" data-id="brahma-engradado" data-cat="cerveja" data-busca="brahma duplo malte, engradado brahma 24 garrafas de 600ml cervejas" data-alc>
+          <div class="prod-foto"><img src="assets/img/brahma-engradado.webp" alt="Brahma Duplo Malte, engradado 24 garrafas de 600ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Brahma</span><h3>Brahma Duplo Malte, engradado</h3><span class="prod-vol">24 garrafas de 600ml</span><span class="prod-nota">Retornável: troque os cascos na entrega</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>179<i>,90</i></span><div class="compra " data-compra="brahma-engradado">
+            <button class="add" type="button" data-add="brahma-engradado" aria-label="Adicionar Brahma Duplo Malte, engradado 24 garrafas de 600ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Brahma Duplo Malte, engradado"><button type="button" data-menos="brahma-engradado" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="brahma-engradado">0</output><button type="button" data-mais="brahma-engradado" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod prod-carr" data-id="redbull" data-cat="energetico" data-busca="red bull energy drink red bull 250ml energeticos">
+          <div class="prod-foto"><img src="assets/img/redbull.webp" alt="Red Bull Energy Drink 250ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Red Bull</span><h3>Red Bull Energy Drink</h3><span class="prod-vol">250ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>8<i>,99</i></span><div class="compra " data-compra="redbull">
+            <button class="add" type="button" data-add="redbull" aria-label="Adicionar Red Bull Energy Drink 250ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Red Bull Energy Drink"><button type="button" data-menos="redbull" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="redbull">0</output><button type="button" data-mais="redbull" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod prod-carr" data-id="smirnoff" data-cat="destilado" data-busca="vodka smirnoff smirnoff 998ml destilados" data-alc>
+          <div class="prod-foto"><img src="assets/img/smirnoff.webp" alt="Vodka Smirnoff 998ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Smirnoff</span><h3>Vodka Smirnoff</h3><span class="prod-vol">998ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>37<i>,60</i></span><div class="compra " data-compra="smirnoff">
+            <button class="add" type="button" data-add="smirnoff" aria-label="Adicionar Vodka Smirnoff 998ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Vodka Smirnoff"><button type="button" data-menos="smirnoff" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="smirnoff">0</output><button type="button" data-mais="smirnoff" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod prod-carr" data-id="schweppes" data-cat="refri" data-busca="schweppes tonica lata schweppes 350ml refrigerantes">
+          <div class="prod-foto"><img src="assets/img/schweppes.webp" alt="Schweppes Tônica Lata 350ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Schweppes</span><h3>Schweppes Tônica Lata</h3><span class="prod-vol">350ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>4<i>,29</i></span><div class="compra " data-compra="schweppes">
+            <button class="add" type="button" data-add="schweppes" aria-label="Adicionar Schweppes Tônica Lata 350ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Schweppes Tônica Lata"><button type="button" data-menos="schweppes" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="schweppes">0</output><button type="button" data-mais="schweppes" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod prod-carr" data-id="corona" data-cat="cerveja" data-busca="corona extra long neck corona 330ml cervejas" data-alc>
+          <div class="prod-foto"><img src="assets/img/corona.webp" alt="Corona Extra Long Neck 330ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Corona</span><h3>Corona Extra Long Neck</h3><span class="prod-vol">330ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>6<i>,99</i></span><div class="compra " data-compra="corona">
+            <button class="add" type="button" data-add="corona" aria-label="Adicionar Corona Extra Long Neck 330ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Corona Extra Long Neck"><button type="button" data-menos="corona" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="corona">0</output><button type="button" data-mais="corona" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod prod-carr" data-id="matte-15" data-cat="cha" data-busca="matte leao natural leao garrafa 1,5l chas e sucos">
+          <div class="prod-foto"><img src="assets/img/matte-15.webp" alt="Matte Leão Natural garrafa 1,5L" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Leão</span><h3>Matte Leão Natural</h3><span class="prod-vol">garrafa 1,5L</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>7<i>,99</i></span><div class="compra " data-compra="matte-15">
+            <button class="add" type="button" data-add="matte-15" aria-label="Adicionar Matte Leão Natural garrafa 1,5L ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Matte Leão Natural"><button type="button" data-menos="matte-15" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="matte-15">0</output><button type="button" data-mais="matte-15" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod prod-carr" data-id="aperol" data-cat="drink" data-busca="aperol, para o seu spritz aperol 750ml drinks" data-alc>
+          <div class="prod-foto"><img src="assets/img/aperol.webp" alt="Aperol, para o seu spritz 750ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Aperol</span><h3>Aperol, para o seu spritz</h3><span class="prod-vol">750ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>52<i>,50</i></span><div class="compra " data-compra="aperol">
+            <button class="add" type="button" data-add="aperol" aria-label="Adicionar Aperol, para o seu spritz 750ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Aperol, para o seu spritz"><button type="button" data-menos="aperol" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="aperol">0</output><button type="button" data-mais="aperol" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod prod-carr" data-id="guarana" data-cat="refri" data-busca="guarana antarctica lata guarana antarctica 350ml refrigerantes">
+          <div class="prod-foto"><img src="assets/img/guarana.webp" alt="Guaraná Antarctica Lata 350ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Guaraná Antarctica</span><h3>Guaraná Antarctica Lata</h3><span class="prod-vol">350ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>3<i>,79</i></span><div class="compra " data-compra="guarana">
+            <button class="add" type="button" data-add="guarana" aria-label="Adicionar Guaraná Antarctica Lata 350ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Guaraná Antarctica Lata"><button type="button" data-menos="guarana" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="guarana">0</output><button type="button" data-mais="guarana" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod prod-carr" data-id="monster" data-cat="energetico" data-busca="monster ultra sunrise monster 473ml energeticos">
+          <div class="prod-foto"><img src="assets/img/monster.webp" alt="Monster Ultra Sunrise 473ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Monster</span><h3>Monster Ultra Sunrise</h3><span class="prod-vol">473ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>9<i>,38</i></span><div class="compra " data-compra="monster">
+            <button class="add" type="button" data-add="monster" aria-label="Adicionar Monster Ultra Sunrise 473ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Monster Ultra Sunrise"><button type="button" data-menos="monster" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="monster">0</output><button type="button" data-mais="monster" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod prod-carr" data-id="gelo" data-cat="agua" data-busca="gelo em cubos gelo saco 5kg agua e gelo">
+          <div class="prod-foto"><img src="assets/img/gelo.webp" alt="Gelo em Cubos saco 5kg" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Gelo</span><h3>Gelo em Cubos</h3><span class="prod-vol">saco 5kg</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>12<i>,90</i></span><div class="compra " data-compra="gelo">
+            <button class="add" type="button" data-add="gelo" aria-label="Adicionar Gelo em Cubos saco 5kg ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Gelo em Cubos"><button type="button" data-menos="gelo" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="gelo">0</output><button type="button" data-mais="gelo" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+      </div>
+      <div class="progresso" aria-hidden="true"><i data-progresso></i></div>
+    </div>
+  </section>
+
+  <section class="catalogo" id="catalogo">
+    <div class="wrap">
+      <div class="cab revela">
+        <h2>Tudo o que tem na câmara fria</h2>
+        <p>Filtre por categoria ou procure pela marca. Os preços valem para pedidos pelo site e pelo WhatsApp.</p>
+      </div>
+      <div class="filtros">
+        <div class="chips" data-iguais role="group" aria-label="Categorias"><button type="button" class="chip on" data-chip="tudo" aria-pressed="true">Tudo</button><button type="button" class="chip" data-chip="cerveja" aria-pressed="false" data-alc>Cervejas</button><button type="button" class="chip" data-chip="refri" aria-pressed="false">Refrigerantes</button><button type="button" class="chip" data-chip="energetico" aria-pressed="false">Energéticos</button><button type="button" class="chip" data-chip="destilado" aria-pressed="false" data-alc>Destilados</button><button type="button" class="chip" data-chip="drink" aria-pressed="false" data-alc>Drinks</button><button type="button" class="chip" data-chip="cha" aria-pressed="false">Chás e sucos</button><button type="button" class="chip" data-chip="agua" aria-pressed="false">Água e gelo</button></div>
+        <label class="busca"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15 L20 20"/></svg><input type="search" placeholder="Procurar bebida ou marca" aria-label="Procurar bebida ou marca" data-busca-input><button type="button" data-limpar aria-label="Limpar busca" hidden><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6 L18 18 M18 6 L6 18"/></svg></button></label>
+      </div>
+      <p class="achados" data-achados aria-live="polite"></p>
+      <div class="grade" data-grade>
+        <article class="prod " data-id="heineken-ln" data-cat="cerveja" data-busca="heineken long neck heineken 330ml cervejas" data-alc>
+          <div class="prod-foto"><img src="assets/img/heineken-ln.webp" alt="Heineken Long Neck 330ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Heineken</span><h3>Heineken Long Neck</h3><span class="prod-vol">330ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>6<i>,49</i></span><div class="compra " data-compra="heineken-ln">
+            <button class="add" type="button" data-add="heineken-ln" aria-label="Adicionar Heineken Long Neck 330ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Heineken Long Neck"><button type="button" data-menos="heineken-ln" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="heineken-ln">0</output><button type="button" data-mais="heineken-ln" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="coca-lata" data-cat="refri" data-busca="coca-cola lata coca-cola 350ml refrigerantes">
+          <div class="prod-foto"><img src="assets/img/coca-lata.webp" alt="Coca-Cola Lata 350ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Coca-Cola</span><h3>Coca-Cola Lata</h3><span class="prod-vol">350ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>4<i>,49</i></span><div class="compra " data-compra="coca-lata">
+            <button class="add" type="button" data-add="coca-lata" aria-label="Adicionar Coca-Cola Lata 350ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Coca-Cola Lata"><button type="button" data-menos="coca-lata" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="coca-lata">0</output><button type="button" data-mais="coca-lata" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="redbull" data-cat="energetico" data-busca="red bull energy drink red bull 250ml energeticos">
+          <div class="prod-foto"><img src="assets/img/redbull.webp" alt="Red Bull Energy Drink 250ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Red Bull</span><h3>Red Bull Energy Drink</h3><span class="prod-vol">250ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>8<i>,99</i></span><div class="compra " data-compra="redbull">
+            <button class="add" type="button" data-add="redbull" aria-label="Adicionar Red Bull Energy Drink 250ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Red Bull Energy Drink"><button type="button" data-menos="redbull" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="redbull">0</output><button type="button" data-mais="redbull" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="smirnoff" data-cat="destilado" data-busca="vodka smirnoff smirnoff 998ml destilados" data-alc>
+          <div class="prod-foto"><img src="assets/img/smirnoff.webp" alt="Vodka Smirnoff 998ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Smirnoff</span><h3>Vodka Smirnoff</h3><span class="prod-vol">998ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>37<i>,60</i></span><div class="compra " data-compra="smirnoff">
+            <button class="add" type="button" data-add="smirnoff" aria-label="Adicionar Vodka Smirnoff 998ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Vodka Smirnoff"><button type="button" data-menos="smirnoff" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="smirnoff">0</output><button type="button" data-mais="smirnoff" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="aperol" data-cat="drink" data-busca="aperol, para o seu spritz aperol 750ml drinks" data-alc>
+          <div class="prod-foto"><img src="assets/img/aperol.webp" alt="Aperol, para o seu spritz 750ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Aperol</span><h3>Aperol, para o seu spritz</h3><span class="prod-vol">750ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>52<i>,50</i></span><div class="compra " data-compra="aperol">
+            <button class="add" type="button" data-add="aperol" aria-label="Adicionar Aperol, para o seu spritz 750ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Aperol, para o seu spritz"><button type="button" data-menos="aperol" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="aperol">0</output><button type="button" data-mais="aperol" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="matte-15" data-cat="cha" data-busca="matte leao natural leao garrafa 1,5l chas e sucos">
+          <div class="prod-foto"><img src="assets/img/matte-15.webp" alt="Matte Leão Natural garrafa 1,5L" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Leão</span><h3>Matte Leão Natural</h3><span class="prod-vol">garrafa 1,5L</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>7<i>,99</i></span><div class="compra " data-compra="matte-15">
+            <button class="add" type="button" data-add="matte-15" aria-label="Adicionar Matte Leão Natural garrafa 1,5L ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Matte Leão Natural"><button type="button" data-menos="matte-15" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="matte-15">0</output><button type="button" data-mais="matte-15" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="agua" data-cat="agua" data-busca="agua mineral sem gas agua mineral 500ml agua e gelo">
+          <div class="prod-foto"><img src="assets/img/agua.webp" alt="Água Mineral sem Gás 500ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Água mineral</span><h3>Água Mineral sem Gás</h3><span class="prod-vol">500ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>2<i>,49</i></span><div class="compra " data-compra="agua">
+            <button class="add" type="button" data-add="agua" aria-label="Adicionar Água Mineral sem Gás 500ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Água Mineral sem Gás"><button type="button" data-menos="agua" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="agua">0</output><button type="button" data-mais="agua" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="heineken-lata" data-cat="cerveja" data-busca="heineken lata heineken 350ml cervejas" data-alc>
+          <div class="prod-foto"><img src="assets/img/heineken-lata.webp" alt="Heineken Lata 350ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Heineken</span><h3>Heineken Lata</h3><span class="prod-vol">350ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>4<i>,99</i></span><div class="compra " data-compra="heineken-lata">
+            <button class="add" type="button" data-add="heineken-lata" aria-label="Adicionar Heineken Lata 350ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Heineken Lata"><button type="button" data-menos="heineken-lata" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="heineken-lata">0</output><button type="button" data-mais="heineken-lata" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="coca-garrafa" data-cat="refri" data-busca="coca-cola garrafa de vidro coca-cola 290ml refrigerantes">
+          <div class="prod-foto"><img src="assets/img/coca-garrafa.webp" alt="Coca-Cola Garrafa de Vidro 290ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Coca-Cola</span><h3>Coca-Cola Garrafa de Vidro</h3><span class="prod-vol">290ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>3<i>,99</i></span><div class="compra " data-compra="coca-garrafa">
+            <button class="add" type="button" data-add="coca-garrafa" aria-label="Adicionar Coca-Cola Garrafa de Vidro 290ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Coca-Cola Garrafa de Vidro"><button type="button" data-menos="coca-garrafa" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="coca-garrafa">0</output><button type="button" data-mais="coca-garrafa" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="monster" data-cat="energetico" data-busca="monster ultra sunrise monster 473ml energeticos">
+          <div class="prod-foto"><img src="assets/img/monster.webp" alt="Monster Ultra Sunrise 473ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Monster</span><h3>Monster Ultra Sunrise</h3><span class="prod-vol">473ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>9<i>,38</i></span><div class="compra " data-compra="monster">
+            <button class="add" type="button" data-add="monster" aria-label="Adicionar Monster Ultra Sunrise 473ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Monster Ultra Sunrise"><button type="button" data-menos="monster" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="monster">0</output><button type="button" data-mais="monster" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="absolut" data-cat="destilado" data-busca="vodka absolut absolut 1l destilados" data-alc>
+          <div class="prod-foto"><img src="assets/img/absolut.webp" alt="Vodka Absolut 1L" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Absolut</span><h3>Vodka Absolut</h3><span class="prod-vol">1L</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>89<i>,90</i></span><div class="compra " data-compra="absolut">
+            <button class="add" type="button" data-add="absolut" aria-label="Adicionar Vodka Absolut 1L ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Vodka Absolut"><button type="button" data-menos="absolut" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="absolut">0</output><button type="button" data-mais="absolut" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="campari" data-cat="drink" data-busca="campari bitter campari 900ml drinks" data-alc>
+          <div class="prod-foto"><img src="assets/img/campari.webp" alt="Campari Bitter 900ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Campari</span><h3>Campari Bitter</h3><span class="prod-vol">900ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>56<i>,90</i></span><div class="compra " data-compra="campari">
+            <button class="add" type="button" data-add="campari" aria-label="Adicionar Campari Bitter 900ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Campari Bitter"><button type="button" data-menos="campari" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="campari">0</output><button type="button" data-mais="campari" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="matte-copo" data-cat="cha" data-busca="matte leao copo leao 300ml chas e sucos">
+          <div class="prod-foto"><img src="assets/img/matte-copo.webp" alt="Matte Leão Copo 300ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Leão</span><h3>Matte Leão Copo</h3><span class="prod-vol">300ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>3<i>,49</i></span><div class="compra " data-compra="matte-copo">
+            <button class="add" type="button" data-add="matte-copo" aria-label="Adicionar Matte Leão Copo 300ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Matte Leão Copo"><button type="button" data-menos="matte-copo" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="matte-copo">0</output><button type="button" data-mais="matte-copo" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="coco" data-cat="agua" data-busca="coco verde gelado coco verde unidade agua e gelo">
+          <div class="prod-foto"><img src="assets/img/coco.webp" alt="Coco Verde Gelado unidade" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Coco verde</span><h3>Coco Verde Gelado</h3><span class="prod-vol">unidade</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>7<i>,90</i></span><div class="compra " data-compra="coco">
+            <button class="add" type="button" data-add="coco" aria-label="Adicionar Coco Verde Gelado unidade ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Coco Verde Gelado"><button type="button" data-menos="coco" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="coco">0</output><button type="button" data-mais="coco" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="skol-lata" data-cat="cerveja" data-busca="skol pilsen lata skol 350ml cervejas" data-alc>
+          <div class="prod-foto prod-logo" style="--fundo:#FFD200"><img src="assets/logos/skol.svg" alt="Logo Skol" loading="lazy"><span>Foto ilustrativa</span></div>
+          <div class="prod-info"><span class="prod-marca">Skol</span><h3>Skol Pilsen Lata</h3><span class="prod-vol">350ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>3<i>,29</i></span><div class="compra " data-compra="skol-lata">
+            <button class="add" type="button" data-add="skol-lata" aria-label="Adicionar Skol Pilsen Lata 350ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Skol Pilsen Lata"><button type="button" data-menos="skol-lata" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="skol-lata">0</output><button type="button" data-mais="skol-lata" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="guarana" data-cat="refri" data-busca="guarana antarctica lata guarana antarctica 350ml refrigerantes">
+          <div class="prod-foto"><img src="assets/img/guarana.webp" alt="Guaraná Antarctica Lata 350ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Guaraná Antarctica</span><h3>Guaraná Antarctica Lata</h3><span class="prod-vol">350ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>3<i>,79</i></span><div class="compra " data-compra="guarana">
+            <button class="add" type="button" data-add="guarana" aria-label="Adicionar Guaraná Antarctica Lata 350ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Guaraná Antarctica Lata"><button type="button" data-menos="guarana" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="guarana">0</output><button type="button" data-mais="guarana" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="monster-ultra" data-cat="energetico" data-busca="monster ultra zero acucar monster 473ml energeticos">
+          <div class="prod-foto"><img src="assets/img/monster-ultra.webp" alt="Monster Ultra Zero Açúcar 473ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Monster</span><h3>Monster Ultra Zero Açúcar</h3><span class="prod-vol">473ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>9<i>,38</i></span><div class="compra " data-compra="monster-ultra">
+            <button class="add" type="button" data-add="monster-ultra" aria-label="Adicionar Monster Ultra Zero Açúcar 473ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Monster Ultra Zero Açúcar"><button type="button" data-menos="monster-ultra" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="monster-ultra">0</output><button type="button" data-mais="monster-ultra" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="red-label" data-cat="destilado" data-busca="whisky johnnie walker red label johnnie walker 1l destilados" data-alc>
+          <div class="prod-foto"><img src="assets/img/red-label.webp" alt="Whisky Johnnie Walker Red Label 1L" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Johnnie Walker</span><h3>Whisky Johnnie Walker Red Label</h3><span class="prod-vol">1L</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>109<i>,00</i></span><div class="compra " data-compra="red-label">
+            <button class="add" type="button" data-add="red-label" aria-label="Adicionar Whisky Johnnie Walker Red Label 1L ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Whisky Johnnie Walker Red Label"><button type="button" data-menos="red-label" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="red-label">0</output><button type="button" data-mais="red-label" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="del-valle" data-cat="cha" data-busca="del valle laranja caseira del valle caixinha 1l chas e sucos">
+          <div class="prod-foto"><img src="assets/img/del-valle.webp" alt="Del Valle Laranja Caseira caixinha 1L" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Del Valle</span><h3>Del Valle Laranja Caseira</h3><span class="prod-vol">caixinha 1L</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>9<i>,99</i></span><div class="compra " data-compra="del-valle">
+            <button class="add" type="button" data-add="del-valle" aria-label="Adicionar Del Valle Laranja Caseira caixinha 1L ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Del Valle Laranja Caseira"><button type="button" data-menos="del-valle" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="del-valle">0</output><button type="button" data-mais="del-valle" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="gelo" data-cat="agua" data-busca="gelo em cubos gelo saco 5kg agua e gelo">
+          <div class="prod-foto"><img src="assets/img/gelo.webp" alt="Gelo em Cubos saco 5kg" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Gelo</span><h3>Gelo em Cubos</h3><span class="prod-vol">saco 5kg</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>12<i>,90</i></span><div class="compra " data-compra="gelo">
+            <button class="add" type="button" data-add="gelo" aria-label="Adicionar Gelo em Cubos saco 5kg ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Gelo em Cubos"><button type="button" data-menos="gelo" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="gelo">0</output><button type="button" data-mais="gelo" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="skol-latao" data-cat="cerveja" data-busca="skol pilsen latao skol 473ml cervejas" data-alc>
+          <div class="prod-foto prod-logo" style="--fundo:#FFD200"><img src="assets/logos/skol.svg" alt="Logo Skol" loading="lazy"><span>Foto ilustrativa</span></div>
+          <div class="prod-info"><span class="prod-marca">Skol</span><h3>Skol Pilsen Latão</h3><span class="prod-vol">473ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>4<i>,49</i></span><div class="compra " data-compra="skol-latao">
+            <button class="add" type="button" data-add="skol-latao" aria-label="Adicionar Skol Pilsen Latão 473ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Skol Pilsen Latão"><button type="button" data-menos="skol-latao" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="skol-latao">0</output><button type="button" data-mais="skol-latao" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="fanta" data-cat="refri" data-busca="fanta guarana lata fanta 350ml refrigerantes">
+          <div class="prod-foto"><img src="assets/img/fanta.webp" alt="Fanta Guaraná Lata 350ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Fanta</span><h3>Fanta Guaraná Lata</h3><span class="prod-vol">350ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>3<i>,99</i></span><div class="compra " data-compra="fanta">
+            <button class="add" type="button" data-add="fanta" aria-label="Adicionar Fanta Guaraná Lata 350ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Fanta Guaraná Lata"><button type="button" data-menos="fanta" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="fanta">0</output><button type="button" data-mais="fanta" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="tanqueray" data-cat="destilado" data-busca="gin tanqueray london dry tanqueray 750ml destilados" data-alc>
+          <div class="prod-foto"><img src="assets/img/tanqueray.webp" alt="Gin Tanqueray London Dry 750ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Tanqueray</span><h3>Gin Tanqueray London Dry</h3><span class="prod-vol">750ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>114<i>,90</i></span><div class="compra " data-compra="tanqueray">
+            <button class="add" type="button" data-add="tanqueray" aria-label="Adicionar Gin Tanqueray London Dry 750ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Gin Tanqueray London Dry"><button type="button" data-menos="tanqueray" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="tanqueray">0</output><button type="button" data-mais="tanqueray" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="ades" data-cat="cha" data-busca="ades laranja ades caixinha 1l chas e sucos">
+          <div class="prod-foto prod-logo" style="--fundo:#FFF4E2"><img src="assets/logos/ades.svg" alt="Logo Ades" loading="lazy"><span>Foto ilustrativa</span></div>
+          <div class="prod-info"><span class="prod-marca">Ades</span><h3>Ades Laranja</h3><span class="prod-vol">caixinha 1L</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>8<i>,99</i></span><div class="compra " data-compra="ades">
+            <button class="add" type="button" data-add="ades" aria-label="Adicionar Ades Laranja caixinha 1L ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Ades Laranja"><button type="button" data-menos="ades" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="ades">0</output><button type="button" data-mais="ades" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="brahma-engradado" data-cat="cerveja" data-busca="brahma duplo malte, engradado brahma 24 garrafas de 600ml cervejas" data-alc>
+          <div class="prod-foto"><img src="assets/img/brahma-engradado.webp" alt="Brahma Duplo Malte, engradado 24 garrafas de 600ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Brahma</span><h3>Brahma Duplo Malte, engradado</h3><span class="prod-vol">24 garrafas de 600ml</span><span class="prod-nota">Retornável: troque os cascos na entrega</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>179<i>,90</i></span><div class="compra " data-compra="brahma-engradado">
+            <button class="add" type="button" data-add="brahma-engradado" aria-label="Adicionar Brahma Duplo Malte, engradado 24 garrafas de 600ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Brahma Duplo Malte, engradado"><button type="button" data-menos="brahma-engradado" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="brahma-engradado">0</output><button type="button" data-mais="brahma-engradado" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="sprite" data-cat="refri" data-busca="sprite limao lata sprite 350ml refrigerantes">
+          <div class="prod-foto"><img src="assets/img/sprite.webp" alt="Sprite Limão Lata 350ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Sprite</span><h3>Sprite Limão Lata</h3><span class="prod-vol">350ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>3<i>,99</i></span><div class="compra " data-compra="sprite">
+            <button class="add" type="button" data-add="sprite" aria-label="Adicionar Sprite Limão Lata 350ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Sprite Limão Lata"><button type="button" data-menos="sprite" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="sprite">0</output><button type="button" data-mais="sprite" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="cuervo" data-cat="destilado" data-busca="tequila jose cuervo especial jose cuervo 750ml destilados" data-alc>
+          <div class="prod-foto"><img src="assets/img/cuervo.webp" alt="Tequila José Cuervo Especial 750ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">José Cuervo</span><h3>Tequila José Cuervo Especial</h3><span class="prod-vol">750ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>109<i>,90</i></span><div class="compra " data-compra="cuervo">
+            <button class="add" type="button" data-add="cuervo" aria-label="Adicionar Tequila José Cuervo Especial 750ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Tequila José Cuervo Especial"><button type="button" data-menos="cuervo" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="cuervo">0</output><button type="button" data-mais="cuervo" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="corona" data-cat="cerveja" data-busca="corona extra long neck corona 330ml cervejas" data-alc>
+          <div class="prod-foto"><img src="assets/img/corona.webp" alt="Corona Extra Long Neck 330ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Corona</span><h3>Corona Extra Long Neck</h3><span class="prod-vol">330ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>6<i>,99</i></span><div class="compra " data-compra="corona">
+            <button class="add" type="button" data-add="corona" aria-label="Adicionar Corona Extra Long Neck 330ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Corona Extra Long Neck"><button type="button" data-menos="corona" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="corona">0</output><button type="button" data-mais="corona" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="schweppes" data-cat="refri" data-busca="schweppes tonica lata schweppes 350ml refrigerantes">
+          <div class="prod-foto"><img src="assets/img/schweppes.webp" alt="Schweppes Tônica Lata 350ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Schweppes</span><h3>Schweppes Tônica Lata</h3><span class="prod-vol">350ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>4<i>,29</i></span><div class="compra " data-compra="schweppes">
+            <button class="add" type="button" data-add="schweppes" aria-label="Adicionar Schweppes Tônica Lata 350ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Schweppes Tônica Lata"><button type="button" data-menos="schweppes" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="schweppes">0</output><button type="button" data-mais="schweppes" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="budweiser-ln" data-cat="cerveja" data-busca="budweiser long neck budweiser 330ml cervejas" data-alc>
+          <div class="prod-foto"><img src="assets/img/budweiser-ln.webp" alt="Budweiser Long Neck 330ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Budweiser</span><h3>Budweiser Long Neck</h3><span class="prod-vol">330ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>5<i>,79</i></span><div class="compra " data-compra="budweiser-ln">
+            <button class="add" type="button" data-add="budweiser-ln" aria-label="Adicionar Budweiser Long Neck 330ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Budweiser Long Neck"><button type="button" data-menos="budweiser-ln" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="budweiser-ln">0</output><button type="button" data-mais="budweiser-ln" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="budweiser-lata" data-cat="cerveja" data-busca="budweiser lata budweiser 350ml cervejas" data-alc>
+          <div class="prod-foto"><img src="assets/img/budweiser-lata.webp" alt="Budweiser Lata 350ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Budweiser</span><h3>Budweiser Lata</h3><span class="prod-vol">350ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>4<i>,19</i></span><div class="compra " data-compra="budweiser-lata">
+            <button class="add" type="button" data-add="budweiser-lata" aria-label="Adicionar Budweiser Lata 350ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Budweiser Lata"><button type="button" data-menos="budweiser-lata" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="budweiser-lata">0</output><button type="button" data-mais="budweiser-lata" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+        <article class="prod " data-id="stella" data-cat="cerveja" data-busca="stella artois long neck stella artois 330ml cervejas" data-alc>
+          <div class="prod-foto"><img src="assets/img/stella.webp" alt="Stella Artois Long Neck 330ml" width="640" height="640" loading="lazy"></div>
+          <div class="prod-info"><span class="prod-marca">Stella Artois</span><h3>Stella Artois Long Neck</h3><span class="prod-vol">330ml</span></div>
+          <div class="prod-pe"><span class="preco"><small>R$</small>6<i>,29</i></span><div class="compra " data-compra="stella">
+            <button class="add" type="button" data-add="stella" aria-label="Adicionar Stella Artois Long Neck 330ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Stella Artois Long Neck"><button type="button" data-menos="stella" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="stella">0</output><button type="button" data-mais="stella" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></div>
+        </article>
+      </div>
+      <div class="ver-mais"><button type="button" class="btn btn-linha" data-ver-mais><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Ver as outras bebidas</span></button></div>
+      <div class="vazio" data-vazio hidden><p>Não achamos essa bebida no site, mas pode ser que tenha no estoque. Pergunte no WhatsApp: se não tiver, a gente tenta conseguir.</p><a class="btn btn-linha" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tampinha!%20Voc%C3%AAs%20t%C3%AAm%20" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.2-.2-.5-.3Z"/></svg>Perguntar no WhatsApp</a></div>
+    </div>
+  </section>
+
+  <section class="kits" id="kits">
+    <div class="wrap">
+      <div class="cab revela">
+        <h2>Kits prontos para não esquecer nada</h2>
+        <p>Um toque e tudo vai para o carrinho. Dá para mudar as quantidades depois.</p>
+      </div>
+      <div class="kits-grade">
+      <article class="kit kit-grande revela" data-alc>
+        <img class="kit-foto" src="assets/img/cooler.webp" alt="Cooler cheio de cervejas no gelo" loading="lazy">
+        <div class="kit-txt">
+          <h3>Kit churrasco</h3>
+          <p>Cerveja gelada, refri para quem não bebe e gelo para o isopor. É só acender a churrasqueira.</p>
+          <ul><li><b>12x</b> Budweiser Lata <span>350ml</span></li><li><b>6x</b> Coca-Cola Lata <span>350ml</span></li><li><b>2x</b> Gelo em Cubos <span>saco 5kg</span></li></ul>
+          <div class="kit-pe"><span class="kit-preco"><small>leva tudo por</small>R$ 103,02</span><button type="button" class="btn btn-tampa" data-kit="kit-churrasco"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 H21 L19.6 20 H4.4 Z"/><path d="M8 9 V20 M12 9 V20 M16 9 V20"/><path d="M7 9 V5.5 M12 9 V3.5 M17 9 V5.5"/></svg><span>Pôr o kit no carrinho</span></button></div>
+        </div>
+      </article>
+      <article class="kit revela" data-alc>
+        <img class="kit-foto" src="assets/img/turma.webp" alt="Amigos rindo à mesa com bebidas" loading="lazy">
+        <div class="kit-txt">
+          <h3>Kit esquenta</h3>
+          <p>Vodka, energético e gelo para começar a noite em casa com a turma.</p>
+          <ul><li><b>1x</b> Vodka Smirnoff <span>998ml</span></li><li><b>4x</b> Red Bull Energy Drink <span>250ml</span></li><li><b>1x</b> Gelo em Cubos <span>saco 5kg</span></li></ul>
+          <div class="kit-pe"><span class="kit-preco"><small>leva tudo por</small>R$ 86,46</span><button type="button" class="btn btn-tampa" data-kit="kit-esquenta"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 H21 L19.6 20 H4.4 Z"/><path d="M8 9 V20 M12 9 V20 M16 9 V20"/><path d="M7 9 V5.5 M12 9 V3.5 M17 9 V5.5"/></svg><span>Pôr o kit no carrinho</span></button></div>
+        </div>
+      </article>
+      <article class="kit revela" data-alc>
+        <img class="kit-foto" src="assets/img/gin.webp" alt="Gin tônica sendo servido na taça" loading="lazy">
+        <div class="kit-txt">
+          <h3>Kit gin tônica</h3>
+          <p>Gin, tônica e gelo. O limão e a playlist ficam por sua conta.</p>
+          <ul><li><b>1x</b> Gin Tanqueray London Dry <span>750ml</span></li><li><b>6x</b> Schweppes Tônica Lata <span>350ml</span></li><li><b>1x</b> Gelo em Cubos <span>saco 5kg</span></li></ul>
+          <div class="kit-pe"><span class="kit-preco"><small>leva tudo por</small>R$ 153,54</span><button type="button" class="btn btn-tampa" data-kit="kit-gin"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 H21 L19.6 20 H4.4 Z"/><path d="M8 9 V20 M12 9 V20 M16 9 V20"/><path d="M7 9 V5.5 M12 9 V3.5 M17 9 V5.5"/></svg><span>Pôr o kit no carrinho</span></button></div>
+        </div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="nos" id="nos">
+    <div class="wrap nos-grid">
+      <div class="nos-fotos revela">
+        <img class="nos-f1" src="assets/img/geladeira.webp" alt="Geladeira da adega cheia de latas geladas" loading="lazy">
+        <img class="nos-f2" src="assets/img/entrega.webp" alt="Atendente entregando a sacola do pedido para o cliente" loading="lazy">
+      </div>
+      <div class="nos-txt revela">
+        <p class="apoio">Quem somos</p>
+        <h2>A adega da esquina, agora no seu celular.</h2>
+        <p>A Tampinha abriu em 2014 como uma portinha na Rua Pouso Alegre, com uma geladeira e muita vontade de atender bem o bairro. Hoje são três câmaras frias, entregadores da casa e o mesmo cuidado de sempre: quem pede no WhatsApp fala com a gente, não com robô.</p>
+        <p>Conferimos a validade de tudo, trocamos casco de cerveja retornável e, se a bebida que você quer não estiver no site, a gente tenta conseguir.</p>
+        <dl class="numeros"><div><dt>12</dt><dd>anos na Floresta</dd></div><div><dt>4,9</dt><dd>de nota no Google</dd></div><div><dt>38 min</dt><dd>de entrega, em média</dd></div></dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="como" id="como">
+    <div class="wrap como-grid">
+      <img class="como-foto revela" src="assets/img/celular.webp" alt="Mão segurando o celular com um aplicativo de pedidos aberto" loading="lazy">
+      <div class="como-txt">
+        <div class="cab revela"><h2>Do carrinho ao WhatsApp em um minuto</h2></div>
+        <ol class="passos">
+          <li class="revela"><span class="passo-ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 H21 L19.6 20 H4.4 Z"/><path d="M8 9 V20 M12 9 V20 M16 9 V20"/><path d="M7 9 V5.5 M12 9 V3.5 M17 9 V5.5"/></svg></span><div><h3>Escolha as bebidas</h3><p>Toque em "Adicionar" em cada uma. O carrinho guarda tudo, mesmo se você fechar a página.</p></div></li>
+          <li class="revela"><span class="passo-ic"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5 H20 V16 H11 L6.5 20 V16 H4 Z"/><path d="M8 10.5 H16"/></svg></span><div><h3>Diga como quer receber</h3><p>Entrega ou retirada no balcão, forma de pagamento e alguma observação, se tiver.</p></div></li>
+          <li class="revela"><span class="passo-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.2-.2-.5-.3Z"/></svg></span><div><h3>Envie no WhatsApp</h3><p>O pedido abre pronto na conversa com a gente. É só mandar e aguardar a confirmação.</p></div></li>
+        </ol>
+        <div class="seguro revela"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2"/><path d="M8 10.5 V7.5 A4 4 0 0 1 16 7.5 V10.5"/><path d="M12 14.5 V17"/></svg><div><b>Site 100% seguro</b><p>Conexão protegida do começo ao fim. Você não digita cartão nem senha por aqui: o pagamento é feito na entrega, por Pix, cartão ou dinheiro.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="entrega" id="entrega">
+    <div class="wrap entrega-grid">
+      <div class="entrega-info revela">
+        <h2>Entrega gelada em 30 a 45 min</h2>
+        <p>Nossos entregadores saem da Floresta com a bebida em bolsa térmica. Taxa de R$ 6,90, grátis a partir de R$ 99,00 em compras. Também dá para retirar no balcão.</p>
+        <table class="horarios"><caption>Horário de entrega</caption><tbody><tr data-dia="0"><th>Segunda a quinta</th><td>10h às 23h</td></tr><tr data-dia="1"><th>Sexta e sábado</th><td>10h à 1h</td></tr><tr data-dia="2"><th>Domingo e feriado</th><td>10h às 22h</td></tr></tbody></table>
+      </div>
+      <div class="entrega-foto revela">
+        <img src="assets/img/moto.webp" alt="Entregador de moto com a caixa de entregas" loading="lazy">
+        <div class="apps">
+          <h3>Prefere pedir pelo aplicativo?</h3>
+          <p>Também estamos no iFood e no 99Food, com o mesmo estoque.</p>
+          <div class="apps-btns">
+            <a class="app app-ifood" href="https://www.ifood.com.br/" target="_blank" rel="noopener" aria-label="Pedir no iFood"><img src="assets/logos/ifood.svg" alt="iFood"></a>
+            <a class="app app-99" href="https://99app.com/99food/" target="_blank" rel="noopener"><b>99Food</b></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="duvidas" aria-labelledby="duvidas-t">
+    <div class="wrap duvidas-grid">
+      <div class="cab revela"><h2 id="duvidas-t">Ficou alguma dúvida?</h2><p>Se não estiver aqui, pergunte no WhatsApp. Quem responde é o Toninho.</p><a class="btn btn-linha" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tampinha!%20Tenho%20uma%20d%C3%BAvida." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.2-.2-.5-.3Z"/></svg>Perguntar</a></div>
+      <div class="faq"><details class="revela"><summary>Tem pedido mínimo?<i aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></i></summary><p>Não. A entrega custa R$ 6,90 e sai grátis a partir de R$ 99 em compras. Também dá para retirar no balcão, sem taxa.</p></details><details class="revela"><summary>A bebida chega gelada?<i aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></i></summary><p>Sim. Cervejas, refrigerantes e energéticos saem da câmara fria e vão em bolsa térmica. Se quiser, adicione gelo no carrinho.</p></details><details class="revela"><summary>Como eu pago?<i aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></i></summary><p>Pix, cartão de crédito ou débito na maquininha do entregador, ou dinheiro com troco. Nada é cobrado pelo site.</p></details><details class="revela"><summary>Vocês trocam cascos de cerveja?<i aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></i></summary><p>Trocamos. No engradado retornável, o entregador leva os cascos vazios e você paga só o líquido.</p></details><details class="revela"><summary>Vocês vendem bebida alcoólica para menores?<i aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></i></summary><p>Não. A venda de bebida alcoólica é proibida para menores de 18 anos e o entregador pode pedir documento na entrega.</p></details><details class="revela"><summary>Posso pedir pelo iFood ou pelo 99Food?<i aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></i></summary><p>Pode. Os preços do site e do WhatsApp costumam ser menores que os dos aplicativos, mas o estoque é o mesmo.</p></details></div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="wrap">
+    <div class="rodape-mapa">
+      <div class="map-box">
+        <img src="assets/img/mapa_floresta.webp" alt="Mapa da Floresta, Belo Horizonte, com a localização da Tampinha Bebidas" width="1240" height="760" loading="lazy">
+        <span class="pin" style="left:68%" aria-hidden="true"><b>Tampinha</b></span>
+        <div class="map-info"><b>Tampinha Bebidas & Conveniência</b><span>Rua Pouso Alegre, 1200, Floresta, Belo Horizonte, MG</span><span>Todos os dias a partir das 10h</span>
+          <div class="mbtns" data-iguais><a href="https://www.openstreetmap.org/search?query=Rua%20Pouso%20Alegre%2C%201200%2C%20Floresta%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21 C7.5 15.5 5.5 12.5 5.5 9.5 A6.5 6.5 0 0 1 18.5 9.5 C18.5 12.5 16.5 15.5 12 21 Z"/><circle cx="12" cy="9.5" r="2.2"/></svg>Abrir no Maps</a><a href="https://www.google.com/maps/dir/?api=1&destination=Rua%20Pouso%20Alegre%2C%201200%2C%20Floresta%2C%20Belo%20Horizonte%2C%20MG" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 H19 M13.5 6.5 L19 12 L13.5 17.5"/></svg>Como chegar</a></div>
+        </div>
+        <span class="attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
+      </div>
+      <div class="onde">
+        <h2>Onde atendemos</h2>
+        <p>Entregamos nos bairros abaixo. Mora perto e não achou o seu? Chame no WhatsApp.</p>
+        <ul class="bairros" data-iguais><li>Floresta</li><li>Santa Tereza</li><li>Sagrada Família</li><li>Centro</li><li>Santa Efigênia</li><li>Funcionários</li><li>Colégio Batista</li><li>Horto</li><li>Pompeia</li><li>Lagoinha</li></ul>
+      </div>
+    </div>
+    <div class="rodape-cols">
+      <div class="rodape-marca"><a class="logo" href="#inicio" aria-label="Tampinha Bebidas & Conveniência"><svg class="logo-svg" viewBox="0 0 214 48" role="img" aria-label="Tampinha Bebidas e Conveniência"><polygon points="24.00,1.00 27.01,4.03 30.78,2.02 32.76,5.80 36.96,5.00 37.74,9.19 41.98,9.66 41.49,13.90 45.41,15.60 43.69,19.51 46.94,22.28 44.14,25.51 46.42,29.12 42.80,31.38 43.92,35.50 39.79,36.59 39.64,40.86 35.38,40.69 33.98,44.72 29.95,43.30 27.43,46.74 24.00,44.20 20.57,46.74 18.05,43.30 14.02,44.72 12.62,40.69 8.36,40.86 8.21,36.59 4.08,35.50 5.20,31.38 1.58,29.12 3.86,25.51 1.06,22.28 4.31,19.51 2.59,15.60 6.51,13.90 6.02,9.66 10.26,9.19 11.04,5.00 15.24,5.80 17.22,2.02 20.99,4.03" fill="#D7261E"/><circle cx="24" cy="24" r="17" fill="#B81C15"/><circle cx="24" cy="24" r="14.5" fill="#D7261E"/>
+<path d="M13.5 17 A12 12 0 0 1 21 12.6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".45"/><path d="M23 14.5 V28 Q23 33 28 33 H30 M17.5 20 H29" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="56" y="27" class="logo-nome" font-size="27" fill="currentColor">tampinha</text>
+<text x="57" y="42" class="logo-sub" font-size="9.4" fill="currentColor" letter-spacing="1.6">BEBIDAS &amp; CONVENIÊNCIA</text></svg></a><p>Adega e conveniência de bairro, com bebida gelada na sua porta.</p></div>
+      <div><h3>Bebidas</h3><ul><li data-alc><a href="#catalogo" data-filtro="cerveja">Cervejas</a></li><li><a href="#catalogo" data-filtro="refri">Refrigerantes</a></li><li><a href="#catalogo" data-filtro="energetico">Energéticos</a></li><li data-alc><a href="#catalogo" data-filtro="destilado">Destilados</a></li><li data-alc><a href="#catalogo" data-filtro="drink">Drinks</a></li><li><a href="#catalogo" data-filtro="cha">Chás e sucos</a></li><li><a href="#catalogo" data-filtro="agua">Água e gelo</a></li></ul></div>
+      <div><h3>Fale com a gente</h3><ul><li><a href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tampinha!" target="_blank" rel="noopener">WhatsApp (31) 99999-0000</a></li><li><a href="tel:3133330000">Telefone (31) 3333-0000</a></li><li>pedidos@tampinhabebidas.com.br</li><li>Rua Pouso Alegre, 1200, Floresta</li></ul></div>
+      <div><h3>Redes</h3>
+        <div class="redes">
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17 7 H17.01"/></svg></a>
+          <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 21 V13.5 H17.5 L18 10 H14.5 V8 C14.5 7 15 6.5 16 6.5 H18 V3.5 H15.5 C12.8 3.5 11 5.2 11 8 V10 H8 V13.5 H11 V21"/></svg></a>
+          <a href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tampinha!" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.2-.2-.5-.3Z"/></svg></a>
+        </div>
+        <p class="user">@tampinhabebidas</p>
+        <div class="rodape-seguro"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2"/><path d="M8 10.5 V7.5 A4 4 0 0 1 16 7.5 V10.5"/><path d="M12 14.5 V17"/></svg><span>Site 100% seguro</span></div>
+      </div>
+    </div>
+    <p class="aviso18">Beba com moderação. Venda e entrega de bebida alcoólica proibidas para menores de 18 anos. Se for dirigir, não beba. <button type="button" data-rever-idade>Rever confirmação de idade</button></p>
+    <details class="creditos"><summary>Créditos das imagens</summary><p>Fotos do Unsplash (licença Unsplash) e do Wikimedia Commons. Logos das marcas do Wikimedia Commons, usados só para identificar os produtos vendidos; as marcas pertencem aos seus donos.</p><ul><li>capa: <a href="https://unsplash.com/photos/65c20a5962e1" target="_blank" rel="noopener">Unsplash</a></li><li>brinde: <a href="https://unsplash.com/photos/c38a4d44f5b8" target="_blank" rel="noopener">Unsplash</a></li><li>chopp: <a href="https://unsplash.com/photos/0d7b79f1c55c" target="_blank" rel="noopener">Unsplash</a></li><li>cooler: <a href="https://unsplash.com/photos/891660140fbb" target="_blank" rel="noopener">Unsplash</a></li><li>turma: <a href="https://unsplash.com/photos/b4d3693a0ee3" target="_blank" rel="noopener">Unsplash</a></li><li>gin: <a href="https://unsplash.com/photos/cc07a4d11ccf" target="_blank" rel="noopener">Unsplash</a></li><li>celular: <a href="https://unsplash.com/photos/36938d4ecd31" target="_blank" rel="noopener">Unsplash</a></li><li>balcao: <a href="https://unsplash.com/photos/58c97b44899b" target="_blank" rel="noopener">Unsplash</a></li><li>entrega: <a href="https://unsplash.com/photos/add915d6bbb6" target="_blank" rel="noopener">Unsplash</a></li><li>moto: <a href="https://unsplash.com/photos/2f25894c06fc" target="_blank" rel="noopener">Unsplash</a></li><li>geladeira: <a href="https://unsplash.com/photos/bd5c50898156" target="_blank" rel="noopener">Unsplash</a></li><li>latas-gelo: <a href="https://unsplash.com/photos/3f66f32aef97" target="_blank" rel="noopener">Unsplash</a></li><li>coca-lata: <a href="https://unsplash.com/photos/cd94860890b7" target="_blank" rel="noopener">Unsplash</a></li><li>coca-garrafa: <a href="https://unsplash.com/photos/6898f3a79cf2" target="_blank" rel="noopener">Unsplash</a></li><li>fanta: <a href="https://unsplash.com/photos/33c31b77a19e" target="_blank" rel="noopener">Unsplash</a></li><li>sprite: <a href="https://unsplash.com/photos/a441afdefe83" target="_blank" rel="noopener">Unsplash</a></li><li>schweppes: <a href="https://unsplash.com/photos/a9c5fc04a40b" target="_blank" rel="noopener">Unsplash</a></li><li>guarana: <a href="https://commons.wikimedia.org/wiki/File:Lata_de_Guaran%C3%A1_Antarctica.jpg" target="_blank" rel="noopener">Cabeza2000</a>, CC BY-SA 4.0</li><li>heineken-ln: <a href="https://unsplash.com/photos/5e474019f2a9" target="_blank" rel="noopener">Unsplash</a></li><li>heineken-lata: <a href="https://unsplash.com/photos/2e21a30a57af" target="_blank" rel="noopener">Unsplash</a></li><li>corona: <a href="https://unsplash.com/photos/32aaa92ee421" target="_blank" rel="noopener">Unsplash</a></li><li>budweiser-ln: <a href="https://unsplash.com/photos/496ea8c15e1f" target="_blank" rel="noopener">Unsplash</a></li><li>budweiser-lata: <a href="https://unsplash.com/photos/6b60a73f48a1" target="_blank" rel="noopener">Unsplash</a></li><li>stella: <a href="https://unsplash.com/photos/dc0a599e3885" target="_blank" rel="noopener">Unsplash</a></li><li>brahma-engradado: <a href="https://unsplash.com/photos/d20874d58185" target="_blank" rel="noopener">Unsplash</a></li><li>redbull: <a href="https://unsplash.com/photos/9d80d114054d" target="_blank" rel="noopener">Unsplash</a></li><li>monster: <a href="https://unsplash.com/photos/6f5e93e660fd" target="_blank" rel="noopener">Unsplash</a></li><li>monster-ultra: <a href="https://unsplash.com/photos/feeac94b5a0e" target="_blank" rel="noopener">Unsplash</a></li><li>smirnoff: <a href="https://unsplash.com/photos/f47f38aeee65" target="_blank" rel="noopener">Unsplash</a></li><li>absolut: <a href="https://unsplash.com/photos/d4ed98851435" target="_blank" rel="noopener">Unsplash</a></li><li>red-label: <a href="https://unsplash.com/photos/192a9a88ac81" target="_blank" rel="noopener">Unsplash</a></li><li>tanqueray: <a href="https://commons.wikimedia.org/wiki/File:Tanqueray_bottle_Gin.png" target="_blank" rel="noopener">Bruce The Deus</a>, CC BY-SA 4.0</li><li>cuervo: <a href="https://unsplash.com/photos/6d8701d1d4db" target="_blank" rel="noopener">Unsplash</a></li><li>aperol: <a href="https://unsplash.com/photos/0560fa910a0f" target="_blank" rel="noopener">Unsplash</a></li><li>campari: <a href="https://unsplash.com/photos/b66fe62ab72f" target="_blank" rel="noopener">Unsplash</a></li><li>matte-copo: <a href="https://commons.wikimedia.org/wiki/File:Matte_Le%C3%A3o_-_300ml.jpg" target="_blank" rel="noopener">Douglas Silva Azevedo from Brasil</a>, CC BY 2.0</li><li>matte-15: <a href="https://commons.wikimedia.org/wiki/File:Ch%C3%A1_Matte_Le%C3%A3o_no_Paran%C3%A1%2C_Brasil.jpg" target="_blank" rel="noopener">Simplus Menegati</a>, CC BY-SA 4.0</li><li>del-valle: <a href="https://commons.wikimedia.org/wiki/File:Suco_de_Laranja_Del_Valle_%40_Go!_Go!_Curry!_(6912789626).jpg" target="_blank" rel="noopener">Wagner Tamanaha from Sao Paulo, Brazil</a>, CC BY-SA 2.0</li><li>agua: <a href="https://unsplash.com/photos/381148898bb4" target="_blank" rel="noopener">Unsplash</a></li><li>coco: <a href="https://unsplash.com/photos/a3253f7e53dc" target="_blank" rel="noopener">Unsplash</a></li><li>gelo: <a href="https://unsplash.com/photos/783678552a38" target="_blank" rel="noopener">Unsplash</a></li><li>logo-coca-cola: <a href="https://commons.wikimedia.org/wiki/File:Coca-Cola_logo.svg" target="_blank" rel="noopener">The Coca-Cola Company</a>, Public domain</li><li>logo-fanta: <a href="https://commons.wikimedia.org/wiki/File:Fanta_2023.svg" target="_blank" rel="noopener">The Coca Cola Company</a>, Public domain</li><li>logo-sprite: <a href="https://commons.wikimedia.org/wiki/File:Sprite_2022.svg" target="_blank" rel="noopener">TAC PlazaMaster</a>, Public domain</li><li>logo-schweppes: <a href="https://commons.wikimedia.org/wiki/File:Schweppes_wordmark.svg" target="_blank" rel="noopener">European Refreshments ULC</a>, Public domain</li><li>logo-skol: <a href="https://commons.wikimedia.org/wiki/File:Skol_logo_2015.svg" target="_blank" rel="noopener">Ambev</a>, Public domain</li><li>logo-heineken: <a href="https://commons.wikimedia.org/wiki/File:Heineken_Logo.svg" target="_blank" rel="noopener">Unknown authorUnknown author</a>, Public domain</li><li>logo-budweiser: <a href="https://commons.wikimedia.org/wiki/File:Budweiser_Anheuser-Busch_logo.svg" target="_blank" rel="noopener">Unknown authorUnknown author (agency: Jones Knowles Ritchie)</a>, Public domain</li><li>logo-stella: <a href="https://commons.wikimedia.org/wiki/File:Stella_Artois_current_logo_2015.png" target="_blank" rel="noopener">AB InBev parent company to Stella Artois</a>, CC BY 3.0</li><li>logo-brahma: <a href="https://commons.wikimedia.org/wiki/File:Logotipo_da_Brahma_(2020).svg" target="_blank" rel="noopener">Ambev</a>, Public domain</li><li>logo-corona: <a href="https://commons.wikimedia.org/wiki/File:Corona_Extra_text_logo.svg" target="_blank" rel="noopener">Unknown authorUnknown author</a>, Public domain</li><li>logo-monster: <a href="https://commons.wikimedia.org/wiki/File:Logo_Monster_Energy.webp" target="_blank" rel="noopener">Wikimedia Commons</a>, Public domain</li><li>logo-redbull: <a href="https://commons.wikimedia.org/wiki/File:Logo_of_Red_bull.svg" target="_blank" rel="noopener">Red Bull GmbH</a>, Public domain</li><li>logo-absolut: <a href="https://commons.wikimedia.org/wiki/File:Absolut_logo_regular_blue.jpg" target="_blank" rel="noopener">The Absolut Company</a>, Public domain</li><li>logo-johnnie-walker: <a href="https://commons.wikimedia.org/wiki/File:Johnnie_Walker_wordmark.svg" target="_blank" rel="noopener">Diageo PLC</a>, Public domain</li><li>logo-tanqueray: <a href="https://commons.wikimedia.org/wiki/File:Tanqueray_logo.jpg" target="_blank" rel="noopener">Unknown authorUnknown author</a>, Public domain</li><li>logo-del-valle: <a href="https://commons.wikimedia.org/wiki/File:Del_Valle_logo.webp" target="_blank" rel="noopener">The Coca-Cola Company</a>, Public domain</li><li>logo-ades: <a href="https://commons.wikimedia.org/wiki/File:ADES_Logo_Pantone_V2020.svg" target="_blank" rel="noopener">Andertxo82</a>, CC BY-SA 4.0</li><li>logo-aperol: <a href="https://commons.wikimedia.org/wiki/File:Aperol_Logo.svg" target="_blank" rel="noopener">Davide Campari-Milano N.V. - upload: Giov.c</a>, Public domain</li><li>logo-campari: <a href="https://commons.wikimedia.org/wiki/File:Campari_-_logo_wordmark_(Italy%2C_2023-).svg" target="_blank" rel="noopener">Fabio Molinaro (Robilant &amp;amp; Associati) for Campari Group</a>, Public domain</li><li>logo-guarana: <a href="https://commons.wikimedia.org/wiki/File:Guarana-antarctica_2020.svg" target="_blank" rel="noopener">Unknown authorUnknown author</a>, CC BY-SA 4.0</li><li>logo-ifood: <a href="https://commons.wikimedia.org/wiki/File:IFood_logo.svg" target="_blank" rel="noopener">iFood</a>, Public domain</li></ul></details>
+    <div class="rodape-fim"><span>© <span data-ano>2026</span> Tampinha Bebidas & Conveniência. Marca fictícia de demonstração.</span><span>Preços ilustrativos.</span></div>
+  </div>
+</footer>
+
+<div class="barra-carrinho" data-barra hidden><button type="button" data-abrir-carrinho><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 H21 L19.6 20 H4.4 Z"/><path d="M8 9 V20 M12 9 V20 M16 9 V20"/><path d="M7 9 V5.5 M12 9 V3.5 M17 9 V5.5"/></svg><span><b data-conta>0</b> itens</span><strong data-total-nav>R$ 0,00</strong><em>Ver pedido</em></button></div>
+<a class="whats-flutua" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tampinha!%20Quero%20fazer%20um%20pedido." target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.2-.2-.5-.3Z"/></svg></a>
+
+<div class="veu" data-veu hidden></div>
+<aside class="carrinho" id="carrinho" aria-label="Seu pedido" aria-hidden="true">
+  <div class="car-topo"><h2><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 H21 L19.6 20 H4.4 Z"/><path d="M8 9 V20 M12 9 V20 M16 9 V20"/><path d="M7 9 V5.5 M12 9 V3.5 M17 9 V5.5"/></svg>Seu pedido</h2><button type="button" class="car-fechar" data-fechar-carrinho aria-label="Fechar carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6 L18 18 M18 6 L6 18"/></svg></button></div>
+  <div class="car-corpo">
+    <div class="frete" data-frete><p data-frete-txt></p><div class="frete-barra"><i data-frete-barra></i></div></div>
+    <ul class="car-itens" data-itens></ul>
+    <div class="car-vazio" data-car-vazio><img src="assets/img/latas-gelo.webp" alt="" loading="lazy"><p>Seu carrinho está vazio. Escolha uma bebida e toque em "Adicionar".</p><button type="button" class="btn btn-linha" data-fechar-carrinho data-ir="catalogo">Ver as bebidas</button></div>
+    <div class="leve"><h3>Leve também</h3><ul><li class="extra"><span class="mini"><img src="assets/img/gelo.webp" alt="" loading="lazy"></span><div><b>Gelo em Cubos</b><span>saco 5kg por R$ 12,90</span></div><div class="compra " data-compra="gelo">
+            <button class="add" type="button" data-add="gelo" aria-label="Adicionar Gelo em Cubos saco 5kg ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Gelo em Cubos"><button type="button" data-menos="gelo" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="gelo">0</output><button type="button" data-mais="gelo" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></li><li class="extra"><span class="mini"><img src="assets/img/agua.webp" alt="" loading="lazy"></span><div><b>Água Mineral sem Gás</b><span>500ml por R$ 2,49</span></div><div class="compra " data-compra="agua">
+            <button class="add" type="button" data-add="agua" aria-label="Adicionar Água Mineral sem Gás 500ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Água Mineral sem Gás"><button type="button" data-menos="agua" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="agua">0</output><button type="button" data-mais="agua" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></li><li class="extra"><span class="mini"><img src="assets/img/coca-lata.webp" alt="" loading="lazy"></span><div><b>Coca-Cola Lata</b><span>350ml por R$ 4,49</span></div><div class="compra " data-compra="coca-lata">
+            <button class="add" type="button" data-add="coca-lata" aria-label="Adicionar Coca-Cola Lata 350ml ao carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg><span>Adicionar</span></button>
+            <div class="qtd" aria-label="Quantidade de Coca-Cola Lata"><button type="button" data-menos="coca-lata" aria-label="Tirar um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12 H18"/></svg></button><output data-qtd="coca-lata">0</output><button type="button" data-mais="coca-lata" aria-label="Pôr mais um"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6 V18 M6 12 H18"/></svg></button></div>
+          </div></li></ul></div>
+    <form class="pedido" data-pedido novalidate>
+      <h3>Para quem e como</h3>
+      <label class="campo"><span>Seu nome</span><input name="nome" type="text" autocomplete="name" required></label>
+      <fieldset class="opcoes"><legend>Receber</legend><div data-iguais>
+        <label><input type="radio" name="receber" value="entrega" checked><span>Entrega</span></label>
+        <label><input type="radio" name="receber" value="retirada"><span>Retirar no balcão</span></label>
+      </div></fieldset>
+      <label class="campo" data-endereco><span>Endereço com número e bairro</span><input name="endereco" type="text" autocomplete="street-address"></label>
+      <fieldset class="opcoes"><legend>Pagamento na entrega</legend><div data-iguais>
+        <label><input type="radio" name="pag" value="Pix" checked><span>Pix</span></label>
+        <label><input type="radio" name="pag" value="Cartão na maquininha"><span>Cartão</span></label>
+        <label><input type="radio" name="pag" value="Dinheiro"><span>Dinheiro</span></label>
+      </div></fieldset>
+      <label class="campo" data-troco hidden><span>Troco para quanto?</span><input name="troco" type="text" inputmode="decimal" placeholder="Ex.: 100"></label>
+      <label class="campo"><span>Observação</span><input name="obs" type="text" placeholder="Ex.: interfone 302, bem gelada"></label>
+      <p class="erro" data-erro role="alert"></p>
+    </form>
+  </div>
+  <div class="car-pe">
+    <dl class="contas"><div><dt>Produtos</dt><dd data-subtotal>R$ 0,00</dd></div><div><dt>Entrega</dt><dd data-taxa>R$ 0,00</dd></div><div class="total"><dt>Total</dt><dd data-total>R$ 0,00</dd></div></dl>
+    <button type="button" class="btn btn-tampa btn-enviar" data-enviar><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.2-.2-.5-.3Z"/></svg>Enviar pedido no WhatsApp</button>
+    <p class="car-seguro"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10.5" width="15" height="10.5" rx="2"/><path d="M8 10.5 V7.5 A4 4 0 0 1 16 7.5 V10.5"/><path d="M12 14.5 V17"/></svg>Site 100% seguro. Você paga só quando receber.</p>
+  </div>
+</aside>
+
+<script>
+(() => {
+  const D = {"whatsapp":"5531999990000","nome":"Tampinha","abertura":[[10,22],[10,23],[10,23],[10,23],[10,23],[10,25],[10,25]],"entrega":{"taxa":6.9,"gratisAcima":99,"tempo":"30 a 45 min"},"produtos":{"heineken-ln":{"n":"Heineken Long Neck 330ml","p":6.49,"i":"assets/img/heineken-ln.webp","l":0},"heineken-lata":{"n":"Heineken Lata 350ml","p":4.99,"i":"assets/img/heineken-lata.webp","l":0},"skol-lata":{"n":"Skol Pilsen Lata 350ml","p":3.29,"i":"assets/logos/skol.svg","l":"#FFD200"},"skol-latao":{"n":"Skol Pilsen Latão 473ml","p":4.49,"i":"assets/logos/skol.svg","l":"#FFD200"},"brahma-engradado":{"n":"Brahma Duplo Malte, engradado 24 garrafas de 600ml","p":179.9,"i":"assets/img/brahma-engradado.webp","l":0},"corona":{"n":"Corona Extra Long Neck 330ml","p":6.99,"i":"assets/img/corona.webp","l":0},"budweiser-ln":{"n":"Budweiser Long Neck 330ml","p":5.79,"i":"assets/img/budweiser-ln.webp","l":0},"budweiser-lata":{"n":"Budweiser Lata 350ml","p":4.19,"i":"assets/img/budweiser-lata.webp","l":0},"stella":{"n":"Stella Artois Long Neck 330ml","p":6.29,"i":"assets/img/stella.webp","l":0},"coca-lata":{"n":"Coca-Cola Lata 350ml","p":4.49,"i":"assets/img/coca-lata.webp","l":0},"coca-garrafa":{"n":"Coca-Cola Garrafa de Vidro 290ml","p":3.99,"i":"assets/img/coca-garrafa.webp","l":0},"guarana":{"n":"Guaraná Antarctica Lata 350ml","p":3.79,"i":"assets/img/guarana.webp","l":0},"fanta":{"n":"Fanta Guaraná Lata 350ml","p":3.99,"i":"assets/img/fanta.webp","l":0},"sprite":{"n":"Sprite Limão Lata 350ml","p":3.99,"i":"assets/img/sprite.webp","l":0},"schweppes":{"n":"Schweppes Tônica Lata 350ml","p":4.29,"i":"assets/img/schweppes.webp","l":0},"redbull":{"n":"Red Bull Energy Drink 250ml","p":8.99,"i":"assets/img/redbull.webp","l":0},"monster":{"n":"Monster Ultra Sunrise 473ml","p":9.38,"i":"assets/img/monster.webp","l":0},"monster-ultra":{"n":"Monster Ultra Zero Açúcar 473ml","p":9.38,"i":"assets/img/monster-ultra.webp","l":0},"smirnoff":{"n":"Vodka Smirnoff 998ml","p":37.6,"i":"assets/img/smirnoff.webp","l":0},"absolut":{"n":"Vodka Absolut 1L","p":89.9,"i":"assets/img/absolut.webp","l":0},"red-label":{"n":"Whisky Johnnie Walker Red Label 1L","p":109,"i":"assets/img/red-label.webp","l":0},"tanqueray":{"n":"Gin Tanqueray London Dry 750ml","p":114.9,"i":"assets/img/tanqueray.webp","l":0},"cuervo":{"n":"Tequila José Cuervo Especial 750ml","p":109.9,"i":"assets/img/cuervo.webp","l":0},"aperol":{"n":"Aperol, para o seu spritz 750ml","p":52.5,"i":"assets/img/aperol.webp","l":0},"campari":{"n":"Campari Bitter 900ml","p":56.9,"i":"assets/img/campari.webp","l":0},"matte-15":{"n":"Matte Leão Natural garrafa 1,5L","p":7.99,"i":"assets/img/matte-15.webp","l":0},"matte-copo":{"n":"Matte Leão Copo 300ml","p":3.49,"i":"assets/img/matte-copo.webp","l":0},"del-valle":{"n":"Del Valle Laranja Caseira caixinha 1L","p":9.99,"i":"assets/img/del-valle.webp","l":0},"ades":{"n":"Ades Laranja caixinha 1L","p":8.99,"i":"assets/logos/ades.svg","l":"#FFF4E2"},"agua":{"n":"Água Mineral sem Gás 500ml","p":2.49,"i":"assets/img/agua.webp","l":0},"coco":{"n":"Coco Verde Gelado unidade","p":7.9,"i":"assets/img/coco.webp","l":0},"gelo":{"n":"Gelo em Cubos saco 5kg","p":12.9,"i":"assets/img/gelo.webp","l":0}},"kits":{"kit-churrasco":[["budweiser-lata",12],["coca-lata",6],["gelo",2]],"kit-esquenta":[["smirnoff",1],["redbull",4],["gelo",1]],"kit-gin":[["tanqueray",1],["schweppes",6],["gelo",1]]}};
+  const miniHTML = (p) => `<img src="${p.i}" alt=""${p.l ? ` class="eh-logo" style="background:${p.l}"` : ""}>`;
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const real = (v) => 'R$ ' + v.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const normal = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+  const guarda = {
+    ler(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    gravar(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* sem armazenamento */ } },
+  };
+
+  // ---------- grupos com a mesma largura ----------
+  const igualar = () => $$('[data-iguais]').forEach((g) => {
+    g.style.removeProperty('--larg');
+    const filhos = [...g.children].filter((f) => f.offsetParent !== null);
+    if (!filhos.length) return;
+    filhos.forEach((f) => { f.style.width = 'auto'; });
+    const maior = Math.max(...filhos.map((f) => f.getBoundingClientRect().width));
+    filhos.forEach((f) => { f.style.width = ''; });
+    g.style.setProperty('--larg', Math.ceil(maior) + 'px');
+  });
+  igualar();
+  if (document.fonts) document.fonts.ready.then(igualar);
+  addEventListener('resize', igualar);
+
+  // ---------- idade ----------
+  const idade = $('#idade');
+  const raiz = document.documentElement;
+  const resposta = guarda.ler('tampinha-idade');
+  const abrirIdade = () => { idade.hidden = false; document.body.classList.add('travado'); setTimeout(() => $('[data-idade="sim"]', idade).focus(), 50); };
+  if (!resposta) abrirIdade();
+  $$('[data-idade]').forEach((b) => b.addEventListener('click', () => {
+    const sim = b.dataset.idade === 'sim';
+    guarda.gravar('tampinha-idade', sim ? 'sim' : 'nao');
+    raiz.classList.toggle('sem-alcool', !sim);
+    if (!sim) Object.keys(carrinho).forEach((id) => { if (ehAlc(id)) delete carrinho[id]; });
+    idade.hidden = true;
+    document.body.classList.remove('travado');
+    salvar(); filtrar(); igualar();
+  }));
+  $('[data-rever-idade]').addEventListener('click', abrirIdade);
+  const ehAlc = (id) => { const c = $(`.prod[data-id="${id}"]`); return Boolean(c && c.hasAttribute('data-alc')); };
+
+  // ---------- topo ----------
+  const topo = $('#topo');
+  const aoRolar = () => topo.classList.toggle('rolou', scrollY > 40);
+  addEventListener('scroll', aoRolar, { passive: true }); aoRolar();
+  const burger = $('.burger'), menu = $('#menu');
+  burger.addEventListener('click', () => { const ab = menu.classList.toggle('aberto'); burger.setAttribute('aria-expanded', String(ab)); });
+  $$('a', menu).forEach((a) => a.addEventListener('click', () => { menu.classList.remove('aberto'); burger.setAttribute('aria-expanded', 'false'); }));
+
+  // aberto agora?
+  const status = $('[data-status]');
+  const agora = new Date(), dia = agora.getDay(), h = agora.getHours() + agora.getMinutes() / 60;
+  const ontem = D.abertura[(dia + 6) % 7];
+  const hoje = D.abertura[dia];
+  const fmtH = (x) => (x % 24) + 'h';
+  if (ontem[1] > 24 && h < ontem[1] - 24) { status.textContent = `Aberto agora, entregas até ${fmtH(ontem[1])}`; status.classList.add('aberto'); }
+  else if (h >= hoje[0] && h < hoje[1]) { status.textContent = `Aberto agora, entregas até ${fmtH(hoje[1])}`; status.classList.add('aberto'); }
+  else status.textContent = `Fechado agora. Abrimos às ${fmtH(h < hoje[0] ? hoje[0] : D.abertura[(dia + 1) % 7][0])}`;
+  const online = $('[data-online]');
+  if (online && !status.classList.contains('aberto')) { online.textContent = 'Fora do horário: respondo a partir das 10h'; online.classList.add('fora'); }
+  const linhaHoje =dia === 0 ? 2 : dia >= 5 ? 1 : 0;
+  const tr = $(`.horarios tr[data-dia="${linhaHoje}"]`); if (tr) tr.classList.add('hoje');
+  $$('[data-ano]').forEach((e) => { e.textContent = agora.getFullYear(); });
+
+  // ---------- revelar ao rolar ----------
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); } }), { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  $$('.revela, .passos, .estrada').forEach((el) => io.observe(el));
+  requestAnimationFrame(() => setTimeout(() => $('.capa').classList.add('pronta'), 120));
+
+  // capa acompanha o mouse
+  const capaArte = $('.capa-arte');
+  if (!calmo && matchMedia('(pointer: fine)').matches) {
+    $('.capa').addEventListener('pointermove', (e) => {
+      const r = capaArte.getBoundingClientRect();
+      capaArte.style.setProperty('--mx', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+      capaArte.style.setProperty('--my', ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+    });
+  }
+
+  // ---------- carrossel ----------
+  const carr = $('[data-carrossel]'), barra = $('[data-progresso]');
+  const progresso = () => {
+    const vis = carr.clientWidth / carr.scrollWidth, max = carr.scrollWidth - carr.clientWidth;
+    barra.style.width = (vis * 100) + '%';
+    barra.style.transform = `translateX(${max ? (carr.scrollLeft / max) * ((1 - vis) / vis) * 100 : 0}%)`;
+  };
+  carr.addEventListener('scroll', progresso, { passive: true }); addEventListener('resize', progresso); progresso();
+  $$('[data-rolar]').forEach((b) => b.addEventListener('click', () => {
+    const fim = carr.scrollLeft + carr.clientWidth >= carr.scrollWidth - 4;
+    const ini = carr.scrollLeft <= 4;
+    const dir = +b.dataset.rolar;
+    if (dir > 0 && fim) carr.scrollTo({ left: 0 });
+    else if (dir < 0 && ini) carr.scrollTo({ left: carr.scrollWidth });
+    else carr.scrollBy({ left: dir * carr.clientWidth * 0.8 });
+  }));
+
+  // ---------- filtros do catálogo ----------
+  const cards = $$('[data-grade] .prod');
+  const entrada = $('[data-busca-input]'), limpar = $('[data-limpar]');
+  const achados = $('[data-achados]'), vazio = $('[data-vazio]');
+  const nomes = Object.fromEntries($$('.chip').map((c) => [c.dataset.chip, c.textContent]));
+  let catAtual = 'tudo', tudoAberto = false;
+  const LIMITE = 10, verMais = $('[data-ver-mais]');
+  function filtrar() {
+    const q = normal(entrada.value);
+    const semAlc = raiz.classList.contains('sem-alcool');
+    const corta = catAtual === 'tudo' && !q && !tudoAberto;
+    let n = 0, mostrados = 0;
+    cards.forEach((c) => {
+      const passa = (catAtual === 'tudo' || c.dataset.cat === catAtual) && (!q || q.split(/\s+/).every((p) => c.dataset.busca.includes(p))) && !(semAlc && c.hasAttribute('data-alc'));
+      if (passa) n++;
+      const ok = passa && (!corta || n <= LIMITE);
+      const antes = !c.hidden;
+      c.hidden = !ok;
+      if (ok) { c.classList.remove('entra'); if (!antes || filtrar.anima) { void c.offsetWidth; c.style.setProperty('--i', Math.min(mostrados, 12)); c.classList.add('entra'); } mostrados++; }
+    });
+    filtrar.anima = false;
+    verMais.hidden = !(corta && n > LIMITE);
+    verMais.lastChild.textContent = `Ver as outras ${n - LIMITE} bebidas`;
+    limpar.hidden = !q;
+    vazio.hidden = n > 0;
+    achados.textContent = q || catAtual !== 'tudo'
+      ? `${n} ${n === 1 ? 'bebida' : 'bebidas'}${catAtual !== 'tudo' ? ' em ' + nomes[catAtual] : ''}${q ? ` para "${entrada.value.trim()}"` : ''}`
+      : `${n} bebidas geladas esperando por você`;
+  }
+  const escolher = (id) => {
+    catAtual = id;
+    $$('.chip').forEach((c) => { const on = c.dataset.chip === id; c.classList.toggle('on', on); c.setAttribute('aria-pressed', String(on)); });
+    filtrar.anima = true; filtrar();
+  };
+  $$('.chip').forEach((c) => c.addEventListener('click', () => escolher(c.dataset.chip)));
+  verMais.addEventListener('click', () => { tudoAberto = true; filtrar(); const c = cards.filter((x) => !x.hidden)[LIMITE]; if (c) c.querySelector('button').focus({ preventScroll: true }); });
+  entrada.addEventListener('input', () => { filtrar.anima = true; filtrar(); });
+  limpar.addEventListener('click', () => { entrada.value = ''; filtrar.anima = true; filtrar(); entrada.focus(); });
+  const irCatalogo = () => $('#catalogo').scrollIntoView({ behavior: calmo ? 'auto' : 'smooth' });
+  $$('[data-filtro]').forEach((b) => b.addEventListener('click', (e) => { e.preventDefault(); entrada.value = ''; escolher(b.dataset.filtro); irCatalogo(); }));
+  $$('[data-marca]').forEach((b) => b.addEventListener('click', () => { entrada.value = b.dataset.marca; escolher('tudo'); irCatalogo(); }));
+
+  // ---------- carrinho ----------
+  let carrinho = {};
+  try { carrinho = JSON.parse(guarda.ler('tampinha-carrinho') || '{}') || {}; } catch (e) { carrinho = {}; }
+  Object.keys(carrinho).forEach((id) => { if (!D.produtos[id] || !(carrinho[id] > 0)) delete carrinho[id]; });
+  const gaveta = $('#carrinho'), veu = $('[data-veu]');
+  const itensEl = $('[data-itens]'), vazioCar = $('[data-car-vazio]');
+  const subtotal = () => Object.entries(carrinho).reduce((s, [id, q]) => s + D.produtos[id].p * q, 0);
+  const conta = () => Object.values(carrinho).reduce((s, q) => s + q, 0);
+  const form = $('[data-pedido]');
+  const retirada = () => form.receber.value === 'retirada';
+  const taxa = () => (retirada() || subtotal() >= D.entrega.gratisAcima || !conta() ? 0 : D.entrega.taxa);
+
+  function salvar() { guarda.gravar('tampinha-carrinho', JSON.stringify(carrinho)); desenhar(); }
+  function mudar(id, delta, origem) {
+    const q = (carrinho[id] || 0) + delta;
+    if (q > 0) carrinho[id] = Math.min(q, 99); else delete carrinho[id];
+    if (delta > 0 && origem) voar(origem);
+    salvar();
+  }
+
+  function desenhar() {
+    const n = conta(), sub = subtotal(), t = taxa();
+    $$('[data-conta]').forEach((e) => { e.textContent = n; });
+    $$('[data-total-nav]').forEach((e) => { e.textContent = real(sub); });
+    $$('[data-compra]').forEach((c) => {
+      const q = carrinho[c.dataset.compra] || 0;
+      c.classList.toggle('tem', q > 0);
+      const o = $('output', c); if (o) o.textContent = q;
+    });
+    const barraCar = $('[data-barra]');
+    barraCar.hidden = n === 0;
+    document.body.classList.toggle('tem-itens', n > 0);
+
+    // itens da gaveta
+    itensEl.innerHTML = '';
+    Object.entries(carrinho).forEach(([id, q]) => {
+      const p = D.produtos[id];
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="mini">${miniHTML(p)}</span><div><b></b><span>${q} x ${real(p.p)} = <strong>${real(p.p * q)}</strong></span></div>
+        <div class="qtd"><button type="button" aria-label="Tirar um">${$('[data-menos] svg').outerHTML}</button><output>${q}</output><button type="button" aria-label="Pôr mais um">${$('[data-mais] svg').outerHTML}</button></div>`;
+      $('b', li).textContent = p.n;
+      const [menos, mais] = $$('button', li);
+      menos.addEventListener('click', () => mudar(id, -1));
+      mais.addEventListener('click', () => mudar(id, 1));
+      itensEl.appendChild(li);
+    });
+    vazioCar.hidden = n > 0;
+    form.hidden = n === 0;
+
+    const frete = $('[data-frete]'), falta = D.entrega.gratisAcima - sub;
+    frete.hidden = n === 0;
+    frete.classList.toggle('gratis', falta <= 0 || retirada());
+    $('[data-frete-txt]').innerHTML = retirada() ? 'Retirada no balcão: <b>sem taxa de entrega</b>.'
+      : falta > 0 ? `Faltam <b>${real(falta)}</b> para a entrega grátis.` : '<b>Entrega grátis</b> liberada no seu pedido.';
+    $('[data-frete-barra]').style.width = Math.min(100, (sub / D.entrega.gratisAcima) * 100) + '%';
+    $('[data-subtotal]').textContent = real(sub);
+    $('[data-taxa]').textContent = retirada() ? 'retirada' : t ? real(t) : 'grátis';
+    $('[data-total]').textContent = real(sub + t);
+    $('[data-enviar]').disabled = n === 0;
+  }
+
+  // a foto do produto voa até o carrinho
+  function voar(origem) {
+    const alvoBtn = matchMedia('(max-width: 760px)').matches && !$('[data-barra]').hidden ? $('.barra-carrinho button') : $('.carrinho-btn');
+    const pular = () => { alvoBtn.classList.remove('pulo'); void alvoBtn.offsetWidth; alvoBtn.classList.add('pulo'); };
+    if (calmo || gaveta.classList.contains('aberto')) return pular();
+    const bloco = origem.closest('.prod, .kit, .extra');
+    const foto = (bloco && bloco.querySelector('img')) || origem;
+    const a = foto.getBoundingClientRect(), b = alvoBtn.getBoundingClientRect();
+    const el = document.createElement('div');
+    el.className = 'voa';
+    if (foto.tagName === 'IMG') { const im = foto.cloneNode(); im.removeAttribute('loading'); el.appendChild(im); }
+    const lado = Math.min(a.width, a.height, 220);
+    el.style.width = el.style.height = lado + 'px';
+    el.style.left = a.left + a.width / 2 - lado / 2 + 'px'; el.style.top = a.top + a.height / 2 - lado / 2 + 'px';
+    document.body.appendChild(el);
+    const dx = b.left + b.width / 2 - (a.left + a.width / 2), dy = b.top + b.height / 2 - (a.top + a.height / 2);
+    const fim = 36 / lado;
+    const anim = el.animate([
+      { transform: 'translate(0,0) scale(1)', borderRadius: '6px', opacity: 1 },
+      { transform: `translate(${dx * 0.4}px, ${dy * 0.4 - 80}px) scale(${Math.max(fim * 2.4, 0.35)})`, borderRadius: '50%', offset: 0.45 },
+      { transform: `translate(${dx}px, ${dy}px) scale(${fim})`, borderRadius: '50%', opacity: 0.85 },
+    ], { duration: 760, easing: 'cubic-bezier(.45,.05,.3,1)' });
+    anim.onfinish = () => { el.remove(); pular(); };
+  }
+
+  document.addEventListener('click', (e) => {
+    const add = e.target.closest('[data-add]'), mais = e.target.closest('[data-mais]'), menos = e.target.closest('[data-menos]');
+    if (add) mudar(add.dataset.add, 1, add);
+    else if (mais) mudar(mais.dataset.mais, 1);
+    else if (menos) mudar(menos.dataset.menos, -1);
+  });
+  $$('[data-kit]').forEach((b) => b.addEventListener('click', () => {
+    D.kits[b.dataset.kit].forEach(([id, q]) => { carrinho[id] = Math.min((carrinho[id] || 0) + q, 99); });
+    voar(b); salvar();
+    const txt = b.lastChild.textContent; b.lastChild.textContent = 'Kit no carrinho';
+    setTimeout(() => { b.lastChild.textContent = txt; }, 1800);
+  }));
+
+  // abrir e fechar
+  let antesFoco = null;
+  const abrir = () => {
+    antesFoco = document.activeElement;
+    veu.hidden = false; requestAnimationFrame(() => veu.classList.add('on'));
+    gaveta.classList.add('aberto'); gaveta.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('travado');
+    setTimeout(() => { $('.car-fechar').focus(); igualar(); }, 80);
+  };
+  const fechar = () => {
+    veu.classList.remove('on'); setTimeout(() => { veu.hidden = true; }, 350);
+    gaveta.classList.remove('aberto'); gaveta.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('travado');
+    if (antesFoco) antesFoco.focus({ preventScroll: true });
+  };
+  $$('[data-abrir-carrinho]').forEach((b) => b.addEventListener('click', abrir));
+  $$('[data-fechar-carrinho]').forEach((b) => b.addEventListener('click', () => { fechar(); if (b.dataset.ir) setTimeout(irCatalogo, 200); }));
+  veu.addEventListener('click', fechar);
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && gaveta.classList.contains('aberto')) fechar(); });
+
+  // formulário do pedido
+  const campoEnd = $('[data-endereco]'), campoTroco = $('[data-troco]'), erro = $('[data-erro]');
+  form.addEventListener('change', () => {
+    campoEnd.hidden = retirada();
+    campoTroco.hidden = form.pag.value !== 'Dinheiro';
+    desenhar();
+  });
+  $('[data-enviar]').addEventListener('click', () => {
+    const nome = form.nome.value.trim(), end = form.endereco.value.trim();
+    $$('.campo', form).forEach((c) => c.classList.remove('falta'));
+    if (!nome || (!retirada() && end.length < 6)) {
+      if (!nome) form.nome.closest('.campo').classList.add('falta');
+      if (!retirada() && end.length < 6) campoEnd.classList.add('falta');
+      erro.textContent = !nome ? 'Diga seu nome para a gente saber de quem é o pedido.' : 'Coloque o endereço com número e bairro para a entrega.';
+      (!nome ? form.nome : form.endereco).focus();
+      return;
+    }
+    erro.textContent = '';
+    const sub = subtotal(), t = taxa();
+    const linhas = Object.entries(carrinho).map(([id, q]) => `${q}x ${D.produtos[id].n}  ${real(D.produtos[id].p * q)}`);
+    const msg = [
+      `Olá, ${D.nome}! Quero fazer este pedido:`, '',
+      ...linhas, '',
+      `Produtos: ${real(sub)}`,
+      `Entrega: ${retirada() ? 'retirada no balcão' : t ? real(t) : 'grátis'}`,
+      `*Total: ${real(sub + t)}*`, '',
+      `Nome: ${nome}`,
+      retirada() ? 'Vou retirar no balcão.' : `Endereço: ${end}`,
+      `Pagamento: ${form.pag.value}${form.pag.value === 'Dinheiro' && form.troco.value.trim() ? `, troco para R$ ${form.troco.value.trim()}` : ''}`,
+      form.obs.value.trim() ? `Observação: ${form.obs.value.trim()}` : '',
+    ].filter((l, i, a) => l !== '' || a[i - 1] !== '').join('\n');
+    window.open(`https://wa.me/${D.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+  });
+
+  filtrar();
+  desenhar();
+})();
+
+</script>
+</body>
+</html>

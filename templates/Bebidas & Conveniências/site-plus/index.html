@@ -47,36 +47,38 @@
       <span data-quadro>QUADRO 0001</span>
     </div>
 
-    <div class="hero-texto">
-      <p class="apoio">Energético com gás, cinco sabores</p>
-      <h1>Abre<br>no<br>estalo.</h1>
-      <p class="hero-lead">Quatrocentos e setenta e três mililitros de sabor gelado, com gás e no volume máximo. Role a página e veja os primeiros 50 milissegundos depois que o lacre sobe, em câmera lenta.</p>
-      <div class="botoes" data-iguais>
-        <a class="btn btn-escuro" href="#sabores">Ver os sabores<span class="seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></svg></span></a>
-        <a class="btn btn-linha" href="#onde">Achar uma geladeira</a>
+    <div class="hero-conteudo">
+      <div class="hero-meio">
+        <div class="hero-texto">
+          <p class="apoio">Energético com gás, cinco sabores</p>
+          <h1>Abre<br>no<br>estalo.</h1>
+          <p class="hero-lead">Sabor gelado, com gás e no volume máximo. Role a página e veja a lata abrir em câmera lenta.</p>
+          <div class="botoes" data-iguais>
+            <a class="btn btn-escuro" href="#sabores">Ver os sabores<span class="seta" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></svg></span></a>
+            <a class="btn btn-linha" href="#onde">Achar uma geladeira</a>
+          </div>
+        </div>
+        <div class="hero-sabor" aria-live="polite">
+          <p class="hero-nome" data-hero-nome>Pitanga</p>
+          <p class="hero-nota" data-hero-nota>Pitanga e laranja-sanguínea. 160 mg de cafeína, 10 kcal.</p>
+        </div>
       </div>
-    </div>
 
-    <div class="hero-sabor" aria-live="polite">
-      <p class="hero-nome" data-hero-nome>Pitanga</p>
-      <p class="hero-nota" data-hero-nota>Pitanga e laranja-sanguínea. 160 mg de cafeína, 10 kcal.</p>
-    </div>
-
-    <div class="hero-base">
-      <div class="seletor" role="group" aria-label="Escolha o sabor" data-iguais>
-        <button type="button" data-sabor="pitanga" aria-pressed="true"><i style="--c:#FF4B1F"></i>Pitanga</button>
-        <button type="button" data-sabor="limao" aria-pressed="false"><i style="--c:#C3F53C"></i>Limão-cravo</button>
-        <button type="button" data-sabor="maracuja" aria-pressed="false"><i style="--c:#FFD53A"></i>Maracujá</button>
-        <button type="button" data-sabor="acai" aria-pressed="false"><i style="--c:#6A34FF"></i>Açaí</button>
-        <button type="button" data-sabor="hortela" aria-pressed="false"><i style="--c:#8CDCFF"></i>Hortelã</button>
+      <div class="hero-base">
+        <div class="regua" data-regua role="slider" tabindex="0" aria-label="Linha do tempo da câmera lenta" aria-valuemin="-20" aria-valuemax="50">
+          <div class="regua-trilho"><span class="regua-barra" data-regua-barra></span></div>
+          <div class="regua-marcas" aria-hidden="true"><span>−20 ms</span><span>−10</span><span>0</span><span>+10</span><span>+20</span><span>+30</span><span>+40</span><span>+50 ms</span></div>
+        </div>
+        <div class="seletor" role="group" aria-label="Escolha o sabor" data-iguais>
+          <button type="button" data-sabor="pitanga" aria-pressed="true">Pitanga</button>
+          <button type="button" data-sabor="limao" aria-pressed="false">Limão-cravo</button>
+          <button type="button" data-sabor="maracuja" aria-pressed="false">Maracujá</button>
+          <button type="button" data-sabor="acai" aria-pressed="false">Açaí</button>
+          <button type="button" data-sabor="hortela" aria-pressed="false">Hortelã</button>
+        </div>
+        <div class="leitura" aria-hidden="true"><span class="leitura-dica">Role para abrir</span><b data-ms>−20,0 ms</b></div>
       </div>
-      <div class="regua" data-regua role="slider" tabindex="0" aria-label="Linha do tempo da câmera lenta" aria-valuemin="-20" aria-valuemax="50">
-        <div class="regua-trilho"><span class="regua-barra" data-regua-barra></span></div>
-        <div class="regua-marcas" aria-hidden="true"><span>−20</span><span>−10</span><span>0</span><span>+10</span><span>+20</span><span>+30</span><span>+40</span><span>+50</span></div>
-      </div>
-      <p class="leitura" data-ms aria-hidden="true">−20,0 ms</p>
     </div>
-    <p class="dica-rolar" aria-hidden="true">Role para abrir</p>
   </div>
 </section>
 
@@ -536,7 +538,6 @@
   </div>
 
   <div class="marca-gigante" aria-hidden="true">
-    <div class="lacres"><i style="--c:#FF4B1F"></i><i style="--c:#C3F53C"></i><i style="--c:#FFD53A"></i><i style="--c:#6A34FF"></i><i style="--c:#8CDCFF"></i></div>
     <p data-gigante>N3 Drinks</p>
   </div>
   <div class="rodape-base">

@@ -6,6 +6,7 @@
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   let vh = innerHeight;
+  let rolagem = null; // rolagem suave em andamento (o topo não se esconde enquanto ela roda)
 
   // ---------- grupos com a mesma largura (diretriz do projeto) ----------
   function iguala() {
@@ -56,7 +57,6 @@
   const finalTit = $('[data-final-tit]');
   const finalLatas = $('[data-final-latas]');
   const gigante = $('[data-gigante]');
-  const lacres = $('.lacres');
 
   // posição do elemento ao atravessar a tela: 0 entrando por baixo, 1 saindo por cima
   function travessia(el) { const r = el.getBoundingClientRect(); return clamp((vh - r.top) / (vh + r.height)); }
@@ -71,7 +71,8 @@
     vel = vel * 0.9 + dy * 0.1;
 
     // topo
-    if (!topo.classList.contains('aberto')) {
+    if (rolagem) topo.classList.remove('some');
+    else if (!topo.classList.contains('aberto')) {
       if (dy > 4 && y > 300) topo.classList.add('some');
       else if (dy < -4) topo.classList.remove('some');
     }
@@ -122,9 +123,8 @@
     }
     if (finalLatas) finalLatas.style.setProperty('--q', (1 - Math.pow(1 - chegada(finalLatas, 0.15), 3)).toFixed(3));
     if (gigante) {
-      const k = chegada(gigante, 0.05);
+      const k = chegada(gigante, 0.6);
       gigante.style.setProperty('--ls', (1 - k).toFixed(3));
-      if (lacres) lacres.style.setProperty('--q', k.toFixed(3));
     }
   }
 
@@ -134,7 +134,15 @@
   // a fita anda mesmo parada
   (function anda() { quadro(); requestAnimationFrame(anda); })();
 
-  addEventListener('resize', () => { vh = innerHeight; medeTrilho(); });
+  // marca gigante do rodapé ocupa a largura exata, qualquer que seja o tamanho da tela
+  function encaixaGigante() {
+    if (!gigante) return;
+    gigante.style.setProperty('--ls', '0'); gigante.style.fontSize = '100px';
+    const w = gigante.getBoundingClientRect().width, alvo = gigante.parentElement.clientWidth;
+    if (w) gigante.style.fontSize = (100 * alvo / w * 0.97).toFixed(2) + 'px';
+  }
+  document.fonts.ready.then(encaixaGigante);
+  addEventListener('resize', () => { vh = innerHeight; medeTrilho(); encaixaGigante(); });
   medeTrilho();
   document.fonts.ready.then(medeTrilho);
 
@@ -167,6 +175,55 @@
       }
     });
   });
+
+  // ---------- rolagem suave até a seção clicada ----------
+  // acelera, desliza e desacelera; a duração cresce com a distância; mexer na rodinha ou tocar interrompe
+  const suaveIO = x => x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2;
+  function cancelaRolagem() { if (rolagem) { cancelAnimationFrame(rolagem.raf); rolagem = null; } }
+  ['wheel', 'touchstart', 'keydown'].forEach(ev => addEventListener(ev, e => {
+    if (ev === 'keydown' && !['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(e.key)) return;
+    cancelaRolagem();
+  }, { passive: true }));
+  function rolaAte(alvo, hash) {
+    cancelaRolagem();
+    const destino = Math.min(alvo === 'topo' ? 0 : alvo.getBoundingClientRect().top + scrollY, document.documentElement.scrollHeight - innerHeight);
+    const inicio = scrollY, dist = destino - inicio;
+    if (hash) history.pushState(null, '', hash);
+    if (reduz || Math.abs(dist) < 2) { scrollTo(0, destino); return; }
+    const dur = Math.min(1700, Math.max(650, 480 + Math.abs(dist) * 0.07));
+    const t0 = performance.now();
+    rolagem = { raf: 0 };
+    const passo = agora => {
+      const k = Math.min(1, (agora - t0) / dur);
+      scrollTo(0, inicio + dist * suaveIO(k));
+      if (k < 1 && rolagem) rolagem.raf = requestAnimationFrame(passo);
+      else { rolagem = null; if (alvo !== 'topo') { alvo.setAttribute('tabindex', '-1'); alvo.focus({ preventScroll: true }); } }
+    };
+    rolagem.raf = requestAnimationFrame(passo);
+  }
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || a.closest('[data-abre]') || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    const hash = a.getAttribute('href');
+    if (hash === '#conteudo') return;
+    const alvo = hash === '#' || hash === '#inicio' ? 'topo' : document.querySelector(hash);
+    if (!alvo) return;
+    e.preventDefault();
+    topo.classList.remove('aberto'); btnMenu.setAttribute('aria-expanded', false);
+    // vindo do modal: espera ele fechar e liberar a rolagem da página
+    if (a.closest('[data-modal]')) setTimeout(() => rolaAte(alvo, hash), reduz ? 0 : 420);
+    else rolaAte(alvo, hash);
+  });
+
+  // link do menu acende conforme a seção que está na tela
+  const linksMenu = $$('.menu a[href^="#"]');
+  const secoesMenu = linksMenu.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const ioMenu = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    linksMenu.forEach(a => a.classList.toggle('ativo', a.getAttribute('href') === '#' + e.target.id));
+  }), { rootMargin: '-45% 0px -50% 0px' });
+  secoesMenu.forEach(s => ioMenu.observe(s));
+  addEventListener('scroll', () => { if (scrollY < innerHeight * 0.5) linksMenu.forEach(a => a.classList.remove('ativo')); }, { passive: true });
 
   // ---------- modal do sabor ----------
   const SAB = window.N3_SABORES || [];

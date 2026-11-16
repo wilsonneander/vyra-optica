@@ -458,7 +458,9 @@
         cam.fov = 24; cam.position.set(0, 4.2, 23.5); cam.lookAt(0, 3.55, 0);
         cam.setViewOffset(W, H, -W * 0.125, H * 0.035, W, H);
       } else if (W < 600) {
-        cam.fov = 30; cam.position.set(0, 4.4, 27); cam.lookAt(0, 2.7, 0);
+        // celular baixo: afasta a câmera para a lata caber entre o título e os botões
+        const longe = Math.min(1.4, Math.max(1, 820 / H));
+        cam.fov = 30; cam.position.set(0, 4.4, 27 * longe); cam.lookAt(0, 2.7, 0);
         cam.setViewOffset(W, H, 0, -H * 0.02, W, H);
       } else {
         cam.fov = 30; cam.position.set(0, 4.4, 22); cam.lookAt(0, 2.7, 0);

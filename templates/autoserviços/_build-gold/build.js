@@ -8,6 +8,7 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
+const T = require('../../_comum/tema-pilula');
 
 const OUT = path.join(__dirname, '..', 'site-gold');
 const M = C.marca;
@@ -35,15 +36,15 @@ const sprite = C.marcas.map(([id]) => {
   return `<symbol id="m-${id}" viewBox="${vb}">${corpo}</symbol>`;
 }).join('');
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
-fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(OUT, 'assets', 'style.css'));
+fs.writeFileSync(path.join(OUT, 'assets', 'style.css'), fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8') + T.css);
 fs.writeFileSync(path.join(OUT, 'assets', 'app.js'), fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
-  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura, icones: { whats: I.whats, mais: I.mais, menos: I.menos } })));
+  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura, icones: { whats: I.whats, mais: I.mais, menos: I.menos } })) + T.js('pistao-tema', '#ffffff', '#101010'));
 // loja (vitrine, reservas e agendamentos) e painel do dono
 fs.writeFileSync(path.join(OUT, 'assets', 'loja.js'), fs.readFileSync(path.join(__dirname, 'loja.js'), 'utf8')
   .replace('/*SEMENTE*/', JSON.stringify({ categorias: C.categorias, produtos: C.produtos, agendamentosExemplo: C.agendamentosExemplo, painel: C.painel, whatsapp: M.whatsapp })));
 fs.copyFileSync(path.join(__dirname, 'painel.css'), path.join(OUT, 'assets', 'painel.css'));
 fs.writeFileSync(path.join(OUT, 'assets', 'painel.js'), fs.readFileSync(path.join(__dirname, 'painel.js'), 'utf8')
-  .replace('/*DADOS*/', JSON.stringify({ icones: { mais: I.mais, menos: I.menos, lixeira: I.lixeira, whats: I.whats, foto: I.foto } })));
+  .replace('/*DADOS*/', JSON.stringify({ icones: { mais: I.mais, menos: I.menos, lixeira: I.lixeira, whats: I.whats, foto: I.foto } })) + T.js('pistao-tema', '#ffffff', '#101010'));
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
 const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700;800&family=Sarabun:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">';
@@ -57,11 +58,8 @@ const titulo = (fundo, h2, { id = '', txt = '', centro = false } = {}) => `<div 
 // link com as letras que rolam no hover (o "text-hover-animation" da referência)
 const rola = (t) => `<span class="rola" data-rola>${t}</span>`;
 const S = C.servicos;
-// seletor de tema (pílula branca com sol e lua, como o da referência): o mesmo componente na lateral e no menu do celular
-const seletorTema = (onde) => `<div class="tema-pilula ${onde}" role="group" aria-label="Tema do site">
-  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="false">${I.claro}</button>
-  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="true">${I.escuro}</button>
-</div>`;
+// seletor de tema comum aos modelos automotivos (pílula com sol e lua e marcador que desliza como gota): na lateral e no menu do celular
+const seletorTema = (onde) => T.pilula(onde, 'escuro');
 const v = (n) => `assets/video/${n}`;
 
 // ---------- capa ----------
@@ -132,7 +130,7 @@ ${fontes}
         <li><a href="#contato">${rola('Contato')}</a></li>
       </ul>
       <div class="menu-botoes"><a class="btn menu-cta" href="#contato">Agendar serviço</a><a class="topo-area menu-area" href="painel/index.html">${I.cliente}<span>Área do cliente</span></a></div>
-      ${seletorTema('menu-tema')}
+      ${seletorTema('menu-tema deitada')}
     </nav>
     <a class="topo-area" href="painel/index.html">${I.cliente}${rola('Área do cliente')}</a>
     <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
@@ -523,7 +521,7 @@ ${fontes}
       </nav>
       <div class="app-acoes">
         <a class="link-mais" href="../index.html#produtos" target="_blank" rel="noopener">${rola('Ver vitrine')}</a>
-        ${seletorTema('app-tema')}
+        ${seletorTema('app-tema deitada')}
         <button type="button" class="caixa-btn" data-sair>${I.sair}<span>Sair</span></button>
       </div>
     </div>

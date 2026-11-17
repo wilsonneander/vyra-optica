@@ -7,21 +7,6 @@
   const wa = (msg) => `https://wa.me/${D.whatsapp}?text=${encodeURIComponent(msg)}`;
   document.documentElement.classList.add('js');
 
-  /* ---------- tema claro ou escuro (pílula na lateral e no menu do celular) ---------- */
-  const raiz = document.documentElement;
-  const botoesTema = $$('[data-tema-ir]');
-  const corTopo = $('meta[name="theme-color"]');
-  const marcaTema = () => {
-    botoesTema.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.temaIr === raiz.dataset.tema)));
-    corTopo.content = raiz.dataset.tema === 'claro' ? '#0F1012' : '#0F1012';
-  };
-  botoesTema.forEach((b) => b.addEventListener('click', () => {
-    raiz.dataset.tema = b.dataset.temaIr;
-    try { localStorage.setItem('pistao-bronze-tema', raiz.dataset.tema); } catch (e) { /* sem armazenamento, o tema vale só nesta visita */ }
-    marcaTema();
-  }));
-  marcaTema();
-
   // ano do rodapé
   $$('[data-ano]').forEach((e) => { e.textContent = new Date().getFullYear(); });
 

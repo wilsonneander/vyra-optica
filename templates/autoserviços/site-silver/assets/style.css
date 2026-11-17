@@ -37,6 +37,7 @@
   --campo-foco: #202020;
   --logo-apagado: #3c3c3c;
   --sombra-cartao: 0 -20px 50px -20px rgba(0,0,0,.8);
+  --tema-cor: #ff3d24; --tema-halo: rgba(255,61,36,.22);
   color-scheme: dark;
 }
 :root[data-tema="claro"] {
@@ -480,15 +481,9 @@ section { position: relative; isolation: isolate; }
 .sobe-topo .anel { fill: none; stroke: var(--rubi); stroke-width: 2.5; stroke-dasharray: 132; stroke-dashoffset: calc(132 - var(--rolado, 0) * 132); transform: rotate(-90deg); transform-origin: center; }
 .sobe-topo:hover .anel { stroke: var(--branco); }
 
-/* ---------- seletor de tema: pílula branca com sol e lua (o mesmo componente do Gold) ---------- */
-.tema-pilula { display: inline-grid; gap: 6px; padding: 6px; background: #fff; border-radius: 30px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.5); }
-.tema-pilula button { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #8a8a8a; cursor: pointer; transition: background .3s, color .3s, transform .4s var(--mola); }
-.tema-pilula button svg { width: 21px; height: 21px; }
-.tema-pilula button:hover { transform: scale(1.1); color: var(--rubi); }
-.tema-pilula button[aria-pressed="true"] { background: var(--rubi); color: #fff; box-shadow: 0 0 0 4px rgba(255,61,36,.25); }
+/* ---------- seletor de tema (peça comum em templates/_comum/tema-pilula.js) ---------- */
 .tema-lado { position: fixed; right: 18px; top: 50%; z-index: 95; transform: translateY(-50%); }
 .menu .menu-tema { display: none; }
-:root[data-tema="claro"] .tema-pilula { box-shadow: 0 10px 30px -12px rgba(0,0,0,.35), 0 0 0 1px rgba(0,0,0,.06); }
 
 /* ---------- tema claro: o que não sai só das variáveis ---------- */
 /* capa e faixa do letreiro continuam escuras (texto sobre foto) */
@@ -594,4 +589,36 @@ section { position: relative; isolation: isolate; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
   html { scroll-behavior: auto; }
   .letreiro-trilho, .esteira-trilho { animation: none; }
+}
+
+/* ---------- seletor de tema: pílula com sol e lua e um marcador que desliza como gota ---------- */
+/* position com especificidade zero: a lateral fixa (.tema-lado) de cada modelo continua valendo */
+:where(.tema-pilula) { position: relative; }
+.tema-pilula { --tb: 40px; --tg: 6px; --tp: 6px; --x: 0; --y: 1; --d: 0px; display: inline-grid; gap: var(--tg); padding: var(--tp); background: #fff; border-radius: 30px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.05); }
+/* pílula deitada (menu do celular e barras horizontais) */
+.tema-pilula.deitada { --x: 1; --y: 0; grid-auto-flow: column; }
+[data-tema="escuro"] .tema-pilula { --d: calc(var(--tb) + var(--tg)); }
+.tema-pilula button { position: relative; z-index: 1; display: grid; place-items: center; width: var(--tb); height: var(--tb); padding: 0; border: 0; border-radius: 50%; background: transparent; color: #8a8a8a; cursor: pointer; transition: color .45s ease, transform .4s cubic-bezier(.34, 1.5, .5, 1); }
+.tema-pilula button svg { width: 52%; height: 52%; transition: transform .7s cubic-bezier(.34, 1.5, .5, 1); }
+.tema-pilula button:hover { transform: scale(1.1); color: var(--tema-cor); }
+.tema-pilula button[aria-pressed="true"] { color: #fff; }
+.tema-pilula button[aria-pressed="true"]:hover { transform: none; }
+.tema-pilula button[data-tema-ir="claro"][aria-pressed="true"] svg { transform: rotate(90deg); }
+.tema-pilula button[data-tema-ir="escuro"][aria-pressed="true"] svg { transform: rotate(-24deg); }
+.tema-marca { position: absolute; left: var(--tp); top: var(--tp); width: var(--tb); height: var(--tb); border-radius: 50%; background: var(--tema-cor); box-shadow: 0 0 0 4px var(--tema-halo), 0 8px 16px -8px var(--tema-cor); pointer-events: none;
+  translate: calc(var(--x) * var(--d)) calc(var(--y) * var(--d)); transition: translate .7s cubic-bezier(.6, -.05, .2, 1.25); }
+/* a gota: estica no sentido do caminho, achata ao chegar e volta ao redondo */
+.tema-pilula { --g1: .84 1.3; --g2: 1.14 .86; --g3: .97 1.04; }
+.tema-pilula.deitada { --g1: 1.3 .84; --g2: .86 1.14; --g3: 1.04 .97; }
+@keyframes temaGotaA { 0% { scale: 1; } 30% { scale: var(--g1); } 72% { scale: var(--g2); } 88% { scale: var(--g3); } 100% { scale: 1; } }
+@keyframes temaGotaB { 0% { scale: 1; } 30% { scale: var(--g1); } 72% { scale: var(--g2); } 88% { scale: var(--g3); } 100% { scale: 1; } }
+.tema-anim[data-tema="escuro"] .tema-marca { animation: temaGotaA .7s cubic-bezier(.45, 0, .2, 1); }
+.tema-anim[data-tema="claro"] .tema-marca { animation: temaGotaB .7s cubic-bezier(.45, 0, .2, 1); }
+/* a página inteira troca de cor junto, sem piscar */
+html.tema-anim *:not(.tema-pilula, .tema-pilula *),
+html.tema-anim *:not(.tema-pilula, .tema-pilula *)::before,
+html.tema-anim *:not(.tema-pilula, .tema-pilula *)::after { transition: background-color .6s ease, color .6s ease, border-color .6s ease, outline-color .6s ease, box-shadow .6s ease, fill .6s ease, stroke .6s ease, -webkit-text-stroke-color .6s ease !important; }
+html.tema-anim body { transition: background-color .6s ease, color .6s ease !important; }
+@media (prefers-reduced-motion: reduce) {
+  .tema-marca, .tema-pilula button, .tema-pilula button svg { transition: none !important; animation: none !important; }
 }

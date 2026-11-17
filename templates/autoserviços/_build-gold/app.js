@@ -37,18 +37,6 @@
   setTimeout(libera, 3200);
   if (calmo) { pronto = true; setTimeout(libera, 300); } else requestAnimationFrame(animaPre);
 
-  /* ---------- tema claro ou escuro ---------- */
-  const raiz = document.documentElement;
-  const botoesTema = $$('[data-tema-ir]');
-  const marcaTema = () => botoesTema.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.temaIr === raiz.dataset.tema)));
-  botoesTema.forEach((b) => b.addEventListener('click', () => {
-    raiz.dataset.tema = b.dataset.temaIr;
-    try { localStorage.setItem('pistao-tema', raiz.dataset.tema); } catch (e) { /* sem armazenamento, o tema vale só nesta visita */ }
-    $('meta[name="theme-color"]').content = raiz.dataset.tema === 'claro' ? '#ffffff' : '#101010';
-    marcaTema();
-  }));
-  marcaTema();
-
   /* ---------- letras que rolam no hover ---------- */
   $$('[data-rola]').forEach((el) => {
     const txt = el.textContent.trim();

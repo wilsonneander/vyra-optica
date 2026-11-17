@@ -11,6 +11,7 @@
   /* cartões que mudam com o tema (valores do claro) */
   --cartao: #fff;
   --estrela-off: #D6D7D9;
+  --tema-cor: #D42A1E; --tema-halo: rgba(212, 42, 30, .2);
   color-scheme: light;
 }
 :root[data-tema="escuro"] {
@@ -323,12 +324,7 @@ p { margin: 0; }
 .whats-flutua svg { width: 32px; height: 32px; }
 .whats-flutua:hover { transform: scale(1.08) rotate(-6deg); }
 
-/* seletor de tema: pílula branca com sol e lua (o mesmo componente do Gold, no vermelho do Bronze) */
-.tema-pilula { display: inline-grid; gap: 6px; padding: 6px; background: #fff; border-radius: 30px; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .45), 0 0 0 1px rgba(0, 0, 0, .06); }
-.tema-pilula button { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #8a8a8a; cursor: pointer; transition: background .3s, color .3s, transform .4s var(--suave); }
-.tema-pilula button svg { width: 21px; height: 21px; }
-.tema-pilula button:hover { transform: scale(1.1); color: var(--pinca); }
-.tema-pilula button[aria-pressed="true"] { background: var(--pinca); color: #fff; box-shadow: 0 0 0 4px rgba(212, 42, 30, .22); }
+/* seletor de tema (peça comum em templates/_comum/tema-pilula.js): marcador no vermelho do Bronze */
 .tema-lado { position: fixed; right: 18px; top: 50%; z-index: 45; transform: translateY(-50%); }
 .menu .menu-tema { display: none; }
 

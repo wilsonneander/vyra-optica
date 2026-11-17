@@ -1,5 +1,5 @@
 /* Garoa Lava Car, modelo Silver. Marinho quase preto, azul Garoa e amarelo de destaque.
-   Fontes: Red Hat Display (títulos) e Familjen Grotesk (texto). */
+   Fontes: Red Hat Display (títulos) e Familjen Grotesk (texto). Tema claro (padrão) e escuro pelo seletor na lateral. */
 :root {
   --tinta: #0A1322;
   --marinho: #0F1E36;
@@ -18,6 +18,7 @@
   --f-t: 'Red Hat Display', 'Familjen Grotesk', sans-serif;
   --f-c: 'Familjen Grotesk', 'Red Hat Display', sans-serif;
   --suave: cubic-bezier(.2, .8, .2, 1);
+  --tema-cor: #1F5EFF; --tema-halo: rgba(31, 94, 255, .2);
   --onda: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 12'%3E%3Cpath d='M0 6c7.5-6 22.5-6 30 0s22.5 6 30 0v6H0Z'/%3E%3C/svg%3E");
 }
 *, *::before, *::after { box-sizing: border-box; }
@@ -531,6 +532,29 @@ h2 { font-weight: 900; font-size: clamp(34px, 4.4vw, 58px); line-height: 1.02; l
 .sobe-topo svg { width: 48px; height: 48px; }
 .sobe-topo .anel { fill: none; stroke: var(--amarelo); stroke-width: 2.5; stroke-dasharray: 132; stroke-dashoffset: var(--prog, 132); transform: rotate(-90deg); transform-origin: center; }
 
+/* ---------- seletor de tema (peça comum em templates/_comum/tema-pilula.js) ---------- */
+.tema-lado { position: fixed; right: 18px; top: 50%; z-index: 95; transform: translateY(-50%); }
+.menu-mob .menu-tema { justify-self: start; align-self: flex-start; }
+.menu-tema { display: none; }
+.menu-mob .menu-tema { display: inline-grid; }
+
+/* ---------- tema escuro ----------
+   As seções navy (capa, lavagem, vídeos, planos, contato, rodapé) continuam como estão.
+   Nas seções claras as cores são trocadas por variável; peças amarelas, azuis e a barra do antes e depois
+   ficam com as cores originais porque estão sobre amarelo, azul ou foto. */
+:root[data-tema="escuro"] { color-scheme: dark; }
+:root[data-tema="escuro"] body { background: #0D1A2E; color: #C9D3E3; }
+:root[data-tema="escuro"] :is(.equipe, .acabamentos, .antes, .avaliacoes, .faq, .insta) {
+  --tinta: #F1F5FB; --texto: #C9D3E3; --cinza: #93A1B7;
+  --linha: rgba(255, 255, 255, .12); --espuma: #13223B; --branco: #1B2C49;
+}
+:root[data-tema="escuro"] :is(.btn-amarelo, .btn-azul, .equipe-selo, .faq details[open] summary span, .comp, .ficha-extra) { --tinta: #0A1322; --branco: #fff; }
+:root[data-tema="escuro"] .insta { background: #0D1A2E; }
+:root[data-tema="escuro"] .equipe-f2 { border-color: #0D1A2E; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .8); }
+:root[data-tema="escuro"] .antes-abas button:hover { background: #22365A; }
+:root[data-tema="escuro"] .aval { box-shadow: 0 24px 50px -36px rgba(0, 0, 0, .9), inset 0 0 0 1px rgba(255, 255, 255, .06); }
+:root[data-tema="escuro"] .tema-pilula { box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .7); }
+
 /* ---------- responsivo ---------- */
 @media (max-width: 1100px) {
   .nav ul { gap: 20px; }
@@ -541,6 +565,7 @@ h2 { font-weight: 900; font-size: clamp(34px, 4.4vw, 58px); line-height: 1.02; l
 }
 @media (max-width: 920px) {
   .nav, .topo-acoes .btn { display: none; }
+  .tema-lado { display: none; }
   .menu-bt { display: block; }
   .topo-acoes { margin-left: auto; }
   .equipe-in, .acab-in, .antes-in, .aval-in, .faq-in, .contato-in, .rodape-mapa { grid-template-columns: 1fr; }
@@ -620,4 +645,36 @@ h2 { font-weight: 900; font-size: clamp(34px, 4.4vw, 58px); line-height: 1.02; l
   .capa-vidro, .capa-rodo, .bolhas { display: none; }
   .pw > span, .capa-t .ln > span, [data-revela], .insta-fotos li, .ficha-gota { transform: none !important; opacity: 1 !important; }
   .capa-p, .capa-btns, .capa .apoio, .capa-nota { opacity: 1; transform: none; }
+}
+
+/* ---------- seletor de tema: pílula com sol e lua e um marcador que desliza como gota ---------- */
+/* position com especificidade zero: a lateral fixa (.tema-lado) de cada modelo continua valendo */
+:where(.tema-pilula) { position: relative; }
+.tema-pilula { --tb: 40px; --tg: 6px; --tp: 6px; --x: 0; --y: 1; --d: 0px; display: inline-grid; gap: var(--tg); padding: var(--tp); background: #fff; border-radius: 30px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.05); }
+/* pílula deitada (menu do celular e barras horizontais) */
+.tema-pilula.deitada { --x: 1; --y: 0; grid-auto-flow: column; }
+[data-tema="escuro"] .tema-pilula { --d: calc(var(--tb) + var(--tg)); }
+.tema-pilula button { position: relative; z-index: 1; display: grid; place-items: center; width: var(--tb); height: var(--tb); padding: 0; border: 0; border-radius: 50%; background: transparent; color: #8a8a8a; cursor: pointer; transition: color .45s ease, transform .4s cubic-bezier(.34, 1.5, .5, 1); }
+.tema-pilula button svg { width: 52%; height: 52%; transition: transform .7s cubic-bezier(.34, 1.5, .5, 1); }
+.tema-pilula button:hover { transform: scale(1.1); color: var(--tema-cor); }
+.tema-pilula button[aria-pressed="true"] { color: #fff; }
+.tema-pilula button[aria-pressed="true"]:hover { transform: none; }
+.tema-pilula button[data-tema-ir="claro"][aria-pressed="true"] svg { transform: rotate(90deg); }
+.tema-pilula button[data-tema-ir="escuro"][aria-pressed="true"] svg { transform: rotate(-24deg); }
+.tema-marca { position: absolute; left: var(--tp); top: var(--tp); width: var(--tb); height: var(--tb); border-radius: 50%; background: var(--tema-cor); box-shadow: 0 0 0 4px var(--tema-halo), 0 8px 16px -8px var(--tema-cor); pointer-events: none;
+  translate: calc(var(--x) * var(--d)) calc(var(--y) * var(--d)); transition: translate .7s cubic-bezier(.6, -.05, .2, 1.25); }
+/* a gota: estica no sentido do caminho, achata ao chegar e volta ao redondo */
+.tema-pilula { --g1: .84 1.3; --g2: 1.14 .86; --g3: .97 1.04; }
+.tema-pilula.deitada { --g1: 1.3 .84; --g2: .86 1.14; --g3: 1.04 .97; }
+@keyframes temaGotaA { 0% { scale: 1; } 30% { scale: var(--g1); } 72% { scale: var(--g2); } 88% { scale: var(--g3); } 100% { scale: 1; } }
+@keyframes temaGotaB { 0% { scale: 1; } 30% { scale: var(--g1); } 72% { scale: var(--g2); } 88% { scale: var(--g3); } 100% { scale: 1; } }
+.tema-anim[data-tema="escuro"] .tema-marca { animation: temaGotaA .7s cubic-bezier(.45, 0, .2, 1); }
+.tema-anim[data-tema="claro"] .tema-marca { animation: temaGotaB .7s cubic-bezier(.45, 0, .2, 1); }
+/* a página inteira troca de cor junto, sem piscar */
+html.tema-anim *:not(.tema-pilula, .tema-pilula *),
+html.tema-anim *:not(.tema-pilula, .tema-pilula *)::before,
+html.tema-anim *:not(.tema-pilula, .tema-pilula *)::after { transition: background-color .6s ease, color .6s ease, border-color .6s ease, outline-color .6s ease, box-shadow .6s ease, fill .6s ease, stroke .6s ease, -webkit-text-stroke-color .6s ease !important; }
+html.tema-anim body { transition: background-color .6s ease, color .6s ease !important; }
+@media (prefers-reduced-motion: reduce) {
+  .tema-marca, .tema-pilula button, .tema-pilula button svg { transition: none !important; animation: none !important; }
 }

@@ -82,16 +82,6 @@
     el.innerHTML = txt.split(' ').map((p) => `<span class="p" aria-hidden="true">${[...p].map((l) => `<span class="l" style="--n:${n++}">${l}</span>`).join('')}</span>`).join('');
   });
 
-  /* ---------- tema ---------- */
-  const botoesTema = $$('[data-tema-ir]');
-  const marcaTema = () => botoesTema.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.temaIr === raiz.dataset.tema)));
-  botoesTema.forEach((b) => b.addEventListener('click', () => {
-    raiz.dataset.tema = b.dataset.temaIr;
-    try { localStorage.setItem('pistao-tema', raiz.dataset.tema); } catch (e) { /* vale só nesta visita */ }
-    marcaTema();
-  }));
-  marcaTema();
-
   /* ---------- login ---------- */
   const sessao = {
     ativa: () => { try { return !!(sessionStorage.getItem('pistao-sessao') || localStorage.getItem('pistao-sessao')); } catch (e) { return raiz.classList.contains('logado'); } },

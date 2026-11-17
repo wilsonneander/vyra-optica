@@ -82,16 +82,6 @@
     el.innerHTML = txt.split(' ').map((p) => `<span class="p" aria-hidden="true">${[...p].map((l) => `<span class="l" style="--n:${n++}">${l}</span>`).join('')}</span>`).join('');
   });
 
-  /* ---------- tema ---------- */
-  const botoesTema = $$('[data-tema-ir]');
-  const marcaTema = () => botoesTema.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.temaIr === raiz.dataset.tema)));
-  botoesTema.forEach((b) => b.addEventListener('click', () => {
-    raiz.dataset.tema = b.dataset.temaIr;
-    try { localStorage.setItem('pistao-tema', raiz.dataset.tema); } catch (e) { /* vale só nesta visita */ }
-    marcaTema();
-  }));
-  marcaTema();
-
   /* ---------- login ---------- */
   const sessao = {
     ativa: () => { try { return !!(sessionStorage.getItem('pistao-sessao') || localStorage.getItem('pistao-sessao')); } catch (e) { return raiz.classList.contains('logado'); } },
@@ -506,4 +496,27 @@
   window.addEventListener('storage', (e) => { if (sessao.ativa() && (e.key === L.chaves.agenda || e.key === L.chaves.produtos)) carrega(); });
   if (sessao.ativa()) abreApp();
   else { raiz.classList.remove('logado'); }
+})();
+
+/* ---------- tema claro ou escuro (pílula na lateral e no menu do celular) ---------- */
+(() => {
+  const raiz = document.documentElement;
+  const meta = document.querySelector('meta[name="theme-color"]');
+  let fim;
+  const marca = () => {
+    document.querySelectorAll('[data-tema-ir]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.temaIr === raiz.dataset.tema)));
+    if (meta) meta.content = raiz.dataset.tema === 'claro' ? '#ffffff' : '#101010';
+  };
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-tema-ir]');
+    if (!b || b.dataset.temaIr === raiz.dataset.tema) return;
+    // tema-anim liga a passagem suave das cores só durante a troca
+    raiz.classList.add('tema-anim');
+    raiz.dataset.tema = b.dataset.temaIr;
+    try { localStorage.setItem('pistao-tema', raiz.dataset.tema); } catch (err) { /* sem armazenamento, vale só nesta visita */ }
+    marca();
+    clearTimeout(fim);
+    fim = setTimeout(() => raiz.classList.remove('tema-anim'), 800);
+  });
+  marca();
 })();

@@ -37,6 +37,7 @@
   --campo-foco: #202020;
   --logo-apagado: #3c3c3c;
   --sombra-cartao: 0 -20px 50px -20px rgba(0,0,0,.8);
+  --tema-cor: #ff3d24; --tema-halo: rgba(255,61,36,.22);
   color-scheme: dark;
 }
 :root[data-tema="claro"] {
@@ -480,15 +481,9 @@ section { position: relative; isolation: isolate; }
 .sobe-topo .anel { fill: none; stroke: var(--rubi); stroke-width: 2.5; stroke-dasharray: 132; stroke-dashoffset: calc(132 - var(--rolado, 0) * 132); transform: rotate(-90deg); transform-origin: center; }
 .sobe-topo:hover .anel { stroke: var(--branco); }
 
-/* ---------- seletor de tema: pílula branca com sol e lua (o mesmo componente do Gold) ---------- */
-.tema-pilula { display: inline-grid; gap: 6px; padding: 6px; background: #fff; border-radius: 30px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.5); }
-.tema-pilula button { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #8a8a8a; cursor: pointer; transition: background .3s, color .3s, transform .4s var(--mola); }
-.tema-pilula button svg { width: 21px; height: 21px; }
-.tema-pilula button:hover { transform: scale(1.1); color: var(--rubi); }
-.tema-pilula button[aria-pressed="true"] { background: var(--rubi); color: #fff; box-shadow: 0 0 0 4px rgba(255,61,36,.25); }
+/* ---------- seletor de tema (peça comum em templates/_comum/tema-pilula.js) ---------- */
 .tema-lado { position: fixed; right: 18px; top: 50%; z-index: 95; transform: translateY(-50%); }
 .menu .menu-tema { display: none; }
-:root[data-tema="claro"] .tema-pilula { box-shadow: 0 10px 30px -12px rgba(0,0,0,.35), 0 0 0 1px rgba(0,0,0,.06); }
 
 /* ---------- tema claro: o que não sai só das variáveis ---------- */
 /* capa e faixa do letreiro continuam escuras (texto sobre foto) */

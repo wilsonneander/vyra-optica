@@ -80,9 +80,7 @@ html.logado [data-tela-login] { display: none; }
 .novos { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 6px; background: var(--rubi); color: #fff; font: 700 13px var(--f-t); }
 .app-acoes { display: flex; align-items: center; gap: 22px; }
 .app-acoes .caixa-btn span { white-space: nowrap; }
-.app-tema { grid-auto-flow: column; gap: 4px; padding: 4px; }
-.app-tema button { width: 34px; height: 34px; }
-.app-tema button svg { width: 18px; height: 18px; }
+.app-tema { --tb: 34px; --tg: 4px; --tp: 4px; }
 
 /* ---------- saudação e resumo ---------- */
 .app-main { padding: 60px 0 120px; }

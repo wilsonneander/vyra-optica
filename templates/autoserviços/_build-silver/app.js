@@ -17,21 +17,6 @@
   window.addEventListener('load', () => setTimeout(libera, Math.max(0, 900 - (performance.now() - t0))));
   setTimeout(libera, 2600);
 
-  /* ---------- tema claro ou escuro (pílula na lateral e no menu do celular) ---------- */
-  const raiz = document.documentElement;
-  const botoesTema = $$('[data-tema-ir]');
-  const corTopo = $('meta[name="theme-color"]');
-  const marcaTema = () => {
-    botoesTema.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.temaIr === raiz.dataset.tema)));
-    corTopo.content = raiz.dataset.tema === 'claro' ? '#ffffff' : '#101010';
-  };
-  botoesTema.forEach((b) => b.addEventListener('click', () => {
-    raiz.dataset.tema = b.dataset.temaIr;
-    try { localStorage.setItem('pistao-silver-tema', raiz.dataset.tema); } catch (e) { /* sem armazenamento, o tema vale só nesta visita */ }
-    marcaTema();
-  }));
-  marcaTema();
-
   /* ---------- grupos com a mesma largura ---------- */
   const igualar = () => {
     $$('[data-iguais]').forEach((g) => {

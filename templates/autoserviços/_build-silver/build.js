@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
+const T = require('../../_comum/tema-pilula');
 
 const OUT = path.join(__dirname, '..', 'site-silver');
 const M = C.marca;
@@ -31,9 +32,9 @@ const sprite = C.marcas.map(([id]) => {
   return `<symbol id="m-${id}" viewBox="${vb}">${corpo}</symbol>`;
 }).join('');
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
-fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(OUT, 'assets', 'style.css'));
+fs.writeFileSync(path.join(OUT, 'assets', 'style.css'), fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8') + T.css);
 fs.writeFileSync(path.join(OUT, 'assets', 'app.js'), fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
-  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura })));
+  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura })) + T.js('pistao-silver-tema', '#ffffff', '#101010'));
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
 const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">';
@@ -68,13 +69,9 @@ const cartoes = S.map((s, i) => `<article class="cartao" id="${s.id}" style="--i
 
 const marcasHtml = (copia) => C.marcas.map(([id, nome]) => `<li${copia ? ' aria-hidden="true"' : ''}><span class="marca-logo" title="${nome}"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-${id}"/></svg></span><span class="marca-nome">${nome}</span></li>`).join('');
 
-// seletor de tema (pílula branca com sol e lua, o mesmo componente do Gold): na lateral e no menu do celular
-const seletorTema = (onde) => `<div class="tema-pilula ${onde}" role="group" aria-label="Tema do site">
-  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="false">${I.claro}</button>
-  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="true">${I.escuro}</button>
-</div>`;
-// lê o tema salvo (ou ?tema=claro|escuro na URL) antes de pintar, para não piscar
-const temaSalvo = (chave) => `<script>try{var t=new URLSearchParams(location.search).get("tema")||localStorage.getItem("${chave}");if(t==="claro"||t==="escuro")document.documentElement.dataset.tema=t;}catch(e){}</script>`;
+// seletor de tema comum aos modelos automotivos (pílula com sol e lua e marcador que desliza como gota)
+const seletorTema = (onde) => T.pilula(onde, 'escuro');
+const temaSalvo = T.head;
 
 const html = `<!doctype html>
 <html lang="pt-BR" data-tema="escuro">
@@ -123,7 +120,7 @@ ${fontes}
         <li><a href="#contato">Contato</a></li>
       </ul>
       <a class="btn btn-rubi menu-cta" href="#contato">Agendar serviço</a>
-      ${seletorTema("menu-tema")}
+      ${seletorTema("menu-tema deitada")}
     </nav>
     <a class="topo-fone" href="tel:${tel}"><span class="pulso">${I.fone}</span><span><small data-status>Ligue agora</small>${M.telefone}</span></a>
     <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>

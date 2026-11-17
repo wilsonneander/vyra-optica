@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
+const T = require('../../_comum/tema-pilula');
 
 const OUT = path.join(__dirname, '..', 'site-silver');
 const M = C.marca;
@@ -27,13 +28,13 @@ for (const f of ['mapa_buritis.webp', 'og.jpg'])
 for (const f of fs.readdirSync(path.join(__dirname, 'video')))
   fs.copyFileSync(path.join(__dirname, 'video', f), path.join(OUT, 'assets', 'video', f));
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
-fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(OUT, 'assets', 'style.css'));
+fs.writeFileSync(path.join(OUT, 'assets', 'style.css'), fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8') + T.css);
 fs.writeFileSync(path.join(OUT, 'assets', 'app.js'), fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
   .replace('/*DADOS*/', JSON.stringify({
     whatsapp: M.whatsapp, abertura: C.abertura,
     niveis: C.niveis.map((n) => ({ id: n.id, nome: n.nome, precos: n.precos })),
     planos: C.planos.map((p) => ({ id: p.id, nome: p.nome, precos: p.precos })),
-  })));
+  })) + T.js('garoa-tema', '#0A1322', '#0A1322'));
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
 const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,500;0,700;0,800;0,900;1,800;1,900&family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">';
@@ -105,8 +106,9 @@ const opcoes = [
   ['Planos de assinatura', C.planos.map((p) => `Plano ${p.nome}`)],
 ].map(([g, l]) => `<optgroup label="${g}">${l.map((t) => `<option>${t}</option>`).join('')}</optgroup>`).join('');
 
+// tema claro (padrão) e escuro: pílula com sol e lua na lateral e no menu do celular
 const html = `<!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="claro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -118,6 +120,7 @@ const html = `<!doctype html>
 <meta property="og:description" content="${esc(M.frase)}">
 <meta property="og:image" content="assets/img/og.jpg">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+${T.head('garoa-tema')}
 ${fontes}
 <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -150,6 +153,8 @@ ${fontes}
   </div>
 </header>
 
+${T.pilula('tema-lado', 'claro')}
+
 <div class="menu-mob" id="menu-mob" hidden>
   <button class="menu-fecha" type="button" aria-label="Fechar menu">${I.fechar}</button>
   <ul>
@@ -161,6 +166,7 @@ ${fontes}
     <li><a href="#contato">Contato</a></li>
   </ul>
   <a class="btn btn-amarelo" href="${wa('Olá, Garoa! Quero agendar uma lavagem.')}" target="_blank" rel="noopener">${I.whats}<span>Agendar no WhatsApp</span></a>
+  ${T.pilula('menu-tema deitada', 'claro')}
 </div>
 
 <main id="conteudo">

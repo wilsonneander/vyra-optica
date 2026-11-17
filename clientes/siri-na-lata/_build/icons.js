@@ -69,4 +69,21 @@ const seta = (cls = 'ic') => svg('0 0 24 24', `<path d="M4 12h15M13 6l6 6-6 6"/>
 const menu = (cls = 'ic') => svg('0 0 24 24', `<path d="M3 7h18M3 12h12M3 17h18"/>`, cls, 2);
 const fechar = (cls = 'ic') => svg('0 0 24 24', `<path d="M5 5l14 14M19 5L5 19"/>`, cls, 2);
 
-module.exports = { lataSiri, porcao, longNeck, alga, onda, instagram, whatsapp, facebook, pino, seta, menu, fechar };
+const voltar = (cls = 'ic') => svg('0 0 24 24', `<path d="M20 12H5M11 6l-6 6 6 6"/>`, cls, 2);
+const mais = (cls = 'ic') => svg('0 0 24 24', `<path d="M12 5v14M5 12h14"/>`, cls, 2.2);
+const menos = (cls = 'ic') => svg('0 0 24 24', `<path d="M5 12h14"/>`, cls, 2.2);
+const rota = (cls = 'ic') => svg('0 0 24 24', `<path d="M5 19c3-6 7-2 10-8 1.4-2.8 1.6-4.8 1.6-6"/><path d="M13.5 6.5 16.6 4l2.4 3.2"/><circle cx="5" cy="19" r="1.6"/>`, cls, 1.9);
+
+// siri de perfil andando de lado (barra de rolagem do topo)
+const siriAndando = (cls = 'crab') => `<svg class="${cls}" viewBox="0 0 44 30" aria-hidden="true" focusable="false">
+  <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <g class="pernas-a"><path d="M12 18l-6 3M13 21l-5 6M32 18l6 3M31 21l5 6"/></g>
+    <g class="pernas-b"><path d="M12 19.5l-7 0M30 23l3 5M14 23l-3 5M32 19.5l7 0"/></g>
+    <path d="M13 12c-4-1-6-5-4-8 1 2 3 3 5 2M31 12c4-1 6-5 4-8-1 2-3 3-5 2"/>
+    <path d="M18 10V6M26 10V6"/>
+  </g>
+  <ellipse cx="22" cy="17" rx="10.5" ry="7" fill="currentColor"/>
+  <circle cx="18" cy="5.5" r="1.8" fill="currentColor"/><circle cx="26" cy="5.5" r="1.8" fill="currentColor"/>
+</svg>`;
+
+module.exports = { lataSiri, porcao, longNeck, alga, onda, instagram, whatsapp, facebook, pino, seta, menu, fechar, voltar, mais, menos, rota, siriAndando };

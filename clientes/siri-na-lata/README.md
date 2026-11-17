@@ -9,11 +9,14 @@ Instagram do cliente: [@sirinalatafloripa](https://www.instagram.com/sirinalataf
 | `_build/` | Compartilhado pelos três modelos: `content.js` (todos os textos, cardápio, preços, condições e FAQ), `icons.js` (ilustrações em traço próprias), `img/` (fotos em WebP) |
 | `_build-bronze/` | Gerador do modelo Bronze: `build.js`, `style.js`, `script.js` |
 | `site-bronze/` | **Modelo Bronze pronto para subir** (abre direto no navegador pelo `index.html`) |
+| `_build-silver/` | Gerador do modelo Silver: `build.js`, `style.js`, `script.js` |
+| `site-silver/` | **Modelo Silver pronto para subir** |
 
 ## Gerar
 
 ```bash
 node clientes/siri-na-lata/_build-bronze/build.js   # gera site-bronze/
+node clientes/siri-na-lata/_build-silver/build.js   # gera site-silver/
 ```
 
 Para trocar textos, preços ou horários, edite `_build/content.js` e gere de novo.
@@ -57,6 +60,25 @@ node clientes/siri-na-lata/_build-gold/build.js   # gera site-gold/
 - Fontes: Gloock (títulos) e Figtree (texto), as da marca, com Newsreader itálico nas falas suaves
 - Movimento reduzido no sistema: tudo fica parado e legível. Sem JS: livro vira grade de páginas e a galeria rola de lado
 
+## Modelo Silver
+
+Mesma base e conteúdo do Bronze, com experiência de "cartão-postal do Estreito": mais movimento, carrosséis e ferramentas que poupam conversa no WhatsApp.
+
+- **Abertura**: cortina terracota com o mascote que sobe com borda de onda (só na primeira visita da sessão; clique ou tecla pula; desligada para quem pede menos movimento)
+- **Capa**: foto da praia com petisco e drink na mesa (`_build/img/capa-silver.webp`, versão de 1000 px para celular) sob um véu escuro para o texto ficar legível. Ao lado, pilha de cartões-postais com fotos reais de petisco na praia que gira sozinha (setas, clique, pausa ao passar o mouse) e carimbo postal
+- **Faixa corrida** inclinada com os destaques da casa
+- **Cardápio em livro** (logo depois da capa, mesmo componente do Gold com as cores do Silver): o livro folheia com a rolagem (desce vira, sobe volta), em pares na tela larga e uma página por vez no celular; capítulos clicáveis e + em cada item para montar o pedido
+- **Um dia na casa**: seção fixa em que o sol percorre o céu conforme a rolagem e o céu passa de dia para fim de tarde e noite (lua e estrelas), trocando foto (inteira, sem corte) e texto de almoço, fim de tarde e noite, com o nome do prato de cada momento (campo `prato` em `momentos` no content.js)
+- **Mais pedidos**: carrossel com fotos (arrastar, setas, barra de progresso) e + para o pedido
+- **Pedido pelo site**: botão + em cada item, contador, barra de pedido com total e lista; envia tudo pronto pelo WhatsApp para retirada
+- **Reserva guiada**: escolhe o formato (mesa, aniversário, evento) e vê as condições; dia, horário (só horários em que a casa está aberta, avisa quando é segunda ou terça), pessoas e observação; manda a mensagem pronta no WhatsApp
+- **A casa**: colagem de fotos com parallax leve e selo giratório do Comida di Buteco
+- **Rodapé com mapa**: mesmo componente de mapa dos outros templates (OpenStreetMap estático recolorido, pino pulsante, cartão com "Abrir no Maps" e rota). Gerado por `_build/gerar-mapa.js` em `_build/img/mapa-siri.webp`
+- Siri andando de lado na linha de progresso do topo
+- Fontes: Newsreader (títulos) + Epilogue (texto). Dupla ainda não usada em outro projeto
+- Cores: a base do Bronze (creme, terracota, pêssego) mais azuis de mar para dar clima de praia e diferenciar do Bronze: azul `#1F6F94` (faixa, botões secundários, textos de apoio, abas, selo), azul-escuro `#134B66`, turquesa `#3FA7BD`, espuma `#9FD6E2`, céu `#DCEFF3` (céu de dia, fundo das fotos) e azul-noite `#0E2A3D` (capa, noite, reservas, rodapé, pedido). O mar do mapa também é azul-claro
+- SEO do Bronze mais cardápio completo nos dados estruturados (`Menu` com preços) e coordenadas
+
 ## Logo
 
 O arquivo do cliente tinha 150 x 150 px com fundo rosa do Outubro Rosa. O caranguejo e a lata foram **redesenhados em vetor** (mesma pose, cores e rótulo), sem o fundo.
@@ -86,4 +108,5 @@ Topo, faixa "Cardápio" e faixa de reservas ainda usam fotos do Unsplash (lista 
 - Tabela de preços real e nomes dos pratos (os valores são de referência)
 - Condições de reserva, aniversário e evento; formas de pagamento e taxa de serviço
 - Delivery ou apps de entrega, dias de música ao vivo, petisco do Comida di Buteco 2026
+- Posição exata do número 610 no mapa (o pino está na ponta da Rua São José, na areia)
 - Domínio e hospedagem

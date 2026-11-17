@@ -79,6 +79,14 @@ Mesma base e conteúdo do Bronze, com experiência de "cartão-postal do Estreit
 - Cores: a base do Bronze (creme, terracota, pêssego) mais azuis de mar para dar clima de praia e diferenciar do Bronze: azul `#1F6F94` (faixa, botões secundários, textos de apoio, abas, selo), azul-escuro `#134B66`, turquesa `#3FA7BD`, espuma `#9FD6E2`, céu `#DCEFF3` (céu de dia, fundo das fotos) e azul-noite `#0E2A3D` (capa, noite, reservas, rodapé, pedido). O mar do mapa também é azul-claro
 - SEO do Bronze mais cardápio completo nos dados estruturados (`Menu` com preços) e coordenadas
 
+## Tema claro e escuro (os três modelos)
+
+Botão de sol/lua no topo, ao lado do botão de reserva (no celular, ao lado do menu). O site abre sempre no claro; o escuro só entra quando o visitante escolhe, e a escolha fica salva no navegador (`localStorage` `siri-tema`). `?tema=escuro` ou `?tema=claro` no link também vale, bom para mostrar ao cliente.
+
+- Script, botão e estilo do botão: `_build/tema.js`, comum aos três. O tema é aplicado no `<head>` antes da primeira pintura (sem piscar claro)
+- Cores do escuro em cada modelo: Bronze em `_build-bronze/style.js` (tokens `--bg`, `--card`, `--head`...), Silver no fim de `_build-silver/style.js` (noite no mar, azul-noite), Gold no fim de `_build-gold/gold.css` ("a maré de noite"; pôr do sol vira céu depois do sol se pôr)
+- Seções que já são escuras não mudam. O papel do cardápio em livro, as polaroides, os postais e o mapa continuam claros de propósito
+
 ## Logo
 
 O arquivo do cliente tinha 150 x 150 px com fundo rosa do Outubro Rosa. O caranguejo e a lata foram **redesenhados em vetor** (mesma pose, cores e rótulo), sem o fundo.

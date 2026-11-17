@@ -503,6 +503,61 @@ p{margin:0 0 1em}
 .js .trilho .prato{opacity:0;transform:translateX(40px);transition:opacity .8s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--k,0) * 90ms)}
 .js .trilho.in .prato{opacity:1;transform:none}
 
+/* botão de tema no topo */
+.hdr .tema-btn{color:var(--ink)}
+.hdr:not(.solid):not(.open) .tema-btn{color:var(--mar-dk)}
+@media (max-width:960px){.hdr-in{gap:12px}}
+
+/* tema escuro: noite no mar. O papel do livro, os postais, as molduras das fotos e o mapa continuam claros */
+html[data-theme="dark"]{--line:#25424F;--text:#DCE6E8;--muted:#A3B7BE;--blush:#1E3A4A}
+html[data-theme="dark"] .pg,html[data-theme="dark"] .mapc{--line:#E6DCC8;--text:#2A2420;--muted:#6E6258}
+html[data-theme="dark"] body{background:#0B1822}
+html[data-theme="dark"] h2{color:#E27852}
+html[data-theme="dark"] .apoio,html[data-theme="dark"] .capa-local,html[data-theme="dark"] .casa cite{color:var(--espuma)}
+html[data-theme="dark"] .hdr.solid,html[data-theme="dark"] .hdr.open{background:rgba(11,24,34,.94);box-shadow:0 10px 30px -20px rgba(0,0,0,.9)}
+html[data-theme="dark"] .hdr .brand,html[data-theme="dark"] .hdr .nav a,html[data-theme="dark"] .hdr .menu-btn,html[data-theme="dark"] .hdr .tema-btn,
+html[data-theme="dark"] .hdr:not(.solid):not(.open) .brand,html[data-theme="dark"] .hdr:not(.solid):not(.open) .nav a,html[data-theme="dark"] .hdr:not(.solid):not(.open) .menu-btn,html[data-theme="dark"] .hdr:not(.solid):not(.open) .tema-btn{color:var(--cream)}
+html[data-theme="dark"] .hdr .nav a:hover{color:var(--peach)}
+html[data-theme="dark"] .btn-linha,html[data-theme="dark"] .btn-linha-escura{border-color:rgba(244,239,225,.42);color:var(--cream);background:transparent}
+html[data-theme="dark"] .btn-linha:hover,html[data-theme="dark"] .btn-linha-escura:hover{background:var(--cream);border-color:var(--cream);color:var(--noite)}
+html[data-theme="dark"] .capa{background:#0B1822;color:var(--cream)}
+html[data-theme="dark"] .capa-veu{background:linear-gradient(90deg,rgba(11,24,34,.94) 0%,rgba(11,24,34,.84) 30%,rgba(11,24,34,.42) 52%,rgba(11,24,34,.08) 70%),linear-gradient(180deg,rgba(11,24,34,.75) 0%,rgba(11,24,34,0) 20%)}
+html[data-theme="dark"] .capa h1{color:var(--cream)}
+html[data-theme="dark"] .capa h1 em{color:#E27852}
+html[data-theme="dark"] .capa-texto{color:#BFD2D8}
+html[data-theme="dark"] .capa-status{color:var(--peach)}
+html[data-theme="dark"] .capa .btn-linha{border-color:rgba(159,214,226,.45);background:rgba(11,24,34,.45);color:var(--cream)}
+html[data-theme="dark"] .capa .btn-linha:hover{background:var(--cream);color:var(--noite)}
+html[data-theme="dark"] .capa-borda,html[data-theme="dark"] .onda-topo{fill:#0B1822}
+html[data-theme="dark"] .ftr .onda-topo{fill:#0F2230}
+html[data-theme="dark"] .capa .postais-ctl button,html[data-theme="dark"] .trilho-ctl button{border-color:rgba(159,214,226,.35);background:rgba(11,24,34,.75);color:var(--cream)}
+html[data-theme="dark"] .postais-ctl button:hover,html[data-theme="dark"] .trilho-ctl button:hover{background:var(--cream);border-color:var(--cream);color:var(--noite)}
+html[data-theme="dark"] .postal figure,html[data-theme="dark"] .dia-foto,html[data-theme="dark"] .cf{box-shadow:0 34px 60px -30px rgba(0,0,0,.95)}
+html[data-theme="dark"] .dia{background:#0B1822}
+html[data-theme="dark"] .dia-pin{color:var(--cream)}
+html[data-theme="dark"] .dia-ceu{background:linear-gradient(180deg,#1B4C64 0%,#1F5468 62%,#2D5A63 100%)}
+html[data-theme="dark"] .c-tarde{background:linear-gradient(180deg,#5A3A3A 0%,#8E4F3C 62%,#A85A3C 100%)}
+html[data-theme="dark"] .dia-txt .hora{color:var(--peach)}
+html[data-theme="dark"] .dia-prato,html[data-theme="dark"] .dia-linha button.on{color:var(--peach)}
+html[data-theme="dark"] .dia-mar{fill:#0E2A3D;opacity:.7}
+html[data-theme="dark"] .cardapio,html[data-theme="dark"] .duvidas{background:#0F2230}
+html[data-theme="dark"] .casa{background:#0B1822}
+html[data-theme="dark"] .prato h3,html[data-theme="dark"] .casa blockquote p,html[data-theme="dark"] .selo-nota h3,html[data-theme="dark"] .faq summary{color:var(--cream)}
+html[data-theme="dark"] .faq summary:hover{color:var(--peach)}
+html[data-theme="dark"] .prato-pe strong{color:#E27852}
+html[data-theme="dark"] .prato figure{box-shadow:0 26px 40px -26px rgba(0,0,0,.9)}
+html[data-theme="dark"] .reserva-form{background:#132C3B;color:var(--cream);box-shadow:0 50px 80px -40px rgba(0,0,0,.95),inset 0 0 0 1px #25424F}
+html[data-theme="dark"] .reserva-form h3{color:#E27852}
+html[data-theme="dark"] .campo input,html[data-theme="dark"] .campo select,html[data-theme="dark"] .campo textarea,html[data-theme="dark"] .stepper{background:#0B1822;border-color:#2F5062;color:var(--cream)}
+html[data-theme="dark"] .stepper input{background:transparent;color:var(--cream)}
+html[data-theme="dark"] .stepper button{color:var(--peach)}
+html[data-theme="dark"] .campo-aviso{color:var(--peach)}
+html[data-theme="dark"] .ftr{background:#071219}
+html[data-theme="dark"] .sacola{background:#132C3B;box-shadow:0 26px 50px -18px rgba(0,0,0,.9),inset 0 0 0 1px #25424F}
+html[data-theme="dark"] .wa-float{box-shadow:0 14px 30px -10px rgba(0,0,0,.8)}
+@media (max-width:900px){html[data-theme="dark"] .capa-veu{background:linear-gradient(180deg,rgba(11,24,34,.93) 0%,rgba(11,24,34,.84) 58%,rgba(11,24,34,.4) 100%)}}
+@media (max-width:960px){html[data-theme="dark"] .nav{background:#0B1822;box-shadow:0 30px 40px -30px rgba(0,0,0,.9)}}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation:none!important;transition-duration:.01s!important;transition-delay:0s!important}

@@ -12,6 +12,7 @@ const fs = require('fs');
 const path = require('path');
 const C = require('../_build/content');
 const I = require('../_build/icons');
+const T = require('../_build/tema');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'site-gold');
@@ -92,6 +93,7 @@ const header = `
   <div class="hdr-in">
     <a class="brand" href="#topo" aria-label="${esc(C.curto)}, início"><img src="${img('siri-na-lata.svg')}" alt="" width="30" height="49"><span>${esc(C.curto)}</span></a>
     <nav class="nav" aria-label="Principal">${NAV.map(([h, t]) => `<a href="${h}">${t}</a>`).join('')}</nav>
+    ${T.botao()}
     <a class="btn btn-terra hdr-cta" href="${WA.reserva}" target="_blank" rel="noopener">${I.whatsapp()}Reservar mesa</a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu" data-menu><span></span><span></span></button>
   </div>
@@ -409,7 +411,8 @@ const html = `<!doctype html>
 <title>${esc(C.seo.titulo)}</title>
 <meta name="description" content="${esc(C.seo.descricao)}">
 <link rel="canonical" href="${C.dominio}/">
-<meta name="theme-color" content="#F4EFE1">
+<meta name="theme-color" content="#F4EFE1" data-dark="#0D2F3D">
+${T.HEAD}
 <meta property="og:type" content="restaurant">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="${esc(C.nome)}">
@@ -428,6 +431,7 @@ const html = `<!doctype html>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Gloock&family=Newsreader:ital,opsz,wght@1,6..72,300;1,6..72,400&display=swap">
 <script>document.documentElement.classList.add('js')</script>
 <link rel="stylesheet" href="assets/gold.css">
+<style>${T.CSS.replace(/\n/g, '')}</style>
 <script type="application/ld+json">${JSON.stringify(jsonld)}</script>
 <script type="application/ld+json">${JSON.stringify(faqld)}</script>
 </head>
@@ -446,6 +450,7 @@ ${visite}
 ${footer}
 <script>window.SNL_HORARIOS=${horariosJs}</script>
 <script src="assets/gold.js" defer></script>
+<script>${T.JS}</script>
 </body>
 </html>
 `;

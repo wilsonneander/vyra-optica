@@ -12,6 +12,7 @@ const C = require('../_build/content');
 const I = require('../_build/icons');
 const { css } = require('./style');
 const { js } = require('./script');
+const T = require('../_build/tema');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'site-silver');
@@ -108,6 +109,7 @@ const header = `
   <div class="wrap hdr-in">
     <a class="brand" href="#topo" aria-label="${esc(C.curto)}, início"><img src="${img('siri-na-lata.svg')}" alt="" width="30" height="49"><span>Siri <em>na Lata</em></span></a>
     <nav class="nav" id="nav" aria-label="Principal">${NAV.map(([h, t]) => `<a href="${h}">${t}</a>`).join('')}</nav>
+    ${T.botao()}
     <a class="btn btn-terra hdr-cta" href="#reservas">Reservar mesa</a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu" data-menu>${I.menu('ic i-open')}${I.fechar('ic i-close')}</button>
   </div>
@@ -428,7 +430,8 @@ const html = `<!doctype html>
 <title>${esc(C.seo.titulo)}</title>
 <meta name="description" content="${esc(C.seo.descricao)}">
 <link rel="canonical" href="${C.dominio}/">
-<meta name="theme-color" content="#F4EFE1">
+<meta name="theme-color" content="#F4EFE1" data-dark="#0B1822">
+${T.HEAD}
 <meta property="og:type" content="restaurant">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="${esc(C.nome)}">
@@ -446,7 +449,7 @@ const html = `<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap">
 <script>(function(h){h.classList.add('js');var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches,v;try{v=sessionStorage.getItem('siri-intro');}catch(e){}if(!rm&&!v)h.classList.add('com-intro');setTimeout(function(){h.classList.add('pronto');},3200);})(document.documentElement)</script>
-<style>${css.replace(/\n\s*/g, '').trim()}</style>
+<style>${(css + T.CSS).replace(/\n\s*/g, '').trim()}</style>
 <script type="application/ld+json">${JSON.stringify(jsonld)}</script>
 <script type="application/ld+json">${JSON.stringify(faqld)}</script>
 </head>
@@ -464,7 +467,8 @@ ${reservas}
 ${faq}
 </main>
 ${footer}
-<script>${js}</script>
+<script>${js}
+${T.JS}</script>
 </body>
 </html>
 `;

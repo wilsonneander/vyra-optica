@@ -132,7 +132,7 @@ ul, ol { list-style: none; }
 .modal.on { opacity: 1; pointer-events: auto; }
 .modal-caixa { position: relative; width: min(1100px, 100%); max-height: calc(100svh - 40px); overflow: auto; border-radius: 28px; background: var(--m-cor, var(--verde)); color: #f4f6ee; transform: translateY(30px) scale(.97); transition: transform .5s var(--mola); }
 .modal.on .modal-caixa { transform: none; }
-.modal-fecha { position: absolute; right: 16px; top: 16px; z-index: 3; width: 48px; height: 48px; border: 0; border-radius: 50%; background: rgba(244, 246, 238, .14); color: #fff; cursor: pointer; display: grid; place-items: center; }
+.modal-fecha { position: absolute; overflow: hidden; right: 16px; top: 16px; z-index: 3; width: 48px; height: 48px; border: 0; border-radius: 50%; background: rgba(244, 246, 238, .14); color: #fff; cursor: pointer; display: grid; place-items: center; }
 .modal-fecha svg { width: 20px; height: 20px; }
 .modal-fecha:hover { background: var(--lima); color: var(--tinta); }
 .ativo-grid { display: grid; grid-template-columns: 1fr 1.1fr; min-height: 520px; }
@@ -241,3 +241,51 @@ ul, ol { list-style: none; }
   .cab.aberto { transform: none !important; }
 }
 [data-iguais] > * { width: var(--larg, auto); max-width: 100%; justify-content: center; }
+
+/* ---------- toque fluido nos botões: aperta, solta com mola e espalha uma onda a partir do dedo ---------- */
+.btn, .seletor button, .hora-bts button, .filtro button, .ck-btns button, .ativo-nav button, .painel-menu nav button, .sair, .r2-ativos button, .tema { position: relative; overflow: hidden; -webkit-tap-highlight-color: transparent; }
+.btn:active, .seletor button:active, .hora-bts button:active, .filtro button:active, .ck-btns button:active, .ativo-nav button:active, .painel-menu nav button:active, .r2-ativos button:active, .modal-fecha:active { transform: scale(.95); transition: transform .12s ease-out; }
+.onda { position: absolute; z-index: 0; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: currentColor; opacity: .28; pointer-events: none; transform: scale(0); animation: onda .7s cubic-bezier(.2, .8, .2, 1) forwards; }
+.btn > *:not(.onda) { position: relative; z-index: 1; }
+@keyframes onda { to { transform: scale(var(--onda-s, 18)); opacity: 0; } }
+
+/* ---------- barra de rolagem na cor da marca ---------- */
+html { scrollbar-width: thin; scrollbar-color: var(--rolagem, #5f8f2f) var(--rolagem-fundo, transparent); }
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--rolagem-fundo, #e9eddf); }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--lima), var(--rolagem, #5f8f2f)); border-radius: 8px; border: 3px solid var(--rolagem-fundo, #e9eddf); }
+::-webkit-scrollbar-thumb:hover { background: var(--rolagem, #5f8f2f); }
+::-webkit-scrollbar-corner { background: transparent; }
+
+/* ---------- botão de tema: a tampa do pote gira de um lado ao outro, como quando se abre o pote ---------- */
+.tema { display: grid; grid-template-columns: 1fr 1fr; align-items: center; width: 78px; height: 40px; padding: 0 5px; border: 0; border-radius: 20px; background: var(--tema-fundo, rgba(29, 42, 31, .08)); color: var(--frente); cursor: pointer; box-shadow: inset 0 0 0 1px var(--linha); flex: none; }
+.tema svg { width: 18px; height: 18px; justify-self: center; position: relative; z-index: 0; opacity: .7; transition: opacity .3s; }
+.tema-tampa { position: absolute; z-index: 1; left: 5px; top: 5px; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #d6e6ae 0 38%, #c4d997 39% 58%, transparent 59%), repeating-conic-gradient(#b3ca83 0 6deg, #c9dd9f 6deg 12deg); box-shadow: 0 4px 10px -3px rgba(0, 0, 0, .45), inset 0 0 0 1.5px rgba(29, 42, 31, .25); transition: transform .75s cubic-bezier(.5, -0.35, .25, 1.35); }
+.tema-tampa::after { content: ""; position: absolute; inset: 9px; border-radius: 50%; border: 1.5px solid rgba(29, 42, 31, .45); border-left-color: transparent; }
+[data-tema-atual="escuro"] .tema-tampa { transform: translateX(38px) rotate(300deg); }
+[data-tema-atual="escuro"] .tema .t-lua, [data-tema-atual="claro"] .tema .t-sol { opacity: 0; }
+.tema .po { position: absolute; z-index: 2; left: 50%; top: 50%; width: 5px; height: 5px; margin: -2.5px; border-radius: 50%; background: #5f8f2f; pointer-events: none; animation: po .7s ease-out forwards; }
+@keyframes po { to { transform: translate(var(--dx), var(--dy)) scale(.2); opacity: 0; } }
+html.troca-tema, html.troca-tema * { transition: background-color .5s, color .5s, border-color .5s, fill .5s !important; }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
+/* ---------- onde você está: um pote que enche de pó conforme a página desce ---------- */
+.nivel { position: fixed; right: 18px; bottom: 86px; z-index: 89; display: grid; grid-template-columns: auto 56px; align-items: center; height: 72px; padding: 0; border-radius: 18px; background: var(--nivel-fundo, #16231a); color: #eef1e6; text-decoration: none; box-shadow: 0 16px 34px -14px rgba(0, 0, 0, .55); opacity: 0; transform: translateY(14px) scale(.9); pointer-events: none; transition: opacity .4s, transform .5s var(--mola); }
+.nivel.on { opacity: 1; transform: none; pointer-events: auto; }
+.nivel-txt { display: grid; max-width: 0; overflow: hidden; white-space: nowrap; transition: max-width .55s var(--mola), padding .55s var(--mola); }
+.nivel:hover .nivel-txt, .nivel:focus-visible .nivel-txt { max-width: 220px; padding: 0 2px 0 16px; }
+.nivel-txt small { font: 600 11px var(--f-c); color: var(--lima); }
+.nivel-txt b { font: 700 14px/1.2 var(--f-t); }
+.nivel-txt em { font: 400 13px var(--f-m); font-style: normal; color: rgba(238, 241, 230, .6); }
+.nivel-pote { grid-column: 2; display: grid; justify-items: center; gap: 1px; }
+.nivel-pote svg { width: 30px; height: 40px; overflow: visible; }
+.nivel-pote .tampa-n { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .5s var(--mola); }
+.nivel.cheio .tampa-n { transform: translate(4px, -5px) rotate(24deg); }
+.nivel:hover .tampa-n { transform: translateY(-3px) rotate(-10deg); }
+.nivel.sobe .tampa-n { animation: gira-tampa .8s var(--mola); }
+@keyframes gira-tampa { 50% { transform: translateY(-6px) rotate(-180deg); } }
+.nivel-pote .onda-n { animation: mar 2.4s linear infinite; }
+@keyframes mar { to { transform: translateX(-20px); } }
+.nivel-pct { font: 700 10.5px/1 var(--f-c); font-variant-numeric: tabular-nums; color: var(--lima); }
+@media (max-width: 560px) { .nivel { bottom: 82px; height: 66px; } .nivel:hover .nivel-txt { max-width: 0; padding: 0; } }
+@media (prefers-reduced-motion: reduce) { .tema-tampa { transition: none; } }

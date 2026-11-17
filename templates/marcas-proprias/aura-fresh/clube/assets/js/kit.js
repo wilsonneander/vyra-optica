@@ -186,5 +186,84 @@
   // ---------- ano no rodapé ----------
   $$('[data-ano]').forEach(el => { el.textContent = new Date().getFullYear(); });
 
+  // ---------- toque fluido: onda que nasce no ponto do clique ----------
+  const reduzMov = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ALVOS_ONDA = '.btn, .seletor button, .hora-bts button, .filtro button, .ck-btns button, .ativo-nav button, .painel-menu nav button, .sair, .r2-ativos button, .modal-fecha, .zap, .nivel';
+  document.addEventListener('pointerdown', e => {
+    if (reduzMov) return;
+    const b = e.target.closest(ALVOS_ONDA); if (!b) return;
+    const r = b.getBoundingClientRect();
+    const o = document.createElement('span'); o.className = 'onda';
+    o.style.left = (e.clientX - r.left) + 'px'; o.style.top = (e.clientY - r.top) + 'px';
+    o.style.setProperty('--onda-s', (Math.hypot(r.width, r.height) / 10).toFixed(1));
+    b.appendChild(o); setTimeout(() => o.remove(), 750);
+  });
+
+  // ---------- tema claro e escuro (a tampa gira de um lado ao outro) ----------
+  const raiz = document.documentElement;
+  const chaveTema = site + '-tema';
+  const padrao = raiz.dataset.temaPadrao || 'claro';
+  const temaAtual = () => raiz.dataset.temaAtual || padrao;
+  function poeTema(t) {
+    raiz.dataset.temaAtual = t;
+    $$('[data-tema-bt]').forEach(b => { b.setAttribute('aria-pressed', t === 'escuro'); b.setAttribute('aria-label', t === 'escuro' ? 'Mudar para o tema claro' : 'Mudar para o tema escuro'); });
+    const meta = $('meta[name="theme-color"]'); if (meta) meta.content = getComputedStyle(document.body).backgroundColor;
+    document.dispatchEvent(new CustomEvent('aura:tema', { detail: t }));
+  }
+  poeTema(temaAtual());
+  $$('[data-tema-bt]').forEach(b => b.addEventListener('click', () => {
+    const novo = temaAtual() === 'escuro' ? 'claro' : 'escuro';
+    try { localStorage.setItem(chaveTema, novo); } catch (e) { /* privado */ }
+    // pó verde sai da tampa
+    if (!reduzMov) for (let i = 0; i < 9; i++) {
+      const p = document.createElement('i'); p.className = 'po';
+      const a = Math.PI * 2 * i / 9 + Math.random() * 0.4, d = 18 + Math.random() * 16;
+      p.style.setProperty('--dx', Math.cos(a) * d + 'px'); p.style.setProperty('--dy', Math.sin(a) * d + 'px');
+      p.style.background = ['#5f8f2f', '#9cbc5c', '#c4d997'][i % 3];
+      b.appendChild(p); setTimeout(() => p.remove(), 720);
+    }
+    const r = b.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+    if (document.startViewTransition && !reduzMov) {
+      const vt = document.startViewTransition(() => poeTema(novo));
+      vt.ready.then(() => {
+        const fim = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+        raiz.animate({ clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${fim}px at ${x}px ${y}px)`] }, { duration: 750, easing: 'cubic-bezier(.2,.8,.2,1)', pseudoElement: '::view-transition-new(root)' });
+      }).catch(() => {});
+    } else {
+      raiz.classList.add('troca-tema'); poeTema(novo); setTimeout(() => raiz.classList.remove('troca-tema'), 600);
+    }
+  }));
+
+  // ---------- onde você está: o pote enche de pó conforme a página desce ----------
+  const nivel = $('[data-nivel]');
+  if (nivel) {
+    const pctEl = $('[data-nivel-pct]', nivel), secEl = $('[data-nivel-sec]', nivel), fill = $('.enche-n', nivel), resta = $('[data-nivel-resta]', nivel);
+    const secoes = $$('main > section, main > article, main > div > section, main > .rotulo-plano, footer.rodape').filter(s => s.offsetHeight > 0).map(s => {
+      const nome = s.dataset.secao || (($('.apoio', s) || $('h1, h2', s) || {}).textContent || 'Início').trim();
+      return { s, nome: s.matches('footer') ? 'Rodapé e contato' : nome.replace(/[.,]$/, '') };
+    });
+    let ultimoPct = -1;
+    const anda = () => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      const pct = max > 0 ? Math.round(Math.min(1, Math.max(0, scrollY / max)) * 100) : 0;
+      nivel.classList.toggle('on', scrollY > 240);
+      nivel.classList.toggle('cheio', pct >= 99);
+      if (pct === ultimoPct) return; ultimoPct = pct;
+      pctEl.textContent = pct + '%';
+      if (fill) fill.setAttribute('transform', `translate(0 ${((1 - pct / 100) * 31).toFixed(2)})`);
+      let atual = secoes[0];
+      secoes.forEach(o => { if (o.s.getBoundingClientRect().top < innerHeight * 0.45) atual = o; });
+      if (atual && secEl.textContent !== atual.nome) secEl.textContent = atual.nome;
+      if (resta) resta.textContent = pct >= 99 ? 'fim, toque para subir' : `faltam ${100 - pct}%`;
+      nivel.setAttribute('aria-label', `Você está em ${atual ? atual.nome : 'Início'}, ${pct}% da página. Voltar ao topo`);
+    };
+    anda(); addEventListener('scroll', anda, { passive: true }); addEventListener('resize', anda);
+    nivel.addEventListener('click', e => {
+      e.preventDefault();
+      nivel.classList.remove('sobe'); void nivel.offsetWidth; nivel.classList.add('sobe');
+      scrollTo({ top: 0, behavior: reduzMov ? 'auto' : 'smooth' });
+    });
+  }
+
   window.AuraKit = { abreModal, fechaModal, guarda };
 })();

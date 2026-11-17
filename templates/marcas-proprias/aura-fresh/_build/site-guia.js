@@ -64,6 +64,7 @@ function cab(raiz = '') {
   return `<header class="cab cab-guia">
   <a class="cab-logo" href="${raiz}index.html" aria-label="AURA Fresh, início"><img src="${raiz}assets/img/logo.png" alt="AURA Fresh" width="110" height="47"></a>
   <nav class="cab-menu" aria-label="Principal">${nav.map(([h, t]) => `<a href="${raiz}${h}">${t}</a>`).join('')}<a href="${raiz}index.html#contato">Contato</a></nav>
+  ${X.temaBt()}
   <a class="btn cab-cta" href="${raiz}index.html#comprar">Comprar</a>
   <button class="cab-bt" type="button" data-menu aria-expanded="false" aria-label="Abrir menu"><span></span><span></span></button>
 </header>`;
@@ -75,9 +76,9 @@ const migalha = itens => ld({ '@type': 'BreadcrumbList', itemListElement: itens.
 
 function pagina({ titulo, desc, corpo, raiz = '', caminho = '/', extraHead = '', classe = '', rotulo = false, preload = '' }) {
   return `<!doctype html>
-<html lang="pt-BR" data-site="aura-diario">
+<html lang="pt-BR" data-site="aura-diario" data-tema-padrao="claro">
 <head>
-${X.head({ titulo, desc, url: URL_BASE + caminho, css: ['guia.css'], raiz, img: raiz + 'assets/img/' })}
+${X.head({ titulo, desc, url: URL_BASE + caminho, css: ['guia.css', 'tema-guia.css'], raiz, img: raiz + 'assets/img/' })}
 ${preload ? `<link rel="preload" as="image" href="${raiz}assets/img/${preload}" fetchpriority="high">` : ''}
 <meta name="robots" content="index, follow, max-image-preview:large">
 ${ld({ '@graph': [org, { '@type': 'WebSite', '@id': URL_BASE + '/#site', url: URL_BASE, name: 'AURA Fresh', inLanguage: 'pt-BR', publisher: { '@id': URL_BASE + '/#org' } }] })}
@@ -90,6 +91,7 @@ ${cab(raiz)}
 ${corpo}
 </main>
 ${X.rodape({ raiz, mapa: 'mapa-papel.webp' })}
+${X.nivel()}
 ${X.zap()}
 ${X.cookies(raiz)}
 ${X.modalAtivo()}

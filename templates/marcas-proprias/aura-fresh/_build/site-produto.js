@@ -9,6 +9,7 @@ function cab(raiz = '') {
   return `<header class="cab">
   <a class="cab-logo" href="${raiz}index.html" aria-label="AURA Fresh, início"><img src="${raiz}assets/img/logo.png" alt="AURA Fresh" width="120" height="52"></a>
   <nav class="cab-menu" aria-label="Principal">${nav.map(([h, t]) => `<a href="${raiz}index.html${h}">${t}</a>`).join('')}</nav>
+  ${X.temaBt()}
   <a class="btn btn-lima cab-cta" href="${raiz}index.html#comprar">Comprar</a>
   <button class="cab-bt" type="button" data-menu aria-expanded="false" aria-label="Abrir menu"><span></span><span></span></button>
 </header>`;
@@ -16,9 +17,9 @@ function cab(raiz = '') {
 
 function pagina({ titulo, desc, corpo, raiz = '', scripts3d = false, url = '' }) {
   return `<!doctype html>
-<html lang="pt-BR" data-site="aura-origem">
+<html lang="pt-BR" data-site="aura-origem" data-tema-padrao="escuro">
 <head>
-${X.head({ titulo, desc, url, css: ['produto.css'], raiz, img: raiz + 'assets/img/' })}
+${X.head({ titulo, desc, url, css: ['produto.css', 'tema-produto.css'], raiz, img: raiz + 'assets/img/' })}
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -27,6 +28,7 @@ ${cab(raiz)}
 ${corpo}
 </main>
 ${X.rodape({ raiz })}
+${X.nivel()}
 ${X.zap()}
 ${X.cookies(raiz)}
 ${X.modalAtivo()}

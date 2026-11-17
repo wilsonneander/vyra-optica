@@ -1,0 +1,41 @@
+/* AURA Fresh, modelo 2: o guia nasce claro, como papel. Aqui fica a versão escura para ler à noite. */
+.cab .tema { justify-self: end; }
+:root { --rolagem: #5f8f2f; --rolagem-fundo: #e9eddf; --tema-fundo: rgba(29, 42, 31, .07); }
+
+[data-tema-atual="escuro"] {
+  --fundo: #121c15; --frente: #eef1e6; --suave: rgba(238, 241, 230, .72); --linha: rgba(238, 241, 230, .15);
+  --cartao: #1a291e; --cartao-tinta: #eef1e6; --acento: #c4d997; --acento-tinta: #16231a;
+  --rolagem: #c4d997; --rolagem-fundo: #101912; --tema-fundo: rgba(238, 241, 230, .08);
+}
+[data-tema-atual="escuro"] body { background: var(--fundo); color: var(--frente); }
+[data-tema-atual="escuro"] .apoio, [data-tema-atual="escuro"] .post-meta, [data-tema-atual="escuro"] .art-indice p, [data-tema-atual="escuro"] .r2-texto dt { color: var(--lima); }
+[data-tema-atual="escuro"] .btn-contorno { color: var(--frente); }
+[data-tema-atual="escuro"] .link-seta, [data-tema-atual="escuro"] .migalha a, [data-tema-atual="escuro"] .doc a { color: var(--lima); }
+[data-tema-atual="escuro"] .marca-texto { background: linear-gradient(transparent 62%, #3f6a2a 62%, #3f6a2a 92%, transparent 92%); }
+[data-tema-atual="escuro"] .cab { background: rgba(18, 28, 21, .94); }
+[data-tema-atual="escuro"] .cab-logo img { filter: none; }
+[data-tema-atual="escuro"] .cab-menu a:hover { color: var(--lima); }
+[data-tema-atual="escuro"] .cab-bt { background: rgba(238, 241, 230, .1); }
+@media (max-width: 900px) { [data-tema-atual="escuro"] .cab-menu { background: #121c15; } }
+
+[data-tema-atual="escuro"] .capa-indice { border-top-color: var(--frente); }
+[data-tema-atual="escuro"] .capa-indice a:hover { background: #1a291e; }
+[data-tema-atual="escuro"] .capa-foto figcaption { background: rgba(18, 28, 21, .88); }
+[data-tema-atual="escuro"] .passos-linha svg { color: var(--lima); }
+[data-tema-atual="escuro"] .rotina-comp, [data-tema-atual="escuro"] .contato-g { background: #16231a; }
+[data-tema-atual="escuro"] .comp-antes { background: #3a2e33; color: #f3e3e9; }
+[data-tema-atual="escuro"] .comp li { border-color: rgba(255, 255, 255, .1); }
+[data-tema-atual="escuro"] .r2-leitura > div, [data-tema-atual="escuro"] .r2-texto, [data-tema-atual="escuro"] .filtro { background: #1a291e; }
+[data-tema-atual="escuro"] .relatos-g { background: #2a1c23; color: #f6dbe5; --suave: rgba(246, 219, 229, .72); }
+[data-tema-atual="escuro"] .relatos-g .apoio { color: var(--rosa-claro); }
+[data-tema-atual="escuro"] .post-card figure, [data-tema-atual="escuro"] .art-capa { background: #1a291e; }
+[data-tema-atual="escuro"] .comprar-g { background: #0f1811; }
+[data-tema-atual="escuro"] .kit-img { background: #22372a; }
+[data-tema-atual="escuro"] .kit .btn-contorno, [data-tema-atual="escuro"] .condicoes a { color: var(--lima); }
+[data-tema-atual="escuro"] .art-corpo p { color: #dfe5d6; }
+[data-tema-atual="escuro"] .art-indice a:hover { border-color: var(--lima); }
+[data-tema-atual="escuro"] .relacionados { border-top-color: var(--frente); }
+[data-tema-atual="escuro"] .filtro button[aria-pressed="true"] { background: var(--lima); color: var(--tinta); }
+[data-tema-atual="escuro"] .lista-num li::before { border-color: var(--fundo); background: var(--lima); }
+[data-tema-atual="escuro"] .art-cta { background: #22372a; }
+[data-tema-atual="escuro"] .faq summary i { background: var(--lima); }

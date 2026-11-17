@@ -11,6 +11,13 @@ Referência de animação 3D: modelo N3 Drinks (Bebidas & Conveniências), usada
 
 Os três abrem direto pelo `index.html` (sem servidor).
 
+## Peças comuns de navegação
+
+- **Tema claro e escuro**: botão no cabeçalho em que a tampa do pote (lima, com a borda serrilhada) gira de um lado ao outro entre sol e lua e solta pó verde; a página troca num círculo que nasce do botão (View Transitions, com transição de cores como alternativa). O produto nasce escuro e os outros dois claros. A escolha fica salva (`aura-origem-tema`, `aura-diario-tema`, `aura-ritual-tema`) e `?tema=claro` ou `?tema=escuro` no link também vale. Estilos em `_kit/css/tema-produto.css`, `tema-guia.css` e `tema-clube.css`.
+- **Onde você está**: acima do WhatsApp, um pote que enche de pó (com onda) de 0 a 100% conforme a página desce. No hover mostra a seção atual e quanto falta; no fim a tampa se abre, e o clique volta ao topo girando a tampa.
+- **Toque fluido**: botões apertam com mola e soltam uma onda a partir do ponto do clique (desligado com "reduzir movimento").
+- **Barra de rolagem** nas cores da marca, acompanhando o tema.
+
 ## Gerar
 
 ```

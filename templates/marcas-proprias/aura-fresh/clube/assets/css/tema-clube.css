@@ -1,0 +1,74 @@
+/* AURA Fresh, modelo 3: o site nasce claro. Aqui fica a versão escura, em verde-noite com lima e rosa acesos. */
+.cab .tema { justify-self: end; }
+:root { --rolagem: #5f8f2f; --rolagem-fundo: #ece8e1; --tema-fundo: rgba(29, 42, 31, .07); }
+
+[data-tema-atual="escuro"] {
+  --fundo: #121c15; --frente: #eef1e6; --suave: rgba(238, 241, 230, .72); --linha: rgba(238, 241, 230, .15);
+  --cartao: #1a291e; --cartao-tinta: #eef1e6; --acento: #c4d997; --acento-tinta: #16231a;
+  --rolagem: #c4d997; --rolagem-fundo: #101912; --tema-fundo: rgba(238, 241, 230, .08);
+}
+[data-tema-atual="escuro"] body { background: var(--fundo); color: var(--frente); }
+[data-tema-atual="escuro"] .apoio, [data-tema-atual="escuro"] .tit-g em, [data-tema-atual="escuro"] .tit em { color: var(--lima); }
+[data-tema-atual="escuro"] .btn-contorno { color: var(--frente); }
+[data-tema-atual="escuro"] .cab-claro.rolado, [data-tema-atual="escuro"] .cliente .cab { background: rgba(18, 28, 21, .92); }
+[data-tema-atual="escuro"] .cab-claro .cab-logo img { filter: none; }
+[data-tema-atual="escuro"] .cab-claro .cab-menu a { color: var(--suave); }
+[data-tema-atual="escuro"] .cab-claro .cab-menu a:hover { color: var(--lima); }
+[data-tema-atual="escuro"] .cab-claro .cab-bt { background: rgba(238, 241, 230, .1); }
+[data-tema-atual="escuro"] .cab-acoes .cab-atual { color: var(--tinta); }
+@media (max-width: 900px) { [data-tema-atual="escuro"] .cab-claro .cab-menu { background: #121c15; } }
+
+/* ritual à noite: as três horas continuam trocando a luz, em tons escuros */
+[data-tema-atual="escuro"] .ritual { --c1: #3a2630; --c2: #121c15; --frente: #eef1e6; --suave: rgba(238, 241, 230, .72); --linha: rgba(238, 241, 230, .16); }
+[data-tema-atual="escuro"] .ritual[data-hora="tarde"] { --c1: #26391f; }
+[data-tema-atual="escuro"] .ritual[data-hora="noite"] { --c1: #1f3524; --c2: #0d150f; }
+[data-tema-atual="escuro"] .ritual .apoio, [data-tema-atual="escuro"] .ritual .tit-g em { color: var(--lima); }
+[data-tema-atual="escuro"] .hora-bts { background: rgba(238, 241, 230, .08); }
+[data-tema-atual="escuro"] .hora-bts button[aria-pressed="true"] { background: var(--lima); color: var(--tinta); }
+[data-tema-atual="escuro"] .ritual .btn:not(.btn-contorno) { background: var(--lima); color: var(--tinta); }
+[data-tema-atual="escuro"] .ritual-tempo > i > i { background: var(--lima); }
+
+/* rótulo e mês no escuro */
+[data-tema-atual="escuro"] .rotulo[data-rotulo="claro"] { --frente: #eef1e6; --suave: rgba(238, 241, 230, .72); --linha: rgba(238, 241, 230, .15); --cartao: #1a291e; }
+[data-tema-atual="escuro"] .rotulo[data-rotulo="claro"] .rotulo-fixo { background-color: #101912; background-image: linear-gradient(rgba(238, 241, 230, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(238, 241, 230, .045) 1px, transparent 1px); }
+[data-tema-atual="escuro"] .rotulo[data-rotulo="claro"] .rotulo-fixo::after { background: radial-gradient(70% 60% at 50% 55%, transparent 30%, #101912 88%); }
+[data-tema-atual="escuro"] .rotulo[data-rotulo="claro"] .fios path { stroke: #eef1e6; }
+[data-tema-atual="escuro"] .rotulo[data-rotulo="claro"] .apoio { color: var(--lima); }
+[data-tema-atual="escuro"] .rotulo[data-rotulo="claro"] .ponto { border-color: #101912; background: var(--lima); }
+[data-tema-atual="escuro"] .rotulo-plano-claro { background: #101912; --cartao: #1a291e; }
+[data-tema-atual="escuro"] .rotulo-plano-claro dt { color: var(--lima); }
+[data-tema-atual="escuro"] .mes { background: #2a1c23; color: #f6dbe5; --frente: #f6dbe5; --suave: rgba(246, 219, 229, .72); --linha: rgba(246, 219, 229, .16); }
+[data-tema-atual="escuro"] .mes .apoio, [data-tema-atual="escuro"] .mes .tit em, [data-tema-atual="escuro"] .mes-leg { color: var(--rosa-claro); }
+[data-tema-atual="escuro"] .mes-cal { background: #3a2630; box-shadow: none; }
+[data-tema-atual="escuro"] .mes-grade i:not(.on) { background: rgba(255, 255, 255, .07); }
+
+/* compra, dúvidas e contato */
+[data-tema-atual="escuro"] .comprar-claro { background: #0f1811; }
+[data-tema-atual="escuro"] .comprar-claro .kit .btn-contorno, [data-tema-atual="escuro"] .comprar-claro .condicoes a, [data-tema-atual="escuro"] .doc a { color: var(--lima); }
+[data-tema-atual="escuro"] .comprar-claro .kit-img img { filter: drop-shadow(0 22px 24px rgba(0, 0, 0, .45)); }
+[data-tema-atual="escuro"] .duvidas-claro { background: #16231a; }
+[data-tema-atual="escuro"] .contato { background: #1a2b1e; color: #eef1e6; --frente: #eef1e6; --suave: rgba(238, 241, 230, .72); --linha: rgba(238, 241, 230, .16); --cartao: #22372a; --cartao-tinta: #eef1e6; --acento: #c4d997; --acento-tinta: #16231a; }
+[data-tema-atual="escuro"] .contato .apoio, [data-tema-atual="escuro"] .contato-canais b { color: var(--lima); }
+[data-tema-atual="escuro"] .conta-tela { box-shadow: 0 0 0 1px rgba(238, 241, 230, .12), 0 50px 90px -40px rgba(0, 0, 0, .7); }
+
+/* área do cliente no escuro */
+[data-tema-atual="escuro"] .entrar, [data-tema-atual="escuro"] .bloco, [data-tema-atual="escuro"] .pedido, [data-tema-atual="escuro"] .tabela, [data-tema-atual="escuro"] .conf-caixa { background: #1a291e; color: #eef1e6; }
+[data-tema-atual="escuro"] .bloco-recompra { background: #2b462b; }
+[data-tema-atual="escuro"] .entrar-arte p { background: rgba(18, 28, 21, .85); color: #eef1e6; }
+[data-tema-atual="escuro"] .form-entrar input, [data-tema-atual="escuro"] .form input:not([type="checkbox"]), [data-tema-atual="escuro"] .form select, [data-tema-atual="escuro"] .form textarea { background: #121c15; color: #eef1e6; }
+[data-tema-atual="escuro"] .form input[readonly] { background: #0f1811; }
+[data-tema-atual="escuro"] .demo { background: #22372a; }
+[data-tema-atual="escuro"] .link, [data-tema-atual="escuro"] .prev { color: var(--lima) !important; }
+[data-tema-atual="escuro"] .rot { color: var(--lima) !important; }
+[data-tema-atual="escuro"] .rastro li { border-top-color: rgba(238, 241, 230, .12); }
+[data-tema-atual="escuro"] .rastro li.on { border-top-color: var(--lima); }
+[data-tema-atual="escuro"] .barra-dose { background: rgba(238, 241, 230, .1); }
+[data-tema-atual="escuro"] .tag { background: rgba(238, 241, 230, .1); color: #eef1e6; }
+[data-tema-atual="escuro"] .tag-transito, [data-tema-atual="escuro"] .tag-pago { background: var(--lima); color: var(--tinta); }
+[data-tema-atual="escuro"] .tag-entregue { background: #2b462b; color: #d6e6ae; }
+[data-tema-atual="escuro"] .op-claro { background: #22372a; }
+[data-tema-atual="escuro"] .op-claro .chave:checked { background: var(--lima); }
+[data-tema-atual="escuro"] .op-claro .chave:checked::after { background: var(--tinta); }
+[data-tema-atual="escuro"] .end.principal { box-shadow: inset 0 0 0 3px var(--lima); }
+[data-tema-atual="escuro"] .perigo-txt { color: #f0a3bd !important; }
+[data-tema-atual="escuro"] .painel-menu { background: #0f1811; box-shadow: inset 0 0 0 1px rgba(238, 241, 230, .1); }

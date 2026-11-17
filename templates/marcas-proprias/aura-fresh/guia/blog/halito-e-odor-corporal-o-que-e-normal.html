@@ -1,7 +1,8 @@
 <!doctype html>
-<html lang="pt-BR" data-site="aura-diario">
+<html lang="pt-BR" data-site="aura-diario" data-tema-padrao="claro">
 <head>
 <meta charset="utf-8">
+<script>(function(){var d=document.documentElement;try{var q=location.search.match(/[?&]tema=(claro|escuro)/),v=q?q[1]:localStorage.getItem(d.dataset.site+"-tema");d.dataset.temaAtual=(v==="claro"||v==="escuro")?v:(d.dataset.temaPadrao||"claro");}catch(e){d.dataset.temaAtual=d.dataset.temaPadrao||"claro";}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hálito e odor corporal: o que é normal e quando procurar ajuda | Blog AURA Fresh</title>
 <meta name="description" content="Todo mundo tem cheiro. Entenda o que muda ao longo do dia, o que a rotina influencia e os sinais de que vale conversar com um profissional.">
@@ -21,6 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..600&family=Inter+Tight:wght@500..900&family=Gochi+Hand&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/kit.css">
 <link rel="stylesheet" href="../assets/css/guia.css">
+<link rel="stylesheet" href="../assets/css/tema-guia.css">
 
 
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -32,6 +34,7 @@
 <header class="cab cab-guia">
   <a class="cab-logo" href="../index.html" aria-label="AURA Fresh, início"><img src="../assets/img/logo.png" alt="AURA Fresh" width="110" height="47"></a>
   <nav class="cab-menu" aria-label="Principal"><a href="../guia.html">Guia de uso</a><a href="../index.html#rotina">Antes e depois da rotina</a><a href="../blog.html">Blog</a><a href="../index.html#relatos">Relatos</a><a href="../index.html#comprar">Preços</a><a href="../index.html#contato">Contato</a></nav>
+  <button class="tema" type="button" data-tema-bt aria-pressed="false" aria-label="Mudar para o tema escuro"><svg class="t-sol" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3 7 7M17 17l1.7 1.7M5.3 18.7 7 17M17 7l1.7-1.7"/></svg><svg class="t-lua" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5Z"/></svg><span class="tema-tampa" aria-hidden="true"></span></button>
   <a class="btn cab-cta" href="../index.html#comprar">Comprar</a>
   <button class="cab-bt" type="button" data-menu aria-expanded="false" aria-label="Abrir menu"><span></span><span></span></button>
 </header>
@@ -105,6 +108,13 @@
     <nav aria-label="Políticas"><a href="../termos.html">Termos de uso</a><a href="../privacidade.html">Privacidade</a><a href="../entrega-e-trocas.html">Entrega e trocas</a></nav>
   </div>
 </footer>
+<a class="nivel" href="#conteudo" data-nivel aria-label="Progresso da página. Voltar ao topo">
+  <span class="nivel-txt"><small>Você está em</small><b data-nivel-sec>Início</b><em data-nivel-resta>faltam 100%</em></span>
+  <span class="nivel-pote" aria-hidden="true"><svg viewBox="0 0 40 52"><defs><clipPath id="nivel-clip"><rect x="7.5" y="16.5" width="25" height="31" rx="4"/></clipPath><linearGradient id="nivel-gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9cbc5c"/><stop offset="1" stop-color="#2f6b3a"/></linearGradient></defs>
+    <rect x="6" y="15" width="28" height="34" rx="5" fill="rgba(238,241,230,.1)" stroke="rgba(238,241,230,.4)" stroke-width="1.5"/>
+    <g clip-path="url(#nivel-clip)"><g class="enche-n" transform="translate(0 31)"><path class="onda-n" d="M0 17q5-3 10 0t10 0 10 0 10 0 10 0 10 0V60H0Z" fill="url(#nivel-gr)"/></g></g>
+    <rect class="tampa-n" x="4" y="4" width="32" height="10" rx="3" fill="#c4d997"/></svg><span class="nivel-pct" data-nivel-pct>0%</span></span>
+</a>
 <a class="zap" href="https://wa.me/5562000000000?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20o%20AURA%20Fresh." target="_blank" rel="noopener" aria-label="Falar com a AURA Fresh no WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16 3.5A12.4 12.4 0 0 0 5.3 22.2L3.6 28.4l6.4-1.7A12.4 12.4 0 1 0 16 3.5Zm0 22.6a10.2 10.2 0 0 1-5.2-1.4l-.4-.2-3.8 1 1-3.7-.2-.4A10.2 10.2 0 1 1 16 26.1Zm5.6-7.6c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.4 8.4 0 0 1-4.2-3.6c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-1-2.3c-.2-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.8.4 3.6 3.6 0 0 0-1.1 2.6 6.2 6.2 0 0 0 1.3 3.3 14.2 14.2 0 0 0 5.4 4.8c2 .9 2.8.9 3.8.8a3.3 3.3 0 0 0 2.1-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.5Z"/></svg><span>Fale com a gente</span></a>
 <section class="ck" data-ck hidden role="dialog" aria-modal="false" aria-labelledby="ck-t" aria-describedby="ck-d">
   <div class="ck-cab"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="7" y="6" width="26" height="11" rx="3" fill="#c4d997"/><rect x="8" y="17.5" width="24" height="17" rx="3" fill="#c4d997" opacity=".55"/><path d="M12 25h16M12 29h10" stroke="#16231a" stroke-width="2" stroke-linecap="round"/></svg><p class="ck-apoio">Cookies e privacidade</p></div>

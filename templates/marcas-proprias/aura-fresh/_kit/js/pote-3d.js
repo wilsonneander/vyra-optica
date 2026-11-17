@@ -373,7 +373,7 @@
     // copo de vidro (perfil com parede grossa) e água que respeita a parede interna
     const COPO_X = 1.2, FUNDO = 0.12;
     const perfil = [[0, 0.02], [0.62, 0.02], [0.66, 0.04], [0.7, 0.2], [0.78, 2.1], [0.8, 2.12], [0.76, 2.12], [0.72, 0.2], [0.68, 0.1], [0, 0.1]];
-    const copo = new T.Mesh(new T.LatheGeometry(perfil.map(v => new T.Vector2(v[0], v[1])), 72), new T.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.04, transparent: true, opacity: 0.12, clearcoat: 1, side: T.DoubleSide, depthWrite: false, envMapIntensity: 0.9 }));
+    const copo = new T.Mesh(new T.LatheGeometry(perfil.map(v => new T.Vector2(v[0], v[1])), 72), new T.MeshPhysicalMaterial({ color: 0x9fb2a4, roughness: 0.06, transparent: true, opacity: 0.3, clearcoat: 1, side: T.DoubleSide, depthWrite: false, envMapIntensity: 1.1 }));
     copo.position.x = COPO_X; copo.renderOrder = 2; cena.add(copo);
     const raioInterno = y => (y <= 0.2 ? 0.68 + (0.72 - 0.68) * Math.max(0, (y - 0.1) / 0.1) : 0.72 + 0.04 * (y - 0.2) / 1.92) - 0.025;
     // cor chapada (sem tone mapping) para o verde não clarear com o reflexo do vidro

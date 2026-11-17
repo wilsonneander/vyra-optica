@@ -23,6 +23,7 @@ const ic = {
 // ---------- <head> ----------
 function head({ titulo, desc, url = '', css = [], extra = '', img = 'assets/img/', raiz = '' }) {
   return `<meta charset="utf-8">
+<script>(function(){var d=document.documentElement;try{var q=location.search.match(/[?&]tema=(claro|escuro)/),v=q?q[1]:localStorage.getItem(d.dataset.site+"-tema");d.dataset.temaAtual=(v==="claro"||v==="escuro")?v:(d.dataset.temaPadrao||"claro");}catch(e){d.dataset.temaAtual=d.dataset.temaPadrao||"claro";}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>${esc(titulo)}</title>
 <meta name="description" content="${esc(desc)}">
@@ -57,6 +58,18 @@ function dadosJs(raiz = '') {
 
 // ---------- botão flutuante de WhatsApp ----------
 const zap = (txt) => `<a class="zap" href="${zapLink(txt)}" target="_blank" rel="noopener" aria-label="Falar com a AURA Fresh no WhatsApp">${ic.zap}<span>Fale com a gente</span></a>`;
+
+// ---------- botão de tema: tampa do pote que gira entre sol e lua ----------
+const temaBt = () => `<button class="tema" type="button" data-tema-bt aria-pressed="false" aria-label="Mudar para o tema escuro"><svg class="t-sol" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3 7 7M17 17l1.7 1.7M5.3 18.7 7 17M17 7l1.7-1.7"/></svg><svg class="t-lua" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5Z"/></svg><span class="tema-tampa" aria-hidden="true"></span></button>`;
+
+// ---------- onde você está: pote que enche conforme a página desce (clique volta ao topo) ----------
+const nivel = () => `<a class="nivel" href="#conteudo" data-nivel aria-label="Progresso da página. Voltar ao topo">
+  <span class="nivel-txt"><small>Você está em</small><b data-nivel-sec>Início</b><em data-nivel-resta>faltam 100%</em></span>
+  <span class="nivel-pote" aria-hidden="true"><svg viewBox="0 0 40 52"><defs><clipPath id="nivel-clip"><rect x="7.5" y="16.5" width="25" height="31" rx="4"/></clipPath><linearGradient id="nivel-gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9cbc5c"/><stop offset="1" stop-color="#2f6b3a"/></linearGradient></defs>
+    <rect x="6" y="15" width="28" height="34" rx="5" fill="rgba(238,241,230,.1)" stroke="rgba(238,241,230,.4)" stroke-width="1.5"/>
+    <g clip-path="url(#nivel-clip)"><g class="enche-n" transform="translate(0 31)"><path class="onda-n" d="M0 17q5-3 10 0t10 0 10 0 10 0 10 0 10 0V60H0Z" fill="url(#nivel-gr)"/></g></g>
+    <rect class="tampa-n" x="4" y="4" width="32" height="10" rx="3" fill="#c4d997"/></svg><span class="nivel-pct" data-nivel-pct>0%</span></span>
+</a>`;
 
 // ---------- aviso de cookies ----------
 const cookies = (raiz = '') => `<section class="ck" data-ck hidden role="dialog" aria-modal="false" aria-labelledby="ck-t" aria-describedby="ck-d">
@@ -265,4 +278,4 @@ const legais = {
   },
 };
 
-module.exports = { esc, ic, head, dadosJs, zap, zapLink, cookies, form, blocoKits, blocoFaq, modalAtivo, modalPote, rodape, legais, brl };
+module.exports = { temaBt, nivel, esc, ic, head, dadosJs, zap, zapLink, cookies, form, blocoKits, blocoFaq, modalAtivo, modalPote, rodape, legais, brl };

@@ -11,6 +11,7 @@ function cab(raiz = '', ativo = '') {
   return `<header class="cab cab-claro">
   <a class="cab-logo" href="${raiz}index.html" aria-label="AURA Fresh, início"><img src="${raiz}assets/img/logo.png" alt="AURA Fresh" width="120" height="52"></a>
   <nav class="cab-menu" aria-label="Principal">${nav.map(([h, t]) => `<a href="${raiz}${h}">${t}</a>`).join('')}<a href="${raiz}index.html#contato">Contato</a></nav>
+  ${X.temaBt()}
   <div class="cab-acoes" data-iguais><a class="btn btn-contorno cab-conta${ativo === 'cliente' ? ' cab-atual' : ''}" href="${raiz}cliente.html"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1.4-3.6 4.2-5.3 7.5-5.3s6.1 1.7 7.5 5.3"/></svg>Área do cliente</a><a class="btn cab-cta" href="${raiz}index.html#comprar">Comprar</a></div>
   <button class="cab-bt" type="button" data-menu aria-expanded="false" aria-label="Abrir menu"><span></span><span></span></button>
 </header>`;
@@ -18,9 +19,9 @@ function cab(raiz = '', ativo = '') {
 
 function pagina({ titulo, desc, corpo, raiz = '', scripts3d = false, extraJs = '', classe = '' }) {
   return `<!doctype html>
-<html lang="pt-BR" data-site="aura-ritual">
+<html lang="pt-BR" data-site="aura-ritual" data-tema-padrao="claro">
 <head>
-${X.head({ titulo, desc, css: ['produto.css', 'clube.css'].concat(classe === 'cliente' ? ['cliente.css'] : []), raiz })}
+${X.head({ titulo, desc, css: ['produto.css', 'clube.css'].concat(classe === 'cliente' ? ['cliente.css'] : []).concat(['tema-clube.css']), raiz })}
 </head>
 <body class="${classe}">
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -29,6 +30,7 @@ ${cab(raiz, classe)}
 ${corpo}
 </main>
 ${X.rodape({ raiz, mapa: 'mapa-papel.webp' })}
+${X.nivel()}
 ${X.zap()}
 ${X.cookies(raiz)}
 ${X.modalAtivo()}

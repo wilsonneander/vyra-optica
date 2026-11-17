@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
+const T = require('../../_comum/tema-pilula');
 
 const OUT = path.join(__dirname, '..', 'site-bronze');
 const M = C.marca;
@@ -24,11 +25,11 @@ fs.copyFileSync(path.join(__dirname, 'img', 'mapa_carlos-prates.webp'), path.joi
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
-const css = fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8')
+const css = (fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8') + T.css)
   .split('/*RASTRO*/').join(svgUrl(I.rastro))
   .split('/*FERRAMENTAS*/').join(svgUrl(I.ferramentas));
 const js = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
-  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura }));
+  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura })) + T.js('pistao-bronze-tema', '#0F1012', '#0F1012');
 
 const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,100,600;0,100,800;0,125,800;1,125,900&family=Oxanium:wght@500;800&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">';
 
@@ -51,8 +52,12 @@ const paineis = S.map((s, i) => `<article class="painel${i ? '' : ' ativo'}" id=
           </div>
         </article>`).join('\n        ');
 
+// seletor de tema comum aos modelos automotivos (pílula com sol e lua e marcador que desliza como gota)
+const seletorTema = (onde) => T.pilula(onde, 'claro');
+const temaSalvo = T.head;
+
 const html = `<!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="claro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -65,6 +70,7 @@ const html = `<!doctype html>
 <meta property="og:image" content="assets/img/oficina.webp">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>document.documentElement.classList.add("js")</script>
+${temaSalvo("pistao-bronze-tema")}
 ${fontes}
 <style>
 ${css}
@@ -102,12 +108,15 @@ ${css}
           <li><a href="#sobre">Sobre nós</a></li>
           <li><a href="#contato">Contato</a></li>
         </ul>
+        ${seletorTema("menu-tema deitada")}
       </nav>
       <a class="btn btn-pinca btn-orc" href="${wa('Olá, Pistão! Quero um orçamento grátis.')}" target="_blank" rel="noopener">${I.whats}<span>Orçamento grátis</span></a>
       <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
     </div>
   </div>
 </header>
+
+${seletorTema("tema-lado")}
 
 <main>
   <section class="capa" id="inicio">

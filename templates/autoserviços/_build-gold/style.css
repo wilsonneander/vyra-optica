@@ -23,6 +23,7 @@
   --mola: cubic-bezier(.34, 1.4, .5, 1);
   --cortina: cubic-bezier(.77, 0, .18, 1);
   --topo: 90px;
+  --tema-cor: #ff3d24; --tema-halo: rgba(255,61,36,.22);
   color-scheme: dark;
 }
 :root[data-tema="claro"] {
@@ -174,13 +175,7 @@ body.indo .veu { opacity: 1; visibility: visible; transition: opacity .42s ease;
 .menu-aberto .burger i:nth-child(2) { opacity: 0; }
 .menu-aberto .burger i:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-/* seletor de tema: pílula branca com dois botões redondos (componente único) */
-.tema-pilula { display: inline-grid; gap: 6px; padding: 6px; background: #fff; border-radius: 30px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.5); }
-.tema-pilula button { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #8a8a8a; cursor: pointer; transition: background .3s, color .3s, transform .4s var(--mola); }
-.tema-pilula button svg { width: 21px; height: 21px; }
-.tema-pilula button:hover { transform: scale(1.1); color: var(--rubi); }
-.tema-pilula button[aria-pressed="true"] { background: var(--rubi); color: #fff; box-shadow: 0 0 0 4px rgba(255,61,36,.25); }
-/* na lateral direita, em pé (desktop) */
+/* seletor de tema (peça comum em templates/_comum/tema-pilula.js): na lateral direita, em pé (desktop) */
 .tema-lado { position: fixed; right: 18px; top: 50%; z-index: 95; transform: translateY(-50%); }
 
 /* ---------- capa ---------- */

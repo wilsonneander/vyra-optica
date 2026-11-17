@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
+const T = require('../../_comum/tema-pilula');
 
 const OUT = path.join(__dirname, '..', 'site-silver');
 const M = C.marca;
@@ -31,9 +32,9 @@ const sprite = C.marcas.map(([id]) => {
   return `<symbol id="m-${id}" viewBox="${vb}">${corpo}</symbol>`;
 }).join('');
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
-fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(OUT, 'assets', 'style.css'));
+fs.writeFileSync(path.join(OUT, 'assets', 'style.css'), fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8') + T.css);
 fs.writeFileSync(path.join(OUT, 'assets', 'app.js'), fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
-  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura })));
+  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura })) + T.js('pistao-silver-tema', '#ffffff', '#101010'));
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
 const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700;800&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">';
@@ -68,8 +69,12 @@ const cartoes = S.map((s, i) => `<article class="cartao" id="${s.id}" style="--i
 
 const marcasHtml = (copia) => C.marcas.map(([id, nome]) => `<li${copia ? ' aria-hidden="true"' : ''}><span class="marca-logo" title="${nome}"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-${id}"/></svg></span><span class="marca-nome">${nome}</span></li>`).join('');
 
+// seletor de tema comum aos modelos automotivos (pílula com sol e lua e marcador que desliza como gota)
+const seletorTema = (onde) => T.pilula(onde, 'escuro');
+const temaSalvo = T.head;
+
 const html = `<!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="escuro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -81,6 +86,7 @@ const html = `<!doctype html>
 <meta property="og:description" content="Mecânica, revisão, freios, suspensão, alinhamento 3D e estética automotiva no ${M.bairro}, BH.">
 <meta property="og:image" content="assets/img/og.jpg">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+${temaSalvo("pistao-silver-tema")}
 ${fontes}
 <link rel="stylesheet" href="assets/style.css">
 <script type="application/ld+json">${JSON.stringify({
@@ -114,11 +120,14 @@ ${fontes}
         <li><a href="#contato">Contato</a></li>
       </ul>
       <a class="btn btn-rubi menu-cta" href="#contato">Agendar serviço</a>
+      ${seletorTema("menu-tema deitada")}
     </nav>
     <a class="topo-fone" href="tel:${tel}"><span class="pulso">${I.fone}</span><span><small data-status>Ligue agora</small>${M.telefone}</span></a>
     <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
   </div>
 </header>
+
+${seletorTema("tema-lado")}
 
 <main>
   <section class="capa" id="inicio" aria-roledescription="carrossel" aria-label="Destaques">

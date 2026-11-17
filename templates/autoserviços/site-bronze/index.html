@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="claro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,9 +12,10 @@
 <meta property="og:image" content="assets/img/oficina.webp">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>document.documentElement.classList.add("js")</script>
+<script>try{var t=new URLSearchParams(location.search).get("tema")||localStorage.getItem("pistao-bronze-tema");if(t==="claro"||t==="escuro")document.documentElement.dataset.tema=t;}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wdth,wght@0,100,600;0,100,800;0,125,800;1,125,900&family=Oxanium:wght@500;800&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* Pistão Auto Center: modelo Bronze de autosserviços */
+/* Pistão Auto Center: modelo Bronze de autosserviços. Tema claro (padrão) e escuro pelo seletor na lateral. */
 :root {
   --asfalto: #0F1012; --carvao: #17181B; --grafite: #24262B; --linha: #34363C;
   --aco: #9AA0A8; --giz: #F3F2EE; --papel: #FAFAF7; --branco: #fff;
@@ -24,10 +25,22 @@
   --f-t: 'Anybody', 'Arial Narrow', sans-serif; --f-c: 'Schibsted Grotesk', 'Segoe UI', sans-serif;
   --suave: cubic-bezier(.22, .8, .24, 1);
   --topo-h: 118px;
+  /* cartões que mudam com o tema (valores do claro) */
+  --cartao: #fff;
+  --estrela-off: #D6D7D9;
+  --tema-cor: #D42A1E; --tema-halo: rgba(212, 42, 30, .2);
+  color-scheme: light;
+}
+:root[data-tema="escuro"] {
+  --papel: #0F1012; --giz: #141518;
+  --texto: #E9E9E6; --apoio-cor: #9AA0A8;
+  --cartao: #1E2024;
+  --estrela-off: #3D4046;
+  color-scheme: dark;
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--topo-h) - 30px); -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--papel); color: var(--texto); font: 400 16px/1.6 var(--f-c); overflow-x: hidden; }
+body { margin: 0; background: var(--papel); color: var(--texto); transition: background .5s, color .5s; font: 400 16px/1.6 var(--f-c); overflow-x: hidden; }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
 button, input, select, textarea { font: inherit; color: inherit; }
@@ -140,14 +153,14 @@ p { margin: 0; }
 .selo text { font: 700 9.6px var(--f-c); letter-spacing: .06em; fill: #fff; }
 .selo b { display: grid; text-align: center; font: italic 900 38px/.9 var(--f-t); font-stretch: 125%; }
 .selo small { font: 600 11px/1 var(--f-c); letter-spacing: .2em; text-transform: uppercase; font-style: normal; }
-.nota-capa { position: absolute; right: 0; bottom: 36px; display: flex; gap: 12px; align-items: center; padding: 14px 18px; background: #fff; color: var(--texto); border-radius: 4px; box-shadow: 0 20px 40px -18px rgba(0, 0, 0, .8); animation: flutua 5s ease-in-out infinite; }
+.nota-capa { position: absolute; right: 0; bottom: 36px; display: flex; gap: 12px; align-items: center; padding: 14px 18px; background: var(--cartao); color: var(--texto); border-radius: 4px; box-shadow: 0 20px 40px -18px rgba(0, 0, 0, .8); animation: flutua 5s ease-in-out infinite; }
 .nota-capa > svg { width: 30px; height: 30px; }
 .nota-capa div { display: grid; grid-template-columns: auto auto; column-gap: 8px; align-items: center; }
 .nota-capa b { font: 900 26px/1 var(--f-t); }
 .nota-capa span:last-child { grid-column: 1 / -1; font-size: 12px; color: var(--apoio-cor); margin-top: 3px; }
 @keyframes flutua { 50% { transform: translateY(-8px); } }
 .estrelas { display: inline-flex; gap: 2px; }
-.estrelas i { width: 15px; height: 15px; color: #D6D7D9; }
+.estrelas i { width: 15px; height: 15px; color: var(--estrela-off); }
 .estrelas i.on { color: var(--sinal); }
 .estrelas svg { width: 100%; height: 100%; display: block; }
 /* faixa de marca de pneu correndo no pé da capa */
@@ -164,7 +177,7 @@ p { margin: 0; }
 .num > span { color: var(--aco); font-size: 15px; }
 
 /* ---------- serviços ---------- */
-.servicos { position: relative; padding: 110px 0 120px; background: var(--giz); overflow: hidden; }
+.servicos { position: relative; padding: 110px 0 120px; background: var(--giz); overflow: hidden; transition: background .5s; }
 .servicos::before { content: ""; position: absolute; left: -20%; right: -20%; top: 46%; height: 80px; background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2244%22%20height%3D%2240%22%20viewBox%3D%220%200%2044%2040%22%3E%3Cg%20fill%3D%22%23000%22%3E%3Cpath%20d%3D%22M2%201h16l8%208.5-8%208.5H2l8-8.5Z%22%2F%3E%3Cpath%20d%3D%22M24%2022h16l-8%208.5%208%208.5H24l-8-8.5Z%22%20opacity%3D%22.75%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") 0 0 / 44px 40px; opacity: .05; transform: rotate(-9deg); pointer-events: none; }
 .sec-topo { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; margin-bottom: 48px; }
 .sec-desc { color: var(--apoio-cor); font-size: 17px; max-width: 440px; }
@@ -246,9 +259,9 @@ p { margin: 0; }
 .difs dd { margin: 6px 0 0; color: var(--aco); font-size: 15px; }
 
 /* ---------- avaliações ---------- */
-.avaliacoes { padding: 110px 0 120px; background: var(--giz); overflow: hidden; }
+.avaliacoes { padding: 110px 0 120px; background: var(--giz); overflow: hidden; transition: background .5s; }
 .aval-topo { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 48px; }
-.nota-geral { display: flex; align-items: center; gap: 14px; padding: 16px 22px; background: #fff; border-radius: 4px; box-shadow: 0 20px 40px -30px rgba(0, 0, 0, .5); }
+.nota-geral { display: flex; align-items: center; gap: 14px; padding: 16px 22px; background: var(--cartao); border-radius: 4px; box-shadow: 0 20px 40px -30px rgba(0, 0, 0, .5); }
 .nota-geral > svg { width: 34px; height: 34px; }
 .nota-geral > b { font: 900 46px/1 var(--f-t); }
 .nota-geral div { display: grid; gap: 4px; }
@@ -260,7 +273,7 @@ p { margin: 0; }
 .esteira.volta .esteira-trilho { animation-direction: reverse; animation-duration: 70s; }
 .esteira:hover .esteira-trilho { animation-play-state: paused; }
 @keyframes esteira { to { transform: translateX(calc(-50% - 8px)); } }
-.aval { margin: 0; width: 380px; padding: 24px 26px; background: #fff; border-radius: 4px; border-bottom: 3px solid transparent; display: flex; flex-direction: column; gap: 14px; transition: transform .4s var(--suave), border-color .4s; }
+.aval { margin: 0; width: 380px; padding: 24px 26px; background: var(--cartao); border-radius: 4px; border-bottom: 3px solid transparent; display: flex; flex-direction: column; gap: 14px; transition: transform .4s var(--suave), border-color .4s; }
 .aval:hover { transform: translateY(-4px); border-color: var(--pinca); }
 .aval blockquote { margin: 0; font-size: 16px; line-height: 1.5; }
 .aval figcaption { margin-top: auto; display: flex; justify-content: space-between; gap: 10px; font-size: 14px; }
@@ -298,14 +311,14 @@ p { margin: 0; }
 .map-box .pin::before { content: ""; position: absolute; inset: -11px; border-radius: 50%; border: 3px solid rgba(212, 42, 30, .55); animation: ping 2.2s ease-out infinite; }
 @keyframes ping { from { transform: scale(.5); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
 .map-box .pin b { position: absolute; left: 26px; top: -5px; white-space: nowrap; font: 800 16px var(--f-t); text-transform: uppercase; color: var(--asfalto); text-shadow: 0 0 4px #fff, 0 0 4px #fff, 0 0 4px #fff; }
-.map-info { position: absolute; left: 14px; top: 14px; z-index: 3; display: grid; gap: 3px; max-width: 320px; padding: 14px 16px; background: #fff; color: var(--texto); border-radius: 4px; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .5); }
+.map-info { position: absolute; left: 14px; top: 14px; z-index: 3; display: grid; gap: 3px; max-width: 320px; padding: 14px 16px; background: #fff; color: #17181B; border-radius: 4px; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .5); }
 .map-info b { font: 800 17px var(--f-t); text-transform: uppercase; }
-.map-info span { font-size: 12.5px; color: var(--apoio-cor); line-height: 1.35; }
+.map-info span { font-size: 12.5px; color: #5C6068; line-height: 1.35; }
 .map-info .mbtns { display: flex; gap: 6px; margin-top: 8px; }
 .mbtns a { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; white-space: nowrap; border-radius: 3px; background: var(--pinca); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; transition: background .35s var(--suave), transform .35s var(--suave); }
 .mbtns a:hover { background: var(--pinca-esc); transform: translateY(-2px); }
 .mbtns svg { width: 16px; height: 16px; }
-.attr { position: absolute; right: 8px; bottom: 6px; z-index: 3; font-size: 11px; background: rgba(255, 255, 255, .85); color: var(--texto); padding: 2px 6px; border-radius: 3px; }
+.attr { position: absolute; right: 8px; bottom: 6px; z-index: 3; font-size: 11px; background: rgba(255, 255, 255, .85); color: #17181B; padding: 2px 6px; border-radius: 3px; }
 .onde h2 { font-size: clamp(28px, 3vw, 38px); }
 .onde p { margin-top: 12px; color: var(--aco); }
 .bairros { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
@@ -327,6 +340,14 @@ p { margin: 0; }
 .whats-flutua { position: fixed; right: 20px; bottom: 20px; z-index: 40; width: 60px; height: 60px; display: grid; place-items: center; background: #1FA855; color: #fff; border-radius: 50%; box-shadow: 0 14px 30px -10px rgba(0, 0, 0, .6); transition: transform .4s var(--suave); }
 .whats-flutua svg { width: 32px; height: 32px; }
 .whats-flutua:hover { transform: scale(1.08) rotate(-6deg); }
+
+/* seletor de tema (peça comum em templates/_comum/tema-pilula.js): marcador no vermelho do Bronze */
+.tema-lado { position: fixed; right: 18px; top: 50%; z-index: 45; transform: translateY(-50%); }
+.menu .menu-tema { display: none; }
+
+/* tema escuro: o painel de serviços ganha um contorno para não sumir no fundo */
+:root[data-tema="escuro"] .oficina-board { box-shadow: 0 0 0 1px var(--linha), 0 50px 90px -50px #000; }
+:root[data-tema="escuro"] :is(.aval, .nota-geral, .nota-capa) { box-shadow: 0 0 0 1px var(--linha), 0 20px 40px -24px #000; }
 
 /* entrada ao rolar */
 .js .revela { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--suave), transform .8s var(--suave); }
@@ -351,6 +372,8 @@ p { margin: 0; }
   .tem-sub.aberto .sub { display: block; }
   .sub a { padding: 13px 8px; font-size: 16px; border-bottom: 1px solid var(--linha); border-radius: 0; }
   .sub-todos { margin: 0; padding: 0; border: 0; }
+  .menu .menu-tema { display: inline-grid; grid-auto-flow: column; margin-top: 20px; }
+  .tema-lado { display: none; }
   .btn-orc { margin-left: auto; }
   .capa-grid { grid-template-columns: 1fr; }
   .capa-visual { min-height: 520px; max-width: 560px; }
@@ -409,6 +432,38 @@ p { margin: 0; }
   html { scroll-behavior: auto; }
 }
 
+/* ---------- seletor de tema: pílula com sol e lua e um marcador que desliza como gota ---------- */
+/* position com especificidade zero: a lateral fixa (.tema-lado) de cada modelo continua valendo */
+:where(.tema-pilula) { position: relative; }
+.tema-pilula { --tb: 40px; --tg: 6px; --tp: 6px; --x: 0; --y: 1; --d: 0px; display: inline-grid; gap: var(--tg); padding: var(--tp); background: #fff; border-radius: 30px; box-shadow: 0 10px 30px -10px rgba(0,0,0,.45), 0 0 0 1px rgba(0,0,0,.05); }
+/* pílula deitada (menu do celular e barras horizontais) */
+.tema-pilula.deitada { --x: 1; --y: 0; grid-auto-flow: column; }
+[data-tema="escuro"] .tema-pilula { --d: calc(var(--tb) + var(--tg)); }
+.tema-pilula button { position: relative; z-index: 1; display: grid; place-items: center; width: var(--tb); height: var(--tb); padding: 0; border: 0; border-radius: 50%; background: transparent; color: #8a8a8a; cursor: pointer; transition: color .45s ease, transform .4s cubic-bezier(.34, 1.5, .5, 1); }
+.tema-pilula button svg { width: 52%; height: 52%; transition: transform .7s cubic-bezier(.34, 1.5, .5, 1); }
+.tema-pilula button:hover { transform: scale(1.1); color: var(--tema-cor); }
+.tema-pilula button[aria-pressed="true"] { color: #fff; }
+.tema-pilula button[aria-pressed="true"]:hover { transform: none; }
+.tema-pilula button[data-tema-ir="claro"][aria-pressed="true"] svg { transform: rotate(90deg); }
+.tema-pilula button[data-tema-ir="escuro"][aria-pressed="true"] svg { transform: rotate(-24deg); }
+.tema-marca { position: absolute; left: var(--tp); top: var(--tp); width: var(--tb); height: var(--tb); border-radius: 50%; background: var(--tema-cor); box-shadow: 0 0 0 4px var(--tema-halo), 0 8px 16px -8px var(--tema-cor); pointer-events: none;
+  translate: calc(var(--x) * var(--d)) calc(var(--y) * var(--d)); transition: translate .7s cubic-bezier(.6, -.05, .2, 1.25); }
+/* a gota: estica no sentido do caminho, achata ao chegar e volta ao redondo */
+.tema-pilula { --g1: .84 1.3; --g2: 1.14 .86; --g3: .97 1.04; }
+.tema-pilula.deitada { --g1: 1.3 .84; --g2: .86 1.14; --g3: 1.04 .97; }
+@keyframes temaGotaA { 0% { scale: 1; } 30% { scale: var(--g1); } 72% { scale: var(--g2); } 88% { scale: var(--g3); } 100% { scale: 1; } }
+@keyframes temaGotaB { 0% { scale: 1; } 30% { scale: var(--g1); } 72% { scale: var(--g2); } 88% { scale: var(--g3); } 100% { scale: 1; } }
+.tema-anim[data-tema="escuro"] .tema-marca { animation: temaGotaA .7s cubic-bezier(.45, 0, .2, 1); }
+.tema-anim[data-tema="claro"] .tema-marca { animation: temaGotaB .7s cubic-bezier(.45, 0, .2, 1); }
+/* a página inteira troca de cor junto, sem piscar */
+html.tema-anim *:not(.tema-pilula, .tema-pilula *),
+html.tema-anim *:not(.tema-pilula, .tema-pilula *)::before,
+html.tema-anim *:not(.tema-pilula, .tema-pilula *)::after { transition: background-color .6s ease, color .6s ease, border-color .6s ease, outline-color .6s ease, box-shadow .6s ease, fill .6s ease, stroke .6s ease, -webkit-text-stroke-color .6s ease !important; }
+html.tema-anim body { transition: background-color .6s ease, color .6s ease !important; }
+@media (prefers-reduced-motion: reduce) {
+  .tema-marca, .tema-pilula button, .tema-pilula button svg { transition: none !important; animation: none !important; }
+}
+
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"AutoRepair","name":"Pistão Auto Center","telephone":"(31) 3333-0000","email":"contato@pistaoauto.com.br","address":{"@type":"PostalAddress","streetAddress":"Av. Pedro II, 2150","addressLocality":"Belo Horizonte","addressRegion":"MG","addressCountry":"BR"},"openingHours":["Mo-Fr 07:30-18:00","Sa 08:00-13:00"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"312"}}</script>
 </head>
@@ -447,12 +502,23 @@ p { margin: 0; }
           <li><a href="#sobre">Sobre nós</a></li>
           <li><a href="#contato">Contato</a></li>
         </ul>
+        <div class="tema-pilula menu-tema deitada" role="group" aria-label="Tema do site">
+  <i class="tema-marca" aria-hidden="true"></i>
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M14.8 3.4a8.7 8.7 0 1 0 5.8 12.4A7 7 0 0 1 14.8 3.4Z"/></svg></button>
+</div>
       </nav>
       <a class="btn btn-pinca btn-orc" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Pist%C3%A3o!%20Quero%20um%20or%C3%A7amento%20gr%C3%A1tis." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.4 4.8 5-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.8a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.6.3 2.7 2.7 0 0 0-.8 2c0 1.2.8 2.3.9 2.5.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.3-.2Z"/></svg><span>Orçamento grátis</span></a>
       <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
     </div>
   </div>
 </header>
+
+<div class="tema-pilula tema-lado" role="group" aria-label="Tema do site">
+  <i class="tema-marca" aria-hidden="true"></i>
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M14.8 3.4a8.7 8.7 0 1 0 5.8 12.4A7 7 0 0 1 14.8 3.4Z"/></svg></button>
+</div>
 
 <main>
   <section class="capa" id="inicio">
@@ -902,6 +968,29 @@ p { margin: 0; }
     if (form.msg.value.trim()) msg += `\n${form.msg.value.trim()}`;
     open(wa(msg), '_blank', 'noopener');
   });
+})();
+
+/* ---------- tema claro ou escuro (pílula na lateral e no menu do celular) ---------- */
+(() => {
+  const raiz = document.documentElement;
+  const meta = document.querySelector('meta[name="theme-color"]');
+  let fim;
+  const marca = () => {
+    document.querySelectorAll('[data-tema-ir]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.temaIr === raiz.dataset.tema)));
+    if (meta) meta.content = raiz.dataset.tema === 'claro' ? '#0F1012' : '#0F1012';
+  };
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-tema-ir]');
+    if (!b || b.dataset.temaIr === raiz.dataset.tema) return;
+    // tema-anim liga a passagem suave das cores só durante a troca
+    raiz.classList.add('tema-anim');
+    raiz.dataset.tema = b.dataset.temaIr;
+    try { localStorage.setItem('pistao-bronze-tema', raiz.dataset.tema); } catch (err) { /* sem armazenamento, vale só nesta visita */ }
+    marca();
+    clearTimeout(fim);
+    fim = setTimeout(() => raiz.classList.remove('tema-anim'), 800);
+  });
+  marca();
 })();
 
 </script>

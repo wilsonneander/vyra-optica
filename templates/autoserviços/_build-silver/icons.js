@@ -69,4 +69,7 @@ module.exports = {
   // aspas de depoimento: dois blocos inclinados
   aspas: `<svg viewBox="0 0 48 40" aria-hidden="true"><path fill="currentColor" d="M8 4h14l-6 16h6v16H2V20Zm24 0h14l-6 16h6v16H26V20Z"/></svg>`,
   estrela: `<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.8 6.2 6.7.7-5 4.6 1.4 6.6L12 17.2l-5.9 3.4 1.4-6.6-5-4.6 6.7-.7Z"/></svg>`,
+  // seletor de tema: sol e lua (os mesmos do Gold)
+  claro: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>`,
+  escuro: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M14.8 3.4a8.7 8.7 0 1 0 5.8 12.4A7 7 0 0 1 14.8 3.4Z"/></svg>`,
 };

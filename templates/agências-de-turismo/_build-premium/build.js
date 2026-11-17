@@ -176,33 +176,24 @@ ${fontes}
 
 <main id="conteudo">
 
-<!-- CAPA: vídeo em tela cheia que, com o scroll, recua para um quadro central -->
-<section class="capa" id="inicio" data-pin aria-label="Início">
+<!-- CAPA: vídeos da Disney em tela cheia com o buscador de passagens do site original -->
+<section class="capa" id="inicio" aria-label="Início">
   <div class="capa-fixa">
     <div class="capa-midia" data-capa-midia>
       ${capaVideos}
       <div class="capa-veu" aria-hidden="true"></div>
     </div>
-    <div class="capa-moldura" aria-hidden="true"></div>
-    <p class="capa-depois" aria-hidden="true"><span>Sonhe.</span><span>Embarque.</span></p>
-    <div class="wrap capa-txt">
-      <p class="apoio" data-capa-el>${M.completo}, ${M.cidade}</p>
-      <h1 class="capa-t">${C.capa.titulo.map((l, i) => `<span class="ln"><span style="--d:${i}">${l}</span></span>`).join('')}</h1>
-      <p class="capa-p" data-capa-el>${C.capa.texto}</p>
-      <div class="capa-btns" data-capa-el>
-        <a class="btn btn-coral" href="#passagens" data-ima>${rola('Começar a planejar')}</a>
-        <a class="btn btn-vidro" href="#disney" data-ima>${rola('Ver a magia da Disney')}</a>
+    <div class="wrap capa-in">
+      <div class="capa-txt">
+        <h1 class="capa-t">${C.capa.titulo.map((l, i) => `<span class="ln"><span style="--d:${i}">${l}</span></span>`).join('')}</h1>
+        <p class="capa-p" data-capa-el>${C.capa.texto}</p>
+        <div class="capa-btns" data-capa-el>
+          <a class="btn btn-coral" href="#destinos" data-ima>${rola('Ver destinos')}</a>
+          <a class="btn btn-vidro" href="#disney" data-ima>${rola('Ver a magia da Disney')}</a>
+        </div>
       </div>
-    </div>
-    <div class="capa-cenas" role="group" aria-label="Cenas da capa">${capaCenas}</div>
-    <p class="capa-rolar" aria-hidden="true"><span>Role para embarcar</span><i></i></p>
-  </div>
-</section>
-
-<!-- BUSCA: o buscador do site original, que vira uma mensagem pronta no WhatsApp -->
-<section class="busca" id="passagens" aria-labelledby="busca-t">
-  <div class="wrap">
-    <form class="busca-card" data-busca data-tilt-leve novalidate>
+      <div class="capa-busca" id="passagens" data-capa-el>
+        <form class="busca-card" data-busca data-tilt-leve novalidate>
       <div class="busca-cab">
         <h2 id="busca-t">Comece a planejar hoje com a Peakalika</h2>
         <p>Preencha o que já sabe. A gente devolve as melhores opções no WhatsApp.</p>
@@ -223,12 +214,27 @@ ${fontes}
         <button class="btn btn-coral busca-bt" type="submit" data-ima>${rola('Buscar')}</button>
       </div>
     </form>
+      </div>
+    </div>
+    <div class="capa-cenas" role="group" aria-label="Cenas da capa">${capaCenas}</div>
   </div>
 </section>
 
 <div class="faixa-zona" aria-hidden="true"><div class="faixa">
   <div class="faixa-trilho">${[0, 1].map(() => `<span>${C.faixa.map((f) => `${f}<i>${I.aviao}</i>`).join('')}</span>`).join('')}</div>
 </div></div>
+
+<!-- GALERIA: duas faixas de fotos correndo em sentidos opostos sobre o degradê laranja da marca -->
+<section class="galeria" aria-labelledby="galeria-t">
+  <div class="wrap galeria-cab">
+    <h2 id="galeria-t">${split(C.galeria.titulo)}</h2>
+    <p data-anima>${C.galeria.texto}</p>
+  </div>
+  ${C.galeria.faixas.map((faixa, n) => `<div class="galeria-faixa${n ? ' reversa' : ''}" aria-hidden="${n ? 'true' : 'false'}">
+    <div class="galeria-trilho">${[0, 1].map((k) => faixa.map((g) => `<figure class="foto"${k ? ' aria-hidden="true"' : ''}><img src="assets/${g.src}.webp" alt="${k || n ? '' : esc(g.nome)}" width="600" height="760" loading="lazy"><figcaption>${g.nome}</figcaption></figure>`).join('')).join('')}</div>
+  </div>`).join('\n  ')}
+</section>
+
 
 ${trem('destinos')}
 

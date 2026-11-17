@@ -39,6 +39,16 @@ module.exports = {
     trechos: ['Ida e volta', 'Só ida', 'Vários destinos'],
   },
 
+  // galeria de fotos (destinos, serviços e cenas da Disney tiradas dos vídeos)
+  galeria: {
+    titulo: 'Para onde vai a sua próxima história?',
+    texto: 'Europa, Oriente, Estados Unidos, Caribe e alto mar. A Peakalika monta o roteiro, você só escolhe o cenário.',
+    faixas: [
+      [['img/paris', 'Paris'], ['video/castelo-dia', 'Magic Kingdom'], ['img/roma', 'Roma'], ['img/cruzeiros', 'Cruzeiros'], ['img/dubai', 'Dubai'], ['video/balao-mickey', 'Desfile Disney'], ['img/veneza', 'Veneza'], ['img/xcaret', 'Xcaret'], ['img/toquio', 'Tóquio']].map(([src, nome]) => ({ src, nome })),
+      [['img/londres', 'Londres'], ['video/parada', 'Main Street'], ['img/universal', 'Universal'], ['img/lisboa', 'Lisboa'], ['video/castelo-entardecer', 'Castelo ao entardecer'], ['img/nova-york', 'Nova York'], ['img/passeios', 'Passeios'], ['img/madrid', 'Madrid'], ['video/branca-de-neve', 'Personagens']].map(([src, nome]) => ({ src, nome })),
+    ],
+  },
+
   faixa: ['Passagens', 'Hotéis', 'Walt Disney World', 'Universal', 'Cruzeiros', 'Vistos', 'Xcaret', 'Seguro viagem', 'Transfers'],
 
   destinos: {

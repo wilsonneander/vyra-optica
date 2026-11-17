@@ -851,3 +851,45 @@ main { overflow-x: clip; }
 @media (max-width: 340px) { .bairros { grid-template-columns: 1fr; } }
 .map-info a svg { flex: none; }
 @media (max-width: 380px) { .map-info a { padding: 9px 8px; font-size: 11.5px; letter-spacing: .02em; } }
+
+/* ---------- tema claro (balcão de dia: creme, papel e café, com o vermelho da tampinha) ----------
+   As seções escuras ganham a paleta clara pelas próprias variáveis; as que já são claras ficam como estão. */
+html { --tema-cor: var(--verm); --tt-fundo: #241B16; --tt-borda: rgba(244, 239, 232, .1); --tt-icone: #9C8D82; --tt-gas: #F4EFE8; }
+html[data-tema="claro"] { color-scheme: light; --tt-fundo: #fff; --tt-borda: rgba(30, 22, 18, .08); --tt-icone: #9C8D82; --tt-gas: #D7261E; }
+[data-tema="claro"] body { background: #F8F3EC; color: var(--tinta-txt); }
+[data-tema="claro"] :is(.preload, .topo, .menu, .capa, .cats, .mais, .kits, .duvidas, .topo-volta) {
+  --preto: #F8F3EC; --carvao: #EFE6DA; --cafe: #E9DED0; --cafe2: #DED0BE;
+  --creme: #1E1612; --cinza-c: #6E6158; --linha-e: rgba(30, 22, 18, .14);
+}
+/* os blocos de categoria e as faixas com foto seguem escuros, como vitrines */
+[data-tema="claro"] .faixa-foto { color: #F4EFE8; --creme: #F4EFE8; --cinza-c: #B8ABA0; }
+[data-tema="claro"] .cat { --preto: #120E0C; --carvao: #1B1512; --creme: #F4EFE8; --cinza-c: #B8ABA0; }
+[data-tema="claro"] .topo.cheio { background: rgba(248, 243, 236, .9); }
+[data-tema="claro"] .status { color: #1B7A43; }
+[data-tema="claro"] .topo-carrinho, [data-tema="claro"] .btn-verm { color: #fff; }
+[data-tema="claro"] .topo-carrinho span { background: var(--tinta-txt); color: #fff; }
+[data-tema="claro"] .capa { background: radial-gradient(120% 90% at 72% 45%, color-mix(in srgb, var(--luz) 22%, #F8F3EC), #F8F3EC 70%); }
+[data-tema="claro"] .capa::after { background-image: radial-gradient(rgba(30, 22, 18, .09) 1px, transparent 1.2px); }
+[data-tema="claro"] .capa-nome { -webkit-text-stroke-color: rgba(30, 22, 18, .1); }
+[data-tema="claro"] .bolhas i { border-color: color-mix(in srgb, var(--luz) 45%, transparent); background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, .9), transparent 60%); }
+[data-tema="claro"] .palco-disco { background: radial-gradient(ellipse, rgba(42, 26, 18, .32), transparent 70%); }
+[data-tema="claro"] .cena-ficha { background: rgba(255, 255, 255, .82); }
+[data-tema="claro"] .mini { background: rgba(30, 22, 18, .05); }
+[data-tema="claro"] .mini.on { background: rgba(30, 22, 18, .12); }
+[data-tema="claro"] .capa-rolar { border-color: rgba(30, 22, 18, .35); }
+[data-tema="claro"] .card-g { background: #fff; box-shadow: 0 20px 40px -30px rgba(42, 26, 18, .5); }
+[data-tema="claro"] .card-g .card-chao { background: rgba(42, 26, 18, .25); }
+[data-tema="claro"] .kit-g { background: #2A1A12; --creme: #F4EFE8; --cinza-c: #B8ABA0; --linha-e: rgba(244, 239, 232, .12); color: #F4EFE8; }
+[data-tema="claro"] .kit::after { background: radial-gradient(circle, rgba(215, 38, 30, .16), transparent 70%); }
+[data-tema="claro"] .faq-item summary:hover { color: var(--verm); }
+[data-tema="claro"] .btn-linha:hover { color: #F8F3EC; }
+[data-tema="claro"] .tp-sombra { background: radial-gradient(ellipse, rgba(42, 26, 18, .35), transparent 70%); }
+
+/* pílula do tema: na lateral direita no computador, deitada dentro do menu no celular */
+.tema-lado { position: fixed; right: 18px; top: 50%; z-index: 95; transform: translateY(-50%); }
+.menu-tema { display: none; }
+@media (max-width: 900px) {
+  .tema-tampa.tema-lado { display: none; }
+  .menu-tema { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--linha-e); font-size: 15px; font-weight: 600; color: var(--cinza-c); opacity: 0; transition: opacity .4s .3s; }
+  .menu.on .menu-tema { opacity: 1; }
+}

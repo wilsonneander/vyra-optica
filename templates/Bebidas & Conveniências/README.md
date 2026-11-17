@@ -61,3 +61,9 @@ NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js cafe img/mapa_flores
 ## Para virar site de cliente
 
 Copiar para `clientes/<cliente>/` (nunca editar aqui). Trocar `content.js` (marca, atendente, WhatsApp, endereço, taxa, horários, produtos e preços), as fotos de produto pelos packshots do cliente, a foto do atendente por uma da equipe real, o logo em `icons.js`, gerar o mapa do endereço real, ajustar os links do iFood e do 99Food e tirar o `noindex` do `build.js`.
+
+## Tema claro e escuro
+
+Pílula com sol e lua na lateral direita (no celular, deitada dentro do menu). O marcador é uma tampinha coroa que rola de um ícone ao outro, dá um pulinho e solta bolhas de gás; a página troca de tema num círculo que se espalha a partir da tampinha (sem View Transitions, as cores passam suavemente). Peça comum em `templates/_comum/tema-tampinha.js`. A escolha fica salva no navegador e `?tema=claro` ou `?tema=escuro` no link também vale.
+
+- Bronze abre no **claro**; o escuro é noite de adega (café quase preto, papel tostado, vermelho da tampinha). Chave `tampinha-bronze-tema`. Cores em `_build/style.css`, bloco "tema escuro".

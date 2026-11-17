@@ -74,3 +74,9 @@ Por ser demonstração sem servidor, tudo fica no `localStorage` (`tampinha-gold
 ## Para virar site de cliente
 
 Copiar para `clientes/<cliente>/` (nunca editar aqui). Trocar `content.js`, as fotos, o rótulo da lata, o logo em `icons.js`, gerar o mapa do endereço real, ajustar iFood e 99Food e tirar o `noindex` do `build.js`.
+
+## Tema claro e escuro
+
+Pílula com sol e lua na lateral direita (no celular, deitada dentro do menu). O marcador é uma tampinha coroa que rola de um ícone ao outro, dá um pulinho e solta bolhas de gás; a página troca de tema num círculo que se espalha a partir da tampinha (sem View Transitions, as cores passam suavemente). Peça comum em `templates/_comum/tema-tampinha.js`. A escolha fica salva no navegador e `?tema=claro` ou `?tema=escuro` no link também vale.
+
+- Gold abre no **escuro**; o claro é marfim com o mesmo dourado. Fotos com texto, balão do WhatsApp e rodapé continuam escuros. Chave `tampinha-gold-tema`. A Área do cliente (`painel.html`) segue como era.

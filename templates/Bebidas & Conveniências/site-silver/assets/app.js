@@ -529,3 +529,60 @@
 
   aoRolar();
 })();
+
+/* ---------- tema claro ou escuro: tampinha que rola entre o sol e a lua ---------- */
+(() => {
+  const raiz = document.documentElement;
+  const meta = document.querySelector('meta[name="theme-color"]');
+  const calmo = matchMedia('(prefers-reduced-motion: reduce)');
+  let fim;
+  const marca = () => {
+    document.querySelectorAll('[data-tema-ir]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.temaIr === raiz.dataset.tema)));
+    if (meta) meta.content = raiz.dataset.tema === 'claro' ? '#F6F0E8' : '#120E0C';
+  };
+  // bolhas de gás saindo da tampinha quando ela para
+  const gas = (pilula) => {
+    const caixa = pilula.querySelector('.tt-gas');
+    if (!caixa || calmo.matches) return;
+    for (let i = 0; i < 11; i++) {
+      const b = document.createElement('i');
+      b.style.setProperty('--sx', (Math.random() * 30 - 15).toFixed(1) + 'px');
+      b.style.setProperty('--dx', (Math.random() * 26 - 13).toFixed(1) + 'px');
+      b.style.setProperty('--sz', (4 + Math.random() * 7).toFixed(1) + 'px');
+      b.style.setProperty('--sobe', (44 + Math.random() * 46).toFixed(0) + 'px');
+      b.style.animationDelay = (420 + Math.random() * 260).toFixed(0) + 'ms';
+      caixa.appendChild(b);
+      setTimeout(() => b.remove(), 2000);
+    }
+  };
+  const aplica = (tema) => {
+    raiz.dataset.tema = tema;
+    try { localStorage.setItem('tampinha-silver-tema', tema); } catch (err) { /* sem armazenamento, vale só nesta visita */ }
+    marca();
+    document.dispatchEvent(new CustomEvent('tema', { detail: { tema } }));
+  };
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-tema-ir]');
+    if (!b || b.dataset.temaIr === raiz.dataset.tema) return;
+    const pilula = b.closest('.tema-tampa');
+    // a tampinha rola na hora; tema-anim liga o pulinho e a passagem suave das cores
+    raiz.classList.add('tema-anim');
+    clearTimeout(fim);
+    fim = setTimeout(() => raiz.classList.remove('tema-anim'), 900);
+    if (pilula) gas(pilula);
+    const tema = b.dataset.temaIr;
+    if (!document.startViewTransition || calmo.matches) { aplica(tema); return; }
+    // a página nova se espalha em círculo a partir da tampinha, como bebida derramando
+    const r = (pilula || b).getBoundingClientRect();
+    const x = r.left + r.width / 2, y = r.top + r.height / 2;
+    const raio = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    raiz.classList.add('tema-vt');
+    const vt = document.startViewTransition(() => aplica(tema));
+    vt.ready.then(() => {
+      raiz.animate({ clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + raio + 'px at ' + x + 'px ' + y + 'px)'] },
+        { duration: 900, easing: 'cubic-bezier(.6, 0, .25, 1)', pseudoElement: '::view-transition-new(root)' });
+    }).catch(() => {});
+    vt.finished.finally(() => raiz.classList.remove('tema-vt'));
+  });
+  marca();
+})();

@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
+const T = require('../../_comum/tema-tampinha');
 
 const OUT = path.join(__dirname, '..', 'site-bronze');
 const M = C.marca;
@@ -31,13 +32,13 @@ fs.copyFileSync(path.join(__dirname, 'img', 'mapa_floresta.webp'), path.join(OUT
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
-const css = fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8');
+const css = fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8') + T.css;
 const js = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
   .replace('/*DADOS*/', JSON.stringify({
     whatsapp: M.whatsapp, nome: M.nome, abertura: C.abertura, entrega: C.entrega,
     produtos: Object.fromEntries(C.produtos.map((p) => [p.id, { n: `${p.nome} ${p.vol}`, p: p.preco, i: imgDe(p), l: p.logo ? p.fundo : 0 }])),
     kits: Object.fromEntries(C.kits.map((k) => [k.id, k.itens])),
-  }));
+  })) + T.js('tampinha-bronze-tema', '#2A1A12', '#120C09');
 
 const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Epilogue:wght@400;500;600;700&display=swap" rel="stylesheet">';
 
@@ -99,7 +100,7 @@ const extras = C.extras.map((id) => porId[id]).map((p) => `<li class="extra"><sp
 const dias = C.horarios.map(([d, h], i) => `<tr data-dia="${i}"><th>${d}</th><td>${h}</td></tr>`).join('');
 
 const html = `<!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="claro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -107,6 +108,7 @@ const html = `<!doctype html>
 <meta name="description" content="Adega e conveniência na ${M.bairro}, BH: cervejas, refrigerantes, energéticos, destilados, drinks, chás, água e gelo. Monte o carrinho e peça pelo WhatsApp. Também no iFood e 99Food.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#2A1A12">
+${T.head('tampinha-bronze-tema')}
 <meta property="og:title" content="${M.completo}">
 <meta property="og:description" content="Bebida gelada na porta: monte o carrinho e feche o pedido pelo WhatsApp.">
 <meta property="og:image" content="assets/img/capa.webp">
@@ -153,6 +155,7 @@ ${css}
         <a href="#kits">Kits</a>
         <a href="#nos">Quem somos</a>
         <a href="#entrega">Entrega</a>
+        <div class="menu-tema"><span>Tema do site</span>${T.pilula('deitada', 'claro')}</div>
       </nav>
       <a class="nav-whats" href="${wa(`Olá, ${M.nome}!`)}" target="_blank" rel="noopener">${I.whats}<span>${M.whatsappTexto}</span></a>
       <button class="carrinho-btn" type="button" data-abrir-carrinho aria-label="Abrir carrinho">${I.engradado}<b data-conta>0</b><span data-total-nav>R$ 0,00</span></button>
@@ -160,6 +163,7 @@ ${css}
     </div>
   </div>
 </header>
+${T.pilula('tema-lado', 'claro')}
 
 <main>
   <section class="capa" id="inicio">

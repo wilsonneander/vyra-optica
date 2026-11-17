@@ -594,3 +594,89 @@ html.tem-cursor .cursor.on { opacity: 1; }
 .cursor[data-modo="texto"] .cursor-ponto { opacity: 0; }
 .cursor.aperta .cursor-anel { width: 28px; height: 28px; margin: -14px 0 0 -14px; }
 .cursor.aperta[data-modo="rotulo"] .cursor-anel { width: 78px; height: 78px; margin: -39px 0 0 -39px; }
+
+/* tema:inicio */
+/* ---------- tema escuro do N3 Drinks: noite de festa, fundo grafite e as cores dos sabores acesas ----------
+   As cores trocam pelas variáveis. Os blocos com cor de sabor (amarelo, céu, laranja, campos da lata) e os
+   blocos que já eram pretos voltam à paleta original, para o texto continuar escuro sobre cor viva. */
+html { --tema-cor: var(--laranja); --tt-fundo: #fff; --tt-icone: #8E8D88; --tt-ativo: #0C0D0B; --tt-gas: #FF4B1F; }
+html[data-tema="escuro"] {
+  color-scheme: dark;
+  --creme: #121311; --papel: #1B1C1A; --tinta: #F2F1EC;
+  --cinza: rgba(242, 241, 236, .64); --linha: rgba(242, 241, 236, .16);
+  --tt-fundo: #22231F; --tt-borda: rgba(242, 241, 236, .12); --tt-icone: #8E8D88; --tt-gas: #C3F53C;
+}
+[data-tema="escuro"] :is(.hero-palco, .agenda, .onde-sec, .final, .card-fardo.destaque, .card-sabor, .card-hora, .quem-palco, .modal-palco, .seta:not(.clara), .news button, .map-info, .loja, .fita, .escuro-sec, .rodape, .ck, .legenda, .etq-escura, .modal-ml, .cursor) {
+  --creme: #F2F1EC; --papel: #FBFAF6; --tinta: #0C0D0B; --cinza: rgba(12, 13, 11, .62); --linha: rgba(12, 13, 11, .16);
+}
+/* os blocos pretos se separam um pouco do fundo grafite */
+[data-tema="escuro"] :is(.fita, .escuro-sec, .rodape) { background: #070807; }
+[data-tema="escuro"] .escuro-sec { --cinza: rgba(244, 242, 236, .7); }
+[data-tema="escuro"] .topo { background: rgba(24, 25, 22, .8); box-shadow: 0 10px 30px -14px rgba(0, 0, 0, .8); }
+[data-tema="escuro"] .topo.aberto .menu { background: rgba(24, 25, 22, .98); }
+[data-tema="escuro"] .seta.clara, [data-tema="escuro"] .faq summary i { background: rgba(242, 241, 236, .1); }
+[data-tema="escuro"] .faq details[open] summary i { background: var(--laranja); }
+[data-tema="escuro"] .faq details[open] summary i::before, [data-tema="escuro"] .faq details[open] summary i::after { background: #0C0D0B; }
+[data-tema="escuro"] .modal-caixa { box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .95), inset 0 0 0 1px var(--linha); }
+[data-tema="escuro"] .modal-nav button:hover { background: rgba(242, 241, 236, .06); }
+[data-tema="escuro"] .card-receita .foto { background: #2A2B27; }
+
+/* pílula do tema: na lateral direita no computador, deitada dentro do menu no celular */
+.tema-lado { position: fixed; right: 16px; top: 50%; z-index: 60; transform: translateY(-50%); }
+.menu-tema { display: none; }
+@media (max-width: 960px) {
+  .tema-tampa.tema-lado { display: none; }
+  .topo.aberto .menu .menu-tema { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-top: 16px; font: 500 12px/1 var(--f-m); letter-spacing: .14em; text-transform: uppercase; color: var(--cinza); }
+}
+
+/* ---------- seletor de tema: pílula com sol e lua e uma tampinha que rola entre os dois ---------- */
+/* position com especificidade zero: a lateral fixa (.tema-lado) de cada modelo continua valendo */
+:where(.tema-tampa) { position: relative; }
+.tema-tampa { --tb: 40px; --tg: 6px; --tp: 6px; --x: 0; --y: 1; --d: 0px; --giro: 0deg;
+  display: inline-grid; gap: var(--tg); padding: var(--tp); border-radius: 30px;
+  background: var(--tt-fundo, #fff); box-shadow: 0 12px 30px -12px rgba(0,0,0,.5), inset 0 0 0 1px var(--tt-borda, rgba(0,0,0,.06)); }
+.tema-tampa.deitada { --x: 1; --y: 0; grid-auto-flow: column; }
+[data-tema="escuro"] .tema-tampa { --d: calc(var(--tb) + var(--tg)); --giro: 236deg; }
+.tema-tampa button { position: relative; z-index: 2; display: grid; place-items: center; width: var(--tb); height: var(--tb); padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--tt-icone, #8a8a8a); cursor: pointer; transition: color .45s ease .15s, transform .4s cubic-bezier(.34, 1.5, .5, 1); }
+.tema-tampa button svg { width: 50%; height: 50%; transition: transform .8s cubic-bezier(.34, 1.5, .5, 1); }
+.tema-tampa button:hover { transform: scale(1.12); color: var(--tema-cor); }
+.tema-tampa button[aria-pressed="true"] { color: var(--tt-ativo, #fff); }
+.tema-tampa button[aria-pressed="true"]:hover { transform: none; }
+.tema-tampa button[data-tema-ir="claro"][aria-pressed="true"] svg { transform: rotate(90deg); }
+.tema-tampa button[data-tema-ir="escuro"][aria-pressed="true"] svg { transform: rotate(-22deg); }
+/* a tampinha: anda e gira junto, como se rolasse pela pílula */
+.tt-marca { position: absolute; z-index: 1; left: calc(var(--tp) - 3px); top: calc(var(--tp) - 3px); width: calc(var(--tb) + 6px); height: calc(var(--tb) + 6px); color: var(--tema-cor); pointer-events: none;
+  translate: calc(var(--x) * var(--d)) calc(var(--y) * var(--d)); rotate: var(--giro);
+  filter: drop-shadow(0 6px 8px rgba(0,0,0,.28));
+  transition: translate .75s cubic-bezier(.65, -.12, .25, 1.18), rotate .75s cubic-bezier(.65, -.12, .25, 1.18); }
+.tt-marca svg { width: 100%; height: 100%; }
+/* o pulinho: aperta ao sair, estica no meio do caminho e assenta com um quique */
+@keyframes ttPuloA { 0% { scale: 1; } 18% { scale: .86; } 50% { scale: 1.16; } 76% { scale: .95; } 90% { scale: 1.03; } 100% { scale: 1; } }
+@keyframes ttPuloB { 0% { scale: 1; } 18% { scale: .86; } 50% { scale: 1.16; } 76% { scale: .95; } 90% { scale: 1.03; } 100% { scale: 1; } }
+.tema-anim[data-tema="escuro"] .tt-marca { animation: ttPuloA .8s ease-out; }
+.tema-anim[data-tema="claro"] .tt-marca { animation: ttPuloB .8s ease-out; }
+/* bolhas de gás que sobem da tampinha */
+.tt-gas { position: absolute; z-index: 3; left: calc(var(--tp) + var(--tb) / 2); top: calc(var(--tp) + var(--tb) / 2); width: 0; height: 0; pointer-events: none;
+  translate: calc(var(--x) * var(--d)) calc(var(--y) * var(--d)); }
+.tt-gas i { position: absolute; left: var(--sx); top: 0; width: var(--sz); height: var(--sz); margin: calc(var(--sz) / -2); border-radius: 50%;
+  border: 1.5px solid var(--tt-gas, var(--tema-cor)); background: color-mix(in srgb, var(--tt-gas, var(--tema-cor)) 22%, transparent);
+  opacity: 0; animation: ttSobe 1.1s cubic-bezier(.3, .6, .4, 1) both; }
+@keyframes ttSobe {
+  0% { opacity: 0; translate: 0 0; scale: .3; }
+  15% { opacity: .95; }
+  55% { translate: calc(var(--dx) * -.6) calc(var(--sobe) * -.55); }
+  100% { opacity: 0; translate: var(--dx) calc(var(--sobe) * -1); scale: 1.15; }
+}
+/* sem View Transitions: a página inteira troca de cor junto, sem piscar */
+html.tema-anim:not(.tema-vt) *:not(.tema-tampa, .tema-tampa *),
+html.tema-anim:not(.tema-vt) *:not(.tema-tampa, .tema-tampa *)::before,
+html.tema-anim:not(.tema-vt) *:not(.tema-tampa, .tema-tampa *)::after { transition: background-color .6s ease, color .6s ease, border-color .6s ease, outline-color .6s ease, box-shadow .6s ease, fill .6s ease, stroke .6s ease !important; }
+html.tema-anim:not(.tema-vt) body { transition: background-color .6s ease, color .6s ease !important; }
+/* com View Transitions: a página antiga fica parada e a nova entra por cima, em círculo */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { z-index: 2; }
+@media (prefers-reduced-motion: reduce) {
+  .tt-marca, .tema-tampa button, .tema-tampa button svg { transition: none !important; animation: none !important; }
+  .tt-gas { display: none; }
+}
+/* tema:fim */

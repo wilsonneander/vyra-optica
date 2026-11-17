@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
+const T = require('../../_comum/tema-tampinha');
 const H = require('./horario');
 const medidas = require('../_build-silver/img/fotos/medidas.json');
 
@@ -78,6 +79,7 @@ fs.copyFileSync(path.join(__dirname, 'img', 'mapa_floresta_ouro.webp'), path.joi
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
 fs.writeFileSync(path.join(OUT, 'assets', 'img', 'reserva.svg'), I.lataReserva);
 for (const f of ['style.css', 'painel.css', 'painel.js', 'loja.js', 'horario.js']) fs.copyFileSync(path.join(__dirname, f), path.join(OUT, 'assets', f));
+fs.appendFileSync(path.join(OUT, 'assets', 'style.css'), T.css);
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
 // Three.js vem como módulo ES; vira script comum (window.THREE) para o site abrir até direto do arquivo, sem servidor
@@ -192,8 +194,10 @@ const destaques = catalogoBase.filter((p) => destaqueIds.has(p.id)).map((p) => c
 const catalogo = [reservaProd, ...C.produtos].map((p) => card(p)).join('\n        ');
 const creditos = C.creditos.map(([f, id]) => `<a href="https://unsplash.com/photos/${id}" target="_blank" rel="noopener">${f}</a>`).join(', ');
 
+fs.appendFileSync(path.join(OUT, 'assets', 'app.js'), T.js('tampinha-gold-tema', '#F6F1E7', '#0B0A09'));
+
 const html = `<!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="escuro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -201,6 +205,7 @@ const html = `<!doctype html>
 <meta name="description" content="${esc(M.frase)} Cervejas, destilados, vinhos, drinks, energéticos e refrigerantes. Monte o carrinho e envie o pedido pelo WhatsApp.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0B0A09">
+${T.head('tampinha-gold-tema')}
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 ${fontes}
 <link rel="stylesheet" href="assets/style.css">
@@ -223,6 +228,7 @@ ${fontes}
     <nav class="menu" id="menu" aria-label="Principal">
       <a href="#reserva">Reserva</a><a href="#bebidas">Bebidas</a><a href="#categorias">Categorias</a><a href="#momentos">Momentos</a><a href="#kits">Kits</a><a href="#entrega">Entrega</a>
       <a class="menu-area" href="painel.html">Área do cliente</a>
+      <div class="menu-tema"><span>Tema do site</span>${T.pilula('deitada', 'escuro')}</div>
     </nav>
     <div class="topo-acoes">
       <span class="status" data-status>Aberto agora</span>
@@ -232,6 +238,7 @@ ${fontes}
     </div>
   </div>
 </header>
+${T.pilula('tema-lado', 'escuro')}
 
 <main>
   <section class="capa" id="inicio" data-capa>

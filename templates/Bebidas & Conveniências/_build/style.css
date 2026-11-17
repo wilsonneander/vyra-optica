@@ -541,3 +541,47 @@ body.travado { overflow: hidden; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
   .js .revela { opacity: 1; transform: none; }
 }
+
+/* ---------- tema escuro (noite de adega: café quase preto, papel tostado e o vermelho da tampinha) ---------- */
+html { --tema-cor: var(--tampa); --tt-fundo: #fff; --tt-icone: #A08C7B; --tt-gas: #D7261E; }
+html[data-tema="escuro"] {
+  color-scheme: dark;
+  --branco: #15100C;
+  --papel: #211812;
+  --creme: #3A2B20;
+  --cafe: #4A3226;
+  --texto: #F3E8DC;
+  --apoio: #B9A492;
+  --tt-fundo: #2A1D15; --tt-borda: rgba(243, 232, 220, .1); --tt-icone: #A08C7B; --tt-gas: #F6D9A8;
+}
+[data-tema="escuro"] .barra-sup { background: #0E0907; }
+[data-tema="escuro"] .nav { background: rgba(21, 16, 12, .92); }
+[data-tema="escuro"] .topo.rolou .nav { box-shadow: 0 12px 30px -18px rgba(0, 0, 0, .9); }
+[data-tema="escuro"] .logo, [data-tema="escuro"] .nav-whats, [data-tema="escuro"] .contas .total dt { color: var(--texto); }
+[data-tema="escuro"] .burger i { background: var(--texto); }
+[data-tema="escuro"] .btn-linha { color: var(--texto); box-shadow: inset 0 0 0 2px var(--texto); }
+[data-tema="escuro"] .btn-linha:hover { background: var(--texto); color: #1A100B; }
+[data-tema="escuro"] .logo-marca { background: #F3EADF; border-color: transparent; }
+[data-tema="escuro"] .logo-marca:hover { border-color: var(--tampa); }
+[data-tema="escuro"] .prod { background: #1C1510; }
+[data-tema="escuro"] .prod:hover { border-color: #5C4636; box-shadow: 0 24px 36px -26px rgba(0, 0, 0, .9); }
+[data-tema="escuro"] .chip.on, [data-tema="escuro"] .opcoes input:checked + span { background: var(--tampa); }
+[data-tema="escuro"] .kits { background: #0E0907; }
+[data-tema="escuro"] .apps { background: var(--papel); box-shadow: 0 30px 50px -26px rgba(0, 0, 0, .95); }
+[data-tema="escuro"] .campo input { background: #1C1510; }
+[data-tema="escuro"] .campo input:focus { border-color: var(--texto); }
+[data-tema="escuro"] .busca:focus-within { box-shadow: inset 0 0 0 2px var(--texto); }
+[data-tema="escuro"] .online, [data-tema="escuro"] .prod-nota, [data-tema="escuro"] .frete.gratis b { color: #6FD596; }
+[data-tema="escuro"] .seguro > svg, [data-tema="escuro"] .car-seguro svg { color: #6FD596; }
+[data-tema="escuro"] .map-box .pin b { color: #2A1A12; }
+[data-tema="escuro"] .rodape { background: #0E0907; border-top: 1px solid #2A1D15; }
+[data-tema="escuro"] .nos-f2 { box-shadow: 0 30px 50px -26px rgba(0, 0, 0, .95); }
+
+/* pílula do tema: na lateral direita no computador, deitada dentro do menu no celular */
+.tema-lado { position: fixed; right: 18px; top: 50%; z-index: 70; transform: translateY(-50%); }
+.menu-tema { display: none; }
+@media (max-width: 980px) {
+  .tema-tampa.tema-lado { display: none; }
+  .menu-tema { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 10px 4px; font-weight: 600; font-size: 15px; color: var(--apoio); }
+  .menu-tema .tema-tampa { --tt-fundo: var(--papel); box-shadow: inset 0 0 0 1px var(--creme); }
+}

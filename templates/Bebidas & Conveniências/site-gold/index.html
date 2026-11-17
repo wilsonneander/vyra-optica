@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="escuro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,6 +7,7 @@
 <meta name="description" content="A conveniência do bairro, com bebida gelada na sua porta. Cervejas, destilados, vinhos, drinks, energéticos e refrigerantes. Monte o carrinho e envie o pedido pelo WhatsApp.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0B0A09">
+<script>try{var t=new URLSearchParams(location.search).get("tema")||localStorage.getItem("tampinha-gold-tema");if(t==="claro"||t==="escuro")document.documentElement.dataset.tema=t;}catch(e){}</script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
@@ -33,6 +34,12 @@
     <nav class="menu" id="menu" aria-label="Principal">
       <a href="#reserva">Reserva</a><a href="#bebidas">Bebidas</a><a href="#categorias">Categorias</a><a href="#momentos">Momentos</a><a href="#kits">Kits</a><a href="#entrega">Entrega</a>
       <a class="menu-area" href="painel.html">Área do cliente</a>
+      <div class="menu-tema"><span>Tema do site</span><div class="tema-tampa deitada" role="group" aria-label="Tema do site">
+  <span class="tt-gas" aria-hidden="true"></span>
+  <i class="tt-marca" aria-hidden="true"><svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="20.00,0.00 22.59,2.79 25.90,0.89 27.55,4.32 31.27,3.48 31.84,7.24 35.64,7.53 35.07,11.30 38.62,12.69 36.96,16.13 39.94,18.51 37.35,21.30 39.50,24.45 36.20,26.36 37.32,30.00 33.60,30.85 33.60,34.66 29.80,34.38 28.68,38.02 25.13,36.63 22.98,39.78 20.00,37.40 17.02,39.78 14.87,36.63 11.32,38.02 10.20,34.38 6.40,34.66 6.40,30.85 2.68,30.00 3.80,26.36 0.50,24.45 2.65,21.30 0.06,18.51 3.04,16.13 1.38,12.69 4.93,11.30 4.36,7.53 8.16,7.24 8.73,3.48 12.45,4.32 14.10,0.89 17.41,2.79" fill="currentColor"/><circle cx="20" cy="20" r="14.6" fill="rgba(0,0,0,.16)"/><circle cx="20" cy="20" r="13.2" fill="currentColor"/><path d="M11.5 15.2a9.6 9.6 0 0 1 7.2-5.1" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/></svg></i>
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" title="Tema claro" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></svg></button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" title="Tema escuro" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M15 3.4a8.6 8.6 0 1 0 5.7 12.3A6.9 6.9 0 0 1 15 3.4Z"/></svg></button>
+</div></div>
     </nav>
     <div class="topo-acoes">
       <span class="status" data-status>Aberto agora</span>
@@ -42,6 +49,12 @@
     </div>
   </div>
 </header>
+<div class="tema-tampa tema-lado" role="group" aria-label="Tema do site">
+  <span class="tt-gas" aria-hidden="true"></span>
+  <i class="tt-marca" aria-hidden="true"><svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="20.00,0.00 22.59,2.79 25.90,0.89 27.55,4.32 31.27,3.48 31.84,7.24 35.64,7.53 35.07,11.30 38.62,12.69 36.96,16.13 39.94,18.51 37.35,21.30 39.50,24.45 36.20,26.36 37.32,30.00 33.60,30.85 33.60,34.66 29.80,34.38 28.68,38.02 25.13,36.63 22.98,39.78 20.00,37.40 17.02,39.78 14.87,36.63 11.32,38.02 10.20,34.38 6.40,34.66 6.40,30.85 2.68,30.00 3.80,26.36 0.50,24.45 2.65,21.30 0.06,18.51 3.04,16.13 1.38,12.69 4.93,11.30 4.36,7.53 8.16,7.24 8.73,3.48 12.45,4.32 14.10,0.89 17.41,2.79" fill="currentColor"/><circle cx="20" cy="20" r="14.6" fill="rgba(0,0,0,.16)"/><circle cx="20" cy="20" r="13.2" fill="currentColor"/><path d="M11.5 15.2a9.6 9.6 0 0 1 7.2-5.1" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/></svg></i>
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" title="Tema claro" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></svg></button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" title="Tema escuro" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M15 3.4a8.6 8.6 0 1 0 5.7 12.3A6.9 6.9 0 0 1 15 3.4Z"/></svg></button>
+</div>
 
 <main>
   <section class="capa" id="inicio" data-capa>

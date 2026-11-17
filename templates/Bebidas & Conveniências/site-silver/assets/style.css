@@ -851,3 +851,96 @@ main { overflow-x: clip; }
 @media (max-width: 340px) { .bairros { grid-template-columns: 1fr; } }
 .map-info a svg { flex: none; }
 @media (max-width: 380px) { .map-info a { padding: 9px 8px; font-size: 11.5px; letter-spacing: .02em; } }
+
+/* ---------- tema claro (balcão de dia: creme, papel e café, com o vermelho da tampinha) ----------
+   As seções escuras ganham a paleta clara pelas próprias variáveis; as que já são claras ficam como estão. */
+html { --tema-cor: var(--verm); --tt-fundo: #241B16; --tt-borda: rgba(244, 239, 232, .1); --tt-icone: #9C8D82; --tt-gas: #F4EFE8; }
+html[data-tema="claro"] { color-scheme: light; --tt-fundo: #fff; --tt-borda: rgba(30, 22, 18, .08); --tt-icone: #9C8D82; --tt-gas: #D7261E; }
+[data-tema="claro"] body { background: #F8F3EC; color: var(--tinta-txt); }
+[data-tema="claro"] :is(.preload, .topo, .menu, .capa, .cats, .mais, .kits, .duvidas, .topo-volta) {
+  --preto: #F8F3EC; --carvao: #EFE6DA; --cafe: #E9DED0; --cafe2: #DED0BE;
+  --creme: #1E1612; --cinza-c: #6E6158; --linha-e: rgba(30, 22, 18, .14);
+}
+/* os blocos de categoria e as faixas com foto seguem escuros, como vitrines */
+[data-tema="claro"] .faixa-foto { color: #F4EFE8; --creme: #F4EFE8; --cinza-c: #B8ABA0; }
+[data-tema="claro"] .cat { --preto: #120E0C; --carvao: #1B1512; --creme: #F4EFE8; --cinza-c: #B8ABA0; }
+[data-tema="claro"] .topo.cheio { background: rgba(248, 243, 236, .9); }
+[data-tema="claro"] .status { color: #1B7A43; }
+[data-tema="claro"] .topo-carrinho, [data-tema="claro"] .btn-verm { color: #fff; }
+[data-tema="claro"] .topo-carrinho span { background: var(--tinta-txt); color: #fff; }
+[data-tema="claro"] .capa { background: radial-gradient(120% 90% at 72% 45%, color-mix(in srgb, var(--luz) 22%, #F8F3EC), #F8F3EC 70%); }
+[data-tema="claro"] .capa::after { background-image: radial-gradient(rgba(30, 22, 18, .09) 1px, transparent 1.2px); }
+[data-tema="claro"] .capa-nome { -webkit-text-stroke-color: rgba(30, 22, 18, .1); }
+[data-tema="claro"] .bolhas i { border-color: color-mix(in srgb, var(--luz) 45%, transparent); background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, .9), transparent 60%); }
+[data-tema="claro"] .palco-disco { background: radial-gradient(ellipse, rgba(42, 26, 18, .32), transparent 70%); }
+[data-tema="claro"] .cena-ficha { background: rgba(255, 255, 255, .82); }
+[data-tema="claro"] .mini { background: rgba(30, 22, 18, .05); }
+[data-tema="claro"] .mini.on { background: rgba(30, 22, 18, .12); }
+[data-tema="claro"] .capa-rolar { border-color: rgba(30, 22, 18, .35); }
+[data-tema="claro"] .card-g { background: #fff; box-shadow: 0 20px 40px -30px rgba(42, 26, 18, .5); }
+[data-tema="claro"] .card-g .card-chao { background: rgba(42, 26, 18, .25); }
+[data-tema="claro"] .kit-g { background: #2A1A12; --creme: #F4EFE8; --cinza-c: #B8ABA0; --linha-e: rgba(244, 239, 232, .12); color: #F4EFE8; }
+[data-tema="claro"] .kit::after { background: radial-gradient(circle, rgba(215, 38, 30, .16), transparent 70%); }
+[data-tema="claro"] .faq-item summary:hover { color: var(--verm); }
+[data-tema="claro"] .btn-linha:hover { color: #F8F3EC; }
+[data-tema="claro"] .tp-sombra { background: radial-gradient(ellipse, rgba(42, 26, 18, .35), transparent 70%); }
+
+/* pílula do tema: na lateral direita no computador, deitada dentro do menu no celular */
+.tema-lado { position: fixed; right: 18px; top: 50%; z-index: 95; transform: translateY(-50%); }
+.menu-tema { display: none; }
+@media (max-width: 900px) {
+  .tema-tampa.tema-lado { display: none; }
+  .menu-tema { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 26px; padding-top: 22px; border-top: 1px solid var(--linha-e); font-size: 15px; font-weight: 600; color: var(--cinza-c); opacity: 0; transition: opacity .4s .3s; }
+  .menu.on .menu-tema { opacity: 1; }
+}
+
+/* ---------- seletor de tema: pílula com sol e lua e uma tampinha que rola entre os dois ---------- */
+/* position com especificidade zero: a lateral fixa (.tema-lado) de cada modelo continua valendo */
+:where(.tema-tampa) { position: relative; }
+.tema-tampa { --tb: 40px; --tg: 6px; --tp: 6px; --x: 0; --y: 1; --d: 0px; --giro: 0deg;
+  display: inline-grid; gap: var(--tg); padding: var(--tp); border-radius: 30px;
+  background: var(--tt-fundo, #fff); box-shadow: 0 12px 30px -12px rgba(0,0,0,.5), inset 0 0 0 1px var(--tt-borda, rgba(0,0,0,.06)); }
+.tema-tampa.deitada { --x: 1; --y: 0; grid-auto-flow: column; }
+[data-tema="escuro"] .tema-tampa { --d: calc(var(--tb) + var(--tg)); --giro: 236deg; }
+.tema-tampa button { position: relative; z-index: 2; display: grid; place-items: center; width: var(--tb); height: var(--tb); padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--tt-icone, #8a8a8a); cursor: pointer; transition: color .45s ease .15s, transform .4s cubic-bezier(.34, 1.5, .5, 1); }
+.tema-tampa button svg { width: 50%; height: 50%; transition: transform .8s cubic-bezier(.34, 1.5, .5, 1); }
+.tema-tampa button:hover { transform: scale(1.12); color: var(--tema-cor); }
+.tema-tampa button[aria-pressed="true"] { color: var(--tt-ativo, #fff); }
+.tema-tampa button[aria-pressed="true"]:hover { transform: none; }
+.tema-tampa button[data-tema-ir="claro"][aria-pressed="true"] svg { transform: rotate(90deg); }
+.tema-tampa button[data-tema-ir="escuro"][aria-pressed="true"] svg { transform: rotate(-22deg); }
+/* a tampinha: anda e gira junto, como se rolasse pela pílula */
+.tt-marca { position: absolute; z-index: 1; left: calc(var(--tp) - 3px); top: calc(var(--tp) - 3px); width: calc(var(--tb) + 6px); height: calc(var(--tb) + 6px); color: var(--tema-cor); pointer-events: none;
+  translate: calc(var(--x) * var(--d)) calc(var(--y) * var(--d)); rotate: var(--giro);
+  filter: drop-shadow(0 6px 8px rgba(0,0,0,.28));
+  transition: translate .75s cubic-bezier(.65, -.12, .25, 1.18), rotate .75s cubic-bezier(.65, -.12, .25, 1.18); }
+.tt-marca svg { width: 100%; height: 100%; }
+/* o pulinho: aperta ao sair, estica no meio do caminho e assenta com um quique */
+@keyframes ttPuloA { 0% { scale: 1; } 18% { scale: .86; } 50% { scale: 1.16; } 76% { scale: .95; } 90% { scale: 1.03; } 100% { scale: 1; } }
+@keyframes ttPuloB { 0% { scale: 1; } 18% { scale: .86; } 50% { scale: 1.16; } 76% { scale: .95; } 90% { scale: 1.03; } 100% { scale: 1; } }
+.tema-anim[data-tema="escuro"] .tt-marca { animation: ttPuloA .8s ease-out; }
+.tema-anim[data-tema="claro"] .tt-marca { animation: ttPuloB .8s ease-out; }
+/* bolhas de gás que sobem da tampinha */
+.tt-gas { position: absolute; z-index: 3; left: calc(var(--tp) + var(--tb) / 2); top: calc(var(--tp) + var(--tb) / 2); width: 0; height: 0; pointer-events: none;
+  translate: calc(var(--x) * var(--d)) calc(var(--y) * var(--d)); }
+.tt-gas i { position: absolute; left: var(--sx); top: 0; width: var(--sz); height: var(--sz); margin: calc(var(--sz) / -2); border-radius: 50%;
+  border: 1.5px solid var(--tt-gas, var(--tema-cor)); background: color-mix(in srgb, var(--tt-gas, var(--tema-cor)) 22%, transparent);
+  opacity: 0; animation: ttSobe 1.1s cubic-bezier(.3, .6, .4, 1) both; }
+@keyframes ttSobe {
+  0% { opacity: 0; translate: 0 0; scale: .3; }
+  15% { opacity: .95; }
+  55% { translate: calc(var(--dx) * -.6) calc(var(--sobe) * -.55); }
+  100% { opacity: 0; translate: var(--dx) calc(var(--sobe) * -1); scale: 1.15; }
+}
+/* sem View Transitions: a página inteira troca de cor junto, sem piscar */
+html.tema-anim:not(.tema-vt) *:not(.tema-tampa, .tema-tampa *),
+html.tema-anim:not(.tema-vt) *:not(.tema-tampa, .tema-tampa *)::before,
+html.tema-anim:not(.tema-vt) *:not(.tema-tampa, .tema-tampa *)::after { transition: background-color .6s ease, color .6s ease, border-color .6s ease, outline-color .6s ease, box-shadow .6s ease, fill .6s ease, stroke .6s ease !important; }
+html.tema-anim:not(.tema-vt) body { transition: background-color .6s ease, color .6s ease !important; }
+/* com View Transitions: a página antiga fica parada e a nova entra por cima, em círculo */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { z-index: 2; }
+@media (prefers-reduced-motion: reduce) {
+  .tt-marca, .tema-tampa button, .tema-tampa button svg { transition: none !important; animation: none !important; }
+  .tt-gas { display: none; }
+}

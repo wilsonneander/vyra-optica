@@ -53,3 +53,9 @@ Sem WebGL, o site continua legível (classe `sem-3d`). Com "reduzir movimento" l
 ## Aviso de cookies
 
 Cartão escuro arredondado no canto inferior esquerdo (no celular ocupa a largura toda), com o lacre da logo dando um estalo, apoio em Martian Mono, título em Archivo larga e os botões da marca (creme com seta laranja e contorno): "Aceitar todos", "Só os necessários" e "Escolher quais cookies" (necessários sempre ligados; estatística e marketing com chave que fica laranja ao ligar). A escolha fica em `localStorage` (`n3-cookies`) e vira `window.n3Cookies`, com o evento `cookies` disparado no `document`: qualquer script de estatística ou anúncio deve esperar esse sinal. O link "Preferências de cookies" no rodapé reabre o cartão.
+
+## Tema claro e escuro
+
+Pílula com sol e lua na lateral direita (no celular, deitada dentro do menu). O marcador é uma tampinha coroa que rola de um ícone ao outro, dá um pulinho e solta bolhas de gás; a página troca de tema num círculo que se espalha a partir da tampinha (sem View Transitions, as cores passam suavemente). Peça comum em `templates/_comum/tema-tampinha.js`. A escolha fica salva no navegador e `?tema=claro` ou `?tema=escuro` no link também vale.
+
+- N3 abre no **claro**; o escuro é grafite com as cores dos sabores acesas. O N3 não tem gerador: o CSS próprio do tema fica em `site-plus/tema-plus.css` e `node "templates/Bebidas & Conveniências/site-plus/tema-plus.js"` põe ou atualiza as peças no `index.html`, `style.css` e `app.js` (entre as marcas `tema:inicio` e `tema:fim`). Chave `n3-tema`.

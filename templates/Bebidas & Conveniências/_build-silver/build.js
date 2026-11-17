@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
+const T = require('../../_comum/tema-tampinha');
 const medidas = require('./img/fotos/medidas.json');
 
 const OUT = path.join(__dirname, '..', 'site-silver');
@@ -45,7 +46,7 @@ for (const d of ['produtos', 'ambiente', 'logos']) {
   for (const f of fs.readdirSync(path.join(__dirname, 'img', 'fotos', d))) fs.copyFileSync(path.join(__dirname, 'img', 'fotos', d, f), path.join(OUT, 'assets', 'img', d, f));
 }
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
-fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(OUT, 'assets', 'style.css'));
+fs.writeFileSync(path.join(OUT, 'assets', 'style.css'), fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8') + T.css);
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 fs.writeFileSync(path.join(OUT, 'assets', 'app.js'), fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
   .replace('/*DADOS*/', JSON.stringify({
@@ -54,7 +55,7 @@ fs.writeFileSync(path.join(OUT, 'assets', 'app.js'), fs.readFileSync(path.join(_
     cats: Object.fromEntries([...C.categorias.map((c) => [c.id, c.nome]), ['extra', 'Conveniência']]),
     kits: Object.fromEntries(C.kits.map((k) => [k.id, k.itens])),
     capa: C.capa.map((s) => ({ tom: s.tom, luz: s.luz, nome: porId[s.id].marca || porId[s.id].nome })),
-  })));
+  })) + T.js('tampinha-silver-tema', '#F6F0E8', '#120E0C'));
 
 const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Gloock&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">';
 
@@ -161,7 +162,7 @@ const destaques = C.destaques.map((id) => card(porId[id], 'card-g')).join('\n   
 const catalogo = C.produtos.map((p) => card(p)).join('\n        ');
 
 const html = `<!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="escuro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -169,6 +170,7 @@ const html = `<!doctype html>
 <meta name="description" content="${esc(M.frase)} Cervejas, refrigerantes, energéticos, destilados, drinks, chás e água. Monte o carrinho e envie o pedido pelo WhatsApp.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#120E0C">
+${T.head('tampinha-silver-tema')}
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 ${fontes}
 <link rel="stylesheet" href="assets/style.css">
@@ -191,6 +193,7 @@ ${fontes}
     <a class="logo" href="#inicio" aria-label="${M.completo}, início">${I.logo}</a>
     <nav class="menu" id="menu" aria-label="Principal">
       <a href="#categorias">Categorias</a><a href="#bebidas">Bebidas</a><a href="#marcas">Marcas</a><a href="#kits">Kits</a><a href="#entrega">Entrega</a><a href="#duvidas">Dúvidas</a>
+      <div class="menu-tema"><span>Tema do site</span>${T.pilula('deitada', 'escuro')}</div>
     </nav>
     <div class="topo-acoes">
       <span class="status" data-status>Aberto agora</span>
@@ -200,6 +203,7 @@ ${fontes}
     </div>
   </div>
 </header>
+${T.pilula('tema-lado', 'escuro')}
 
 <main>
   <section class="capa" id="inicio" data-capa style="--tom:${C.capa[0].tom};--luz:${C.capa[0].luz}">

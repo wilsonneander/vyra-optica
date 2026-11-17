@@ -58,3 +58,9 @@ NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js noite img/mapa_flore
 ## Aviso de cookies
 
 Cartão creme no canto inferior esquerdo (no celular ocupa a largura toda), com a tampinha girando no canto, título em Gloock e os botões quadrados da marca: "Aceitar todos", "Só os necessários" e "Escolher quais cookies" (necessários sempre ligados; estatística e marketing com chave liga/desliga). Entra depois do preloader. A escolha fica em `localStorage` (`tampinha-cookies`) e vira `window.tampinhaCookies`, com o evento `cookies` disparado no `document`: qualquer script de estatística ou anúncio deve esperar esse sinal. O link "Preferências de cookies" no rodapé reabre o cartão. HTML em `build.js`, estilo em `style.css` (bloco "cookies"), lógica em `app.js`.
+
+## Tema claro e escuro
+
+Pílula com sol e lua na lateral direita (no celular, deitada dentro do menu). O marcador é uma tampinha coroa que rola de um ícone ao outro, dá um pulinho e solta bolhas de gás; a página troca de tema num círculo que se espalha a partir da tampinha (sem View Transitions, as cores passam suavemente). Peça comum em `templates/_comum/tema-tampinha.js`. A escolha fica salva no navegador e `?tema=claro` ou `?tema=escuro` no link também vale.
+
+- Silver abre no **escuro**; o claro é o balcão de dia (creme e papel). As categorias e a faixa com foto continuam escuras, como vitrines. Chave `tampinha-silver-tema`. Cores em `_build-silver/style.css`, bloco "tema claro".

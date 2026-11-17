@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="claro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,6 +7,7 @@
 <meta name="description" content="Adega e conveniência na Floresta, BH: cervejas, refrigerantes, energéticos, destilados, drinks, chás, água e gelo. Monte o carrinho e peça pelo WhatsApp. Também no iFood e 99Food.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#2A1A12">
+<script>try{var t=new URLSearchParams(location.search).get("tema")||localStorage.getItem("tampinha-bronze-tema");if(t==="claro"||t==="escuro")document.documentElement.dataset.tema=t;}catch(e){}</script>
 <meta property="og:title" content="Tampinha Bebidas & Conveniência">
 <meta property="og:description" content="Bebida gelada na porta: monte o carrinho e feche o pedido pelo WhatsApp.">
 <meta property="og:image" content="assets/img/capa.webp">
@@ -559,6 +560,101 @@ body.travado { overflow: hidden; }
   .js .revela { opacity: 1; transform: none; }
 }
 
+/* ---------- tema escuro (noite de adega: café quase preto, papel tostado e o vermelho da tampinha) ---------- */
+html { --tema-cor: var(--tampa); --tt-fundo: #fff; --tt-icone: #A08C7B; --tt-gas: #D7261E; }
+html[data-tema="escuro"] {
+  color-scheme: dark;
+  --branco: #15100C;
+  --papel: #211812;
+  --creme: #3A2B20;
+  --cafe: #4A3226;
+  --texto: #F3E8DC;
+  --apoio: #B9A492;
+  --tt-fundo: #2A1D15; --tt-borda: rgba(243, 232, 220, .1); --tt-icone: #A08C7B; --tt-gas: #F6D9A8;
+}
+[data-tema="escuro"] .barra-sup { background: #0E0907; }
+[data-tema="escuro"] .nav { background: rgba(21, 16, 12, .92); }
+[data-tema="escuro"] .topo.rolou .nav { box-shadow: 0 12px 30px -18px rgba(0, 0, 0, .9); }
+[data-tema="escuro"] .logo, [data-tema="escuro"] .nav-whats, [data-tema="escuro"] .contas .total dt { color: var(--texto); }
+[data-tema="escuro"] .burger i { background: var(--texto); }
+[data-tema="escuro"] .btn-linha { color: var(--texto); box-shadow: inset 0 0 0 2px var(--texto); }
+[data-tema="escuro"] .btn-linha:hover { background: var(--texto); color: #1A100B; }
+[data-tema="escuro"] .logo-marca { background: #F3EADF; border-color: transparent; }
+[data-tema="escuro"] .logo-marca:hover { border-color: var(--tampa); }
+[data-tema="escuro"] .prod { background: #1C1510; }
+[data-tema="escuro"] .prod:hover { border-color: #5C4636; box-shadow: 0 24px 36px -26px rgba(0, 0, 0, .9); }
+[data-tema="escuro"] .chip.on, [data-tema="escuro"] .opcoes input:checked + span { background: var(--tampa); }
+[data-tema="escuro"] .kits { background: #0E0907; }
+[data-tema="escuro"] .apps { background: var(--papel); box-shadow: 0 30px 50px -26px rgba(0, 0, 0, .95); }
+[data-tema="escuro"] .campo input { background: #1C1510; }
+[data-tema="escuro"] .campo input:focus { border-color: var(--texto); }
+[data-tema="escuro"] .busca:focus-within { box-shadow: inset 0 0 0 2px var(--texto); }
+[data-tema="escuro"] .online, [data-tema="escuro"] .prod-nota, [data-tema="escuro"] .frete.gratis b { color: #6FD596; }
+[data-tema="escuro"] .seguro > svg, [data-tema="escuro"] .car-seguro svg { color: #6FD596; }
+[data-tema="escuro"] .map-box .pin b { color: #2A1A12; }
+[data-tema="escuro"] .rodape { background: #0E0907; border-top: 1px solid #2A1D15; }
+[data-tema="escuro"] .nos-f2 { box-shadow: 0 30px 50px -26px rgba(0, 0, 0, .95); }
+
+/* pílula do tema: na lateral direita no computador, deitada dentro do menu no celular */
+.tema-lado { position: fixed; right: 18px; top: 50%; z-index: 70; transform: translateY(-50%); }
+.menu-tema { display: none; }
+@media (max-width: 980px) {
+  .tema-tampa.tema-lado { display: none; }
+  .menu-tema { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 10px 4px; font-weight: 600; font-size: 15px; color: var(--apoio); }
+  .menu-tema .tema-tampa { --tt-fundo: var(--papel); box-shadow: inset 0 0 0 1px var(--creme); }
+}
+
+/* ---------- seletor de tema: pílula com sol e lua e uma tampinha que rola entre os dois ---------- */
+/* position com especificidade zero: a lateral fixa (.tema-lado) de cada modelo continua valendo */
+:where(.tema-tampa) { position: relative; }
+.tema-tampa { --tb: 40px; --tg: 6px; --tp: 6px; --x: 0; --y: 1; --d: 0px; --giro: 0deg;
+  display: inline-grid; gap: var(--tg); padding: var(--tp); border-radius: 30px;
+  background: var(--tt-fundo, #fff); box-shadow: 0 12px 30px -12px rgba(0,0,0,.5), inset 0 0 0 1px var(--tt-borda, rgba(0,0,0,.06)); }
+.tema-tampa.deitada { --x: 1; --y: 0; grid-auto-flow: column; }
+[data-tema="escuro"] .tema-tampa { --d: calc(var(--tb) + var(--tg)); --giro: 236deg; }
+.tema-tampa button { position: relative; z-index: 2; display: grid; place-items: center; width: var(--tb); height: var(--tb); padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--tt-icone, #8a8a8a); cursor: pointer; transition: color .45s ease .15s, transform .4s cubic-bezier(.34, 1.5, .5, 1); }
+.tema-tampa button svg { width: 50%; height: 50%; transition: transform .8s cubic-bezier(.34, 1.5, .5, 1); }
+.tema-tampa button:hover { transform: scale(1.12); color: var(--tema-cor); }
+.tema-tampa button[aria-pressed="true"] { color: var(--tt-ativo, #fff); }
+.tema-tampa button[aria-pressed="true"]:hover { transform: none; }
+.tema-tampa button[data-tema-ir="claro"][aria-pressed="true"] svg { transform: rotate(90deg); }
+.tema-tampa button[data-tema-ir="escuro"][aria-pressed="true"] svg { transform: rotate(-22deg); }
+/* a tampinha: anda e gira junto, como se rolasse pela pílula */
+.tt-marca { position: absolute; z-index: 1; left: calc(var(--tp) - 3px); top: calc(var(--tp) - 3px); width: calc(var(--tb) + 6px); height: calc(var(--tb) + 6px); color: var(--tema-cor); pointer-events: none;
+  translate: calc(var(--x) * var(--d)) calc(var(--y) * var(--d)); rotate: var(--giro);
+  filter: drop-shadow(0 6px 8px rgba(0,0,0,.28));
+  transition: translate .75s cubic-bezier(.65, -.12, .25, 1.18), rotate .75s cubic-bezier(.65, -.12, .25, 1.18); }
+.tt-marca svg { width: 100%; height: 100%; }
+/* o pulinho: aperta ao sair, estica no meio do caminho e assenta com um quique */
+@keyframes ttPuloA { 0% { scale: 1; } 18% { scale: .86; } 50% { scale: 1.16; } 76% { scale: .95; } 90% { scale: 1.03; } 100% { scale: 1; } }
+@keyframes ttPuloB { 0% { scale: 1; } 18% { scale: .86; } 50% { scale: 1.16; } 76% { scale: .95; } 90% { scale: 1.03; } 100% { scale: 1; } }
+.tema-anim[data-tema="escuro"] .tt-marca { animation: ttPuloA .8s ease-out; }
+.tema-anim[data-tema="claro"] .tt-marca { animation: ttPuloB .8s ease-out; }
+/* bolhas de gás que sobem da tampinha */
+.tt-gas { position: absolute; z-index: 3; left: calc(var(--tp) + var(--tb) / 2); top: calc(var(--tp) + var(--tb) / 2); width: 0; height: 0; pointer-events: none;
+  translate: calc(var(--x) * var(--d)) calc(var(--y) * var(--d)); }
+.tt-gas i { position: absolute; left: var(--sx); top: 0; width: var(--sz); height: var(--sz); margin: calc(var(--sz) / -2); border-radius: 50%;
+  border: 1.5px solid var(--tt-gas, var(--tema-cor)); background: color-mix(in srgb, var(--tt-gas, var(--tema-cor)) 22%, transparent);
+  opacity: 0; animation: ttSobe 1.1s cubic-bezier(.3, .6, .4, 1) both; }
+@keyframes ttSobe {
+  0% { opacity: 0; translate: 0 0; scale: .3; }
+  15% { opacity: .95; }
+  55% { translate: calc(var(--dx) * -.6) calc(var(--sobe) * -.55); }
+  100% { opacity: 0; translate: var(--dx) calc(var(--sobe) * -1); scale: 1.15; }
+}
+/* sem View Transitions: a página inteira troca de cor junto, sem piscar */
+html.tema-anim:not(.tema-vt) *:not(.tema-tampa, .tema-tampa *),
+html.tema-anim:not(.tema-vt) *:not(.tema-tampa, .tema-tampa *)::before,
+html.tema-anim:not(.tema-vt) *:not(.tema-tampa, .tema-tampa *)::after { transition: background-color .6s ease, color .6s ease, border-color .6s ease, outline-color .6s ease, box-shadow .6s ease, fill .6s ease, stroke .6s ease !important; }
+html.tema-anim:not(.tema-vt) body { transition: background-color .6s ease, color .6s ease !important; }
+/* com View Transitions: a página antiga fica parada e a nova entra por cima, em círculo */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { z-index: 2; }
+@media (prefers-reduced-motion: reduce) {
+  .tt-marca, .tema-tampa button, .tema-tampa button svg { transition: none !important; animation: none !important; }
+  .tt-gas { display: none; }
+}
+
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LiquorStore","name":"Tampinha Bebidas & Conveniência","telephone":"(31) 3333-0000","email":"pedidos@tampinhabebidas.com.br","address":{"@type":"PostalAddress","streetAddress":"Rua Pouso Alegre, 1200","addressLocality":"Belo Horizonte","addressRegion":"MG","addressCountry":"BR"},"openingHours":["Mo-Th 10:00-23:00","Fr-Sa 10:00-01:00","Su 10:00-22:00"]}</script>
 </head>
@@ -595,6 +691,12 @@ body.travado { overflow: hidden; }
         <a href="#kits">Kits</a>
         <a href="#nos">Quem somos</a>
         <a href="#entrega">Entrega</a>
+        <div class="menu-tema"><span>Tema do site</span><div class="tema-tampa deitada" role="group" aria-label="Tema do site">
+  <span class="tt-gas" aria-hidden="true"></span>
+  <i class="tt-marca" aria-hidden="true"><svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="20.00,0.00 22.59,2.79 25.90,0.89 27.55,4.32 31.27,3.48 31.84,7.24 35.64,7.53 35.07,11.30 38.62,12.69 36.96,16.13 39.94,18.51 37.35,21.30 39.50,24.45 36.20,26.36 37.32,30.00 33.60,30.85 33.60,34.66 29.80,34.38 28.68,38.02 25.13,36.63 22.98,39.78 20.00,37.40 17.02,39.78 14.87,36.63 11.32,38.02 10.20,34.38 6.40,34.66 6.40,30.85 2.68,30.00 3.80,26.36 0.50,24.45 2.65,21.30 0.06,18.51 3.04,16.13 1.38,12.69 4.93,11.30 4.36,7.53 8.16,7.24 8.73,3.48 12.45,4.32 14.10,0.89 17.41,2.79" fill="currentColor"/><circle cx="20" cy="20" r="14.6" fill="rgba(0,0,0,.16)"/><circle cx="20" cy="20" r="13.2" fill="currentColor"/><path d="M11.5 15.2a9.6 9.6 0 0 1 7.2-5.1" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/></svg></i>
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" title="Tema claro" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></svg></button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" title="Tema escuro" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M15 3.4a8.6 8.6 0 1 0 5.7 12.3A6.9 6.9 0 0 1 15 3.4Z"/></svg></button>
+</div></div>
       </nav>
       <a class="nav-whats" href="https://wa.me/5531999990000?text=Ol%C3%A1%2C%20Tampinha!" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8 1c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.2-.2-.5-.3Z"/></svg><span>(31) 99999-0000</span></a>
       <button class="carrinho-btn" type="button" data-abrir-carrinho aria-label="Abrir carrinho"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 H21 L19.6 20 H4.4 Z"/><path d="M8 9 V20 M12 9 V20 M16 9 V20"/><path d="M7 9 V5.5 M12 9 V3.5 M17 9 V5.5"/></svg><b data-conta>0</b><span data-total-nav>R$ 0,00</span></button>
@@ -602,6 +704,12 @@ body.travado { overflow: hidden; }
     </div>
   </div>
 </header>
+<div class="tema-tampa tema-lado" role="group" aria-label="Tema do site">
+  <span class="tt-gas" aria-hidden="true"></span>
+  <i class="tt-marca" aria-hidden="true"><svg viewBox="0 0 40 40" aria-hidden="true"><polygon points="20.00,0.00 22.59,2.79 25.90,0.89 27.55,4.32 31.27,3.48 31.84,7.24 35.64,7.53 35.07,11.30 38.62,12.69 36.96,16.13 39.94,18.51 37.35,21.30 39.50,24.45 36.20,26.36 37.32,30.00 33.60,30.85 33.60,34.66 29.80,34.38 28.68,38.02 25.13,36.63 22.98,39.78 20.00,37.40 17.02,39.78 14.87,36.63 11.32,38.02 10.20,34.38 6.40,34.66 6.40,30.85 2.68,30.00 3.80,26.36 0.50,24.45 2.65,21.30 0.06,18.51 3.04,16.13 1.38,12.69 4.93,11.30 4.36,7.53 8.16,7.24 8.73,3.48 12.45,4.32 14.10,0.89 17.41,2.79" fill="currentColor"/><circle cx="20" cy="20" r="14.6" fill="rgba(0,0,0,.16)"/><circle cx="20" cy="20" r="13.2" fill="currentColor"/><path d="M11.5 15.2a9.6 9.6 0 0 1 7.2-5.1" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-linecap="round"/></svg></i>
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" title="Tema claro" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.1"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></svg></button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" title="Tema escuro" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M15 3.4a8.6 8.6 0 1 0 5.7 12.3A6.9 6.9 0 0 1 15 3.4Z"/></svg></button>
+</div>
 
 <main>
   <section class="capa" id="inicio">
@@ -1547,6 +1655,63 @@ body.travado { overflow: hidden; }
 
   filtrar();
   desenhar();
+})();
+
+/* ---------- tema claro ou escuro: tampinha que rola entre o sol e a lua ---------- */
+(() => {
+  const raiz = document.documentElement;
+  const meta = document.querySelector('meta[name="theme-color"]');
+  const calmo = matchMedia('(prefers-reduced-motion: reduce)');
+  let fim;
+  const marca = () => {
+    document.querySelectorAll('[data-tema-ir]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.temaIr === raiz.dataset.tema)));
+    if (meta) meta.content = raiz.dataset.tema === 'claro' ? '#2A1A12' : '#120C09';
+  };
+  // bolhas de gás saindo da tampinha quando ela para
+  const gas = (pilula) => {
+    const caixa = pilula.querySelector('.tt-gas');
+    if (!caixa || calmo.matches) return;
+    for (let i = 0; i < 11; i++) {
+      const b = document.createElement('i');
+      b.style.setProperty('--sx', (Math.random() * 30 - 15).toFixed(1) + 'px');
+      b.style.setProperty('--dx', (Math.random() * 26 - 13).toFixed(1) + 'px');
+      b.style.setProperty('--sz', (4 + Math.random() * 7).toFixed(1) + 'px');
+      b.style.setProperty('--sobe', (44 + Math.random() * 46).toFixed(0) + 'px');
+      b.style.animationDelay = (420 + Math.random() * 260).toFixed(0) + 'ms';
+      caixa.appendChild(b);
+      setTimeout(() => b.remove(), 2000);
+    }
+  };
+  const aplica = (tema) => {
+    raiz.dataset.tema = tema;
+    try { localStorage.setItem('tampinha-bronze-tema', tema); } catch (err) { /* sem armazenamento, vale só nesta visita */ }
+    marca();
+    document.dispatchEvent(new CustomEvent('tema', { detail: { tema } }));
+  };
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-tema-ir]');
+    if (!b || b.dataset.temaIr === raiz.dataset.tema) return;
+    const pilula = b.closest('.tema-tampa');
+    // a tampinha rola na hora; tema-anim liga o pulinho e a passagem suave das cores
+    raiz.classList.add('tema-anim');
+    clearTimeout(fim);
+    fim = setTimeout(() => raiz.classList.remove('tema-anim'), 900);
+    if (pilula) gas(pilula);
+    const tema = b.dataset.temaIr;
+    if (!document.startViewTransition || calmo.matches) { aplica(tema); return; }
+    // a página nova se espalha em círculo a partir da tampinha, como bebida derramando
+    const r = (pilula || b).getBoundingClientRect();
+    const x = r.left + r.width / 2, y = r.top + r.height / 2;
+    const raio = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    raiz.classList.add('tema-vt');
+    const vt = document.startViewTransition(() => aplica(tema));
+    vt.ready.then(() => {
+      raiz.animate({ clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + raio + 'px at ' + x + 'px ' + y + 'px)'] },
+        { duration: 900, easing: 'cubic-bezier(.6, 0, .25, 1)', pseudoElement: '::view-transition-new(root)' });
+    }).catch(() => {});
+    vt.finished.finally(() => raiz.classList.remove('tema-vt'));
+  });
+  marca();
 })();
 
 </script>

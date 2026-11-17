@@ -383,29 +383,192 @@
     }
   });
 
-  // ---------- carrossel 3D de cenas ----------
-  const roda = $('[data-roda]');
-  const cenas = $$('[data-cena]');
-  const legenda = $('[data-roda-legenda]');
-  let frente = -1;
-  const defineFrente = (i) => {
-    if (i === frente) return;
-    frente = i;
-    cenas.forEach((c, j) => {
-      const v = $('video', c);
-      const perto = j === i;
-      c.classList.toggle('frente', perto);
-      if (perto) { if (v.preload === 'none') v.preload = 'auto'; toca(v); } else v.pause();
-    });
-    const c = cenas[i];
-    legenda.innerHTML = `<b>${$('b', c).textContent}</b><span>${$('figcaption span', c).textContent}</span>`;
+  // ---------- cores ----------
+  const hexRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const mistura = (a, b, t) => { const x = hexRgb(a), y = hexRgb(b); return `rgb(${x.map((v, i) => Math.round(v + (y[i] - v) * t)).join(',')})`; };
+  const suave = (t) => t * t * (3 - 2 * t);
+  const faixaCores = (paradas, p) => {
+    for (let i = 1; i < paradas.length; i++) if (p <= paradas[i][0]) {
+      const [a, ...ca] = paradas[i - 1], [b, ...cb] = paradas[i], t = (p - a) / (b - a);
+      return ca.map((c, j) => mistura(c, cb[j], t));
+    }
+    return paradas.at(-1).slice(1);
   };
-  roda.addEventListener('progresso', (e) => {
-    $('[data-roda-barra]').parentElement.style.setProperty('--p', e.detail);
-    const i = Math.round(e.detail * (cenas.length - 1));
-    if (e.detail > 0 && e.detail < 1) defineFrente(i); else defineFrente(e.detail >= 1 ? cenas.length - 1 : 0);
+
+  // ---------- montanha-russa ----------
+  const montanha = $('[data-montanha]');
+  const mrCeu = $('[data-montanha-ceu]');
+  const mrTrilho = $('[data-mr-trilho]');
+  const carros = $$('[data-carro]');
+  const grito = $('[data-mr-grito]');
+  const sol = $('.mr-sol');
+  const Lm = mrTrilho.getTotalLength();
+  // suportes de ferro do trilho até o chão
+  $('[data-mr-suportes]').innerHTML = Array.from({ length: Math.floor(Lm / 34) }, (_, i) => {
+    const pt = mrTrilho.getPointAtLength(i * 34);
+    return pt.x > -40 && pt.x < 1640 && pt.y < 860 ? `<path d="M${pt.x.toFixed(1)} ${(pt.y + 6).toFixed(1)}V900"/>` : '';
+  }).join('');
+  const CEU_MR = [[0, '#F6F0E6', '#F6F0E6', '#17202E'], [.3, '#F9C79A', '#FCE6C8', '#17202E'], [.62, '#2E3A5E', '#D9785C', '#0D1626'], [1, '#050B16', '#0A1322', '#03070E']];
+  const poeCarro = (c, s) => {
+    if (s < 0 || s > Lm) { c.style.opacity = 0; return null; }
+    const a = mrTrilho.getPointAtLength(s), b = mrTrilho.getPointAtLength(Math.min(Lm, s + 4));
+    const ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+    c.style.opacity = 1;
+    c.setAttribute('transform', `translate(${a.x.toFixed(1)} ${a.y.toFixed(1)}) rotate(${ang.toFixed(1)})`);
+    return a;
+  };
+  const andaMontanha = (p) => {
+    const [c1, c2, parque] = faixaCores(CEU_MR, p);
+    mrCeu.style.setProperty('--c1', c1); mrCeu.style.setProperty('--c2', c2); mrCeu.style.setProperty('--parque', parque);
+    mrCeu.style.setProperty('--noite', clamp((p - .5) / .4).toFixed(3));
+    sol.style.setProperty('--sx', `${1250 - p * 260}px`); sol.style.setProperty('--sy', `${180 + p * 760}px`);
+    const frente = -60 + clamp(p * 1.1 - .03) * (Lm + 260);
+    let pt0 = null;
+    carros.forEach((c, i) => { const pt = poeCarro(c, frente - i * 74); if (!i) pt0 = pt; });
+    const k = frente / Lm;
+    if (pt0 && k > .2 && k < .4) { grito.setAttribute('x', pt0.x + 30); grito.setAttribute('y', pt0.y - 70); grito.style.opacity = 1; } else grito.style.opacity = 0;
+  };
+  montanha.addEventListener('progresso', (e) => andaMontanha(e.detail));
+  andaMontanha(calmo ? .5 : 0);
+
+  // ---------- um dia perfeito na Disney ----------
+  const dia = $('[data-dia]');
+  const diaFixa = $('.dia-fixa', dia);
+  const ingressos = $$('[data-ingresso]', dia);
+  const reguaItens = $$('[data-regua]', dia);
+  const diaSol = $('[data-dia-sol]'), diaLua = $('[data-dia-lua]');
+  const diaHora = $('[data-dia-hora]'), diaTit = $('[data-dia-titulo]'), diaTxt = $('[data-dia-texto]');
+  const ceus = ingressos.map((g) => g.dataset.cores.split(','));
+  let momento = -1, fogosDia = false;
+  const irMomento = (i) => {
+    if (i === momento) return;
+    momento = i;
+    ingressos.forEach((g, j) => {
+      g.dataset.k = j - i;
+      const v = $('video', g);
+      if (j === i) { if (v.preload === 'none') v.preload = 'auto'; toca(v); } else v.pause();
+    });
+    reguaItens.forEach((li, j) => li.classList.toggle('on', j <= i));
+    const g = ingressos[i];
+    diaHora.textContent = g.dataset.hora; diaHora.classList.remove('muda'); void diaHora.offsetWidth; diaHora.classList.add('muda');
+    diaTit.textContent = g.dataset.t; diaTxt.textContent = g.dataset.d;
+    const box = diaTit.parentElement; box.classList.remove('muda'); void box.offsetWidth; box.classList.add('muda');
+    if (i === ingressos.length - 1 && !fogosDia) {
+      fogosDia = true;
+      const r = $('.dia-ingressos', dia).getBoundingClientRect();
+      soltaFogos(r.left + r.width / 2, r.top + 40, 5);
+    }
+  };
+  const anoitece = (p) => {
+    const n = ingressos.length;
+    const f = clamp(p * 1.1 - .04) * (n - 1);
+    const a = Math.floor(f), b = Math.min(n - 1, a + 1), t = f - a;
+    diaFixa.style.setProperty('--c1', mistura(ceus[a][0], ceus[b][0], t));
+    diaFixa.style.setProperty('--c2', mistura(ceus[a][1], ceus[b][1], t));
+    const noite = clamp((f - 5.3) / 1.5);
+    diaFixa.style.setProperty('--noite', noite.toFixed(3));
+    diaFixa.classList.toggle('noite', f > 5.6);
+    const w = diaFixa.clientWidth, h = diaFixa.clientHeight;
+    const ts = clamp(f / 6.2);
+    diaSol.style.setProperty('--sx', `${w * (.08 + ts * .84)}px`);
+    diaSol.style.setProperty('--sy', `${h * .72 - Math.sin(Math.PI * Math.min(ts, .999)) * h * .58 + clamp(f - 5.6) * h * .4}px`);
+    const lua = clamp(f - 5.8);
+    diaLua.style.setProperty('--lua', lua.toFixed(3));
+    diaLua.style.setProperty('--sx', `${w * .8}px`); diaLua.style.setProperty('--sy', `${h * (.2 + (1 - lua) * .35)}px`);
+    irMomento(Math.min(n - 1, Math.round(f)));
+  };
+  dia.addEventListener('progresso', (e) => anoitece(e.detail));
+  anoitece(0);
+  new IntersectionObserver(([e]) => { if (!e.isIntersecting) ingressos.forEach((g) => $('video', g).pause()); else if (momento >= 0) toca($('video', ingressos[momento])); }).observe(dia);
+
+  // ---------- entrar pela janela do castelo ----------
+  const janela = $('[data-janela]');
+  const janelaFixa = $('.janela-fixa', janela);
+  const zoom = $('[data-janela-zoom]');
+  const fachadaSvg = $('.fachada', janela);
+  const cortinas = $$('[data-cortina]', janela);
+  const entra = (p) => {
+    const abre = suave(clamp(p / .22));
+    cortinas.forEach((c) => c.setAttribute('transform', `translate(${+c.dataset.cortina * abre * 80} 0)`));
+    const e = suave(clamp((p - .16) / .6));
+    const s = Math.exp(Math.log(34) * e * e);
+    zoom.setAttribute('transform', `translate(800 600) scale(${s.toFixed(3)}) translate(-800 -600)`);
+    fachadaSvg.style.visibility = e > .995 ? 'hidden' : 'visible';
+    janelaFixa.style.setProperty('--z', clamp((p - .55) / .3).toFixed(3));
+  };
+  janela.addEventListener('progresso', (e) => entra(e.detail));
+  entra(calmo ? 1 : 0);
+
+  // ---------- serviços: mosaico ----------
+  // o recorte (clip-path) zera a área do bloco para o observador, então quem é observado é o mosaico inteiro
+  new IntersectionObserver(([e], obs) => {
+    if (!e.isIntersecting) return; obs.disconnect();
+    $$('[data-bloco]').forEach((b) => b.classList.add('visivel'));
+  }, { threshold: .08 }).observe($('.bento'));
+  $$('[data-bloco]').forEach((b) => {
+    if (toque || calmo) return;
+    b.addEventListener('pointermove', (e) => {
+      const r = b.getBoundingClientRect();
+      b.style.setProperty('--ry', `${((e.clientX - r.left) / r.width - .5) * 10}deg`);
+      b.style.setProperty('--rx', `${(.5 - (e.clientY - r.top) / r.height) * 8}deg`);
+    });
+    b.addEventListener('pointerleave', () => { b.style.setProperty('--ry', '0deg'); b.style.setProperty('--rx', '0deg'); });
   });
-  new IntersectionObserver(([e]) => { if (!e.isIntersecting) cenas.forEach((c) => $('video', c).pause()); else if (frente >= 0) toca($('video', cenas[frente])); }).observe(roda);
+
+  // ---------- transição do menu: o avião passa e a página troca por trás ----------
+  const voo = $('[data-voo]');
+  const vooDestino = $('[data-voo-destino]');
+  let navegando = false;
+  const nomeDe = (alvo, link) => alvo.dataset.parada || (alvo.id === 'inicio' ? 'Início' : link.textContent.trim());
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || a.getAttribute('href').length < 2) return;
+    const alvo = document.getElementById(a.getAttribute('href').slice(1));
+    if (!alvo || alvo.id === 'conteudo') return;
+    e.preventDefault();
+    const vai = () => scrollTo({ top: alvo.getBoundingClientRect().top + scrollY, behavior: 'instant' });
+    if (calmo || navegando) { vai(); return; }
+    navegando = true;
+    vooDestino.textContent = nomeDe(alvo, a);
+    voo.classList.add('ativo'); void voo.offsetWidth; voo.classList.add('entra');
+    setTimeout(() => {
+      vai();
+      paradasVistas.add(secoesParada.indexOf(alvo));
+      voo.classList.add('sai');
+      setTimeout(() => {
+        voo.classList.remove('ativo', 'entra', 'sai');
+        navegando = false;
+        atualParada = paradaAtual();
+      }, 800);
+    }, 820);
+  });
+
+  // ---------- avião de praia: cruza o topo com o nome de cada seção nova ----------
+  const reboque = $('[data-reboque]');
+  const reboqueTxt = $('[data-reboque-txt]');
+  const secoesParada = $$('[data-parada]');
+  const paradasVistas = new Set();
+  const paradaAtual = () => { let i = -1; secoesParada.forEach((s, j) => { if (s.getBoundingClientRect().top < innerHeight * .45) i = j; }); return i; };
+  let atualParada = paradaAtual();
+  const voaReboque = (txt) => {
+    reboqueTxt.textContent = txt;
+    reboque.classList.remove('voa'); void reboque.offsetWidth; reboque.classList.add('voa');
+  };
+  reboque.addEventListener('animationend', (e) => { if (e.target === reboque) reboque.classList.remove('voa'); });
+  let pedidoParada = false;
+  addEventListener('scroll', () => {
+    if (pedidoParada || calmo) return;
+    pedidoParada = true;
+    requestAnimationFrame(() => {
+      pedidoParada = false;
+      if (navegando) return;
+      const i = paradaAtual();
+      if (i > atualParada && i >= 0 && !paradasVistas.has(i)) { paradasVistas.add(i); voaReboque(secoesParada[i].dataset.parada); }
+      atualParada = i;
+    });
+  }, { passive: true });
+
+
 
   // ---------- contagem regressiva da viagem ----------
   const dataIn = $('[data-contagem-data]');
@@ -432,30 +595,6 @@
     soltaFogos(r.left + r.width / 2, r.top, 4);
   });
   setInterval(contagem, 1000); contagem();
-
-  // ---------- serviços: foto que segue o cursor ----------
-  const flutua = $('[data-serv-flutua]');
-  const flutuaImg = $('img', flutua);
-  if (!toque && !calmo) {
-    let fx = 0, fy = 0, alvoX = 0, alvoY = 0, vel = 0, rodando = false;
-    const passo = () => {
-      const dx = alvoX - fx; vel = lerp(vel, dx, .1);
-      fx = lerp(fx, alvoX, .14); fy = lerp(fy, alvoY, .14);
-      flutua.style.setProperty('--x', `${fx}px`); flutua.style.setProperty('--y', `${fy}px`);
-      flutua.style.setProperty('--rot', `${clamp(vel * .12, -14, 14)}deg`);
-      if (flutua.classList.contains('on') || Math.abs(dx) > .5) requestAnimationFrame(passo); else rodando = false;
-    };
-    $$('.serv').forEach((li) => {
-      li.addEventListener('pointerenter', (e) => {
-        if (!flutua.classList.contains('on')) { fx = alvoX = e.clientX; fy = alvoY = e.clientY; }
-        flutuaImg.src = li.dataset.serv;
-        flutua.classList.add('on'); flutua.style.setProperty('--s', 1);
-        if (!rodando) { rodando = true; requestAnimationFrame(passo); }
-      });
-      li.addEventListener('pointermove', (e) => { alvoX = e.clientX + 40; alvoY = e.clientY; });
-    });
-    $('[data-servicos]').addEventListener('pointerleave', () => { flutua.classList.remove('on'); flutua.style.setProperty('--s', .6); });
-  }
 
   // ---------- vistos: passaporte em 3D e avião no caminho ----------
   const pass = $('[data-passaporte]');

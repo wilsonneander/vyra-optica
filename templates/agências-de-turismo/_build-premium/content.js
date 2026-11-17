@@ -67,19 +67,36 @@ module.exports = {
       { t: 'Ingressos para todos os parques', d: 'Magic Kingdom, EPCOT, Hollywood Studios e Animal Kingdom no mesmo plano.' },
       { t: 'Guiamento virtual exclusivo', d: 'Roteiro dia a dia para aproveitar cada segundo sem filas.' },
     ],
-    // carrossel 3D de vídeos
-    cenas: [
-      { id: 'castelo-dia', nome: 'Magic Kingdom', fala: 'O castelo que abre todos os sonhos' },
-      { id: 'balao-mickey', nome: 'Desfile do Mickey', fala: 'Acene de volta, ele está te vendo' },
-      { id: 'branca-de-neve', nome: 'Branca de Neve e os anões', fala: 'Eu vou, eu vou, pra Disney agora eu vou' },
-      { id: 'toy-story', nome: 'Toy Story Land', fala: 'Ao infinito e além' },
-      { id: 'parada', nome: 'Parada dos personagens', fala: 'Todo mundo dança na Main Street' },
-      { id: 'main-street', nome: 'Main Street, U.S.A.', fala: 'A rua onde a magia começa' },
-      { id: 'castelo-entardecer', nome: 'Castelo ao entardecer', fala: 'Quando as luzes acendem' },
+  },
+
+  // transição montanha-russa entre Destinos e Disney
+  montanha: {
+    antes: 'Segura firme!',
+    depois: 'Próxima parada: Disney.',
+    dica: 'Role para andar na montanha-russa',
+  },
+
+  // "Um dia perfeito na Disney": o céu muda do amanhecer à noite com o scroll.
+  // Horários ilustrativos de um roteiro do guiamento virtual (não são a programação oficial dos parques).
+  dia: {
+    titulo: 'Um dia perfeito na Disney',
+    apoio: 'Roteiro de exemplo do nosso guiamento virtual',
+    momentos: [
+      { hora: '8h', video: 'castelo-dia', t: 'Portões abertos', d: 'Chegar cedo é o primeiro segredo do roteiro: castelo quase vazio para a foto perfeita.', ceu: ['#F4C8A6', '#FBEBD6'] },
+      { hora: '10h', video: 'branca-de-neve', t: 'Encontro com personagens', d: 'Branca de Neve e os anões dançando na rua. A gente diz onde e quando encontrar cada um.', ceu: ['#9CCBEA', '#EAF4FB'] },
+      { hora: '12h', video: 'balao-mickey', t: 'Desfile no céu', d: 'Mickey e Minnie acenando do balão. Lugar marcado no ponto com a melhor vista do desfile.', ceu: ['#73B6E8', '#DCEFFB'] },
+      { hora: '14h', video: 'toy-story', t: 'Ao infinito e além', d: 'Toy Story Land no horário de fila menor, com as atrações certas para a idade de cada um.', ceu: ['#62A8DE', '#D3E8F7'] },
+      { hora: '16h', video: 'parada', t: 'A parada passa', d: 'Carros alegóricos e música na Main Street. Hora de guardar o celular e só viver.', ceu: ['#86B3D8', '#F3DDBF'] },
+      { hora: '18h', video: 'main-street', t: 'Lembranças na Main Street', d: 'O fim de tarde pede orelhas novas, pipoca e a última volta pelas lojas.', ceu: ['#E59A68', '#F8D6A2'] },
+      { hora: '19h', video: 'castelo-entardecer', t: 'As luzes acendem', d: 'O castelo muda de cor e a noite começa. Lugar garantido para o grande final.', ceu: ['#2B3556', '#D9785C'] },
+      { hora: '21h', video: 'capa-fogos', t: 'Fogos sobre o castelo', d: 'O céu acende, a música toca e todo mundo se arrepia. Final feliz de um dia planejado.', ceu: ['#050B16', '#14233C'] },
     ],
   },
 
-  espetaculo: {
+  // entrar pela janela do castelo
+  janela: {
+    convite: 'Agora, entre pela janela do castelo.',
+    dica: 'Role devagar',
     titulo: 'Quando o céu acende, você já está no lugar certo.',
     texto: 'A gente monta o roteiro pensando nos momentos que ficam: o primeiro encontro com o Mickey, a foto em frente ao castelo, os fogos no fim do dia.',
   },
@@ -87,18 +104,19 @@ module.exports = {
   servicos: {
     titulo: 'Nossos serviços',
     texto: 'Na Peakalika Turismo, não vendemos apenas passagens, criamos experiências completas para que cada detalhe da sua viagem seja inesquecível. Por isso, oferecemos uma linha completa de serviços para facilitar sua jornada.',
+    // mosaico: tam = g (2x2), alto (1x2), largo (2x1), p (1x1). Disney toca vídeo.
     lista: [
-      { foto: 'disney', nome: 'Disney', d: 'Viva a magia da Disney com pacotes e ingressos exclusivos.' },
-      { foto: 'hospedagem', nome: 'Hospedagem', d: 'Encontre os melhores hotéis e pousadas para sua viagem dos sonhos.' },
-      { foto: 'passagens', nome: 'Passagens', d: 'Passagens aéreas com os melhores preços e condições de pagamento.' },
-      { foto: 'pacotes', nome: 'Pacotes', d: 'Pacotes completos com hospedagem, passagens e passeios inclusos.' },
-      { foto: 'passeios', nome: 'Passeios', d: 'Descubra os pontos turísticos mais incríveis com nossos guias especializados.' },
-      { foto: 'universal', nome: 'Universal', d: 'Ingressos e pacotes para os parques da Universal Studios.' },
-      { foto: 'cruzeiros', nome: 'Cruzeiros', d: 'Explore o mundo em alto mar com os melhores cruzeiros.' },
-      { foto: 'xcaret', nome: 'Xcaret', d: 'Experiências únicas nos parques Xcaret no México.' },
-      { foto: 'transfers', nome: 'Transfers', d: 'Transporte seguro e confortável do aeroporto até seu destino.' },
-      { foto: 'carros', nome: 'Aluguel de carros', d: 'Liberdade para explorar seu destino com carros de todas as categorias.' },
-      { foto: 'seguros', nome: 'Seguros', d: 'Viaje com tranquilidade com nossos seguros de viagem completos.' },
+      { foto: 'disney', video: 'castelo-dia', nome: 'Disney', d: 'Viva a magia da Disney com pacotes e ingressos exclusivos.', tam: 'g' },
+      { foto: 'hospedagem', nome: 'Hospedagem', d: 'Encontre os melhores hotéis e pousadas para sua viagem dos sonhos.', tam: 'alto' },
+      { foto: 'passagens', nome: 'Passagens', d: 'Passagens aéreas com os melhores preços e condições de pagamento.', tam: 'p' },
+      { foto: 'pacotes', nome: 'Pacotes', d: 'Pacotes completos com hospedagem, passagens e passeios inclusos.', tam: 'p' },
+      { foto: 'passeios', nome: 'Passeios', d: 'Descubra os pontos turísticos mais incríveis com nossos guias especializados.', tam: 'alto' },
+      { foto: 'universal', nome: 'Universal', d: 'Ingressos e pacotes para os parques da Universal Studios.', tam: 'largo' },
+      { foto: 'cruzeiros', nome: 'Cruzeiros', d: 'Explore o mundo em alto mar com os melhores cruzeiros.', tam: 'alto' },
+      { foto: 'xcaret', nome: 'Xcaret', d: 'Experiências únicas nos parques Xcaret no México.', tam: 'alto' },
+      { foto: 'transfers', nome: 'Transfers', d: 'Transporte seguro e confortável do aeroporto até seu destino.', tam: 'p' },
+      { foto: 'carros', nome: 'Aluguel de carros', d: 'Liberdade para explorar seu destino com carros de todas as categorias.', tam: 'p' },
+      { foto: 'seguros', nome: 'Seguros', d: 'Viaje com tranquilidade com nossos seguros de viagem completos.', tam: 'largo' },
     ],
   },
 

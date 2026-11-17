@@ -54,3 +54,7 @@ NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js noite img/mapa_flore
 - No celular, barra fixa "Ver carrinho" com o total quando há itens
 - Botão de voltar ao topo com anel de progresso e WhatsApp flutuante
 - Com "reduzir movimento" ligado no sistema, as animações param
+
+## Aviso de cookies
+
+Cartão creme no canto inferior esquerdo (no celular ocupa a largura toda), com a tampinha girando no canto, título em Gloock e os botões quadrados da marca: "Aceitar todos", "Só os necessários" e "Escolher quais cookies" (necessários sempre ligados; estatística e marketing com chave liga/desliga). Entra depois do preloader. A escolha fica em `localStorage` (`tampinha-cookies`) e vira `window.tampinhaCookies`, com o evento `cookies` disparado no `document`: qualquer script de estatística ou anúncio deve esperar esse sinal. O link "Preferências de cookies" no rodapé reabre o cartão. HTML em `build.js`, estilo em `style.css` (bloco "cookies"), lógica em `app.js`.

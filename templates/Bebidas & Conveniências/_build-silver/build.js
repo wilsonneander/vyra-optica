@@ -422,7 +422,7 @@ ${fontes}
     <div class="rodape-base">
       ${selo('selo-p')}
       <p><b>Venda proibida para menores de 18 anos.</b> Se beber, não dirija. Aprecie com moderação.</p>
-      <p>© ${new Date().getFullYear()} ${M.completo}. Preços e estoque sujeitos a alteração. Modelo de demonstração.</p>
+      <p>© ${new Date().getFullYear()} ${M.completo}. Preços e estoque sujeitos a alteração. Modelo de demonstração. <button type="button" class="ck-reabre" data-ck-abre>Preferências de cookies</button></p>
     </div>
   </div>
 </footer>
@@ -488,6 +488,20 @@ ${fontes}
     <div class="idade-btns" data-iguais><button type="button" class="btn btn-verm" data-idade-sim>Sim, tenho 18+</button><button type="button" class="btn btn-linha" data-idade-nao>Não tenho</button></div>
   </div>
 </div>
+
+<section class="ck" data-ck hidden role="dialog" aria-modal="false" aria-labelledby="ck-t" aria-describedby="ck-d">
+  <div class="ck-tampa">${I.tampaPura}</div>
+  <h2 id="ck-t">Posso guardar seus cookies?</h2>
+  <p id="ck-d">Usamos cookies para lembrar o seu carrinho e entender quais bebidas saem mais. Os de estatística e marketing só ligam se você deixar.</p>
+  <div class="ck-pref" data-ck-pref hidden>
+    <div class="ck-item"><div><b>Necessários</b><span>Carrinho, idade confirmada e esta escolha. Sem eles o site não funciona.</span></div><span class="ck-fixo">Sempre ligados</span></div>
+    <label class="ck-item"><div><b>Estatística</b><span>Contagem anônima de visitas e das bebidas mais vistas.</span></div><input type="checkbox" class="ck-chave" data-ck-tipo="estatistica"></label>
+    <label class="ck-item"><div><b>Marketing</b><span>Ofertas e anúncios da Tampinha em outros sites e redes sociais.</span></div><input type="checkbox" class="ck-chave" data-ck-tipo="marketing"></label>
+  </div>
+  <div class="ck-btns" data-ck-btns><button type="button" class="btn btn-verm" data-ck-todos>Aceitar todos</button><button type="button" class="btn btn-linha" data-ck-nec>Só os necessários</button></div>
+  <button type="button" class="btn btn-escuro btn-cheio" data-ck-salva hidden>Salvar minhas escolhas</button>
+  <button type="button" class="ck-ajusta" data-ck-ajusta aria-expanded="false">Escolher quais cookies</button>
+</section>
 
 <div class="aviso" data-aviso role="status" aria-live="polite"></div>
 

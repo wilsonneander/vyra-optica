@@ -323,6 +323,41 @@
     v.animate(quadros, { duration: 850, easing: 'cubic-bezier(.45,.05,.55,.95)' }).onfinish = () => { v.remove(); pulso(); };
   };
 
+  // ---------- cookies ----------
+  // a escolha fica em localStorage ('tampinha-cookies'). Scripts de estatística e marketing devem ouvir o evento 'cookies'
+  // no document e só carregar quando window.tampinhaCookies.estatistica / .marketing for true.
+  const ck = $('[data-ck]');
+  const ckPref = $('[data-ck-pref]', ck), ckAjusta = $('[data-ck-ajusta]', ck), ckSalva = $('[data-ck-salva]', ck), ckBtns = $('[data-ck-btns]', ck);
+  const ckChaves = $$('[data-ck-tipo]', ck);
+  const ckAplica = (e) => { window.tampinhaCookies = e; document.dispatchEvent(new CustomEvent('cookies', { detail: e })); };
+  const ckPrefs = (on) => {
+    ckPref.hidden = !on; ckSalva.hidden = !on; ckBtns.hidden = on;
+    ckAjusta.setAttribute('aria-expanded', on); ckAjusta.textContent = on ? 'Voltar' : 'Escolher quais cookies';
+  };
+  const ckMostra = (prefs) => {
+    const e = guarda.ler('tampinha-cookies') || {};
+    ckChaves.forEach((c) => { c.checked = Boolean(e[c.dataset.ckTipo]); });
+    ckPrefs(Boolean(prefs));
+    ck.hidden = false; void ck.offsetWidth; ck.classList.add('on');
+  };
+  const ckFecha = () => { ck.classList.remove('on'); setTimeout(() => { if (!ck.classList.contains('on')) ck.hidden = true; }, calmo ? 0 : 700); };
+  const ckGuarda = (est, mkt) => {
+    const e = { necessarios: true, estatistica: est, marketing: mkt, quando: new Date().toISOString() };
+    guarda.por('tampinha-cookies', e); ckAplica(e); ckFecha();
+  };
+  $('[data-ck-todos]', ck).addEventListener('click', () => ckGuarda(true, true));
+  $('[data-ck-nec]', ck).addEventListener('click', () => ckGuarda(false, false));
+  ckSalva.addEventListener('click', () => ckGuarda(...ckChaves.map((c) => c.checked)));
+  ckAjusta.addEventListener('click', () => ckPrefs(ckPref.hidden));
+  $$('[data-ck-abre]').forEach((b) => b.addEventListener('click', () => ckMostra(true)));
+  const ckSalvo = guarda.ler('tampinha-cookies');
+  if (ckSalvo) ckAplica(ckSalvo);
+  else {
+    // entra depois do preloader, para não disputar a atenção com a tampinha
+    const ckEspera = () => (body.classList.contains('pronto') ? setTimeout(() => ckMostra(false), calmo ? 0 : 900) : setTimeout(ckEspera, 200));
+    ckEspera();
+  }
+
   // confirmação de idade antes da primeira bebida alcoólica
   const idade = $('[data-idade]');
   let pendente = null;

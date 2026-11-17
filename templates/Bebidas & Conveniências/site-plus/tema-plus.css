@@ -1,0 +1,32 @@
+/* ---------- tema escuro do N3 Drinks: noite de festa, fundo grafite e as cores dos sabores acesas ----------
+   As cores trocam pelas variáveis. Os blocos com cor de sabor (amarelo, céu, laranja, campos da lata) e os
+   blocos que já eram pretos voltam à paleta original, para o texto continuar escuro sobre cor viva. */
+html { --tema-cor: var(--laranja); --tt-fundo: #fff; --tt-icone: #8E8D88; --tt-ativo: #0C0D0B; --tt-gas: #FF4B1F; }
+html[data-tema="escuro"] {
+  color-scheme: dark;
+  --creme: #121311; --papel: #1B1C1A; --tinta: #F2F1EC;
+  --cinza: rgba(242, 241, 236, .64); --linha: rgba(242, 241, 236, .16);
+  --tt-fundo: #22231F; --tt-borda: rgba(242, 241, 236, .12); --tt-icone: #8E8D88; --tt-gas: #C3F53C;
+}
+[data-tema="escuro"] :is(.hero-palco, .agenda, .onde-sec, .final, .card-fardo.destaque, .card-sabor, .card-hora, .quem-palco, .modal-palco, .seta:not(.clara), .news button, .map-info, .loja, .fita, .escuro-sec, .rodape, .ck, .legenda, .etq-escura, .modal-ml, .cursor) {
+  --creme: #F2F1EC; --papel: #FBFAF6; --tinta: #0C0D0B; --cinza: rgba(12, 13, 11, .62); --linha: rgba(12, 13, 11, .16);
+}
+/* os blocos pretos se separam um pouco do fundo grafite */
+[data-tema="escuro"] :is(.fita, .escuro-sec, .rodape) { background: #070807; }
+[data-tema="escuro"] .escuro-sec { --cinza: rgba(244, 242, 236, .7); }
+[data-tema="escuro"] .topo { background: rgba(24, 25, 22, .8); box-shadow: 0 10px 30px -14px rgba(0, 0, 0, .8); }
+[data-tema="escuro"] .topo.aberto .menu { background: rgba(24, 25, 22, .98); }
+[data-tema="escuro"] .seta.clara, [data-tema="escuro"] .faq summary i { background: rgba(242, 241, 236, .1); }
+[data-tema="escuro"] .faq details[open] summary i { background: var(--laranja); }
+[data-tema="escuro"] .faq details[open] summary i::before, [data-tema="escuro"] .faq details[open] summary i::after { background: #0C0D0B; }
+[data-tema="escuro"] .modal-caixa { box-shadow: 0 40px 90px -30px rgba(0, 0, 0, .95), inset 0 0 0 1px var(--linha); }
+[data-tema="escuro"] .modal-nav button:hover { background: rgba(242, 241, 236, .06); }
+[data-tema="escuro"] .card-receita .foto { background: #2A2B27; }
+
+/* pílula do tema: na lateral direita no computador, deitada dentro do menu no celular */
+.tema-lado { position: fixed; right: 16px; top: 50%; z-index: 60; transform: translateY(-50%); }
+.menu-tema { display: none; }
+@media (max-width: 960px) {
+  .tema-tampa.tema-lado { display: none; }
+  .topo.aberto .menu .menu-tema { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-top: 16px; font: 500 12px/1 var(--f-m); letter-spacing: .14em; text-transform: uppercase; color: var(--cinza); }
+}

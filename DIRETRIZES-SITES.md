@@ -68,6 +68,13 @@ Escolha da fonte:
 - Implementação recomendada: grupo marcado com `data-iguais`. Um script mede a largura natural de cada filho, aplica a maior em `--larg` no grupo e refaz a medida após `document.fonts.ready` e no `resize`. CSS: `[data-iguais] > * { width: var(--larg); max-width: 100%; justify-content: center; }`. Para dois ou três botões numa linha só, `display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr;` resolve sem script.
 - Vale também para itens de estados diferentes no mesmo grupo (ativo, "em breve", desativado): o estado muda a cor, nunca o tamanho.
 
+## Proporção e responsividade
+- Cards, componentes e grupos são sempre proporcionais ao espaço que ocupam: nada de bloco pequeno encostado num canto com uma sobra vazia ao lado.
+- No celular, todo grupo de componentes (chips, botões, cards, etiquetas, bairros, opções) ocupa **100% da largura útil** da tela. Em vez de itens com largura fixa e espaço sobrando à direita, use colunas iguais que dividem a largura toda: `display: grid; grid-template-columns: repeat(2, 1fr);` (ou 1 coluna em telas muito estreitas). Os itens continuam todos do mesmo tamanho entre si.
+- Grades de cards usam colunas que esticam (`repeat(auto-fill, minmax(..., 1fr))` no computador, `1fr 1fr` ou `1fr` no celular). Proibido grade com largura fixa que deixa uma faixa vazia na lateral.
+- Imagens e fotos mantêm a proporção (`object-fit: contain` para produto recortado, `cover` para foto de ambiente) e nunca aparecem esticadas ou achatadas.
+- Conferir o site em pelo menos três larguras antes de entregar: computador (1440px), tablet (768px) e celular (390px e 360px). Em nenhuma delas pode haver rolagem horizontal, texto cortado ou bloco desalinhado.
+
 ## Outros vícios de IA a evitar
 - Gradiente roxo/azul com brilho ("glow") atrás do título.
 - Título com uma palavra em gradiente colorido.
@@ -95,3 +102,4 @@ E conferir visualmente:
 - Nenhum número marcando tópico.
 - Mapa do footer é o componente padrão com OpenStreetMap, igual aos modelos.
 - Botões, chips e etiquetas com fundo que aparecem em grupo têm todos a mesma largura e altura (a do item mais longo).
+- No celular, grupos e grades ocupam 100% da largura útil, sem espaço vazio sobrando ao lado; cards e componentes proporcionais em 1440px, 768px, 390px e 360px.

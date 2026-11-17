@@ -51,8 +51,16 @@ const paineis = S.map((s, i) => `<article class="painel${i ? '' : ' ativo'}" id=
           </div>
         </article>`).join('\n        ');
 
+// seletor de tema (pílula branca com sol e lua, o mesmo componente do Gold): na lateral e no menu do celular
+const seletorTema = (onde) => `<div class="tema-pilula ${onde}" role="group" aria-label="Tema do site">
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="true">${I.claro}</button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="false">${I.escuro}</button>
+</div>`;
+// lê o tema salvo (ou ?tema=claro|escuro na URL) antes de pintar, para não piscar
+const temaSalvo = (chave) => `<script>try{var t=new URLSearchParams(location.search).get("tema")||localStorage.getItem("${chave}");if(t==="claro"||t==="escuro")document.documentElement.dataset.tema=t;}catch(e){}</script>`;
+
 const html = `<!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="claro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -65,6 +73,7 @@ const html = `<!doctype html>
 <meta property="og:image" content="assets/img/oficina.webp">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>document.documentElement.classList.add("js")</script>
+${temaSalvo("pistao-bronze-tema")}
 ${fontes}
 <style>
 ${css}
@@ -102,12 +111,15 @@ ${css}
           <li><a href="#sobre">Sobre nós</a></li>
           <li><a href="#contato">Contato</a></li>
         </ul>
+        ${seletorTema("menu-tema")}
       </nav>
       <a class="btn btn-pinca btn-orc" href="${wa('Olá, Pistão! Quero um orçamento grátis.')}" target="_blank" rel="noopener">${I.whats}<span>Orçamento grátis</span></a>
       <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
     </div>
   </div>
 </header>
+
+${seletorTema("tema-lado")}
 
 <main>
   <section class="capa" id="inicio">

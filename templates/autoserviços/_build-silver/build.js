@@ -68,8 +68,16 @@ const cartoes = S.map((s, i) => `<article class="cartao" id="${s.id}" style="--i
 
 const marcasHtml = (copia) => C.marcas.map(([id, nome]) => `<li${copia ? ' aria-hidden="true"' : ''}><span class="marca-logo" title="${nome}"><svg fill="currentColor" aria-hidden="true" focusable="false"><use href="#m-${id}"/></svg></span><span class="marca-nome">${nome}</span></li>`).join('');
 
+// seletor de tema (pílula branca com sol e lua, o mesmo componente do Gold): na lateral e no menu do celular
+const seletorTema = (onde) => `<div class="tema-pilula ${onde}" role="group" aria-label="Tema do site">
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="false">${I.claro}</button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="true">${I.escuro}</button>
+</div>`;
+// lê o tema salvo (ou ?tema=claro|escuro na URL) antes de pintar, para não piscar
+const temaSalvo = (chave) => `<script>try{var t=new URLSearchParams(location.search).get("tema")||localStorage.getItem("${chave}");if(t==="claro"||t==="escuro")document.documentElement.dataset.tema=t;}catch(e){}</script>`;
+
 const html = `<!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="escuro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -81,6 +89,7 @@ const html = `<!doctype html>
 <meta property="og:description" content="Mecânica, revisão, freios, suspensão, alinhamento 3D e estética automotiva no ${M.bairro}, BH.">
 <meta property="og:image" content="assets/img/og.jpg">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+${temaSalvo("pistao-silver-tema")}
 ${fontes}
 <link rel="stylesheet" href="assets/style.css">
 <script type="application/ld+json">${JSON.stringify({
@@ -114,11 +123,14 @@ ${fontes}
         <li><a href="#contato">Contato</a></li>
       </ul>
       <a class="btn btn-rubi menu-cta" href="#contato">Agendar serviço</a>
+      ${seletorTema("menu-tema")}
     </nav>
     <a class="topo-fone" href="tel:${tel}"><span class="pulso">${I.fone}</span><span><small data-status>Ligue agora</small>${M.telefone}</span></a>
     <button class="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
   </div>
 </header>
+
+${seletorTema("tema-lado")}
 
 <main>
   <section class="capa" id="inicio" aria-roledescription="carrossel" aria-label="Destaques">

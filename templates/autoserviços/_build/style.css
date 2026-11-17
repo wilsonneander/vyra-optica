@@ -1,4 +1,4 @@
-/* Pistão Auto Center: modelo Bronze de autosserviços */
+/* Pistão Auto Center: modelo Bronze de autosserviços. Tema claro (padrão) e escuro pelo seletor na lateral. */
 :root {
   --asfalto: #0F1012; --carvao: #17181B; --grafite: #24262B; --linha: #34363C;
   --aco: #9AA0A8; --giz: #F3F2EE; --papel: #FAFAF7; --branco: #fff;
@@ -8,10 +8,21 @@
   --f-t: 'Anybody', 'Arial Narrow', sans-serif; --f-c: 'Schibsted Grotesk', 'Segoe UI', sans-serif;
   --suave: cubic-bezier(.22, .8, .24, 1);
   --topo-h: 118px;
+  /* cartões que mudam com o tema (valores do claro) */
+  --cartao: #fff;
+  --estrela-off: #D6D7D9;
+  color-scheme: light;
+}
+:root[data-tema="escuro"] {
+  --papel: #0F1012; --giz: #141518;
+  --texto: #E9E9E6; --apoio-cor: #9AA0A8;
+  --cartao: #1E2024;
+  --estrela-off: #3D4046;
+  color-scheme: dark;
 }
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--topo-h) - 30px); -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--papel); color: var(--texto); font: 400 16px/1.6 var(--f-c); overflow-x: hidden; }
+body { margin: 0; background: var(--papel); color: var(--texto); transition: background .5s, color .5s; font: 400 16px/1.6 var(--f-c); overflow-x: hidden; }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
 button, input, select, textarea { font: inherit; color: inherit; }
@@ -124,14 +135,14 @@ p { margin: 0; }
 .selo text { font: 700 9.6px var(--f-c); letter-spacing: .06em; fill: #fff; }
 .selo b { display: grid; text-align: center; font: italic 900 38px/.9 var(--f-t); font-stretch: 125%; }
 .selo small { font: 600 11px/1 var(--f-c); letter-spacing: .2em; text-transform: uppercase; font-style: normal; }
-.nota-capa { position: absolute; right: 0; bottom: 36px; display: flex; gap: 12px; align-items: center; padding: 14px 18px; background: #fff; color: var(--texto); border-radius: 4px; box-shadow: 0 20px 40px -18px rgba(0, 0, 0, .8); animation: flutua 5s ease-in-out infinite; }
+.nota-capa { position: absolute; right: 0; bottom: 36px; display: flex; gap: 12px; align-items: center; padding: 14px 18px; background: var(--cartao); color: var(--texto); border-radius: 4px; box-shadow: 0 20px 40px -18px rgba(0, 0, 0, .8); animation: flutua 5s ease-in-out infinite; }
 .nota-capa > svg { width: 30px; height: 30px; }
 .nota-capa div { display: grid; grid-template-columns: auto auto; column-gap: 8px; align-items: center; }
 .nota-capa b { font: 900 26px/1 var(--f-t); }
 .nota-capa span:last-child { grid-column: 1 / -1; font-size: 12px; color: var(--apoio-cor); margin-top: 3px; }
 @keyframes flutua { 50% { transform: translateY(-8px); } }
 .estrelas { display: inline-flex; gap: 2px; }
-.estrelas i { width: 15px; height: 15px; color: #D6D7D9; }
+.estrelas i { width: 15px; height: 15px; color: var(--estrela-off); }
 .estrelas i.on { color: var(--sinal); }
 .estrelas svg { width: 100%; height: 100%; display: block; }
 /* faixa de marca de pneu correndo no pé da capa */
@@ -148,7 +159,7 @@ p { margin: 0; }
 .num > span { color: var(--aco); font-size: 15px; }
 
 /* ---------- serviços ---------- */
-.servicos { position: relative; padding: 110px 0 120px; background: var(--giz); overflow: hidden; }
+.servicos { position: relative; padding: 110px 0 120px; background: var(--giz); overflow: hidden; transition: background .5s; }
 .servicos::before { content: ""; position: absolute; left: -20%; right: -20%; top: 46%; height: 80px; background: /*RASTRO*/ 0 0 / 44px 40px; opacity: .05; transform: rotate(-9deg); pointer-events: none; }
 .sec-topo { position: relative; display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; margin-bottom: 48px; }
 .sec-desc { color: var(--apoio-cor); font-size: 17px; max-width: 440px; }
@@ -230,9 +241,9 @@ p { margin: 0; }
 .difs dd { margin: 6px 0 0; color: var(--aco); font-size: 15px; }
 
 /* ---------- avaliações ---------- */
-.avaliacoes { padding: 110px 0 120px; background: var(--giz); overflow: hidden; }
+.avaliacoes { padding: 110px 0 120px; background: var(--giz); overflow: hidden; transition: background .5s; }
 .aval-topo { display: flex; justify-content: space-between; align-items: end; gap: 30px; flex-wrap: wrap; margin-bottom: 48px; }
-.nota-geral { display: flex; align-items: center; gap: 14px; padding: 16px 22px; background: #fff; border-radius: 4px; box-shadow: 0 20px 40px -30px rgba(0, 0, 0, .5); }
+.nota-geral { display: flex; align-items: center; gap: 14px; padding: 16px 22px; background: var(--cartao); border-radius: 4px; box-shadow: 0 20px 40px -30px rgba(0, 0, 0, .5); }
 .nota-geral > svg { width: 34px; height: 34px; }
 .nota-geral > b { font: 900 46px/1 var(--f-t); }
 .nota-geral div { display: grid; gap: 4px; }
@@ -244,7 +255,7 @@ p { margin: 0; }
 .esteira.volta .esteira-trilho { animation-direction: reverse; animation-duration: 70s; }
 .esteira:hover .esteira-trilho { animation-play-state: paused; }
 @keyframes esteira { to { transform: translateX(calc(-50% - 8px)); } }
-.aval { margin: 0; width: 380px; padding: 24px 26px; background: #fff; border-radius: 4px; border-bottom: 3px solid transparent; display: flex; flex-direction: column; gap: 14px; transition: transform .4s var(--suave), border-color .4s; }
+.aval { margin: 0; width: 380px; padding: 24px 26px; background: var(--cartao); border-radius: 4px; border-bottom: 3px solid transparent; display: flex; flex-direction: column; gap: 14px; transition: transform .4s var(--suave), border-color .4s; }
 .aval:hover { transform: translateY(-4px); border-color: var(--pinca); }
 .aval blockquote { margin: 0; font-size: 16px; line-height: 1.5; }
 .aval figcaption { margin-top: auto; display: flex; justify-content: space-between; gap: 10px; font-size: 14px; }
@@ -282,14 +293,14 @@ p { margin: 0; }
 .map-box .pin::before { content: ""; position: absolute; inset: -11px; border-radius: 50%; border: 3px solid rgba(212, 42, 30, .55); animation: ping 2.2s ease-out infinite; }
 @keyframes ping { from { transform: scale(.5); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
 .map-box .pin b { position: absolute; left: 26px; top: -5px; white-space: nowrap; font: 800 16px var(--f-t); text-transform: uppercase; color: var(--asfalto); text-shadow: 0 0 4px #fff, 0 0 4px #fff, 0 0 4px #fff; }
-.map-info { position: absolute; left: 14px; top: 14px; z-index: 3; display: grid; gap: 3px; max-width: 320px; padding: 14px 16px; background: #fff; color: var(--texto); border-radius: 4px; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .5); }
+.map-info { position: absolute; left: 14px; top: 14px; z-index: 3; display: grid; gap: 3px; max-width: 320px; padding: 14px 16px; background: #fff; color: #17181B; border-radius: 4px; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .5); }
 .map-info b { font: 800 17px var(--f-t); text-transform: uppercase; }
-.map-info span { font-size: 12.5px; color: var(--apoio-cor); line-height: 1.35; }
+.map-info span { font-size: 12.5px; color: #5C6068; line-height: 1.35; }
 .map-info .mbtns { display: flex; gap: 6px; margin-top: 8px; }
 .mbtns a { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; white-space: nowrap; border-radius: 3px; background: var(--pinca); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; transition: background .35s var(--suave), transform .35s var(--suave); }
 .mbtns a:hover { background: var(--pinca-esc); transform: translateY(-2px); }
 .mbtns svg { width: 16px; height: 16px; }
-.attr { position: absolute; right: 8px; bottom: 6px; z-index: 3; font-size: 11px; background: rgba(255, 255, 255, .85); color: var(--texto); padding: 2px 6px; border-radius: 3px; }
+.attr { position: absolute; right: 8px; bottom: 6px; z-index: 3; font-size: 11px; background: rgba(255, 255, 255, .85); color: #17181B; padding: 2px 6px; border-radius: 3px; }
 .onde h2 { font-size: clamp(28px, 3vw, 38px); }
 .onde p { margin-top: 12px; color: var(--aco); }
 .bairros { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
@@ -311,6 +322,19 @@ p { margin: 0; }
 .whats-flutua { position: fixed; right: 20px; bottom: 20px; z-index: 40; width: 60px; height: 60px; display: grid; place-items: center; background: #1FA855; color: #fff; border-radius: 50%; box-shadow: 0 14px 30px -10px rgba(0, 0, 0, .6); transition: transform .4s var(--suave); }
 .whats-flutua svg { width: 32px; height: 32px; }
 .whats-flutua:hover { transform: scale(1.08) rotate(-6deg); }
+
+/* seletor de tema: pílula branca com sol e lua (o mesmo componente do Gold, no vermelho do Bronze) */
+.tema-pilula { display: inline-grid; gap: 6px; padding: 6px; background: #fff; border-radius: 30px; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .45), 0 0 0 1px rgba(0, 0, 0, .06); }
+.tema-pilula button { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #8a8a8a; cursor: pointer; transition: background .3s, color .3s, transform .4s var(--suave); }
+.tema-pilula button svg { width: 21px; height: 21px; }
+.tema-pilula button:hover { transform: scale(1.1); color: var(--pinca); }
+.tema-pilula button[aria-pressed="true"] { background: var(--pinca); color: #fff; box-shadow: 0 0 0 4px rgba(212, 42, 30, .22); }
+.tema-lado { position: fixed; right: 18px; top: 50%; z-index: 45; transform: translateY(-50%); }
+.menu .menu-tema { display: none; }
+
+/* tema escuro: o painel de serviços ganha um contorno para não sumir no fundo */
+:root[data-tema="escuro"] .oficina-board { box-shadow: 0 0 0 1px var(--linha), 0 50px 90px -50px #000; }
+:root[data-tema="escuro"] :is(.aval, .nota-geral, .nota-capa) { box-shadow: 0 0 0 1px var(--linha), 0 20px 40px -24px #000; }
 
 /* entrada ao rolar */
 .js .revela { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--suave), transform .8s var(--suave); }
@@ -335,6 +359,8 @@ p { margin: 0; }
   .tem-sub.aberto .sub { display: block; }
   .sub a { padding: 13px 8px; font-size: 16px; border-bottom: 1px solid var(--linha); border-radius: 0; }
   .sub-todos { margin: 0; padding: 0; border: 0; }
+  .menu .menu-tema { display: inline-grid; grid-auto-flow: column; margin-top: 20px; }
+  .tema-lado { display: none; }
   .btn-orc { margin-left: auto; }
   .capa-grid { grid-template-columns: 1fr; }
   .capa-visual { min-height: 520px; max-width: 560px; }

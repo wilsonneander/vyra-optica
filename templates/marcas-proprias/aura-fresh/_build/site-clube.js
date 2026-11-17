@@ -66,10 +66,11 @@ function index() {
       <div class="btns" data-iguais><a class="btn" href="#comprar">Começar meu ritual ${ic.seta}</a><button class="btn btn-contorno" type="button" data-abre-pote>Ver o pote em 3D</button></div>
     </div>
     <ol class="ritual-passos" aria-label="Passos do preparo">
-      <li data-fase="0,0.24"><b>240 ml</b><span>de água fria no copo</span></li>
-      <li data-fase="0.24,0.46"><b>1 dose</b><span>com a colher que vem no pote</span></li>
-      <li data-fase="0.46,0.78"><b>Misture</b><span>até a água ficar verde</span></li>
-      <li data-fase="0.78,1.01"><b>Pronto</b><span>até amanhã, no mesmo horário</span></li>
+      <li data-fase="0,0.12"><b>240 ml</b><span>de água fria no copo</span></li>
+      <li data-fase="0.12,0.4"><b>Gire</b><span>a tampa, como no dia a dia</span></li>
+      <li data-fase="0.4,0.64"><b>1 dose</b><span>com a colher que vem no pote</span></li>
+      <li data-fase="0.64,0.86"><b>Misture</b><span>até a água ficar verde</span></li>
+      <li data-fase="0.86,1.01"><b>Pronto</b><span>até amanhã, no mesmo horário</span></li>
     </ol>
     <div class="ritual-tempo" aria-hidden="true"><span>preparo</span><i><i></i></i><span>1 min</span></div>
   </div>

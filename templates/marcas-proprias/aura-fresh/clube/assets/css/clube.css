@@ -21,7 +21,7 @@
 .cab-claro .cab-bt span { background: var(--frente); }
 
 /* ---------- ritual 3D ---------- */
-.ritual { height: 430vh; --c1: #fbe3ea; --c2: #f6f3ee; --p: 0; --mix: 0; }
+.ritual { height: 560vh; --c1: #fbe3ea; --c2: #f6f3ee; --p: 0; --mix: 0; }
 .ritual[data-hora="tarde"] { --c1: #e6efcf; --c2: #f4f6ee; }
 .ritual[data-hora="noite"] { --c1: #2b462b; --c2: #16231a; --frente: #eef1e6; --suave: rgba(238, 241, 230, .72); --linha: rgba(238, 241, 230, .16); }
 .ritual-fixo { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; color: var(--frente); background: radial-gradient(70% 80% at 70% 45%, var(--c1), var(--c2) 75%); transition: background .8s; }
@@ -124,7 +124,7 @@
   .cab-acoes { display: none; }
   .cab-claro .cab-menu { background: #f6f3ee; }
   .cab-claro .cab-menu a { color: var(--frente); }
-  .ritual { height: 380vh; }
+  .ritual { height: 480vh; }
   .ritual-txt { left: var(--g); right: var(--g); top: 92px; bottom: auto; transform: none; width: auto; }
   .ritual-txt .tit-g { font-size: clamp(38px, 10vw, 60px); }
   .ritual-lead, .ritual-txt .apoio { display: none; }

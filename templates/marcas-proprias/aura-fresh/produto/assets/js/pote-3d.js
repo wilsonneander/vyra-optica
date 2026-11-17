@@ -5,6 +5,8 @@
 (function () {
   'use strict';
   const T = window.THREE, RT = window.AuraRotulo;
+  // cores em hexadecimal tratadas como sRGB (no r149 o padrão antigo as clareia na saída)
+  if (T && T.ColorManagement) T.ColorManagement.legacyMode = false;
   const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const BASE = (document.querySelector('meta[name="aura-img"]') || {}).content || 'assets/img/';
 
@@ -17,7 +19,7 @@
   function suportaWebGL() { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; } }
 
   // ---------- medidas do pote (raio 1) ----------
-  const R = 1, CORPO_TOPO = 1.26, TAMPA_BASE = 1.29, TAMPA_TOPO = 2.1;
+  const R = 1, CORPO_TOPO = 1.275, TAMPA_BASE = 1.275, TAMPA_TOPO = 2.1; // corpo e tampa se encontram na fenda do rótulo (RT.CORTE_Y)
 
   // ---------- ambiente de reflexo: estúdio com softboxes ----------
   function criaAmbiente(renderer, tom = 0x6f7a6f) {
@@ -144,10 +146,15 @@
 
     // corpo: verde fosco, ou vidro com o pó dentro quando a cena revela o conteúdo
     const corpo = new T.Mesh(geoCorpo(), opts.revela ? m.vidro : m.verde); grupo.add(corpo);
-    const boca = new T.Mesh(new T.CircleGeometry(0.93, 64), m.interno); boca.rotation.x = -Math.PI / 2; boca.position.y = CORPO_TOPO + 0.1; grupo.add(boca);
     const po = new T.Mesh(new T.CylinderGeometry(0.93, 0.95, 1.05, 64, 1, false), m.po); po.position.y = 0.58;
     po.visible = !!opts.revela || !!opts.po; grupo.add(po);
-    if (opts.po && !opts.revela) { po.geometry = new T.CircleGeometry(0.92, 64); po.rotation.x = -Math.PI / 2; po.position.y = CORPO_TOPO + 0.02; }
+    if (opts.po && !opts.revela) {
+      // pote aberto: parede interna escura e o pó um pouco abaixo da boca, sem nada passando da borda
+      const nivel = CORPO_TOPO - 0.16, boca = CORPO_TOPO + 0.1;
+      const parede = new T.Mesh(new T.CylinderGeometry(0.922, 0.922, boca - nivel, 64, 1, true), m.interno);
+      parede.position.y = (boca + nivel) / 2; grupo.add(parede);
+      po.geometry = new T.CircleGeometry(0.92, 64); po.rotation.x = -Math.PI / 2; po.position.y = nivel;
+    }
 
     const mangaC = new T.Mesh(geoC, m.rotulo); grupo.add(mangaC);
     const versoC = new T.Mesh(geoC, m.verso); grupo.add(versoC);
@@ -267,15 +274,16 @@
     function quadro(p, agora) {
       mx = lerp(mx, tmx, 0.06); my = lerp(my, tmy, 0.06);
       const t = agora / 1000;
-      const abre = suave(0.08, 0.42, p), sopro = suave(0.14, 0.7, p), fim = suave(0.72, 1, p);
+      const rosca = suave(0.04, 0.2, p), abre = suave(0.2, 0.42, p), sopro = suave(0.26, 0.72, p), fim = suave(0.74, 1, p);
       // pote gira devagar e mostra a frente no fim
       pote.grupo.rotation.y = lerp(-0.55, 0.25, p) + mx * 0.5 + (reduz ? 0 : Math.sin(t * 0.6) * 0.03);
       pote.grupo.rotation.x = my * 0.12;
       pote.grupo.position.y = reduz ? 0 : Math.sin(t * 1.1) * 0.03;
       // tampa sobe, inclina e volta a fechar no fim
-      const tampaK = abre * (1 - fim);
-      pote.tampa.position.set(lerp(0, 0.95, tampaK), TAMPA_BASE + tampaK * 1.25, lerp(0, -0.25, tampaK));
-      pote.tampa.rotation.set(tampaK * 0.35, 0, -tampaK * 0.62);
+      // tampa: desenrosca (gira subindo pela rosca), sobe e inclina; no fim volta e enrosca de novo
+      const roscaK = rosca * (1 - suave(0.88, 1, p)), tampaK = abre * (1 - suave(0.74, 0.88, p));
+      pote.tampa.position.set(lerp(0, 0.95, tampaK), TAMPA_BASE + roscaK * 0.08 + tampaK * 1.2, lerp(0, -0.25, tampaK));
+      pote.tampa.rotation.set(tampaK * 0.35, -roscaK * Math.PI * 3, -tampaK * 0.62);
       // nuvem de pó saindo da boca do pote
       for (let i = 0; i < po.dados.length; i++) {
         const d = po.dados[i];
@@ -334,7 +342,15 @@
     laco();
   }
 
-  // ---------- RITUAL do clube: a dose cai no copo e a água fica verde ----------
+  // ---------- RITUAL do clube: gira a tampa, a colher pega a dose no pote e leva ao copo ----------
+  // Linha do tempo (p de 0 a 1, guiada pela rolagem):
+  //   0,00 a 0,10  água fria enche o copo
+  //   0,12 a 0,30  a tampa desenrosca (uma volta e meia, subindo pela rosca)
+  //   0,30 a 0,40  a tampa sai e é pousada atrás, entre o pote e o copo
+  //   0,40 a 0,56  a colher desce no pote, pega a dose e sai com o pó em cima
+  //   0,56 a 0,64  a colher atravessa até o copo
+  //   0,64 a 0,80  a colher vira e o pó cai na água
+  //   0,72 a 0,92  a água gira e fica verde
   function iniciaRitual() {
     const sec = document.querySelector('[data-ritual]');
     const canvas = sec && sec.querySelector('canvas.ritual-3d');
@@ -342,33 +358,49 @@
     const renderer = criaRenderer(canvas);
     const cena = new T.Scene(); cena.environment = criaAmbiente(renderer, 0x8a8f86);
     const luz = new T.DirectionalLight(0xffffff, 0.9); luz.position.set(-5, 9, 6); cena.add(luz);
+    cena.add(new T.HemisphereLight(0xffffff, 0x334433, 0.35));
     const cam = new T.PerspectiveCamera(26, 1, 0.3, 200);
+    const m = materiais();
 
-    // pote aberto à esquerda, tampa encostada
+    // pote fechado, de frente
+    const POTE_X = -1.3;
     const pote = criaPote({ po: true });
-    pote.grupo.position.set(-1.7, 0, -0.3); pote.grupo.rotation.y = 0.45; cena.add(pote.grupo);
-    // tampa deitada de boca para cima, atrás do pote
-    pote.tampa.position.set(0.15, TAMPA_TOPO - TAMPA_BASE + 0.004, -1.75); pote.tampa.rotation.set(Math.PI, 0, 0);
-    const sP = criaSombra(0.4, 3.2); sP.position.set(-1.7, 0.003, -0.3); cena.add(sP);
+    pote.grupo.position.set(POTE_X, 0, 0); pote.grupo.rotation.y = 0.18; cena.add(pote.grupo);
+    const sP = criaSombra(0.42, 3.2); sP.position.set(POTE_X, 0.003, 0); cena.add(sP);
+    const sT = criaSombra(0.0, 2.6); cena.add(sT); // sombra da tampa pousada
+    const TAMPA_FIM = new T.Vector3(-0.25, 0, -2.3); // posição local (no pote) onde a tampa é pousada
 
-    // copo de vidro e água
+    // copo de vidro (perfil com parede grossa) e água que respeita a parede interna
+    const COPO_X = 1.2, FUNDO = 0.12;
     const perfil = [[0, 0.02], [0.62, 0.02], [0.66, 0.04], [0.7, 0.2], [0.78, 2.1], [0.8, 2.12], [0.76, 2.12], [0.72, 0.2], [0.68, 0.1], [0, 0.1]];
-    const copo = new T.Mesh(new T.LatheGeometry(perfil.map(v => new T.Vector2(v[0], v[1])), 72), new T.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.04, transparent: true, opacity: 0.13, clearcoat: 1, side: T.DoubleSide, depthWrite: false, envMapIntensity: 1.6 }));
-    const xCopo = 1.0; copo.position.x = xCopo; cena.add(copo);
-    const aguaMat = new T.MeshStandardMaterial({ color: 0xe9f3f0, emissive: 0x000000, roughness: 0.25, metalness: 0, envMapIntensity: 0.4, transparent: true, opacity: 0.35, depthWrite: false });
-    const emLimpa = new T.Color(0x000000), emVerde = new T.Color(0x174a1c);
-    const agua = new T.Mesh(new T.CylinderGeometry(0.75, 0.69, 1, 64, 1, false), aguaMat); agua.position.x = xCopo; cena.add(agua);
-    const sC = criaSombra(0.25, 2.4); sC.position.set(xCopo, 0.003, 0); cena.add(sC);
-    const corLimpa = new T.Color(0xe9f3f0), corVerde = new T.Color(0x1d5a22);
+    const copo = new T.Mesh(new T.LatheGeometry(perfil.map(v => new T.Vector2(v[0], v[1])), 72), new T.MeshPhysicalMaterial({ color: 0xffffff, roughness: 0.04, transparent: true, opacity: 0.12, clearcoat: 1, side: T.DoubleSide, depthWrite: false, envMapIntensity: 0.9 }));
+    copo.position.x = COPO_X; copo.renderOrder = 2; cena.add(copo);
+    const raioInterno = y => (y <= 0.2 ? 0.68 + (0.72 - 0.68) * Math.max(0, (y - 0.1) / 0.1) : 0.72 + 0.04 * (y - 0.2) / 1.92) - 0.025;
+    // cor chapada (sem tone mapping) para o verde não clarear com o reflexo do vidro
+    const aguaMat = new T.MeshBasicMaterial({ color: 0xdfece6, transparent: true, opacity: 0.32, depthWrite: false, toneMapped: false });
+    const agua = new T.Mesh(new T.CylinderGeometry(0.5, 0.5, 0.01, 64), aguaMat); agua.position.x = COPO_X; agua.renderOrder = 1; cena.add(agua);
+    let nivelGeo = -1;
+    function moldaAgua(topo) {
+      if (Math.abs(topo - nivelGeo) < 0.004) return;
+      nivelGeo = topo;
+      const h = Math.max(0.01, topo - FUNDO);
+      agua.geometry.dispose();
+      agua.geometry = new T.CylinderGeometry(raioInterno(topo), raioInterno(FUNDO), h, 64, 1, false);
+      agua.position.y = FUNDO + h / 2;
+    }
+    const sC = criaSombra(0.22, 2.2); sC.position.set(COPO_X, 0.003, 0); cena.add(sC);
+    const corLimpa = new T.Color(0xdfece6), corVerde = new T.Color(0x2e6b2c);
 
-    // colher dosadora
+    // colher dosadora: concha arredondada e cabo, em plástico verde-lima
     const colher = new T.Group();
-    const concha = new T.Mesh(new T.CylinderGeometry(0.24, 0.2, 0.22, 40, 1, true), mats.verdeLado || materiais().verdeLado);
-    const cabo = new T.Mesh(new T.BoxGeometry(0.9, 0.05, 0.12), materiais().verde); cabo.position.set(-0.6, 0.06, 0);
-    const doseTopo = new T.Mesh(new T.CircleGeometry(0.22, 32), materiais().po); doseTopo.rotation.x = -Math.PI / 2; doseTopo.position.y = 0.09;
-    colher.add(concha, cabo, doseTopo); cena.add(colher);
+    const plastico = new T.MeshPhysicalMaterial({ color: 0x9cbc5c, roughness: 0.45, clearcoat: 0.4, side: T.DoubleSide });
+    const pc = [[0, 0], [0.19, 0.012], [0.235, 0.06], [0.25, 0.2], [0.236, 0.2], [0.222, 0.07], [0.185, 0.026], [0, 0.026]];
+    const concha = new T.Mesh(new T.LatheGeometry(pc.map(v => new T.Vector2(v[0], v[1])), 40), plastico);
+    const cabo = new T.Mesh(new T.BoxGeometry(0.95, 0.045, 0.12), plastico); cabo.position.set(-0.7, 0.19, 0);
+    const monte = new T.Mesh(new T.SphereGeometry(0.22, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2), m.po); monte.scale.y = 0.45; monte.position.y = 0.17;
+    colher.add(concha, cabo, monte); colher.scale.setScalar(0.001); cena.add(colher);
 
-    // pó caindo e girando dentro do copo
+    // pó que cai e depois gira dentro da água
     const queda = criaPo(reduz ? 200 : 1300, 41, ['#5f8f2f', '#9cbc5c', '#2f6b3a', '#c4d997']); cena.add(queda.pts);
 
     const legendas = [...sec.querySelectorAll('[data-fase]')];
@@ -378,46 +410,73 @@
 
     let atual = 0, rodando = false, visivel = false;
     new IntersectionObserver(es => { visivel = es[0].isIntersecting; if (visivel) laco(); }, { rootMargin: '100px' }).observe(sec);
+    const tv = new T.Vector3();
 
     function quadro(p, agora) {
       const t = agora / 1000;
-      const enche = suave(0.04, 0.3, p);      // água sobe no copo
-      const pega = suave(0.22, 0.42, p);      // colher vai do pote ao copo
-      const vira = suave(0.42, 0.52, p);      // colher vira
-      const cai = suave(0.44, 0.7, p);        // pó cai
-      const mistura = suave(0.5, 0.78, p);    // água fica verde
+      const enche = suave(0.0, 0.1, p);
+      const rosca = suave(0.12, 0.3, p);
+      const sai = suave(0.3, 0.4, p), ergue = suave(0.3, 0.34, p), anda = suave(0.33, 0.4, p);
+      const desce = suave(0.4, 0.47, p), pega = suave(0.47, 0.52, p), sobe = suave(0.52, 0.56, p);
+      const leva = suave(0.56, 0.64, p), vira = suave(0.64, 0.7, p), cai = suave(0.66, 0.8, p);
+      const embora = suave(0.8, 0.86, p), mistura = suave(0.72, 0.92, p);
+
       // água
-      const nivel = 0.15 + enche * 1.55;
-      agua.scale.y = nivel; agua.position.y = 0.1 + nivel / 2;
-      aguaMat.color.copy(corLimpa).lerp(corVerde, mistura); aguaMat.emissive.copy(emLimpa).lerp(emVerde, mistura); aguaMat.opacity = lerp(0.3, 0.97, mistura);
-      // colher: sai de dentro do pote, faz um arco e para sobre o copo
-      const px = lerp(-1.7, xCopo - 0.05, pega), py = lerp(1.1, 2.9, Math.sin(pega * Math.PI) * 0.5 + pega * 0.6);
-      colher.position.set(px, py, lerp(-0.3, 0, pega));
-      colher.rotation.set(0, 0, vira * 2.3);
-      doseTopo.visible = cai < 0.15;
-      colher.visible = p < 0.8; colher.scale.setScalar(1 - suave(0.7, 0.8, p) * 0.999);
-      // partículas: caem num funil e depois giram em espiral dentro da água
+      const topo = FUNDO + 0.04 + enche * 1.5;
+      moldaAgua(topo);
+      aguaMat.color.copy(corLimpa).lerp(corVerde, mistura);
+      aguaMat.opacity = lerp(0.32, 0.9, mistura);
+      agua.visible = enche > 0.01;
+
+      // tampa: desenrosca girando e subindo pela rosca, depois sai num arco e pousa atrás
+      const giro = -rosca * Math.PI * 3;
+      const y0 = TAMPA_BASE + rosca * 0.08;
+      // sobe reto até sair da boca, depois vai num arco até a mesa
+      pote.tampa.position.set(lerp(0, TAMPA_FIM.x, anda), lerp(y0 + ergue * 0.9, TAMPA_FIM.y, anda) + Math.sin(anda * Math.PI) * 0.5, lerp(0, TAMPA_FIM.z, anda));
+      pote.tampa.rotation.set(Math.sin(sai * Math.PI) * 0.25, giro - sai * 0.6, 0);
+      tv.copy(TAMPA_FIM); pote.grupo.localToWorld(tv);
+      sT.position.set(tv.x, 0.003, tv.z); sT.material.opacity = 0.35 * suave(0.85, 1, sai);
+
+      // colher: entra por cima do pote, mergulha, sai com o monte de pó, atravessa e vira sobre o copo
+      const xPote = POTE_X + 0.18, yFora = 2.75, yDentro = CORPO_TOPO - 0.2;
+      let cx = xPote, cy = yFora, rz = -0.32, cz = 0;
+      if (p < 0.56) { cy = lerp(yFora, yDentro, desce) + (yFora - yDentro) * sobe; rz = lerp(-0.32, -0.42, desce) + 0.1 * sobe; }
+      else {
+        cx = lerp(xPote, COPO_X + 0.05, leva); cy = yFora + Math.sin(leva * Math.PI) * 0.35; cz = Math.sin(leva * Math.PI) * 0.3;
+        rz = lerp(-0.22, 2.25, vira);
+      }
+      colher.position.set(cx, cy + embora * 1.2, cz);
+      colher.rotation.set(0, 0, rz);
+      const aparece = suave(0.39, 0.43, p) * (1 - embora);
+      colher.scale.setScalar(Math.max(0.001, aparece));
+      monte.visible = pega > 0.5 && cai < 0.12;
+      monte.scale.set(1, 0.45 * Math.max(0.2, pega), 1);
+      // pó do pote baixa um pouquinho depois da dose
+      pote.po.position.y = CORPO_TOPO - 0.16 - pega * 0.02;
+
+      // partículas: caem num funil a partir da colher e giram em espiral dentro da água
       for (let i = 0; i < queda.dados.length; i++) {
         const d = queda.dados[i];
         const k = clamp((cai - d.atraso * 0.6) / 0.6);
-        const topo = 2.7, fundo = 0.1 + nivel * (0.25 + d.tam * 0.7);
+        const fundo = FUNDO + (topo - FUNDO) * (0.2 + d.tam * 0.72);
+        const rMax = raioInterno(fundo) - 0.05;
         let x, y, z;
-        if (k < 1) { const r0 = 0.05 + k * 0.25; x = xCopo + Math.cos(d.ang) * d.rad * r0; y = lerp(topo, fundo, k * k); z = Math.sin(d.ang) * d.rad * r0; }
-        else { const ang = d.ang + t * (0.8 + d.gira) * (1 - mistura * 0.6); const rr = d.rad * 0.7 * (0.3 + mistura * 0.7); x = xCopo + Math.cos(ang) * rr; y = fundo; z = Math.sin(ang) * rr; }
+        if (k < 1) { const r0 = 0.04 + k * 0.22; x = COPO_X + Math.cos(d.ang) * d.rad * r0; y = lerp(yFora - 0.1, fundo, k * k); z = Math.sin(d.ang) * d.rad * r0; }
+        else { const ang = d.ang + t * (0.8 + d.gira) * (1 - mistura * 0.6); const rr = Math.min(rMax, d.rad * rMax * (0.35 + mistura * 0.65)); x = COPO_X + Math.cos(ang) * rr; y = fundo; z = Math.sin(ang) * rr; }
         queda.pos[i * 3] = x; queda.pos[i * 3 + 1] = y; queda.pos[i * 3 + 2] = z;
       }
       queda.geo.attributes.position.needsUpdate = true;
-      queda.mat.opacity = suave(0.44, 0.48, p) * (1 - mistura * 0.92); queda.mat.size = 0.07;
-      // câmera: plano aberto da mesa, fecha no copo no fim
-      const zoom = suave(0.7, 1, p);
+      queda.mat.opacity = suave(0.66, 0.69, p) * (1 - mistura * 0.92); queda.mat.size = 0.06;
+
+      // câmera: mesa inteira na metade direita; aproxima um pouco do copo no fim
+      const zoom = suave(0.78, 1, p);
       const tanV = Math.tan(T.MathUtils.degToRad(cam.fov / 2)) * 2;
-      // a mesa inteira (pote, tampa e copo) cabe na metade direita da tela
-      const larg = retrato ? lerp(5.6, 5, zoom) : lerp(8.4, 7.6, zoom), alt = retrato ? 5.4 : 4.2;
+      const larg = retrato ? lerp(4.9, 4.6, zoom) : lerp(8.2, 7.4, zoom), alt = retrato ? 5.6 : 4.4;
       const d = Math.max(alt / tanV, larg / (tanV * cam.aspect));
-      const foco = lerp(-0.3, -0.1, zoom);
-      cam.position.set(foco + 0.6, lerp(2.7, 2.3, zoom), d);
-      cam.lookAt(foco, 1.0, 0);
-      cam.setViewOffset(W, H, retrato ? 0 : -W * 0.16, retrato ? -H * 0.14 : 0, W, H);
+      const foco = lerp(-0.1, 0.15, zoom);
+      cam.position.set(foco + 0.5, lerp(2.9, 2.5, zoom), d);
+      cam.lookAt(foco, 1.05, 0);
+      cam.setViewOffset(W, H, retrato ? -W * 0.03 : -W * 0.17, retrato ? -H * 0.1 : 0, W, H);
       cam.updateProjectionMatrix();
       renderer.render(cena, cam);
       legendas.forEach(el => { const [a, b] = el.dataset.fase.split(',').map(Number); el.classList.toggle('on', p >= a && p < b); });

@@ -48,3 +48,7 @@ Estrutura inspirada na referência enviada (cardápio Maison, Framer): painel fi
 ## Para virar site de cliente
 
 Trocar `content.js` (nome, WhatsApp, endereço, horários, bairros, cardápio), as fotos em `_build/img/` com o mesmo nome do `id` de cada prato, o logo em `icons.js`, gerar o mapa do endereço real e tirar o `noindex` do `build.js`.
+
+## Tema claro e escuro
+
+Controle de duas posições (sol e lua) fixo na lateral direita no computador: um painel de carvão com o botão do forno em cima, que gira meia volta e acende em brasa à noite. No celular vira um botão flutuante no canto esquerdo, espelhando o do WhatsApp. Abre sempre no claro; a escolha fica salva em `localStorage` `fornalha-tema` e `?tema=escuro` no link também vale. As peças comuns (botões, script do `<head>` e lógica) ficam em `templates/_comum/tema-lanches.js`; as cores do escuro ficam no fim do CSS do modelo.

@@ -618,6 +618,75 @@ html { scrollbar-color: var(--ketchup) var(--rosa); scrollbar-width: thin; }
   .grade { grid-template-columns: 1fr; }
 }
 
+/* ---------- tema claro/escuro ---------- */
+html.tema-anim, html.tema-anim *:not(.tema-lado, .tema-lado *, .tema-topo, .tema-topo *), html.tema-anim *:not(.tema-lado, .tema-lado *, .tema-topo, .tema-topo *)::before, html.tema-anim *:not(.tema-lado, .tema-lado *, .tema-topo, .tema-topo *)::after { transition: background-color .5s ease, color .5s ease, border-color .5s ease, box-shadow .5s ease, fill .5s ease !important; }
+html[data-theme="dark"] { color-scheme: dark; }
+.tl-trilho { position: relative; display: grid; gap: 6px; }
+.tl-op { position: relative; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; background: none; cursor: pointer; }
+.tl-op .tl-ico { width: 19px; height: 19px; fill: none; }
+.tl-marca { position: absolute; left: 0; top: 0; width: 40px; height: 40px; pointer-events: none; }
+html[data-theme="dark"] .tl-marca { transform: translateY(46px); }
+.tl-op .tl-ico { transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); }
+.tl-op[aria-pressed="true"] .tl-ico { transform: rotate(var(--giro, 0deg)) scale(1.08); }
+.tl-op[data-tema="claro"] { --giro: 45deg; }
+.tl-op[data-tema="escuro"] { --giro: -20deg; }
+@keyframes tlDesce { 0% { transform: translateY(0) scale(1); } 30% { transform: translateY(8px) scale(.88, 1.32); } 68% { transform: translateY(50px) scale(1.1, .86); } 84% { transform: translateY(44px) scale(.97, 1.03); } 100% { transform: translateY(46px) scale(1); } }
+@keyframes tlSobe { 0% { transform: translateY(46px) scale(1); } 30% { transform: translateY(38px) scale(.88, 1.32); } 68% { transform: translateY(-4px) scale(1.1, .86); } 84% { transform: translateY(2px) scale(.97, 1.03); } 100% { transform: translateY(0) scale(1); } }
+html.tema-anim[data-theme="dark"] .tema-lado .tl-marca { animation: tlDesce .7s cubic-bezier(.45, 0, .2, 1) both; }
+html.tema-anim:not([data-theme="dark"]) .tema-lado .tl-marca { animation: tlSobe .7s cubic-bezier(.45, 0, .2, 1) both; }
+@media (prefers-reduced-motion: reduce) { html.tema-anim .tema-lado .tl-marca { animation: none !important; } }
+.tema-topo { display: none; place-items: center; padding: 0; cursor: pointer; }
+.tema-topo .tl-ico { width: 20px; height: 20px; fill: none; }
+.tema-topo span { grid-area: 1 / 1; display: grid; transition: opacity .35s ease, transform .6s cubic-bezier(.34, 1.56, .64, 1); }
+.tema-topo .tt-lua { opacity: 0; transform: rotate(-90deg) scale(.5); }
+html[data-theme="dark"] .tema-topo .tt-sol { opacity: 0; transform: rotate(90deg) scale(.5); }
+html[data-theme="dark"] .tema-topo .tt-lua { opacity: 1; transform: none; }
+
+/* controle da lateral: um burger em pé. Pão de gergelim em cima, o recheio é o trilho e o marcador
+   é ketchup de dia e queijo derretido de noite; pão de baixo fecha o lanche */
+.tema-lado { position: fixed; right: 18px; top: 50%; z-index: 35; display: grid; justify-items: center; translate: 0 -50%; filter: drop-shadow(0 18px 24px rgba(60, 15, 8, .32)); transition: translate .6s var(--mola); }
+.tema-lado:hover { translate: 0 calc(-50% - 4px); }
+.tema-lado:hover .tl-pao { transform: translateY(-5px) rotate(-6deg); }
+.tl-pao { position: relative; z-index: 2; display: block; width: 56px; height: 24px; margin-bottom: -4px; border-radius: 30px 30px 8px 8px; background: radial-gradient(ellipse 2px 3px at 30% 40%, #FFF3D6 90%, transparent) , radial-gradient(ellipse 2px 3px at 50% 28%, #FFF3D6 90%, transparent), radial-gradient(ellipse 2px 3px at 68% 44%, #FFF3D6 90%, transparent), radial-gradient(ellipse 2px 3px at 42% 62%, #FFF3D6 90%, transparent), linear-gradient(180deg, #F2A93B, #D9822A); transition: transform .5s var(--mola); }
+.tema-lado::after { content: ""; display: block; width: 52px; height: 13px; margin-top: -4px; border-radius: 4px 4px 14px 14px; background: linear-gradient(180deg, #E59A35, #C9741F); }
+.tema-lado .tl-trilho { padding: 6px; border-radius: 16px; background: #fff; box-shadow: inset 0 0 0 2px var(--linha); }
+.tema-lado .tl-op { border-radius: 12px; color: var(--apoio); transition: color .35s, transform .4s var(--mola); }
+.tema-lado .tl-op:hover { transform: scale(1.12); color: var(--ketchup); }
+.tema-lado .tl-op[aria-pressed="true"] { color: #fff; }
+.tema-lado .tl-marca { left: 6px; top: 6px; border-radius: 12px; background: radial-gradient(circle at 35% 30%, #F2463F, var(--ketchup) 60%, var(--ketchup-esc)); box-shadow: 0 8px 16px -8px rgba(227, 38, 43, .9); transition: transform .6s var(--mola), background .4s; }
+/* à noite o marcador vira queijo: amarelo com uma ponta escorrendo */
+html[data-theme="dark"] .tema-lado .tl-marca { background: radial-gradient(circle at 35% 30%, #FFE08A, var(--mostarda) 60%, #E8A417); box-shadow: 0 8px 16px -8px rgba(255, 194, 58, .9); }
+.tema-lado .tl-marca::after { content: ""; position: absolute; left: 60%; bottom: -7px; width: 8px; height: 10px; border-radius: 0 0 6px 6px; background: #E8A417; transform: scaleY(0); transform-origin: top; transition: transform .5s var(--mola) .3s; }
+html[data-theme="dark"] .tema-lado .tl-marca::after { transform: none; }
+html[data-theme="dark"] .tema-lado .tl-op[aria-pressed="true"] { color: var(--chapa); }
+.tema-lado .tl-op::before { content: attr(data-rot); position: absolute; right: calc(100% + 20px); top: 50%; padding: 7px 12px; border-radius: 10px; background: var(--chapa); color: #fff; font: 700 14px var(--f-t); white-space: nowrap; opacity: 0; pointer-events: none; transform: translate(10px, -50%) scale(.9); transition: opacity .3s, transform .45s var(--mola); }
+.tema-lado .tl-op:hover::before { opacity: 1; transform: translate(0, -50%); }
+/* celular: botão no topo, ao lado da sacola */
+.tema-topo { width: 46px; height: 46px; border: 2px solid var(--linha); background: #fff; border-radius: 14px; color: var(--texto); transition: transform .3s var(--mola); }
+.tema-topo:active { transform: scale(.92); }
+.topo.sobre-video:not(.rolou) .tema-topo { background: rgba(255, 255, 255, .14); border-color: rgba(255, 255, 255, .4); color: #fff; backdrop-filter: blur(6px); }
+@media (max-width: 900px) {
+  .tema-lado { display: none; }
+  .tema-topo { display: grid; }
+}
+
+/* cores do escuro: o creme vira chapa e os cartões brancos viram brasa apagada.
+   Comanda, cartão de 10% off, cartão da promoção e cartão do mapa continuam papel claro */
+html[data-theme="dark"] { --texto: #FBEDE6; --apoio: #C9B3AB; --linha: rgba(255, 236, 226, .13); --rosa: #3A1E1A; --rosa-2: #4A2722; --creme: #160E0C; }
+html[data-theme="dark"] .cartao-off, html[data-theme="dark"] .palco-txt, html[data-theme="dark"] .comanda-papel, html[data-theme="dark"] .map-info, html[data-theme="dark"] .attr { --texto: #22150F; --apoio: #6F5D57; --rosa-2: #F8D6CF; --linha: rgba(34, 21, 15, .1); }
+html[data-theme="dark"] .capa { background: linear-gradient(180deg, #160E0C 0%, #1E1411 100%); }
+html[data-theme="dark"] .topo.rolou { background: rgba(22, 14, 12, .92); box-shadow: 0 10px 30px -18px rgba(0, 0, 0, .9); }
+html[data-theme="dark"] .btn-sacola, html[data-theme="dark"] .tema-topo, html[data-theme="dark"] .canais, html[data-theme="dark"] .busca input, html[data-theme="dark"] .abas button:not([aria-selected="true"]), html[data-theme="dark"] .prato, html[data-theme="dark"] .rotulos li, html[data-theme="dark"] .cartao-voz, html[data-theme="dark"] .voz, html[data-theme="dark"] .fechar, html[data-theme="dark"] .item, html[data-theme="dark"] .opcao span, html[data-theme="dark"] .campo input, html[data-theme="dark"] .campo select, html[data-theme="dark"] .campo textarea { background: #241815; }
+html[data-theme="dark"] .tema-lado .tl-trilho { background: #241815; }
+html[data-theme="dark"] .capa-sobre, html[data-theme="dark"] .area-link, html[data-theme="dark"] .marca-balcao { color: #FF7A7E; }
+html[data-theme="dark"] .lado-99 { box-shadow: inset 0 0 0 1px rgba(255, 236, 226, .12); }
+html[data-theme="dark"] .sombra-chao { background: radial-gradient(closest-side, rgba(0, 0, 0, .55), transparent); }
+html[data-theme="dark"] .prato, html[data-theme="dark"] .voz { box-shadow: 0 1px 0 var(--linha), 0 20px 40px -30px rgba(0, 0, 0, .9); }
+html[data-theme="dark"] .opcao input:checked + span { background: var(--ketchup); border-color: var(--ketchup); }
+html[data-theme="dark"] .qtd-ctl button { color: #FF9A9C; }
+html[data-theme="dark"] .comanda-papel { filter: drop-shadow(0 30px 30px rgba(0, 0, 0, .5)); }
+@media (max-width: 900px) { html[data-theme="dark"] .nav { background: #241815; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .9); } }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .rv { opacity: 1; transform: none; }

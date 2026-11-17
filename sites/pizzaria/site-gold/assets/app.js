@@ -686,3 +686,34 @@
     if (tela) { mostrar(tela.dataset.vista, false); requestAnimationFrame(() => alvo.scrollIntoView({ block: 'center' })); }
   }
 })();
+
+/* ---------- tema claro/escuro: controle da lateral (computador) e botão do topo (celular) ----------
+   Abre sempre no claro; a escolha fica salva em localStorage 'fornalha-tema'. ?tema=escuro no link também vale. */
+(function () {
+  var root = document.documentElement, meta = document.querySelector('meta[name="theme-color"]');
+  var corClaro = meta && meta.content, corEscuro = meta && meta.getAttribute('data-escuro');
+  var escuro = function () { return root.getAttribute('data-theme') === 'dark'; };
+  function sync() {
+    var d = escuro();
+    document.querySelectorAll('[data-tema]').forEach(function (b) { b.setAttribute('aria-pressed', String((b.getAttribute('data-tema') === 'escuro') === d)); });
+    document.querySelectorAll('[data-tema-troca]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(d));
+      b.setAttribute('aria-label', d ? 'Ativar tema claro' : 'Ativar tema escuro');
+      b.title = d ? 'Tema claro' : 'Tema escuro';
+    });
+    if (meta && corEscuro) meta.content = d ? corEscuro : corClaro;
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-tema], [data-tema-troca]');
+    if (!b) return;
+    var d = b.hasAttribute('data-tema-troca') ? !escuro() : b.getAttribute('data-tema') === 'escuro';
+    if (d === escuro()) return;
+    root.classList.add('tema-anim');
+    if (d) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+    try { localStorage.setItem('fornalha-tema', d ? 'dark' : 'light'); } catch (err) {}
+    sync();
+    document.dispatchEvent(new CustomEvent('tema', { detail: { escuro: d } }));
+    setTimeout(function () { root.classList.remove('tema-anim'); }, 750);
+  });
+  sync();
+})();

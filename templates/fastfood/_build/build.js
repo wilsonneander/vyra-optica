@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
+const T = require('../../_comum/tema-lanches');
 
 const OUT = path.join(__dirname, '..', 'site-gold');
 const M = C.marca;
@@ -53,7 +54,7 @@ const head = (titulo, desc, css) => `<!doctype html>
 <title>${titulo}</title>
 <meta name="description" content="${esc(desc)}">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#E3262B">
+<meta name="theme-color" content="#E3262B" data-escuro="#4A090D">${css.includes('style.css') ? '\n' + T.head('monta-tema') : ''}
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 ${fontes}
 ${css.map((c) => `<link rel="stylesheet" href="assets/${c}">`).join('\n')}
@@ -91,6 +92,8 @@ const nav = [['cardapio', 'Cardápio'], ['mais-pedidos', 'Promoções'], ['sobre
 const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`, M.frase, ['style.css'])}
 <body>
 <a class="pular" href="#cardapio">Pular para o cardápio</a>
+<!-- tema claro/escuro (lateral, só no computador): um burger em pé; de dia o marcador é ketchup, de noite é queijo -->
+${T.lado('<span class="tl-pao" aria-hidden="true"></span>')}
 <header class="topo" data-topo>
   <div class="topo-in">
     <a class="logo" href="#inicio" aria-label="${M.completo}, início">${I.logo}</a>
@@ -102,6 +105,7 @@ const index = `${head(`${M.completo} | Burger prensado na chapa na Savassi, BH`,
       <a class="area-link" href="painel.html">Área do cliente</a>
       <button class="btn-sacola" type="button" data-abrir-sacola aria-label="Abrir sacola">${I.sacola}<span class="qtd" data-sacola-qtd hidden>0</span></button>
       <a class="btn btn-verm btn-topo" href="#cardapio">Pedir agora</a>
+      ${T.topo()}
       <button class="btn-menu" type="button" data-menu aria-label="Abrir menu" aria-expanded="false">${I.menu}</button>
     </div>
   </div>

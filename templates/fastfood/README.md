@@ -71,3 +71,7 @@ Por ser demonstração sem servidor, o cardápio publicado fica no `localStorage
 ## Para virar site de cliente
 
 Copiar para `clientes/<cliente>/` (nunca editar aqui). Trocar `content.js`, fotos em `_build/img/fotos/`, logo em `icons.js`, gerar o mapa do endereço real, ligar o painel a um back-end e tirar o `noindex` do `build.js`.
+
+## Tema claro e escuro
+
+Controle de duas posições (sol e lua) fixo na lateral direita no computador: um burger em pé: pão de gergelim em cima e embaixo, e o marcador é ketchup de dia e queijo derretido (com uma gota escorrendo) de noite. No celular vira um botão no topo, ao lado da sacola. O painel da loja (painel.html) continua só no claro. Abre sempre no claro; a escolha fica salva em `localStorage` `monta-tema` e `?tema=escuro` no link também vale. As peças comuns (botões, script do `<head>` e lógica) ficam em `templates/_comum/tema-lanches.js`; as cores do escuro ficam no fim do CSS do modelo.

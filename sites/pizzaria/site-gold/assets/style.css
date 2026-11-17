@@ -574,6 +574,83 @@ h1 em, h2 em { font-style: normal; }
   .map-box { height: 340px; }
   .whats-flut { width: 54px; height: 54px; right: 14px; bottom: 14px; }
 }
+/* ---------- tema claro/escuro ---------- */
+html.tema-anim, html.tema-anim *:not(.tema-lado, .tema-lado *, .tema-topo, .tema-topo *), html.tema-anim *:not(.tema-lado, .tema-lado *, .tema-topo, .tema-topo *)::before, html.tema-anim *:not(.tema-lado, .tema-lado *, .tema-topo, .tema-topo *)::after { transition: background-color .5s ease, color .5s ease, border-color .5s ease, box-shadow .5s ease, fill .5s ease !important; }
+html[data-theme="dark"] { color-scheme: dark; }
+.tl-trilho { position: relative; display: grid; gap: 6px; }
+.tl-op { position: relative; z-index: 1; display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 0; background: none; cursor: pointer; }
+.tl-op .tl-ico { width: 19px; height: 19px; fill: none; }
+.tl-marca { position: absolute; left: 0; top: 0; width: 40px; height: 40px; pointer-events: none; }
+html[data-theme="dark"] .tl-marca { transform: translateY(46px); }
+.tl-op .tl-ico { transition: transform .5s cubic-bezier(.34, 1.56, .64, 1); }
+.tl-op[aria-pressed="true"] .tl-ico { transform: rotate(var(--giro, 0deg)) scale(1.08); }
+.tl-op[data-tema="claro"] { --giro: 45deg; }
+.tl-op[data-tema="escuro"] { --giro: -20deg; }
+@keyframes tlDesce { 0% { transform: translateY(0) scale(1); } 30% { transform: translateY(8px) scale(.88, 1.32); } 68% { transform: translateY(50px) scale(1.1, .86); } 84% { transform: translateY(44px) scale(.97, 1.03); } 100% { transform: translateY(46px) scale(1); } }
+@keyframes tlSobe { 0% { transform: translateY(46px) scale(1); } 30% { transform: translateY(38px) scale(.88, 1.32); } 68% { transform: translateY(-4px) scale(1.1, .86); } 84% { transform: translateY(2px) scale(.97, 1.03); } 100% { transform: translateY(0) scale(1); } }
+html.tema-anim[data-theme="dark"] .tema-lado .tl-marca { animation: tlDesce .7s cubic-bezier(.45, 0, .2, 1) both; }
+html.tema-anim:not([data-theme="dark"]) .tema-lado .tl-marca { animation: tlSobe .7s cubic-bezier(.45, 0, .2, 1) both; }
+@media (prefers-reduced-motion: reduce) { html.tema-anim .tema-lado .tl-marca { animation: none !important; } }
+.tema-topo { display: none; place-items: center; padding: 0; cursor: pointer; }
+.tema-topo .tl-ico { width: 20px; height: 20px; fill: none; }
+.tema-topo span { grid-area: 1 / 1; display: grid; transition: opacity .35s ease, transform .6s cubic-bezier(.34, 1.56, .64, 1); }
+.tema-topo .tt-lua { opacity: 0; transform: rotate(-90deg) scale(.5); }
+html[data-theme="dark"] .tema-topo .tt-sol { opacity: 0; transform: rotate(90deg) scale(.5); }
+html[data-theme="dark"] .tema-topo .tt-lua { opacity: 1; transform: none; }
+
+/* controle da lateral: painel de carvão com o botão do forno em cima; o botão gira meia volta à noite */
+.tema-lado { position: fixed; right: 16px; top: 50%; z-index: 70; display: grid; justify-items: center; gap: 8px; padding: 12px 6px 6px; border-radius: 16px; background: var(--carvao); box-shadow: 0 5px 0 var(--tomate-esc), 0 22px 36px -16px rgba(42,23,16,.65); transform: translateY(-50%) rotate(2deg); transition: transform .5s var(--mola); }
+.tema-lado:hover { transform: translateY(-50%) rotate(0) scale(1.05); }
+.tl-forno { position: relative; display: block; width: 32px; height: 32px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #FFD25E, var(--mostarda) 55%, var(--mostarda-esc)); box-shadow: 0 3px 0 #120904, inset 0 0 0 3px rgba(42,23,16,.18); transition: transform .8s var(--mola), background .4s, box-shadow .4s; }
+.tl-forno::before { content: ""; position: absolute; inset: -6px; border-radius: 50%; background: repeating-conic-gradient(from -4deg, rgba(246,233,208,.55) 0 8deg, transparent 8deg 45deg); -webkit-mask: radial-gradient(circle, transparent 62%, #000 63%); mask: radial-gradient(circle, transparent 62%, #000 63%); }
+.tl-forno i { position: absolute; left: 50%; top: 3px; width: 4px; height: 12px; margin-left: -2px; border-radius: 3px; background: var(--carvao); }
+html[data-theme="dark"] .tl-forno { transform: rotate(180deg); background: radial-gradient(circle at 40% 35%, #FFB06A, var(--brasa) 55%, var(--tomate)); box-shadow: 0 3px 0 #120904, 0 0 16px 2px rgba(232,100,30,.55); }
+.tl-rot { font: 900 10px/1 var(--f-t); font-variation-settings: 'wdth' 80; letter-spacing: .14em; text-transform: uppercase; color: var(--massa-esc); }
+.tema-lado .tl-trilho { padding: 4px; border-radius: 12px; background: var(--carvao-2); }
+.tema-lado .tl-op { border-radius: 10px; color: var(--massa-esc); transition: color .3s, transform .35s var(--mola); }
+.tema-lado .tl-op:hover { transform: scale(1.1) rotate(-6deg); }
+.tema-lado .tl-op[aria-pressed="true"] { color: var(--carvao); }
+.tema-lado .tl-marca { left: 4px; top: 4px; border-radius: 10px; background: var(--mostarda); box-shadow: 0 3px 0 var(--tomate); transition: transform .55s var(--mola), background .3s, box-shadow .3s; }
+html[data-theme="dark"] .tema-lado .tl-marca { background: var(--brasa); box-shadow: 0 3px 0 var(--tomate-esc), 0 0 18px rgba(232,100,30,.6); }
+html[data-theme="dark"] .tema-lado .tl-op[aria-pressed="true"] { color: var(--farinha); }
+.tema-lado .tl-op::before { content: attr(data-rot); position: absolute; right: calc(100% + 18px); top: 50%; padding: 8px 12px; border-radius: 10px; background: var(--mostarda); color: var(--carvao); box-shadow: 0 4px 0 var(--carvao); font: 900 16px/1 var(--f-t); font-variation-settings: 'wdth' 76; text-transform: uppercase; white-space: nowrap; opacity: 0; pointer-events: none; transform: translate(8px, -50%) rotate(-3deg); transition: opacity .25s, transform .4s var(--mola); }
+.tema-lado .tl-op:hover::before { opacity: 1; transform: translate(0, -50%) rotate(-3deg); }
+/* celular: botão flutuante no canto esquerdo, espelhando o do WhatsApp */
+.tema-topo { position: fixed; left: 14px; bottom: 14px; z-index: 40; width: 54px; height: 54px; border: 0; border-radius: 18px; background: var(--carvao); color: var(--mostarda); box-shadow: 0 6px 0 var(--tomate-esc); transition: transform .4s var(--mola); }
+.tema-topo .tl-ico { width: 24px; height: 24px; }
+.tema-topo:active { transform: scale(.92) rotate(-8deg); }
+@media (max-width: 1000px) {
+  .tema-lado { display: none; }
+  .tema-topo { display: grid; }
+}
+
+/* cores do escuro: a massa vira carvão e o papel claro vira brasa apagada; o painel vermelho da marca fica igual */
+html[data-theme="dark"] body { background: #1C110C; color: var(--massa); }
+@media (min-width: 1001px) { html[data-theme="dark"] .barra { background: linear-gradient(#1C110C 70%, rgba(28,17,12,0)); } }
+html[data-theme="dark"] .sacola-btn { box-shadow: inset 0 0 0 2px #4A3326; }
+html[data-theme="dark"] .menu-topo { background: #1C110C; }
+html[data-theme="dark"] .roleta, html[data-theme="dark"] .abas, html[data-theme="dark"] .busca, html[data-theme="dark"] .filtro, html[data-theme="dark"] .prato, html[data-theme="dark"] .cal, html[data-theme="dark"] .folhinha, html[data-theme="dark"] .hora-btn, html[data-theme="dark"] .passo, html[data-theme="dark"] .ocasioes span, html[data-theme="dark"] .campos input, html[data-theme="dark"] .campos textarea, html[data-theme="dark"] .m-obs input, html[data-theme="dark"] .g-pedido input, html[data-theme="dark"] .g-pedido select, html[data-theme="dark"] .modal-caixa, html[data-theme="dark"] .fechar, html[data-theme="dark"] .gaveta-caixa, html[data-theme="dark"] .g-topo { background: #2B1B13; }
+html[data-theme="dark"] .saiu, html[data-theme="dark"] .cal-nav, html[data-theme="dark"] .cal-dia, html[data-theme="dark"] .passo button, html[data-theme="dark"] .meia i, html[data-theme="dark"] .seg, html[data-theme="dark"] .bordas span, html[data-theme="dark"] .g-pedido, html[data-theme="dark"] .cal-legenda i { background: #3A261B; }
+html[data-theme="dark"] .abas, html[data-theme="dark"] .busca, html[data-theme="dark"] .filtro, html[data-theme="dark"] .cal, html[data-theme="dark"] .hora-btn, html[data-theme="dark"] .passo, html[data-theme="dark"] .ocasioes span, html[data-theme="dark"] .fechar { box-shadow: 0 3px 0 #120904; }
+html[data-theme="dark"] .folhinha { box-shadow: 0 4px 0 #120904, 0 14px 24px -14px rgba(0,0,0,.6); }
+html[data-theme="dark"] .prato:hover { box-shadow: 0 18px 0 -6px #120904, 0 26px 40px -18px rgba(0,0,0,.7); }
+html[data-theme="dark"] .busca input, html[data-theme="dark"] .cal-nav, html[data-theme="dark"] .cal-dia, html[data-theme="dark"] .folhinha strong, html[data-theme="dark"] .meia i, html[data-theme="dark"] .meia[aria-pressed="true"], html[data-theme="dark"] .g-contas dd, html[data-theme="dark"] .g-contas .g-total, html[data-theme="dark"] .fechar { color: var(--massa); }
+html[data-theme="dark"] .cal-dia:hover:not(:disabled), html[data-theme="dark"] .cal-nav:hover:not(:disabled), html[data-theme="dark"] .passo button:hover, html[data-theme="dark"] .hora-btn:hover { color: var(--carvao); }
+html[data-theme="dark"] .cal-dia:disabled { background: transparent; color: #5A4033; }
+html[data-theme="dark"] .cal-dia[aria-pressed="true"] { color: var(--farinha); }
+html[data-theme="dark"] .ocasioes input:checked + span, html[data-theme="dark"] .hora-btn[aria-pressed="true"], html[data-theme="dark"] .seg input:checked + span { background: var(--mostarda); color: var(--carvao); }
+html[data-theme="dark"] .seg input:checked + span small { color: var(--carvao-2); }
+html[data-theme="dark"] .bordas input:checked + span { background: #4A3015; }
+html[data-theme="dark"] .roleta-txt p, html[data-theme="dark"] .casa-txt p, html[data-theme="dark"] .horarios td, html[data-theme="dark"] .vazio p, html[data-theme="dark"] .folha-forno, html[data-theme="dark"] .cal-legenda, html[data-theme="dark"] .cal-sem span, html[data-theme="dark"] .folhinha small, html[data-theme="dark"] .horas-vazio p, html[data-theme="dark"] .dica, html[data-theme="dark"] .m-corpo > p, html[data-theme="dark"] .m-rot small, html[data-theme="dark"] .seg small, html[data-theme="dark"] .meia, html[data-theme="dark"] .g-vazia p, html[data-theme="dark"] .g-item small, html[data-theme="dark"] .g-contas div, html[data-theme="dark"] .preco small, html[data-theme="dark"] .busca { color: #C9B29F; }
+html[data-theme="dark"] .horarios th, html[data-theme="dark"] .horarios td { border-color: #3A261B; }
+html[data-theme="dark"] .horarios tr.hoje th, html[data-theme="dark"] .horarios tr.hoje td { color: var(--carvao); }
+html[data-theme="dark"] .g-item, html[data-theme="dark"] .campos input, html[data-theme="dark"] .campos textarea, html[data-theme="dark"] .m-obs input, html[data-theme="dark"] .g-pedido input, html[data-theme="dark"] .g-pedido select { border-color: #4A3326; }
+html[data-theme="dark"] .g-contas .g-total { border-color: var(--massa); }
+html[data-theme="dark"] .menu-titulo, html[data-theme="dark"] .roleta h2 em, html[data-theme="dark"] .casa h2 em, html[data-theme="dark"] .hora h2 em, html[data-theme="dark"] .preco, html[data-theme="dark"] .link-seta, html[data-theme="dark"] .m-corpo h2, html[data-theme="dark"] .g-topo h2, html[data-theme="dark"] .folha-conta, html[data-theme="dark"] .saiu button, html[data-theme="dark"] .g-item .g-preco, html[data-theme="dark"] .g-total dd { color: #F0563B; }
+html[data-theme="dark"] .casa-a { box-shadow: 10px 10px 0 var(--tomate); }
+html[data-theme="dark"] .rodape { background: #120904; }
+html[data-theme="dark"] .modal-fundo { background: rgba(0,0,0,.7); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
   .rv { opacity: 1; transform: none; }

@@ -44,16 +44,28 @@ module.exports = {
   destinos: {
     titulo: 'Destinos internacionais',
     texto: 'Viva experiências únicas, conheça culturas fascinantes e crie memórias que vão durar para sempre. Na Peakalika Turismo, selecionamos os melhores destinos internacionais para transformar o seu sonho de viajar em realidade, com pacotes planejados para oferecer conforto e segurança.',
+    // ponto de partida das rotas no mapa
+    origem: { cidade: 'Curitiba', cod: 'CWB', lat: -25.43, lon: -49.27 },
+    // lat/lon da cidade e código do aeroporto principal; a distância até Curitiba é calculada no build
     lista: [
-      { foto: 'paris', ponto: 'Eiffel', cidade: 'Paris', pais: 'França', preco: 'A partir de R$460,86', link: 'https://www.civitatis.com/pt/paris/sessao-fotografica-privada-torre-eiffel/?ag_aid=80927' },
-      { foto: 'roma', ponto: 'Coliseu', cidade: 'Roma', pais: 'Itália', preco: 'A partir de R$467,64', link: 'https://www.civitatis.com/pt/roma/visita-guiada-coliseu/?ag_aid=80927' },
-      { foto: 'madrid', ponto: 'Madrid', cidade: 'Madrid', pais: 'Espanha', preco: 'Free tour', link: 'https://www.civitatis.com/pt/madrid/visita-guiada-madrid/?ag_aid=80927' },
-      { foto: 'lisboa', ponto: 'Lisboa', cidade: 'Lisboa', pais: 'Portugal', preco: 'Free tour', link: 'https://www.civitatis.com/pt/lisboa/free-tour-lisboa/?ag_aid=80927' },
-      { foto: 'londres', ponto: 'Londres', cidade: 'Londres', pais: 'Inglaterra', preco: 'Free tour', link: 'https://www.civitatis.com/pt/londres/free-tour-londres/?ag_aid=80927' },
-      { foto: 'dubai', ponto: 'Dubai', cidade: 'Dubai', pais: 'Emirados', preco: 'A partir de R$400,53', link: 'https://www.civitatis.com/pt/dubai/tour-completo-dubai/?ag_aid=80927' },
-      { foto: 'toquio', ponto: 'Tóquio', cidade: 'Tóquio', pais: 'Japão', preco: 'A partir de R$744,11', link: 'https://www.civitatis.com/pt/toquio/tour-completo-toquio/?ag_aid=80927' },
-      { foto: 'veneza', ponto: 'Veneza', cidade: 'Veneza', pais: 'Itália', preco: 'A partir de R$243,98', link: 'https://www.civitatis.com/pt/veneza/passeio-gondola-ponte-suspiros/?ag_aid=80927' },
+      { foto: 'img/paris', ponto: 'Torre Eiffel', cidade: 'Paris', pais: 'França', cod: 'CDG', lat: 48.86, lon: 2.35, preco: 'A partir de R$460,86', link: 'https://www.civitatis.com/pt/paris/sessao-fotografica-privada-torre-eiffel/?ag_aid=80927' },
+      { foto: 'img/roma', ponto: 'Coliseu', cidade: 'Roma', pais: 'Itália', cod: 'FCO', lat: 41.9, lon: 12.5, preco: 'A partir de R$467,64', link: 'https://www.civitatis.com/pt/roma/visita-guiada-coliseu/?ag_aid=80927' },
+      { foto: 'img/veneza', ponto: 'Gôndola e Ponte dos Suspiros', cidade: 'Veneza', pais: 'Itália', cod: 'VCE', lat: 45.44, lon: 12.32, preco: 'A partir de R$243,98', link: 'https://www.civitatis.com/pt/veneza/passeio-gondola-ponte-suspiros/?ag_aid=80927' },
+      { foto: 'img/madrid', ponto: 'Visita guiada', cidade: 'Madrid', pais: 'Espanha', cod: 'MAD', lat: 40.42, lon: -3.7, preco: 'Free tour', link: 'https://www.civitatis.com/pt/madrid/visita-guiada-madrid/?ag_aid=80927' },
+      { foto: 'img/lisboa', ponto: 'Centro histórico', cidade: 'Lisboa', pais: 'Portugal', cod: 'LIS', lat: 38.72, lon: -9.14, preco: 'Free tour', link: 'https://www.civitatis.com/pt/lisboa/free-tour-lisboa/?ag_aid=80927' },
+      { foto: 'img/londres', ponto: 'Centro de Londres', cidade: 'Londres', pais: 'Inglaterra', cod: 'LHR', lat: 51.51, lon: -0.13, preco: 'Free tour', link: 'https://www.civitatis.com/pt/londres/free-tour-londres/?ag_aid=80927' },
+      { foto: 'img/dubai', ponto: 'Tour completo', cidade: 'Dubai', pais: 'Emirados Árabes', cod: 'DXB', lat: 25.2, lon: 55.27, preco: 'A partir de R$400,53', link: 'https://www.civitatis.com/pt/dubai/tour-completo-dubai/?ag_aid=80927' },
+      { foto: 'img/toquio', ponto: 'Tour completo', cidade: 'Tóquio', pais: 'Japão', cod: 'HND', lat: 35.68, lon: 139.69, preco: 'A partir de R$744,11', link: 'https://www.civitatis.com/pt/toquio/tour-completo-toquio/?ag_aid=80927' },
+      { foto: 'img/nova-york', ponto: 'Manhattan', cidade: 'Nova York', pais: 'Estados Unidos', cod: 'JFK', lat: 40.71, lon: -74.0, preco: 'Roteiro sob consulta', wa: 'Olá! Quero um roteiro para Nova York com a Peakalika Turismo.' },
+      { foto: 'video/castelo-dia', ponto: 'Walt Disney World e Universal', cidade: 'Orlando', pais: 'Estados Unidos', cod: 'MCO', lat: 28.54, lon: -81.38, preco: 'Pacotes Disney', link: 'https://peakalika.suncoastusa.com.br/?chave=643FA7F5-DECF-457B-880E-0018D8284198' },
     ],
+  },
+
+  // transições 3D: a montanha-russa em primeira pessoa leva até a próxima seção, cujo nome vem em direção à tela
+  transicoes: {
+    destinos: { nome: 'Destinos', apoio: 'Próxima parada', semente: 3 },
+    disney: { nome: 'Orlando', apoio: 'Próxima parada', semente: 11 },
+    servicos: { nome: 'Serviços', apoio: 'Próxima parada', semente: 23 },
   },
 
   disney: {
@@ -69,36 +81,21 @@ module.exports = {
     ],
   },
 
-  // transição montanha-russa entre Destinos e Disney
-  montanha: {
-    antes: 'Segura firme!',
-    depois: 'Próxima parada: Disney.',
-    dica: 'Role para andar na montanha-russa',
-  },
-
-  // "Um dia perfeito na Disney": o céu muda do amanhecer à noite com o scroll.
+  // "Um dia perfeito na Disney": roteiro em vídeo com linha do tempo, avança com o scroll.
   // Horários ilustrativos de um roteiro do guiamento virtual (não são a programação oficial dos parques).
   dia: {
     titulo: 'Um dia perfeito na Disney',
     apoio: 'Roteiro de exemplo do nosso guiamento virtual',
     momentos: [
-      { hora: '8h', video: 'castelo-dia', t: 'Portões abertos', d: 'Chegar cedo é o primeiro segredo do roteiro: castelo quase vazio para a foto perfeita.', ceu: ['#F4C8A6', '#FBEBD6'] },
-      { hora: '10h', video: 'branca-de-neve', t: 'Encontro com personagens', d: 'Branca de Neve e os anões dançando na rua. A gente diz onde e quando encontrar cada um.', ceu: ['#9CCBEA', '#EAF4FB'] },
-      { hora: '12h', video: 'balao-mickey', t: 'Desfile no céu', d: 'Mickey e Minnie acenando do balão. Lugar marcado no ponto com a melhor vista do desfile.', ceu: ['#73B6E8', '#DCEFFB'] },
-      { hora: '14h', video: 'toy-story', t: 'Ao infinito e além', d: 'Toy Story Land no horário de fila menor, com as atrações certas para a idade de cada um.', ceu: ['#62A8DE', '#D3E8F7'] },
-      { hora: '16h', video: 'parada', t: 'A parada passa', d: 'Carros alegóricos e música na Main Street. Hora de guardar o celular e só viver.', ceu: ['#86B3D8', '#F3DDBF'] },
-      { hora: '18h', video: 'main-street', t: 'Lembranças na Main Street', d: 'O fim de tarde pede orelhas novas, pipoca e a última volta pelas lojas.', ceu: ['#E59A68', '#F8D6A2'] },
-      { hora: '19h', video: 'castelo-entardecer', t: 'As luzes acendem', d: 'O castelo muda de cor e a noite começa. Lugar garantido para o grande final.', ceu: ['#2B3556', '#D9785C'] },
-      { hora: '21h', video: 'capa-fogos', t: 'Fogos sobre o castelo', d: 'O céu acende, a música toca e todo mundo se arrepia. Final feliz de um dia planejado.', ceu: ['#050B16', '#14233C'] },
+      { hora: '8h', video: 'castelo-dia', t: 'Portões abertos', d: 'Chegar cedo é o primeiro segredo do roteiro: castelo quase vazio para a foto perfeita.' },
+      { hora: '10h', video: 'branca-de-neve', t: 'Encontro com personagens', d: 'Branca de Neve e os anões na rua. A gente diz onde e quando encontrar cada um.' },
+      { hora: '12h', video: 'balao-mickey', t: 'Desfile', d: 'Mickey e Minnie no balão, com lugar marcado no ponto de melhor vista do desfile.' },
+      { hora: '14h', video: 'toy-story', t: 'Toy Story Land', d: 'As atrações certas para a idade de cada um, no horário de fila menor.' },
+      { hora: '16h', video: 'parada', t: 'Parada na Main Street', d: 'Carros alegóricos e música. Hora de guardar o celular e só viver.' },
+      { hora: '18h', video: 'main-street', t: 'Lembranças', d: 'O fim de tarde pede compras sem pressa e a última volta pela Main Street.' },
+      { hora: '19h', video: 'castelo-entardecer', t: 'As luzes acendem', d: 'O castelo muda de cor e a noite começa. Lugar garantido para o grande final.' },
+      { hora: '21h', video: 'capa-fogos', t: 'Fogos sobre o castelo', d: 'O céu acende e todo mundo se arrepia. Final feliz de um dia planejado.' },
     ],
-  },
-
-  // entrar pela janela do castelo
-  janela: {
-    convite: 'Agora, entre pela janela do castelo.',
-    dica: 'Role devagar',
-    titulo: 'Quando o céu acende, você já está no lugar certo.',
-    texto: 'A gente monta o roteiro pensando nos momentos que ficam: o primeiro encontro com o Mickey, a foto em frente ao castelo, os fogos no fim do dia.',
   },
 
   servicos: {

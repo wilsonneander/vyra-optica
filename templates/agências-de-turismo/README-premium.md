@@ -1,3 +1,4 @@
+| `_build-premium/gerar-mundo.js` | Mapa-múndi pontilhado da seção Destinos (gera `img/mundo.json` a partir do Natural Earth) |
 # Agências de turismo: modelo Premium "Peakalika Turismo"
 
 Versão premium do site https://peakalikaturismo.com/ (agência de Curitiba). Todo o conteúdo do site original foi reaproveitado: textos, destinos com preços e links da Civitatis, serviços, assessoria de vistos, depoimentos, posts do Instagram, logo, WhatsApp e o portal Disney da Suncoast. A cliente gosta de referências à Disney, então a página inteira conversa com esse universo ("Era uma vez...", castelo, fada, fogos, "E viveram felizes para sempre").
@@ -13,20 +14,20 @@ Uma página só, com as seções do menu original: Passagens, Destinos, Disney, 
 
 ## Como é
 
-- **Preloader**: castelo em linha dourada que se desenha, logo e porcentagem; abre em círculo.
-- **Poeira mágica**: rastro dourado que segue o cursor e um cursor próprio com rótulo ("Ver passeio", "Saiba mais"). Só no computador.
-- **Capa** (presa ao scroll): vídeos da Disney em tela cheia trocando sozinhos (fogos no castelo, castelo de dia, balão do Mickey, Toy Story Land). Ao rolar, o vídeo encolhe para dentro de uma janela em arco com moldura dourada, aparece o céu estrelado e as palavras "Sonhe." e "Embarque." chegam pelos lados.
+- **Preloader**: logo, linha fina de progresso e porcentagem; a cortina sobe.
+- **Cursor** próprio com rótulo ("Saiba mais"). Só no computador.
+- **Capa** (presa ao scroll): vídeos da Disney em tela cheia trocando sozinhos (fogos no castelo, castelo de dia, balão do Mickey, Toy Story Land). Ao rolar, o vídeo recua para um quadro central com moldura fina dourada e as palavras "Sonhe." e "Embarque." chegam pelos lados.
 - **Buscador** do site original (Voos, Hotéis, Voo + Hotel, Carros, Exclusivos, Seguros; trecho, viajantes, origem e destino com botão de troca, datas). "Buscar" abre o WhatsApp com a cotação pronta.
 - **Faixa** coral inclinada com os serviços correndo e o avião da marca entre eles.
-- **Destinos internacionais** (presa ao scroll): galeria horizontal de cartões em arco com inclinação 3D e brilho no hover, paralaxe da foto e um avião percorrendo a rota no rodapé da seção. No celular vira carrossel de arrastar.
-- **Transições de avião**: ao clicar em qualquer link do menu (ou nos botões da capa), um avião atravessa a tela num corte diagonal coral e marfim com "Próxima parada: Serviços", e a página troca por trás. Ao rolar até cada seção nova, um aviãozinho cruza o topo rebocando uma faixa com o nome dela (`data-parada` em cada seção, uma vez por seção).
-- **Montanha-russa** (presa ao scroll, entre Destinos e Disney): trilho com loop, suportes de ferro, roda-gigante e parque em silhueta. O trem com passageiros de braços para cima anda com o scroll (vira de cabeça para baixo no loop, grita "Uhuuu!" na descida) enquanto o céu passa do dia ao pôr do sol e à noite estrelada. "Segura firme!" no começo e "Próxima parada: Disney." no fim.
-- **Disney**: céu estrelado em canvas com estrelas cadentes, logo Walt Disney World, castelo que se desenha com o scroll, acende as janelas e solta fogos; uma fada atravessa o céu deixando poeira dourada. Tocar no castelo solta fogos de novo. Citação de Walt Disney, os três itens do planejamento e o contador **Quanto falta para a magia?** (salvo no navegador, solta fogos ao escolher a data).
-- **Um dia perfeito na Disney** (presa ao scroll): o céu muda do amanhecer à noite, o sol cruza em arco, as nuvens somem, a lua e as estrelas aparecem. O relógio gigante vai de 8h a 21h e cada horário troca o ingresso da frente (vídeo em cartão de ingresso com canhoto picotado, os anteriores voam para fora): portões abertos, personagens, desfile do balão, Toy Story Land, parada, Main Street, castelo ao entardecer e fogos (que disparam de verdade no fim). Horários ilustrativos de um roteiro do guiamento virtual.
-- **Janela do castelo** (presa ao scroll): fachada noturna do castelo com torres, bandeiras e janelas acesas. As cortinas de veludo da janela central se abrem e a câmera entra por ela até o vídeo do show de fogos ocupar a tela inteira.
-- **Serviços**: mosaico de fotos com tamanhos diferentes (Disney grande em arco tocando vídeo, Hospedagem, Passagens, Pacotes, Passeios, Universal, Cruzeiros, Xcaret, Transfers, Aluguel de carros, Seguros). Os blocos se revelam de baixo para cima em sequência, inclinam em 3D, a foto aproxima e a descrição aparece no hover; cada bloco abre o WhatsApp com o serviço.
+- **Transições em 3D** (presas ao scroll, antes de Destinos, Disney e Serviços): montanha-russa em primeira pessoa desenhada em canvas com projeção em perspectiva. O trilho vem da tela em direção ao usuário, a câmera sobe, desce e inclina nas curvas, com suportes, dormentes, luzes da cidade no horizonte e a frente do carrinho embaixo. No fim do percurso o nome da próxima seção ("Destinos", "Orlando", "Serviços") vem flutuando sobre o trilho até passar pela tela. Cada transição tem um trilho diferente (`semente` em `content.js`).
+- **Transição do menu**: ao clicar em qualquer link do menu (ou nos botões da capa), um avião atravessa a tela num corte diagonal coral e marfim com "Próxima parada: Serviços", e a página troca por trás.
+- **Destinos internacionais** (presa ao scroll): mapa-múndi pontilhado (Natural Earth, `gerar-mundo.js`) com as rotas saindo de Curitiba. A cada destino o avião voa a rota, a cidade acende e, à direita, a foto troca com o cartão de voo: CWB para o aeroporto do destino, distância calculada, cidade, passeio, preço e botão para o passeio na Civitatis (ou WhatsApp). Paris, Roma, Veneza, Madrid, Lisboa, Londres, Dubai, Tóquio, Nova York e Orlando.
+- **Disney** (serviço da agência): abertura em vídeo do show noturno em tela cheia, logo Walt Disney World, texto original e botões para o portal Disney e o WhatsApp; citação de Walt Disney e os três itens do planejamento.
+- **Um dia perfeito na Disney** (presa ao scroll): roteiro em vídeo de 8h a 21h. Cada horário troca o vídeo de fundo, o horário grande e o texto, com a linha do tempo lateral avançando. Horários ilustrativos de um roteiro do guiamento virtual.
+- **Quanto falta para a viagem?**: contador regressivo até a data do embarque (salvo no navegador).
+- **Serviços**: mosaico de fotos com tamanhos diferentes (Disney grande tocando vídeo, Hospedagem, Passagens, Pacotes, Passeios, Universal, Cruzeiros, Xcaret, Transfers, Aluguel de carros, Seguros). Os blocos se revelam em sequência, inclinam em 3D, a foto aproxima e a descrição aparece no hover; cada bloco abre o WhatsApp com o serviço.
 - **Vistos**: Nova York em paralaxe ao fundo, passaporte em 3D que acompanha o mouse com reflexo, carimbo "Aprovado EUA" e o caminho Formulário, Documentos, Agendamento, Entrevista e Embarque desenhado pelo scroll com o avião.
-- **Quem planeja com você**: foto da consultora em arco com paralaxe e a frase da marca.
+- **Quem planeja com você**: foto da consultora com moldura deslocada e a frase da marca.
 - **Clientes**: "+5.000" contando em contorno coral, logos TripAdvisor, Expedia, Booking e Airbnb, e baralho de depoimentos (arrastar, botões e troca automática).
 - **Instagram**: esteira curva em 3D com os posts originais e reels da Disney que tocam sozinhos; acelera com o scroll.
 - **Final**: "E viveram felizes para sempre." com fogos ao aparecer e no hover do botão.

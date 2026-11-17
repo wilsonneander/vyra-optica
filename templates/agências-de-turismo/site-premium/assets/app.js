@@ -53,6 +53,7 @@
     const alvo = Math.min(100, (performance.now() - inicio) / 22);
     pct = Math.max(pct, alvo);
     num.textContent = Math.round(pct);
+    pre.style.setProperty('--pct', (pct / 100).toFixed(3));
     if (pct < 100) requestAnimationFrame(contaPre);
   };
   contaPre();
@@ -60,10 +61,10 @@
   const prontos = Promise.all([
     document.fonts ? document.fonts.ready : Promise.resolve(),
     new Promise((ok) => { if (primeiro.readyState >= 2) ok(); else { primeiro.addEventListener('loadeddata', ok, { once: true }); setTimeout(ok, 3200); } }),
-    new Promise((ok) => setTimeout(ok, calmo ? 200 : 2300)),
+    new Promise((ok) => setTimeout(ok, calmo ? 200 : 1600)),
   ]);
   prontos.then(() => {
-    pct = 100; num.textContent = '100';
+    pct = 100; num.textContent = '100'; pre.style.setProperty('--pct', 1);
     pre.classList.add('sai');
     document.body.classList.remove('carregando');
     setTimeout(() => { root.classList.add('pronto'); document.body.classList.add('pronto'); }, 250);
@@ -110,16 +111,6 @@
   // ---------- motor de scroll ----------
   const pins = $$('[data-pin]');
   const vistas = $$('[data-p]');
-  const destinos = $('[data-destinos]');
-  const trilho = $('[data-destinos-trilho]');
-  const rotaAviao = $('[data-rota-aviao]');
-  const medeDestinos = () => {
-    if (!largo() || calmo) { destinos.style.removeProperty('--altura'); return; }
-    const dist = Math.max(0, trilho.scrollWidth - innerWidth);
-    destinos.style.setProperty('--dist', dist);
-    destinos.style.setProperty('--altura', `${dist + innerHeight * 1.15}px`);
-  };
-
   const progressoPin = (el) => {
     const r = el.getBoundingClientRect();
     const total = r.height - innerHeight;
@@ -160,33 +151,14 @@
   let pedido = false;
   const agenda = () => { if (!pedido) { pedido = true; requestAnimationFrame(() => { pedido = false; quadro(); }); } };
   addEventListener('scroll', agenda, { passive: true });
-  addEventListener('resize', () => { medeDestinos(); iguala(); agenda(); });
-  addEventListener('load', () => { medeDestinos(); agenda(); });
-  if (document.fonts) document.fonts.ready.then(() => { iguala(); medeDestinos(); });
+  addEventListener('resize', () => { iguala(); agenda(); });
+  addEventListener('load', agenda);
+  if (document.fonts) document.fonts.ready.then(iguala);
 
   // capa: a cena só troca enquanto a capa está à vista
   $('.capa').addEventListener('progresso', (e) => {
     const v = capaVideos[cena];
     if (e.detail > .98) v.pause(); else if (v.paused && root.classList.contains('pronto')) toca(v);
-  });
-
-  // destinos: avião na rota e paralaxe da foto dentro de cada cartão
-  const rotaPath = $('.rota-voo path');
-  destinos.addEventListener('progresso', (e) => {
-    const p = e.detail;
-    const svg = rotaPath.ownerSVGElement.getBoundingClientRect();
-    const L = rotaPath.getTotalLength();
-    const pt = rotaPath.getPointAtLength(L * p), pt2 = rotaPath.getPointAtLength(Math.min(L, L * p + 2));
-    const sx = svg.width / 1000, sy = svg.height / 40;
-    const ang = Math.atan2((pt2.y - pt.y) * sy, (pt2.x - pt.x) * sx) * 180 / Math.PI;
-    rotaAviao.style.setProperty('--ax', `${pt.x * sx}px`);
-    rotaAviao.style.setProperty('--ay', `${pt.y * sy}px`);
-    rotaAviao.style.setProperty('--ar', `${ang}deg`);
-    $$('.destino', trilho).forEach((c) => {
-      const r = c.getBoundingClientRect();
-      const meio = (r.left + r.width / 2 - innerWidth / 2) / innerWidth;
-      c.style.setProperty('--px', `${(-meio * 60).toFixed(1)}px`);
-    });
   });
 
   // ---------- inclinação 3D nos cartões ----------
@@ -227,11 +199,7 @@
   let parts = [];
   const ajustaTela = () => { tela.width = innerWidth * dpr; tela.height = innerHeight * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); };
   ajustaTela(); addEventListener('resize', ajustaTela);
-  const CORES_PO = ['#E8C987', '#FFF4D6', '#FFB38F', '#FFFFFF'];
   const CORES_FOGO = [['#FF674A', '#FFB38F'], ['#E8C987', '#FFF4D6'], ['#FFFFFF', '#CFE3FF'], ['#FF8B19', '#FFD9A0']];
-  const po = (x, y, n = 2, forca = 1) => {
-    for (let i = 0; i < n; i++) parts.push({ x, y, vx: (Math.random() - .5) * 1.2 * forca, vy: (Math.random() - .2) * 1.2 * forca + .3, v: 1, dec: .012 + Math.random() * .02, r: .6 + Math.random() * 1.8, c: CORES_PO[(Math.random() * 4) | 0], g: .02 });
-  };
   const fogos = (x, y, escala = 1) => {
     if (calmo) return;
     const [c1, c2] = CORES_FOGO[(Math.random() * CORES_FOGO.length) | 0];
@@ -267,12 +235,8 @@
   const cursor = $('[data-cursor-el]');
   if (!toque && !calmo) {
     root.classList.add('tem-cursor');
-    let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy, ultimaPo = 0;
-    addEventListener('pointermove', (e) => {
-      tx = e.clientX; ty = e.clientY;
-      const agora = performance.now();
-      if (agora - ultimaPo > 16) { po(tx, ty, 2); liga(); ultimaPo = agora; }
-    });
+    let cx = innerWidth / 2, cy = innerHeight / 2, tx = cx, ty = cy;
+    addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; });
     const segue = () => {
       cx = lerp(cx, tx, .2); cy = lerp(cy, ty, .2);
       cursor.style.transform = `translate(${cx}px, ${cy}px)`;
@@ -299,205 +263,165 @@
     });
   });
 
-  // ---------- céu estrelado com estrela cadente e a fada que voa sobre o castelo ----------
-  $$('[data-ceu]').forEach((cv) => {
-    if (calmo) return;
+  // ---------- transição 3D: montanha-russa em primeira pessoa ----------
+  // O trilho é uma curva 3D (x e altura variam com a distância z). A câmera anda sobre ele com o scroll,
+  // olha para a frente, inclina nas curvas e projeta trilhos, dormentes e suportes em perspectiva.
+  // No fim do percurso o nome da próxima seção vem em direção à tela e passa pelo usuário.
+  $$('[data-trem]').forEach((sec) => {
+    const cv = $('[data-trem-tela]', sec);
     const c = cv.getContext('2d');
-    let w, h, estrelas = [], cadentes = [], fada = null, ativo = false, t = 0;
-    const tamanho = () => {
-      const r = cv.getBoundingClientRect(); w = r.width; h = r.height;
-      cv.width = w * dpr; cv.height = h * dpr; c.setTransform(dpr, 0, 0, dpr, 0, 0);
-      estrelas = Array.from({ length: Math.min(260, (w * h) / 6000) }, () => ({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 1.3 + .2, f: Math.random() * 6.28, s: .5 + Math.random() * 1.5, o: Math.random() > .85 }));
-    };
-    tamanho(); addEventListener('resize', tamanho);
-    const voo = () => {
-      // a fada atravessa o céu em arco, deixando um rastro de poeira dourada
-      const castelo = cv.parentElement.querySelector('.castelo-bt');
-      const ref = castelo ? castelo.getBoundingClientRect() : null;
-      const base = cv.getBoundingClientRect();
-      const y0 = ref ? ref.top - base.top + ref.height * .2 : h * .3;
-      fada = { t: 0, x0: -40, x1: w + 40, y0, cx: w * .5, cy: y0 - Math.min(260, h * .2), rastro: [] };
-    };
+    const nome = sec.dataset.nome, apoio = sec.dataset.apoio;
+    let sem = +sec.dataset.semente;
+    const rnd = () => (sem = (sem * 9301 + 49297) % 233280) / 233280;
+    const AX = [9 + rnd() * 8, 3 + rnd() * 4], FX = [.018 + rnd() * .012, .05 + rnd() * .03], PX = [rnd() * 6, rnd() * 6];
+    const AY = [7 + rnd() * 4, 2 + rnd() * 2], FY = [.035 + rnd() * .02, .09 + rnd() * .04];
+    const COMP = 230, VISTA = 110, BITOLA = .8;
+    const meio = (z) => ({ x: AX[0] * Math.sin(z * FX[0] + PX[0]) + AX[1] * Math.sin(z * FX[1] + PX[1]), y: 10 + AY[0] * Math.sin(z * FY[0]) + AY[1] * Math.sin(z * FY[1] + 1) * Math.min(1, z / 30), z });
+    const luzes = Array.from({ length: 220 }, () => ({ a: (rnd() - .5) * 3.4, e: rnd() * .025, r: rnd() * 1.4 + .4, ouro: rnd() > .7 }));
+    const estrelas = Array.from({ length: 140 }, () => ({ a: (rnd() - .5) * 4, e: .05 + rnd() * .6, r: rnd() * 1.1 + .3 }));
+    let W = 0, H = 0, alvoP = 0, p = 0, ativo = false, rodando = false;
+    const tamanho = () => { const r = cv.getBoundingClientRect(); W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; };
     const desenha = () => {
-      if (!ativo) return;
-      t += 1;
-      c.clearRect(0, 0, w, h);
-      for (const e of estrelas) {
-        const a = .35 + .65 * Math.abs(Math.sin(t * .012 * e.s + e.f));
-        c.globalAlpha = a; c.fillStyle = e.o ? '#E8C987' : '#FFFFFF';
-        c.beginPath(); c.arc(e.x, e.y, e.r, 0, 6.283); c.fill();
-      }
-      if (Math.random() < .006) cadentes.push({ x: Math.random() * w * .8, y: Math.random() * h * .4, vx: 7 + Math.random() * 4, vy: 2.5 + Math.random() * 2, v: 1 });
-      cadentes = cadentes.filter((s) => s.v > 0);
-      for (const s of cadentes) {
-        s.x += s.vx; s.y += s.vy; s.v -= .018;
-        const g = c.createLinearGradient(s.x, s.y, s.x - s.vx * 12, s.y - s.vy * 12);
-        g.addColorStop(0, `rgba(255,244,214,${s.v})`); g.addColorStop(1, 'rgba(255,244,214,0)');
-        c.globalAlpha = 1; c.strokeStyle = g; c.lineWidth = 1.4;
-        c.beginPath(); c.moveTo(s.x, s.y); c.lineTo(s.x - s.vx * 12, s.y - s.vy * 12); c.stroke();
-      }
-      if (fada) {
-        fada.t += .0045;
-        const k = fada.t, ik = 1 - k;
-        const x = ik * ik * fada.x0 + 2 * ik * k * fada.cx + k * k * fada.x1;
-        const y = ik * ik * fada.y0 + 2 * ik * k * fada.cy + k * k * fada.y0 + Math.sin(k * 30) * 8;
-        fada.rastro.push({ x, y, v: 1, vy: Math.random() * .6 });
-        for (let i = 0; i < 2; i++) fada.rastro.push({ x: x + (Math.random() - .5) * 10, y: y + (Math.random() - .5) * 10, v: .8, vy: .4 + Math.random() });
-        fada.rastro = fada.rastro.filter((p) => p.v > 0);
-        c.globalCompositeOperation = 'lighter';
-        for (const p of fada.rastro) { p.v -= .012; p.y += p.vy; c.globalAlpha = Math.max(0, p.v); c.fillStyle = '#FFE7A8'; c.beginPath(); c.arc(p.x, p.y, 1.2, 0, 6.283); c.fill(); }
-        const brilho = c.createRadialGradient(x, y, 0, x, y, 18);
-        brilho.addColorStop(0, 'rgba(255,250,230,1)'); brilho.addColorStop(1, 'rgba(255,231,168,0)');
-        c.globalAlpha = 1; c.fillStyle = brilho; c.beginPath(); c.arc(x, y, 18, 0, 6.283); c.fill();
-        c.globalCompositeOperation = 'source-over';
-        if (k >= 1 && !fada.rastro.length) fada = null;
-        else if (k >= 1) fada.t = 1;
-      }
+      c.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const fov = Math.max(W, H) * .62;
+      const zc = p * COMP;
+      const base = meio(zc), frente = meio(zc + 7);
+      const cam = { x: base.x, y: base.y + 1.7, z: zc };
+      const fx = frente.x - cam.x, fy = frente.y + 1.2 - cam.y, fz = frente.z - cam.z;
+      const yaw = Math.atan2(fx, fz), pitch = Math.atan2(fy, Math.hypot(fx, fz));
+      const curva = meio(zc + 10).x - 2 * meio(zc + 5).x + base.x;
+      const roll = clamp(-curva * .06, -.35, .35);
+      const cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(pitch), sp = Math.sin(pitch);
+      const proj = (P) => {
+        const dx = P.x - cam.x, dy = P.y - cam.y, dz = P.z - cam.z;
+        const x1 = dx * cy - dz * sy, z1 = dx * sy + dz * cy;
+        const y2 = dy * cp - z1 * sp, z2 = dy * sp + z1 * cp;
+        if (z2 < .25) return null;
+        return { x: W / 2 + x1 * fov / z2, y: H / 2 - y2 * fov / z2, z: z2 };
+      };
+      // céu e chão (com o horizonte acompanhando a inclinação da câmera)
+      c.save();
+      c.translate(W / 2, H / 2); c.rotate(roll); c.translate(-W / 2, -H / 2);
+      const hz = H / 2 + Math.tan(pitch) * fov;
+      const ceu = c.createLinearGradient(0, hz - H, 0, hz);
+      ceu.addColorStop(0, '#050B16'); ceu.addColorStop(.75, '#0D1A30'); ceu.addColorStop(1, '#1D2E4C');
+      c.fillStyle = ceu; c.fillRect(-W, hz - H * 2, W * 3, H * 2);
+      const chao = c.createLinearGradient(0, hz, 0, hz + H);
+      chao.addColorStop(0, '#0B1526'); chao.addColorStop(1, '#03070E');
+      c.fillStyle = chao; c.fillRect(-W, hz, W * 3, H * 2);
+      for (const e of estrelas) { const x = W / 2 + Math.tan(e.a - yaw * .35) * fov * .6; c.globalAlpha = .55; c.fillStyle = '#F6F0E6'; c.fillRect(x, hz - e.e * H, e.r, e.r); }
+      for (const l of luzes) { const x = W / 2 + Math.tan(clamp(l.a - yaw, -1.4, 1.4)) * fov; c.globalAlpha = .7; c.fillStyle = l.ouro ? '#E8C987' : '#F6F0E6'; c.beginPath(); c.arc(x, hz - l.e * fov * .3, l.r, 0, 6.283); c.fill(); }
       c.globalAlpha = 1;
-      requestAnimationFrame(desenha);
+      // trilho, do mais longe para o mais perto
+      const passo = .55;
+      let ant = null;
+      for (let z = Math.min(zc + VISTA, COMP + 40); z > zc + .4; z -= passo) {
+        const m = meio(z), m2 = meio(z + .4);
+        let tx = m2.x - m.x, tz = m2.z - m.z; const tl = Math.hypot(tx, tz); tx /= tl; tz /= tl;
+        const rx = tz, rz = -tx;
+        const L = proj({ x: m.x - rx * BITOLA, y: m.y, z: m.z - rz * BITOLA });
+        const R = proj({ x: m.x + rx * BITOLA, y: m.y, z: m.z + rz * BITOLA });
+        if (!L || !R) { ant = null; continue; }
+        const nevoa = clamp(1 - (L.z - 8) / VISTA);
+        const k = Math.round(z / passo);
+        if (k % 6 === 0) {
+          const S = proj({ x: m.x, y: -2, z: m.z });
+          if (S) { c.globalAlpha = nevoa * .35; c.strokeStyle = '#E8C987'; c.lineWidth = clamp(2 * fov / L.z / 60, .6, 4); c.beginPath(); c.moveTo((L.x + R.x) / 2, (L.y + R.y) / 2); c.lineTo(S.x, S.y); c.stroke(); }
+        }
+        if (k % 2 === 0) { c.globalAlpha = nevoa * .55; c.strokeStyle = '#F6F0E6'; c.lineWidth = clamp(1.4 * fov / L.z / 60, .5, 3); c.beginPath(); c.moveTo(L.x, L.y); c.lineTo(R.x, R.y); c.stroke(); }
+        if (ant) {
+          c.globalAlpha = nevoa; c.strokeStyle = '#FF674A'; c.lineCap = 'round';
+          c.lineWidth = clamp(4.2 * fov / L.z / 60, 1, 9);
+          c.beginPath(); c.moveTo(ant.L.x, ant.L.y); c.lineTo(L.x, L.y); c.moveTo(ant.R.x, ant.R.y); c.lineTo(R.x, R.y); c.stroke();
+        }
+        ant = { L, R };
+      }
+      // nome da próxima seção, suspenso sobre o trilho no fim do percurso
+      const zl = COMP + 4, ml = meio(zl);
+      const Pl = proj({ x: ml.x, y: ml.y + 5, z: zl });
+      if (Pl) {
+        const tam = 4.2 * fov / Pl.z;
+        const a = clamp((140 - Pl.z) / 60) * clamp((Pl.z - .6) / 2.2);
+        c.globalAlpha = a; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+        c.fillStyle = '#E8C987'; c.font = `600 ${Math.max(8, tam * .16)}px "Hanken Grotesk", sans-serif`;
+        c.fillText(apoio.toUpperCase().split('').join(String.fromCharCode(8202)), Pl.x, Pl.y - tam * .95);
+        c.fillStyle = '#F6F0E6'; c.font = `400 ${tam}px Gloock, Georgia, serif`;
+        c.fillText(nome, Pl.x, Pl.y);
+      }
+      c.restore();
+      c.globalAlpha = 1;
+      // frente do carrinho, presa à câmera: barra de segurança e laterais escuras com filete coral
+      const bw = Math.min(W * .7, 900), bx = (W - bw) / 2, by = H - Math.min(H * .1, 84);
+      const g = c.createLinearGradient(0, by, 0, H); g.addColorStop(0, '#1B2638'); g.addColorStop(1, '#070D18');
+      c.fillStyle = g; c.beginPath(); c.moveTo(bx + bw * .06, by); c.lineTo(bx + bw * .94, by); c.lineTo(bx + bw, H); c.lineTo(bx, H); c.closePath(); c.fill();
+      c.fillStyle = '#FF674A'; c.fillRect(bx + bw * .06, by, bw * .88, 2);
+      c.strokeStyle = 'rgba(246, 240, 230, .75)'; c.lineWidth = 3; c.lineCap = 'round';
+      c.beginPath(); c.moveTo(bx + bw * .3, by + 2); c.lineTo(bx + bw * .34, by - 26); c.lineTo(bx + bw * .66, by - 26); c.lineTo(bx + bw * .7, by + 2); c.stroke();
     };
-    let jaVoou = false;
-    new IntersectionObserver(([e]) => {
-      const era = ativo; ativo = e.isIntersecting;
-      if (ativo && !era) { tamanho(); requestAnimationFrame(desenha); }
-    }).observe(cv);
-    const castelo = cv.parentElement.querySelector('[data-castelo]');
-    if (castelo) new IntersectionObserver(([e]) => { if (e.isIntersecting && !jaVoou) { jaVoou = true; setTimeout(voo, 700); } }, { threshold: .6 }).observe(castelo);
-    cv.parentElement.addEventListener('peak-fada', voo);
+    const loop = () => {
+      if (!ativo) { rodando = false; return; }
+      p = lerp(p, alvoP, .14);
+      desenha();
+      if (Math.abs(alvoP - p) > .0004) requestAnimationFrame(loop); else { p = alvoP; desenha(); rodando = false; }
+    };
+    const pede = () => { if (!rodando && ativo) { rodando = true; requestAnimationFrame(loop); } };
+    sec.addEventListener('progresso', (e) => { alvoP = e.detail; pede(); });
+    new IntersectionObserver(([e]) => { ativo = e.isIntersecting; if (ativo) { tamanho(); desenha(); pede(); } }).observe(sec);
+    addEventListener('resize', () => { if (ativo) { tamanho(); desenha(); } });
+    if (document.fonts) document.fonts.ready.then(() => { if (ativo) desenha(); });
+    if (calmo) { alvoP = p = .85; }
   });
 
-  // castelo: toque solta fogos e chama a fada de novo
-  const casteloBt = $('[data-castelo-bt]');
-  casteloBt.addEventListener('click', (e) => {
-    const r = casteloBt.getBoundingClientRect();
-    soltaFogos(r.left + r.width / 2, r.top + r.height * .15, 5);
-    casteloBt.closest('.disney').dispatchEvent(new Event('peak-fada'));
-  });
-  // fogos sozinhos quando o castelo termina de se desenhar
-  let casteloAceso = false;
-  $('[data-castelo]').addEventListener('progresso', (e) => {
-    if (!casteloAceso && e.detail > .5) {
-      casteloAceso = true;
-      const r = casteloBt.getBoundingClientRect();
-      soltaFogos(r.left + r.width / 2, r.top + r.height * .1, 4);
-    }
-  });
-
-  // ---------- cores ----------
-  const hexRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
-  const mistura = (a, b, t) => { const x = hexRgb(a), y = hexRgb(b); return `rgb(${x.map((v, i) => Math.round(v + (y[i] - v) * t)).join(',')})`; };
-  const suave = (t) => t * t * (3 - 2 * t);
-  const faixaCores = (paradas, p) => {
-    for (let i = 1; i < paradas.length; i++) if (p <= paradas[i][0]) {
-      const [a, ...ca] = paradas[i - 1], [b, ...cb] = paradas[i], t = (p - a) / (b - a);
-      return ca.map((c, j) => mistura(c, cb[j], t));
-    }
-    return paradas.at(-1).slice(1);
-  };
-
-  // ---------- montanha-russa ----------
-  const montanha = $('[data-montanha]');
-  const mrCeu = $('[data-montanha-ceu]');
-  const mrTrilho = $('[data-mr-trilho]');
-  const carros = $$('[data-carro]');
-  const grito = $('[data-mr-grito]');
-  const sol = $('.mr-sol');
-  const Lm = mrTrilho.getTotalLength();
-  // suportes de ferro do trilho até o chão
-  $('[data-mr-suportes]').innerHTML = Array.from({ length: Math.floor(Lm / 34) }, (_, i) => {
-    const pt = mrTrilho.getPointAtLength(i * 34);
-    return pt.x > -40 && pt.x < 1640 && pt.y < 860 ? `<path d="M${pt.x.toFixed(1)} ${(pt.y + 6).toFixed(1)}V900"/>` : '';
-  }).join('');
-  const CEU_MR = [[0, '#F6F0E6', '#F6F0E6', '#17202E'], [.3, '#F9C79A', '#FCE6C8', '#17202E'], [.62, '#2E3A5E', '#D9785C', '#0D1626'], [1, '#050B16', '#0A1322', '#03070E']];
-  const poeCarro = (c, s) => {
-    if (s < 0 || s > Lm) { c.style.opacity = 0; return null; }
-    const a = mrTrilho.getPointAtLength(s), b = mrTrilho.getPointAtLength(Math.min(Lm, s + 4));
-    const ang = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
-    c.style.opacity = 1;
-    c.setAttribute('transform', `translate(${a.x.toFixed(1)} ${a.y.toFixed(1)}) rotate(${ang.toFixed(1)})`);
-    return a;
-  };
-  const andaMontanha = (p) => {
-    const [c1, c2, parque] = faixaCores(CEU_MR, p);
-    mrCeu.style.setProperty('--c1', c1); mrCeu.style.setProperty('--c2', c2); mrCeu.style.setProperty('--parque', parque);
-    mrCeu.style.setProperty('--noite', clamp((p - .5) / .4).toFixed(3));
-    sol.style.setProperty('--sx', `${1250 - p * 260}px`); sol.style.setProperty('--sy', `${180 + p * 760}px`);
-    const frente = -60 + clamp(p * 1.1 - .03) * (Lm + 260);
-    let pt0 = null;
-    carros.forEach((c, i) => { const pt = poeCarro(c, frente - i * 74); if (!i) pt0 = pt; });
-    const k = frente / Lm;
-    if (pt0 && k > .2 && k < .4) { grito.setAttribute('x', pt0.x + 30); grito.setAttribute('y', pt0.y - 70); grito.style.opacity = 1; } else grito.style.opacity = 0;
-  };
-  montanha.addEventListener('progresso', (e) => andaMontanha(e.detail));
-  andaMontanha(calmo ? .5 : 0);
-
-  // ---------- um dia perfeito na Disney ----------
-  const dia = $('[data-dia]');
-  const diaFixa = $('.dia-fixa', dia);
-  const ingressos = $$('[data-ingresso]', dia);
-  const reguaItens = $$('[data-regua]', dia);
-  const diaSol = $('[data-dia-sol]'), diaLua = $('[data-dia-lua]');
-  const diaHora = $('[data-dia-hora]'), diaTit = $('[data-dia-titulo]'), diaTxt = $('[data-dia-texto]');
-  const ceus = ingressos.map((g) => g.dataset.cores.split(','));
-  let momento = -1, fogosDia = false;
-  const irMomento = (i) => {
-    if (i === momento) return;
-    momento = i;
-    ingressos.forEach((g, j) => {
-      g.dataset.k = j - i;
-      const v = $('video', g);
-      if (j === i) { if (v.preload === 'none') v.preload = 'auto'; toca(v); } else v.pause();
+  // ---------- destinos: mapa-múndi com rotas saindo de Curitiba ----------
+  const dest = $('[data-destinos]');
+  const rotas = $$('[data-rota]', dest), cidades = $$('[data-cidade]', dest);
+  const dFotos = $$('[data-dfoto]', dest), dCards = $$('[data-dcard]', dest), dItens = $$('[data-dest-item]', dest);
+  const mAviao = $('[data-mapa-aviao]', dest);
+  let dAtual = -1;
+  const voaDestinos = (p) => {
+    const n = rotas.length;
+    const f = clamp(p * 1.03) * n;
+    const i = Math.min(n - 1, Math.floor(f));
+    const k = clamp((f - i) / .6);
+    rotas.forEach((r, j) => {
+      r.classList.toggle('feita', j < i); r.classList.toggle('ativa', j === i);
+      r.style.strokeDashoffset = j === i ? (1 - k).toFixed(3) : '';
     });
-    reguaItens.forEach((li, j) => li.classList.toggle('on', j <= i));
-    const g = ingressos[i];
-    diaHora.textContent = g.dataset.hora; diaHora.classList.remove('muda'); void diaHora.offsetWidth; diaHora.classList.add('muda');
-    diaTit.textContent = g.dataset.t; diaTxt.textContent = g.dataset.d;
-    const box = diaTit.parentElement; box.classList.remove('muda'); void box.offsetWidth; box.classList.add('muda');
-    if (i === ingressos.length - 1 && !fogosDia) {
-      fogosDia = true;
-      const r = $('.dia-ingressos', dia).getBoundingClientRect();
-      soltaFogos(r.left + r.width / 2, r.top + 40, 5);
+    cidades.forEach((cd, j) => { cd.classList.toggle('feita', j < i); cd.classList.toggle('ativa', j === i && k > .98); });
+    const L = rotas[i].getTotalLength();
+    const a = rotas[i].getPointAtLength(L * k), b = rotas[i].getPointAtLength(Math.min(L, L * k + 1.5));
+    const ang = k >= 1 ? 0 : Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+    mAviao.setAttribute('transform', `translate(${a.x.toFixed(1)} ${a.y.toFixed(1)}) rotate(${ang.toFixed(1)}) scale(.75)`);
+    mAviao.style.opacity = k >= 1 ? 0 : 1;
+    if (i !== dAtual) {
+      dAtual = i;
+      [dFotos, dCards].forEach((lista) => lista.forEach((el, j) => el.classList.toggle('on', j === i)));
+      dItens.forEach((li, j) => { li.classList.toggle('on', j === i); li.classList.toggle('feito', j < i); });
     }
   };
-  const anoitece = (p) => {
-    const n = ingressos.length;
-    const f = clamp(p * 1.1 - .04) * (n - 1);
-    const a = Math.floor(f), b = Math.min(n - 1, a + 1), t = f - a;
-    diaFixa.style.setProperty('--c1', mistura(ceus[a][0], ceus[b][0], t));
-    diaFixa.style.setProperty('--c2', mistura(ceus[a][1], ceus[b][1], t));
-    const noite = clamp((f - 5.3) / 1.5);
-    diaFixa.style.setProperty('--noite', noite.toFixed(3));
-    diaFixa.classList.toggle('noite', f > 5.6);
-    const w = diaFixa.clientWidth, h = diaFixa.clientHeight;
-    const ts = clamp(f / 6.2);
-    diaSol.style.setProperty('--sx', `${w * (.08 + ts * .84)}px`);
-    diaSol.style.setProperty('--sy', `${h * .72 - Math.sin(Math.PI * Math.min(ts, .999)) * h * .58 + clamp(f - 5.6) * h * .4}px`);
-    const lua = clamp(f - 5.8);
-    diaLua.style.setProperty('--lua', lua.toFixed(3));
-    diaLua.style.setProperty('--sx', `${w * .8}px`); diaLua.style.setProperty('--sy', `${h * (.2 + (1 - lua) * .35)}px`);
-    irMomento(Math.min(n - 1, Math.round(f)));
-  };
-  dia.addEventListener('progresso', (e) => anoitece(e.detail));
-  anoitece(0);
-  new IntersectionObserver(([e]) => { if (!e.isIntersecting) ingressos.forEach((g) => $('video', g).pause()); else if (momento >= 0) toca($('video', ingressos[momento])); }).observe(dia);
+  dest.addEventListener('progresso', (e) => voaDestinos(e.detail));
+  voaDestinos(calmo ? 0 : 0);
 
-  // ---------- entrar pela janela do castelo ----------
-  const janela = $('[data-janela]');
-  const janelaFixa = $('.janela-fixa', janela);
-  const zoom = $('[data-janela-zoom]');
-  const fachadaSvg = $('.fachada', janela);
-  const cortinas = $$('[data-cortina]', janela);
-  const entra = (p) => {
-    const abre = suave(clamp(p / .22));
-    cortinas.forEach((c) => c.setAttribute('transform', `translate(${+c.dataset.cortina * abre * 80} 0)`));
-    const e = suave(clamp((p - .16) / .6));
-    const s = Math.exp(Math.log(34) * e * e);
-    zoom.setAttribute('transform', `translate(800 600) scale(${s.toFixed(3)}) translate(-800 -600)`);
-    fachadaSvg.style.visibility = e > .995 ? 'hidden' : 'visible';
-    janelaFixa.style.setProperty('--z', clamp((p - .55) / .3).toFixed(3));
+  // ---------- roteiro: um dia perfeito na Disney ----------
+  const roteiro = $('[data-roteiro]');
+  const rVideos = $$('[data-rvideo]', roteiro), rItens = $$('[data-r-item]', roteiro);
+  const rHora = $('[data-r-hora]'), rTit = $('[data-r-titulo]'), rTxt = $('[data-r-texto]');
+  let rAtual = -1;
+  const mudaRoteiro = (i) => {
+    if (i === rAtual) return;
+    rAtual = i;
+    rVideos.forEach((v, j) => {
+      v.classList.toggle('on', j === i);
+      if (j === i) { if (v.preload === 'none') v.preload = 'auto'; toca(v); } else setTimeout(() => { if (!v.classList.contains('on')) v.pause(); }, 1000);
+    });
+    rItens.forEach((li, j) => { li.classList.toggle('on', j === i); li.classList.toggle('feito', j < i); });
+    const li = rItens[i];
+    rHora.textContent = li.dataset.hora; rHora.classList.remove('muda'); void rHora.offsetWidth; rHora.classList.add('muda');
+    rTit.textContent = li.dataset.t; rTxt.textContent = li.dataset.d;
+    const box = rTit.parentElement; box.classList.remove('muda'); void box.offsetWidth; box.classList.add('muda');
   };
-  janela.addEventListener('progresso', (e) => entra(e.detail));
-  entra(calmo ? 1 : 0);
+  roteiro.addEventListener('progresso', (e) => mudaRoteiro(Math.min(rItens.length - 1, Math.floor(clamp(e.detail * 1.02) * rItens.length))));
+  new IntersectionObserver(([e]) => { if (!e.isIntersecting) rVideos.forEach((v) => v.pause()); else if (rAtual >= 0) toca(rVideos[rAtual]); else mudaRoteiro(0); }).observe(roteiro);
 
   // ---------- serviços: mosaico ----------
   // o recorte (clip-path) zera a área do bloco para o observador, então quem é observado é o mosaico inteiro
@@ -519,7 +443,8 @@
   const voo = $('[data-voo]');
   const vooDestino = $('[data-voo-destino]');
   let navegando = false;
-  const nomeDe = (alvo, link) => alvo.dataset.parada || (alvo.id === 'inicio' ? 'Início' : link.textContent.trim());
+  const NOMES = { inicio: 'Início', passagens: 'Passagens', destinos: 'Destinos', disney: 'Disney', servicos: 'Serviços', vistos: 'Vistos', clientes: 'Clientes' };
+  const nomeDe = (alvo, link) => NOMES[alvo.id] || link.textContent.trim();
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href^="#"]');
     if (!a || a.getAttribute('href').length < 2) return;
@@ -533,42 +458,13 @@
     voo.classList.add('ativo'); void voo.offsetWidth; voo.classList.add('entra');
     setTimeout(() => {
       vai();
-      paradasVistas.add(secoesParada.indexOf(alvo));
       voo.classList.add('sai');
       setTimeout(() => {
         voo.classList.remove('ativo', 'entra', 'sai');
         navegando = false;
-        atualParada = paradaAtual();
       }, 800);
     }, 820);
   });
-
-  // ---------- avião de praia: cruza o topo com o nome de cada seção nova ----------
-  const reboque = $('[data-reboque]');
-  const reboqueTxt = $('[data-reboque-txt]');
-  const secoesParada = $$('[data-parada]');
-  const paradasVistas = new Set();
-  const paradaAtual = () => { let i = -1; secoesParada.forEach((s, j) => { if (s.getBoundingClientRect().top < innerHeight * .45) i = j; }); return i; };
-  let atualParada = paradaAtual();
-  const voaReboque = (txt) => {
-    reboqueTxt.textContent = txt;
-    reboque.classList.remove('voa'); void reboque.offsetWidth; reboque.classList.add('voa');
-  };
-  reboque.addEventListener('animationend', (e) => { if (e.target === reboque) reboque.classList.remove('voa'); });
-  let pedidoParada = false;
-  addEventListener('scroll', () => {
-    if (pedidoParada || calmo) return;
-    pedidoParada = true;
-    requestAnimationFrame(() => {
-      pedidoParada = false;
-      if (navegando) return;
-      const i = paradaAtual();
-      if (i > atualParada && i >= 0 && !paradasVistas.has(i)) { paradasVistas.add(i); voaReboque(secoesParada[i].dataset.parada); }
-      atualParada = i;
-    });
-  }, { passive: true });
-
-
 
   // ---------- contagem regressiva da viagem ----------
   const dataIn = $('[data-contagem-data]');
@@ -591,8 +487,6 @@
     alvo = new Date(`${dataIn.value}T08:00:00`);
     try { localStorage.setItem('peak-viagem', dataIn.value); } catch (e) { /* sem armazenamento */ }
     contagem();
-    const r = $('[data-contagem]').getBoundingClientRect();
-    soltaFogos(r.left + r.width / 2, r.top, 4);
   });
   setInterval(contagem, 1000); contagem();
 
@@ -748,5 +642,5 @@
   new IntersectionObserver(([e]) => document.body.classList.toggle('sem-chat', e.isIntersecting), { threshold: .5 }).observe($('.capa-fixa'));
 
   $$('[data-ano]').forEach((el) => { el.textContent = new Date().getFullYear(); });
-  medeDestinos(); quadro();
+  quadro();
 })();

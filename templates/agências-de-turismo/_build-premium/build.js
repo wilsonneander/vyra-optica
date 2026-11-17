@@ -43,28 +43,50 @@ const capaCenas = C.capa.videos.map((v, i) => `<button type="button" class="${i 
 // ---------- busca ----------
 const abas = C.busca.abas.map((a, i) => `<label><input type="radio" name="tipo" value="${a}"${i ? '' : ' checked'}><span>${a}</span></label>`).join('');
 
-// ---------- destinos ----------
-const destinos = C.destinos.lista.map((d) => `<a class="destino" href="${d.link}" target="_blank" rel="noopener" data-tilt data-cursor="Ver passeio">
-          <span class="destino-foto"><img src="${img(d.foto)}" alt="${esc(`${d.ponto}, ${d.cidade}, ${d.pais}`)}" width="1200" height="800" loading="lazy" data-destino-img></span>
-          <span class="destino-brilho" aria-hidden="true"></span>
-          <span class="destino-txt">
-            <small>${d.ponto} / ${d.pais}</small>
-            <strong>${d.cidade}</strong>
-            <em>${d.preco}<span class="destino-seta">${I.setaDiag}</span></em>
-          </span>
-        </a>`).join('\n        ');
+// ---------- destinos: mapa-múndi com rotas saindo de Curitiba ----------
+const MUNDO = JSON.parse(fs.readFileSync(path.join(__dirname, 'img', 'mundo.json'), 'utf8'));
+const proj = (lat, lon) => [(lon + 180) / 360 * MUNDO.w, (MUNDO.latMax - lat) / (MUNDO.latMax - MUNDO.latMin) * MUNDO.h];
+const km = (a, b) => {
+  const r = Math.PI / 180, s = Math.sin((b.lat - a.lat) * r / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin((b.lon - a.lon) * r / 2) ** 2;
+  return Math.round(12742 * Math.asin(Math.sqrt(s)) / 100) * 100;
+};
+const O = C.destinos.origem;
+const [ox, oy] = proj(O.lat, O.lon);
+const DEST = C.destinos.lista.map((d) => {
+  const [x, y] = proj(d.lat, d.lon);
+  const dist = Math.hypot(x - ox, y - oy);
+  const cx = (ox + x) / 2, cy = Math.min(oy, y) - dist * .32;
+  return { ...d, x, y, rota: `M${ox.toFixed(1)} ${oy.toFixed(1)}Q${cx.toFixed(1)} ${cy.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)}`, km: km(O, d).toLocaleString('pt-BR'),
+    href: d.link || wa(d.wa), src: `assets/${d.foto}.webp` };
+});
+const mapa = `<svg class="mundo" viewBox="0 0 ${MUNDO.w} ${MUNDO.h}" aria-hidden="true">
+          <path class="mundo-pontos" d="${MUNDO.d}"/>
+          <g class="rotas">${DEST.map((d) => `<path class="rota" data-rota d="${d.rota}" pathLength="1"/>`).join('')}</g>
+          <g class="cidades">${DEST.map((d) => `<g class="cidade" data-cidade transform="translate(${d.x.toFixed(1)} ${d.y.toFixed(1)})"><circle r="2.6"/><text y="-8">${d.cod}</text></g>`).join('')}</g>
+          <g class="origem" transform="translate(${ox.toFixed(1)} ${oy.toFixed(1)})"><circle class="origem-onda" r="4"/><circle r="4"/><text y="16">${O.cod}</text></g>
+          <g class="mapa-aviao" data-mapa-aviao><path d="${I.aviaoPath}" transform="translate(-12 -12)"/></g>
+        </svg>`;
+const destFotos = DEST.map((d, i) => `<img class="dfoto${i ? '' : ' on'}" data-dfoto src="${d.src}" alt="${esc(`${d.cidade}, ${d.pais}`)}" width="1200" height="800" ${i ? 'loading="lazy"' : ''}>`).join('\n          ');
+const destCards = DEST.map((d, i) => `<article class="dcard${i ? '' : ' on'}" data-dcard>
+            <p class="dcard-rota"><b>${O.cod}</b><i>${I.aviao}</i><b>${d.cod}</b><span>cerca de ${d.km} km de ${O.cidade}</span></p>
+            <h3>${d.cidade}</h3>
+            <p class="dcard-ponto">${d.ponto}, ${d.pais}</p>
+            <div class="dcard-pe"><span>${d.preco}</span><a class="btn btn-coral" href="${d.href}" target="_blank" rel="noopener" data-ima>${rola(d.link ? 'Ver passeio' : 'Montar roteiro')}</a></div>
+          </article>`).join('\n          ');
+const destLista = DEST.map((d, i) => `<li class="${i ? '' : 'on'}" data-dest-item>${d.cidade}</li>`).join('');
+
+// ---------- transição 3D: montanha-russa em primeira pessoa ----------
+const trem = (k) => { const tr = C.transicoes[k]; return `<section class="trem" data-pin data-trem data-semente="${tr.semente}" data-nome="${esc(tr.nome)}" data-apoio="${esc(tr.apoio)}" aria-label="${esc(`${tr.apoio}: ${tr.nome}`)}">
+  <div class="trem-fixa"><canvas class="trem-tela" data-trem-tela aria-hidden="true"></canvas></div>
+</section>`; };
 
 // ---------- disney ----------
 const disneyItens = C.disney.itens.map((it) => `<li data-anima><h3>${it.t}</h3><p>${it.d}</p></li>`).join('');
 
-// ---------- um dia na Disney ----------
+// ---------- roteiro: um dia perfeito na Disney ----------
 const momentos = C.dia.momentos;
-const ingressos = momentos.map((m, i) => `<figure class="ingresso" data-ingresso data-k="${i}" data-hora="${m.hora}" data-t="${esc(m.t)}" data-d="${esc(m.d)}" data-cores="${m.ceu.join(',')}">
-            <span class="ingresso-foto"><video muted loop playsinline preload="none" poster="${vid(m.video)}.webp" aria-label="${esc(m.t)}"><source src="${vid(m.video)}.mp4" type="video/mp4"></video></span>
-            <figcaption><b>${m.t}</b><span>${m.hora}</span></figcaption>
-            <span class="ingresso-canhoto">Válido para um dia mágico</span>
-          </figure>`).join('\n          ');
-const regua = momentos.map((m) => `<li data-regua>${m.hora}</li>`).join('');
+const rVideos = momentos.map((m, i) => `<video class="rvideo${i ? '' : ' on'}" data-rvideo muted loop playsinline preload="none" poster="${vid(m.video)}.webp" aria-hidden="true"><source src="${vid(m.video)}.mp4" type="video/mp4"></video>`).join('\n      ');
+const rLinha = momentos.map((m, i) => `<li class="${i ? '' : 'on'}" data-r-item data-hora="${m.hora}" data-t="${esc(m.t)}" data-d="${esc(m.d)}"><b>${m.hora}</b><span>${m.t}</span></li>`).join('');
 
 // ---------- serviços ----------
 const servicos = C.servicos.lista.map((s, i) => `<a class="bloco bloco-${s.tam}" style="--i:${i}" href="${wa(`Olá! Gostaria de saber mais sobre ${s.nome.toLowerCase()} com a Peakalika Turismo.`)}" target="_blank" rel="noopener" data-cursor="Saiba mais" data-bloco>
@@ -113,11 +135,10 @@ ${fontes}
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
 <div class="pre" data-pre aria-hidden="true">
-  <div class="pre-ceu" data-estrelas="pre"></div>
   <div class="pre-palco">
-    ${I.castelo}
     <div class="pre-logo">${logo}</div>
-    <p class="pre-txt">Preparando a sua magia <span data-pre-num>0</span>%</p>
+    <div class="pre-barra"><i data-pre-barra></i></div>
+    <p class="pre-txt"><span data-pre-num>0</span>%</p>
   </div>
 </div>
 
@@ -130,9 +151,6 @@ ${fontes}
   <div class="voo-faixa"><p class="voo-txt"><small>Próxima parada</small><b data-voo-destino></b></p></div>
   <span class="voo-aviao">${I.aviao}</span>
 </div>
-<!-- avião de praia que cruza o topo rebocando o nome de cada seção nova -->
-<div class="reboque" data-reboque aria-hidden="true"><span class="reboque-faixa" data-reboque-txt></span><i class="reboque-corda"></i><span class="reboque-aviao">${I.aviao}</span></div>
-
 <header class="topo" data-topo>
   <div class="wrap topo-in">
     <a class="logo" href="#inicio" aria-label="${M.completo}, voltar ao início">${logo}</a>
@@ -158,10 +176,9 @@ ${fontes}
 
 <main id="conteudo">
 
-<!-- CAPA: vídeo em tela cheia que, com o scroll, encolhe para dentro de uma janela de castelo -->
+<!-- CAPA: vídeo em tela cheia que, com o scroll, recua para um quadro central -->
 <section class="capa" id="inicio" data-pin aria-label="Início">
   <div class="capa-fixa">
-    <div class="capa-ceu" data-estrelas="capa" aria-hidden="true"></div>
     <div class="capa-midia" data-capa-midia>
       ${capaVideos}
       <div class="capa-veu" aria-hidden="true"></div>
@@ -183,7 +200,7 @@ ${fontes}
 </section>
 
 <!-- BUSCA: o buscador do site original, que vira uma mensagem pronta no WhatsApp -->
-<section class="busca" id="passagens" data-parada="Passagens" aria-labelledby="busca-t">
+<section class="busca" id="passagens" aria-labelledby="busca-t">
   <div class="wrap">
     <form class="busca-card" data-busca data-tilt-leve novalidate>
       <div class="busca-cab">
@@ -213,67 +230,83 @@ ${fontes}
   <div class="faixa-trilho">${[0, 1].map(() => `<span>${C.faixa.map((f) => `${f}<i>${I.aviao}</i>`).join('')}</span>`).join('')}</div>
 </div></div>
 
-<!-- DESTINOS: galeria horizontal presa ao scroll, com o avião percorrendo a rota -->
-<section class="destinos" id="destinos" data-parada="Destinos" data-pin data-destinos aria-labelledby="destinos-t">
+${trem('destinos')}
+
+<!-- DESTINOS: mapa-múndi com as rotas saindo de Curitiba; a cada destino o avião voa a rota e a foto troca -->
+<section class="destinos" id="destinos" data-pin data-destinos style="--n:${DEST.length}" aria-labelledby="destinos-t">
   <div class="destinos-fixa">
-    <div class="destinos-trilho" data-destinos-trilho>
-      <div class="destinos-intro">
+    <div class="destinos-mapa">
+      <div class="destinos-cab">
         <p class="apoio">Pelo mundo com a Peakalika</p>
-        <h2 id="destinos-t">${split(C.destinos.titulo)}</h2>
+        <h2 id="destinos-t">${C.destinos.titulo}</h2>
         <p>${C.destinos.texto}</p>
-        <p class="destinos-dica">${I.rota}Role e embarque</p>
       </div>
-      ${destinos}
-      <a class="destino destino-mais" href="${wa('Olá! Quero conhecer mais destinos com a Peakalika Turismo.')}" target="_blank" rel="noopener" data-tilt data-cursor="Falar com a gente">
-        <span class="destino-foto"><img src="${img('nova-york')}" alt="Estátua da Liberdade e o horizonte de Nova York" width="1600" height="1066" loading="lazy" data-destino-img></span>
-        <span class="destino-txt"><small>E muito mais</small><strong>Mais destinos</strong><em>Monte o seu roteiro<span class="destino-seta">${I.setaDiag}</span></em></span>
-      </a>
+      <div class="mundo-caixa">
+        ${mapa}
+      </div>
+      <ol class="destinos-lista" aria-hidden="true">${destLista}</ol>
     </div>
-    <div class="rota-voo" aria-hidden="true">
-      <svg viewBox="0 0 1000 40" preserveAspectRatio="none"><path d="M0 30 C 250 0, 750 0, 1000 30" pathLength="1"/></svg>
-      <span class="rota-aviao" data-rota-aviao>${I.aviao}</span>
+    <div class="destinos-info">
+      <div class="destinos-fotos">
+          ${destFotos}
+      </div>
+      <div class="destinos-cards" aria-live="polite">
+          ${destCards}
+      </div>
     </div>
   </div>
 </section>
 
-<!-- MONTANHA-RUSSA: transição de Destinos para a Disney, o trem anda com o scroll e o dia vira noite -->
-<section class="montanha" data-pin data-montanha data-parada="Montanha-russa" aria-label="Transição: montanha-russa a caminho da Disney">
-  <div class="montanha-fixa" data-montanha-ceu>
-    ${I.montanha}
-    <p class="mr-antes" aria-hidden="true">${C.montanha.antes}<small>${C.montanha.dica}</small></p>
-    <p class="mr-depois" aria-hidden="true">${C.montanha.depois}</p>
+${trem('disney')}
+
+<!-- DISNEY: abertura em vídeo, citação e o que entra no planejamento -->
+<section class="disney" id="disney" aria-labelledby="disney-t">
+  <div class="disney-capa" data-p>
+    <video class="disney-video" muted loop playsinline preload="none" poster="${vid('show-noturno')}.webp" aria-label="Show de luzes e fogos sobre o castelo à noite" data-auto><source src="${vid('show-noturno')}.mp4" type="video/mp4"></video>
+    <div class="disney-veu" aria-hidden="true"></div>
+    <div class="wrap disney-topo">
+      <img class="wdw" src="assets/img/parceiro-wdw.png" alt="Walt Disney World" width="460" height="260" loading="lazy" data-anima>
+      <h2 id="disney-t">${split(C.disney.titulo)}</h2>
+      <p data-anima>${C.disney.texto}</p>
+      <div class="dois-bts" data-anima>
+        <a class="btn btn-ouro" href="${M.portalDisney}" target="_blank" rel="noopener" data-ima>${rola('Montar minha viagem Disney')}</a>
+        <a class="btn btn-vidro" href="${wa('Olá! Quero planejar minha viagem para a Disney com a Peakalika Turismo.')}" target="_blank" rel="noopener" data-ima>${rola('Falar com especialista')}</a>
+      </div>
+    </div>
+  </div>
+  <div class="wrap disney-corpo">
+    <blockquote class="citacao" data-anima>
+      <p>“${C.disney.citacao}”</p>
+      <cite>${C.disney.autor}</cite>
+    </blockquote>
+    <ul class="disney-itens">${disneyItens}</ul>
   </div>
 </section>
 
-<!-- DISNEY: céu estrelado, castelo que se desenha e contador da viagem -->
-<section class="disney" id="disney" data-parada="Disney" aria-labelledby="disney-t">
-  <canvas class="ceu" data-ceu aria-hidden="true"></canvas>
-  <div class="wrap disney-topo">
-    <img class="wdw" src="assets/img/parceiro-wdw.png" alt="Walt Disney World" width="460" height="260" loading="lazy" data-anima>
-    <h2 id="disney-t">${split(C.disney.titulo)}</h2>
-    <p data-anima>${C.disney.texto}</p>
-    <div class="dois-bts" data-anima>
-      <a class="btn btn-ouro" href="${M.portalDisney}" target="_blank" rel="noopener" data-ima data-fogos-hover>${rola('Montar minha viagem Disney')}</a>
-      <a class="btn btn-vidro" href="${wa('Olá! Quero planejar minha viagem para a Disney com a Peakalika Turismo.')}" target="_blank" rel="noopener" data-ima>${rola('Falar com especialista')}</a>
+<!-- ROTEIRO: um dia perfeito na Disney em vídeo, com a linha do tempo avançando pelo scroll -->
+<section class="roteiro" data-pin data-roteiro style="--n:${momentos.length}" aria-labelledby="roteiro-t">
+  <div class="roteiro-fixa">
+    <div class="roteiro-videos">
+      ${rVideos}
+    </div>
+    <div class="roteiro-veu" aria-hidden="true"></div>
+    <div class="wrap roteiro-in">
+      <div class="roteiro-txt">
+        <p class="apoio">${C.dia.apoio}</p>
+        <h2 id="roteiro-t">${C.dia.titulo}</h2>
+        <p class="roteiro-hora" aria-hidden="true"><span data-r-hora>${momentos[0].hora}</span></p>
+        <div class="roteiro-momento" aria-live="polite"><h3 data-r-titulo>${momentos[0].t}</h3><p data-r-texto>${momentos[0].d}</p></div>
+      </div>
+      <ol class="roteiro-linha" aria-label="Horários do roteiro"><i data-r-barra aria-hidden="true"></i>${rLinha}</ol>
     </div>
   </div>
+</section>
 
-  <div class="castelo-palco" data-p data-castelo>
-    <button type="button" class="castelo-bt" data-castelo-bt aria-label="Soltar fogos sobre o castelo">${I.castelo}</button>
-    <p class="castelo-dica">Toque no castelo</p>
-  </div>
-
-  <blockquote class="citacao" data-anima>
-    <p>“${C.disney.citacao}”</p>
-    <cite>${C.disney.autor}</cite>
-  </blockquote>
-
-  <ul class="wrap disney-itens">${disneyItens}</ul>
-
+<section class="contagem-sec" aria-labelledby="contagem-t">
   <div class="wrap contagem" data-anima>
     <div class="contagem-txt">
-      <h3>Quanto falta para a magia?</h3>
-      <p>Coloque a data da sua viagem e acompanhe a contagem regressiva. Quando chegar, os fogos são por nossa conta.</p>
+      <h3 id="contagem-t">Quanto falta para a viagem?</h3>
+      <p>Coloque a data do embarque e acompanhe a contagem regressiva.</p>
       <label class="campo campo-data"><span>Data da viagem</span><input type="date" data-contagem-data></label>
     </div>
     <div class="contagem-num" data-contagem aria-live="polite">
@@ -285,46 +318,10 @@ ${fontes}
   </div>
 </section>
 
-<!-- UM DIA PERFEITO NA DISNEY: o céu muda do amanhecer à noite e o relógio avança com o scroll -->
-<section class="dia" data-pin data-dia data-parada="Um dia na Disney" aria-labelledby="dia-t">
-  <div class="dia-fixa">
-    <div class="dia-ceu" aria-hidden="true">
-      <span class="dia-estrelas"></span>
-      <span class="dia-sol" data-dia-sol></span>
-      <span class="dia-lua" data-dia-lua></span>
-      <span class="dia-nuvem n1">${I.nuvem}</span><span class="dia-nuvem n2">${I.nuvem}</span><span class="dia-nuvem n3">${I.nuvem}</span>
-    </div>
-    <div class="wrap dia-in">
-      <div class="dia-txt">
-        <p class="apoio">${C.dia.apoio}</p>
-        <h2 id="dia-t">${C.dia.titulo}</h2>
-        <p class="dia-hora" aria-hidden="true"><span data-dia-hora>${momentos[0].hora}</span></p>
-        <div class="dia-momento" aria-live="polite"><h3 data-dia-titulo>${momentos[0].t}</h3><p data-dia-texto>${momentos[0].d}</p></div>
-      </div>
-      <div class="dia-ingressos">
-          ${ingressos}
-      </div>
-    </div>
-    <div class="wrap"><ol class="dia-regua" aria-hidden="true">${regua}<i data-dia-barra></i></ol></div>
-  </div>
-</section>
-
-<!-- JANELA DO CASTELO: as cortinas abrem e a câmera entra pela janela até o show de fogos -->
-<section class="janela" data-pin data-janela data-parada="O castelo" aria-labelledby="janela-t">
-  <div class="janela-fixa">
-    <video class="janela-video" muted loop playsinline preload="none" poster="${vid('show-noturno')}.webp" aria-label="Show de luzes e fogos no castelo à noite" data-auto><source src="${vid('show-noturno')}.mp4" type="video/mp4"></video>
-    <div class="janela-veu" aria-hidden="true"></div>
-    ${I.fachada}
-    <p class="janela-convite" aria-hidden="true">${C.janela.convite}<small>${C.janela.dica}</small></p>
-    <div class="wrap janela-txt">
-      <h2 id="janela-t">${C.janela.titulo}</h2>
-      <p>${C.janela.texto}</p>
-    </div>
-  </div>
-</section>
+${trem('servicos')}
 
 <!-- SERVIÇOS: mosaico de fotos com a Disney em vídeo -->
-<section class="servicos" id="servicos" data-parada="Serviços" aria-labelledby="serv-t">
+<section class="servicos" id="servicos" aria-labelledby="serv-t">
   <div class="wrap">
     <div class="servicos-cab">
       <div>
@@ -343,7 +340,7 @@ ${fontes}
 </section>
 
 <!-- VISTOS: passaporte em 3D e o caminho do processo desenhado pelo scroll -->
-<section class="vistos" id="vistos" data-parada="Vistos" aria-labelledby="vistos-t">
+<section class="vistos" id="vistos" aria-labelledby="vistos-t">
   <div class="vistos-fundo" data-p aria-hidden="true"><img src="${img('nova-york')}" alt="" width="1600" height="1066" loading="lazy"></div>
   <div class="wrap vistos-in">
     <div class="vistos-txt">
@@ -372,7 +369,7 @@ ${fontes}
 </section>
 
 <!-- CONSULTORA -->
-<section class="consultora" data-parada="Atendimento" aria-labelledby="cons-t">
+<section class="consultora" aria-labelledby="cons-t">
   <div class="wrap consultora-in">
     <figure class="consultora-foto" data-p>
       <img src="${img('consultora')}" alt="Consultora da Peakalika Turismo de blazer laranja" width="1000" height="1250" loading="lazy">
@@ -388,7 +385,7 @@ ${fontes}
 </section>
 
 <!-- CLIENTES -->
-<section class="clientes" id="clientes" data-parada="Clientes" aria-labelledby="cli-t">
+<section class="clientes" id="clientes" aria-labelledby="cli-t">
   <div class="wrap clientes-in">
     <div class="clientes-cab">
       <p class="clientes-num" aria-hidden="true">+<span data-conta="${C.clientes.numero}">0</span></p>
@@ -409,7 +406,7 @@ ${fontes}
 </section>
 
 <!-- INSTAGRAM: esteira curva em 3D com posts e reels -->
-<section class="insta" data-parada="Instagram" aria-labelledby="insta-t">
+<section class="insta" aria-labelledby="insta-t">
   <div class="wrap insta-cab">
     <h2 id="insta-t">${split('Siga a magia no Instagram')}</h2>
     <a class="insta-user" href="${M.instagram}" target="_blank" rel="noopener">${I.insta}@peakalikaturismo</a>
@@ -420,7 +417,7 @@ ${fontes}
 </section>
 
 <!-- FINAL -->
-<section class="final" data-parada="Final feliz" aria-labelledby="final-t">
+<section class="final" aria-labelledby="final-t">
   <canvas class="ceu" data-ceu aria-hidden="true"></canvas>
   <div class="wrap final-in">
     <h2 id="final-t">${C.final.titulo.map((l) => `<span class="ln"><span>${l}</span></span>`).join('')}</h2>

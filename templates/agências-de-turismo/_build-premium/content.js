@@ -61,11 +61,11 @@ module.exports = {
     ],
   },
 
-  // transições 3D: a montanha-russa em primeira pessoa leva até a próxima seção, cujo nome vem em direção à tela
+  // transições 3D em primeira pessoa; o nome da próxima seção vem em direção à tela
+  // modo aviao: voo entre nuvens com um avião vindo do horizonte; modo montanha: montanha-russa
   transicoes: {
-    destinos: { nome: 'Destinos', apoio: 'Próxima parada', semente: 3 },
-    disney: { nome: 'Orlando', apoio: 'Próxima parada', semente: 11 },
-    servicos: { nome: 'Serviços', apoio: 'Próxima parada', semente: 23 },
+    destinos: { modo: 'aviao', nome: 'Destinos', apoio: 'Próxima parada', semente: 5 },
+    disney: { modo: 'montanha', nome: 'Orlando', apoio: 'Próxima parada', semente: 11 },
   },
 
   disney: {

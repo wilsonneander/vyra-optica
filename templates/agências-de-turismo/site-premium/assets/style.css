@@ -197,7 +197,7 @@ a:hover .rola > span, button:hover .rola > span { transform: translateY(-100%); 
 @keyframes corre { to { transform: translateX(-50%); } }
 
 /* ---------- transição 3D: montanha-russa em primeira pessoa ---------- */
-.trem { position: relative; height: 230vh; background: var(--noite); }
+.trem { position: relative; height: 190vh; background: var(--noite); }
 .trem-fixa { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
 .trem-tela { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 

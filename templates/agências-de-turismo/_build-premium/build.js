@@ -76,7 +76,7 @@ const destCards = DEST.map((d, i) => `<article class="dcard${i ? '' : ' on'}" da
 const destLista = DEST.map((d, i) => `<li class="${i ? '' : 'on'}" data-dest-item>${d.cidade}</li>`).join('');
 
 // ---------- transição 3D: montanha-russa em primeira pessoa ----------
-const trem = (k) => { const tr = C.transicoes[k]; return `<section class="trem" data-pin data-trem data-semente="${tr.semente}" data-nome="${esc(tr.nome)}" data-apoio="${esc(tr.apoio)}" aria-label="${esc(`${tr.apoio}: ${tr.nome}`)}">
+const trem = (k) => { const tr = C.transicoes[k]; return `<section class="trem trem-${tr.modo}" data-pin data-trem data-modo="${tr.modo}" data-semente="${tr.semente}" data-nome="${esc(tr.nome)}" data-apoio="${esc(tr.apoio)}" aria-label="${esc(`${tr.apoio}: ${tr.nome}`)}">
   <div class="trem-fixa"><canvas class="trem-tela" data-trem-tela aria-hidden="true"></canvas></div>
 </section>`; };
 
@@ -317,8 +317,6 @@ ${trem('disney')}
     </div>
   </div>
 </section>
-
-${trem('servicos')}
 
 <!-- SERVIÇOS: mosaico de fotos com a Disney em vídeo -->
 <section class="servicos" id="servicos" aria-labelledby="serv-t">

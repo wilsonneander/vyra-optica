@@ -263,27 +263,148 @@
     });
   });
 
-  // ---------- transição 3D: montanha-russa em primeira pessoa ----------
-  // O trilho é uma curva 3D (x e altura variam com a distância z). A câmera anda sobre ele com o scroll,
-  // olha para a frente, inclina nas curvas e projeta trilhos, dormentes e suportes em perspectiva.
-  // No fim do percurso o nome da próxima seção vem em direção à tela e passa pelo usuário.
-  $$('[data-trem]').forEach((sec) => {
-    const cv = $('[data-trem-tela]', sec);
-    const c = cv.getContext('2d');
-    const nome = sec.dataset.nome, apoio = sec.dataset.apoio;
+  // ---------- transições 3D em primeira pessoa ----------
+  // Base comum: canvas no tamanho da tela, progresso suavizado pelo scroll e o nome da próxima seção, que vem
+  // em direção à tela e passa pelo usuário no fim. Duas cenas: avião entre nuvens e montanha-russa.
+  const rotulo = (c, P, fov, nome, apoio, escala = 4.2) => {
+    if (!P) return;
+    const tam = escala * fov / P.z;
+    const a = clamp((150 - P.z) / 60) * clamp((P.z - .6) / 2.2);
+    if (a <= 0) return;
+    c.globalAlpha = a; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+    c.fillStyle = '#E8C987'; c.font = `600 ${Math.max(8, tam * .16)}px "Hanken Grotesk", sans-serif`;
+    c.fillText(apoio.toUpperCase().split('').join(String.fromCharCode(8202)), P.x, P.y - tam * .95);
+    c.fillStyle = '#F6F0E6'; c.font = `400 ${tam}px Gloock, Georgia, serif`;
+    c.fillText(nome, P.x, P.y);
+    c.globalAlpha = 1;
+  };
+
+  // avião: o modelo vem do horizonte, inclina, passa por cima da câmera e deixa rastros de condensação
+  const cenaAviao = (sec) => {
+    let sem = +sec.dataset.semente;
+    const rnd = () => (sem = (sem * 9301 + 49297) % 233280) / 233280;
+    // nuvens: posições fixas num volume que se repete enquanto a câmera avança
+    const PROF = 260;
+    const nuvens = Array.from({ length: 150 }, () => {
+      const baixo = rnd() > .3;
+      return { x: (rnd() - .5) * 160, y: baixo ? -16 - rnd() * 10 : (rnd() - .5) * 26, z: rnd() * PROF, r: baixo ? 9 + rnd() * 14 : 3 + rnd() * 6, a: baixo ? .5 + rnd() * .4 : .18 + rnd() * .25 };
+    });
+    const sprite = document.createElement('canvas'); sprite.width = sprite.height = 128;
+    const sg = sprite.getContext('2d'), rg = sg.createRadialGradient(64, 64, 0, 64, 64, 64);
+    rg.addColorStop(0, 'rgba(246,240,230,1)'); rg.addColorStop(.45, 'rgba(246,240,230,.45)'); rg.addColorStop(1, 'rgba(246,240,230,0)');
+    sg.fillStyle = rg; sg.fillRect(0, 0, 128, 128);
+    // modelo do avião (x para a direita, y para cima, z para o nariz), em faces com cor própria
+    const F = [];
+    const MARFIM = [246, 240, 230], CORAL = [255, 103, 74], CINZA = [150, 160, 176];
+    const aneis = [[3.7, 0], [3.1, .34], [2.3, .5], [-2.1, .5], [-3.2, .3], [-3.7, .12]];
+    const N = 10;
+    const anel = ([z, r]) => Array.from({ length: N }, (_, i) => [Math.cos(i / N * 6.283) * r, Math.sin(i / N * 6.283) * r * .95, z]);
+    for (let k = 0; k < aneis.length - 1; k++) {
+      const A = anel(aneis[k]), B = anel(aneis[k + 1]);
+      for (let i = 0; i < N; i++) F.push({ v: [A[i], A[(i + 1) % N], B[(i + 1) % N], B[i]], cor: MARFIM });
+    }
+    const asa = (s) => [[.35 * s, -.15, 1], [4.4 * s, -.05, -.9], [4.4 * s, -.05, -1.45], [.35 * s, -.15, -.7]];
+    F.push({ v: asa(1), cor: MARFIM, duas: true }, { v: asa(-1), cor: MARFIM, duas: true });
+    const prof = (s) => [[.2 * s, .1, -2.75], [1.7 * s, .15, -3.45], [1.7 * s, .15, -3.75], [.2 * s, .1, -3.45]];
+    F.push({ v: prof(1), cor: MARFIM, duas: true }, { v: prof(-1), cor: MARFIM, duas: true });
+    F.push({ v: [[0, .3, -2.55], [0, 1.75, -3.45], [0, 1.75, -3.85], [0, .3, -3.6]], cor: CORAL, duas: true });
+    [-1.7, 1.7].forEach((ex) => {
+      const M = 6, ring = (z, r) => Array.from({ length: M }, (_, i) => [ex + Math.cos(i / M * 6.283) * r, -.5 + Math.sin(i / M * 6.283) * r, z]);
+      const A = ring(.75, .27), B = ring(-.45, .22);
+      for (let i = 0; i < M; i++) F.push({ v: [A[i], A[(i + 1) % M], B[(i + 1) % M], B[i]], cor: CINZA });
+    });
+    const LUZ = (() => { const l = [.35, .85, .4], n = Math.hypot(...l); return l.map((v) => v / n); })();
+    return (c, W, H, p, fov) => {
+      const zc = p * 150;
+      // céu de fim de tarde e mar de nuvens
+      const hz = H * .56;
+      const ceu = c.createLinearGradient(0, 0, 0, H);
+      ceu.addColorStop(0, '#050B16'); ceu.addColorStop(.42, '#14243F'); ceu.addColorStop(.56, '#B8644F'); ceu.addColorStop(.6, '#2A3554'); ceu.addColorStop(1, '#0A1322');
+      c.fillStyle = ceu; c.fillRect(0, 0, W, H);
+      c.globalAlpha = .5; c.fillStyle = '#F6F0E6';
+      for (let i = 0; i < 90; i++) { const x = (i * 137.5) % W, y = ((i * 71.3) % (hz * .8)); c.fillRect(x, y, 1.2, 1.2); }
+      c.globalAlpha = 1;
+      const proj = (x, y, z) => (z < .3 ? null : { x: W / 2 + x * fov / z, y: hz - y * fov / z, z });
+      // nuvens, do fundo para a frente
+      const lista = nuvens.map((n) => ({ ...n, zr: ((n.z - zc) % PROF + PROF) % PROF + .5 })).sort((a, b) => b.zr - a.zr);
+      const desenhaNuvens = (limite) => {
+        for (const n of lista) {
+          if ((limite > 0 && n.zr < limite) || (limite < 0 && n.zr >= -limite)) continue;
+          const P = proj(n.x, n.y, n.zr); if (!P) continue;
+          const r = n.r * fov / n.zr;
+          if (r < 1 || P.x + r < 0 || P.x - r > W) continue;
+          c.globalAlpha = n.a * clamp(1 - n.zr / PROF) * clamp(n.zr / 6);
+          c.drawImage(sprite, P.x - r, P.y - r * .55, r * 2, r * 1.1);
+        }
+        c.globalAlpha = 1;
+      };
+      // posição do avião em relação à câmera: vem de longe, cruza e sobe por cima
+      const k = clamp(p / .68);
+      const d = lerp(150, -24, k);
+      const ax = Math.sin(p * 4 + .6) * 6 * (1 - k * .7), ay = lerp(2.4, 3.6, k) + Math.max(0, 10 - d) * .22;
+      const roll = Math.sin(p * 5) * .45, pitch = -.05 + clamp((8 - d) / 30) * .25;
+      desenhaNuvens(d > 0 ? d : 1e9);
+      // rastros de condensação atrás das pontas das asas
+      if (d > .5) {
+        for (const s of [-1, 1]) {
+          c.beginPath(); let ini = false;
+          for (let j = 0; j < 46; j++) {
+            const dz = d + 4 + j * 5, t = (dz - d) / 230;
+            const P = proj(ax + s * 6.6 * Math.cos(roll), ay - s * 6.6 * Math.sin(roll) + Math.sin(j * .2) * .2, dz);
+            if (!P) continue;
+            c.globalAlpha = clamp(.55 - t * .55);
+            if (!ini) { c.moveTo(P.x, P.y); ini = true; } else c.lineTo(P.x, P.y);
+          }
+          c.strokeStyle = 'rgba(246,240,230,.55)'; c.lineWidth = Math.max(1, 1.2 * fov / Math.max(d, 4) / 3); c.stroke();
+        }
+        c.globalAlpha = 1;
+      }
+      // modelo: gira para o nariz apontar para a câmera, inclina e projeta as faces com sombreamento simples
+      if (d > .6) {
+        const cr = Math.cos(roll), sr = Math.sin(roll), cp = Math.cos(pitch), sp = Math.sin(pitch);
+        const tf = ([x0, y0, z0]) => {
+          const x = x0 * 1.5, y = y0 * 1.5, z = z0 * 1.5;
+          let X = x * cr - y * sr, Y = x * sr + y * cr, Z = z;
+          const Y2 = Y * cp - Z * sp, Z2 = Y * sp + Z * cp; Y = Y2; Z = Z2;
+          return [-X + ax, Y + ay, -Z + d];
+        };
+        const faces = [];
+        for (const f of F) {
+          const v = f.v.map(tf);
+          if (v.some((q) => q[2] < .4)) continue;
+          const u = [v[1][0] - v[0][0], v[1][1] - v[0][1], v[1][2] - v[0][2]], w = [v[2][0] - v[0][0], v[2][1] - v[0][1], v[2][2] - v[0][2]];
+          const nx = u[1] * w[2] - u[2] * w[1], ny = u[2] * w[0] - u[0] * w[2], nz = u[0] * w[1] - u[1] * w[0];
+          const nl = Math.hypot(nx, ny, nz) || 1;
+          const luz = Math.abs((nx * LUZ[0] + ny * LUZ[1] - nz * LUZ[2]) / nl);
+          faces.push({ v, z: v.reduce((s, q) => s + q[2], 0) / v.length, cor: f.cor, luz });
+        }
+        faces.sort((a, b) => b.z - a.z);
+        for (const f of faces) {
+          const pts = f.v.map((q) => proj(q[0], q[1], q[2]));
+          const m = .42 + .58 * f.luz;
+          c.fillStyle = `rgb(${f.cor.map((v) => Math.round(v * m)).join(',')})`;
+          c.beginPath(); pts.forEach((q, i) => (i ? c.lineTo(q.x, q.y) : c.moveTo(q.x, q.y))); c.closePath(); c.fill();
+          c.strokeStyle = c.fillStyle; c.lineWidth = .6; c.stroke();
+        }
+      }
+      desenhaNuvens(d > 0 ? -d : -1e9);
+      // nome da próxima seção depois que o avião passa
+      const dl = lerp(200, -2, clamp((p - .42) / .58));
+      rotulo(c, proj(0, 1.4, dl), fov, sec.dataset.nome, sec.dataset.apoio, 3.6);
+    };
+  };
+
+  // montanha-russa: a câmera anda sobre o trilho, olha para a frente e inclina nas curvas
+  const cenaMontanha = (sec) => {
     let sem = +sec.dataset.semente;
     const rnd = () => (sem = (sem * 9301 + 49297) % 233280) / 233280;
     const AX = [9 + rnd() * 8, 3 + rnd() * 4], FX = [.018 + rnd() * .012, .05 + rnd() * .03], PX = [rnd() * 6, rnd() * 6];
     const AY = [7 + rnd() * 4, 2 + rnd() * 2], FY = [.035 + rnd() * .02, .09 + rnd() * .04];
-    const COMP = 230, VISTA = 110, BITOLA = .8;
+    const COMP = 150, VISTA = 110, BITOLA = .8;
     const meio = (z) => ({ x: AX[0] * Math.sin(z * FX[0] + PX[0]) + AX[1] * Math.sin(z * FX[1] + PX[1]), y: 10 + AY[0] * Math.sin(z * FY[0]) + AY[1] * Math.sin(z * FY[1] + 1) * Math.min(1, z / 30), z });
     const luzes = Array.from({ length: 220 }, () => ({ a: (rnd() - .5) * 3.4, e: rnd() * .025, r: rnd() * 1.4 + .4, ouro: rnd() > .7 }));
     const estrelas = Array.from({ length: 140 }, () => ({ a: (rnd() - .5) * 4, e: .05 + rnd() * .6, r: rnd() * 1.1 + .3 }));
-    let W = 0, H = 0, alvoP = 0, p = 0, ativo = false, rodando = false;
-    const tamanho = () => { const r = cv.getBoundingClientRect(); W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; };
-    const desenha = () => {
-      c.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const fov = Math.max(W, H) * .62;
+    return (c, W, H, p, fov) => {
       const zc = p * COMP;
       const base = meio(zc), frente = meio(zc + 7);
       const cam = { x: base.x, y: base.y + 1.7, z: zc };
@@ -299,7 +420,6 @@
         if (z2 < .25) return null;
         return { x: W / 2 + x1 * fov / z2, y: H / 2 - y2 * fov / z2, z: z2 };
       };
-      // céu e chão (com o horizonte acompanhando a inclinação da câmera)
       c.save();
       c.translate(W / 2, H / 2); c.rotate(roll); c.translate(-W / 2, -H / 2);
       const hz = H / 2 + Math.tan(pitch) * fov;
@@ -312,7 +432,6 @@
       for (const e of estrelas) { const x = W / 2 + Math.tan(e.a - yaw * .35) * fov * .6; c.globalAlpha = .55; c.fillStyle = '#F6F0E6'; c.fillRect(x, hz - e.e * H, e.r, e.r); }
       for (const l of luzes) { const x = W / 2 + Math.tan(clamp(l.a - yaw, -1.4, 1.4)) * fov; c.globalAlpha = .7; c.fillStyle = l.ouro ? '#E8C987' : '#F6F0E6'; c.beginPath(); c.arc(x, hz - l.e * fov * .3, l.r, 0, 6.283); c.fill(); }
       c.globalAlpha = 1;
-      // trilho, do mais longe para o mais perto
       const passo = .55;
       let ant = null;
       for (let z = Math.min(zc + VISTA, COMP + 40); z > zc + .4; z -= passo) {
@@ -336,21 +455,11 @@
         }
         ant = { L, R };
       }
-      // nome da próxima seção, suspenso sobre o trilho no fim do percurso
       const zl = COMP + 4, ml = meio(zl);
-      const Pl = proj({ x: ml.x, y: ml.y + 5, z: zl });
-      if (Pl) {
-        const tam = 4.2 * fov / Pl.z;
-        const a = clamp((140 - Pl.z) / 60) * clamp((Pl.z - .6) / 2.2);
-        c.globalAlpha = a; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
-        c.fillStyle = '#E8C987'; c.font = `600 ${Math.max(8, tam * .16)}px "Hanken Grotesk", sans-serif`;
-        c.fillText(apoio.toUpperCase().split('').join(String.fromCharCode(8202)), Pl.x, Pl.y - tam * .95);
-        c.fillStyle = '#F6F0E6'; c.font = `400 ${tam}px Gloock, Georgia, serif`;
-        c.fillText(nome, Pl.x, Pl.y);
-      }
+      rotulo(c, proj({ x: ml.x, y: ml.y + 5, z: zl }), fov, sec.dataset.nome, sec.dataset.apoio);
       c.restore();
       c.globalAlpha = 1;
-      // frente do carrinho, presa à câmera: barra de segurança e laterais escuras com filete coral
+      // frente do carrinho, presa à câmera
       const bw = Math.min(W * .7, 900), bx = (W - bw) / 2, by = H - Math.min(H * .1, 84);
       const g = c.createLinearGradient(0, by, 0, H); g.addColorStop(0, '#1B2638'); g.addColorStop(1, '#070D18');
       c.fillStyle = g; c.beginPath(); c.moveTo(bx + bw * .06, by); c.lineTo(bx + bw * .94, by); c.lineTo(bx + bw, H); c.lineTo(bx, H); c.closePath(); c.fill();
@@ -358,6 +467,15 @@
       c.strokeStyle = 'rgba(246, 240, 230, .75)'; c.lineWidth = 3; c.lineCap = 'round';
       c.beginPath(); c.moveTo(bx + bw * .3, by + 2); c.lineTo(bx + bw * .34, by - 26); c.lineTo(bx + bw * .66, by - 26); c.lineTo(bx + bw * .7, by + 2); c.stroke();
     };
+  };
+
+  $$('[data-trem]').forEach((sec) => {
+    const cv = $('[data-trem-tela]', sec);
+    const c = cv.getContext('2d');
+    const cena = sec.dataset.modo === 'aviao' ? cenaAviao(sec) : cenaMontanha(sec);
+    let W = 0, H = 0, alvoP = 0, p = 0, ativo = false, rodando = false;
+    const tamanho = () => { const r = cv.getBoundingClientRect(); W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; };
+    const desenha = () => { c.setTransform(dpr, 0, 0, dpr, 0, 0); cena(c, W, H, p, Math.max(W, H) * .62); };
     const loop = () => {
       if (!ativo) { rodando = false; return; }
       p = lerp(p, alvoP, .14);

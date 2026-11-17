@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Área do dono | Pistão Auto Center</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#101010">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<script>try{var t=localStorage.getItem('pistao-tema');if(t==='claro'||t==='escuro')document.documentElement.dataset.tema=t;if(sessionStorage.getItem('pistao-sessao')||localStorage.getItem('pistao-sessao'))document.documentElement.classList.add('logado');}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;600;700;800&family=Sarabun:ital,wght@0,400;0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/painel.css">
+</head>
+<body class="pn">
+
+<main class="login" data-tela-login>
+  <div class="login-foto" aria-hidden="true">
+    <span class="login-vinho"></span>
+    <div class="login-img"><img src="../assets/img/oficina.webp" alt="" width="1300" height="900"></div>
+  </div>
+  <div class="login-lado">
+    <a class="logo" href="../index.html" aria-label="Voltar ao site da Pistão Auto Center"><svg class="simbolo" viewBox="0 0 52 48" aria-hidden="true">
+  <path d="M10 2h40L42 46H2Z" fill="var(--rubi, #FF3D24)"/>
+  <g transform="skewX(-9) translate(7 0)">
+    <path d="M14 9h20v4H14zM14 15h20v3H14z" fill="#101010"/>
+    <path d="M14 20h20v6l-3 3H17l-3-3Z" fill="#101010"/>
+    <circle cx="24" cy="24.5" r="2.2" fill="var(--rubi, #FF3D24)"/>
+    <path d="M21.5 29h5l1.5 10h-8Z" fill="#101010"/>
+    <path d="M18 38h12v4H18z" fill="#101010"/>
+  </g>
+</svg><span class="logo-txt"><b>PISTÃO</b><small>auto center</small></span></a>
+    <form class="form login-form" data-login novalidate>
+      <div class="cab">
+        <span class="cab-fundo" aria-hidden="true">Painel</span>
+        <h1>Área do dono</h1>
+        <p>Cadastre peças e acessórios, controle o estoque e acompanhe os agendamentos e reservas que chegam pelo site.</p>
+      </div>
+      <label class="campo"><span>E-mail</span><input name="email" type="email" autocomplete="username" required placeholder="voce@suaoficina.com.br" value="dono@pistaoauto.com.br"></label>
+      <div class="campo"><label for="senha"><span>Senha</span></label>
+        <div class="senha"><input id="senha" name="senha" type="password" autocomplete="current-password" required placeholder="Sua senha" value="pistao2026"><button type="button" data-mostra-senha aria-label="Mostrar senha" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg></button></div>
+      </div>
+      <label class="marcar"><input type="checkbox" name="manter"><span>Manter conectado neste aparelho</span></label>
+      <button class="btn" type="submit"><span class="rola" data-rola>Entrar no painel</span></button>
+      <p class="aviso" data-aviso role="status"></p>
+      <p class="login-demo">Acesso de demonstração já preenchido: <b>dono@pistaoauto.com.br</b> e senha <b>pistao2026</b></p>
+    </form>
+    <a class="link-mais" href="../index.html"><span class="rola" data-rola>Voltar ao site</span></a>
+  </div>
+</main>
+
+<div class="app" data-tela-app>
+  <header class="app-topo">
+    <div class="wrap app-topo-in">
+      <a class="logo" href="../index.html" aria-label="Abrir o site da Pistão Auto Center"><svg class="simbolo" viewBox="0 0 52 48" aria-hidden="true">
+  <path d="M10 2h40L42 46H2Z" fill="var(--rubi, #FF3D24)"/>
+  <g transform="skewX(-9) translate(7 0)">
+    <path d="M14 9h20v4H14zM14 15h20v3H14z" fill="#101010"/>
+    <path d="M14 20h20v6l-3 3H17l-3-3Z" fill="#101010"/>
+    <circle cx="24" cy="24.5" r="2.2" fill="var(--rubi, #FF3D24)"/>
+    <path d="M21.5 29h5l1.5 10h-8Z" fill="#101010"/>
+    <path d="M18 38h12v4H18z" fill="#101010"/>
+  </g>
+</svg><span class="logo-txt"><b>PISTÃO</b><small>auto center</small></span></a>
+      <nav class="abas" role="tablist" aria-label="Seções do painel">
+        <button type="button" role="tab" id="t-produtos" aria-controls="aba-produtos" aria-selected="true" data-aba="produtos">Produtos</button>
+        <button type="button" role="tab" id="t-agenda" aria-controls="aba-agenda" aria-selected="false" data-aba="agenda" tabindex="-1">Pedidos<b class="novos" data-cont-novos hidden></b></button>
+        <button type="button" role="tab" id="t-ajustes" aria-controls="aba-ajustes" aria-selected="false" data-aba="ajustes" tabindex="-1">Ajustes</button>
+      </nav>
+      <div class="app-acoes">
+        <a class="link-mais" href="../index.html#produtos" target="_blank" rel="noopener"><span class="rola" data-rola>Ver vitrine</span></a>
+        <div class="tema-pilula app-tema" role="group" aria-label="Tema do site">
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M14.8 3.4a8.7 8.7 0 1 0 5.8 12.4A7 7 0 0 1 14.8 3.4Z"/></svg></button>
+</div>
+        <button type="button" class="caixa-btn" data-sair><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M10 4H4v16h6M15 8l4 4-4 4M19 12H9"/></svg><span>Sair</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap app-main" id="conteudo">
+    <div class="ola">
+      <div class="cab"><span class="cab-fundo" aria-hidden="true">Oficina</span><h1 data-ola>Olá, Carlos</h1><p data-ola-txt>Veja como está a loja hoje.</p></div>
+      <ul class="resumo" data-resumo>
+        <li style="--i:0"><button type="button" data-ir-filtro="vitrine"><b data-res="vitrine">0</b><span>na vitrine</span></button></li>
+        <li style="--i:1"><button type="button" data-ir-filtro="baixo"><b data-res="baixo">0</b><span>estoque baixo</span></button></li>
+        <li style="--i:2"><button type="button" data-ir-filtro="zero"><b data-res="zero">0</b><span>sem estoque</span></button></li>
+        <li style="--i:3"><button type="button" data-ir-filtro="novos"><b data-res="novos">0</b><span>pedidos novos</span></button></li>
+      </ul>
+    </div>
+
+    <section class="aba" id="aba-produtos" role="tabpanel" aria-labelledby="t-produtos" data-painel="produtos">
+      <div class="barra">
+        <label class="campo busca"><span class="sr">Buscar produto</span><input type="search" placeholder="Buscar pelo nome" data-busca></label>
+        <label class="campo"><span class="sr">Categoria</span><select data-filtro-cat><option value="">Todas as categorias</option><option>Óleos e fluidos</option><option>Pneus</option><option>Freios</option><option>Suspensão</option><option>Elétrica</option><option>Estética</option><option>Acessórios</option></select></label>
+        <label class="campo"><span class="sr">Situação</span><select data-filtro-sit><option value="">Todos os produtos</option><option value="vitrine">Na vitrine</option><option value="oculto">Fora da vitrine</option><option value="baixo">Estoque baixo</option><option value="zero">Sem estoque</option></select></label>
+        <button type="button" class="btn btn-novo" data-novo><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>Novo produto</button>
+      </div>
+      <div class="tabela">
+        <div class="tabela-cab" aria-hidden="true"><span>Produto</span><span>Preço</span><span>Estoque</span><span>Vitrine</span><span>Destaque</span><span></span></div>
+        <ul class="lista" data-lista></ul>
+      </div>
+      <p class="vazio" data-vazio hidden>Nenhum produto encontrado com esses filtros.</p>
+    </section>
+
+    <section class="aba" id="aba-agenda" role="tabpanel" aria-labelledby="t-agenda" data-painel="agenda" hidden>
+      <div class="barra">
+        <div class="filtros" role="group" aria-label="Filtrar pedidos pela situação" data-filtro-status data-iguais>
+          <button type="button" aria-pressed="true" data-st="">Todos</button><button type="button" aria-pressed="false" data-st="novo">Novos</button><button type="button" aria-pressed="false" data-st="confirmado">Confirmados</button><button type="button" aria-pressed="false" data-st="concluido">Concluídos</button><button type="button" aria-pressed="false" data-st="cancelado">Cancelados</button>
+        </div>
+        <label class="campo"><span class="sr">Tipo de pedido</span><select data-filtro-tipo><option value="">Agendamentos e reservas</option><option>Agendamento</option><option>Reserva</option></select></label>
+      </div>
+      <div class="pedidos" data-pedidos></div>
+      <p class="vazio" data-vazio-pedidos hidden>Nenhum pedido aqui. Os agendamentos e reservas feitos no site aparecem nesta lista.</p>
+    </section>
+
+    <section class="aba" id="aba-ajustes" role="tabpanel" aria-labelledby="t-ajustes" data-painel="ajustes" hidden>
+      <div class="ajustes">
+        <form class="form" data-troca-senha novalidate>
+          <h2>Trocar senha</h2>
+          <label class="campo"><span>Senha atual</span><input name="atual" type="password" autocomplete="current-password" required></label>
+          <div class="duas">
+            <label class="campo"><span>Nova senha</span><input name="nova" type="password" autocomplete="new-password" minlength="6" required></label>
+            <label class="campo"><span>Repita a nova senha</span><input name="repete" type="password" autocomplete="new-password" required></label>
+          </div>
+          <button class="btn" type="submit">Salvar nova senha</button>
+          <p class="aviso" data-aviso role="status"></p>
+        </form>
+        <div class="form">
+          <h2>Cópia de segurança</h2>
+          <p>Os produtos, fotos e pedidos ficam salvos neste navegador. Baixe uma cópia de vez em quando e use o mesmo arquivo para levar tudo para outro computador.</p>
+          <div class="botoes" data-iguais>
+            <button type="button" class="caixa-btn" data-exporta><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></svg><span>Baixar cópia</span></button>
+            <label class="caixa-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M12 15V3M7 8l5-5 5 5M4 20h16"/></svg><span>Carregar cópia</span><input type="file" accept="application/json,.json" class="sr" data-importa></label>
+          </div>
+          <p class="aviso" data-aviso-backup role="status"></p>
+        </div>
+        <div class="form">
+          <h2>Voltar ao exemplo</h2>
+          <p>Apaga os produtos cadastrados e volta para a lista de demonstração do modelo. Os pedidos não são apagados.</p>
+          <button type="button" class="caixa-btn perigo" data-restaura><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4 7h16M9.5 7V4h5v3M6 7l1 13h10l1-13M10 11v5M14 11v5"/></svg><span>Restaurar produtos de exemplo</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<dialog class="gaveta" data-gaveta aria-labelledby="gaveta-t">
+  <form class="form gaveta-form" data-form-produto novalidate>
+    <div class="gaveta-topo"><h2 id="gaveta-t">Novo produto</h2><button type="button" class="reserva-fecha" data-fecha aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M5 5l14 14M19 5 5 19"/></svg></button></div>
+    <div class="foto-zona" data-foto-zona>
+      <img src="" alt="Foto do produto" data-foto-prev hidden>
+      <div class="foto-vazia" data-foto-vazia><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M3 6h4l2-2h6l2 2h4v13H3z"/><path d="M12 9a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/></svg><span>Arraste a foto aqui</span></div>
+      <div class="foto-botoes" data-iguais>
+        <label class="caixa-btn"><span data-foto-rotulo>Escolher foto</span><input type="file" accept="image/*" class="sr" data-foto-input></label>
+        <button type="button" class="caixa-btn" data-foto-tira hidden>Remover foto</button>
+      </div>
+    </div>
+    <label class="campo"><span>Nome do produto</span><input name="nome" required maxlength="80" placeholder="Ex.: Kit óleo 5W30 com filtro"></label>
+    <div class="duas">
+      <label class="campo"><span>Categoria</span><select name="categoria"><option>Óleos e fluidos</option><option>Pneus</option><option>Freios</option><option>Suspensão</option><option>Elétrica</option><option>Estética</option><option>Acessórios</option></select></label>
+      <label class="campo"><span>Estoque (unidades)</span><input name="estoque" type="number" min="0" step="1" inputmode="numeric" value="1"></label>
+    </div>
+    <div class="duas">
+      <label class="campo"><span>Preço (R$)</span><input name="preco" inputmode="decimal" required placeholder="219,90"></label>
+      <label class="campo"><span>Preço antigo, se tiver promoção</span><input name="de" inputmode="decimal" placeholder="259,90"></label>
+    </div>
+    <label class="campo"><span>Descrição curta</span><textarea name="descricao" rows="3" maxlength="220" placeholder="O que vem no produto e se a instalação está inclusa"></textarea></label>
+    <div class="marcas-chave">
+      <label class="marcar"><input type="checkbox" name="vitrine" checked><span>Mostrar na vitrine do site</span></label>
+      <label class="marcar"><input type="checkbox" name="destaque"><span>Destaque (aparece primeiro)</span></label>
+    </div>
+    <p class="aviso" data-aviso role="status"></p>
+    <div class="gaveta-acoes"><button class="btn" type="submit">Salvar produto</button><button type="button" class="caixa-btn" data-fecha>Cancelar</button></div>
+  </form>
+</dialog>
+
+<dialog class="confirma" data-confirma aria-labelledby="confirma-t">
+  <form method="dialog" class="form">
+    <h2 id="confirma-t" data-confirma-t>Excluir?</h2>
+    <p data-confirma-p></p>
+    <div class="confirma-acoes"><button class="btn perigo" value="sim">Excluir</button><button class="caixa-btn" value="nao">Cancelar</button></div>
+  </form>
+</dialog>
+
+<div class="recado" data-recado role="status" aria-live="polite"></div>
+<div class="veu" aria-hidden="true"></div>
+
+<script src="../assets/loja.js" defer></script>
+<script src="../assets/painel.js" defer></script>
+</body>
+</html>

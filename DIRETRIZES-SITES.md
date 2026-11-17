@@ -49,6 +49,25 @@ Escolha da fonte:
 - Sugestões fora do padrão (Google Fonts): Familjen Grotesk, Schibsted Grotesk, Onest, Hanken Grotesk, Archivo / Archivo Narrow, Bricolage Grotesque, Unbounded, Syne, Chivo, Red Hat Display, Figtree, Epilogue, Big Shoulders Display, Anybody, Literata, Newsreader, Gloock.
 - Se a marca tem fonte definida em [brand/](brand/), ela tem prioridade.
 
+## Componente de mapa no footer
+- Todo site tem o mapa no footer, e ele é sempre o mesmo componente padrão usado nos modelos (veja o footer de [sites/intermediario/index.html](sites/intermediario/index.html) e [sites/premium/index.html](sites/premium/index.html)).
+- O mapa é do **OpenStreetMap**. Proibido usar o componente do Google Maps: nada de `<iframe>` do Google (`google.com/maps/embed`, `google.com/maps?q=...&output=embed`), nem API JavaScript do Google Maps.
+- Estrutura padrão do componente (`.map-box`):
+  - imagem do mapa gerada a partir do OpenStreetMap, salva em `assets/img/` (ex.: `mapa_<cidade>.jpg`), com `alt` descrevendo o local e `loading="lazy"`;
+  - pino da marca (`.pin`) sobre o ponto do endereço;
+  - cartão de informações (`.map-info`) com nome, endereço e horário de atendimento;
+  - botões (`.mbtns`) "Abrir no Maps" e "Como chegar", que só abrem o link externo de rota em nova aba;
+  - crédito obrigatório: `© OpenStreetMap` com link para `https://www.openstreetmap.org/copyright` (`.attr`).
+- Ao lado do mapa fica o bloco "Onde atendemos" com as cidades atendidas.
+- Muda só o conteúdo (imagem do mapa, endereço, horário, cidades) e as cores da marca. O formato do componente não muda de um site para outro.
+
+## Componentes repetidos com fundo têm SEMPRE o mesmo tamanho
+- Todo grupo de componentes com fundo preenchido (botões lado a lado, chips de bairro ou cidade, etiquetas, filtros, opções, botões de mapa etc.) usa **a mesma largura e a mesma altura em todos os itens do grupo**. Proibido cada item ter a largura do próprio texto e o grupo ficar desalinhado.
+- A medida é a do item com mais caracteres: os outros seguem a largura dele, com o texto centralizado.
+- Se o item mais largo não couber na tela (celular), todos passam a ocupar a largura disponível, continuando iguais entre si.
+- Implementação recomendada: grupo marcado com `data-iguais`. Um script mede a largura natural de cada filho, aplica a maior em `--larg` no grupo e refaz a medida após `document.fonts.ready` e no `resize`. CSS: `[data-iguais] > * { width: var(--larg); max-width: 100%; justify-content: center; }`. Para dois ou três botões numa linha só, `display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr;` resolve sem script.
+- Vale também para itens de estados diferentes no mesmo grupo (ativo, "em breve", desativado): o estado muda a cor, nunca o tamanho.
+
 ## Outros vícios de IA a evitar
 - Gradiente roxo/azul com brilho ("glow") atrás do título.
 - Título com uma palavra em gradiente colorido.
@@ -66,6 +85,7 @@ grep -rnE "Inter|Manrope|Outfit|Plus Jakarta|DM Sans|Space Grotesk|Satoshi|Gener
 grep -rnE "999px|9999px|rounded-full" sites/ --include=*.css --include=*.html
 grep -rnE ">\s*0[1-9]\s*<|>\s*/0[1-9]" sites/ --include=*.html
 grep -rnE "::?(before|after)" sites/ --include=*.css   # conferir se algum desenha traço antes/depois de título
+grep -rnE "<iframe|google\.com/maps/embed|output=embed|maps\.googleapis" sites/ clientes/ --include=*.html   # mapa tem que ser OpenStreetMap
 ```
 
 E conferir visualmente:
@@ -73,3 +93,5 @@ E conferir visualmente:
 - Nenhum traço ou linha decorativa antes ou depois de títulos e textos de apoio.
 - Nenhuma grade de cards com ícone em quadradinho.
 - Nenhum número marcando tópico.
+- Mapa do footer é o componente padrão com OpenStreetMap, igual aos modelos.
+- Botões, chips e etiquetas com fundo que aparecem em grupo têm todos a mesma largura e altura (a do item mais longo).

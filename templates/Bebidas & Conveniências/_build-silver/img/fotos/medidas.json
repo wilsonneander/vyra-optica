@@ -1,0 +1,254 @@
+{
+ "produtos/coca-2l": [
+  118,
+  378
+ ],
+ "produtos/coca-vidro": [
+  226,
+  760
+ ],
+ "produtos/coca-zero-lata": [
+  210,
+  402
+ ],
+ "produtos/guarana-lata": [
+  387,
+  760
+ ],
+ "produtos/guarana-zero-lata": [
+  344,
+  674
+ ],
+ "produtos/guarana-zero-2l": [
+  222,
+  760
+ ],
+ "produtos/fanta-lata": [
+  243,
+  418
+ ],
+ "produtos/sprite-2l": [
+  227,
+  760
+ ],
+ "produtos/sprite-zero-lata": [
+  245,
+  447
+ ],
+ "produtos/schweppes-lata": [
+  380,
+  760
+ ],
+ "produtos/monster": [
+  328,
+  760
+ ],
+ "produtos/monster-violet": [
+  306,
+  720
+ ],
+ "produtos/monster-peachy": [
+  244,
+  620
+ ],
+ "produtos/monster-zero": [
+  323,
+  760
+ ],
+ "produtos/redbull": [
+  288,
+  760
+ ],
+ "produtos/heineken-ln": [
+  195,
+  760
+ ],
+ "produtos/heineken-lata": [
+  345,
+  760
+ ],
+ "produtos/heineken-zero": [
+  200,
+  760
+ ],
+ "produtos/heineken-dupla": [
+  355,
+  608
+ ],
+ "produtos/budweiser-ln": [
+  200,
+  760
+ ],
+ "produtos/budweiser-lata": [
+  294,
+  760
+ ],
+ "produtos/budweiser-aluminio": [
+  187,
+  760
+ ],
+ "produtos/brahma-lata": [
+  204,
+  375
+ ],
+ "produtos/amstel-lata": [
+  333,
+  734
+ ],
+ "produtos/original-lata": [
+  326,
+  625
+ ],
+ "produtos/skol-lata": [
+  206,
+  390
+ ],
+ "produtos/spaten-lata": [
+  208,
+  526
+ ],
+ "produtos/sol-ln": [
+  205,
+  760
+ ],
+ "produtos/cervejas-grupo": [
+  360,
+  387
+ ],
+ "produtos/smirnoff": [
+  202,
+  760
+ ],
+ "produtos/absolut": [
+  237,
+  760
+ ],
+ "produtos/red-label": [
+  202,
+  760
+ ],
+ "produtos/tanqueray": [
+  273,
+  760
+ ],
+ "produtos/vinho-pergola": [
+  131,
+  527
+ ],
+ "produtos/vinho-miolo": [
+  174,
+  721
+ ],
+ "produtos/vinho-campo-largo": [
+  191,
+  760
+ ],
+ "produtos/vinho-vindima": [
+  138,
+  760
+ ],
+ "produtos/matte": [
+  205,
+  760
+ ],
+ "produtos/del-valle-uva": [
+  280,
+  760
+ ],
+ "produtos/ades-laranja": [
+  295,
+  760
+ ],
+ "produtos/crystal": [
+  217,
+  760
+ ],
+ "produtos/crystal-azul": [
+  240,
+  760
+ ],
+ "produtos/galao-hydrate": [
+  248,
+  536
+ ],
+ "produtos/gelo": [
+  520,
+  577
+ ],
+ "produtos/copo": [
+  295,
+  433
+ ],
+ "produtos/carvao": [
+  329,
+  575
+ ],
+ "logos/logo-coca": [
+  600,
+  188
+ ],
+ "logos/logo-fanta": [
+  544,
+  400
+ ],
+ "logos/logo-guarana": [
+  383,
+  400
+ ],
+ "logos/logo-sprite": [
+  600,
+  228
+ ],
+ "logos/logo-ifood": [
+  280,
+  160
+ ],
+ "logos/logo-99food-largo": [
+  549,
+  400
+ ],
+ "ambiente/amb-heineken-bar": [
+  1280,
+  1920
+ ],
+ "ambiente/amb-balde-corona": [
+  800,
+  534
+ ],
+ "ambiente/amb-brinde": [
+  1800,
+  1193
+ ],
+ "ambiente/amb-canecas": [
+  696,
+  462
+ ],
+ "ambiente/amb-skol-litrao": [
+  1024,
+  1024
+ ],
+ "ambiente/amb-drinks-gin": [
+  671,
+  298
+ ],
+ "ambiente/drink-rose": [
+  900,
+  1200
+ ],
+ "ambiente/drink-gin-frutas": [
+  900,
+  1350
+ ],
+ "ambiente/drink-soda-frutas": [
+  380,
+  570
+ ],
+ "ambiente/drink-spritz-morango": [
+  732,
+  1024
+ ],
+ "ambiente/drink-maracuja": [
+  600,
+  825
+ ]
+}

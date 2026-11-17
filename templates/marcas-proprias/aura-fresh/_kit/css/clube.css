@@ -79,8 +79,6 @@
 .rotulo[data-rotulo="claro"] { --frente: #1d2a1f; --suave: rgba(29, 42, 31, .7); --linha: rgba(29, 42, 31, .14); --cartao: #fff; }
 .rotulo[data-rotulo="claro"] .fios path { stroke: #2b462b; }
 .rotulo[data-rotulo="claro"] .apoio { color: #55803a; }
-.rotulo-plano-claro { --cartao: #fff; }
-.rotulo-plano-claro dl div { box-shadow: inset 0 0 0 1px var(--linha); }
 
 /* ---------- um pote, um mês ---------- */
 .mes { display: grid; grid-template-columns: 1.1fr 1fr; gap: 70px; align-items: center; padding: 150px var(--g); background: var(--rosa-claro); color: #2a1a21; --frente: #2a1a21; --suave: rgba(42, 26, 33, .72); --linha: rgba(42, 26, 33, .16); }

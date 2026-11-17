@@ -22,6 +22,7 @@ function pagina({ titulo, desc, corpo, raiz = '', scripts3d = false, url = '' })
 ${X.head({ titulo, desc, url, css: ['produto.css', 'tema-produto.css'], raiz, img: raiz + 'assets/img/' })}
 </head>
 <body>
+${X.carregando(raiz)}
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 ${cab(raiz)}
 <main id="conteudo">
@@ -72,17 +73,46 @@ ${pinos.map(p => `    <div class="pino" data-pino="${p[0]}" data-lado="${p[1]}">
     <div class="rotulo-legenda" data-legenda aria-live="polite"></div>
   </div>
 </section>
-<div class="rotulo-plano rotulo-plano-${tom}">
-    <h3>Informações do rótulo</h3>
-    <dl>
-      <div><dt>Produto</dt><dd>${P.nome}, ${P.linha}. ${P.tipo}, sabor ${P.sabor.toLowerCase()}. ${P.aroma}.</dd></div>
-      <div><dt>Composição por dose de ${P.porcao}</dt><dd>${P.composicao.map(c => `${c.nome}: ${c.qtd}`).join('. ')}. ${P.ingredientes}</dd></div>
-      <div><dt>Modo de uso</dt><dd>${P.uso}</dd></div>
-      <div><dt>Advertências</dt><dd>${P.advertencias.join(' ')}</dd></div>
-      <div><dt>Contraindicações</dt><dd>${P.contraindicacoes}</dd></div>
-      <div><dt>Registro</dt><dd>${E.anvisa}</dd></div>
-    </dl>
-</div>`;
+<section class="rotulo-plano rotulo-plano-${tom}" aria-labelledby="rp-t" data-secao="Informações do rótulo">
+  <div class="rp-cab" data-sobe>
+    <p class="apoio">O rótulo em texto</p>
+    <h3 class="tit" id="rp-t">Informações<br>do rótulo.</h3>
+    <p class="rp-lead">A mesma folha que você acabou de ver sair do pote, impressa para ler com calma. Confira sempre com a embalagem que chegou na sua casa.</p>
+    <span class="rp-selo" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="rp-circ" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs><text><textPath href="#rp-circ">SUPLEMENTO ALIMENTAR    USO ORAL    </textPath></text><circle cx="60" cy="60" r="27"/><path d="M48 66c4-14 14-20 26-20-2 13-10 22-26 20Zm2-2 14-12" /></svg></span>
+  </div>
+  <div class="rp-sombra" data-sobe><article class="rp-folha">
+    <header class="rp-produto">
+      <div><p class="rp-rot">Produto</p><h4>${P.nome}</h4><p>${P.linha}, ${P.sub}. ${P.tipo}, sabor ${P.sabor.toLowerCase()}. ${P.aroma}.</p></div>
+      <dl class="rp-numeros">
+        <div><dt>Peso líquido</dt><dd>${P.peso}</dd></div>
+        <div><dt>Doses no pote</dt><dd>${P.porcoes}</dd></div>
+        <div><dt>Cada dose</dt><dd>3 g</dd></div>
+        <div><dt>Uso</dt><dd>Oral</dd></div>
+      </dl>
+    </header>
+    <section class="rp-comp">
+      <p class="rp-rot">Composição por dose de ${P.porcao}</p>
+      <ul>${P.composicao.map(c => { const mg = parseInt(c.qtd, 10); return `<li style="--w:${(mg / 200 * 100).toFixed(0)}%"><span>${c.nome}</span><b>${c.qtd}</b><i aria-hidden="true"></i></li>`; }).join('')}</ul>
+      <p class="rp-nota">${P.ingredientes}</p>
+    </section>
+    <section class="rp-uso">
+      <p class="rp-rot">Modo de uso</p>
+      <div class="rp-passos"><span><b>240 ml</b>de água fria ou suco</span><svg viewBox="0 0 40 12" aria-hidden="true"><path d="M1 6h34M30 1l6 5-6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>1 dose</b>com a colher do pote</span><svg viewBox="0 0 40 12" aria-hidden="true"><path d="M1 6h34M30 1l6 5-6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Misture</b>e beba, uma vez ao dia</span></div>
+    </section>
+    <section class="rp-adv">
+      <p class="rp-rot">Advertências</p>
+      <ul>${P.advertencias.map(a => `<li>${a}</li>`).join('')}</ul>
+    </section>
+    <section class="rp-contra">
+      <p class="rp-rot">Contraindicações</p>
+      <p>${P.contraindicacoes}</p>
+    </section>
+    <footer class="rp-reg">
+      <div><p class="rp-rot">Registro</p><p>${E.anvisa}</p><p>${E.razao}, CNPJ ${E.cnpj}. SAC ${E.email}.</p></div>
+      <span class="rp-barras" aria-hidden="true"></span>
+    </footer>
+  </article></div>
+</section>`;
 }
 
 function index() {

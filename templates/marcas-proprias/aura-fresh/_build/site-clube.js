@@ -24,6 +24,7 @@ function pagina({ titulo, desc, corpo, raiz = '', scripts3d = false, extraJs = '
 ${X.head({ titulo, desc, css: ['produto.css', 'clube.css'].concat(classe === 'cliente' ? ['cliente.css'] : []).concat(['tema-clube.css']), raiz })}
 </head>
 <body class="${classe}">
+${X.carregando(raiz)}
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 ${cab(raiz, classe)}
 <main id="conteudo">

@@ -654,7 +654,7 @@
 
   // ---------- início ----------
   async function inicia() {
-    if (!T || !RT || !suportaWebGL()) { document.documentElement.classList.add('sem-3d'); return; }
+    if (!T || !RT || !suportaWebGL()) { document.documentElement.classList.add('sem-3d'); document.dispatchEvent(new Event('aura:3d-pronto')); return; }
     try { await RT.carrega(BASE); } catch (e) { /* segue com o que tiver */ }
     const apoio = new T.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
     apoio.setPixelRatio(1); apoio.setClearColor(0, 0); apoio.outputEncoding = T.sRGBEncoding; apoio.toneMapping = T.ACESFilmicToneMapping;
@@ -665,6 +665,7 @@
     iniciaRotulo();
     iniciaModal();
     document.documentElement.classList.add('com-3d');
+    document.dispatchEvent(new Event('aura:3d-pronto'));
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inicia); else inicia();
 })();

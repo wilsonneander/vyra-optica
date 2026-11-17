@@ -11,6 +11,55 @@
     salvar(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* navegação privada */ } },
   };
 
+  // ---------- tela de carregamento: o copo enche conforme as etapas reais terminam ----------
+  const carga = $('[data-carga]');
+  if (carga) {
+    const lento = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const jaViu = (() => { try { return sessionStorage.getItem('aura-carga-vista') === '1'; } catch (e) { return false; } })();
+    const minimo = lento ? (jaViu ? 650 : 1500) : 300;
+    const com3d = !!document.querySelector('script[src*="pote-3d"]');
+    const etapas = { fontes: false, pagina: false, tres: !com3d };
+    const pronto3d = () => { etapas.tres = true; };
+    if (com3d) {
+      if (/\b(com|sem)-3d\b/.test(document.documentElement.className)) pronto3d();
+      document.addEventListener('aura:3d-pronto', pronto3d);
+      setTimeout(pronto3d, 7000); // nunca prende a página se o 3D demorar
+    }
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => { etapas.fontes = true; });
+    if (document.readyState === 'complete') etapas.pagina = true; else addEventListener('load', () => { etapas.pagina = true; });
+    setTimeout(() => { etapas.fontes = etapas.pagina = true; }, 8000);
+
+    const pctEl = $('[data-carga-pct]', carga), faseEl = $('[data-carga-fase]', carga), agua = $('.carga-agua', carga), onda = $('.carga-onda', carga);
+    const limpa = [223, 236, 230], verde = [46, 107, 44];
+    const fases = [[0, 'abrindo o pote'], [28, 'pegando a dose'], [56, 'misturando na água'], [88, 'pronto, bom ritual']];
+    const t0 = performance.now();
+    let mostrado = 0, antes = t0;
+    document.documentElement.classList.add('carregando');
+    const passo = agora => {
+      const feitas = Object.values(etapas).filter(Boolean).length, total = Object.keys(etapas).length;
+      const passou = agora - t0, dt = Math.min(400, agora - antes); antes = agora;
+      // o número anda devagar enquanto espera e corre para a etapa concluída (por tempo, não por quadro)
+      const alvo = Math.max(feitas / total * 100, Math.min(82, passou / 45));
+      const teto = feitas === total ? 100 : 96;
+      mostrado = Math.min(teto, mostrado + Math.max(dt * 0.015, (alvo - mostrado) * (1 - Math.exp(-dt / 220))));
+      const k = mostrado / 100;
+      pctEl.textContent = Math.round(mostrado);
+      agua.setAttribute('transform', `translate(0 ${(140 - k * 112).toFixed(1)})`);
+      onda.style.fill = `rgb(${limpa.map((c, i) => Math.round(c + (verde[i] - c) * Math.max(0, (k - 0.25) / 0.75))).join(',')})`;
+      const f = fases.filter(x => mostrado >= x[0]).pop(); if (f && faseEl.textContent !== f[1]) faseEl.textContent = f[1];
+      carga.style.setProperty('--k', k.toFixed(3));
+      if (mostrado >= 99.5 && passou >= minimo) {
+        try { sessionStorage.setItem('aura-carga-vista', '1'); } catch (e) { /* privado */ }
+        carga.classList.add('sai');
+        document.documentElement.classList.remove('carregando');
+        setTimeout(() => carga.remove(), 1000);
+        return;
+      }
+      requestAnimationFrame(passo);
+    };
+    requestAnimationFrame(passo);
+  }
+
   // ---------- revisão jurídica ----------
   if (/[?&]revisao=1/.test(location.search)) document.documentElement.classList.add('revisao');
 

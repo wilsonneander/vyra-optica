@@ -17,6 +17,8 @@ Os três abrem direto pelo `index.html` (sem servidor).
 - **Onde você está**: acima do WhatsApp, um pote que enche de pó (com onda) de 0 a 100% conforme a página desce. No hover mostra a seção atual e quanto falta; no fim a tampa se abre, e o clique volta ao topo girando a tampa.
 - **Toque fluido**: botões apertam com mola e soltam uma onda a partir do ponto do clique (desligado com "reduzir movimento").
 - **Barra de rolagem** nas cores da marca, acompanhando o tema.
+- **Tela de carregamento**: a colher despeja o pó num copo que enche e esverdeia conforme as etapas reais terminam (fontes, página e o 3D, com limite de 7 a 8 s para nunca prender). Fases "abrindo o pote", "pegando a dose", "misturando na água" e "pronto, bom ritual". Sai num círculo que encolhe até o pote de progresso. Na segunda página da mesma visita fica mais curta; com "reduzir movimento" quase não aparece.
+- **Informações do rótulo** (produto e clube): etiqueta impressa com borda picotada, números do pote, composição em barras proporcionais às doses, modo de uso em sequência, advertências em bloco de atenção, contraindicações e registro com código de barras, ao lado de um selo girando.
 
 ## Gerar
 

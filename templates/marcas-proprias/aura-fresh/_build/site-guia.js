@@ -85,6 +85,7 @@ ${ld({ '@graph': [org, { '@type': 'WebSite', '@id': URL_BASE + '/#site', url: UR
 ${extraHead}
 </head>
 <body class="${classe}">
+${X.carregando(raiz)}
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 ${cab(raiz)}
 <main id="conteudo">

@@ -36,7 +36,7 @@
 [data-tema-atual="escuro"] .rotulo[data-rotulo="claro"] .apoio { color: var(--lima); }
 [data-tema-atual="escuro"] .rotulo[data-rotulo="claro"] .ponto { border-color: #101912; background: var(--lima); }
 [data-tema-atual="escuro"] .rotulo-plano-claro { background: #101912; --cartao: #1a291e; }
-[data-tema-atual="escuro"] .rotulo-plano-claro dt { color: var(--lima); }
+[data-tema-atual="escuro"] .rotulo-plano-claro .rp-selo { color: var(--lima); }
 [data-tema-atual="escuro"] .mes { background: #2a1c23; color: #f6dbe5; --frente: #f6dbe5; --suave: rgba(246, 219, 229, .72); --linha: rgba(246, 219, 229, .16); }
 [data-tema-atual="escuro"] .mes .apoio, [data-tema-atual="escuro"] .mes .tit em, [data-tema-atual="escuro"] .mes-leg { color: var(--rosa-claro); }
 [data-tema-atual="escuro"] .mes-cal { background: #3a2630; box-shadow: none; }

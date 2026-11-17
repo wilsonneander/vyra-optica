@@ -289,3 +289,41 @@ html.troca-tema, html.troca-tema * { transition: background-color .5s, color .5s
 .nivel-pct { font: 700 10.5px/1 var(--f-c); font-variant-numeric: tabular-nums; color: var(--lima); }
 @media (max-width: 560px) { .nivel { bottom: 82px; height: 66px; } .nivel:hover .nivel-txt { max-width: 0; padding: 0; } }
 @media (prefers-reduced-motion: reduce) { .tema-tampa { transition: none; } }
+
+/* ---------- tela de carregamento: colher, pó caindo e o copo que enche e esverdeia ---------- */
+html.carregando { overflow: hidden; }
+.carga { --k: 0; position: fixed; inset: 0; z-index: 300; display: grid; place-items: center; background: var(--fundo); color: var(--frente);
+  clip-path: circle(150% at calc(100% - 46px) calc(100% - 122px)); transition: clip-path 1s cubic-bezier(.7, 0, .2, 1);
+  animation: carga-socorro .01s 9s forwards; }
+.carga.sai { clip-path: circle(0 at calc(100% - 46px) calc(100% - 122px)); pointer-events: none; }
+@keyframes carga-socorro { to { visibility: hidden; } }
+.carga-centro { display: grid; justify-items: center; gap: 6px; transition: transform .8s cubic-bezier(.7, 0, .2, 1), opacity .5s; }
+.carga.sai .carga-centro { transform: scale(.8) translateY(20px); opacity: 0; }
+.carga-logo { width: 132px; margin-bottom: 18px; }
+[data-tema-atual="claro"] .carga-logo { filter: brightness(0) saturate(100%) invert(19%) sepia(20%) saturate(900%) hue-rotate(80deg) brightness(.9); }
+.carga-cena { position: relative; width: 190px; height: 210px; transform: scale(1.35); margin: 34px 0 30px; }
+.carga-colher { position: absolute; left: 6px; top: 0; width: 120px; transform-origin: 85% 40%; animation: colher 2.2s ease-in-out infinite; }
+.carga-colher rect, .carga-colher path { fill: #9cbc5c; }
+.carga-monte { fill: #2f6b3a; animation: monte 2.2s ease-in-out infinite; }
+.carga-copo { position: absolute; left: 40px; bottom: 0; width: 120px; height: 150px; overflow: visible; }
+.carga-vidro { fill: rgba(159, 178, 164, .14); stroke: var(--frente); stroke-width: 3; stroke-linejoin: round; opacity: .55; }
+.carga-brilho { stroke: var(--frente); stroke-width: 4; stroke-linecap: round; opacity: .18; }
+.carga-onda { fill: #dfece6; animation: carga-mar 1.8s linear infinite; }
+@keyframes carga-mar { to { transform: translateX(-60px); } }
+.carga-po { position: absolute; left: 90px; top: 34px; width: 24px; height: 120px; }
+.carga-po i { position: absolute; left: calc(var(--x, 50) * 1%); top: 0; width: 5px; height: 5px; border-radius: 50%; background: #5f8f2f; opacity: 0; animation: cai 1.1s ease-in infinite; }
+.carga-po i:nth-child(2) { --x: 20; animation-delay: .14s; background: #9cbc5c; }
+.carga-po i:nth-child(3) { --x: 70; animation-delay: .28s; }
+.carga-po i:nth-child(4) { --x: 40; animation-delay: .42s; background: #2f6b3a; }
+.carga-po i:nth-child(5) { --x: 85; animation-delay: .56s; background: #c4d997; }
+.carga-po i:nth-child(6) { --x: 10; animation-delay: .7s; }
+.carga-po i:nth-child(7) { --x: 60; animation-delay: .84s; background: #9cbc5c; }
+.carga-po i:nth-child(8) { --x: 30; animation-delay: .98s; background: #2f6b3a; }
+@keyframes cai { 0% { transform: translateY(0); opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { transform: translateY(var(--queda, 110px)); opacity: 0; } }
+@keyframes colher { 0%, 100% { transform: rotate(0); } 45%, 60% { transform: rotate(26deg); } }
+@keyframes monte { 0%, 30% { opacity: 1; } 55%, 100% { opacity: 0; } }
+.carga-fase { margin-top: 18px; font: 400 24px var(--f-m); color: #5f8f2f; min-height: 1.3em; }
+[data-tema-atual="escuro"] .carga-fase { color: var(--lima); }
+.carga-pct { font: 800 54px/1 var(--f-t); letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.carga-pct b { font-weight: 800; }
+@media (prefers-reduced-motion: reduce) { .carga-colher, .carga-monte, .carga-po i, .carga-onda { animation: none; } .carga { transition: opacity .3s; } .carga.sai { opacity: 0; clip-path: none; } }

@@ -1,4 +1,4 @@
-# AURA Fresh: três modelos premium (Marcas Próprias)
+# AURA Fresh: quatro modelos premium (Marcas Próprias)
 
 Cliente da NexusAg. Suplemento alimentar em pó com clorofila, salsa e hortelã, uma dose por dia (https://useaurafresh.com).
 Referência de animação 3D: modelo N3 Drinks (Bebidas & Conveniências), usada só para o comportamento do 3D. Marca, cores, fontes, textos e fotos são da AURA Fresh.
@@ -8,8 +8,9 @@ Referência de animação 3D: modelo N3 Drinks (Bebidas & Conveniências), usada
 | `produto/` | Modelo 1 "Origem": marca e produto | Verde-noite. Hero com o pote 3D: a tampa sobe com a rolagem, sai o pó e as folhas giram. Seletor de kit (1, 2 ou 3 potes) que põe os potes na cena e troca o preço. Ativos com modal, "Tira o rótulo", rotina, o que esperar sem promessa, relatos, kits, FAQ e contato. |
 | `guia/` | Modelo 2 "Diário": conteúdo e guia de uso | Editorial claro, sem WebGL. Guia de uso (HowTo), comparador de rotina lado a lado (hábitos, não resultado), rótulo aberto em 2D com pontos, relatos, blog com 4 artigos, SEO (Organization, Product com ofertas, FAQPage, Article, BreadcrumbList, sitemap.xml, robots.txt, canonical). |
 | `clube/` | Modelo 3 "Ritual": tudo do modelo 1 + Área do cliente | Claro (papel, rosa e lima). Hero 3D do ritual: a água sobe no copo, a colher leva a dose, o pó cai e a água fica verde. Botões "ao acordar, depois do almoço, no fim do dia" trocam a luz da cena. Sanfona de ativos, rótulo claro, mês de 30 doses, kits e `cliente.html`. |
+| `nascente/` | Modelo 4 "Nascente": segunda versão premium do produto | Preto-água (claro no papel). Hero da gota: a gota cai na lâmina d'água, espirra a coroa, o rebote sobe e vira uma fita de água em espiral que aperta até o tamanho do pote; a água preenche o molde de baixo para cima e o pote verde nasce atrás dela, sobe da água e gira, com gotas e folhas suspensas e o seletor de kit. Fórmula em três gotas (paralaxe, abre o modal), "Tira o rótulo", vídeo da marca, imagens da marca em trilho lateral, antes e depois arrastável, avaliações, kits, FAQ e contato. |
 
-Os três abrem direto pelo `index.html` (sem servidor).
+Os quatro abrem direto pelo `index.html` (sem servidor).
 
 ## Peças comuns de navegação
 
@@ -23,19 +24,20 @@ Os três abrem direto pelo `index.html` (sem servidor).
 ## Gerar
 
 ```
-node templates/marcas-proprias/aura-fresh/_build/build.js            # os três
+node templates/marcas-proprias/aura-fresh/_build/build.js            # os quatro
 node templates/marcas-proprias/aura-fresh/_build/build.js clube      # só um
 ```
 
-Nunca editar `produto/`, `guia/` ou `clube/` à mão: tudo sai de `_build/` e `_kit/`.
+Nunca editar `produto/`, `guia/`, `clube/` ou `nascente/` à mão: tudo sai de `_build/` e `_kit/`.
 
 | Arquivo | O que é |
 |---|---|
 | `_build/dados.js` | Empresa, produto, kits e preços, ativos, FAQ e depoimentos. **Primeiro lugar a mexer.** |
 | `_build/partes.js` | Kit de componentes em HTML: head, formulário com consentimento, botão de WhatsApp, cookies, bloco de kits, FAQ, modal de ativos, modal do pote 3D, rodapé legal com mapa e as páginas de política |
-| `_build/site-produto.js`, `site-guia.js`, `site-clube.js` | Páginas de cada modelo |
+| `_build/site-produto.js`, `site-guia.js`, `site-clube.js`, `site-nascente.js` | Páginas de cada modelo |
+| `_kit/js/nascente.js` | Modelo 4: vídeo que só carrega o YouTube no clique, trilho de imagens lateral, antes e depois, paralaxe das gotas |
 | `_kit/js/rotulo.js` | Desenho do rótulo do pote em canvas (frente, composição, modo de uso, advertências). Usado no 3D e no rótulo 2D do guia |
-| `_kit/js/pote-3d.js` | Motor 3D (three.js r149): pote com tampa, manga do rótulo que vira folha, pó, folhas, copo, hero, ritual, rótulo e modal |
+| `_kit/js/pote-3d.js` | Motor 3D (three.js r149): pote com tampa, manga do rótulo que vira folha, pó, folhas, copo, hero, gota da Nascente (`iniciaGota`, água com borda fresnel e recorte do pote por plano), ritual, rótulo e modal |
 | `_kit/js/kit.js` | Cookies, formulário (LGPD), kits, modais, menu, revisão jurídica |
 | `_kit/js/cliente.js` | Área do cliente (demonstração no navegador) |
 | `_build/preparar-img.js` | Converte as imagens do site da marca (`_build/fonte/`) e recorta o logo do favicon |
@@ -69,3 +71,10 @@ A frase "resultados em até 14 dias" do site atual **não foi usada** em nenhum 
 - Prazos de entrega por região, encarregado de dados (DPO) e se haverá assinatura recorrente.
 - Domínio final do guia (`URL_BASE` em `site-guia.js`) para canonical e sitemap.
 - Kit visual oficial (logo vetorial, manual) se existir: hoje o logo foi recortado do favicon do site.
+
+## Modelo 4 "Nascente": peças próprias
+
+- **Vídeo da marca**: https://youtu.be/lEygblIM29Y (`VIDEO_ID` em `site-nascente.js`). A capa é um quadro do vídeo (`_kit/img/video-capa.webp`, de `_build/fonte/video-espiral.png`); o player do YouTube (domínio nocookie) só carrega quando a pessoa toca.
+- **Imagens da marca**: fotos da campanha já no kit (`galeria` em `site-nascente.js`). No computador o trilho anda de lado com a rolagem; no celular vira carrossel com encaixe.
+- **Antes e depois**: montagem ilustrativa com fotos da campanha (antes) e de clientes (depois), pessoas diferentes, com aviso na tela e `data-revisar`. Fala de hábito, não de resultado. Trocar pelos pares que a marca aprovar em `pares`.
+- **Avaliações**: os relatos do site atual com nota 5 de exemplo. Pendente: nota e total reais da plataforma de avaliações (hoje "[preencher]") e autorização de cada pessoa.

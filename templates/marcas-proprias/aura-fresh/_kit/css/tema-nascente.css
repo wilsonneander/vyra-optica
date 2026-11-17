@@ -1,0 +1,62 @@
+/* AURA Fresh, modelo 4: nasce no preto-água. Aqui fica a versão clara (papel e verde, como a foto do pote claro).
+   O antes e depois continua verde e o vídeo continua preto nos dois temas, como blocos de cor da marca. */
+.cab .tema { justify-self: end; }
+:root { --rolagem: #c4d997; --rolagem-fundo: #070b09; --tema-fundo: rgba(238, 241, 230, .08); }
+
+[data-tema-atual="claro"] .nascente {
+  --fundo: #f1f2e8; --frente: #1d2a1f; --suave: rgba(29, 42, 31, .7); --linha: rgba(29, 42, 31, .15);
+  --cartao: #fff; --cartao-tinta: #1d2a1f; --acento: #2b462b; --acento-tinta: #fff;
+}
+[data-tema-atual="claro"] { --rolagem: #5f8f2f; --rolagem-fundo: #e9eddf; --tema-fundo: rgba(29, 42, 31, .07); }
+[data-tema-atual="claro"] body { background: #f1f2e8; color: #1d2a1f; }
+[data-tema-atual="claro"] .apoio, [data-tema-atual="claro"] .tit-g em, [data-tema-atual="claro"] .tit em { color: #55803a; }
+[data-tema-atual="claro"] .btn-contorno { color: var(--frente); }
+[data-tema-atual="claro"] .nascente .cab.rolado { background: rgba(241, 242, 232, .92); }
+[data-tema-atual="claro"] .cab-logo img { filter: brightness(0) saturate(100%) invert(19%) sepia(20%) saturate(900%) hue-rotate(80deg) brightness(.9); }
+[data-tema-atual="claro"] .cab-menu a { color: var(--suave); }
+[data-tema-atual="claro"] .cab-menu a:hover { color: var(--verde); }
+[data-tema-atual="claro"] .cab-bt { background: rgba(29, 42, 31, .08); }
+[data-tema-atual="claro"] .cab-bt span { background: var(--frente); }
+@media (max-width: 900px) { [data-tema-atual="claro"] .cab-menu { background: #f1f2e8; } [data-tema-atual="claro"] .cab-menu a { color: var(--frente); } }
+
+/* hero claro: água de manhã sobre papel */
+[data-tema-atual="claro"] .gota-fixo { background: radial-gradient(55% 60% at 50% 70%, #ffffff 0%, #eef1e3 55%, #e1e7d3 100%); }
+[data-tema-atual="claro"] .gota-fixo::before { background: radial-gradient(60% 100% at 50% 100%, rgba(95, 143, 47, .1), transparent 70%); }
+[data-tema-atual="claro"] .gota-role { color: #55803a; }
+[data-tema-atual="claro"] .gota-regua { background: rgba(29, 42, 31, .1); }
+[data-tema-atual="claro"] .gota-regua i { background: #5f8f2f; }
+[data-tema-atual="claro"] .hero-kit { background: rgba(255, 255, 255, .75); }
+[data-tema-atual="claro"] .seletor { background: rgba(29, 42, 31, .06); }
+[data-tema-atual="claro"] .seletor button[aria-pressed="true"] { background: var(--verde); color: #fff; }
+[data-tema-atual="claro"] .hero-preco em { color: #55803a; }
+[data-tema-atual="claro"] .hero-kit .btn-lima { background: var(--verde); color: #fff; }
+
+/* fórmula num papel um tom mais escuro que o fundo, para separar as seções */
+[data-tema-atual="claro"] .formula-gotas { background: #e6ebd8; }
+
+/* rótulo claro */
+[data-tema-atual="claro"] .rotulo-fixo { background-color: #f1f3ea; background-image: linear-gradient(rgba(29, 42, 31, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(29, 42, 31, .06) 1px, transparent 1px); }
+[data-tema-atual="claro"] .rotulo-fixo::after { background: radial-gradient(70% 60% at 50% 55%, transparent 30%, #f1f3ea 88%); }
+[data-tema-atual="claro"] .rotulo-pct > i > i { background: #5f8f2f; }
+[data-tema-atual="claro"] .ponto { border-color: #fff; background: var(--verde); }
+[data-tema-atual="claro"] .fios path { stroke: #2b462b; }
+[data-tema-atual="claro"] .rotulo-plano { background: #f1f3ea; }
+[data-tema-atual="claro"] .rp-selo { color: var(--verde); }
+[data-tema-atual="claro"] .rp-sombra { filter: drop-shadow(0 30px 40px rgba(29, 42, 31, .18)); }
+
+/* vídeo segue preto; antes e depois segue verde */
+[data-tema-atual="claro"] .video { --frente: #eef1e6; --suave: rgba(238, 241, 230, .72); color: #eef1e6; }
+[data-tema-atual="claro"] .video .apoio, [data-tema-atual="claro"] .video .tit em { color: var(--lima); }
+[data-tema-atual="claro"] .ad { --frente: #eef1e6; --suave: rgba(238, 241, 230, .74); color: #eef1e6; }
+[data-tema-atual="claro"] .ad .apoio, [data-tema-atual="claro"] .ad .tit em { color: var(--lima); }
+
+[data-tema-atual="claro"] .gal figcaption { background: rgba(255, 255, 255, .85); color: var(--frente); }
+[data-tema-atual="claro"] .aval-nota b { color: #55803a; }
+[data-tema-atual="claro"] .estrelas svg { fill: rgba(29, 42, 31, .15); }
+[data-tema-atual="claro"] .estrelas svg.on { fill: #5f8f2f; }
+[data-tema-atual="claro"] .nascente .comprar { background: #e6ebd8; }
+[data-tema-atual="claro"] .kit .btn-contorno { color: var(--verde); }
+[data-tema-atual="claro"] .condicoes a, [data-tema-atual="claro"] .doc a { color: var(--verde); }
+[data-tema-atual="claro"] .kit-img img { filter: drop-shadow(0 22px 24px rgba(29, 42, 31, .25)); }
+[data-tema-atual="claro"] .faq summary i { background: var(--verde); }
+[data-tema-atual="claro"] .faq summary i::before, [data-tema-atual="claro"] .faq summary i::after { background: #fff; }

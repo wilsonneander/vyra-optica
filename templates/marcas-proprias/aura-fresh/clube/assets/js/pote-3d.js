@@ -342,6 +342,267 @@
     laco();
   }
 
+  // ---------- água: vidro líquido com borda clara (fresnel), para a gota, a lâmina e a espiral ----------
+  const bordaAgua = { value: null };
+  function matAgua(op = 0.22, { fade = 0, lado = T.FrontSide, borda = 1, cor = 0xeafff3 } = {}) {
+    if (!bordaAgua.value) bordaAgua.value = new T.Color(0xdff3e6);
+    const m = new T.MeshPhysicalMaterial({ color: cor, roughness: 0.03, metalness: 0, transparent: true, opacity: op, clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 2.4, depthWrite: false, side: lado });
+    m.onBeforeCompile = sh => {
+      sh.uniforms.uBorda = bordaAgua;
+      if (fade) {
+        sh.vertexShader = 'varying float vRaio;\n' + sh.vertexShader.replace('#include <begin_vertex>', '#include <begin_vertex>\n vRaio = length(position.xy);');
+      }
+      sh.fragmentShader = 'uniform vec3 uBorda;\n' + (fade ? 'varying float vRaio;\n' : '') + sh.fragmentShader.replace('#include <dithering_fragment>', `#include <dithering_fragment>
+        float fres = pow(1.0 - clamp(abs(dot(normalize(normal), normalize(vViewPosition))), 0.0, 1.0), 2.4);
+        gl_FragColor.rgb = mix(gl_FragColor.rgb, uBorda, fres * ${(0.6 * borda).toFixed(2)});
+        gl_FragColor.a = clamp(gl_FragColor.a + fres * ${(0.7 * borda).toFixed(2)}, 0.0, 1.0);
+        ${fade ? `gl_FragColor.a *= 1.0 - smoothstep(${(fade * 0.45).toFixed(2)}, ${fade.toFixed(2)}, vRaio);` : ''}`);
+    };
+    m.customProgramCacheKey = () => 'agua' + fade + '-' + borda;
+    return m;
+  }
+
+  // ---------- HERO da Nascente: a gota cai, a água rebate em espiral e a espiral vira o pote ----------
+  // Linha do tempo (p de 0 a 1, guiada pela rolagem):
+  //   0,00 a 0,05  a gota pendurada, respirando
+  //   0,05 a 0,20  a gota cai (aceleração da gravidade) e se alonga
+  //   0,20 a 0,40  impacto: cratera, coroa de respingos e anéis na lâmina d'água
+  //   0,26 a 0,42  o rebote: a coluna sobe do centro e solta uma gota no alto
+  //   0,34 a 0,64  a coluna se abre numa fita de água em espiral que aperta até o tamanho do pote
+  //   0,48 a 0,76  a água preenche o molde de baixo para cima e o pote verde nasce atrás dela
+  //   0,74 a 1,00  o pote sobe da água, gira e mostra a frente; gotas e folhas ficam suspensas
+  function iniciaGota() {
+    const sec = document.querySelector('[data-gota]');
+    const canvas = sec && sec.querySelector('canvas.gota-3d');
+    if (!canvas) return;
+    const renderer = criaRenderer(canvas); renderer.localClippingEnabled = true;
+    const cena = new T.Scene(); cena.environment = criaAmbiente(renderer, 0x56605a);
+    const luz = new T.DirectionalLight(0xf4ffe9, 0.95); luz.position.set(-4, 8, 6); cena.add(luz);
+    const contra = new T.DirectionalLight(0xc4d997, 0.9); contra.position.set(4, 3, -6); cena.add(contra);
+    cena.add(new T.HemisphereLight(0xe8f5ea, 0x0b1410, 0.35));
+    const cam = new T.PerspectiveCamera(30, 1, 0.1, 200);
+
+    // lâmina d'água: anel polar (anéis de onda ficam redondos) com borda que some
+    const lamina = new T.Mesh(new T.RingGeometry(0.001, 9, 128, reduz ? 40 : 96), matAgua(0.04, { fade: 9, borda: 0.42, cor: 0x9fb8a8 }));
+    lamina.rotation.x = -Math.PI / 2; lamina.renderOrder = 3; cena.add(lamina);
+    const lPos = lamina.geometry.attributes.position;
+    const lRaio = new Float32Array(lPos.count);
+    for (let i = 0; i < lPos.count; i++) lRaio[i] = Math.hypot(lPos.getX(i), lPos.getY(i));
+
+    // gota em forma de lágrima (ponta para cima)
+    const perfilGota = [];
+    for (let i = 0; i <= 24; i++) { const a = i / 24 * Math.PI; perfilGota.push(new T.Vector2(Math.sin(a) * Math.pow(Math.sin(a / 2), 1.1), Math.cos(a))); }
+    const gota = new T.Mesh(new T.LatheGeometry(perfilGota.reverse(), 48), matAgua(0.3)); gota.scale.setScalar(0.17); gota.renderOrder = 4; cena.add(gota);
+
+    // respingos (coroa) e gotas suspensas: esferas instanciadas
+    const geoEsf = new T.SphereGeometry(1, 14, 10);
+    const r1 = rng(51), NC = reduz ? 40 : 110;
+    const coroa = new T.InstancedMesh(geoEsf, matAgua(0.35), NC); coroa.renderOrder = 4; cena.add(coroa);
+    const dC = Array.from({ length: NC }, () => ({ a: r1() * Math.PI * 2, v: 0.6 + r1() * 1.6, vy: 1.2 + r1() * 1.7, tam: 0.018 + r1() * 0.045 }));
+    const r2 = rng(77), NS = reduz ? 16 : 46;
+    const soltas = new T.InstancedMesh(geoEsf, matAgua(0.32), NS); soltas.renderOrder = 4; cena.add(soltas);
+    const dS = Array.from({ length: NS }, () => ({ a: r2() * Math.PI * 2, raio: 1.5 + r2() * 2.2, y: 0.2 + r2() * 2.8, tam: 0.025 + r2() * 0.07, vel: 0.15 + r2() * 0.4, fase: r2() * 6, atraso: r2() * 0.5 }));
+    const mtx = new T.Matrix4(), q = new T.Quaternion(), vv = new T.Vector3(), ss = new T.Vector3();
+    const poe = (im, i, x, y, z, s) => { vv.set(x, y, z); ss.setScalar(Math.max(0.0001, s)); mtx.compose(vv, q, ss); im.setMatrixAt(i, mtx); };
+
+    // rebote: coluna afunilada que sobe do centro e a gota que se solta no alto
+    const coluna = new T.Mesh(new T.CylinderGeometry(0.06, 0.2, 1, 32, 8, true).translate(0, 0.5, 0), matAgua(0.3, { lado: T.DoubleSide })); coluna.renderOrder = 4; cena.add(coluna);
+    const topoGota = new T.Mesh(geoEsf, matAgua(0.32)); topoGota.renderOrder = 4; cena.add(topoGota);
+
+    // fita de água em espiral (refeita a cada quadro; poucos vértices)
+    const SEG = 260;
+    const fGeo = new T.BufferGeometry();
+    const fPos = new Float32Array((SEG + 1) * 2 * 3);
+    const fIdx = [];
+    for (let i = 0; i < SEG; i++) { const a = i * 2, b = a + 1, c = a + 2, d = a + 3; fIdx.push(a, c, b, b, c, d); }
+    fGeo.setIndex(fIdx); fGeo.setAttribute('position', new T.BufferAttribute(fPos, 3));
+    const fita = new T.Mesh(fGeo, matAgua(0.24, { lado: T.DoubleSide })); fita.renderOrder = 5; fita.frustumCulled = false; cena.add(fita);
+    function moldaFita(cresce, aperta, giro) {
+      const voltas = lerp(3.4, 2.6, aperta), alto = lerp(2.5, 2.12, aperta), larg = lerp(0.42, 0.62, aperta);
+      for (let i = 0; i <= SEG; i++) {
+        const u = i / SEG, uu = Math.min(u, cresce);
+        const ang = uu * voltas * Math.PI * 2 + giro;
+        // a fita nasce larga embaixo (saindo da água) e afina na ponta que sobe
+        const raio = lerp(lerp(0.25, 1.5, Math.min(1, uu * 3)), 1.035, aperta) + Math.sin(uu * 18 + giro * 2) * 0.03 * (1 - aperta);
+        const meia = larg / 2 * Math.min(1, (cresce - uu) * 7) * Math.min(1, 0.4 + u * 4);
+        const y = uu * alto;
+        const x = Math.cos(ang) * raio, z = Math.sin(ang) * raio;
+        fPos.set([x, Math.max(0, y - meia), z], i * 6);
+        fPos.set([x, y + meia, z], i * 6 + 3);
+      }
+      fGeo.attributes.position.needsUpdate = true; fGeo.computeVertexNormals();
+    }
+
+    // o pote: materiais próprios para recortar de baixo para cima sem mexer nos outros potes da página
+    const corte = new T.Plane(new T.Vector3(0, -1, 0), 0);
+    const pote = criaPote(); cena.add(pote.grupo);
+    pote.grupo.traverse(o => { if (o.isMesh) { o.material = o.material.clone(); o.material.clippingPlanes = [corte]; } });
+    // casca de água com a forma do pote, que sobe na frente do verde
+    const corteAgua = new T.Plane(new T.Vector3(0, -1, 0), 0);
+    const perfilCasca = [[0, -0.02], [1.02, -0.02], [1.035, 0.06], [1.035, TAMPA_TOPO - 0.05], [1.0, TAMPA_TOPO + 0.02], [0, TAMPA_TOPO + 0.03]];
+    const mCasca = matAgua(0.2); mCasca.clippingPlanes = [corteAgua];
+    const casca = new T.Mesh(new T.LatheGeometry(perfilCasca.map(v => new T.Vector2(v[0], v[1])), 96), mCasca); casca.renderOrder = 6; cena.add(casca);
+    // a linha de enchimento: um anel de água que acompanha o corte
+    const anel = new T.Mesh(new T.TorusGeometry(1.03, 0.035, 12, 96), matAgua(0.45)); anel.rotation.x = Math.PI / 2; anel.renderOrder = 6; cena.add(anel);
+    const sombra = criaSombra(0.5, 3.6); sombra.position.y = 0.002; cena.add(sombra);
+    const folhas = criaFolhas(10, 61); cena.add(folhas.grupo);
+
+    // cores da borda da água por tema (prata no escuro, verde-água no claro)
+    const temaCor = () => { const claro = document.documentElement.dataset.temaAtual === 'claro'; bordaAgua.value.set(claro ? 0x4f7f62 : 0xdff3e6); };
+    temaCor(); document.addEventListener('aura:tema', () => setTimeout(temaCor, 30));
+
+    let W = 0, H = 0, retrato = false, mx = 0, tmx = 0;
+    function ajusta() { W = canvas.clientWidth; H = canvas.clientHeight; if (!W || !H) return; renderer.setSize(W, H, false); cam.aspect = W / H; retrato = W / H < 0.85; }
+    new ResizeObserver(ajusta).observe(canvas); ajusta();
+    addEventListener('pointermove', e => { if (e.pointerType === 'mouse') tmx = e.clientX / innerWidth - 0.5; }, { passive: true });
+    let kit = 1, kitK = 1;
+    const laterais = [criaPote(), criaPote()];
+    laterais.forEach(l => { l.grupo.scale.setScalar(0.001); cena.add(l.grupo); });
+    document.addEventListener('aura:kit', e => { kit = e.detail.potes; });
+
+    const legendas = [...sec.querySelectorAll('[data-fase]')];
+    let atual = 0, rodando = false, visivel = true;
+    new IntersectionObserver(es => { visivel = es[0].isIntersecting; if (visivel) laco(); }).observe(sec);
+
+    function onda(r, tt, A, c, k, larg) {
+      if (tt <= 0) return 0;
+      const f = c * tt, d = r - f;
+      if (d > larg * 1.6) return 0;
+      return A * Math.exp(-tt * 0.32) * Math.sin(k * d) * Math.exp(-(d * d) / (larg * larg)) / (1 + r * 0.4);
+    }
+
+    function quadro(p, agora) {
+      const t = agora / 1000;
+      mx = lerp(mx, tmx, 0.05);
+      const solta = suave(0.04, 0.06, p), cai = clamp((p - 0.05) / 0.15);
+      const tt = (p - 0.2) * 13, tt2 = (p - 0.5) * 9;
+      const sobeJ = suave(0.24, 0.36, p), desfaz = suave(0.36, 0.46, p);
+      const cresce = suave(0.33, 0.52, p), aperta = suave(0.46, 0.64, p), someFita = suave(0.66, 0.78, p);
+      const enche = suave(0.48, 0.68, p), solido = suave(0.54, 0.74, p), someCasca = suave(0.72, 0.84, p);
+      const fim = suave(0.74, 1, p);
+
+      // gota: pendurada, depois cai acelerando e se alonga
+      const yTopo = 3.1;
+      const yG = cai < 1 ? lerp(yTopo, 0.05, cai * cai) : -1;
+      gota.visible = p < 0.205;
+      gota.position.set(0, yG + (reduz ? 0 : Math.sin(t * 2) * 0.02 * (1 - solta)), 0);
+      gota.scale.set(0.17 * (1 - cai * 0.18), 0.17 * (1 + cai * 0.5 + (reduz ? 0 : Math.sin(t * 3) * 0.03 * (1 - solta))), 0.17 * (1 - cai * 0.18));
+
+      // lâmina: cratera no impacto, dois trens de onda e o anel menor quando o pote pousa
+      const cratera = tt > 0 ? Math.sin(Math.PI * clamp(tt / 0.9)) * 0.22 : 0;
+      for (let i = 0; i < lPos.count; i++) {
+        const r = lRaio[i];
+        let h = (reduz ? 0 : Math.sin(r * 2.6 - t * 1.4) * 0.012 * Math.exp(-r * 0.25));
+        h += onda(r, tt, 0.16, 1.5, 7, 0.7) + onda(r, tt - 0.5, 0.08, 1.1, 10, 0.55);
+        h -= cratera * Math.exp(-(r * r) / 0.12);
+        h += onda(r - 1.05, tt2, 0.07, 1.2, 9, 0.5) * (1 - fim * 0.6);
+        lPos.setZ(i, h);
+      }
+      lPos.needsUpdate = true; lamina.geometry.computeVertexNormals();
+
+      // coroa de respingos (balística, pela rolagem)
+      const s = clamp((p - 0.2) / 0.2) * 1.15;
+      for (let i = 0; i < NC; i++) {
+        const d = dC[i];
+        const rr = 0.12 + d.v * s * 0.9, y = d.vy * s - 2.6 * s * s;
+        const vis = s > 0 && y > -0.02;
+        poe(coroa, i, Math.cos(d.a) * rr, Math.max(0, y), Math.sin(d.a) * rr, vis ? d.tam * (1 - s * 0.35) : 0);
+      }
+      coroa.instanceMatrix.needsUpdate = true;
+
+      // rebote: a coluna sobe, a gota do alto se solta e se desfaz quando a espiral começa
+      coluna.visible = sobeJ > 0.001 && desfaz < 0.999;
+      const alt = sobeJ * 1.9 * (1 - desfaz * 0.9);
+      coluna.scale.set(1 - desfaz * 0.6, Math.max(0.001, alt), 1 - desfaz * 0.6);
+      coluna.material.opacity = 0.3 * (1 - desfaz);
+      topoGota.visible = coluna.visible;
+      topoGota.position.set(0, alt + 0.08 + desfaz * 0.6, 0);
+      topoGota.scale.setScalar(0.11 * sobeJ * (1 - desfaz));
+
+      // fita em espiral
+      fita.visible = cresce > 0.001 && someFita < 0.999;
+      if (fita.visible) moldaFita(cresce, aperta, -p * 9 - (reduz ? 0 : t * 0.25));
+      fita.material.opacity = 0.24 * (1 - someFita);
+
+      // o pote nasce: a casca de água sobe primeiro e o verde vem logo atrás
+      const flutua = fim * 0.32 + (reduz ? 0 : Math.sin(t * 1.1) * 0.025 * fim);
+      pote.grupo.position.y = flutua;
+      const hAgua = lerp(-0.06, TAMPA_TOPO + 0.08, enche), hSol = lerp(-0.06, TAMPA_TOPO + 0.08, solido);
+      corteAgua.constant = enche >= 1 ? 100 : hAgua + flutua;
+      corte.constant = solido >= 1 ? 100 : hSol + flutua;
+      pote.grupo.visible = solido > 0.001;
+      casca.visible = enche > 0.001 && someCasca < 0.999;
+      casca.position.y = flutua;
+      mCasca.opacity = 0.2 * (1 - someCasca);
+      anel.visible = solido > 0.01 && solido < 0.99;
+      anel.position.y = hSol + flutua;
+      anel.scale.setScalar(1 + Math.sin(solido * Math.PI) * 0.02);
+      pote.grupo.rotation.y = lerp(-1.6, 0.22, suave(0.5, 1, p)) + mx * 0.4 + (reduz ? 0 : Math.sin(t * 0.6) * 0.03);
+      casca.rotation.y = pote.grupo.rotation.y;
+      // no fim a tampa dá um quarto de volta, como quem confere a rosca
+      pote.tampa.rotation.y = -suave(0.86, 0.98, p) * Math.PI * 0.5;
+      sombra.material.opacity = 0.5 * solido;
+      sombra.scale.setScalar(1 + (kitK - 1) * 0.6 - fim * 0.12);
+
+      // gotas suspensas e folhas aparecem com o pote pronto
+      const vem = suave(0.7, 0.9, p);
+      for (let i = 0; i < NS; i++) {
+        const d = dS[i];
+        const k = clamp((vem - d.atraso * 0.5) / 0.5);
+        const ang = d.a + p * d.vel * 3 + (reduz ? 0 : t * d.vel * 0.15);
+        poe(soltas, i, Math.cos(ang) * d.raio, d.y + (reduz ? 0 : Math.sin(t * 0.8 + d.fase) * 0.08), Math.sin(ang) * d.raio - 0.4, d.tam * easeOut(k));
+      }
+      soltas.instanceMatrix.needsUpdate = true;
+      folhas.lista.forEach(f => {
+        const k = clamp((vem - f.atraso) / (1 - f.atraso));
+        const ang = f.ang + p * f.vel * 2 + (reduz ? 0 : t * 0.07);
+        f.f.position.set(Math.cos(ang) * f.raio * 1.1, 0.5 + f.alt, Math.sin(ang) * f.raio * 1.1 - 0.6);
+        f.f.rotation.set(f.rx + p * 2 + t * 0.1, f.ry + p * 1.5, 0);
+        f.f.scale.setScalar(Math.max(0.001, easeOut(k) * 0.85));
+      });
+
+      // potes do kit chegam pela água nas laterais
+      kitK = lerp(kitK, fim > 0.5 ? kit : 1, 0.08);
+      laterais.forEach((l, i) => {
+        const k = clamp(kitK - 1 - i), lado = i === 0 ? -1 : 1;
+        l.grupo.scale.setScalar(Math.max(0.001, easeOut(k) * 0.8));
+        l.grupo.position.set(lado * lerp(1.1, 2.3, easeOut(k)), lerp(-1.6, 0.18, easeOut(k)), -1.2);
+        l.grupo.rotation.y = -0.3 + lado * 0.45 + mx * 0.3;
+      });
+
+      // câmera: segue a gota, desce até a água e abre para o pote, que vai para a direita no fim
+      const tanV = Math.tan(T.MathUtils.degToRad(cam.fov / 2)) * 2;
+      const alvoY = p < 0.2 ? lerp(2.1, 0.6, suave(0.05, 0.2, p)) : lerp(0.6, 1.15, suave(0.2, 0.6, p));
+      const altQ = p < 0.2 ? 4.4 : lerp(3.4, 4.7, suave(0.22, 0.62, p));
+      const largQ = retrato ? 4.4 : 5.6 + (kitK - 1) * 1.3;
+      const dist = Math.max(altQ / tanV, largQ / (tanV * cam.aspect));
+      const desloca = retrato ? 0 : -W * 0.17 * suave(0.72, 0.94, p);
+      cam.position.set(mx * -0.6, alvoY + lerp(0.9, 1.3, suave(0.2, 0.6, p)), dist);
+      cam.lookAt(0, alvoY + fim * 0.2, 0);
+      cam.setViewOffset(W, H, desloca, retrato ? H * 0.1 * fim : 0, W, H);
+      cam.updateProjectionMatrix();
+      renderer.render(cena, cam);
+
+      legendas.forEach(el => { const [a, b] = el.dataset.fase.split(',').map(Number); el.classList.toggle('on', p >= a && p < b); });
+      sec.style.setProperty('--p', p.toFixed(3));
+      sec.style.setProperty('--intro', (1 - suave(0.03, 0.12, p)).toFixed(3));
+      sec.style.setProperty('--fim', suave(0.8, 0.92, p).toFixed(3));
+      sec.classList.toggle('fim-on', p > 0.84);
+    }
+    function laco() {
+      if (rodando) return; rodando = true;
+      const passo = agora => {
+        if (!visivel) { rodando = false; return; }
+        const alvo = progresso(sec);
+        atual = reduz ? alvo : lerp(atual, alvo, 0.09);
+        quadro(atual, agora);
+        requestAnimationFrame(passo);
+      };
+      requestAnimationFrame(passo);
+    }
+    laco();
+  }
+
   // ---------- RITUAL do clube: gira a tampa, a colher pega a dose no pote e leva ao copo ----------
   // Linha do tempo (p de 0 a 1, guiada pela rolagem):
   //   0,00 a 0,10  água fria enche o copo
@@ -661,6 +922,7 @@
     try { renderizaEstaticos(apoio); } catch (e) { console.error(e); }
     apoio.dispose(); if (apoio.forceContextLoss) apoio.forceContextLoss();
     iniciaHeroProduto();
+    iniciaGota();
     iniciaRitual();
     iniciaRotulo();
     iniciaModal();

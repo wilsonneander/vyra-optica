@@ -1,0 +1,151 @@
+/* AURA Fresh, modelo 3 "Ritual": direção clara (papel quente, rosa e lima), carregada depois de produto.css. */
+:root {
+  --fundo: #f6f3ee; --frente: #1d2a1f; --suave: rgba(29, 42, 31, .7); --linha: rgba(29, 42, 31, .14);
+  --cartao: #fff; --cartao-tinta: #1d2a1f; --acento: #2b462b; --acento-tinta: #fff; --raio: 26px;
+  --r-fundo: #22392a;
+}
+.apoio { color: #55803a; }
+.tit-g em, .tit em { color: #55803a; }
+.btn-contorno { color: var(--frente); }
+
+/* cabeçalho claro */
+.cab-claro.rolado { background: rgba(246, 243, 238, .9); }
+.cab-claro .cab-logo img { filter: brightness(0) saturate(100%) invert(19%) sepia(20%) saturate(900%) hue-rotate(80deg) brightness(.9); }
+.cab-claro .cab-menu a { color: var(--suave); }
+.cab-claro .cab-menu a:hover { color: var(--verde); }
+.cab-acoes { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 8px; }
+.cab-acoes .btn { min-height: 44px; padding: 0 16px; font-size: 14px; }
+.cab-acoes svg { width: 18px; height: 18px; }
+.cab-acoes .cab-atual { background: var(--lima); box-shadow: none; }
+.cab-claro .cab-bt { background: rgba(29, 42, 31, .08); }
+.cab-claro .cab-bt span { background: var(--frente); }
+
+/* ---------- ritual 3D ---------- */
+.ritual { height: 560vh; --c1: #fbe3ea; --c2: #f6f3ee; --p: 0; --mix: 0; }
+.ritual[data-hora="tarde"] { --c1: #e6efcf; --c2: #f4f6ee; }
+.ritual[data-hora="noite"] { --c1: #2b462b; --c2: #16231a; --frente: #eef1e6; --suave: rgba(238, 241, 230, .72); --linha: rgba(238, 241, 230, .16); }
+.ritual-fixo { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; color: var(--frente); background: radial-gradient(70% 80% at 70% 45%, var(--c1), var(--c2) 75%); transition: background .8s; }
+.ritual-fixo::before { content: ""; position: absolute; inset: 0; background: radial-gradient(40% 40% at 72% 58%, rgba(95, 143, 47, calc(var(--mix) * .28)), transparent 70%); pointer-events: none; }
+.ritual[data-hora="noite"] .apoio, .ritual[data-hora="noite"] .tit-g em { color: var(--lima); }
+.ritual[data-hora="noite"] .btn { background: var(--lima); color: var(--tinta); }
+.ritual[data-hora="noite"] .btn-contorno { background: transparent; color: var(--frente); }
+.ritual-3d { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ritual-sem3d { display: none; }
+.ritual-txt { position: absolute; left: var(--g); top: 50%; transform: translateY(-48%); z-index: 3; width: min(560px, 42vw); }
+.ritual-txt .tit-g { font-size: clamp(46px, 6.4vw, 108px); }
+.ritual-lead { font-size: clamp(16px, 1.25vw, 19px); color: var(--suave); max-width: 440px; margin: 22px 0 24px; }
+.hora { margin-bottom: 22px; }
+.hora p { font: 600 13px var(--f-c); color: var(--suave); margin-bottom: 8px; }
+.hora-bts { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; padding: 4px; border-radius: 14px; background: rgba(255, 255, 255, .55); box-shadow: inset 0 0 0 1px var(--linha); }
+.ritual[data-hora="noite"] .hora-bts { background: rgba(238, 241, 230, .08); }
+.hora-bts button { min-height: 42px; padding: 0 14px; border: 0; border-radius: 10px; background: transparent; font: 600 14px var(--f-c); cursor: pointer; color: var(--frente); transition: background .3s, color .3s; }
+.hora-bts button[aria-pressed="true"] { background: var(--verde); color: #fff; }
+.ritual[data-hora="noite"] .hora-bts button[aria-pressed="true"] { background: var(--lima); color: var(--tinta); }
+.ritual-passos { position: absolute; right: var(--g); bottom: 90px; z-index: 3; width: 300px; height: 120px; }
+.ritual-passos li { position: absolute; inset: 0 0 auto; display: grid; text-align: right; opacity: 0; transform: translateY(20px); transition: opacity .5s, transform .6s var(--mola); }
+.ritual-passos li.on { opacity: 1; transform: none; }
+.ritual-passos b { font: 800 clamp(46px, 4.6vw, 72px)/.9 var(--f-t); letter-spacing: -.04em; }
+.ritual-passos span { font: 600 16px var(--f-c); color: var(--suave); }
+.ritual-tempo { position: absolute; left: var(--g); right: var(--g); bottom: 34px; z-index: 3; display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; font: 400 20px var(--f-m); color: var(--suave); }
+.ritual-tempo > i { height: 3px; background: var(--linha); }
+.ritual-tempo > i > i { display: block; height: 100%; background: #5f8f2f; transform-origin: left; transform: scaleX(var(--p)); }
+.sem-3d .ritual { height: auto; }
+.sem-3d .ritual-fixo { position: relative; height: auto; display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 100svh; }
+.sem-3d .ritual-txt { position: relative; left: auto; top: auto; transform: none; width: auto; padding: 130px var(--g) 60px; }
+.sem-3d .ritual-sem3d { display: block; width: 100%; }
+.sem-3d .ritual-passos, .sem-3d .ritual-tempo { display: none; }
+
+/* ---------- sanfona de ativos ---------- */
+.ativos-sec { padding: 150px var(--g) 140px; }
+.ativos-cab { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 40px; margin-bottom: 56px; }
+.ativos-cab .apoio { grid-column: 1 / -1; margin: 0; }
+.ativos-cab .lead { margin: 0; }
+.sanfona { display: flex; gap: 14px; height: 520px; }
+.folha { position: relative; flex: 1; min-width: 0; border-radius: var(--raio); overflow: hidden; background: radial-gradient(80% 70% at 60% 30%, color-mix(in srgb, var(--a-cor) 55%, #fff), var(--a-cor)); color: #f6f3ee; cursor: pointer; transition: flex 0.8s var(--mola); outline-offset: 4px; }
+.folha.aberta { flex: 2.6; }
+.folha img { position: absolute; left: 50%; top: 42%; width: min(380px, 80%); transform: translate(-50%, -50%) rotate(-6deg); filter: drop-shadow(0 26px 30px rgba(0, 0, 0, .3)); transition: transform .9s var(--mola), width .8s var(--mola); }
+.folha:not(.aberta) img { width: min(220px, 90%); transform: translate(-50%, -50%) rotate(8deg); }
+.folha-topo { position: absolute; left: 26px; right: 26px; bottom: 26px; display: grid; }
+.folha-topo b { font: 800 clamp(48px, 5vw, 84px)/.88 var(--f-t); letter-spacing: -.05em; }
+.folha-topo span { font: 800 26px var(--f-t); }
+.folha-mais { position: absolute; right: 26px; bottom: 30px; width: min(300px, 45%); display: grid; gap: 10px; opacity: 0; transform: translateY(16px); transition: opacity .5s .15s, transform .6s .15s var(--mola); }
+.folha.aberta .folha-mais { opacity: 1; transform: none; }
+.folha:not(.aberta) .folha-mais { pointer-events: none; }
+.folha-tec { font: italic 500 14px var(--f-c); opacity: .8; }
+.folha-mais p:not(.folha-tec) { font: 700 18px/1.3 var(--f-t); }
+.folha-mais .btn { justify-self: start; min-height: 46px; }
+
+/* ---------- rótulo claro ---------- */
+.rotulo[data-rotulo="claro"] { --frente: #1d2a1f; --suave: rgba(29, 42, 31, .7); --linha: rgba(29, 42, 31, .14); --cartao: #fff; }
+.rotulo[data-rotulo="claro"] .fios path { stroke: #2b462b; }
+.rotulo[data-rotulo="claro"] .apoio { color: #55803a; }
+
+/* ---------- um pote, um mês ---------- */
+.mes { display: grid; grid-template-columns: 1.1fr 1fr; gap: 70px; align-items: center; padding: 150px var(--g); background: var(--rosa-claro); color: #2a1a21; --frente: #2a1a21; --suave: rgba(42, 26, 33, .72); --linha: rgba(42, 26, 33, .16); }
+.mes .apoio, .mes .tit em { color: #8a4a63; }
+.mes-lista { display: grid; margin-top: 34px; }
+.mes-lista li { display: grid; grid-template-columns: 220px 1fr; gap: 20px; padding: 18px 0; border-top: 1px solid var(--linha); color: var(--suave); }
+.mes-lista b { font: 800 18px var(--f-t); color: var(--frente); }
+.mes-cal { padding: 34px; border-radius: 30px; background: #fff7fa; box-shadow: 0 40px 70px -40px rgba(138, 74, 99, .5); }
+.mes-grade { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.mes-grade i { aspect-ratio: 1; border-radius: 50%; background: rgba(42, 26, 33, .07); transition: background .5s, transform .5s var(--mola); }
+.mes-grade i.on { background: radial-gradient(circle at 35% 30%, #9cbc5c, #2f6b3a); transform: scale(.92); }
+.mes-leg { margin-top: 20px; font: 400 26px var(--f-m); color: #8a4a63; text-align: center; }
+
+/* ---------- relatos, comprar, área do cliente ---------- */
+.relatos-claro .relato figcaption { background: linear-gradient(transparent, rgba(22, 35, 26, .9) 42%); color: #f4f6ee; }
+.relatos-claro .relato cite { color: rgba(244, 246, 238, .75); }
+.comprar-claro { background: #ecf1df; }
+.comprar-claro .kit-img img { filter: drop-shadow(0 22px 24px rgba(29, 42, 31, .25)); }
+.comprar-claro .kit .btn-contorno { color: var(--verde); }
+.comprar-claro .condicoes a { color: var(--verde); }
+.conta-teaser { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; padding: 150px var(--g); }
+.conta-tela { display: grid; gap: 18px; padding: 30px; border-radius: 30px; background: #22392a; color: #eef1e6; box-shadow: 0 50px 90px -40px rgba(29, 42, 31, .6); transform: rotate(-2deg); }
+.ct-topo { display: flex; justify-content: space-between; align-items: baseline; }
+.ct-topo b { font: 800 28px var(--f-t); }
+.ct-topo span { font-size: 13px; color: rgba(238, 241, 230, .6); }
+.ct-rastreio { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.ct-rastreio span { padding: 30px 0 0; border-top: 6px solid rgba(238, 241, 230, .15); font-size: 13px; color: rgba(238, 241, 230, .6); }
+.ct-rastreio .on { border-color: var(--lima); color: #eef1e6; }
+.ct-prev { font: 400 24px var(--f-m); color: var(--lima); }
+.ct-acoes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.ct-acoes span { display: grid; place-items: center; min-height: 54px; padding: 8px; border-radius: 12px; background: rgba(238, 241, 230, .08); text-align: center; font: 600 13px var(--f-c); }
+.ct-acoes span:first-child { background: var(--lima); color: var(--tinta); }
+.duvidas-claro { background: #fff; }
+.relatos-claro { background: var(--fundo); }
+.contato { background: #e6efcf; color: #1d2a1f; --frente: #1d2a1f; --suave: rgba(29, 42, 31, .72); --linha: rgba(29, 42, 31, .16); --cartao: #fbfdf6; --cartao-tinta: #1d2a1f; }
+.contato .apoio, .contato-canais b { color: #55803a; }
+.doc a { color: var(--verde); }
+
+@media (max-width: 1100px) { .cab-menu { gap: 18px; } .cab-acoes .cab-conta svg { display: none; } }
+@media (max-width: 900px) {
+  .cab-acoes { display: none; }
+  .cab-claro .cab-menu { background: #f6f3ee; }
+  .cab-claro .cab-menu a { color: var(--frente); }
+  .ritual { height: 480vh; }
+  .ritual-txt { left: var(--g); right: var(--g); top: 92px; bottom: auto; transform: none; width: auto; }
+  .ritual-txt .tit-g { font-size: clamp(38px, 10vw, 60px); }
+  .ritual-lead, .ritual-txt .apoio { display: none; }
+  .hora { margin: 16px 0 0; }
+  .hora p { display: none; }
+  .hora-bts { display: grid; width: 100%; }
+  .hora-bts button { padding: 0 6px; font-size: 13px; }
+  .ritual-txt .btns { display: none; }
+  .ritual-passos { left: var(--g); right: var(--g); width: auto; bottom: 70px; height: 96px; }
+  .ritual-passos li { text-align: left; }
+  .ativos-cab, .mes, .conta-teaser { grid-template-columns: 1fr; }
+  .sanfona { flex-direction: column; height: auto; }
+  .folha { flex: none; height: 150px; transition: height .7s var(--mola); }
+  .folha.aberta { height: 420px; }
+  .folha-mais { left: 26px; right: 26px; width: auto; bottom: 120px; }
+  .folha:not(.aberta) img { width: 120px; left: auto; right: -10px; transform: translate(0, -50%) rotate(8deg); }
+  .mes-lista li { grid-template-columns: 1fr; gap: 4px; }
+  .conta-tela { transform: none; }
+}
+@media (max-width: 560px) {
+  .ativos-sec, .mes, .conta-teaser { padding-top: 100px; padding-bottom: 100px; }
+  .mes-cal { padding: 22px; }
+  .mes-grade { gap: 8px; }
+  .ct-acoes { grid-template-columns: 1fr; }
+  .ct-rastreio span { font-size: 11px; }
+}

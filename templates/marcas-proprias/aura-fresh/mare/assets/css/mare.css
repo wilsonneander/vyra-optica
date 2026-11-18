@@ -1,0 +1,216 @@
+/* AURA Fresh, modelo 5 "Maré": água clara e rosa da marca, tipografia grande e muito ar.
+   Usa produto.css como base (cabeçalho, cena do pote, kits, dúvidas, contato) e muda a direção aqui.
+   O tema escuro (noite de água) fica em tema-mare.css. */
+.mare {
+  --fundo: #f3f8f7; --frente: #16302a; --suave: rgba(22, 48, 42, .7); --linha: rgba(22, 48, 42, .13);
+  --cartao: #ffffff; --cartao-tinta: #16302a; --acento: #16302a; --acento-tinta: #fff; --raio: 24px;
+  --agua: #5fc2ae; --agua-forte: #2a8a72; --enfase: #2a8a72; --r-fundo: #10221e;
+}
+body.mare { background: var(--fundo); color: var(--frente); }
+.mare .apoio { color: var(--enfase); margin-bottom: 12px; }
+.mare .tit { font-size: clamp(36px, 4.4vw, 70px); }
+.mare .tit em, .mare .tit-g em { color: var(--enfase); }
+.mare .lead { margin-top: 16px; font-size: 17px; }
+
+/* ---------- cabeçalho: logo, menu no centro, tema e sacola redonda ---------- */
+.mare .cab { grid-template-columns: 1fr auto 1fr auto auto; gap: 22px; }
+.mare .cab .tema { justify-self: end; }
+.mare .cab-logo img { filter: brightness(0) saturate(100%) invert(14%) sepia(22%) saturate(1000%) hue-rotate(118deg) brightness(.9); }
+.mare .cab-menu a { color: var(--suave); position: relative; padding: 6px 0; }
+.mare .cab-menu a:hover { color: var(--frente); }
+.mare .cab.rolado { background: rgba(243, 248, 247, .82); }
+.cab-sacola { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: var(--frente); color: var(--fundo); transition: transform .35s var(--mola); }
+.cab-sacola:hover { transform: scale(1.08) rotate(-6deg); }
+.cab-sacola svg { width: 20px; height: 20px; }
+.mare .cab-bt { background: rgba(22, 48, 42, .08); }
+@media (max-width: 900px) {
+  .mare .cab { grid-template-columns: 1fr auto auto auto; gap: 12px; }
+  .mare .cab-menu { background: var(--fundo); }
+  .mare .cab-menu a { color: var(--frente); }
+  .cab-sacola { width: 44px; height: 44px; }
+}
+
+/* ---------- hero: a onda que vira AURA ---------- */
+.mh { position: relative; height: 430vh; --p: 0; --intro: 1; --fim: 0; }
+.mh-fixo { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: linear-gradient(105deg, #d6eef0 0%, #e6eef3 45%, #f3d7e4 100%); }
+.mare-3d { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mh-sem3d { display: none; }
+.mh-intro { position: absolute; left: var(--g); top: 50%; z-index: 3; width: min(640px, 44vw); transform: translateY(calc(-50% - (1 - var(--intro)) * 60px)); opacity: var(--intro); }
+.mh-tit { font: 800 clamp(50px, 6.3vw, 108px)/.9 var(--f-t); letter-spacing: -.05em; color: var(--frente); }
+.mh-tit em { font-style: normal; color: var(--enfase); }
+.mh-lead { max-width: 470px; margin: 26px 0 34px; font-size: clamp(17px, 1.45vw, 22px); line-height: 1.45; color: var(--frente); }
+.mh-acoes { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; }
+.mh-comprar { min-height: 62px; padding: 0 30px; border-radius: 22px; background: var(--agua-forte); color: #fff; font-size: 16px; gap: 14px; }
+.mh-comprar span { font-weight: 500; opacity: .85; }
+.mh-link { font: 600 17px var(--f-c); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 12px; color: var(--frente); transition: text-underline-offset .3s var(--mola); }
+.mh-link:hover { text-underline-offset: 6px; }
+.mh-role { position: absolute; left: 50%; bottom: 26px; z-index: 3; display: grid; justify-items: center; gap: 6px; transform: translateX(-50%); font: 600 14px var(--f-c); color: var(--frente); opacity: calc(var(--intro) * .85); }
+.mh-role svg { width: 14px; height: 20px; fill: var(--agua-forte); animation: mh-pinga 1.8s ease-in infinite; }
+@keyframes mh-pinga { 0% { transform: translateY(-6px) scaleY(.8); opacity: 0; } 30% { opacity: 1; } 70% { transform: translateY(6px) scaleY(1.15); opacity: 1; } 100% { transform: translateY(10px); opacity: 0; } }
+.mh { --meio: 0; }
+.mh-meio { position: absolute; left: var(--g); top: 50%; z-index: 3; width: min(620px, 46vw); opacity: var(--meio); transform: translateY(calc(-50% + (1 - var(--meio)) * 40px)); pointer-events: none; }
+.mh.meio-on .mh-meio { pointer-events: auto; }
+.mh-meio-t { font: 800 clamp(46px, 5.6vw, 96px)/.92 var(--f-t); letter-spacing: -.05em; color: var(--frente); margin-bottom: 30px; }
+.mh-meio-t em { font-style: normal; color: var(--enfase); }
+.sem-3d .mh-meio { display: none; }
+.mh-fim { position: absolute; left: var(--g); top: 50%; z-index: 3; width: min(520px, 40vw); opacity: var(--fim); transform: translateY(calc(-50% + (1 - var(--fim)) * 40px)); pointer-events: none; }
+.mh.fim-on .mh-fim { pointer-events: auto; }
+.mh-fim-t { font: 800 clamp(42px, 5vw, 86px)/.92 var(--f-t); letter-spacing: -.05em; color: var(--frente); }
+.mh-fim-t em { font-style: normal; color: var(--enfase); }
+.mh-fim-lead, .mh-meio-lead { margin: 18px 0 24px; max-width: 420px; font-size: 18px; color: var(--suave); }
+.mh-seletor { max-width: 420px; background: rgba(22, 48, 42, .07); }
+.mh-seletor button[aria-pressed="true"] { background: var(--agua-forte); color: #fff; }
+.mh-preco { display: flex; align-items: baseline; gap: 12px; margin: 16px 0 22px; } .mh-preco b { font: 800 40px/1 var(--f-t); letter-spacing: -.03em; } .mh-preco span { color: var(--suave); }
+.mh-meio-t { margin-bottom: 0; }
+
+.sem-3d .mh { height: auto; }
+.sem-3d .mh-fixo { position: relative; height: auto; min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 120px var(--g) 60px; gap: 30px; }
+.sem-3d .mh-intro, .sem-3d .mh-fim { position: relative; left: auto; top: auto; bottom: auto; transform: none; opacity: 1; width: auto; pointer-events: auto; }
+.sem-3d .mh-fim { grid-column: 1 / -1; }
+.sem-3d .mh-sem3d { display: block; width: 100%; max-width: 600px; justify-self: center; border-radius: 30px; }
+.sem-3d .mh-role { display: none; }
+
+/* ---------- o pote, de perto: a cena do modelo 1 num bloco verde-noite ---------- */
+.mp { --frente: #eef1e6; --suave: rgba(238, 241, 230, .72); --linha: rgba(238, 241, 230, .14); color: #eef1e6; }
+.mp .apoio, .mp .tit-g em { color: var(--lima); }
+.mp .tit-g { font-size: clamp(42px, 5.4vw, 90px); }
+.mp .hero-fases { right: calc(var(--g) + 64px); }
+
+/* ---------- frase que enche de água ---------- */
+.enche { position: relative; height: 240vh; }
+.enche-fixo { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: grid; align-items: center; padding: 0 var(--g); }
+.enche-mar { position: absolute; inset: 0; width: 100%; height: 100%; }
+.em-a { fill: rgba(95, 194, 174, .22); }
+.em-b { fill: rgba(42, 138, 114, .14); }
+.enche-txt { position: relative; z-index: 1; max-width: 1180px; }
+.enche-frase { font: 700 clamp(28px, 3.7vw, 60px)/1.12 var(--f-t); letter-spacing: -.03em; }
+.enche-frase span { color: rgba(22, 48, 42, .14); transition: color .5s; }
+.enche-frase span.on { color: var(--frente); }
+.enche-frase span.d.on { color: var(--enfase); }
+
+/* ---------- ativos revelados pela crista da onda ---------- */
+.ativos-m { padding: 40px var(--g) 120px; }
+.am-cab { display: grid; grid-template-columns: 1.1fr 1fr; align-items: end; gap: 40px; margin-bottom: 50px; }
+.am-cab .lead { justify-self: end; }
+.am-lista { display: grid; grid-template-columns: repeat(3, minmax(0, 360px)); justify-content: space-evenly; gap: clamp(14px, 2vw, 28px); align-items: start; }
+.am { --k: 0; position: relative; display: grid; gap: 18px; padding: 0; border: 0; background: none; color: var(--frente); text-align: left; cursor: pointer; }
+.am:nth-child(2) { margin-top: 80px; }
+.am:nth-child(3) { margin-top: 30px; }
+.am-foto { position: relative; display: block; aspect-ratio: 9 / 10; border-radius: 28px; overflow: hidden; background: radial-gradient(62% 56% at 50% 54%, rgba(255, 255, 255, .9), rgba(255, 255, 255, 0) 72%), linear-gradient(180deg, #e3f3f0, #cdeae4); }
+/* as fotos da marca são pequenas: aparecem inteiras e nunca maiores que o tamanho real (--w), sem estourar */
+.am-img { position: absolute; inset: 0; display: grid; place-items: center; padding: 56px 22px 22px; clip-path: inset(calc((1 - var(--k)) * 100%) 0 0 0); }
+.am-img img { width: min(var(--w), 100%); height: auto; max-height: 100%; object-fit: contain; filter: drop-shadow(0 16px 22px rgba(10, 30, 26, .22)); transform: translateY(calc((1 - var(--k)) * 24px)); transition: transform .4s var(--mola); }
+.am-crista { position: absolute; left: 0; right: 0; height: 40px; width: 100%; top: calc((1 - var(--k)) * 100% - 20px); fill: rgba(255, 255, 255, .5); opacity: calc((1 - var(--k)) * 1.6); }
+.am:hover .am-img img { transform: translateY(-6px) rotate(-2deg); }
+.am-txt { display: grid; gap: 2px; }
+.am-txt b { font: 800 30px/1 var(--f-t); letter-spacing: -.03em; }
+.am-txt small { font-size: 14px; font-style: italic; color: var(--suave); }
+.am-txt > span { margin-top: 8px; color: var(--suave); font-size: 16px; }
+.am-qtd { position: absolute; left: 20px; top: 18px; font: 800 clamp(30px, 2.8vw, 44px)/1 var(--f-t); letter-spacing: -.04em; color: var(--agua-forte); opacity: var(--k); }
+
+/* ---------- ritual numa linha de água ---------- */
+.ritual-m { padding: 110px var(--g); background: linear-gradient(180deg, var(--fundo), #e7f3f1); }
+.rm-cab { margin-bottom: 50px; }
+.rm-trilha { position: relative; }
+.rm-linha { position: absolute; left: 0; right: 0; top: 0; width: 100%; height: 90px; overflow: visible; }
+.rm-fundo { fill: none; stroke: var(--linha); stroke-width: 3; vector-effect: non-scaling-stroke; }
+.rm-agua { fill: none; stroke: var(--agua-forte); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; vector-effect: non-scaling-stroke; }
+.rm-passos { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; padding-top: 110px; }
+.rm-passos li { display: grid; gap: 6px; opacity: .3; transform: translateY(18px); transition: opacity .6s, transform .7s var(--mola); }
+.rm-passos li.on { opacity: 1; transform: none; }
+.rm-gota { width: 26px; height: 36px; fill: transparent; stroke: var(--agua-forte); stroke-width: 2; transition: fill .6s; margin-bottom: 8px; }
+.rm-passos li.on .rm-gota { fill: var(--agua); }
+.rm-passos b { font: 800 clamp(40px, 4.4vw, 68px)/1 var(--f-t); letter-spacing: -.045em; }
+.rm-passos span { color: var(--suave); max-width: 300px; font-size: 17px; }
+
+/* ---------- rótulo ---------- */
+.rotulo-m { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; padding: 110px var(--g); }
+.rot-col { display: grid; gap: 10px; align-content: start; }
+.rot-item { border-radius: 20px; background: var(--cartao); box-shadow: 0 1px 0 var(--linha), 0 18px 40px -30px rgba(22, 48, 42, .4); overflow: hidden; }
+.rot-item summary { display: grid; grid-template-columns: 1fr 28px; align-items: center; gap: 16px; padding: 20px 22px; font: 700 18px var(--f-t); cursor: pointer; list-style: none; }
+.rot-item summary::-webkit-details-marker { display: none; }
+.rot-item summary i { position: relative; width: 28px; height: 28px; border-radius: 50%; background: var(--agua); }
+.rot-item summary i::before, .rot-item summary i::after { content: ""; position: absolute; left: 8px; right: 8px; top: 13px; height: 2px; background: var(--frente); transition: transform .35s var(--mola); }
+.rot-item summary i::after { transform: rotate(90deg); }
+.rot-item[open] summary i::after { transform: rotate(0); }
+.rot-item ul, .rot-item p { padding: 0 22px 18px; color: var(--suave); font-size: 15.5px; }
+.rot-item li + li { margin-top: 8px; }
+.rot-item p + p { margin-top: -8px; }
+
+/* ---------- avaliações em faixas que correm com a rolagem ---------- */
+.aval-m { padding: 110px 0; overflow: hidden; background: linear-gradient(180deg, #f3d7e4 0%, var(--fundo) 100%); }
+.av-cab { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 30px; padding: 0 var(--g); margin-bottom: 44px; }
+.av-nota { display: grid; justify-items: end; gap: 6px; text-align: right; font-size: 14px; color: var(--suave); max-width: 300px; }
+.estrelas { display: inline-flex; gap: 3px; }
+.estrelas svg { width: 22px; height: 22px; fill: rgba(22, 48, 42, .15); }
+.estrelas svg.on { fill: var(--agua-forte); }
+.av-faixa { overflow: hidden; padding: 9px 0; }
+.av-trilho { display: flex; gap: 18px; width: max-content; will-change: transform; }
+.av { display: grid; grid-template-columns: auto 1fr; align-items: start; gap: 6px 16px; width: 400px; padding: 24px; border-radius: 24px; background: rgba(255, 255, 255, .8); box-shadow: 0 18px 40px -30px rgba(22, 48, 42, .45); }
+.av img { grid-row: span 2; width: 58px; height: 58px; border-radius: 50%; object-fit: cover; }
+.av blockquote { margin: 0; grid-column: 1 / -1; font: 600 17px/1.4 var(--f-t); }
+.av:has(img) blockquote { grid-column: 2; }
+.av figcaption { grid-column: 1 / -1; font-size: 13px; color: var(--suave); }
+.av:has(img) figcaption { grid-column: 2; }
+.av-faixa[data-faixa="-1"] .av { background: var(--frente); color: #eef5f2; --suave: rgba(238, 245, 242, .7); }
+.av-aviso { padding: 22px var(--g) 0; font-size: 13px; color: var(--suave); }
+
+/* ---------- kits, dúvidas, contato ---------- */
+.mare .comprar { padding: 110px var(--g); background: #e7f3f1; }
+.mare .comprar .kit .btn-contorno { color: var(--frente); }
+.mare .kit-img img { filter: drop-shadow(0 22px 24px rgba(22, 48, 42, .25)); }
+.mare .duvidas { padding: 110px var(--g); }
+.mare .faq summary i { background: var(--agua); }
+.mare .faq summary i::before, .mare .faq summary i::after { background: var(--frente); }
+.mare .contato { padding: 110px var(--g); }
+.mare .doc a { color: var(--agua-forte); }
+.mare .doc { padding-top: 140px; }
+
+/* ---------- carregamento: a logo e a linha de água que se desenha ---------- */
+.carga-mare { background: linear-gradient(105deg, #d6eef0, #f3d7e4); }
+.carga-mare .carga-centro { gap: 22px; }
+.cmare-logo { width: min(180px, 46vw); filter: brightness(0) saturate(100%) invert(14%) sepia(22%) saturate(1000%) hue-rotate(118deg) brightness(.9); }
+.cmare-onda { width: min(220px, 56vw); height: auto; overflow: visible; }
+.cmare-trilho { fill: none; stroke: rgba(22, 48, 42, .14); stroke-width: 3; stroke-linecap: round; }
+.cmare-agua { fill: none; stroke: #2a8a72; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--k)); }
+
+/* ---------- tablet e celular ---------- */
+@media (max-width: 900px) {
+  .mh { height: 380vh; }
+  .mh-intro { top: 92px; left: var(--g); right: var(--g); width: auto; transform: translateY(calc((1 - var(--intro)) * -40px)); }
+  .mh-tit { font-size: clamp(40px, 11vw, 66px); }
+  .mh-lead { font-size: 16px; margin: 14px 0 20px; max-width: 420px; }
+  .mh-acoes { gap: 18px; }
+  .mh-comprar { min-height: 54px; padding: 0 22px; }
+  .mh-fim { top: 88px; right: var(--g); width: auto; transform: translateY(calc((1 - var(--fim)) * 30px)); }
+  .mh-meio { top: 92px; right: var(--g); width: auto; transform: translateY(calc((1 - var(--meio)) * 30px)); }
+  .mh-meio-t { font-size: clamp(38px, 10vw, 62px); margin-bottom: 18px; }
+  .mh-fim-t { font-size: clamp(34px, 9vw, 56px); } .mh-fim-lead, .mh-meio-lead { font-size: 15px; margin: 10px 0 14px; }
+  .mh-preco { margin: 10px 0 14px; } .mh-preco b { font-size: 30px; }
+
+  .sem-3d .mh-fixo { grid-template-columns: 1fr; padding-top: 100px; }
+  .am-cab, .rotulo-m, .av-cab { grid-template-columns: 1fr; }
+  .am-cab .lead, .av-nota { justify-self: start; text-align: left; justify-items: start; }
+  .am-lista { grid-template-columns: 1fr 1fr; }
+  .am:nth-child(2) { margin-top: 50px; }
+  .am:nth-child(3) { margin-top: 0; grid-column: 1 / -1; }
+  .am:nth-child(3) .am-foto { aspect-ratio: 16 / 9; }
+  .rm-passos { grid-template-columns: 1fr; gap: 26px; padding-top: 0; }
+  .rm-linha { display: none; }
+  .rm-passos li { grid-template-columns: 34px 1fr; column-gap: 16px; }
+  .rm-gota { grid-row: span 2; }
+}
+@media (max-width: 560px) {
+  .mh-lead { display: none; }
+  .mh-acoes { display: grid; grid-template-columns: 1fr; justify-items: start; gap: 14px; margin-top: 22px; }
+  .mh-fim-lead { display: none; }
+
+
+
+  .am-lista { grid-template-columns: 1fr; }
+  .am:nth-child(2), .am:nth-child(3) { margin-top: 0; grid-column: auto; }
+  .am .am-foto, .am:nth-child(3) .am-foto { aspect-ratio: 4 / 3; }
+  .av { width: 300px; padding: 20px; }
+  .ativos-m, .ritual-m, .rotulo-m, .aval-m, .mare .comprar, .mare .duvidas, .mare .contato { padding-top: 84px; padding-bottom: 84px; }
+}
+@media (prefers-reduced-motion: reduce) { .mh-role svg { animation: none; } }

@@ -1,0 +1,54 @@
+/* AURA Fresh, modelo 1: o site nasce escuro (verde-noite). Aqui fica a versão clara, no papel da marca.
+   A faixa da rotina e o rodapé continuam verdes nos dois temas, como blocos de cor da marca. */
+.cab .tema { justify-self: end; }
+:root { --rolagem: #c4d997; --rolagem-fundo: #101912; --tema-fundo: rgba(238, 241, 230, .08); }
+
+[data-tema-atual="claro"] {
+  --fundo: #f4f6ee; --frente: #1d2a1f; --suave: rgba(29, 42, 31, .7); --linha: rgba(29, 42, 31, .15);
+  --cartao: #fff; --cartao-tinta: #1d2a1f; --acento: #2b462b; --acento-tinta: #fff;
+  --rolagem: #5f8f2f; --rolagem-fundo: #e9eddf; --tema-fundo: rgba(29, 42, 31, .07);
+}
+[data-tema-atual="claro"] body { background: var(--fundo); color: var(--frente); }
+[data-tema-atual="claro"] .apoio, [data-tema-atual="claro"] .tit-g em, [data-tema-atual="claro"] .tit em { color: #55803a; }
+[data-tema-atual="claro"] .btn-contorno { color: var(--frente); }
+[data-tema-atual="claro"] .cab.rolado { background: rgba(244, 246, 238, .92); }
+[data-tema-atual="claro"] .cab-logo img { filter: brightness(0) saturate(100%) invert(19%) sepia(20%) saturate(900%) hue-rotate(80deg) brightness(.9); }
+[data-tema-atual="claro"] .cab-menu a { color: var(--suave); }
+[data-tema-atual="claro"] .cab-menu a:hover { color: var(--verde); }
+[data-tema-atual="claro"] .cab-bt { background: rgba(29, 42, 31, .08); }
+[data-tema-atual="claro"] .cab-bt span { background: var(--frente); }
+@media (max-width: 900px) { [data-tema-atual="claro"] .cab-menu { background: #f4f6ee; } [data-tema-atual="claro"] .cab-menu a { color: var(--frente); } }
+
+/* hero claro: luz de manhã sobre o pote */
+[data-tema-atual="claro"] .hero-fixo { background: radial-gradient(60% 70% at 66% 52%, #ffffff 0%, #eef2e2 50%, #e2e9d2 100%); }
+[data-tema-atual="claro"] .hero-kit { background: rgba(255, 255, 255, .72); }
+[data-tema-atual="claro"] .seletor { background: rgba(29, 42, 31, .06); }
+[data-tema-atual="claro"] .seletor button[aria-pressed="true"] { background: var(--verde); color: #fff; }
+[data-tema-atual="claro"] .hero-preco em { color: #55803a; }
+[data-tema-atual="claro"] .hero-role { color: #55803a; }
+[data-tema-atual="claro"] .hero-barra { background: rgba(29, 42, 31, .1); }
+[data-tema-atual="claro"] .hero-barra i { background: #5f8f2f; }
+[data-tema-atual="claro"] .hero-kit .btn-lima { background: var(--verde); color: #fff; }
+
+/* fórmula e rótulo claros */
+[data-tema-atual="claro"] .formula-foto figcaption { background: rgba(255, 255, 255, .85); color: var(--frente); }
+[data-tema-atual="claro"] .rotulo-fixo { background-color: #f1f3ea; background-image: linear-gradient(rgba(29, 42, 31, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(29, 42, 31, .06) 1px, transparent 1px); }
+[data-tema-atual="claro"] .rotulo-fixo::after { background: radial-gradient(70% 60% at 50% 55%, transparent 30%, #f1f3ea 88%); }
+[data-tema-atual="claro"] .rotulo-pct > i > i { background: #5f8f2f; }
+[data-tema-atual="claro"] .ponto { border-color: #fff; background: var(--verde); }
+[data-tema-atual="claro"] .fios path { stroke: #2b462b; }
+[data-tema-atual="claro"] .rotulo-plano { background: #f1f3ea; }
+[data-tema-atual="claro"] .rp-selo { color: var(--verde); }
+[data-tema-atual="claro"] .rp-sombra { filter: drop-shadow(0 30px 40px rgba(29, 42, 31, .18)); }
+
+/* a rotina segue verde nos dois temas */
+[data-tema-atual="claro"] .rotina { --frente: #eef1e6; --suave: rgba(238, 241, 230, .72); --linha: rgba(238, 241, 230, .16); color: #eef1e6; }
+[data-tema-atual="claro"] .rotina .apoio, [data-tema-atual="claro"] .rotina .tit em { color: var(--lima); }
+
+[data-tema-atual="claro"] .comprar { background: #e9eedc; }
+[data-tema-atual="claro"] .kit .btn-contorno { color: var(--verde); }
+[data-tema-atual="claro"] .condicoes a, [data-tema-atual="claro"] .doc a { color: var(--verde); }
+[data-tema-atual="claro"] .kit-img img { filter: drop-shadow(0 22px 24px rgba(29, 42, 31, .25)); }
+[data-tema-atual="claro"] .relato-tag { color: var(--lima); }
+[data-tema-atual="claro"] .faq summary i { background: var(--verde); }
+[data-tema-atual="claro"] .faq summary i::before, [data-tema-atual="claro"] .faq summary i::after { background: #fff; }

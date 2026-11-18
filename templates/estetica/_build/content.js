@@ -43,31 +43,47 @@ const abertura = [null, [9, 20], [9, 20], [9, 20], [9, 20], [9, 20], [8, 14]];
 const horarios = [['Segunda a sexta', '9h às 20h'], ['Sábado', '8h às 14h'], ['Domingo e feriado', 'Fechado']];
 
 // fotos: arquivo em img/fotos/<nome>.webp. Sem o arquivo, o site mostra um espaço reservado com a descrição.
+// Fotos atuais: Unsplash (licença Unsplash), créditos em img/creditos.json. Cliente real: trocar por fotos da clínica e da equipe.
 const fotos = {
-  capa: 'Esteticista fazendo limpeza de pele em cliente deitada na maca, luz clara',
-  facial: 'Aplicação de máscara facial com pincel',
-  corporal: 'Mãos fazendo drenagem linfática nas costas da cliente',
+  capa: 'Profissional de luvas rosa aplicando preenchimento labial em cliente deitada',
+  facial: 'Cliente de olhos fechados recebendo tratamento facial de profissional de luvas',
+  corporal: 'Massagem nas costas da cliente deitada na maca com toalha branca',
   depilacao: 'Design de sobrancelha com pinça, cliente de olhos fechados',
-  avaliacao: 'Profissional conversando com a cliente na avaliação, com ficha na mão',
-  responsavel: 'Retrato da responsável técnica, de jaleco, sorrindo',
-  'galeria-recepcao': 'Recepção clara com poltrona e plantas',
-  'galeria-sala': 'Sala de atendimento com maca forrada de branco',
-  'galeria-produtos': 'Frascos de sérum e cremes sobre bancada de mármore',
-  'galeria-toalhas': 'Toalhas dobradas e ramo de eucalipto',
-  'galeria-cilios': 'Detalhe de extensão de cílios sendo aplicada',
-  'galeria-mao': 'Mãos com luva aplicando sérum no rosto',
+  avaliacao: 'Profissional de luvas fazendo tratamento facial com aparelho em cliente de touca',
+  responsavel: 'Profissional de jaleco branco sorrindo',
+  'galeria-harmonizacao': 'Aplicação de harmonização no queixo da cliente',
+  'galeria-produtos': 'Texturas de sérum, óleo e creme com folhas verdes',
+  'galeria-corredor': 'Corredor claro com prateleiras de produtos de skincare',
+  'galeria-serum': 'Frasco de sérum com conta-gotas sobre fundo rosa',
+  'galeria-cilios': 'Extensão de cílios sendo aplicada com pinça',
+  'galeria-toxina': 'Aplicação de toxina botulínica na testa da cliente',
 };
 
 // Segmentos e tratamentos. Preço: `de` = "a partir de"; `preco` = valor fechado.
 const segmentos = [
   {
     id: 'facial', ativo: true, nome: 'Estética facial', curto: 'Facial', foto: 'facial',
-    chamada: 'Limpeza, peelings, hidratação e rejuvenescimento, com o protocolo escolhido pelo seu tipo de pele.',
+    chamada: 'Harmonização, limpeza, peelings, hidratação e rejuvenescimento, com o protocolo escolhido pelo seu tipo de pele.',
     itens: [
       {
         nome: 'Avaliação facial', resumo: 'Análise da pele com lupa e conversa sobre rotina, histórico e o que te incomoda.',
         duracao: '40 min', sessoes: 'Visita única', preco: 0, gratis: 'Sem custo',
         inclui: ['Ficha de anamnese', 'Análise da pele com lupa de aumento', 'Plano por escrito com número de sessões e valores', 'Indicação de cuidados em casa'],
+      },
+      {
+        nome: 'Harmonização facial', resumo: 'Toxina botulínica e ácido hialurônico em doses pensadas para um resultado natural, feita pela responsável técnica.',
+        duracao: '1h a 1h30', sessoes: 'Em 1 ou 2 etapas, retorno em 15 dias', de: 1800,
+        inclui: ['Mapeamento facial com fotos (com sua autorização)', 'Anestésico tópico', 'Produtos com registro na Anvisa e lote anotado no prontuário', 'Retorno de revisão em 15 dias'],
+      },
+      {
+        nome: 'Toxina botulínica', resumo: 'Suaviza as linhas de expressão da testa, da glabela e dos olhos.',
+        duracao: '30 min', sessoes: 'Reaplicação em média a cada 4 a 6 meses', de: 950,
+        inclui: ['Avaliação da musculatura', 'Aplicação com agulha fina', 'Retorno de ajuste em 15 dias'],
+      },
+      {
+        nome: 'Preenchimento labial', resumo: 'Contorno e hidratação dos lábios com ácido hialurônico, sem exagero no volume.',
+        duracao: '1h', sessoes: 'Sessão única, duração média de 9 a 12 meses', de: 1200,
+        inclui: ['Anestésico tópico', 'Ácido hialurônico com registro na Anvisa', 'Compressa fria e orientação de cuidados', 'Retorno em 15 dias'],
       },
       {
         nome: 'Limpeza de pele profunda', resumo: 'Tira cravos e impurezas e devolve o viço sem agredir a pele.',

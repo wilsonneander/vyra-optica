@@ -25,6 +25,10 @@ O build lista as fotos que ainda faltam. O mapa só precisa ser gerado de novo s
 NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js rosa img/mapa_cambui.webp   # dentro de _build/
 ```
 
+## Imagens
+
+Fotos do Unsplash (licença Unsplash, uso livre), convertidas para WebP de até 1400px. O crédito de cada uma fica em `_build/img/creditos.json` e aparece no rodapé, em "Créditos das imagens". A capa e duas fotos da galeria mostram harmonização (preenchimento labial, queixo e toxina na testa). Ficaram de fora fotos com logo de outra clínica à vista. Para cliente real, trocar pelas fotos da clínica e da equipe, mantendo os nomes dos arquivos.
+
 ## Ligar e desligar segmentos
 
 Cada segmento tem `ativo: true/false` em `segmentos` no `content.js`. Desligado, ele some do site inteiro: cartões da capa, preços, opções do formulário, rodapé e texto da capa. Para mostrar ao cliente sem gerar de novo, o link aceita `?seg=facial`, `?seg=facial,corporal` ou `?seg=depilacao`.

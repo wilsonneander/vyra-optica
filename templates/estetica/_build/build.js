@@ -262,7 +262,7 @@ ${css}
       </div>
       <div class="galeria-topo"><h2>Por dentro da clínica</h2><p>Salas individuais, luz clara e silêncio. Desde ${M.desde} no ${M.bairro}.</p></div>
       <div class="galeria">
-        ${['galeria-recepcao', 'galeria-sala', 'galeria-produtos', 'galeria-cilios', 'galeria-toalhas', 'galeria-mao'].map((g, i) => `<figure class="g g${i + 1} revela">${foto(g)}</figure>`).join('')}
+        ${['galeria-harmonizacao', 'galeria-produtos', 'galeria-corredor', 'galeria-serum', 'galeria-cilios', 'galeria-toxina'].map((g, i) => `<figure class="g g${i + 1} revela">${foto(g)}</figure>`).join('')}
       </div>
     </div>
   </section>

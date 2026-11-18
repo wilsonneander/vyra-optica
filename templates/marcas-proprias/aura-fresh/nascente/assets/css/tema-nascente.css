@@ -34,15 +34,6 @@
 /* fórmula num papel um tom mais escuro que o fundo, para separar as seções */
 [data-tema-atual="claro"] .formula-gotas { background: #e6ebd8; }
 
-/* rótulo claro */
-[data-tema-atual="claro"] .rotulo-fixo { background-color: #f1f3ea; background-image: linear-gradient(rgba(29, 42, 31, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(29, 42, 31, .06) 1px, transparent 1px); }
-[data-tema-atual="claro"] .rotulo-fixo::after { background: radial-gradient(70% 60% at 50% 55%, transparent 30%, #f1f3ea 88%); }
-[data-tema-atual="claro"] .rotulo-pct > i > i { background: #5f8f2f; }
-[data-tema-atual="claro"] .ponto { border-color: #fff; background: var(--verde); }
-[data-tema-atual="claro"] .fios path { stroke: #2b462b; }
-[data-tema-atual="claro"] .rotulo-plano { background: #f1f3ea; }
-[data-tema-atual="claro"] .rp-selo { color: var(--verde); }
-[data-tema-atual="claro"] .rp-sombra { filter: drop-shadow(0 30px 40px rgba(29, 42, 31, .18)); }
 
 /* vídeo segue preto; antes e depois segue verde */
 [data-tema-atual="claro"] .video { --frente: #eef1e6; --suave: rgba(238, 241, 230, .72); color: #eef1e6; }
@@ -54,6 +45,13 @@
 [data-tema-atual="claro"] .palco-bts { background: rgba(29, 42, 31, .06); }
 [data-tema-atual="claro"] .palco-bts button[aria-pressed="true"] { background: var(--verde); color: #fff; }
 [data-tema-atual="claro"] .palco-dica { color: #55803a; }
+[data-tema-atual="claro"] .palco-bts { background: rgba(255, 255, 255, .75); }
+[data-tema-atual="claro"] .ficha-abas { background: rgba(29, 42, 31, .06); }
+[data-tema-atual="claro"] .fc-vazio { fill: rgba(29, 42, 31, .05); stroke: rgba(29, 42, 31, .25); }
+[data-tema-atual="claro"] .fc-cheio { fill: #5f8f2f; }
+[data-tema-atual="claro"] .fu b, [data-tema-atual="claro"] .freg dt { color: #55803a; }
+[data-tema-atual="claro"] .fu li::after { border-color: #55803a; }
+[data-tema-atual="claro"] .fadv li::before { background: #ca98ab; }
 [data-tema-atual="claro"] .gal figcaption { background: rgba(255, 255, 255, .85); color: var(--frente); }
 [data-tema-atual="claro"] .aval-nota b { color: #55803a; }
 [data-tema-atual="claro"] .aval-aspas { fill: #55803a; }

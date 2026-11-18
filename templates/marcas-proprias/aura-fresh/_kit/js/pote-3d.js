@@ -641,6 +641,7 @@
       if (a === 'frente') rotAlvo = perto(FRENTE);
       if (a === 'verso') rotAlvo = perto(FRENTE + Math.PI);
     }));
+    document.addEventListener('aura:palco', e => { inercia = 0; ociosoDesde = performance.now() + 4000; rotAlvo = perto(e.detail === 'verso' ? FRENTE + Math.PI : FRENTE); });
 
     new IntersectionObserver(es => { visivel = es[0].isIntersecting; if (visivel) laco(); }, { rootMargin: '80px' }).observe(sec);
     function quadro(agora) {

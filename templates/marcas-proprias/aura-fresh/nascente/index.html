@@ -45,7 +45,7 @@
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 <header class="cab">
   <a class="cab-logo" href="index.html" aria-label="AURA Fresh, início"><img src="assets/img/logo.png" alt="AURA Fresh" width="120" height="52"></a>
-  <nav class="cab-menu" aria-label="Principal"><a href="index.html#formula">Fórmula</a><a href="index.html#rotulo">Rótulo</a><a href="index.html#pote-3d">3D</a><a href="index.html#video">Vídeo</a><a href="index.html#antes-depois">Antes e depois</a><a href="index.html#avaliacoes">Avaliações</a><a href="index.html#comprar">Preços</a><a href="index.html#duvidas">Dúvidas</a></nav>
+  <nav class="cab-menu" aria-label="Principal"><a href="index.html#formula">Fórmula</a><a href="index.html#pote-3d">O pote</a><a href="index.html#video">Vídeo</a><a href="index.html#antes-depois">Antes e depois</a><a href="index.html#avaliacoes">Avaliações</a><a href="index.html#comprar">Preços</a><a href="index.html#duvidas">Dúvidas</a></nav>
   <button class="tema" type="button" data-tema-bt aria-pressed="false" aria-label="Mudar para o tema escuro"><svg class="t-sol" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3 7 7M17 17l1.7 1.7M5.3 18.7 7 17M17 7l1.7-1.7"/></svg><svg class="t-lua" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5Z"/></svg><span class="tema-tampa" aria-hidden="true"></span></button>
   <a class="btn btn-lima cab-cta" href="index.html#comprar">Comprar</a>
   <button class="cab-bt" type="button" data-menu aria-expanded="false" aria-label="Abrir menu"><span></span><span></span></button>
@@ -112,86 +112,56 @@
   </div>
 </section>
 
-<section class="rotulo" id="rotulo" data-rotulo="escuro" aria-labelledby="rotulo-t">
-  <div class="rotulo-fixo">
-    <canvas class="rotulo-3d" aria-hidden="true"></canvas>
-    <svg class="fios" aria-hidden="true"><path data-fio="clorofila" pathLength="1"/><path data-fio="salsa" pathLength="1"/><path data-fio="hortela" pathLength="1"/><path data-fio="porcoes" pathLength="1"/><path data-fio="uso" pathLength="1"/><path data-fio="advertencias" pathLength="1"/></svg>
-    <div class="rotulo-cab">
-      <p class="apoio">O que tem no pote</p>
-      <h2 class="tit" id="rotulo-t">Tira o rótulo.</h2>
-      <p class="rotulo-lead">A água formou o pote. Agora a rolagem tira o rótulo e mostra o pó por dentro, com o que está impresso em cada parte.</p>
-    </div>
-    <div class="rotulo-pct" aria-hidden="true">
-      <div><span>Rótulo fora</span><b data-pct>0%</b></div>
-      <i><i data-pct-barra></i></i>
-      <p>Composição por dose. Conferir sempre com o rótulo aprovado na embalagem.</p>
-    </div>
-    <div class="pino" data-pino="clorofila" data-lado="e"><span class="ponto"></span><div class="texto"><p class="apoio">No rótulo</p><h3>100 mg de clorofila</h3><p>Clorofilina cúprica, a forma da clorofila que se dissolve na água. É ela que deixa a bebida verde.</p></div></div>
-    <div class="pino" data-pino="salsa" data-lado="e"><span class="ponto"></span><div class="texto"><p class="apoio">No rótulo</p><h3>200 mg de salsa</h3><p>A maior dose da fórmula. Extrato da mesma erva que vai na comida.</p></div></div>
-    <div class="pino" data-pino="hortela" data-lado="e"><span class="ponto"></span><div class="texto"><p class="apoio">No rótulo</p><h3>50 mg de hortelã</h3><p>Mentha piperita, o frescor que acompanha o sabor de abacaxi.</p></div></div>
-    <div class="pino" data-pino="porcoes" data-lado="d"><span class="ponto"></span><div class="texto"><p class="apoio">Na frente</p><h3>30 doses no pote</h3><p>Uma por dia, um mês inteiro. A colher dosadora vem dentro do pote.</p></div></div>
-    <div class="pino" data-pino="uso" data-lado="d"><span class="ponto"></span><div class="texto"><p class="apoio">No verso</p><h3>Modo de uso à vista</h3><p>240 ml de água fria ou suco, uma dose, misture. Sem cápsula para engolir.</p></div></div>
-    <div class="pino" data-pino="advertencias" data-lado="d"><span class="ponto"></span><div class="texto"><p class="apoio">No verso</p><h3>Advertências sem letra miúda</h3><p>Quem não deve tomar sem orientação está escrito no pote e repetido aqui no site.</p></div></div>
-    <div class="rotulo-legenda" data-legenda aria-live="polite"></div>
-  </div>
-</section>
-<section class="rotulo-plano rotulo-plano-escuro" aria-labelledby="rp-t" data-secao="Informações do rótulo">
-  <div class="rp-cab" data-sobe>
-    <p class="apoio">O rótulo em texto</p>
-    <h3 class="tit" id="rp-t">Informações<br>do rótulo.</h3>
-    <p class="rp-lead">A mesma folha que você acabou de ver sair do pote, impressa para ler com calma. Confira sempre com a embalagem que chegou na sua casa.</p>
-    <span class="rp-selo" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="rp-circ" d="M60 60m-44 0a44 44 0 1 1 88 0a44 44 0 1 1-88 0"/></defs><text><textPath href="#rp-circ">SUPLEMENTO ALIMENTAR    USO ORAL    </textPath></text><circle cx="60" cy="60" r="27"/><path d="M48 66c4-14 14-20 26-20-2 13-10 22-26 20Zm2-2 14-12" /></svg></span>
-  </div>
-  <div class="rp-sombra" data-sobe><article class="rp-folha">
-    <header class="rp-produto">
-      <div><p class="rp-rot">Produto</p><h4>AURA Fresh</h4><p>Inner Freshness Complex, Daily Blend. Pó para o preparo de bebida, sabor abacaxi com hortelã. Aromatizado artificialmente.</p></div>
-      <dl class="rp-numeros">
-        <div><dt>Peso líquido</dt><dd>90 g</dd></div>
-        <div><dt>Doses no pote</dt><dd>30</dd></div>
-        <div><dt>Cada dose</dt><dd>3 g</dd></div>
-        <div><dt>Uso</dt><dd>Oral</dd></div>
-      </dl>
-    </header>
-    <section class="rp-comp">
-      <p class="rp-rot">Composição por dose de 3 g (1 dose medidora)</p>
-      <ul><li style="--w:50%"><span>Clorofilina cúprica</span><b>100 mg</b><i aria-hidden="true"></i></li><li style="--w:100%"><span>Salsa (Petroselinum crispum)</span><b>200 mg</b><i aria-hidden="true"></i></li><li style="--w:25%"><span>Hortelã (Mentha piperita L.)</span><b>50 mg</b><i aria-hidden="true"></i></li></ul>
-      <p class="rp-nota">Lista completa de ingredientes conforme o rótulo aprovado: [preencher].</p>
-    </section>
-    <section class="rp-uso">
-      <p class="rp-rot">Modo de uso</p>
-      <div class="rp-passos"><span><b>240 ml</b>de água fria ou suco</span><svg viewBox="0 0 40 12" aria-hidden="true"><path d="M1 6h34M30 1l6 5-6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>1 dose</b>com a colher do pote</span><svg viewBox="0 0 40 12" aria-hidden="true"><path d="M1 6h34M30 1l6 5-6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Misture</b>e beba, uma vez ao dia</span></div>
-    </section>
-    <section class="rp-adv">
-      <p class="rp-rot">Advertências</p>
-      <ul><li>Este produto não é um medicamento. Não exceder a recomendação diária de consumo indicada na embalagem.</li><li>Gestantes, lactantes, crianças, menores de 18 anos e pessoas com condição de saúde ou em uso de medicamentos devem consultar um profissional de saúde antes de usar.</li><li>A clorofila pode deixar as fezes esverdeadas. É um efeito esperado do pigmento.</li><li>Manter fora do alcance de crianças. Conservar em local seco e fresco, com a tampa bem fechada.</li></ul>
-    </section>
-    <section class="rp-contra">
-      <p class="rp-rot">Contraindicações</p>
-      <p>Não indicado para gestantes, lactantes e menores de 18 anos sem orientação profissional. Pessoas com alergia a qualquer componente da fórmula não devem consumir. Texto final a validar na revisão jurídica.</p>
-    </section>
-    <footer class="rp-reg">
-      <div><p class="rp-rot">Registro</p><p>Suplemento alimentar. Informação de registro ou notificação na Anvisa: [preencher após a revisão jurídica].</p><p>AURA FRESH SOLUÇÕES EM BEM-ESTAR LTDA, CNPJ 65.144.553/0001-63. SAC suporte@aurafresh.com.br.</p></div>
-      <span class="rp-barras" aria-hidden="true"></span>
-    </footer>
-  </article></div>
-</section>
-
 <section class="palco" id="pote-3d" data-palco aria-labelledby="palco-t">
-  <div class="palco-txt" data-sobe>
-    <p class="apoio">O pote em 3D</p>
-    <h2 class="tit" id="palco-t">Gire, abra<br><em>e confira.</em></h2>
-    <p class="lead">Arraste o pote para girar. Abra a tampa para ver o pó e a colher, ou vá direto para a frente ou o verso do rótulo.</p>
-    <div class="palco-bts" data-iguais role="group" aria-label="Controles do pote">
-      <button type="button" data-palco-acao="tampa" aria-pressed="false">Abrir a tampa</button>
-      <button type="button" data-palco-acao="frente">Ver a frente</button>
-      <button type="button" data-palco-acao="verso">Ver o verso</button>
-    </div>
-    <ul class="palco-dados"><li><b>90 g</b>peso líquido</li><li><b>30</b>doses</li><li><b>3 g</b>por dose</li></ul>
-  </div>
   <div class="palco-cena" data-sobe>
     <canvas class="palco-3d" aria-label="Pote de AURA Fresh em 3D. Arraste para girar."></canvas>
     <img class="palco-sem3d" src="assets/img/pote-splash.webp" alt="Pote de AURA Fresh" width="1100" height="1100" loading="lazy">
     <p class="palco-dica" aria-hidden="true">arraste para girar</p>
+    <div class="palco-bts" data-iguais role="group" aria-label="Controles do pote">
+      <button type="button" data-palco-acao="tampa" aria-pressed="false">Abrir a tampa</button>
+      <button type="button" data-palco-acao="frente">Frente</button>
+      <button type="button" data-palco-acao="verso">Verso</button>
+    </div>
+  </div>
+  <div class="palco-txt" id="rotulo" data-sobe>
+    <p class="apoio">O pote em 3D</p>
+    <h2 class="tit" id="palco-t">Gire o pote,<br><em>leia o rótulo.</em></h2>
+    <div class="ficha" data-ficha>
+      <div class="ficha-abas" role="tablist" aria-label="Informações do rótulo">
+        <button type="button" role="tab" id="fa-comp" aria-controls="fp-comp" aria-selected="true" data-gira="frente">Composição</button>
+        <button type="button" role="tab" id="fa-uso" aria-controls="fp-uso" aria-selected="false" tabindex="-1" data-gira="verso">Modo de uso</button>
+        <button type="button" role="tab" id="fa-adv" aria-controls="fp-adv" aria-selected="false" tabindex="-1" data-gira="verso">Advertências</button>
+        <button type="button" role="tab" id="fa-reg" aria-controls="fp-reg" aria-selected="false" tabindex="-1" data-gira="verso">Registro</button>
+      </div>
+      <div class="ficha-painel on" role="tabpanel" id="fp-comp" aria-labelledby="fa-comp">
+        <ul class="fc">
+          <li><svg viewBox="0 0 100 120" aria-hidden="true"><defs><clipPath id="fc-clorofila"><path d="M50 2C50 2 8 52 8 76a42 42 0 0 0 84 0C92 52 50 2 50 2Z"/></clipPath></defs><path class="fc-vazio" d="M50 2C50 2 8 52 8 76a42 42 0 0 0 84 0C92 52 50 2 50 2Z"/><rect class="fc-cheio" clip-path="url(#fc-clorofila)" x="0" y="62.0" width="100" height="62.0"/></svg><b>100 mg</b><span>Clorofilina cúprica<small>por dose</small></span></li>
+          <li><svg viewBox="0 0 100 120" aria-hidden="true"><defs><clipPath id="fc-salsa"><path d="M50 2C50 2 8 52 8 76a42 42 0 0 0 84 0C92 52 50 2 50 2Z"/></clipPath></defs><path class="fc-vazio" d="M50 2C50 2 8 52 8 76a42 42 0 0 0 84 0C92 52 50 2 50 2Z"/><rect class="fc-cheio" clip-path="url(#fc-salsa)" x="0" y="4.0" width="100" height="120.0"/></svg><b>200 mg</b><span>Salsa<small>Petroselinum crispum</small></span></li>
+          <li><svg viewBox="0 0 100 120" aria-hidden="true"><defs><clipPath id="fc-hortela"><path d="M50 2C50 2 8 52 8 76a42 42 0 0 0 84 0C92 52 50 2 50 2Z"/></clipPath></defs><path class="fc-vazio" d="M50 2C50 2 8 52 8 76a42 42 0 0 0 84 0C92 52 50 2 50 2Z"/><rect class="fc-cheio" clip-path="url(#fc-hortela)" x="0" y="91.0" width="100" height="33.0"/></svg><b>50 mg</b><span>Hortelã<small>Mentha piperita L.</small></span></li>
+        </ul>
+        <p class="ficha-nota">Por dose de 3 g (1 dose medidora). 90 g, 30 doses no pote. Lista completa de ingredientes conforme o rótulo aprovado: [preencher].</p>
+      </div>
+      <div class="ficha-painel" role="tabpanel" id="fp-uso" aria-labelledby="fa-uso" hidden>
+        <ol class="fu">
+          <li><b>240 ml</b><span>de água fria ou suco no copo</span></li>
+          <li><b>1 dose</b><span>com a colher que vem no pote</span></li>
+          <li><b>Misture</b><span>e beba, uma vez ao dia</span></li>
+        </ol>
+        <p class="ficha-nota">Adicione 1 dose medidora a 240 ml ou mais de água fria ou suco e misture bem. Uma vez ao dia, no horário que for mais fácil de lembrar.</p>
+      </div>
+      <div class="ficha-painel" role="tabpanel" id="fp-adv" aria-labelledby="fa-adv" hidden>
+        <ul class="fadv"><li>Este produto não é um medicamento. Não exceder a recomendação diária de consumo indicada na embalagem.</li><li>Gestantes, lactantes, crianças, menores de 18 anos e pessoas com condição de saúde ou em uso de medicamentos devem consultar um profissional de saúde antes de usar.</li><li>A clorofila pode deixar as fezes esverdeadas. É um efeito esperado do pigmento.</li><li>Manter fora do alcance de crianças. Conservar em local seco e fresco, com a tampa bem fechada.</li></ul>
+        <p class="ficha-nota"><b>Contraindicações.</b> Não indicado para gestantes, lactantes e menores de 18 anos sem orientação profissional. Pessoas com alergia a qualquer componente da fórmula não devem consumir. Texto final a validar na revisão jurídica.</p>
+      </div>
+      <div class="ficha-painel" role="tabpanel" id="fp-reg" aria-labelledby="fa-reg" hidden>
+        <dl class="freg">
+          <div><dt>Produto</dt><dd>AURA Fresh Inner Freshness Complex, Daily Blend. Pó para o preparo de bebida, sabor abacaxi com hortelã. Aromatizado artificialmente.</dd></div>
+          <div><dt>Registro</dt><dd>Suplemento alimentar. Informação de registro ou notificação na Anvisa: [preencher após a revisão jurídica].</dd></div>
+          <div><dt>Fabricante</dt><dd>AURA FRESH SOLUÇÕES EM BEM-ESTAR LTDA, CNPJ 65.144.553/0001-63.</dd></div>
+          <div><dt>SAC</dt><dd>suporte@aurafresh.com.br</dd></div>
+        </dl>
+      </div>
+    </div>
   </div>
 </section>
 

@@ -94,4 +94,26 @@
     // o anel só conta enquanto a seção está na tela
     new IntersectionObserver(es => aval.classList.toggle('vendo', es[0].isIntersecting), { threshold: 0.4 }).observe(aval);
   }
+
+  // ---------- ficha do rótulo: abas que também giram o pote para a frente ou o verso ----------
+  const ficha = $('[data-ficha]');
+  if (ficha) {
+    const abas = $$('[role="tab"]', ficha);
+    const abre = (aba, foco) => {
+      abas.forEach(a => {
+        const on = a === aba, p = document.getElementById(a.getAttribute('aria-controls'));
+        a.setAttribute('aria-selected', String(on)); a.tabIndex = on ? 0 : -1;
+        p.hidden = !on; p.classList.toggle('on', on);
+      });
+      if (foco) aba.focus();
+      document.dispatchEvent(new CustomEvent('aura:palco', { detail: aba.dataset.gira }));
+    };
+    abas.forEach((a, i) => {
+      a.addEventListener('click', () => abre(a));
+      a.addEventListener('keydown', e => {
+        const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (d) { e.preventDefault(); abre(abas[(i + d + abas.length) % abas.length], true); }
+      });
+    });
+  }
 })();

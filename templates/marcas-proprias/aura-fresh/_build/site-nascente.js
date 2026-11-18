@@ -3,11 +3,10 @@
 // imagens da marca, antes e depois e avaliações.
 const { empresa: E, produto: P, kits, ativos, depoimentos } = require('./dados');
 const X = require('./partes');
-const { secRotulo } = require('./site-produto');
 const { ic } = X;
 
 const VIDEO_ID = 'lEygblIM29Y';
-const nav = [['#formula', 'Fórmula'], ['#rotulo', 'Rótulo'], ['#pote-3d', '3D'], ['#video', 'Vídeo'], ['#antes-depois', 'Antes e depois'], ['#avaliacoes', 'Avaliações'], ['#comprar', 'Preços'], ['#duvidas', 'Dúvidas']];
+const nav = [['#formula', 'Fórmula'], ['#pote-3d', 'O pote'], ['#video', 'Vídeo'], ['#antes-depois', 'Antes e depois'], ['#avaliacoes', 'Avaliações'], ['#comprar', 'Preços'], ['#duvidas', 'Dúvidas']];
 
 function cab(raiz = '') {
   return `<header class="cab">
@@ -139,24 +138,54 @@ ${ativos.map((a, i) => `    <button type="button" class="fg-gota fg-${a.id}" dat
   </div>
 </section>
 
-${secRotulo({ titulo: 'Tira o rótulo.', lead: 'A água formou o pote. Agora a rolagem tira o rótulo e mostra o pó por dentro, com o que está impresso em cada parte.' })}
-
 <section class="palco" id="pote-3d" data-palco aria-labelledby="palco-t">
-  <div class="palco-txt" data-sobe>
-    <p class="apoio">O pote em 3D</p>
-    <h2 class="tit" id="palco-t">Gire, abra<br><em>e confira.</em></h2>
-    <p class="lead">Arraste o pote para girar. Abra a tampa para ver o pó e a colher, ou vá direto para a frente ou o verso do rótulo.</p>
-    <div class="palco-bts" data-iguais role="group" aria-label="Controles do pote">
-      <button type="button" data-palco-acao="tampa" aria-pressed="false">Abrir a tampa</button>
-      <button type="button" data-palco-acao="frente">Ver a frente</button>
-      <button type="button" data-palco-acao="verso">Ver o verso</button>
-    </div>
-    <ul class="palco-dados"><li><b>${P.peso}</b>peso líquido</li><li><b>${P.porcoes}</b>doses</li><li><b>3 g</b>por dose</li></ul>
-  </div>
   <div class="palco-cena" data-sobe>
     <canvas class="palco-3d" aria-label="Pote de AURA Fresh em 3D. Arraste para girar."></canvas>
     <img class="palco-sem3d" src="assets/img/pote-splash.webp" alt="Pote de AURA Fresh" width="1100" height="1100" loading="lazy">
     <p class="palco-dica" aria-hidden="true">arraste para girar</p>
+    <div class="palco-bts" data-iguais role="group" aria-label="Controles do pote">
+      <button type="button" data-palco-acao="tampa" aria-pressed="false">Abrir a tampa</button>
+      <button type="button" data-palco-acao="frente">Frente</button>
+      <button type="button" data-palco-acao="verso">Verso</button>
+    </div>
+  </div>
+  <div class="palco-txt" id="rotulo" data-sobe>
+    <p class="apoio">O pote em 3D</p>
+    <h2 class="tit" id="palco-t">Gire o pote,<br><em>leia o rótulo.</em></h2>
+    <div class="ficha" data-ficha>
+      <div class="ficha-abas" role="tablist" aria-label="Informações do rótulo">
+        <button type="button" role="tab" id="fa-comp" aria-controls="fp-comp" aria-selected="true" data-gira="frente">Composição</button>
+        <button type="button" role="tab" id="fa-uso" aria-controls="fp-uso" aria-selected="false" tabindex="-1" data-gira="verso">Modo de uso</button>
+        <button type="button" role="tab" id="fa-adv" aria-controls="fp-adv" aria-selected="false" tabindex="-1" data-gira="verso">Advertências</button>
+        <button type="button" role="tab" id="fa-reg" aria-controls="fp-reg" aria-selected="false" tabindex="-1" data-gira="verso">Registro</button>
+      </div>
+      <div class="ficha-painel on" role="tabpanel" id="fp-comp" aria-labelledby="fa-comp">
+        <ul class="fc">
+${P.composicao.map(c => { const mg = parseInt(c.qtd, 10), k = (mg / 200).toFixed(2), id = 'fc-' + c.origem.normalize('NFD').replace(/[^a-z]/g, ''); return `          <li><svg viewBox="0 0 100 120" aria-hidden="true"><defs><clipPath id="${id}"><path d="${gotaPath}"/></clipPath></defs><path class="fc-vazio" d="${gotaPath}"/><rect class="fc-cheio" clip-path="url(#${id})" x="0" y="${(120 - 116 * k).toFixed(1)}" width="100" height="${(116 * k + 4).toFixed(1)}"/></svg><b>${c.qtd}</b><span>${c.nome.replace(/ \(.*\)/, '')}<small>${(c.nome.match(/\((.*)\)/) || [, 'por dose'])[1]}</small></span></li>`; }).join('\n')}
+        </ul>
+        <p class="ficha-nota">Por dose de ${P.porcao}. ${P.peso}, ${P.porcoes} doses no pote. ${P.ingredientes}</p>
+      </div>
+      <div class="ficha-painel" role="tabpanel" id="fp-uso" aria-labelledby="fa-uso" hidden>
+        <ol class="fu">
+          <li><b>240 ml</b><span>de água fria ou suco no copo</span></li>
+          <li><b>1 dose</b><span>com a colher que vem no pote</span></li>
+          <li><b>Misture</b><span>e beba, uma vez ao dia</span></li>
+        </ol>
+        <p class="ficha-nota">${P.uso}</p>
+      </div>
+      <div class="ficha-painel" role="tabpanel" id="fp-adv" aria-labelledby="fa-adv" hidden>
+        <ul class="fadv">${P.advertencias.map(a => `<li>${a}</li>`).join('')}</ul>
+        <p class="ficha-nota"><b>Contraindicações.</b> ${P.contraindicacoes}</p>
+      </div>
+      <div class="ficha-painel" role="tabpanel" id="fp-reg" aria-labelledby="fa-reg" hidden>
+        <dl class="freg">
+          <div><dt>Produto</dt><dd>${P.nome} ${P.linha}, ${P.sub}. ${P.tipo}, sabor ${P.sabor.toLowerCase()}. ${P.aroma}.</dd></div>
+          <div><dt>Registro</dt><dd>${E.anvisa}</dd></div>
+          <div><dt>Fabricante</dt><dd>${E.razao}, CNPJ ${E.cnpj}.</dd></div>
+          <div><dt>SAC</dt><dd>${E.email}</dd></div>
+        </dl>
+      </div>
+    </div>
   </div>
 </section>
 

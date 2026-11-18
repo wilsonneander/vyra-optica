@@ -70,13 +70,20 @@ module.exports = {
 
   // Serviços agrupados por etapa da vida do provedor. "id" vira a âncora em /servicos/#id
   grupos: [
+    { id: 'seguranca', titulo: 'Segurança do trabalho', resumo: 'Prevenção de acidentes e saúde da sua equipe de campo.' },
     { id: 'regulatorio', titulo: 'Regulatório Anatel', resumo: 'Para começar a operar dentro da lei e continuar em dia.' },
     { id: 'rede', titulo: 'Rede e endereçamento', resumo: 'Autonomia de rede para o seu provedor crescer.' },
-    { id: 'tecnico', titulo: 'Técnico e segurança', resumo: 'Responsabilidade técnica e proteção da sua equipe.' },
     { id: 'gestao', titulo: 'Gestão e marca', resumo: 'Números organizados e uma marca protegida e conhecida.' },
   ],
 
   servicos: [
+    // Serviço principal da THD: vem primeiro em todo o site
+    { id: 'seguranca-do-trabalho', grupo: 'seguranca', icone: 'capacete', titulo: 'Segurança do trabalho',
+      curto: 'Prevenção de acidentes e saúde física e mental da sua equipe.',
+      texto: 'Tem como objetivo a prevenção de acidentes. É um serviço especializado, realizado por um grupo multidisciplinar, cuja principal função é preservar a saúde física e mental dos colaboradores, diagnosticando e prevenindo problemas durante a execução das atividades.' },
+    { id: 'responsabilidade-tecnica', grupo: 'seguranca', icone: 'prancheta', titulo: 'Responsabilidade técnica',
+      curto: 'Acompanhamento técnico de ART/TRT.',
+      texto: 'Acompanhamento técnico de ART/TRT, com profissional habilitado assumindo a responsabilidade técnica do seu provedor.' },
     { id: 'outorga-scm', grupo: 'regulatorio', icone: 'outorga', titulo: 'Credenciamentos e Outorga SCM',
       curto: 'A licença que permite explorar comercialmente o serviço de internet.',
       texto: 'A outorga SCM (Serviço de Comunicação Multimídia) é necessária para explorar comercialmente a área de telecomunicações e provedor de internet (wireless), para que a empresa possa atuar no ramo prestando serviços de conexão à internet.' },
@@ -95,12 +102,6 @@ module.exports = {
     { id: 'ipv4', grupo: 'rede', icone: 'servidor', titulo: 'Aluguel de IPv4',
       curto: 'Blocos de IPv4 para atender seus clientes.',
       texto: 'Cada endereço de rede é definido com 32 bits. Isso permite a interconexão de inúmeras aplicações e aparelhos simultaneamente em uma rede. Fornecemos blocos de IPv4 para o seu provedor.' },
-    { id: 'responsabilidade-tecnica', grupo: 'tecnico', icone: 'prancheta', titulo: 'Responsabilidade técnica',
-      curto: 'Acompanhamento técnico de ART/TRT.',
-      texto: 'Acompanhamento técnico de ART/TRT, com profissional habilitado assumindo a responsabilidade técnica do seu provedor.' },
-    { id: 'seguranca-do-trabalho', grupo: 'tecnico', icone: 'capacete', titulo: 'Segurança do trabalho',
-      curto: 'Prevenção de acidentes e saúde da sua equipe.',
-      texto: 'Tem como objetivo a prevenção de acidentes. É um serviço especializado, realizado por um grupo multidisciplinar, cuja principal função é preservar a saúde física e mental dos colaboradores, diagnosticando e prevenindo problemas durante a execução das atividades.' },
     { id: 'gestao-contabil', grupo: 'gestao', icone: 'calculadora', titulo: 'Gestão contábil',
       curto: 'Contabilidade especializada em provedores.',
       texto: 'A gestão contábil é a área responsável pela administração das rotinas, das informações, dos registros e dos documentos que se referem à situação patrimonial e financeira de um negócio.',
@@ -117,12 +118,13 @@ module.exports = {
   jornada: [
     { t: 'Abrir e regularizar', d: 'Credenciamento e outorga SCM, SEAC e STFC junto à Anatel.', ids: ['outorga-scm', 'seac-stfc'] },
     { t: 'Ganhar autonomia de rede', d: 'Seu próprio ASN no Registro.br e blocos de IPv4.', ids: ['asn', 'ipv4'] },
-    { t: 'Manter tudo em dia', d: 'DICI mensal, notificações, ART/TRT e apoio jurídico.', ids: ['pos-outorga', 'notificacoes', 'responsabilidade-tecnica'] },
+    { t: 'Manter tudo em dia', d: 'Segurança do trabalho, ART/TRT, DICI mensal e notificações.', ids: ['seguranca-do-trabalho', 'responsabilidade-tecnica', 'pos-outorga', 'notificacoes'] },
     { t: 'Crescer com saúde', d: 'Contabilidade especializada, marketing e registro de marca.', ids: ['gestao-contabil', 'marketing', 'registro-de-marca'] },
   ],
 
   // Diagnóstico interativo (home): cada pergunta aponta para o serviço que resolve a pendência
   diagnostico: [
+    { q: 'A sua equipe de campo trabalha com segurança do trabalho em dia?', id: 'seguranca-do-trabalho', pend: 'Segurança do trabalho' },
     { q: 'Seu provedor já tem a outorga SCM?', id: 'outorga-scm', pend: 'Outorga SCM' },
     { q: 'As declarações DICI saem todo mês, sem atraso?', id: 'pos-outorga', pend: 'DICI e pós-outorga' },
     { q: 'Existe responsável técnico com ART/TRT em dia?', id: 'responsabilidade-tecnica', pend: 'Responsabilidade técnica' },

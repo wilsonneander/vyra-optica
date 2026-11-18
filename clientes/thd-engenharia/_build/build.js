@@ -2,13 +2,18 @@
 //   node clientes/thd-engenharia/_build/build.js            → site/     (produção, URLs limpas: /servicos/)
 //   node clientes/thd-engenharia/_build/build.js --preview  → _preview/ (links para index.html, abre sem servidor)
 //
+// Versão do cliente (cópia do modelo Blocos do catálogo em templates/thd-engenharia/):
+// tema claro em todas as páginas menos Contato (claro.js), menu com faixa marinho translúcida
+// e Segurança do trabalho como serviço principal, sempre em primeiro.
+//
 // Linguagem visual: "seu provedor montado peça por peça". Blocos geométricos nas cores da marca voam,
 // se encaixam numa grade 3x3 e seguem trocando de lugar, ligados por trilhas de circuito (como as letras do logo).
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const C = require('./content');
-const { css } = require('./style');
+// tema claro do cliente vem depois do CSS do modelo e sobrescreve só as cores
+const css = require('./style').css + require('./claro');
 const { js } = require('./script');
 const { globeJs } = require('./globe');
 const I = require('./icons');
@@ -135,7 +140,7 @@ function footer(slug) {
   </div>
   <div class="container foot-grid">
     <div class="foot-brand">
-      <img src="${asset(slug, 'img/logo.png')}" alt="THD Engenharia" width="440" height="308" loading="lazy">
+      <img src="${asset(slug, slug === 'contato' ? 'img/logo.png' : 'img/logo-positivo.png')}" alt="THD Engenharia" width="440" height="308" loading="lazy">
       <p>Consultoria para provedores de internet, com excelência e garantia.</p>
       <div class="social">${c.redes.map((r) => `<a href="${r.url}" target="_blank" rel="noopener" aria-label="${r.rotulo}">${I[r.rede]}</a>`).join('')}</div>
     </div>
@@ -195,7 +200,7 @@ function layout({ slug, title, desc, body, jsonld = '' }) {
 <link rel="stylesheet" href="${asset(slug, 'css/style.css')}?v=${ver(css)}">
 ${headScript}${ga}${jsonld}
 </head>
-<body>
+<body class="pg-${slug || 'home'}${slug !== 'contato' ? ' claro' : ''}">
 ${header(slug)}
 <main id="conteudo">
 ${body}
@@ -311,11 +316,11 @@ function home() {
   ], { wires: 'a', attrs: ' data-build' });
 
   const D = C.diagnostico;
-  const diagLayout = [[0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [0, 2], [1, 2]];
-  const diagKinds = [['qa', 'o', 0], ['sq', 'l', 0], ['ci', 'b', 0], ['st', 'l', 0], ['ar', 'o', 2], ['sq', 'b', 0], ['qa', 'l', 1]];
+  const diagLayout = [[0, 0], [1, 0], [2, 0], [0, 1], [2, 1], [0, 2], [1, 2], [2, 2]];
+  const diagKinds = [['qa', 'o', 0], ['sq', 'l', 0], ['ci', 'b', 0], ['st', 'l', 0], ['ar', 'o', 2], ['sq', 'b', 0], ['qa', 'l', 1], ['tr', 'b', 2]];
   const diagGeo = geo([
     ...D.map((d, i) => T(diagKinds[i][0], diagKinds[i][1], diagLayout[i][0], diagLayout[i][1], diagKinds[i][2], { q: i })),
-    T('ci', 'o', 1, 1, 0, { fixed: 1 }), T('tr', 'w', 2, 2, 2, { fixed: 1 }),
+    T('ci', 'o', 1, 1, 0, { fixed: 1 }),
   ], { cls: 'geo-diag', wires: false, sats: false });
 
   const body = `
@@ -325,7 +330,7 @@ function home() {
     <div class="hero-text">
       <p class="kicker fade-up" style="--d:.1s">${C.slogan}</p>
       <h1>${words('Seu provedor *regular,* em dia e pronto para crescer.')}</h1>
-      <p class="lead fade-up" style="--d:.8s">Outorga SCM, ASN, IPv4, declarações à Anatel e contabilidade especializada. A THD cuida da parte técnica e burocrática para você focar no que importa: seus clientes.</p>
+      <p class="lead fade-up" style="--d:.8s">Segurança do trabalho, outorga SCM, ASN, IPv4, declarações à Anatel e contabilidade especializada. A THD cuida da parte técnica e burocrática para você focar no que importa: seus clientes.</p>
       <div class="actions fade-up" style="--d:.95s">
         ${waBtn('Solicitar orçamento', 'btn btn-o')}
         <a class="btn btn-line" href="#diagnostico" data-magnetic><span>Fazer o diagnóstico</span>${I.seta}</a>
@@ -480,7 +485,7 @@ ${ctaBand(slug)}`;
   })}</script>`;
   return layout({ slug, jsonld, body,
     title: 'THD Engenharia | Consultoria de provedores de internet',
-    desc: 'Consultoria para provedores de internet: outorga SCM, ASN, aluguel de IPv4, DICI, notificações Anatel, responsabilidade técnica e contabilidade especializada.' });
+    desc: 'Consultoria para provedores de internet: segurança do trabalho, outorga SCM, ASN, aluguel de IPv4, DICI, notificações Anatel, responsabilidade técnica e contabilidade especializada.' });
 }
 
 // gráfico decorativo de barras que sobem (extratos mensais)
@@ -599,13 +604,13 @@ ${ctaBand(slug)}`;
 function servicos() {
   const slug = 'servicos';
   const grpGeo = [
+    [T('tr', 'o', 0, 0), T('sq', 'b', 1, 0), T('qa', 'l', 2, 0, 1), T('st', 'l', 0, 1, 1), T('sq', 'o', 1, 1), T('x', 'w', 2, 1), T('sq', 'b', 0, 2), T('ar', 'l', 1, 2), T('tr', 'o', 2, 2, 2)],
     [T('qa', 'o', 0, 0), T('sq', 'b', 1, 0), T('x', 'w', 2, 0), T('sq', 'l', 0, 1), T('ci', 'o', 1, 1), T('sq', 'b', 2, 1), T('x', 'w', 0, 2), T('st', 'b', 1, 2), T('qa', 'l', 2, 2, 2)],
     [T('ci', 'l', 0, 0), T('x', 'w', 1, 0), T('ci', 'b', 2, 0), T('sq', 'o', 0, 1), T('ri', 'b', 1, 1), T('sq', 'o', 2, 1), T('ci', 'b', 0, 2), T('x', 'w', 1, 2), T('ci', 'l', 2, 2)],
-    [T('tr', 'o', 0, 0), T('sq', 'b', 1, 0), T('qa', 'l', 2, 0, 1), T('st', 'l', 0, 1, 1), T('sq', 'o', 1, 1), T('x', 'w', 2, 1), T('sq', 'b', 0, 2), T('ar', 'l', 1, 2), T('tr', 'o', 2, 2, 2)],
     [T('x', 'w', 0, 0), T('sq', 'l', 1, 0), T('qa', 'o', 2, 0, 1), T('sq', 'b', 0, 1), T('sq', 'l', 1, 1), T('dt', 'b', 2, 1), T('qa', 'o', 0, 2, 3), T('sq', 'b', 1, 2), T('ci', 'o', 2, 2)],
   ];
   const body = `
-${pageHero(slug, 'Catálogo de soluções', 'Serviços para *provedores* de internet', 'Da outorga na Anatel à contabilidade: escolha o que o seu provedor precisa ou fale com a gente para montar um pacote.',
+${pageHero(slug, 'Catálogo de soluções', 'Serviços para *provedores* de internet', 'Da segurança do trabalho à contabilidade: escolha o que o seu provedor precisa ou fale com a gente para montar um pacote.',
     { src: 'topo-servicos.webp', alt: 'Equipe trabalhando junta em notebooks numa mesa compartilhada' })}
 <div class="gnav-wrap">
   <nav class="container gnav" aria-label="Frentes de serviço">${C.grupos.map((g) => `<a href="#${g.id}">${g.titulo}</a>`).join('')}<span class="bar" aria-hidden="true"></span></nav>
@@ -638,7 +643,7 @@ ${pageHero(slug, 'Catálogo de soluções', 'Serviços para *provedores* de inte
 ${ctaBand(slug, 'Não sabe por onde começar?', `Faça o <a href="${link(slug, '', '#diagnostico')}" style="color:var(--orange);font-weight:600">diagnóstico rápido</a> ou fale com a nossa equipe. Indicamos o caminho certo para a situação do seu provedor.`)}`;
   return layout({ slug, body,
     title: 'Serviços | THD Engenharia',
-    desc: 'Outorga SCM, SEAC e STFC, DICI e pós-outorga, notificações Anatel/CREA/CFT, ASN, aluguel de IPv4, responsabilidade técnica, segurança do trabalho, contabilidade, marketing e registro de marca.' });
+    desc: 'Segurança do trabalho, responsabilidade técnica, outorga SCM, SEAC e STFC, DICI e pós-outorga, notificações Anatel/CREA/CFT, ASN, aluguel de IPv4, contabilidade, marketing e registro de marca.' });
 }
 
 function contabilidade() {

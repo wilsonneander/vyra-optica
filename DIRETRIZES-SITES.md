@@ -50,7 +50,7 @@ Escolha da fonte:
 - Se a marca tem fonte definida em [brand/](brand/), ela tem prioridade.
 
 ## Componente de mapa no footer
-- Todo site tem o mapa no footer, e ele é sempre o mesmo componente padrão usado nos modelos (veja o footer de [sites/intermediario/index.html](sites/intermediario/index.html) e [sites/premium/index.html](sites/premium/index.html)).
+- Todo site tem o mapa no footer, e ele é sempre o mesmo componente padrão usado nos modelos (veja o footer de [templates/vyra-provedor/intermediario/index.html](templates/vyra-provedor/intermediario/index.html) e [templates/vyra-provedor/premium/index.html](templates/vyra-provedor/premium/index.html)).
 - O mapa é do **OpenStreetMap**. Proibido usar o componente do Google Maps: nada de `<iframe>` do Google (`google.com/maps/embed`, `google.com/maps?q=...&output=embed`), nem API JavaScript do Google Maps.
 - Estrutura padrão do componente (`.map-box`):
   - imagem do mapa gerada a partir do OpenStreetMap, salva em `assets/img/` (ex.: `mapa_<cidade>.jpg`), com `alt` descrevendo o local e `loading="lazy"`;
@@ -86,13 +86,13 @@ Escolha da fonte:
 Rodar na pasta do site e confirmar que nada aparece (fora de comentários ou nomes de arquivo):
 
 ```bash
-grep -rnE "—|–|·|•" sites/ --include=*.html
-grep -rnE "lucide|heroicons|feather|tabler|phosphor|font-awesome|material-icons|material-symbols|bootstrap-icons|ionicons" sites/
-grep -rnE "Inter|Manrope|Outfit|Plus Jakarta|DM Sans|Space Grotesk|Satoshi|General Sans|Poppins|Montserrat|Roboto|Open Sans|Geist" sites/ --include=*.css --include=*.html
-grep -rnE "999px|9999px|rounded-full" sites/ --include=*.css --include=*.html
-grep -rnE ">\s*0[1-9]\s*<|>\s*/0[1-9]" sites/ --include=*.html
-grep -rnE "::?(before|after)" sites/ --include=*.css   # conferir se algum desenha traço antes/depois de título
-grep -rnE "<iframe|google\.com/maps/embed|output=embed|maps\.googleapis" sites/ clientes/ --include=*.html   # mapa tem que ser OpenStreetMap
+grep -rnE "—|–|·|•" templates/ --include=*.html
+grep -rnE "lucide|heroicons|feather|tabler|phosphor|font-awesome|material-icons|material-symbols|bootstrap-icons|ionicons" templates/
+grep -rnE "Inter|Manrope|Outfit|Plus Jakarta|DM Sans|Space Grotesk|Satoshi|General Sans|Poppins|Montserrat|Roboto|Open Sans|Geist" templates/ --include=*.css --include=*.html
+grep -rnE "999px|9999px|rounded-full" templates/ --include=*.css --include=*.html
+grep -rnE ">\s*0[1-9]\s*<|>\s*/0[1-9]" templates/ --include=*.html
+grep -rnE "::?(before|after)" templates/ --include=*.css   # conferir se algum desenha traço antes/depois de título
+grep -rnE "<iframe|google\.com/maps/embed|output=embed|maps\.googleapis" templates/ --include=*.html   # mapa tem que ser OpenStreetMap
 ```
 
 E conferir visualmente:

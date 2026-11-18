@@ -173,7 +173,7 @@
   var dg = $('[data-diag]');
   if (dg) {
     var ans = {}, total = $$('.seg', dg).length, score = $('[data-diag-score]', dg), msg = $('[data-diag-msg]', dg), pend = $('[data-diag-pend]', dg), go = $('[data-diag-go]', dg), nEl = $('[data-diag-n]', dg), bar = $('[data-diag-bar]', dg), last = 0;
-    var labels = ["Outorga SCM","DICI e pós-outorga","Responsabilidade técnica","ASN próprio","Blocos de IPv4","Contabilidade especializada","Registro de marca"];
+    var labels = ["Segurança do trabalho","Outorga SCM","DICI e pós-outorga","Responsabilidade técnica","ASN próprio","Blocos de IPv4","Contabilidade especializada","Registro de marca"];
     var paint = function () {
       var ok = 0, miss = [];
       for (var i = 0; i < total; i++) { var v = ans[i], t = $('.tile[data-q="' + i + '"]', dg);

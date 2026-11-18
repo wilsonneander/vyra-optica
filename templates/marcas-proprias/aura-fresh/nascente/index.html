@@ -44,7 +44,7 @@
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 <header class="cab">
   <a class="cab-logo" href="index.html" aria-label="AURA Fresh, início"><img src="assets/img/logo.png" alt="AURA Fresh" width="120" height="52"></a>
-  <nav class="cab-menu" aria-label="Principal"><a href="index.html#formula">Fórmula</a><a href="index.html#rotulo">Rótulo</a><a href="index.html#video">Vídeo</a><a href="index.html#antes-depois">Antes e depois</a><a href="index.html#avaliacoes">Avaliações</a><a href="index.html#comprar">Preços</a><a href="index.html#duvidas">Dúvidas</a></nav>
+  <nav class="cab-menu" aria-label="Principal"><a href="index.html#formula">Fórmula</a><a href="index.html#rotulo">Rótulo</a><a href="index.html#pote-3d">3D</a><a href="index.html#video">Vídeo</a><a href="index.html#antes-depois">Antes e depois</a><a href="index.html#avaliacoes">Avaliações</a><a href="index.html#comprar">Preços</a><a href="index.html#duvidas">Dúvidas</a></nav>
   <button class="tema" type="button" data-tema-bt aria-pressed="false" aria-label="Mudar para o tema escuro"><svg class="t-sol" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3 7 7M17 17l1.7 1.7M5.3 18.7 7 17M17 7l1.7-1.7"/></svg><svg class="t-lua" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.3 6.3 0 0 0 10.5 10.5Z"/></svg><span class="tema-tampa" aria-hidden="true"></span></button>
   <a class="btn btn-lima cab-cta" href="index.html#comprar">Comprar</a>
   <button class="cab-bt" type="button" data-menu aria-expanded="false" aria-label="Abrir menu"><span></span><span></span></button>
@@ -175,13 +175,32 @@
   </article></div>
 </section>
 
+<section class="palco" id="pote-3d" data-palco aria-labelledby="palco-t">
+  <div class="palco-txt" data-sobe>
+    <p class="apoio">O pote em 3D</p>
+    <h2 class="tit" id="palco-t">Gire, abra<br><em>e confira.</em></h2>
+    <p class="lead">Arraste o pote para girar. Abra a tampa para ver o pó e a colher, ou vá direto para a frente ou o verso do rótulo.</p>
+    <div class="palco-bts" data-iguais role="group" aria-label="Controles do pote">
+      <button type="button" data-palco-acao="tampa" aria-pressed="false">Abrir a tampa</button>
+      <button type="button" data-palco-acao="frente">Ver a frente</button>
+      <button type="button" data-palco-acao="verso">Ver o verso</button>
+    </div>
+    <ul class="palco-dados"><li><b>90 g</b>peso líquido</li><li><b>30</b>doses</li><li><b>3 g</b>por dose</li></ul>
+  </div>
+  <div class="palco-cena" data-sobe>
+    <canvas class="palco-3d" aria-label="Pote de AURA Fresh em 3D. Arraste para girar."></canvas>
+    <img class="palco-sem3d" src="assets/img/pote-splash.webp" alt="Pote de AURA Fresh" width="1100" height="1100" loading="lazy">
+    <p class="palco-dica" aria-hidden="true">arraste para girar</p>
+  </div>
+</section>
+
 <section class="video" id="video" aria-labelledby="video-t">
   <div class="video-cab" data-sobe>
     <p class="apoio">Vídeo da marca</p>
     <h2 class="tit" id="video-t">A AURA Fresh<br><em>em movimento.</em></h2>
   </div>
   <div class="video-quadro" data-video="lEygblIM29Y" data-sobe>
-    <img src="assets/img/video-capa.webp" alt="Fita de água em espiral girando sobre fundo preto, cena do vídeo da AURA Fresh" width="740" height="420" loading="lazy">
+    <img src="assets/img/pote-claro.webp" alt="Pote de AURA Fresh entre respingos de água verde, hortelã, salsa e abacaxi" width="1100" height="825" loading="lazy">
     <button type="button" class="video-play" data-video-play aria-label="Assistir ao vídeo da AURA Fresh">
       <svg viewBox="0 0 100 120" aria-hidden="true"><path class="vp-gota" d="M50 2C50 2 8 52 8 76a42 42 0 0 0 84 0C92 52 50 2 50 2Z" transform="translate(0 14)"/><path class="vp-tri" d="M42 72v26l22-13Z"/></svg>
       <span>Assistir ao vídeo</span>
@@ -213,33 +232,21 @@
     <p class="apoio">Antes e depois</p>
     <h2 class="tit" id="ad-t">A rotina<br>antes e <em>com AURA.</em></h2>
     <p class="lead">Arraste a linha para comparar. O que muda é o hábito: um copo por dia no lugar das soluções de emergência.</p>
-    <div class="ad-bts" data-ad-bts role="group" aria-label="Momento do dia">
-      <button type="button" data-par="manha" aria-pressed="true">Ao acordar</button><button type="button" data-par="perto" aria-pressed="false">Conversa de perto</button><button type="button" data-par="dia" aria-pressed="false">Dia inteiro</button>
-    </div>
     <dl class="ad-legenda">
-      <div><dt>Antes</dt><dd data-ad-a>A primeira coisa do dia era correr para a escova antes de falar com alguém.</dd></div>
-      <div><dt>Com AURA Fresh</dt><dd data-ad-d>Um copo de água verde virou parte da manhã, junto com o café.</dd></div>
+      <div><dt>Antes</dt><dd data-ad-a>Acordar ao lado de alguém e já tapar a boca antes do bom-dia.</dd></div>
+      <div><dt>Com AURA Fresh</dt><dd data-ad-d>Um copo de água verde virou parte da manhã, e o bom-dia ficou mais perto.</dd></div>
     </dl>
-    <p class="ad-nota" data-revisar>Montagem ilustrativa com fotos da campanha e de clientes, pessoas diferentes em cada lado. Não mostra resultado de uso e não é garantia de efeito.</p>
+    <p class="ad-nota" data-revisar>Cena ilustrativa da campanha, com modelos. Não mostra resultado de uso e não é garantia de efeito.</p>
   </div>
   <div class="ad-comp" data-ad data-sobe style="--x:50%">
-    <div class="ad-par on" data-par-img="manha">
-      <img class="ad-depois" src="assets/img/depo-1.webp" alt="Com AURA Fresh: Um copo de água verde virou parte da manhã, junto com o café." loading="lazy" style="object-position:50% 40%">
-      <img class="ad-antes" src="assets/img/situ-perceber.webp" alt="Antes: A primeira coisa do dia era correr para a escova antes de falar com alguém." loading="lazy">
-    </div>
-    <div class="ad-par" data-par-img="perto">
-      <img class="ad-depois" src="assets/img/depo-5.webp" alt="Com AURA Fresh: Uma dose por dia, sem pastilha no bolso para cada reunião." loading="lazy" style="object-position:50% 40%">
-      <img class="ad-antes" src="assets/img/situ-fechados.webp" alt="Antes: Mão na frente da boca e conversa curta, por insegurança." loading="lazy">
-    </div>
-    <div class="ad-par" data-par-img="dia">
-      <img class="ad-depois" src="assets/img/pessoa-pote.webp" alt="Com AURA Fresh: O pote no armário, um copo no mesmo horário, e o resto do dia livre." loading="lazy" style="object-position:50% 30%">
-      <img class="ad-antes" src="assets/img/situ-intima.webp" alt="Antes: Conferir o tempo todo se o frescor ainda estava lá." loading="lazy">
+    <div class="ad-par on">
+      <img class="ad-depois" src="assets/img/ad-depois.webp" alt="Com AURA Fresh: casal abraçado e sorrindo na cama ao acordar" loading="lazy" width="900" height="469">
+      <span class="ad-antes"><img class="ad-antes-img" src="assets/img/ad-antes.webp" alt="Antes: mulher sentada na cama com a mão na boca, preocupada com o hálito" loading="lazy" width="900" height="469"></span>
     </div>
     <span class="ad-rot ad-rot-a" aria-hidden="true">Antes</span><span class="ad-rot ad-rot-d" aria-hidden="true">Com AURA</span>
     <span class="ad-linha" aria-hidden="true"><svg viewBox="0 0 100 120"><path d="M50 2C50 2 8 52 8 76a42 42 0 0 0 84 0C92 52 50 2 50 2Z" transform="translate(0 14)"/><path d="M34 82l-9 8 9 8M66 82l9 8-9 8" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     <input class="ad-range" type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois">
   </div>
-  <script>window.AURA_PARES={"manha":{"txtA":"A primeira coisa do dia era correr para a escova antes de falar com alguém.","txtD":"Um copo de água verde virou parte da manhã, junto com o café."},"perto":{"txtA":"Mão na frente da boca e conversa curta, por insegurança.","txtD":"Uma dose por dia, sem pastilha no bolso para cada reunião."},"dia":{"txtA":"Conferir o tempo todo se o frescor ainda estava lá.","txtD":"O pote no armário, um copo no mesmo horário, e o resto do dia livre."}};</script>
 </section>
 
 <section class="aval" id="avaliacoes" aria-labelledby="aval-t">

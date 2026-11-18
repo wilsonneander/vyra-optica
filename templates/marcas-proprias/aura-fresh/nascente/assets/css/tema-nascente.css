@@ -50,6 +50,10 @@
 [data-tema-atual="claro"] .ad { --frente: #eef1e6; --suave: rgba(238, 241, 230, .74); color: #eef1e6; }
 [data-tema-atual="claro"] .ad .apoio, [data-tema-atual="claro"] .ad .tit em { color: var(--lima); }
 
+[data-tema-atual="claro"] .palco { background: radial-gradient(50% 70% at 70% 50%, #ffffff, var(--fundo) 70%); }
+[data-tema-atual="claro"] .palco-bts { background: rgba(29, 42, 31, .06); }
+[data-tema-atual="claro"] .palco-bts button[aria-pressed="true"] { background: var(--verde); color: #fff; }
+[data-tema-atual="claro"] .palco-dica { color: #55803a; }
 [data-tema-atual="claro"] .gal figcaption { background: rgba(255, 255, 255, .85); color: var(--frente); }
 [data-tema-atual="claro"] .aval-nota b { color: #55803a; }
 [data-tema-atual="claro"] .estrelas svg { fill: rgba(29, 42, 31, .15); }

@@ -75,16 +75,5 @@
       requestAnimationFrame(passo);
     }, { threshold: 0.5 }).observe(ad);
 
-    const dados = {};
-    $$('[data-par]').forEach(b => { dados[b.dataset.par] = b; });
-    const txtA = $('[data-ad-a]'), txtD = $('[data-ad-d]');
-    const pares = window.AURA_PARES || {};
-    $$('[data-ad-bts] button').forEach(b => b.addEventListener('click', () => {
-      $$('[data-ad-bts] button').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
-      $$('[data-par-img]', ad).forEach(p => p.classList.toggle('on', p.dataset.parImg === b.dataset.par));
-      const p = pares[b.dataset.par];
-      if (p) { txtA.textContent = p.txtA; txtD.textContent = p.txtD; }
-      poe(50);
-    }));
   }
 })();

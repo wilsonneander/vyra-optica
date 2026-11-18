@@ -7,7 +7,7 @@ const { secRotulo } = require('./site-produto');
 const { ic } = X;
 
 const VIDEO_ID = 'lEygblIM29Y';
-const nav = [['#formula', 'Fórmula'], ['#rotulo', 'Rótulo'], ['#video', 'Vídeo'], ['#antes-depois', 'Antes e depois'], ['#avaliacoes', 'Avaliações'], ['#comprar', 'Preços'], ['#duvidas', 'Dúvidas']];
+const nav = [['#formula', 'Fórmula'], ['#rotulo', 'Rótulo'], ['#pote-3d', '3D'], ['#video', 'Vídeo'], ['#antes-depois', 'Antes e depois'], ['#avaliacoes', 'Avaliações'], ['#comprar', 'Preços'], ['#duvidas', 'Dúvidas']];
 
 function cab(raiz = '') {
   return `<header class="cab">
@@ -54,12 +54,8 @@ ${scripts3d ? `<script src="${raiz}assets/js/three.min.js" defer></script>
 const gotaPath = 'M50 2C50 2 8 52 8 76a42 42 0 0 0 84 0C92 52 50 2 50 2Z';
 const estrelas = n => `<span class="estrelas" role="img" aria-label="Nota ${n} de 5">${Array.from({ length: 5 }, (_, i) => `<svg viewBox="0 0 24 24" aria-hidden="true" class="${i < n ? 'on' : ''}"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg>`).join('')}</span>`;
 
-// antes e depois: pares de fotos da campanha (pessoas diferentes; montagem ilustrativa)
-const pares = [
-  { id: 'manha', nome: 'Ao acordar', antes: 'situ-perceber.webp', depois: 'depo-1.webp', posD: '50% 40%', txtA: 'A primeira coisa do dia era correr para a escova antes de falar com alguém.', txtD: 'Um copo de água verde virou parte da manhã, junto com o café.' },
-  { id: 'perto', nome: 'Conversa de perto', antes: 'situ-fechados.webp', depois: 'depo-5.webp', posD: '50% 40%', txtA: 'Mão na frente da boca e conversa curta, por insegurança.', txtD: 'Uma dose por dia, sem pastilha no bolso para cada reunião.' },
-  { id: 'dia', nome: 'Dia inteiro', antes: 'situ-intima.webp', depois: 'pessoa-pote.webp', posD: '50% 30%', txtA: 'Conferir o tempo todo se o frescor ainda estava lá.', txtD: 'O pote no armário, um copo no mesmo horário, e o resto do dia livre.' },
-];
+// antes e depois: a mesma cena da campanha (mesma mulher), antes com a mão na boca e depois com o casal sorrindo
+const par = { antes: 'ad-antes.webp', depois: 'ad-depois.webp', txtA: 'Acordar ao lado de alguém e já tapar a boca antes do bom-dia.', txtD: 'Um copo de água verde virou parte da manhã, e o bom-dia ficou mais perto.' };
 
 // avaliações: os relatos do site atual. A nota de cada um deve vir da plataforma de avaliações (a confirmar)
 const avaliacoes = depoimentos.map((d, i) => ({ ...d, nota: 5 }));
@@ -126,13 +122,32 @@ ${ativos.map((a, i) => `    <button type="button" class="fg-gota fg-${a.id}" dat
 
 ${secRotulo({ titulo: 'Tira o rótulo.', lead: 'A água formou o pote. Agora a rolagem tira o rótulo e mostra o pó por dentro, com o que está impresso em cada parte.' })}
 
+<section class="palco" id="pote-3d" data-palco aria-labelledby="palco-t">
+  <div class="palco-txt" data-sobe>
+    <p class="apoio">O pote em 3D</p>
+    <h2 class="tit" id="palco-t">Gire, abra<br><em>e confira.</em></h2>
+    <p class="lead">Arraste o pote para girar. Abra a tampa para ver o pó e a colher, ou vá direto para a frente ou o verso do rótulo.</p>
+    <div class="palco-bts" data-iguais role="group" aria-label="Controles do pote">
+      <button type="button" data-palco-acao="tampa" aria-pressed="false">Abrir a tampa</button>
+      <button type="button" data-palco-acao="frente">Ver a frente</button>
+      <button type="button" data-palco-acao="verso">Ver o verso</button>
+    </div>
+    <ul class="palco-dados"><li><b>${P.peso}</b>peso líquido</li><li><b>${P.porcoes}</b>doses</li><li><b>3 g</b>por dose</li></ul>
+  </div>
+  <div class="palco-cena" data-sobe>
+    <canvas class="palco-3d" aria-label="Pote de AURA Fresh em 3D. Arraste para girar."></canvas>
+    <img class="palco-sem3d" src="assets/img/pote-splash.webp" alt="Pote de AURA Fresh" width="1100" height="1100" loading="lazy">
+    <p class="palco-dica" aria-hidden="true">arraste para girar</p>
+  </div>
+</section>
+
 <section class="video" id="video" aria-labelledby="video-t">
   <div class="video-cab" data-sobe>
     <p class="apoio">Vídeo da marca</p>
     <h2 class="tit" id="video-t">A AURA Fresh<br><em>em movimento.</em></h2>
   </div>
   <div class="video-quadro" data-video="${VIDEO_ID}" data-sobe>
-    <img src="assets/img/video-capa.webp" alt="Fita de água em espiral girando sobre fundo preto, cena do vídeo da AURA Fresh" width="740" height="420" loading="lazy">
+    <img src="assets/img/pote-claro.webp" alt="Pote de AURA Fresh entre respingos de água verde, hortelã, salsa e abacaxi" width="1100" height="825" loading="lazy">
     <button type="button" class="video-play" data-video-play aria-label="Assistir ao vídeo da AURA Fresh">
       <svg viewBox="0 0 100 120" aria-hidden="true"><path class="vp-gota" d="${gotaPath}" transform="translate(0 14)"/><path class="vp-tri" d="M42 72v26l22-13Z"/></svg>
       <span>Assistir ao vídeo</span>
@@ -160,25 +175,21 @@ ${galeria.map(([img, alt, leg, forma]) => `      <figure class="gal gal-${forma}
     <p class="apoio">Antes e depois</p>
     <h2 class="tit" id="ad-t">A rotina<br>antes e <em>com AURA.</em></h2>
     <p class="lead">Arraste a linha para comparar. O que muda é o hábito: um copo por dia no lugar das soluções de emergência.</p>
-    <div class="ad-bts" data-ad-bts role="group" aria-label="Momento do dia">
-      ${pares.map((pr, i) => `<button type="button" data-par="${pr.id}" aria-pressed="${i === 0}">${pr.nome}</button>`).join('')}
-    </div>
     <dl class="ad-legenda">
-      <div><dt>Antes</dt><dd data-ad-a>${pares[0].txtA}</dd></div>
-      <div><dt>Com AURA Fresh</dt><dd data-ad-d>${pares[0].txtD}</dd></div>
+      <div><dt>Antes</dt><dd data-ad-a>${par.txtA}</dd></div>
+      <div><dt>Com AURA Fresh</dt><dd data-ad-d>${par.txtD}</dd></div>
     </dl>
-    <p class="ad-nota" data-revisar>Montagem ilustrativa com fotos da campanha e de clientes, pessoas diferentes em cada lado. Não mostra resultado de uso e não é garantia de efeito.</p>
+    <p class="ad-nota" data-revisar>Cena ilustrativa da campanha, com modelos. Não mostra resultado de uso e não é garantia de efeito.</p>
   </div>
   <div class="ad-comp" data-ad data-sobe style="--x:50%">
-${pares.map((pr, i) => `    <div class="ad-par${i === 0 ? ' on' : ''}" data-par-img="${pr.id}">
-      <img class="ad-depois" src="assets/img/${pr.depois}" alt="Com AURA Fresh: ${pr.txtD}" loading="lazy" style="object-position:${pr.posD}">
-      <img class="ad-antes" src="assets/img/${pr.antes}" alt="Antes: ${pr.txtA}" loading="lazy">
-    </div>`).join('\n')}
+    <div class="ad-par on">
+      <img class="ad-depois" src="assets/img/${par.depois}" alt="Com AURA Fresh: casal abraçado e sorrindo na cama ao acordar" loading="lazy" width="900" height="469">
+      <span class="ad-antes"><img class="ad-antes-img" src="assets/img/${par.antes}" alt="Antes: mulher sentada na cama com a mão na boca, preocupada com o hálito" loading="lazy" width="900" height="469"></span>
+    </div>
     <span class="ad-rot ad-rot-a" aria-hidden="true">Antes</span><span class="ad-rot ad-rot-d" aria-hidden="true">Com AURA</span>
     <span class="ad-linha" aria-hidden="true"><svg viewBox="0 0 100 120"><path d="${gotaPath}" transform="translate(0 14)"/><path d="M34 82l-9 8 9 8M66 82l9 8-9 8" fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     <input class="ad-range" type="range" min="0" max="100" value="50" aria-label="Comparar antes e depois">
   </div>
-  <script>window.AURA_PARES=${JSON.stringify(Object.fromEntries(pares.map(p => [p.id, { txtA: p.txtA, txtD: p.txtD }])))};</script>
 </section>
 
 <section class="aval" id="avaliacoes" aria-labelledby="aval-t">

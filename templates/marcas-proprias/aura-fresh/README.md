@@ -8,7 +8,7 @@ Referência de animação 3D: modelo N3 Drinks (Bebidas & Conveniências), usada
 | `produto/` | Modelo 1 "Origem": marca e produto | Verde-noite. Hero com o pote 3D: a tampa sobe com a rolagem, sai o pó e as folhas giram. Seletor de kit (1, 2 ou 3 potes) que põe os potes na cena e troca o preço. Ativos com modal, "Tira o rótulo", rotina, o que esperar sem promessa, relatos, kits, FAQ e contato. |
 | `guia/` | Modelo 2 "Diário": conteúdo e guia de uso | Editorial claro, sem WebGL. Guia de uso (HowTo), comparador de rotina lado a lado (hábitos, não resultado), rótulo aberto em 2D com pontos, relatos, blog com 4 artigos, SEO (Organization, Product com ofertas, FAQPage, Article, BreadcrumbList, sitemap.xml, robots.txt, canonical). |
 | `clube/` | Modelo 3 "Ritual": tudo do modelo 1 + Área do cliente | Claro (papel, rosa e lima). Hero 3D do ritual: a água sobe no copo, a colher leva a dose, o pó cai e a água fica verde. Botões "ao acordar, depois do almoço, no fim do dia" trocam a luz da cena. Sanfona de ativos, rótulo claro, mês de 30 doses, kits e `cliente.html`. |
-| `nascente/` | Modelo 4 "Nascente": segunda versão premium do produto | Preto-água (claro no papel). Hero da gota: a gota cai na lâmina d'água, espirra a coroa, o rebote sobe e vira uma fita de água em espiral que aperta até o tamanho do pote; a água preenche o molde de baixo para cima e o pote verde nasce atrás dela, sobe da água e gira, com gotas e folhas suspensas e o seletor de kit. Fórmula em três gotas (paralaxe, abre o modal), "Tira o rótulo", vídeo da marca, imagens da marca em trilho lateral, antes e depois arrastável, avaliações, kits, FAQ e contato. |
+| `nascente/` | Modelo 4 "Nascente": segunda versão premium do produto | Preto-água (claro no papel). Hero da gota: a gota cai na lâmina d'água, espirra a coroa, o rebote sobe e vira uma fita de água em espiral que aperta até o tamanho do pote; a água preenche o molde de baixo para cima e o pote verde nasce atrás dela, sobe da água e gira, com gotas e folhas suspensas e o seletor de kit. Fórmula em três gotas (paralaxe, abre o modal), "Tira o rótulo", pote em 3D para girar e abrir, vídeo da marca, imagens da marca em trilho lateral, antes e depois arrastável, avaliações, kits, FAQ e contato. |
 
 Os quatro abrem direto pelo `index.html` (sem servidor).
 
@@ -74,7 +74,8 @@ A frase "resultados em até 14 dias" do site atual **não foi usada** em nenhum 
 
 ## Modelo 4 "Nascente": peças próprias
 
-- **Vídeo da marca**: https://youtu.be/lEygblIM29Y (`VIDEO_ID` em `site-nascente.js`). A capa é um quadro do vídeo (`_kit/img/video-capa.webp`, de `_build/fonte/video-espiral.png`); o player do YouTube (domínio nocookie) só carrega quando a pessoa toca.
+- **Vídeo da marca**: https://youtu.be/lEygblIM29Y (`VIDEO_ID` em `site-nascente.js`). A capa é a foto do pote claro (`pote-claro.webp`); o player do YouTube (domínio nocookie) só carrega quando a pessoa toca.
 - **Imagens da marca**: fotos da campanha já no kit (`galeria` em `site-nascente.js`). No computador o trilho anda de lado com a rolagem; no celular vira carrossel com encaixe.
-- **Antes e depois**: montagem ilustrativa com fotos da campanha (antes) e de clientes (depois), pessoas diferentes, com aviso na tela e `data-revisar`. Fala de hábito, não de resultado. Trocar pelos pares que a marca aprovar em `pares`.
+- **Antes e depois**: a mesma cena da campanha (`_kit/img/ad-antes.webp` mulher com a mão na boca, espelhada para ficar no lado esquerdo; `ad-depois.webp` casal sorrindo), com aviso de cena ilustrativa e `data-revisar`. Fala de hábito, não de resultado.
+- **Pote em 3D** (`#pote-3d`, `iniciaPalco` em pote-3d.js): arrasta para girar com inércia, botão que desenrosca e abre a tampa soltando o pó, e atalhos para a frente e o verso do rótulo.
 - **Avaliações**: os relatos do site atual com nota 5 de exemplo. Pendente: nota e total reais da plataforma de avaliações (hoje "[preencher]") e autorização de cada pessoa.

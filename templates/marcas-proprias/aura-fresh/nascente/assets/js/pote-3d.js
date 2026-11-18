@@ -603,6 +603,81 @@
     laco();
   }
 
+  // ---------- PALCO da Nascente: pote solto na página, gira no arrasto, abre a tampa e mostra frente e verso ----------
+  function iniciaPalco() {
+    const sec = document.querySelector('[data-palco]');
+    const canvas = sec && sec.querySelector('canvas.palco-3d');
+    if (!canvas) return;
+    const renderer = criaRenderer(canvas);
+    const cena = new T.Scene(); cena.environment = criaAmbiente(renderer);
+    const luz = new T.DirectionalLight(0xf4ffe6, 0.9); luz.position.set(-5, 8, 6); cena.add(luz);
+    const contra = new T.DirectionalLight(0xc4d997, 0.6); contra.position.set(5, 3, -6); cena.add(contra);
+    const cam = new T.PerspectiveCamera(26, 1, 0.3, 200);
+    const pote = criaPote({ po: true }); cena.add(pote.grupo);
+    const sombra = criaSombra(0.45, 3.6); cena.add(sombra);
+    const po = criaPo(reduz ? 120 : 700, 88, ['#c4d997', '#9cbc5c', '#5f8f2f', '#2f6b3a']); cena.add(po.pts);
+
+    const FRENTE = 0.22;
+    let rot = FRENTE - 0.9, rotAlvo = FRENTE, inercia = 0, arrasto = null, ultimoX = 0, ociosoDesde = performance.now();
+    let aberta = false, abreK = 0, sopro = 0;
+    let W = 0, H = 0, visivel = false, rodando = false;
+    function ajusta() {
+      W = canvas.clientWidth; H = canvas.clientHeight; if (!W || !H) return;
+      renderer.setSize(W, H, false); cam.aspect = W / H;
+    }
+    new ResizeObserver(ajusta).observe(canvas); ajusta();
+
+    canvas.addEventListener('pointerdown', e => { arrasto = e.pointerId; ultimoX = e.clientX; inercia = 0; canvas.setPointerCapture(e.pointerId); canvas.classList.add('girando'); sec.classList.add('mexeu'); });
+    canvas.addEventListener('pointermove', e => { if (arrasto !== e.pointerId) return; const dx = e.clientX - ultimoX; ultimoX = e.clientX; rotAlvo += dx * 0.012; inercia = dx * 0.012; });
+    const solta = () => { arrasto = null; canvas.classList.remove('girando'); ociosoDesde = performance.now(); };
+    canvas.addEventListener('pointerup', solta); canvas.addEventListener('pointercancel', solta);
+
+    // vai para o ângulo equivalente mais perto (sem dar voltas inteiras)
+    const perto = alvo => { const d = ((alvo - rotAlvo) % (Math.PI * 2) + Math.PI * 3) % (Math.PI * 2) - Math.PI; return rotAlvo + d; };
+    sec.querySelectorAll('[data-palco-acao]').forEach(b => b.addEventListener('click', () => {
+      const a = b.dataset.palcoAcao;
+      inercia = 0; ociosoDesde = performance.now() + 4000;
+      if (a === 'tampa') { aberta = !aberta; if (aberta) sopro = 0; b.setAttribute('aria-pressed', String(aberta)); b.textContent = aberta ? 'Fechar a tampa' : 'Abrir a tampa'; }
+      if (a === 'frente') rotAlvo = perto(FRENTE);
+      if (a === 'verso') rotAlvo = perto(FRENTE + Math.PI);
+    }));
+
+    new IntersectionObserver(es => { visivel = es[0].isIntersecting; if (visivel) laco(); }, { rootMargin: '80px' }).observe(sec);
+    function quadro(agora) {
+      const t = agora / 1000;
+      if (arrasto === null) { rotAlvo += inercia; inercia *= 0.93; if (!reduz && agora - ociosoDesde > 2500) rotAlvo += 0.0025; }
+      rot = lerp(rot, rotAlvo, 0.1);
+      pote.grupo.rotation.y = rot;
+      pote.grupo.position.y = reduz ? 0 : Math.sin(t * 1.1) * 0.025;
+      // tampa: desenrosca girando, sobe e pousa inclinada ao lado
+      abreK = lerp(abreK, aberta ? 1 : 0, 0.07);
+      const rosca = clamp(abreK / 0.45), sai = suave(0.4, 1, abreK);
+      pote.tampa.position.set(lerp(0, 1.05, sai), TAMPA_BASE + rosca * 0.08 + sai * 1.15, lerp(0, -0.3, sai));
+      pote.tampa.rotation.set(sai * 0.35, -rosca * Math.PI * 2.5, -sai * 0.62);
+      // um sopro de pó quando a tampa sai
+      if (aberta) sopro = Math.min(1, sopro + 0.012); else sopro = Math.max(0, sopro - 0.03);
+      const k = suave(0.15, 1, sopro);
+      for (let i = 0; i < po.dados.length; i++) {
+        const d = po.dados[i];
+        const kk = clamp((k - d.atraso) / (1 - d.atraso));
+        const ang = d.ang + kk * d.gira * 2 + t * 0.12 * d.gira, rad = d.rad * (1 + kk * d.abre * 1.2);
+        po.pos[i * 3] = Math.cos(ang) * rad; po.pos[i * 3 + 1] = CORPO_TOPO + 0.05 + kk * d.sobe * 0.7; po.pos[i * 3 + 2] = Math.sin(ang) * rad;
+      }
+      po.geo.attributes.position.needsUpdate = true;
+      po.mat.opacity = 0.9 * abreK * (1 - suave(0.7, 1, sopro) * 0.85);
+      // câmera: pote inteiro, um pouco mais alto com a tampa aberta
+      const tanV = Math.tan(T.MathUtils.degToRad(cam.fov / 2)) * 2;
+      const d = Math.max(lerp(3.4, 5.4, sai) / tanV, lerp(3.2, 4.8, sai) / (tanV * cam.aspect));
+      cam.position.set(0, lerp(2.1, 3.6, sai), d); cam.lookAt(lerp(0, 0.4, sai), lerp(1.0, 1.55, sai), 0);
+      renderer.render(cena, cam);
+    }
+    function laco() {
+      if (rodando) return; rodando = true;
+      const passo = agora => { if (!visivel) { rodando = false; return; } quadro(agora); requestAnimationFrame(passo); };
+      requestAnimationFrame(passo);
+    }
+  }
+
   // ---------- RITUAL do clube: gira a tampa, a colher pega a dose no pote e leva ao copo ----------
   // Linha do tempo (p de 0 a 1, guiada pela rolagem):
   //   0,00 a 0,10  água fria enche o copo
@@ -923,6 +998,7 @@
     apoio.dispose(); if (apoio.forceContextLoss) apoio.forceContextLoss();
     iniciaHeroProduto();
     iniciaGota();
+    iniciaPalco();
     iniciaRitual();
     iniciaRotulo();
     iniciaModal();

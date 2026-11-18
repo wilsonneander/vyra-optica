@@ -26,3 +26,5 @@
 [data-tema-atual="escuro"] .carga-mare { background: linear-gradient(105deg, #0d1d1c, #1f3a33); }
 [data-tema-atual="escuro"] .cmare-trilho { stroke: rgba(232, 243, 239, .16); }
 [data-tema-atual="escuro"] .cmare-agua { stroke: #c4d997; }
+[data-tema-atual="escuro"] .mh-seletor { background: rgba(232, 243, 239, .08); }
+[data-tema-atual="escuro"] .mh-seletor button[aria-pressed="true"] { color: #0b1615; }

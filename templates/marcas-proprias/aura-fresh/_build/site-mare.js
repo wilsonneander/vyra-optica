@@ -6,7 +6,7 @@ const { empresa: E, produto: P, kits, ativos, depoimentos } = require('./dados')
 const X = require('./partes');
 const { ic } = X;
 
-const nav = [['#mare', 'Textura'], ['#pote', 'O pote'], ['#formula', 'Fórmula'], ['#ritual', 'Ritual'], ['#avaliacoes', 'Avaliações'], ['#comprar', 'Preços']];
+const nav = [['#mare', 'Entrega'], ['#pote', 'O pote'], ['#formula', 'Fórmula'], ['#ritual', 'Ritual'], ['#avaliacoes', 'Avaliações'], ['#comprar', 'Preços']];
 
 function cab(raiz = '') {
   return `<header class="cab">
@@ -66,7 +66,6 @@ const estrelas = n => `<span class="estrelas" role="img" aria-label="Nota ${n} d
 const frase = 'Clorofila de verdade, salsa na maior dose do pote e hortelã para o primeiro gole. Sem corante para disfarçar o verde: a cor do copo é a cor da planta.';
 const destaques = ['Clorofila', 'salsa', 'hortelã', 'verde:', 'planta.'];
 
-const ativoTxt = { clorofila: 'a base verde da fórmula', salsa: 'a maior dose do pote', hortela: 'o frescor do primeiro gole' };
 
 const ritual = [
   ['240 ml', 'de água fria ou suco no copo. Gelado fica melhor.'],
@@ -90,15 +89,18 @@ function index() {
       </div>
     </div>
     <div class="mh-meio">
-      <h2 class="mh-meio-t">Mistura na água<br><em>em segundos.</em></h2>
-      <a class="btn mh-comprar" href="${k1.url}" target="_blank" rel="noopener">Um mês de AURA <span>${k1.totalTxt}</span></a>
+      <h2 class="mh-meio-t">Sai daqui<br><em>do jeito certo.</em></h2>
+      <p class="mh-meio-lead">Na caixa da marca, com papel de seda e a colher dosadora dentro do pote.</p>
     </div>
     <p class="mh-role" aria-hidden="true"><svg viewBox="0 0 20 28"><path d="M10 2C10 2 3 11 3 16a7 7 0 0 0 14 0C17 11 10 2 10 2Z"/></svg>Role</p>
-    <div class="mh-fim">
-      <h2 class="mh-fim-t">3 ativos.<br><em>Uma dose por dia.</em></h2>
-      <ul class="mh-ativos">
-${ativos.map(a => `        <li><button type="button" data-ativo="${a.id}"><b>${a.qtd.replace(' ', '&nbsp;')}</b><span>${a.nome}</span><small>${ativoTxt[a.id]}</small></button></li>`).join('\n')}
-      </ul>
+    <div class="mh-fim" data-kit-area>
+      <h2 class="mh-fim-t">Frete grátis<br><em>até a sua porta.</em></h2>
+      <p class="mh-fim-lead">O código de rastreio chega por e-mail e WhatsApp assim que o pedido sai.</p>
+      <div class="seletor mh-seletor" data-escolhe-kit="kit2" role="group" aria-label="Quantidade de potes">
+        ${kits.map(k => `<button type="button" data-kit="${k.id}" aria-pressed="false"><b>${k.potes}</b> ${k.potes > 1 ? "potes" : "pote"}</button>`).join("")}
+      </div>
+      <p class="mh-preco"><b data-kit-total>${k2.totalTxt}</b> <span data-kit-parcela>12x de ${k2.parcelaTxt}</span></p>
+      <div class="mh-acoes"><a class="btn mh-comprar" href="${k2.url}" data-kit-compra target="_blank" rel="noopener">Comprar agora ${ic.seta}</a><a class="mh-link" href="#comprar">Comparar os kits</a></div>
     </div>
   </div>
 </section>

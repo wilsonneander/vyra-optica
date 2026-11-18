@@ -603,14 +603,15 @@
     laco();
   }
 
-  // ---------- HERO da Maré: o pote dentro do tubo de uma onda de água; a câmera entra no tubo com ele e sai na palavra AURA ----------
+  // ---------- HERO da Maré: o pote sobe girando, desce e pousa na caixa da marca, que fecha pronta para a entrega ----------
   // Linha do tempo (p de 0 a 1, guiada pela rolagem):
-  //   0,00 a 0,10  a onda parada, enrolada em volta do pote, com a água correndo e gotas no lábio
-  //   0,10 a 0,34  a câmera se aproxima e o pote sobe para perto dela, ainda na boca do tubo
-  //   0,34 a 0,66  câmera e pote deslizam juntos por dentro do tubo até a saída
-  //   0,50 a 0,90  fios de água saem do tubo e cada letra de AURA sobe cheia de água; o pote pousa na frente
-  //   0,80 a 1,00  palavra pronta, os três ativos aparecem
-  // A água é vidro líquido (transmission do three) refratando um fundo pintado dentro da própria cena.
+  //   0,00 a 0,06  o pote flutua sobre o chão polido
+  //   0,06 a 0,32  o pote sobe girando, com folhas de hortelã e salsa em órbita
+  //   0,12 a 0,36  a chapa de papelão aparece no chão e as paredes dobram até virar caixa (abas abertas, papel de seda)
+  //   0,36 a 0,54  o pote desce e pousa no papel de seda com um quique
+  //   0,55 a 0,82  o papel dobra, as abas fecham (laterais e depois frente e fundo), passa a fita e cola a etiqueta
+  //   0,80 a 1,00  a caixa gira e mostra a marca; a etiqueta mostra o kit escolhido (e ?para=Nome personaliza o destinatário)
+  // A arte da caixa é desenhada em canvas: logo, estampa de folhas e gotas, mensagem na aba, fita e etiqueta.
   function texturaCorrente() {
     // mapa de normais em listras que seguem o giro da onda (sem emenda nos dois sentidos)
     const W = 256, H = 256, c = document.createElement('canvas'); c.width = W; c.height = H;
@@ -633,13 +634,14 @@
     const canvas = sec && sec.querySelector('canvas.mare-3d');
     if (!canvas) return;
     const renderer = criaRenderer(canvas); renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
+    renderer.shadowMap.enabled = false;
     const cena = new T.Scene(); cena.environment = criaAmbiente(renderer, 0xb9c9c6);
-    const luz = new T.DirectionalLight(0xfff8f0, 1.1); luz.position.set(-6, 9, 7); cena.add(luz);
-    const contra = new T.DirectionalLight(0xf0c6d7, 0.7); contra.position.set(6, 4, -6); cena.add(contra);
-    cena.add(new T.HemisphereLight(0xeafaf6, 0x9fb5b0, 0.45));
-    const cam = new T.PerspectiveCamera(30, 1, 0.05, 300);
+    const luz = new T.DirectionalLight(0xfff8f0, 1.15); luz.position.set(-6, 10, 7); cena.add(luz);
+    const contra = new T.DirectionalLight(0xf0c6d7, 0.6); contra.position.set(6, 4, -6); cena.add(contra);
+    cena.add(new T.HemisphereLight(0xf3fbf8, 0x8fa59f, 0.5));
+    const cam = new T.PerspectiveCamera(30, 1, 0.1, 200);
 
-    // fundo pintado dentro da cena (a água refrata o que está atrás dela, inclusive o degradê)
+    // fundo pintado dentro da cena e chão polido que se dissolve nele (sem linha de horizonte)
     const fundoU = { c1: { value: new T.Color() }, c2: { value: new T.Color() }, c3: { value: new T.Color() }, c4: { value: new T.Color() } };
     const fundo = new T.Mesh(new T.PlaneGeometry(2, 2), new T.ShaderMaterial({
       uniforms: fundoU, depthWrite: false, depthTest: false,
@@ -654,29 +656,9 @@
         }`,
     }));
     fundo.frustumCulled = false; fundo.renderOrder = -10; cena.add(fundo);
-
-    // água: vidro líquido com listras de corrente e borda clara
     const corrente = texturaCorrente();
-    const rimU = { value: new T.Color(0xffffff) };
-    function matMar(espessura, rep, rug) {
-      const tx = corrente.clone(); tx.needsUpdate = true; tx.repeat.set(rep[0], rep[1]);
-      const m = new T.MeshPhysicalMaterial({ color: 0xffffff, transmission: 1, thickness: espessura, ior: 1.33, roughness: rug, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 1.7, specularIntensity: 1, attenuationColor: new T.Color(0x6fcfc8), attenuationDistance: 1.9, normalMap: tx, normalScale: new T.Vector2(0.28, 0.28) });
-      m.onBeforeCompile = sh => {
-        sh.uniforms.uRim = rimU;
-        sh.fragmentShader = 'uniform vec3 uRim;\n' + sh.fragmentShader.replace('#include <dithering_fragment>', `#include <dithering_fragment>
-          float fres = pow(1.0 - clamp(abs(dot(normalize(normal), normalize(vViewPosition))), 0.0, 1.0), 2.2);
-          gl_FragColor.rgb = mix(gl_FragColor.rgb, uRim, fres * 0.7);`);
-      };
-      m.customProgramCacheKey = () => 'mar';
-      return m;
-    }
-    const mOnda = matMar(1.6, [3, 9], 0.14), mLetra = matMar(1.6, [0.35, 0.35], 0.04), mRio = matMar(0.8, [1, 4], 0.08);
-    mLetra.envMapIntensity = 2.3;
-    const correntes = [mOnda.normalMap, mLetra.normalMap, mRio.normalMap];
-
-    // lâmina d'água do chão: opaca e polida, se dissolve no degradê do fundo conforme se afasta
-    const txChao = corrente.clone(); txChao.needsUpdate = true; txChao.repeat.set(40, 40); correntes.push(txChao);
-    const mChao = new T.MeshPhysicalMaterial({ color: 0xe6f3f0, roughness: 0.12, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.08, envMapIntensity: 1.1, normalMap: txChao, normalScale: new T.Vector2(0.12, 0.12) });
+    const txChao = corrente.clone(); txChao.needsUpdate = true; txChao.repeat.set(30, 30);
+    const mChao = new T.MeshPhysicalMaterial({ color: 0xe6f3f0, roughness: 0.14, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.08, envMapIntensity: 1.1, normalMap: txChao, normalScale: new T.Vector2(0.08, 0.08) });
     const resU = { value: new T.Vector2(1, 1) };
     mChao.onBeforeCompile = sh => {
       Object.assign(sh.uniforms, fundoU, { uRes: resU });
@@ -685,262 +667,248 @@
         vec3 bg = mix(c1, c2, smoothstep(0.0, 1.0, su.x * 0.85 + (1.0 - su.y) * 0.15));
         bg = mix(bg, c3, (1.0 - smoothstep(0.0, 0.62, distance(su, vec2(0.66, 0.56)))) * 0.75);
         bg = mix(bg, c4, smoothstep(0.72, 0.18, su.y) * 0.85);
-        float longe = smoothstep(14.0, 44.0, length(vViewPosition));
+        float longe = smoothstep(10.0, 30.0, length(vViewPosition));
         gl_FragColor.rgb = mix(gl_FragColor.rgb, linearToOutputTexel(vec4(bg, 1.0)).rgb, longe);`);
     };
     mChao.customProgramCacheKey = () => 'mare-chao';
-    const chao = new T.Mesh(new T.PlaneGeometry(220, 220), mChao); chao.rotation.x = -Math.PI / 2; chao.position.z = -30; cena.add(chao);
+    const chao = new T.Mesh(new T.PlaneGeometry(160, 160), mChao); chao.rotation.x = -Math.PI / 2; cena.add(chao);
 
-    // ----- o tubo da onda: espiral contínua que nasce rente ao chão e se enrola em volta do pote -----
-    // O perfil começa embaixo do centro (tangente ao chão, sem degrau), sobe pela direita, passa por cima
-    // e o lábio desce pela esquerda. Puxado em profundidade de Z0 (boca, na frente) até Z1 (saída, no fundo).
-    const NO = reduz ? 70 : 120, NL = 12, NP = NO * 2 + NL, NS = reduz ? 70 : 150;
-    const Z0 = 1.4, Z1 = -26;
-    const OC = { x: 0, y: 2.35 }, TH0 = -Math.PI / 2, TH1 = 3.95, R0 = 2.35, R1 = 1.5;
-    const oGeo = new T.BufferGeometry();
-    const oPos = new Float32Array(NP * (NS + 1) * 3), oUv = new Float32Array(NP * (NS + 1) * 2), oIdx = [];
-    for (let i = 0; i < NS; i++) for (let j = 0; j < NP - 1; j++) { const a = i * NP + j, b = a + 1, c2 = a + NP, d2 = c2 + 1; oIdx.push(a, c2, b, b, c2, d2); }
-    for (let i = 0; i <= NS; i++) for (let j = 0; j < NP; j++) { const k = (i * NP + j) * 2; oUv[k] = j / (NP - 1) * 2; oUv[k + 1] = i / NS; }
-    oGeo.setIndex(oIdx); oGeo.setAttribute('position', new T.BufferAttribute(oPos, 3)); oGeo.setAttribute('uv', new T.BufferAttribute(oUv, 2));
-    const onda = new T.Mesh(oGeo, mOnda); onda.frustumCulled = false; cena.add(onda);
-    const ponto = { x: 0, y: 0 }, pa = { x: 0, y: 0 }, pb = { x: 0, y: 0 };
-    function espiral(u, s, t, o) {
-      const th1 = TH1 + Math.sin(s * 7 + t * 0.6) * 0.06 - (1 - s) * 0.2;
-      const th = lerp(TH0, th1, u);
-      const k = (th - TH0) / (TH1 - TH0);
-      const r = R0 * Math.pow(R1 / R0, k) + (Math.sin(th * 3 + t * 1.3 + s * 9) * 0.04 + Math.sin(s * 14 - t * 0.9) * 0.035) * u;
-      o.x = OC.x + Math.cos(th) * r; o.y = OC.y + Math.sin(th) * r;
-      return o;
+    // ----- a caixa da marca: arte desenhada em canvas -----
+    const VERDE = '#2b462b', VERDE2 = '#35573a', LIMA = '#c4d997', ROSA = '#f0c6d7', ROSA2 = '#e7b3c7', KRAFT = '#d9c29b';
+    const logo = new Image(); logo.src = BASE + 'logo.png';
+    const fT = '"Inter Tight", "DM Sans", sans-serif', fC = '"DM Sans", "Inter Tight", sans-serif', fM = '"Gochi Hand", cursive';
+    const telas = [];
+    function tela(w, h, pinta) {
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      const tx = new T.CanvasTexture(c); tx.encoding = T.sRGBEncoding; tx.anisotropy = 8;
+      const o = { c, g: c.getContext('2d'), tx, pinta, w, h }; telas.push(o); redesenha(o); return o;
     }
-    const espessura = u => u < 0.12 ? lerp(0.02, 0.72, suave(0, 0.12, u)) : lerp(0.72, 0.26, Math.pow((u - 0.12) / 0.88, 0.8));
-    function moldaOnda(t) {
-      for (let i = 0; i <= NS; i++) {
-        const s = i / NS, z = lerp(Z1, Z0, s);
-        const bF = s > 0.97 ? Math.sqrt(Math.max(0, 1 - Math.pow((s - 0.97) / 0.03, 2))) : 1;
-        const bT = s < 0.02 ? Math.sqrt(Math.max(0, 1 - Math.pow((0.02 - s) / 0.02, 2))) : 1;
-        const borda = bF * bT;
-        for (let j = 0; j < NP; j++) {
-          let u, lado = 0, ang = 0;
-          if (j < NO) { u = j / (NO - 1); lado = 1; }
-          else if (j < NO + NL) { u = 1; ang = (j - NO + 1) / (NL + 1) * Math.PI; }
-          else { u = 1 - (j - NO - NL) / (NO - 1); lado = -1; }
-          espiral(u, s, t, ponto);
-          espiral(Math.max(0, u - 0.004), s, t, pa); espiral(Math.min(1, u + 0.004), s, t, pb);
-          let tx = pb.x - pa.x, ty = pb.y - pa.y; const tl = Math.hypot(tx, ty) || 1; tx /= tl; ty /= tl;
-          const nx = ty, ny = -tx, h = espessura(u) * borda + 0.004;
-          let x, y;
-          if (lado) { x = ponto.x + nx * h * lado; y = ponto.y + ny * h * lado; }
-          else { x = ponto.x + nx * h * Math.cos(ang) + tx * h * Math.sin(ang); y = ponto.y + ny * h * Math.cos(ang) + ty * h * Math.sin(ang); }
-          const k = (i * NP + j) * 3; oPos[k] = x; oPos[k + 1] = y; oPos[k + 2] = z + (1 - borda) * 0.3 * (s > 0.5 ? 1 : -1);
-        }
-      }
-      oGeo.attributes.position.needsUpdate = true; oGeo.computeVertexNormals();
+    function redesenha(o) { o.g.clearRect(0, 0, o.w, o.h); o.pinta(o.g, o.w, o.h); o.tx.needsUpdate = true; }
+    // folhinha e gota desenhadas à mão para a estampa
+    function folha(g, x, y, s, a) {
+      g.save(); g.translate(x, y); g.rotate(a); g.scale(s, s);
+      g.beginPath(); g.moveTo(-20, 18); g.bezierCurveTo(-22, -6, -4, -20, 20, -20); g.bezierCurveTo(20, 4, 6, 20, -20, 18); g.closePath(); g.stroke();
+      g.beginPath(); g.moveTo(-18, 16); g.quadraticCurveTo(0, 0, 16, -16); g.stroke(); g.restore();
     }
-
-    // gotas penduradas no lábio, perto da boca do tubo
-    const perfilGota = [];
-    for (let i = 0; i <= 20; i++) { const a = i / 20 * Math.PI; perfilGota.push(new T.Vector2(Math.sin(a) * Math.pow(Math.sin(a / 2), 1.1), Math.cos(a))); }
-    const geoGota = new T.LatheGeometry(perfilGota.reverse(), 32);
-    const gotas = [0.985, 0.955, 0.93].map((s, i) => { const m = new T.Mesh(geoGota, mLetra); m.userData = { s, fase: i * 1.7, tam: [0.16, 0.12, 0.1][i] }; cena.add(m); return m; });
-
-    // ----- AURA: letras de água moldadas (contorno extrudado com borda bem redonda) -----
-    const redondo = (pts, r, alvo) => {
-      const n = pts.length, s = alvo || new T.Shape();
-      for (let i = 0; i < n; i++) {
-        const a = pts[(i - 1 + n) % n], b = pts[i], c = pts[(i + 1) % n];
-        const la = Math.hypot(a[0] - b[0], a[1] - b[1]), lc = Math.hypot(c[0] - b[0], c[1] - b[1]), rr = Math.min(r, la / 2, lc / 2);
-        const p1 = [b[0] + (a[0] - b[0]) / la * rr, b[1] + (a[1] - b[1]) / la * rr], p2 = [b[0] + (c[0] - b[0]) / lc * rr, b[1] + (c[1] - b[1]) / lc * rr];
-        if (i === 0) s.moveTo(p1[0], p1[1]); else s.lineTo(p1[0], p1[1]);
-        s.quadraticCurveTo(b[0], b[1], p2[0], p2[1]);
-      }
-      s.closePath(); return s;
-    };
-    function formaA() {
-      const s = redondo([[0, 0], [1.05, 3.4], [1.95, 3.4], [3, 0], [2.2, 0], [2.015, 0.6], [0.985, 0.6], [0.8, 0]], 0.2);
-      s.holes.push(redondo([[1.18, 1.15], [1.82, 1.15], [1.5, 2.05]], 0.08, new T.Path()));
-      return s;
+    function gota(g, x, y, s) { g.beginPath(); g.moveTo(x, y - 20 * s); g.bezierCurveTo(x + 4 * s, y - 12 * s, x + 12 * s, y - 2 * s, x + 12 * s, y + 6 * s); g.arc(x, y + 6 * s, 12 * s, 0, Math.PI); g.bezierCurveTo(x - 12 * s, y - 2 * s, x - 4 * s, y - 12 * s, x, y - 20 * s); g.stroke(); }
+    function estampa(g, w, h, cor, alfa = 1) {
+      g.save(); g.globalAlpha = alfa; g.strokeStyle = cor; g.lineWidth = 3; g.lineCap = 'round';
+      const r = rng(7);
+      for (let y = 40; y < h + 40; y += 110) for (let x = 30 + ((y / 110) % 2) * 70; x < w + 40; x += 140) { if (r() > 0.45) folha(g, x, y, 0.9 + r() * 0.5, r() * 6); else gota(g, x, y, 0.8 + r() * 0.4); }
+      g.restore();
     }
-    function formaU() {
-      const s = new T.Shape();
-      s.moveTo(0, 3.4); s.lineTo(0, 1.45); s.absarc(1.45, 1.45, 1.45, Math.PI, Math.PI * 2, false); s.lineTo(2.9, 3.4); s.lineTo(2.1, 3.4); s.lineTo(2.1, 1.45);
-      s.absarc(1.45, 1.45, 0.65, 0, Math.PI, true); s.lineTo(0.8, 3.4); s.closePath();
-      return s;
-    }
-    function formaR() {
-      const s = new T.Shape();
-      s.moveTo(0, 0); s.lineTo(0, 3.4); s.lineTo(1.65, 3.4); s.absarc(1.65, 2.4, 1.0, Math.PI / 2, -Math.PI / 2, true);
-      s.lineTo(2.95, 0); s.lineTo(2.05, 0); s.lineTo(1.08, 1.3); s.lineTo(0.8, 1.3); s.lineTo(0.8, 0); s.closePath();
-      const h = new T.Path(); h.moveTo(0.8, 1.98); h.lineTo(1.6, 1.98); h.absarc(1.6, 2.4, 0.42, -Math.PI / 2, Math.PI / 2, false); h.lineTo(0.8, 2.82); h.closePath();
-      s.holes.push(h);
-      return s;
-    }
-    const extr = { depth: 0.45, bevelEnabled: true, bevelThickness: 0.42, bevelSize: 0.14, bevelSegments: reduz ? 4 : 9, curveSegments: reduz ? 10 : 22 };
-    const defs = [[formaA, 3], [formaU, 2.9], [formaR, 2.95], [formaA, 3]], GAP = 0.5;
-    const LARG = defs.reduce((s, d) => s + d[1], 0) + GAP * (defs.length - 1);
-    const palavra = new T.Group(); cena.add(palavra);
-    let xx = -LARG / 2;
-    const letras = defs.map(([f, w], i) => {
-      const geo = new T.ExtrudeGeometry(f(), extr); geo.translate(-w / 2, 0.14, -0.22);
-      // uv planar para as listras de corrente correrem pela letra
-      const pos = geo.attributes.position, uv = geo.attributes.uv;
-      for (let k = 0; k < pos.count; k++) uv.setXY(k, pos.getX(k) + pos.getZ(k) * 0.5, pos.getY(k));
-      const m = new T.Mesh(geo, mLetra); m.position.x = xx + w / 2; xx += w + GAP;
-      m.scale.setScalar(0.001); palavra.add(m);
-      return { m, x: m.position.x, i };
+    function logoNo(g, cx, cy, larg) { if (logo.complete && logo.naturalWidth) { const h = larg * logo.naturalHeight / logo.naturalWidth; g.drawImage(logo, cx - larg / 2, cy - h / 2, larg, h); } else { g.fillStyle = '#fff'; g.font = `800 ${larg / 3.4}px ${fT}`; g.textAlign = 'center'; g.fillText('aura', cx, cy + larg / 10); } }
+    const artFrente = tela(1024, 820, (g, w, h) => {
+      g.fillStyle = VERDE; g.fillRect(0, 0, w, h); estampa(g, w, h, VERDE2);
+      g.fillStyle = 'rgba(22,35,26,.35)'; g.fillRect(0, h - 120, w, 120);
+      logoNo(g, w / 2, h * 0.42, 560);
+      g.fillStyle = LIMA; g.textAlign = 'center'; g.font = `700 40px ${fT}`; g.fillText('Inner Freshness Complex', w / 2, h * 0.66);
+      g.fillStyle = '#eef1e6'; g.font = `500 30px ${fC}`; g.fillText('O cuidado começa por dentro', w / 2, h - 50);
     });
+    const artLado = tela(1024, 820, (g, w, h) => {
+      g.fillStyle = VERDE; g.fillRect(0, 0, w, h); estampa(g, w, h, VERDE2);
+      g.fillStyle = ROSA; g.fillRect(0, h * 0.36, w, h * 0.28);
+      g.fillStyle = VERDE; g.textAlign = 'center'; g.font = `800 120px ${fT}`; g.fillText('AURA FRESH', w / 2, h * 0.5 + 42);
+      // setas "este lado para cima" desenhadas
+      g.strokeStyle = LIMA; g.lineWidth = 9; g.lineCap = 'round'; g.lineJoin = 'round';
+      [w * 0.12, w * 0.2].forEach(x => { g.beginPath(); g.moveTo(x, h * 0.86); g.lineTo(x, h * 0.72); g.moveTo(x - 22, h * 0.75); g.lineTo(x, h * 0.71); g.lineTo(x + 22, h * 0.75); g.stroke(); });
+      g.fillStyle = LIMA; g.textAlign = 'left'; g.font = `600 34px ${fC}`; g.fillText('Este lado para cima', w * 0.27, h * 0.8);
+      g.textAlign = 'right'; g.fillText('Mantenha em local seco e fresco', w * 0.93, h * 0.2);
+    });
+    const artDentro = tela(512, 512, (g, w, h) => { g.fillStyle = ROSA; g.fillRect(0, 0, w, h); estampa(g, w, h, ROSA2, 0.9); });
+    const artAba = tela(1024, 512, (g, w, h) => { g.fillStyle = VERDE; g.fillRect(0, 0, w, h); estampa(g, w, h, VERDE2); });
+    const artMensagem = tela(1024, 512, (g, w, h) => {
+      g.fillStyle = ROSA; g.fillRect(0, 0, w, h); estampa(g, w, h, ROSA2, 0.7);
+      g.translate(w, h); g.scale(-1, -1); // a face de dentro da aba fica de ponta-cabeça no UV
+      g.fillStyle = VERDE; g.textAlign = 'center'; g.font = `800 92px ${fT}`; g.fillText('Seu ritual chegou.', w / 2, h * 0.5);
+      g.font = `400 52px ${fM}`; g.fillStyle = '#4f7f62'; g.fillText('uma dose por dia, todo dia', w / 2, h * 0.72);
+    });
+    const artFita = tela(1024, 128, (g, w, h) => {
+      g.fillStyle = ROSA; g.fillRect(0, 0, w, h);
+      g.fillStyle = VERDE; g.font = `800 52px ${fT}`; g.textAlign = 'left';
+      for (let x = 10; x < w; x += 330) g.fillText('AURA FRESH', x, h * 0.66);
+    });
+    let kitPotes = 2;
+    const nomePara = decodeURIComponent((location.search.match(/[?&]para=([^&]+)/) || [, ''])[1]).replace(/\+/g, ' ').slice(0, 18);
+    const artEtiqueta = tela(768, 512, (g, w, h) => {
+      g.fillStyle = '#fbfaf6'; g.fillRect(0, 0, w, h);
+      g.strokeStyle = 'rgba(29,42,31,.22)'; g.lineWidth = 3; g.setLineDash([10, 8]); g.strokeRect(14, 14, w - 28, h - 28); g.setLineDash([]);
+      g.fillStyle = '#6b6b6b'; g.textAlign = 'left'; g.font = `700 30px ${fC}`; g.fillText('PARA', 44, 82);
+      g.fillStyle = VERDE; g.font = `800 96px ${fT}`; g.fillText(nomePara || 'você', 40, 176);
+      g.fillStyle = '#6b6b6b'; g.font = `500 28px ${fC}`; g.fillText('De AURA Fresh, Indaiatuba, SP', 44, 232);
+      g.fillStyle = VERDE; g.font = `700 34px ${fC}`; g.fillText(`Kit ${kitPotes} ${kitPotes > 1 ? 'potes' : 'pote'}, ${kitPotes * 30} doses`, 44, 300);
+      // código de barras
+      const r = rng(31); let x = 44; g.fillStyle = '#1d2a1f';
+      while (x < 440) { const b = 2 + Math.floor(r() * 7); g.fillRect(x, 340, b, 110); x += b + 3 + Math.floor(r() * 6); }
+      g.save(); g.translate(w - 150, 390); g.rotate(-0.18);
+      g.strokeStyle = '#3f9d6a'; g.lineWidth = 6; g.beginPath(); g.arc(0, 0, 92, 0, Math.PI * 2); g.stroke();
+      g.beginPath(); g.arc(0, 0, 78, 0, Math.PI * 2); g.lineWidth = 2; g.stroke();
+      g.fillStyle = '#3f9d6a'; g.textAlign = 'center'; g.font = `800 34px ${fT}`; g.fillText('FRETE', 0, -4); g.fillText('GRÁTIS', 0, 32); g.restore();
+    });
+    const refaz = () => telas.forEach(redesenha);
+    logo.onload = refaz; if (document.fonts) document.fonts.ready.then(refaz);
+    document.addEventListener('aura:kit', e => { kitPotes = e.detail.potes; redesenha(artEtiqueta); });
 
-    // fios de água do chão: saem da boca de trás do tubo e levam a água até cada letra
-    const rios = [];
-    function montaRios(wz) {
-      rios.forEach(r => { palavra.remove(r.m); r.geo.dispose(); }); rios.length = 0;
-      const bz = 9;
-      letras.forEach(L => {
-        const c = new T.CatmullRomCurve3([new T.Vector3(0, 0, bz), new T.Vector3(L.x * 0.35, 0, bz * 0.55), new T.Vector3(L.x * 0.9, 0, bz * 0.18), new T.Vector3(L.x, 0, 0.9)], false, 'centripetal');
-        const geo = new T.TubeGeometry(c, 90, 0.24, 14, false); geo.setDrawRange(0, 0);
-        const m = new T.Mesh(geo, mRio); m.scale.y = 0.18; m.position.y = 0.02; palavra.add(m);
-        rios.push({ m, geo });
-      });
+    const mat = (o, extra = {}) => new T.MeshStandardMaterial(Object.assign({ map: o.tx, roughness: 0.78, metalness: 0 }, extra));
+    const mBorda = new T.MeshStandardMaterial({ color: KRAFT, roughness: 0.9 });
+    const mFrente = mat(artFrente), mLado = mat(artLado), mDentro = mat(artDentro), mAba = mat(artAba), mMsg = mat(artMensagem);
+    const mFita = mat(artFita, { roughness: 0.35 }), mEtq = mat(artEtiqueta, { roughness: 0.6 });
+
+    // medidas: largura W, fundo D, altura H, espessura do papelão E
+    const W = 3.1, D = 3.1, H = 2.35, E = 0.05;
+    const caixa = new T.Group(); cena.add(caixa);
+    const base = new T.Mesh(new T.BoxGeometry(W, E, D).translate(0, E / 2, 0), [mBorda, mBorda, mDentro, mBorda, mBorda, mBorda]); caixa.add(base);
+    // cada parede: pivô na aresta de baixo, virada para fora (+z local); dobra = rotação em x (90° = deitada no chão)
+    const paredes = [
+      { rot: 0, larg: W, prof: D, fora: mFrente, abaFora: mAba, abaDentro: mDentro, por: 'cima' },
+      { rot: Math.PI, larg: W, prof: D, fora: mFrente, abaFora: mAba, abaDentro: mMsg, por: 'cima' },
+      { rot: Math.PI / 2, larg: D - 2 * E, prof: W, fora: mLado, abaFora: mAba, abaDentro: mDentro, por: 'baixo' },
+      { rot: -Math.PI / 2, larg: D - 2 * E, prof: W, fora: mLado, abaFora: mAba, abaDentro: mDentro, por: 'baixo' },
+    ].map(p => {
+      const giro = new T.Group(); giro.rotation.y = p.rot; caixa.add(giro);
+      const dobra = new T.Group(); dobra.position.z = p.prof / 2; giro.add(dobra);
+      const parede = new T.Mesh(new T.BoxGeometry(p.larg, H, E).translate(0, H / 2, -E / 2), [mBorda, mBorda, mBorda, mBorda, p.fora, mDentro]); dobra.add(parede);
+      const aba = new T.Group(); aba.position.set(0, H + (p.por === 'cima' ? E : 0), -E / 2); dobra.add(aba);
+      const L = p.prof / 2 - 0.01;
+      const abaM = new T.Mesh(new T.BoxGeometry(p.larg - 0.02, E, L).translate(0, E / 2, -L / 2), [mBorda, mBorda, p.abaFora, p.abaDentro, mBorda, mBorda]); aba.add(abaM);
+      return { ...p, giro, dobra, aba };
+    });
+    // papel de seda lima amassado: sai pela borda e cai por fora; dobra para dentro antes de fechar
+    const sedaGeo = new T.PlaneGeometry(3.55, 3.55, 44, 44); sedaGeo.rotateX(-Math.PI / 2);
+    const sPos = sedaGeo.attributes.position, sBase = Float32Array.from(sPos.array);
+    const seda = new T.Mesh(sedaGeo, new T.MeshStandardMaterial({ color: 0xdfe9b8, roughness: 0.85, side: T.DoubleSide })); caixa.add(seda);
+    const rS = rng(12), ruido = Array.from({ length: sPos.count }, () => rS());
+    function moldaSeda(k, dobra) {
+      const meio = W / 2 - E * 1.5;
+      for (let i = 0; i < sPos.count; i++) {
+        let x = sBase[i * 3], z = sBase[i * 3 + 2];
+        const m = Math.max(Math.abs(x), Math.abs(z)), n = (ruido[i] - 0.5) * 0.12 + Math.sin(x * 5) * Math.cos(z * 4) * 0.05;
+        let y;
+        if (m < meio) y = 0.1 + Math.pow(m / meio, 5) * (H - 0.15) + n;
+        else y = H + 0.06 - (m - meio) * 1.1 + n;
+        // dobrado: tudo para dentro, rente ao topo do pote
+        const xd = clamp(x, -meio + 0.02, meio - 0.02), zd = clamp(z, -meio + 0.02, meio - 0.02);
+        const yd = Math.min(y, H - 0.12) + (m > meio ? (m - meio) * 0.1 : 0);
+        sPos.setXYZ(i, lerp(x, xd, dobra), lerp(y, yd, dobra) * k + 0.06 * (1 - k), lerp(z, zd, dobra));
+      }
+      sPos.needsUpdate = true; sedaGeo.computeVertexNormals();
     }
+    // fita e etiqueta
+    const fita = new T.Mesh(new T.PlaneGeometry(1, 0.46).rotateX(-Math.PI / 2).translate(0.5, 0, 0), mFita); caixa.add(fita);
+    const fitaL = [1, -1].map(l => { const m = new T.Mesh(new T.PlaneGeometry(0.46, 0.7).translate(0, -0.35, 0), new T.MeshStandardMaterial({ color: ROSA, roughness: 0.35 })); m.rotation.y = l * Math.PI / 2; m.position.set(l * (W / 2 + 0.006), H + 2 * E, 0); caixa.add(m); return m; });
+    const etiqueta = new T.Mesh(new T.PlaneGeometry(1.7, 1.13).rotateX(-Math.PI / 2), mEtq); caixa.add(etiqueta);
+    const sombraCaixa = criaSombra(0.32, 5.2); cena.add(sombraCaixa);
 
-    // respingos quando cada letra sobe
-    const geoEsf = new T.SphereGeometry(1, 14, 10);
-    const r1 = rng(83), NR = reduz ? 24 : 96;
-    const respingo = new T.InstancedMesh(geoEsf, matAgua(0.45, { borda: 1, cor: 0xf4fffb }), NR); respingo.frustumCulled = false; cena.add(respingo);
-    const dR = Array.from({ length: NR }, (_, i) => ({ l: i % 4, a: r1() * Math.PI * 2, v: 0.6 + r1() * 1.6, vy: 1.5 + r1() * 2.6, tam: 0.03 + r1() * 0.07 }));
-    const mtx = new T.Matrix4(), qq = new T.Quaternion(), vv = new T.Vector3(), ss = new T.Vector3();
-    const poe = (i, x, y, z, s) => { vv.set(x, y, z); ss.setScalar(Math.max(0.0001, s)); mtx.compose(vv, qq, ss); respingo.setMatrixAt(i, mtx); };
+    // o pote e as folhas que giram com ele
+    const pote = criaPote(); pote.grupo.scale.setScalar(0.82); cena.add(pote.grupo);
+    const sombra = criaSombra(0.3, 3); cena.add(sombra);
+    const folhas = criaFolhas(14, 33); cena.add(folhas.grupo);
 
-    // o pote: dentro do tubo, sobe para perto da câmera, atravessa o tubo junto com ela e pousa na frente da palavra
-    const pote = criaPote(); cena.add(pote.grupo);
-    const sombra = criaSombra(0.28, 3.2); cena.add(sombra);
-
-    // cores por tema
     function temaCor() {
       const esc = document.documentElement.dataset.temaAtual === 'escuro';
       const cs = esc ? ['#0d1d1c', '#1b2523', '#1f3a33', '#0a1514'] : ['#d6eef0', '#f3d7e4', '#eaf6f4', '#eef5f3'];
       ['c1', 'c2', 'c3', 'c4'].forEach((k, i) => fundoU[k].value.set(cs[i]));
       mChao.color.set(esc ? '#0f201e' : '#e4f2ef'); mChao.envMapIntensity = esc ? 0.45 : 1.1;
-      [mOnda, mLetra, mRio].forEach(m => { m.attenuationColor.set(esc ? '#3fb3a6' : (m === mLetra ? '#4fbfb4' : '#6fcfc8')); m.attenuationDistance = esc ? 1.2 : (m === mLetra ? 0.75 : 1.9); });
-      rimU.value.set(esc ? '#bff3e2' : '#ffffff');
-      luz.intensity = esc ? 0.8 : 1.1;
+      luz.intensity = esc ? 0.9 : 1.15;
     }
     temaCor(); document.addEventListener('aura:tema', () => setTimeout(temaCor, 30));
 
-    let W = 0, H = 0, retrato = false, modo = '', WZ = -44, mx = 0, my = 0, tmx = 0, tmy = 0;
-    function ajusta() {
-      W = canvas.clientWidth; H = canvas.clientHeight; if (!W || !H) return;
-      renderer.setSize(W, H, false); renderer.getDrawingBufferSize(resU.value); cam.aspect = W / H; retrato = W / H < 0.85;
-      // no celular a palavra fica menor e mais longe, para caber inteira depois da saída do tubo
-      const m = retrato ? 'r' : 'p';
-      if (m !== modo) { modo = m; WZ = retrato ? -62 : -44; palavra.scale.setScalar(retrato ? 0.62 : 1); palavra.position.set(0, 0, WZ); montaRios(WZ); }
-    }
+    let W2 = 0, H2 = 0, retrato = false, mx = 0, my = 0, tmx = 0, tmy = 0;
+    function ajusta() { W2 = canvas.clientWidth; H2 = canvas.clientHeight; if (!W2 || !H2) return; renderer.setSize(W2, H2, false); renderer.getDrawingBufferSize(resU.value); cam.aspect = W2 / H2; retrato = W2 / H2 < 0.85; }
     new ResizeObserver(ajusta).observe(canvas); ajusta();
     addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; tmx = e.clientX / innerWidth - 0.5; tmy = e.clientY / innerHeight - 0.5; }, { passive: true });
     // ?mare-p=0.5 congela a cena num ponto da linha do tempo (para revisar quadro a quadro)
     const pFixo = (location.search.match(/[?&]mare-p=([\d.]+)/) || [])[1];
-
     let atual = 0, rodando = false, visivel = true;
     new IntersectionObserver(es => { visivel = es[0].isIntersecting; if (visivel) laco(); }).observe(sec);
-    const P = new T.Vector3(), L = new T.Vector3(), PH = new T.Vector3(), LH = new T.Vector3(), PE = new T.Vector3(), LE = new T.Vector3(), PF = new T.Vector3(), LF = new T.Vector3(), tmp = new T.Vector3();
-    const potI = new T.Vector3(), potV = new T.Vector3(), potF = new T.Vector3();
+    const alvo = new T.Vector3(), dir = new T.Vector3();
+    const quica = x => x < 1 ? 1 - Math.abs(Math.cos(x * Math.PI * 1.5)) * Math.pow(1 - x, 2) : 1;
 
     function quadro(p, agora) {
       const t = reduz ? 0 : agora / 1000;
       mx = lerp(mx, tmx, 0.05); my = lerp(my, tmy, 0.05);
-      correntes.forEach((c, i) => { c.offset.x = t * (i === 3 ? 0.01 : 0.04); c.offset.y = -t * (i === 3 ? 0.015 : 0.06); });
+      txChao.offset.set(t * 0.004, t * 0.006);
 
-      const k1 = suave(0.1, 0.34, p);             // aproxima do pote, ainda na boca do tubo
-      const k2 = suave(0.34, 0.66, p);            // desliza por dentro do tubo
-      const k3 = suave(0.62, 0.86, p);            // sai do tubo e abre na palavra
-      const tanV = deg => Math.tan(T.MathUtils.degToRad(deg / 2)) * 2;
+      // fases
+      const sobe = suave(0.06, 0.32, p);          // pote sobe girando
+      const surge = suave(0.12, 0.2, p);          // a chapa de papelão aparece no chão
+      const monta = suave(0.18, 0.36, p);         // paredes dobram e a caixa se forma
+      const desce = suave(0.36, 0.54, p);         // pote desce para dentro da caixa
+      const sedaD = suave(0.55, 0.61, p);         // papel de seda dobra por cima
+      const abaL = suave(0.58, 0.65, p), abaF = suave(0.63, 0.71, p); // abas: laterais e depois frente e fundo
+      const fitaK = suave(0.71, 0.77, p), etqK = suave(0.76, 0.82, p);
+      const mostra = suave(0.8, 0.95, p);         // a caixa gira e mostra a marca
 
-      // a onda só é refeita enquanto a câmera ainda pode vê-la
-      onda.visible = k3 < 0.999;
-      if (onda.visible) moldaOnda(t);
-      gotas.forEach((g, i) => {
-        const d = g.userData; espiral(1, d.s, t, ponto); espiral(0.995, d.s, t, pa);
-        const tx = ponto.x - pa.x, ty = ponto.y - pa.y, tl = Math.hypot(tx, ty) || 1;
-        const estica = 1.5 + Math.sin(t * 2 + d.fase) * 0.25;
-        g.position.set(ponto.x + tx / tl * 0.12, ponto.y + ty / tl * 0.12 - d.tam * estica, lerp(Z1, Z0, d.s));
-        g.scale.set(d.tam, d.tam * estica, d.tam);
+      // caixa: chapa plana, paredes sobem, abas abertas; depois fecham
+      caixa.scale.setScalar(Math.max(0.001, easeOut(surge)));
+      caixa.position.set(0, 0, 0);
+      caixa.rotation.y = lerp(0.35, -0.5, mostra) + (reduz ? 0 : Math.sin(t * 0.5) * 0.02 * (1 - mostra)) + mx * 0.15 * mostra;
+      paredes.forEach((pr, i) => {
+        const k = suave(0.18 + i * 0.03, 0.3 + i * 0.03, p);
+        pr.dobra.rotation.x = lerp(Math.PI / 2, 0, easeOut(k));
+        const fecha = pr.por === 'baixo' ? abaL : abaF;
+        // na chapa a aba continua a parede (90°); montada fica aberta para fora (115°); fechada deita (0°)
+        pr.aba.rotation.x = lerp(lerp(Math.PI / 2, pr.por === 'cima' ? 2.55 : 2.0, k), 0, easeOut(fecha));
+      });
+      moldaSeda(suave(0.3, 0.4, p), sedaD);
+      seda.visible = monta > 0.6;
+      fita.position.set(-W / 2 - 0.004, H + 2 * E + 0.004, 0); fita.scale.set(Math.max(0.001, (W + 0.01) * easeOut(fitaK)), 1, 1);
+      fita.visible = fitaK > 0;
+      fitaL.forEach((f, i) => { const k = suave(0.74 + i * 0.03, 0.78 + i * 0.03, p); f.visible = k > 0; f.scale.set(1, Math.max(0.001, k), 1); });
+      const pop = etqK <= 0 ? 0 : etqK >= 1 ? 1 : 1 - Math.pow(1 - etqK, 3) + Math.sin(etqK * Math.PI) * 0.18;
+      etiqueta.visible = etqK > 0; etiqueta.scale.setScalar(Math.max(0.001, pop));
+      etiqueta.position.set(0.32, H + 2 * E + 0.008, 0.86); etiqueta.rotation.y = -0.1;
+      sombraCaixa.material.opacity = 0.3 * surge; sombraCaixa.scale.setScalar(lerp(1.6, 1, monta)); sombraCaixa.rotation.z = caixa.rotation.y;
+
+      // pote: parado flutuando, sobe girando, desce e pousa no papel de seda
+      const fl = reduz ? 0 : Math.sin(t * 1.3) * 0.08;
+      const alto = 5.4;
+      const yS = lerp(0.95 + fl, alto + fl * 2, easeOut(sobe));
+      const yD = lerp(alto + fl * 2, 0.16, quica(desce));
+      const y = desce > 0 ? yD : yS;
+      pote.grupo.position.set(lerp(0, 0, desce), y, 0);
+      const voltas = sobe * Math.PI * 4 + desce * Math.PI * 1.25;
+      pote.grupo.rotation.set(Math.sin(sobe * Math.PI) * 0.35 * (1 - desce), voltas - 0.45 + mx * 0.3 * (1 - sobe), Math.sin(sobe * Math.PI * 2) * 0.18 * (1 - desce) - 0.12 * (1 - sobe));
+      pote.grupo.visible = abaF < 0.98; // some quando a caixa fecha
+      sombra.position.set(0, 0.01, 0); sombra.material.opacity = 0.3 * clamp(1 - (y - 0.9) / 4) * (1 - monta);
+      sombra.scale.setScalar(lerp(1, 0.6, clamp((y - 0.9) / 4)));
+
+      // folhas em órbita enquanto o pote gira
+      const fk = suave(0.06, 0.2, p) * (1 - suave(0.4, 0.52, p));
+      folhas.lista.forEach(f => {
+        const k = clamp((fk - f.atraso) / (1 - f.atraso));
+        const ang = f.ang + p * f.vel * 9 + (reduz ? 0 : t * 0.15);
+        f.f.position.set(Math.cos(ang) * f.raio * k, y - 0.6 + f.alt * k * 0.9, Math.sin(ang) * f.raio * k);
+        f.f.rotation.set(f.rx + p * 6, f.ry + p * 4, 0);
+        f.f.scale.setScalar(Math.max(0.001, k));
       });
 
-      // ----- câmera -----
-      let fov;
-      if (retrato) {
-        LH.set(0.2, 2.1, -0.5); const dI = Math.max(8.4 / tanV(30), 7.4 / (tanV(30) * cam.aspect));
-        PH.set(-0.1 + mx * 0.1, 0.16, 1).normalize().multiplyScalar(dI).add(LH);
-        PE.set(0, 2.05, 6.2); LE.set(-0.15, 1.75, -12);
-        const sc = palavra.scale.x, dF = Math.max(5.6 * sc / tanV(34), (LARG * sc + 1.4) / (tanV(34) * cam.aspect));
-        LF.set(0, 1.75 * sc, WZ); PF.set(0, 1.75 * sc + dF * 0.14, WZ + dF);
-      } else {
-        LH.set(0.3, 2.2, 0); const dI = Math.max(6.9 / tanV(30), 7.6 / (tanV(30) * cam.aspect));
-        PH.set(-0.14 + mx * 0.08, 0.14 - my * 0.04, 1).normalize().multiplyScalar(dI).add(LH);
-        PE.set(-0.2, 2.05, 4.8); LE.set(-0.7, 1.8, -12);
-        const dF = Math.max(5.8 / tanV(34), (LARG + 2.2) / (tanV(34) * cam.aspect));
-        LF.set(0, 1.9, WZ); PF.set(0, 1.9 + dF * 0.12, WZ + dF);
-      }
-      P.lerpVectors(PH, PE, k1); L.lerpVectors(LH, LE, k1);
-      const camZ = lerp(PE.z, Z1 - 3.5, k2);
-      if (k2 > 0) { P.set(PE.x + Math.sin(t * 0.7) * 0.05, PE.y + Math.cos(t * 0.6) * 0.04, camZ); L.set(LE.x, LE.y, camZ - 16); }
-      P.lerp(PF, k3); L.lerp(LF, k3);
-      fov = lerp(lerp(30, 40, k1), 34, k3);
-      cam.fov = fov; cam.position.copy(P); cam.lookAt(L);
-      if (retrato) cam.setViewOffset(W, H, 0, lerp(-H * 0.2, 0, k1) + H * 0.02 * k3, W, H);
-      else cam.setViewOffset(W, H, lerp(-W * 0.2, -W * 0.06, k1) * (1 - k3), H * 0.09 * k3, W, H);
+      // câmera: acompanha a subida, desce com o pote e termina olhando a caixa de cima
+      const tanV = Math.tan(T.MathUtils.degToRad(cam.fov / 2)) * 2;
+      const olhaY = lerp(lerp(lerp(1.15, 3.7, sobe), 1.55, desce), 1.3, mostra);
+      alvo.set(0, olhaY, 0);
+      const altV = lerp(lerp(lerp(5.6, 8.8, sobe), 7.6, desce), 6.6, mostra), largV = retrato ? 6.4 : 7;
+      const d = Math.max(altV / tanV, largV / (tanV * cam.aspect));
+      dir.set(lerp(0.12, 0.6, mostra) + mx * 0.15, lerp(lerp(lerp(0.22, 0.12, sobe), 0.78, desce), 0.62, mostra) - my * 0.06, 1).normalize();
+      cam.position.copy(dir).multiplyScalar(d).add(alvo); cam.lookAt(alvo);
+      if (retrato) cam.setViewOffset(W2, H2, 0, -H2 * 0.16, W2, H2);
+      else cam.setViewOffset(W2, H2, -W2 * 0.2, 0, W2, H2);
       cam.updateProjectionMatrix();
-
-      // ----- pote -----
-      const bob = reduz ? 0 : Math.sin(t * 1.2) * 0.05;
-      potI.set(0.35, 0.36 + bob * 0.4, -0.2);
-      potV.set(retrato ? 0.15 : 0.55, retrato ? 1.3 : 1.5, (k2 > 0 ? camZ : PE.z) - (retrato ? 5.6 : 5.2));
-      const sc = palavra.scale.x;
-      potF.set(retrato ? 2.2 : 4.1, 0.04, WZ + (retrato ? 5 : 3.6));
-      const kp = suave(0.1, 0.3, p), kf = suave(0.66, 0.86, p);
-      pote.grupo.position.lerpVectors(potI, potV, kp); pote.grupo.position.y += bob * kp * (1 - kf);
-      pote.grupo.position.lerp(potF, kf);
-      pote.grupo.scale.setScalar(lerp(lerp(0.85, retrato ? 0.48 : 0.66, kp), retrato ? 0.7 : 1, kf));
-      pote.grupo.rotation.set(lerp(lerp(0.12, 0.05, kp), -0.08, kf), lerp(-0.5, -0.4, kp) + p * 5.2 * (1 - kf) + kf * 0.15 + mx * 0.3, lerp(lerp(-0.32, -0.12, kp), -0.2, kf));
-      sombra.position.set(pote.grupo.position.x + 0.15, 0.01, pote.grupo.position.z);
-      sombra.material.opacity = (document.documentElement.dataset.temaAtual === 'escuro' ? 0.5 : 0.28) * (1 - kp * (1 - kf));
-
-      // ----- a água chega pelos fios e cada letra sobe, cheia -----
-      respingo.visible = false;
-      letras.forEach((Lt, i) => {
-        const kr = easeOut(suave(0.5 + i * 0.035, 0.62 + i * 0.035, p));
-        const ks = suave(0.8 + i * 0.02, 0.92 + i * 0.02, p); // depois que a letra enche, o fio entra nela e some
-        const ini = Math.floor(ks * 90) * 14 * 6;
-        rios[i].geo.setDrawRange(ini, Math.max(0, Math.floor(kr * 90) * 14 * 6 - ini));
-        const k = suave(0.58 + i * 0.045, 0.74 + i * 0.045, p);
-        const sobe = k <= 0 ? 0 : k >= 1 ? 1 : 1 - Math.pow(1 - k, 3) + Math.sin(k * Math.PI) * 0.14;
-        const larga = 1 + (1 - k) * 0.22 + (reduz ? 0 : Math.sin(t * 2.2 + i) * 0.006 * k);
-        Lt.m.scale.set(larga * Math.max(0.001, Math.min(1, k * 4)), Math.max(0.001, sobe), larga * Math.max(0.001, Math.min(1, k * 4)));
-        Lt.k = k;
-      });
-      for (let i = 0; i < NR; i++) {
-        const d = dR[i], k = letras[d.l].k, e = clamp(k / 0.55);
-        const vis = k > 0 && e < 1;
-        if (vis) respingo.visible = true;
-        const sc2 = palavra.scale.x, cx = letras[d.l].x * sc2;
-        const y = d.vy * e - 4.6 * e * e;
-        poe(i, cx + Math.cos(d.a) * d.v * e * 1.4 * sc2, Math.max(0, y) * sc2, WZ + Math.sin(d.a) * d.v * e * 0.6 + 0.4, vis && y > 0 ? d.tam * sc2 : 0);
-      }
-      respingo.instanceMatrix.needsUpdate = true;
-
       renderer.render(cena, cam);
+
       sec.style.setProperty('--p', p.toFixed(3));
-      sec.style.setProperty('--intro', (1 - suave(0.03, 0.12, p)).toFixed(3));
-      sec.style.setProperty('--meio', (suave(0.2, 0.28, p) * (1 - suave(0.42, 0.5, p))).toFixed(3));
+      sec.style.setProperty('--intro', (1 - suave(0.04, 0.12, p)).toFixed(3));
+      sec.style.setProperty('--meio', (suave(0.3, 0.38, p) * (1 - suave(0.62, 0.7, p))).toFixed(3));
       sec.style.setProperty('--fim', suave(0.8, 0.9, p).toFixed(3));
-      sec.classList.toggle('meio-on', p > 0.22 && p < 0.46);
+      sec.classList.toggle('meio-on', p > 0.32 && p < 0.66);
       sec.classList.toggle('fim-on', p > 0.82);
     }
     function laco() {
       if (rodando) return; rodando = true;
       const passo = agora => {
         if (!visivel) { rodando = false; return; }
-        const alvo = pFixo ? +pFixo : progresso(sec);
-        atual = reduz || pFixo ? alvo : lerp(atual, alvo, 0.085);
+        const alvoP = pFixo ? +pFixo : progresso(sec);
+        atual = reduz || pFixo ? alvoP : lerp(atual, alvoP, 0.085);
         quadro(atual, agora);
         requestAnimationFrame(passo);
       };

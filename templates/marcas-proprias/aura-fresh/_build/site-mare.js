@@ -150,7 +150,7 @@ function index() {
   </div>
   <div class="am-lista">
 ${ativos.map((a, i) => `    <button type="button" class="am" data-ativo="${a.id}" data-am style="--a-cor:${a.cor}">
-      <span class="am-foto"><img src="assets/img/${a.img}" alt="" loading="lazy"><svg class="am-crista" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path d=""/></svg></span>
+      <span class="am-foto"><span class="am-img"><img src="assets/img/${a.img}" alt="" loading="lazy" style="--w:${({ clorofila: 700, hortela: 500, salsa: 300 })[a.id] || 400}px"></span><svg class="am-crista" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path d=""/></svg></span>
       <span class="am-txt"><b>${a.nome}</b><small>${a.tecnico}</small><span>${a.frase}</span></span>
       <span class="am-qtd">${a.qtd}</span>
     </button>`).join('\n')}

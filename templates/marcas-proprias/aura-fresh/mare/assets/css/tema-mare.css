@@ -28,3 +28,6 @@
 [data-tema-atual="escuro"] .cmare-agua { stroke: #c4d997; }
 [data-tema-atual="escuro"] .mh-seletor { background: rgba(232, 243, 239, .08); }
 [data-tema-atual="escuro"] .mh-seletor button[aria-pressed="true"] { color: #0b1615; }
+[data-tema-atual="escuro"] .am-foto { background: radial-gradient(62% 56% at 50% 54%, rgba(196, 217, 151, .16), rgba(196, 217, 151, 0) 72%), linear-gradient(180deg, #14272a, #10201e); }
+[data-tema-atual="escuro"] .am-qtd { color: #c4d997; }
+[data-tema-atual="escuro"] .am-img img { filter: drop-shadow(0 16px 22px rgba(0, 0, 0, .45)); }

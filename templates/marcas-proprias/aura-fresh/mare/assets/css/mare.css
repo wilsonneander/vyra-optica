@@ -92,19 +92,21 @@ body.mare { background: var(--fundo); color: var(--frente); }
 .ativos-m { padding: 40px var(--g) 120px; }
 .am-cab { display: grid; grid-template-columns: 1.1fr 1fr; align-items: end; gap: 40px; margin-bottom: 50px; }
 .am-cab .lead { justify-self: end; }
-.am-lista { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 2vw, 28px); align-items: start; }
+.am-lista { display: grid; grid-template-columns: repeat(3, minmax(0, 360px)); justify-content: space-evenly; gap: clamp(14px, 2vw, 28px); align-items: start; }
 .am { --k: 0; position: relative; display: grid; gap: 18px; padding: 0; border: 0; background: none; color: var(--frente); text-align: left; cursor: pointer; }
 .am:nth-child(2) { margin-top: 80px; }
 .am:nth-child(3) { margin-top: 30px; }
-.am-foto { position: relative; display: block; aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: linear-gradient(180deg, rgba(95, 194, 174, .1), rgba(95, 194, 174, .28)); }
-.am-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; clip-path: inset(calc((1 - var(--k)) * 100%) 0 0 0); transform: scale(calc(1.12 - var(--k) * .12)); transition: transform .3s; }
-.am-crista { position: absolute; left: 0; right: 0; height: 40px; width: 100%; top: calc((1 - var(--k)) * 100% - 20px); fill: rgba(255, 255, 255, .5); opacity: calc(1 - var(--k) * .6); }
-.am:hover .am-foto img { transform: scale(1.04); }
+.am-foto { position: relative; display: block; aspect-ratio: 9 / 10; border-radius: 28px; overflow: hidden; background: radial-gradient(62% 56% at 50% 54%, rgba(255, 255, 255, .9), rgba(255, 255, 255, 0) 72%), linear-gradient(180deg, #e3f3f0, #cdeae4); }
+/* as fotos da marca são pequenas: aparecem inteiras e nunca maiores que o tamanho real (--w), sem estourar */
+.am-img { position: absolute; inset: 0; display: grid; place-items: center; padding: 56px 22px 22px; clip-path: inset(calc((1 - var(--k)) * 100%) 0 0 0); }
+.am-img img { width: min(var(--w), 100%); height: auto; max-height: 100%; object-fit: contain; filter: drop-shadow(0 16px 22px rgba(10, 30, 26, .22)); transform: translateY(calc((1 - var(--k)) * 24px)); transition: transform .4s var(--mola); }
+.am-crista { position: absolute; left: 0; right: 0; height: 40px; width: 100%; top: calc((1 - var(--k)) * 100% - 20px); fill: rgba(255, 255, 255, .5); opacity: calc((1 - var(--k)) * 1.6); }
+.am:hover .am-img img { transform: translateY(-6px) rotate(-2deg); }
 .am-txt { display: grid; gap: 2px; }
 .am-txt b { font: 800 30px/1 var(--f-t); letter-spacing: -.03em; }
 .am-txt small { font-size: 14px; font-style: italic; color: var(--suave); }
 .am-txt > span { margin-top: 8px; color: var(--suave); font-size: 16px; }
-.am-qtd { position: absolute; left: 20px; top: 18px; font: 800 clamp(30px, 2.8vw, 44px)/1 var(--f-t); letter-spacing: -.04em; color: #fff; text-shadow: 0 2px 18px rgba(10, 30, 26, .35); opacity: var(--k); }
+.am-qtd { position: absolute; left: 20px; top: 18px; font: 800 clamp(30px, 2.8vw, 44px)/1 var(--f-t); letter-spacing: -.04em; color: var(--agua-forte); opacity: var(--k); }
 
 /* ---------- ritual numa linha de água ---------- */
 .ritual-m { padding: 110px var(--g); background: linear-gradient(180deg, var(--fundo), #e7f3f1); }
@@ -192,7 +194,7 @@ body.mare { background: var(--fundo); color: var(--frente); }
   .am-lista { grid-template-columns: 1fr 1fr; }
   .am:nth-child(2) { margin-top: 50px; }
   .am:nth-child(3) { margin-top: 0; grid-column: 1 / -1; }
-  .am:nth-child(3) .am-foto { aspect-ratio: 16 / 10; }
+  .am:nth-child(3) .am-foto { aspect-ratio: 16 / 9; }
   .rm-passos { grid-template-columns: 1fr; gap: 26px; padding-top: 0; }
   .rm-linha { display: none; }
   .rm-passos li { grid-template-columns: 34px 1fr; column-gap: 16px; }
@@ -207,7 +209,7 @@ body.mare { background: var(--fundo); color: var(--frente); }
 
   .am-lista { grid-template-columns: 1fr; }
   .am:nth-child(2), .am:nth-child(3) { margin-top: 0; grid-column: auto; }
-  .am .am-foto, .am:nth-child(3) .am-foto { aspect-ratio: 5 / 4; }
+  .am .am-foto, .am:nth-child(3) .am-foto { aspect-ratio: 4 / 3; }
   .av { width: 300px; padding: 20px; }
   .ativos-m, .ritual-m, .rotulo-m, .aval-m, .mare .comprar, .mare .duvidas, .mare .contato { padding-top: 84px; padding-bottom: 84px; }
 }

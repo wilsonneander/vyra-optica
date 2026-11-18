@@ -89,6 +89,10 @@ function index() {
         <a class="mh-link" href="#formula">Ver o que tem dentro</a>
       </div>
     </div>
+    <div class="mh-meio">
+      <h2 class="mh-meio-t">Mistura na água<br><em>em segundos.</em></h2>
+      <a class="btn mh-comprar" href="${k1.url}" target="_blank" rel="noopener">Um mês de AURA <span>${k1.totalTxt}</span></a>
+    </div>
     <p class="mh-role" aria-hidden="true"><svg viewBox="0 0 20 28"><path d="M10 2C10 2 3 11 3 16a7 7 0 0 0 14 0C17 11 10 2 10 2Z"/></svg>Role</p>
     <div class="mh-fim">
       <h2 class="mh-fim-t">3 ativos.<br><em>Uma dose por dia.</em></h2>

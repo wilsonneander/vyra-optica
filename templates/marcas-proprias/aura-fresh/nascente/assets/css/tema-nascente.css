@@ -56,6 +56,8 @@
 [data-tema-atual="claro"] .palco-dica { color: #55803a; }
 [data-tema-atual="claro"] .gal figcaption { background: rgba(255, 255, 255, .85); color: var(--frente); }
 [data-tema-atual="claro"] .aval-nota b { color: #55803a; }
+[data-tema-atual="claro"] .aval-aspas { fill: #55803a; }
+[data-tema-atual="claro"] .aval-quem circle { stroke: #55803a; }
 [data-tema-atual="claro"] .estrelas svg { fill: rgba(29, 42, 31, .15); }
 [data-tema-atual="claro"] .estrelas svg.on { fill: #5f8f2f; }
 [data-tema-atual="claro"] .nascente .comprar { background: #e6ebd8; }

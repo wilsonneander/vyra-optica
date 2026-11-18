@@ -19,17 +19,22 @@ function cab(raiz = '') {
 </header>`;
 }
 
-// tela de carregamento: o nome da marca em branco enche de verde-claro, com onda, conforme a página carrega.
-// .carga-agua e .carga-onda são os mesmos ganchos do kit.js (o nível vai de y 140 a 28 nesse sistema).
-const carregandoMarca = (raiz = '') => `<div class="carga carga-marca" data-carga role="status" aria-live="polite">
+// tela de carregamento: só o nome da marca, com um líquido verde-claro que sobe dentro das letras.
+// .carga-agua é o gancho do kit.js (o nível vai de y 140 a 28 nesse sistema); fase e porcentagem ficam escondidas.
+const onda = (amp, periodo, ini, fim) => { let d = `M${ini} 0q${periodo / 2} ${-amp} ${periodo} 0`; for (let x = ini + periodo; x < fim; x += periodo) d += ` t${periodo} 0`; return d + `V200H${ini}Z`; };
+const carregandoMarca = (raiz = '') => `<div class="carga carga-marca" data-carga role="status" aria-label="Carregando AURA Fresh">
   <div class="carga-centro">
-    <svg class="cm-logo" viewBox="0 0 671 289" role="img" aria-label="AURA Fresh">
+    <svg class="cm-logo" viewBox="0 0 671 289" aria-hidden="true">
       <defs><mask id="cm-mascara" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="671" height="289"><image href="${raiz}assets/img/logo.png" width="671" height="289"/></mask></defs>
       <rect class="cm-vazio" width="671" height="289" mask="url(#cm-mascara)"/>
-      <g mask="url(#cm-mascara)"><g transform="translate(0 -60) scale(1 2.45)"><g class="carga-agua" transform="translate(0 140)"><path class="carga-onda" d="M-60 0q20-9 40 0t40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0V200H-60Z"/></g></g></g>
+      <g mask="url(#cm-mascara)"><g transform="translate(0 -60) scale(1 2.45)"><g class="carga-agua" transform="translate(0 140)"><g class="cm-balanca">
+        <path class="cm-onda-fundo" d="${onda(5, 120, -240, 1000)}"/>
+        <path class="carga-onda" d="${onda(4, 90, -180, 1000)}"/>
+        <g class="cm-bolhas"><circle cx="90" cy="60" r="3"/><circle cx="210" cy="70" r="2"/><circle cx="330" cy="64" r="2.6"/><circle cx="455" cy="72" r="2"/><circle cx="560" cy="58" r="3"/><circle cx="150" cy="80" r="1.8"/><circle cx="400" cy="84" r="1.6"/></g>
+      </g></g></g></g>
     </svg>
-    <p class="carga-fase" data-carga-fase>abrindo o pote</p>
-    <p class="carga-pct"><b data-carga-pct>0</b>%</p>
+    <p class="carga-fase" data-carga-fase hidden></p>
+    <p class="carga-pct" hidden><b data-carga-pct>0</b>%</p>
   </div>
 </div>`;
 
@@ -207,17 +212,23 @@ ${galeria.map(([img, alt, leg, forma]) => `      <figure class="gal gal-${forma}
 </section>
 
 <section class="aval" id="avaliacoes" aria-labelledby="aval-t">
-  <div class="aval-resumo" data-sobe>
+  <div class="aval-cab" data-sobe>
     <p class="apoio">Avaliações</p>
-    <h2 class="tit" id="aval-t">Quem toma,<br>conta.</h2>
-    <div class="aval-nota" data-revisar><b>${media}</b>${estrelas(5)}<span>média das ${avaliacoes.length} avaliações publicadas aqui. Total na loja: [preencher].</span></div>
-    <p class="aval-aviso">Experiências individuais, publicadas com autorização. Não são garantia de resultado.</p>
+    <h2 class="tit" id="aval-t">Quem toma,<br><em>conta.</em></h2>
+    <p class="aval-nota" data-revisar><b>${media}</b>${estrelas(5)}<span>média das ${avaliacoes.length} avaliações aqui. Total na loja: [preencher].</span></p>
   </div>
-  <div class="aval-grade">
-${avaliacoes.map((a, i) => `    <figure class="aval-card${i === 0 ? ' aval-foto' : ''}" data-revisar data-sobe>
-      ${i === 0 ? `<img src="assets/img/${a.img}" alt="Cliente com o pote de AURA Fresh" loading="lazy" width="540" height="960">` : ''}
-      <div class="aval-corpo">${estrelas(a.nota)}<blockquote>${a.texto}</blockquote><figcaption><span class="aval-ava"><img src="assets/img/${a.img}" alt="" loading="lazy"></span><span><b>${a.quem}</b><small>${a.cidade}, ${a.tag.toLowerCase()}</small></span></figcaption></div>
-    </figure>`).join('\n')}
+  <div class="aval-palco" data-aval data-sobe>
+    <svg class="aval-aspas" viewBox="0 0 60 44" aria-hidden="true"><path d="M0 44V27C0 11 8 2 24 0l2 7c-8 2-12 7-12 15h11v22Zm34 0V27c0-16 8-25 24-27l2 7c-8 2-12 7-12 15h11v22Z"/></svg>
+    <div class="aval-falas">
+${avaliacoes.map((a, i) => `      <figure class="aval-fala${i === 0 ? ' on' : ''}" data-fala="${i}" data-revisar${i === 0 ? '' : ' aria-hidden="true"'}>
+        <blockquote>${a.texto}</blockquote>
+        <figcaption><b>${a.quem}</b><span>${a.cidade}, ${a.tag.toLowerCase()}</span></figcaption>
+      </figure>`).join('\n')}
+    </div>
+    <div class="aval-quem" role="group" aria-label="Escolher avaliação">
+${avaliacoes.map((a, i) => `      <button type="button" data-fala-bt="${i}" aria-pressed="${i === 0}" aria-label="Avaliação ${i + 1} de ${avaliacoes.length}"><img src="assets/img/${a.img}" alt="" loading="lazy"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30"/></svg></button>`).join('\n')}
+    </div>
+    <p class="aval-aviso">Experiências individuais, publicadas com autorização. Não são garantia de resultado.</p>
   </div>
 </section>
 

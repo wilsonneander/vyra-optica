@@ -27,15 +27,19 @@
 
 </head>
 <body class="nascente">
-<div class="carga carga-marca" data-carga role="status" aria-live="polite">
+<div class="carga carga-marca" data-carga role="status" aria-label="Carregando AURA Fresh">
   <div class="carga-centro">
-    <svg class="cm-logo" viewBox="0 0 671 289" role="img" aria-label="AURA Fresh">
+    <svg class="cm-logo" viewBox="0 0 671 289" aria-hidden="true">
       <defs><mask id="cm-mascara" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="671" height="289"><image href="assets/img/logo.png" width="671" height="289"/></mask></defs>
       <rect class="cm-vazio" width="671" height="289" mask="url(#cm-mascara)"/>
-      <g mask="url(#cm-mascara)"><g transform="translate(0 -60) scale(1 2.45)"><g class="carga-agua" transform="translate(0 140)"><path class="carga-onda" d="M-60 0q20-9 40 0t40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0V200H-60Z"/></g></g></g>
+      <g mask="url(#cm-mascara)"><g transform="translate(0 -60) scale(1 2.45)"><g class="carga-agua" transform="translate(0 140)"><g class="cm-balanca">
+        <path class="cm-onda-fundo" d="M-240 0q60 -5 120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0V200H-240Z"/>
+        <path class="carga-onda" d="M-180 0q45 -4 90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0V200H-180Z"/>
+        <g class="cm-bolhas"><circle cx="90" cy="60" r="3"/><circle cx="210" cy="70" r="2"/><circle cx="330" cy="64" r="2.6"/><circle cx="455" cy="72" r="2"/><circle cx="560" cy="58" r="3"/><circle cx="150" cy="80" r="1.8"/><circle cx="400" cy="84" r="1.6"/></g>
+      </g></g></g></g>
     </svg>
-    <p class="carga-fase" data-carga-fase>abrindo o pote</p>
-    <p class="carga-pct"><b data-carga-pct>0</b>%</p>
+    <p class="carga-fase" data-carga-fase hidden></p>
+    <p class="carga-pct" hidden><b data-carga-pct>0</b>%</p>
   </div>
 </div>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -247,29 +251,38 @@
 </section>
 
 <section class="aval" id="avaliacoes" aria-labelledby="aval-t">
-  <div class="aval-resumo" data-sobe>
+  <div class="aval-cab" data-sobe>
     <p class="apoio">Avaliações</p>
-    <h2 class="tit" id="aval-t">Quem toma,<br>conta.</h2>
-    <div class="aval-nota" data-revisar><b>5,0</b><span class="estrelas" role="img" aria-label="Nota 5 de 5"><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg></span><span>média das 4 avaliações publicadas aqui. Total na loja: [preencher].</span></div>
-    <p class="aval-aviso">Experiências individuais, publicadas com autorização. Não são garantia de resultado.</p>
+    <h2 class="tit" id="aval-t">Quem toma,<br><em>conta.</em></h2>
+    <p class="aval-nota" data-revisar><b>5,0</b><span class="estrelas" role="img" aria-label="Nota 5 de 5"><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg></span><span>média das 4 avaliações aqui. Total na loja: [preencher].</span></p>
   </div>
-  <div class="aval-grade">
-    <figure class="aval-card aval-foto" data-revisar data-sobe>
-      <img src="assets/img/depo-1.webp" alt="Cliente com o pote de AURA Fresh" loading="lazy" width="540" height="960">
-      <div class="aval-corpo"><span class="estrelas" role="img" aria-label="Nota 5 de 5"><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg></span><blockquote>Nenhuma pastilha resolvia, no meio do dia o hálito já tinha voltado. Esse produto me deixa com a sensação de boca fresca por muito mais tempo.</blockquote><figcaption><span class="aval-ava"><img src="assets/img/depo-1.webp" alt="" loading="lazy"></span><span><b>[nome autorizado]</b><small>[cidade], rotina com aura fresh</small></span></figcaption></div>
-    </figure>
-    <figure class="aval-card" data-revisar data-sobe>
-      
-      <div class="aval-corpo"><span class="estrelas" role="img" aria-label="Nota 5 de 5"><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg></span><blockquote>Estou tomando há 10 dias. Meu marido comentou que meu hálito tem melhorado muito, principalmente de manhã.</blockquote><figcaption><span class="aval-ava"><img src="assets/img/depo-2.webp" alt="" loading="lazy"></span><span><b>[nome autorizado]</b><small>[cidade], depois do almoço</small></span></figcaption></div>
-    </figure>
-    <figure class="aval-card" data-revisar data-sobe>
-      
-      <div class="aval-corpo"><span class="estrelas" role="img" aria-label="Nota 5 de 5"><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg></span><blockquote>Eu usava enxaguante bucal umas três vezes por dia. Comecei a tomar esse pozinho com gosto de abacaxi e gostei de ter virado parte da rotina.</blockquote><figcaption><span class="aval-ava"><img src="assets/img/depo-4.webp" alt="" loading="lazy"></span><span><b>[nome autorizado]</b><small>[cidade], unboxing</small></span></figcaption></div>
-    </figure>
-    <figure class="aval-card" data-revisar data-sobe>
-      
-      <div class="aval-corpo"><span class="estrelas" role="img" aria-label="Nota 5 de 5"><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true" class="on"><path d="M12 2.8c.4 0 .7.2.9.6l2.3 4.7 5.1.8c.8.1 1.1 1.1.5 1.7l-3.7 3.6.9 5.1c.1.8-.7 1.4-1.4 1L12 17.9l-4.6 2.4c-.7.4-1.5-.2-1.4-1l.9-5.1L3.2 10.6c-.6-.6-.3-1.6.5-1.7l5.1-.8 2.3-4.7c.2-.4.5-.6.9-.6Z"/></svg></span><blockquote>Eu evitava dar risada perto de gente. Hoje me sinto muito mais à vontade.</blockquote><figcaption><span class="aval-ava"><img src="assets/img/depo-5.webp" alt="" loading="lazy"></span><span><b>[nome autorizado]</b><small>[cidade], no dia a dia</small></span></figcaption></div>
-    </figure>
+  <div class="aval-palco" data-aval data-sobe>
+    <svg class="aval-aspas" viewBox="0 0 60 44" aria-hidden="true"><path d="M0 44V27C0 11 8 2 24 0l2 7c-8 2-12 7-12 15h11v22Zm34 0V27c0-16 8-25 24-27l2 7c-8 2-12 7-12 15h11v22Z"/></svg>
+    <div class="aval-falas">
+      <figure class="aval-fala on" data-fala="0" data-revisar>
+        <blockquote>Nenhuma pastilha resolvia, no meio do dia o hálito já tinha voltado. Esse produto me deixa com a sensação de boca fresca por muito mais tempo.</blockquote>
+        <figcaption><b>[nome autorizado]</b><span>[cidade], rotina com aura fresh</span></figcaption>
+      </figure>
+      <figure class="aval-fala" data-fala="1" data-revisar aria-hidden="true">
+        <blockquote>Estou tomando há 10 dias. Meu marido comentou que meu hálito tem melhorado muito, principalmente de manhã.</blockquote>
+        <figcaption><b>[nome autorizado]</b><span>[cidade], depois do almoço</span></figcaption>
+      </figure>
+      <figure class="aval-fala" data-fala="2" data-revisar aria-hidden="true">
+        <blockquote>Eu usava enxaguante bucal umas três vezes por dia. Comecei a tomar esse pozinho com gosto de abacaxi e gostei de ter virado parte da rotina.</blockquote>
+        <figcaption><b>[nome autorizado]</b><span>[cidade], unboxing</span></figcaption>
+      </figure>
+      <figure class="aval-fala" data-fala="3" data-revisar aria-hidden="true">
+        <blockquote>Eu evitava dar risada perto de gente. Hoje me sinto muito mais à vontade.</blockquote>
+        <figcaption><b>[nome autorizado]</b><span>[cidade], no dia a dia</span></figcaption>
+      </figure>
+    </div>
+    <div class="aval-quem" role="group" aria-label="Escolher avaliação">
+      <button type="button" data-fala-bt="0" aria-pressed="true" aria-label="Avaliação 1 de 4"><img src="assets/img/depo-1.webp" alt="" loading="lazy"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30"/></svg></button>
+      <button type="button" data-fala-bt="1" aria-pressed="false" aria-label="Avaliação 2 de 4"><img src="assets/img/depo-2.webp" alt="" loading="lazy"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30"/></svg></button>
+      <button type="button" data-fala-bt="2" aria-pressed="false" aria-label="Avaliação 3 de 4"><img src="assets/img/depo-4.webp" alt="" loading="lazy"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30"/></svg></button>
+      <button type="button" data-fala-bt="3" aria-pressed="false" aria-label="Avaliação 4 de 4"><img src="assets/img/depo-5.webp" alt="" loading="lazy"><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30"/></svg></button>
+    </div>
+    <p class="aval-aviso">Experiências individuais, publicadas com autorização. Não são garantia de resultado.</p>
   </div>
 </section>
 

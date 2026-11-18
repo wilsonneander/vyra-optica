@@ -76,4 +76,22 @@
     }, { threshold: 0.5 }).observe(ad);
 
   }
+
+  // ---------- avaliações: uma fala por vez; o anel do rosto ativo enche e passa para a próxima ----------
+  const aval = $('[data-aval]');
+  if (aval) {
+    const falas = $$('[data-fala]', aval), bts = $$('[data-fala-bt]', aval);
+    let atual = 0;
+    const mostra = i => {
+      atual = (i + falas.length) % falas.length;
+      falas.forEach((f, k) => { f.classList.toggle('on', k === atual); f.setAttribute('aria-hidden', String(k !== atual)); });
+      bts.forEach((b, k) => { b.setAttribute('aria-pressed', String(k === atual)); });
+    };
+    bts.forEach((b, k) => {
+      b.addEventListener('click', () => mostra(k));
+      b.querySelector('circle').addEventListener('animationend', () => { if (k === atual) mostra(atual + 1); });
+    });
+    // o anel só conta enquanto a seção está na tela
+    new IntersectionObserver(es => aval.classList.toggle('vendo', es[0].isIntersecting), { threshold: 0.4 }).observe(aval);
+  }
 })();

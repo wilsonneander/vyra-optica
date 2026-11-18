@@ -27,15 +27,19 @@
 
 </head>
 <body class="nascente">
-<div class="carga carga-marca" data-carga role="status" aria-live="polite">
+<div class="carga carga-marca" data-carga role="status" aria-label="Carregando AURA Fresh">
   <div class="carga-centro">
-    <svg class="cm-logo" viewBox="0 0 671 289" role="img" aria-label="AURA Fresh">
+    <svg class="cm-logo" viewBox="0 0 671 289" aria-hidden="true">
       <defs><mask id="cm-mascara" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="671" height="289"><image href="assets/img/logo.png" width="671" height="289"/></mask></defs>
       <rect class="cm-vazio" width="671" height="289" mask="url(#cm-mascara)"/>
-      <g mask="url(#cm-mascara)"><g transform="translate(0 -60) scale(1 2.45)"><g class="carga-agua" transform="translate(0 140)"><path class="carga-onda" d="M-60 0q20-9 40 0t40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0V200H-60Z"/></g></g></g>
+      <g mask="url(#cm-mascara)"><g transform="translate(0 -60) scale(1 2.45)"><g class="carga-agua" transform="translate(0 140)"><g class="cm-balanca">
+        <path class="cm-onda-fundo" d="M-240 0q60 -5 120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0 t120 0V200H-240Z"/>
+        <path class="carga-onda" d="M-180 0q45 -4 90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0 t90 0V200H-180Z"/>
+        <g class="cm-bolhas"><circle cx="90" cy="60" r="3"/><circle cx="210" cy="70" r="2"/><circle cx="330" cy="64" r="2.6"/><circle cx="455" cy="72" r="2"/><circle cx="560" cy="58" r="3"/><circle cx="150" cy="80" r="1.8"/><circle cx="400" cy="84" r="1.6"/></g>
+      </g></g></g></g>
     </svg>
-    <p class="carga-fase" data-carga-fase>abrindo o pote</p>
-    <p class="carga-pct"><b data-carga-pct>0</b>%</p>
+    <p class="carga-fase" data-carga-fase hidden></p>
+    <p class="carga-pct" hidden><b data-carga-pct>0</b>%</p>
   </div>
 </div>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>

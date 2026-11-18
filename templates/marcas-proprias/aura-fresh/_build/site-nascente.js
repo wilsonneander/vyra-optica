@@ -19,6 +19,20 @@ function cab(raiz = '') {
 </header>`;
 }
 
+// tela de carregamento: o nome da marca em branco enche de verde-claro, com onda, conforme a página carrega.
+// .carga-agua e .carga-onda são os mesmos ganchos do kit.js (o nível vai de y 140 a 28 nesse sistema).
+const carregandoMarca = (raiz = '') => `<div class="carga carga-marca" data-carga role="status" aria-live="polite">
+  <div class="carga-centro">
+    <svg class="cm-logo" viewBox="0 0 671 289" role="img" aria-label="AURA Fresh">
+      <defs><mask id="cm-mascara" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="671" height="289"><image href="${raiz}assets/img/logo.png" width="671" height="289"/></mask></defs>
+      <rect class="cm-vazio" width="671" height="289" mask="url(#cm-mascara)"/>
+      <g mask="url(#cm-mascara)"><g transform="translate(0 -60) scale(1 2.45)"><g class="carga-agua" transform="translate(0 140)"><path class="carga-onda" d="M-60 0q20-9 40 0t40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0 40 0V200H-60Z"/></g></g></g>
+    </svg>
+    <p class="carga-fase" data-carga-fase>abrindo o pote</p>
+    <p class="carga-pct"><b data-carga-pct>0</b>%</p>
+  </div>
+</div>`;
+
 function pagina({ titulo, desc, corpo, raiz = '', scripts3d = false }) {
   return `<!doctype html>
 <html lang="pt-BR" data-site="aura-nascente" data-tema-padrao="escuro">
@@ -26,7 +40,7 @@ function pagina({ titulo, desc, corpo, raiz = '', scripts3d = false }) {
 ${X.head({ titulo, desc, css: ['produto.css', 'nascente.css', 'tema-nascente.css'], raiz })}
 </head>
 <body class="nascente">
-${X.carregando(raiz)}
+${carregandoMarca(raiz)}
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 ${cab(raiz)}
 <main id="conteudo">

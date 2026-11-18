@@ -92,20 +92,19 @@
 
 /* ---------- imagens da marca: trilho que anda de lado ---------- */
 .galeria { position: relative; background: var(--fundo); }
-.galeria-fixo { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; align-items: center; overflow: hidden; }
-.galeria-trilho { display: flex; align-items: center; gap: 22px; padding: 0 var(--g); will-change: transform; }
-.galeria-cab { position: absolute; left: var(--g); top: 96px; z-index: 2; pointer-events: none; }
-.galeria-cab .lead { margin-top: 12px; }
-.galeria-trilho::before { content: ""; flex: 0 0 min(560px, 40vw); }
-.gal { position: relative; flex: none; height: 50vh; margin: 0; border-radius: 24px; overflow: hidden; background: var(--cartao); }
+.galeria-fixo { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: 34px; padding-top: 70px; overflow: hidden; }
+.galeria-trilho { display: flex; align-items: center; gap: 22px; padding: 0 var(--g); width: max-content; will-change: transform; }
+.galeria-cab { display: grid; grid-template-columns: 1fr minmax(0, 320px); align-items: end; column-gap: 30px; padding: 0 var(--g); }
+.galeria-cab .apoio { grid-column: 1 / -1; }
+.galeria-cab .lead { margin: 0; max-width: 300px; }
+.gal { position: relative; flex: none; height: min(48vh, 460px); margin: 0; border-radius: 24px; overflow: hidden; background: var(--cartao); }
 .gal-quad { aspect-ratio: 1; }
 .gal-larga { aspect-ratio: 4 / 3; }
 .gal img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--mola); }
 .gal:hover img { transform: scale(1.05); }
 .gal figcaption { position: absolute; left: 16px; right: 16px; bottom: 16px; padding: 12px 14px; border-radius: 14px; background: rgba(7, 11, 9, .7); backdrop-filter: blur(8px); color: #eef1e6; font-size: 14px; }
-.gal:nth-child(even) { margin-top: 10vh; }
-.gal:nth-child(odd):not(:first-child) { margin-top: -8vh; }
-.gal-fim { display: grid; align-content: space-between; width: auto; height: 50vh; aspect-ratio: 1; padding: 34px; background: var(--lima); color: var(--tinta); text-decoration: none; }
+.gal:nth-child(even) { transform: translateY(18px); }
+.gal-fim { display: grid; align-content: space-between; width: auto; height: min(48vh, 460px); aspect-ratio: 1; padding: 34px; background: var(--lima); color: var(--tinta); text-decoration: none; }
 .gal-fim span { font: 800 clamp(30px, 3vw, 46px)/1 var(--f-t); letter-spacing: -.03em; }
 .gal-fim b { display: inline-flex; gap: 10px; align-items: center; font: 700 16px var(--f-c); }
 .gal-fim svg { width: 20px; }
@@ -184,9 +183,11 @@
   .fg-salsa, .fg-hortela { margin-top: 0; }
   .aval-resumo { position: static; }
   .galeria-fixo { position: relative; height: auto; display: block; padding: 110px 0 60px; }
-  .galeria-cab { position: static; padding: 0 var(--g); margin-bottom: 34px; }
+  .galeria-cab { display: block; margin-bottom: 30px; }
+  .galeria-cab .lead { margin-top: 12px; }
+  .galeria-trilho { width: auto; }
+  .gal:nth-child(even) { transform: none; }
   .galeria-trilho { overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
-  .galeria-trilho::before { display: none; }
   .gal, .gal-fim { height: auto; width: 78vw; scroll-snap-align: center; margin-top: 0 !important; }
   .gal-larga { aspect-ratio: 1; }
   .ad { gap: 40px; }
@@ -208,3 +209,17 @@
   .aval-grade { columns: 1; }
   .gota-intro .tit-g { font-size: clamp(44px, 13vw, 64px); }
 }
+
+/* ---------- carregamento: o nome da marca enchendo como um copo ---------- */
+.carga-marca { background: #070b09; color: #eef1e6; }
+.cm-logo { width: min(440px, 72vw); height: auto; overflow: visible; }
+.cm-vazio { fill: rgba(238, 241, 230, .9); }
+.carga-marca .carga-onda { fill: #c4d997 !important; animation: cm-mar 1.6s linear infinite; }
+@keyframes cm-mar { to { transform: translateX(-80px); } }
+.carga-marca .carga-fase { margin-top: 26px; color: var(--lima); }
+.carga-marca .carga-pct { font-size: 40px; }
+[data-tema-atual="claro"] .carga-marca { background: #f1f2e8; color: #1d2a1f; }
+[data-tema-atual="claro"] .carga-marca .cm-vazio { fill: rgba(29, 42, 31, .16); }
+[data-tema-atual="claro"] .carga-marca .carga-onda { fill: #9cbc5c !important; }
+[data-tema-atual="claro"] .carga-marca .carga-fase { color: #55803a; }
+@media (prefers-reduced-motion: reduce) { .carga-marca .carga-onda { animation: none; } }

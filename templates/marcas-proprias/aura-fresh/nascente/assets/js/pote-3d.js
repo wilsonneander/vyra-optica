@@ -623,7 +623,7 @@
     let W = 0, H = 0, visivel = false, rodando = false;
     function ajusta() {
       W = canvas.clientWidth; H = canvas.clientHeight; if (!W || !H) return;
-      renderer.setSize(W, H, false); cam.aspect = W / H;
+      renderer.setSize(W, H, false); cam.aspect = W / H; cam.updateProjectionMatrix();
     }
     new ResizeObserver(ajusta).observe(canvas); ajusta();
 
@@ -669,6 +669,7 @@
       const tanV = Math.tan(T.MathUtils.degToRad(cam.fov / 2)) * 2;
       const d = Math.max(lerp(3.4, 5.4, sai) / tanV, lerp(3.2, 4.8, sai) / (tanV * cam.aspect));
       cam.position.set(0, lerp(2.1, 3.6, sai), d); cam.lookAt(lerp(0, 0.4, sai), lerp(1.0, 1.55, sai), 0);
+      cam.updateProjectionMatrix();
       renderer.render(cena, cam);
     }
     function laco() {

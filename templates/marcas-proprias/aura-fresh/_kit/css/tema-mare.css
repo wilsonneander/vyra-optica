@@ -1,0 +1,28 @@
+/* AURA Fresh, modelo 5: nasce claro (água de manhã). Aqui fica a versão escura: água de noite, verde-azulado e lima.
+   A cena do pote continua verde-noite nos dois temas. */
+:root { --rolagem: #2a8a72; --rolagem-fundo: #e7f3f1; --tema-fundo: rgba(22, 48, 42, .07); }
+[data-tema-atual="escuro"] { --rolagem: #c4d997; --rolagem-fundo: #0b1615; --tema-fundo: rgba(238, 241, 230, .08); }
+[data-tema-atual="escuro"] .mare {
+  --fundo: #0b1615; --frente: #e8f3ef; --suave: rgba(232, 243, 239, .7); --linha: rgba(232, 243, 239, .14);
+  --cartao: #132320; --cartao-tinta: #e8f3ef; --acento: #c4d997; --acento-tinta: #10221e; --enfase: #9fdcc8; --agua: #3fb39a; --agua-forte: #3fb39a;
+}
+[data-tema-atual="escuro"] body.mare { background: #0b1615; color: #e8f3ef; }
+[data-tema-atual="escuro"] .mare .cab-logo img, [data-tema-atual="escuro"] .cmare-logo { filter: none; }
+[data-tema-atual="escuro"] .mare .cab.rolado { background: rgba(11, 22, 21, .85); }
+[data-tema-atual="escuro"] .mare .cab-bt { background: rgba(232, 243, 239, .1); }
+[data-tema-atual="escuro"] .mh-fixo { background: linear-gradient(105deg, #0d1d1c, #1f3a33 60%, #1b2523); }
+[data-tema-atual="escuro"] .mh-comprar { color: #0b1615; }
+[data-tema-atual="escuro"] .enche-frase span { color: rgba(232, 243, 239, .12); }
+[data-tema-atual="escuro"] .em-a { fill: rgba(63, 179, 154, .2); }
+[data-tema-atual="escuro"] .em-b { fill: rgba(196, 217, 151, .08); }
+[data-tema-atual="escuro"] .ritual-m { background: linear-gradient(180deg, #0b1615, #10201e); }
+[data-tema-atual="escuro"] .aval-m { background: linear-gradient(180deg, #1d1a20 0%, #0b1615 100%); }
+[data-tema-atual="escuro"] .av { background: rgba(232, 243, 239, .06); }
+[data-tema-atual="escuro"] .av-faixa[data-faixa="-1"] .av { background: #c4d997; color: #10221e; --suave: rgba(16, 34, 30, .7); }
+[data-tema-atual="escuro"] .estrelas svg { fill: rgba(232, 243, 239, .15); }
+[data-tema-atual="escuro"] .estrelas svg.on { fill: #c4d997; }
+[data-tema-atual="escuro"] .mare .comprar { background: #10201e; }
+[data-tema-atual="escuro"] .rot-item { box-shadow: inset 0 0 0 1px var(--linha); }
+[data-tema-atual="escuro"] .carga-mare { background: linear-gradient(105deg, #0d1d1c, #1f3a33); }
+[data-tema-atual="escuro"] .cmare-trilho { stroke: rgba(232, 243, 239, .16); }
+[data-tema-atual="escuro"] .cmare-agua { stroke: #c4d997; }

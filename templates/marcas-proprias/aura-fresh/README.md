@@ -1,4 +1,4 @@
-# AURA Fresh: quatro modelos premium (Marcas Próprias)
+# AURA Fresh: cinco modelos premium (Marcas Próprias)
 
 Cliente da NexusAg. Suplemento alimentar em pó com clorofila, salsa e hortelã, uma dose por dia (https://useaurafresh.com).
 Referência de animação 3D: modelo N3 Drinks (Bebidas & Conveniências), usada só para o comportamento do 3D. Marca, cores, fontes, textos e fotos são da AURA Fresh.
@@ -9,8 +9,9 @@ Referência de animação 3D: modelo N3 Drinks (Bebidas & Conveniências), usada
 | `guia/` | Modelo 2 "Diário": conteúdo e guia de uso | Editorial claro, sem WebGL. Guia de uso (HowTo), comparador de rotina lado a lado (hábitos, não resultado), rótulo aberto em 2D com pontos, relatos, blog com 4 artigos, SEO (Organization, Product com ofertas, FAQPage, Article, BreadcrumbList, sitemap.xml, robots.txt, canonical). |
 | `clube/` | Modelo 3 "Ritual": tudo do modelo 1 + Área do cliente | Claro (papel, rosa e lima). Hero 3D do ritual: a água sobe no copo, a colher leva a dose, o pó cai e a água fica verde. Botões "ao acordar, depois do almoço, no fim do dia" trocam a luz da cena. Sanfona de ativos, rótulo claro, mês de 30 doses, kits e `cliente.html`. |
 | `nascente/` | Modelo 4 "Nascente": segunda versão premium do produto | Preto-água (claro no papel). Hero da gota: a gota cai na lâmina d'água, espirra a coroa, o rebote sobe e vira uma fita de água em espiral que aperta até o tamanho do pote; a água preenche o molde de baixo para cima e o pote verde nasce atrás dela, sobe da água e gira, com gotas e folhas suspensas e o seletor de kit. Fórmula em três gotas (paralaxe, abre o modal), pote em 3D para girar e abrir com a ficha do rótulo em abas (no lugar do "Tira o rótulo" dos modelos 1 e 3), vídeo da marca, imagens da marca em trilho lateral, antes e depois arrastável, avaliações, kits, FAQ e contato. |
+| `mare/` | Modelo 5 "Maré": terceira versão premium do produto | Claro (água e rosa), tipografia grande. Hero inspirado na primeira seção de ascentastudio.com/soft: uma onda de água enrolada em volta do pote; com a rolagem ela quebra, afunda e a água desce desenhando as letras AURA em 3D, com um fio d'água no chão até o pote e os 3 ativos embaixo. Depois: o pote que abre com as folhas (a cena do modelo 1), frase que enche de água, ativos revelados por uma crista de onda, ritual numa linha de água, rótulo em sanfona, avaliações em duas faixas que correm com a rolagem, kits, FAQ e contato. |
 
-Os quatro abrem direto pelo `index.html` (sem servidor).
+Os cinco abrem direto pelo `index.html` (sem servidor).
 
 ## Peças comuns de navegação
 
@@ -24,11 +25,11 @@ Os quatro abrem direto pelo `index.html` (sem servidor).
 ## Gerar
 
 ```
-node templates/marcas-proprias/aura-fresh/_build/build.js            # os quatro
+node templates/marcas-proprias/aura-fresh/_build/build.js            # os cinco
 node templates/marcas-proprias/aura-fresh/_build/build.js clube      # só um
 ```
 
-Nunca editar `produto/`, `guia/`, `clube/` ou `nascente/` à mão: tudo sai de `_build/` e `_kit/`.
+Nunca editar `produto/`, `guia/`, `clube/`, `nascente/` ou `mare/` à mão: tudo sai de `_build/` e `_kit/`.
 
 | Arquivo | O que é |
 |---|---|
@@ -80,3 +81,11 @@ A frase "resultados em até 14 dias" do site atual **não foi usada** em nenhum 
 - **Tela de carregamento**: no Nascente só a logo (menor), em branco, com um líquido verde-claro que sobe dentro das letras em duas ondas, balança e solta bolhas; sem fase nem porcentagem (`carregandoMarca` em `site-nascente.js`, mesmos ganchos do `kit.js`).
 - **Pote em 3D com a ficha do rótulo** (`#pote-3d`, âncora `#rotulo` na ficha; `iniciaPalco` em pote-3d.js): arrasta para girar com inércia, botões para abrir a tampa (solta o pó), frente e verso. Ao lado, abas Composição (cada ativo é uma gota cheia na proporção da dose), Modo de uso, Advertências com contraindicações e Registro; trocar de aba gira o pote para a frente ou o verso. O Nascente não tem a seção "Tira o rótulo" nem a etiqueta impressa dos outros modelos.
 - **Avaliações**: uma fala por vez num cartão compacto; os rostos trocam a fala e o anel do rosto ativo enche em 7 s e passa para a próxima (pausa no hover). Relatos do site atual com nota 5 de exemplo. Pendente: nota e total reais da plataforma de avaliações (hoje "[preencher]") e autorização de cada pessoa.
+
+## Modelo 5 "Maré": peças próprias
+
+- **Onda que vira AURA** (`iniciaMare` em `_kit/js/pote-3d.js`): a onda é um perfil em espiral com espessura e lábio redondo, puxado em profundidade e refeito a cada quadro; a água é vidro líquido (transmission do three.js, listras de corrente no mapa de normais) refratando um degradê pintado dentro da própria cena. As letras são tubos que crescem de cima para baixo (`letras` define cada traço). O chão se dissolve no mesmo degradê do fundo, sem linha de horizonte.
+- **Revisar quadro a quadro**: `index.html?mare-p=0.5` congela a cena naquele ponto (0 a 1).
+- **O pote, de perto**: a mesma cena do hero do modelo 1 (`data-hero-pote`), num bloco verde-noite nos dois temas.
+- **Página** (`_kit/js/mare.js`): frase que enche de água, crista de onda que revela as fotos dos ativos, linha de água do ritual e faixas de avaliações que aceleram com a rolagem.
+- Tema claro de padrão (`aura-mare-tema`); o escuro vira água de noite.

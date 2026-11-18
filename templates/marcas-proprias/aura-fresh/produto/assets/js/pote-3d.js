@@ -603,6 +603,349 @@
     laco();
   }
 
+  // ---------- HERO da Maré: a onda de água se enrola em volta do pote, quebra, desce e escreve AURA ----------
+  // Linha do tempo (p de 0 a 1, guiada pela rolagem):
+  //   0,00 a 0,10  a onda parada, enrolada em volta do pote, com a água correndo e gotas no lábio
+  //   0,10 a 0,46  a onda quebra: o lábio enrola para baixo, a onda afunda na lâmina e solta respingos
+  //   0,20 a 0,68  a água desce de cima para baixo e desenha A, U, R, A (tubos de água que crescem)
+  //   0,14 a 0,62  a câmera abre e centraliza a palavra; o pote fica na frente, inclinado
+  //   0,56 a 0,80  um fio de água corre pelo chão até o pote
+  //   0,74 a 1,00  palavra pronta, os três ativos aparecem
+  // A água é vidro líquido (transmission do three) refratando um fundo pintado dentro da própria cena.
+  function texturaCorrente() {
+    // mapa de normais em listras que seguem o giro da onda (sem emenda nos dois sentidos)
+    const W = 256, H = 256, c = document.createElement('canvas'); c.width = W; c.height = H;
+    const g = c.getContext('2d'), img = g.createImageData(W, H), d = img.data, P2 = Math.PI * 2;
+    const alt = (x, y) => { const u = x / W * P2, v = y / H * P2; return 0.55 * Math.sin(v * 5 + Math.sin(u * 2) * 1.4) + 0.3 * Math.sin(v * 12 + u + Math.sin(u * 3 + v * 2)) + 0.18 * Math.sin(u * 4 + v * 3); };
+    const hs = new Float32Array(W * H);
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) hs[y * W + x] = alt(x, y);
+    const h = (x, y) => hs[((y + H) % H) * W + ((x + W) % W)];
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      let nx = (h(x - 1, y) - h(x + 1, y)) * 3, ny = (h(x, y - 1) - h(x, y + 1)) * 3, nz = 1;
+      const l = Math.hypot(nx, ny, nz); nx /= l; ny /= l; nz /= l;
+      const i = (y * W + x) * 4; d[i] = (nx * 0.5 + 0.5) * 255; d[i + 1] = (ny * 0.5 + 0.5) * 255; d[i + 2] = (nz * 0.5 + 0.5) * 255; d[i + 3] = 255;
+    }
+    g.putImageData(img, 0, 0);
+    const t = new T.CanvasTexture(c); t.wrapS = t.wrapT = T.RepeatWrapping;
+    return t;
+  }
+  function iniciaMare() {
+    const sec = document.querySelector('[data-mare]');
+    const canvas = sec && sec.querySelector('canvas.mare-3d');
+    if (!canvas) return;
+    const renderer = criaRenderer(canvas); renderer.setPixelRatio(Math.min(devicePixelRatio, 1.75));
+    const cena = new T.Scene(); cena.environment = criaAmbiente(renderer, 0xb9c9c6);
+    const luz = new T.DirectionalLight(0xfff8f0, 1.1); luz.position.set(-6, 9, 7); cena.add(luz);
+    const contra = new T.DirectionalLight(0xf0c6d7, 0.7); contra.position.set(6, 4, -6); cena.add(contra);
+    cena.add(new T.HemisphereLight(0xeafaf6, 0x9fb5b0, 0.45));
+    const cam = new T.PerspectiveCamera(30, 1, 0.1, 200);
+
+    // fundo pintado dentro da cena (a água refrata o que está atrás dela, inclusive o degradê)
+    const fundoU = { c1: { value: new T.Color() }, c2: { value: new T.Color() }, c3: { value: new T.Color() }, c4: { value: new T.Color() } };
+    const fundo = new T.Mesh(new T.PlaneGeometry(2, 2), new T.ShaderMaterial({
+      uniforms: fundoU, depthWrite: false, depthTest: false,
+      vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.9999, 1.0); }',
+      fragmentShader: `uniform vec3 c1; uniform vec3 c2; uniform vec3 c3; uniform vec3 c4; varying vec2 vUv;
+        void main(){
+          vec3 a = mix(c1, c2, smoothstep(0.0, 1.0, vUv.x * 0.85 + (1.0 - vUv.y) * 0.15));
+          a = mix(a, c3, (1.0 - smoothstep(0.0, 0.62, distance(vUv, vec2(0.66, 0.56)))) * 0.75);
+          a = mix(a, c4, smoothstep(0.72, 0.18, vUv.y) * 0.85);
+          gl_FragColor = vec4(a, 1.0);
+          #include <encodings_fragment>
+        }`,
+    }));
+    fundo.frustumCulled = false; fundo.renderOrder = -10; cena.add(fundo);
+
+    // água: vidro líquido com listras de corrente e borda clara
+    const corrente = texturaCorrente();
+    const rimU = { value: new T.Color(0xffffff) };
+    function matMar(espessura = 1.1, rep = [3, 4], rug = 0.05) {
+      const tx = corrente.clone(); tx.needsUpdate = true; tx.repeat.set(rep[0], rep[1]);
+      const m = new T.MeshPhysicalMaterial({ color: 0xffffff, transmission: 1, thickness: espessura, ior: 1.33, roughness: rug, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.04, envMapIntensity: 1.7, specularIntensity: 1, attenuationColor: new T.Color(0x6fcfc8), attenuationDistance: 1.9, normalMap: tx, normalScale: new T.Vector2(0.28, 0.28), side: T.FrontSide });
+      m.onBeforeCompile = sh => {
+        sh.uniforms.uRim = rimU;
+        sh.fragmentShader = 'uniform vec3 uRim;\n' + sh.fragmentShader.replace('#include <dithering_fragment>', `#include <dithering_fragment>
+          float fres = pow(1.0 - clamp(abs(dot(normalize(normal), normalize(vViewPosition))), 0.0, 1.0), 2.2);
+          gl_FragColor.rgb = mix(gl_FragColor.rgb, uRim, fres * 0.7);`);
+      };
+      m.customProgramCacheKey = () => 'mar';
+      return m;
+    }
+    const mOnda = matMar(1.6, [4, 3], 0.16), mLetra = matMar(1.2, [2, 3], 0.08);
+    const correntes = [mOnda.normalMap, mLetra.normalMap];
+
+    // lâmina d'água do chão: opaca e polida (esconde a base da onda), com anéis quando a onda bate
+    const chaoGeo = new T.PlaneGeometry(70, 70, reduz ? 60 : 150, reduz ? 60 : 150);
+    const txChao = corrente.clone(); txChao.needsUpdate = true; txChao.repeat.set(14, 14); correntes.push(txChao);
+    const mChao = new T.MeshPhysicalMaterial({ color: 0xe6f3f0, roughness: 0.12, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.08, envMapIntensity: 1.1, normalMap: txChao, normalScale: new T.Vector2(0.12, 0.12) });
+    // o chão se dissolve no mesmo degradê do fundo conforme se afasta (sem linha de horizonte)
+    const resU = { value: new T.Vector2(1, 1) };
+    mChao.onBeforeCompile = sh => {
+      Object.assign(sh.uniforms, fundoU, { uRes: resU });
+      sh.fragmentShader = 'uniform vec3 c1; uniform vec3 c2; uniform vec3 c3; uniform vec3 c4; uniform vec2 uRes;\n' + sh.fragmentShader.replace('#include <dithering_fragment>', `#include <dithering_fragment>
+        vec2 su = gl_FragCoord.xy / uRes;
+        vec3 bg = mix(c1, c2, smoothstep(0.0, 1.0, su.x * 0.85 + (1.0 - su.y) * 0.15));
+        bg = mix(bg, c3, (1.0 - smoothstep(0.0, 0.62, distance(su, vec2(0.66, 0.56)))) * 0.75);
+        bg = mix(bg, c4, smoothstep(0.72, 0.18, su.y) * 0.85);
+        float longe = smoothstep(9.0, 24.0, length(vViewPosition));
+        gl_FragColor.rgb = mix(gl_FragColor.rgb, linearToOutputTexel(vec4(bg, 1.0)).rgb, longe);`);
+    };
+    mChao.customProgramCacheKey = () => 'mare-chao';
+    const chao = new T.Mesh(chaoGeo, mChao); chao.rotation.x = -Math.PI / 2; cena.add(chao);
+    const cPos = chaoGeo.attributes.position;
+
+    // ----- a onda: perfil em espiral (com espessura e lábio redondo) puxado em profundidade -----
+    const NO = reduz ? 60 : 110, NL = 12, NP = NO * 2 + NL, NS = reduz ? 40 : 96;
+    const oGeo = new T.BufferGeometry();
+    const oPos = new Float32Array(NP * (NS + 1) * 3), oUv = new Float32Array(NP * (NS + 1) * 2), oIdx = [];
+    for (let i = 0; i < NS; i++) for (let j = 0; j < NP - 1; j++) {
+      const a = i * NP + j, b = a + 1, c2 = a + NP, d2 = c2 + 1;
+      oIdx.push(a, c2, b, b, c2, d2);
+    }
+    for (let i = 0; i <= NS; i++) for (let j = 0; j < NP; j++) { const k = (i * NP + j) * 2; oUv[k] = j / (NP - 1) * 2; oUv[k + 1] = i / NS; }
+    oGeo.setIndex(oIdx); oGeo.setAttribute('position', new T.BufferAttribute(oPos, 3)); oGeo.setAttribute('uv', new T.BufferAttribute(oUv, 2));
+    const onda = new T.Mesh(oGeo, mOnda); onda.frustumCulled = false; cena.add(onda);
+    const OC = { x: 3.6, y: 2.05 }; // centro do enrolado (o pote fica aqui)
+    const TH0 = -1.05, THMAX = 4.1, R0 = 3.8, R1 = 1.55;
+    const ponto = { x: 0, y: 0 };
+    function espiral(u, s, curl, t, o) {
+      // u: do pé (0) ao lábio (1); s: do fundo (0) à frente (1)
+      const th1 = lerp(2.3, 4.05, Math.pow(s, 0.7)) + curl;
+      const th = lerp(TH0, th1, u);
+      const k = (th - TH0) / (THMAX - TH0);
+      let r = R0 * Math.pow(R1 / R0, k) * lerp(1.18, 1, s) * (1 - curl * 0.12 * u);
+      r += Math.sin(th * 3 + t * 1.3 + s * 5) * 0.045 + Math.sin(s * 9 - t * 0.9) * 0.03 * u;
+      o.x = OC.x + Math.cos(th) * r + (1 - s) * 2.4; o.y = OC.y + Math.sin(th) * r;
+      return o;
+    }
+    const pa = { x: 0, y: 0 }, pb = { x: 0, y: 0 };
+    function moldaOnda(curl, t) {
+      for (let i = 0; i <= NS; i++) {
+        const s = i / NS, z = lerp(-8, 1.5, s);
+        const bordaF = s > 0.94 ? Math.sqrt(Math.max(0, 1 - Math.pow((s - 0.94) / 0.06, 2))) : 1;
+        const bordaT = s < 0.05 ? Math.sqrt(Math.max(0, 1 - Math.pow((0.05 - s) / 0.05, 2))) : 1;
+        const borda = bordaF * bordaT;
+        for (let j = 0; j < NP; j++) {
+          let u, lado = 0, ang = 0;
+          if (j < NO) { u = j / (NO - 1); lado = 1; }
+          else if (j < NO + NL) { u = 1; ang = (j - NO + 1) / (NL + 1) * Math.PI; }
+          else { u = 1 - (j - NO - NL) / (NO - 1); lado = -1; }
+          espiral(u, s, curl, t, ponto);
+          espiral(Math.max(0, u - 0.004), s, curl, t, pa); espiral(Math.min(1, u + 0.004), s, curl, t, pb);
+          let tx = pb.x - pa.x, ty = pb.y - pa.y; const tl = Math.hypot(tx, ty) || 1; tx /= tl; ty /= tl;
+          const nx = ty, ny = -tx; // normal para fora do enrolado
+          const h = lerp(0.95, 0.3, Math.pow(u, 0.8)) * borda + 0.004;
+          let x, y;
+          if (lado) { x = ponto.x + nx * h * lado; y = ponto.y + ny * h * lado; }
+          else { x = ponto.x + nx * h * Math.cos(ang) + tx * h * Math.sin(ang); y = ponto.y + ny * h * Math.cos(ang) + ty * h * Math.sin(ang); }
+          const k = (i * NP + j) * 3; oPos[k] = x; oPos[k + 1] = y; oPos[k + 2] = z + (1 - borda) * 0.25 * (s > 0.5 ? 1 : -1);
+        }
+      }
+      oGeo.attributes.position.needsUpdate = true; oGeo.computeVertexNormals();
+    }
+
+    // gotas penduradas no lábio (lágrima com a ponta para cima)
+    const perfilGota = [];
+    for (let i = 0; i <= 20; i++) { const a = i / 20 * Math.PI; perfilGota.push(new T.Vector2(Math.sin(a) * Math.pow(Math.sin(a / 2), 1.1), Math.cos(a))); }
+    const geoGota = new T.LatheGeometry(perfilGota.reverse(), 32);
+    const gotas = [0.97, 0.8, 0.62].map((s, i) => { const m = new T.Mesh(geoGota, mLetra); m.userData = { s, fase: i * 1.7, tam: [0.15, 0.12, 0.1][i] }; cena.add(m); return m; });
+
+    // respingos quando a onda quebra
+    const geoEsf = new T.SphereGeometry(1, 16, 12);
+    const r1 = rng(83), NR = reduz ? 24 : 90;
+    const respingo = new T.InstancedMesh(geoEsf, matAgua(0.4, { borda: 1, cor: 0xf4fffb }), NR); respingo.frustumCulled = false; cena.add(respingo);
+    const dR = Array.from({ length: NR }, () => ({ s: r1(), vx: (r1() - 0.6) * 3, vy: 2 + r1() * 3.5, vz: (r1() - 0.3) * 2, tam: 0.03 + r1() * 0.08, atraso: r1() * 0.4 }));
+    const mtx = new T.Matrix4(), qq = new T.Quaternion(), vv = new T.Vector3(), ss = new T.Vector3();
+    const poe = (im, i, x, y, z, s) => { vv.set(x, y, z); ss.setScalar(Math.max(0.0001, s)); mtx.compose(vv, qq, ss); im.setMatrixAt(i, mtx); };
+
+    // ----- AURA: tubos de água que crescem de cima para baixo -----
+    const RL = 0.5, V = (x, y) => new T.Vector3(x, y, 0);
+    const curva = pts => pts.length === 2 ? new T.LineCurve3(pts[0], pts[1]) : new T.CatmullRomCurve3(pts, false, 'centripetal');
+    const letraA = () => [
+      { c: curva([V(1.18, 3.2), V(0.62, 1.6), V(0.05, 0)]), a: 0, b: 0.7 },
+      { c: curva([V(1.18, 3.2), V(1.74, 1.6), V(2.31, 0)]), a: 0, b: 0.7 },
+      { c: curva([V(0.5, 1.12), V(1.86, 1.12)]), a: 0.62, b: 1 },
+    ];
+    const letras = [
+      { x: 0, larg: 2.36, tracos: letraA(), ini: 0.2, fim: 0.42 },
+      { x: 3.26, larg: 2.3, ini: 0.28, fim: 0.5, tracos: [
+        { c: curva([V(0, 3.2), V(0, 1.25), V(0.32, 0.32), V(1.15, 0)]), a: 0, b: 1 },
+        { c: curva([V(2.3, 3.2), V(2.3, 1.25), V(1.98, 0.32), V(1.15, 0)]), a: 0, b: 1 },
+      ] },
+      { x: 6.46, larg: 2.2, ini: 0.36, fim: 0.58, tracos: [
+        { c: curva([V(0, 3.2), V(0, 0)]), a: 0, b: 0.55 },
+        { c: curva([V(0, 3.2), V(1.2, 3.2), V(1.98, 2.45), V(1.2, 1.7), V(0, 1.7)]), a: 0.1, b: 0.8 },
+        { c: curva([V(0.95, 1.7), V(2.18, 0)]), a: 0.55, b: 1 },
+      ] },
+      { x: 9.56, larg: 2.36, tracos: letraA(), ini: 0.44, fim: 0.66 },
+    ];
+    const LARG_PALAVRA = 9.56 + 2.36, PX = -LARG_PALAVRA / 2, PZ = -1.2;
+    const grupoLetras = new T.Group(); grupoLetras.position.set(PX, RL, PZ); cena.add(grupoLetras);
+    const TS = 72, RS = 22;
+    letras.forEach(L => L.tracos.forEach(tr => {
+      tr.geo = new T.TubeGeometry(tr.c, TS, RL, RS, false);
+      tr.malha = new T.Mesh(tr.geo, mLetra); tr.malha.position.x = L.x; tr.geo.setDrawRange(0, 0); grupoLetras.add(tr.malha);
+      tr.ponta = new T.Mesh(geoEsf, mLetra); tr.ponta.position.x = L.x; grupoLetras.add(tr.ponta);
+      tr.pe = new T.Mesh(geoEsf, mLetra); tr.pe.position.x = L.x; grupoLetras.add(tr.pe);
+    }));
+
+    // fio de água no chão, de trás da palavra até o pote e para fora da cena
+    const rio = new T.CatmullRomCurve3([new T.Vector3(-0.8, 0, PZ + 0.2), new T.Vector3(0.6, 0, 0.6), new T.Vector3(2.4, 0, 1.4), new T.Vector3(3.9, 0, 2.5), new T.Vector3(5.6, 0, 4.6), new T.Vector3(7.5, 0, 8)], false, 'centripetal');
+    const rioGeo = new T.TubeGeometry(rio, 120, 0.55, 20, false); rioGeo.setDrawRange(0, 0);
+    const rioM = new T.Mesh(rioGeo, mLetra); rioM.scale.y = 0.22; cena.add(rioM);
+
+    // o pote: entra deitado no enrolado e termina na frente da palavra
+    const pote = criaPote(); pote.grupo.scale.setScalar(0.9); cena.add(pote.grupo);
+    const sombra = criaSombra(0.28, 3.2); cena.add(sombra);
+
+    // cores por tema
+    function temaCor() {
+      const esc = document.documentElement.dataset.temaAtual === 'escuro';
+      const cs = esc ? ['#0d1d1c', '#1b2523', '#1f3a33', '#0a1514'] : ['#d6eef0', '#f3d7e4', '#eaf6f4', '#eef5f3'];
+      ['c1', 'c2', 'c3', 'c4'].forEach((k, i) => fundoU[k].value.set(cs[i]));
+      mChao.color.set(esc ? '#0f201e' : '#e4f2ef');
+      [mOnda, mLetra].forEach(m => { m.attenuationColor.set(esc ? '#3fb3a6' : '#6fcfc8'); m.attenuationDistance = esc ? 1.2 : 1.9; });
+      rimU.value.set(esc ? '#bff3e2' : '#ffffff');
+      luz.intensity = esc ? 0.8 : 1.1;
+      mChao.envMapIntensity = esc ? 0.45 : 1.1;
+      sombra.material.opacity = esc ? 0.5 : 0.28;
+    }
+    temaCor(); document.addEventListener('aura:tema', () => setTimeout(temaCor, 30));
+
+    let W = 0, H = 0, retrato = false, mx = 0, my = 0, tmx = 0, tmy = 0;
+    function ajusta() { W = canvas.clientWidth; H = canvas.clientHeight; if (!W || !H) return; renderer.setSize(W, H, false); renderer.getDrawingBufferSize(resU.value); cam.aspect = W / H; retrato = W / H < 0.85; }
+    new ResizeObserver(ajusta).observe(canvas); ajusta();
+    addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; tmx = e.clientX / innerWidth - 0.5; tmy = e.clientY / innerHeight - 0.5; }, { passive: true });
+    // ?mare-p=0.5 congela a cena num ponto da linha do tempo (para revisar quadro a quadro)
+    const pFixo = (location.search.match(/[?&]mare-p=([\d.]+)/) || [])[1];
+
+    const legendas = [...sec.querySelectorAll('[data-fase]')];
+    let atual = 0, rodando = false, visivel = true, tAnt = 0;
+    new IntersectionObserver(es => { visivel = es[0].isIntersecting; if (visivel) laco(); }).observe(sec);
+    const alvoC = new T.Vector3(), posC = new T.Vector3();
+
+    function quadro(p, agora) {
+      const t = reduz ? 0 : agora / 1000, dt = Math.min(0.05, (agora - tAnt) / 1000 || 0); tAnt = agora;
+      mx = lerp(mx, tmx, 0.05); my = lerp(my, tmy, 0.05);
+      correntes.forEach((c, i) => { c.offset.x = t * (i === 2 ? 0.01 : 0.05); c.offset.y = t * (i === 2 ? 0.015 : -0.02); });
+
+      // a onda: enrola mais, quebra e afunda
+      const quebra = suave(0.1, 0.46, p);
+      const curl = (reduz ? 0 : Math.sin(t * 0.8) * 0.04) + quebra * 1.1;
+      onda.visible = quebra < 0.995;
+      if (onda.visible) moldaOnda(curl, t);
+      onda.position.set(-quebra * 0.6, -Math.pow(quebra, 1.6) * 5.2, 0);
+      onda.scale.set(1, 1 - quebra * 0.35, 1);
+
+      // gotas do lábio: balançam, esticam e caem quando a onda quebra
+      gotas.forEach((g, i) => {
+        const d = g.userData; espiral(1, d.s, curl, t, ponto);
+        espiral(0.995, d.s, curl, t, pa);
+        const tx = ponto.x - pa.x, ty = ponto.y - pa.y, tl = Math.hypot(tx, ty) || 1;
+        const estica = 1.5 + Math.sin(t * 2 + d.fase) * 0.25;
+        const cai = suave(0.06 + i * 0.03, 0.2 + i * 0.03, p);
+        g.position.set(ponto.x + tx / tl * 0.14 + onda.position.x, ponto.y + ty / tl * 0.14 - d.tam * estica - cai * 4 + onda.position.y * (1 - cai), lerp(-8, 1.5, d.s));
+        g.scale.set(d.tam, d.tam * estica * (1 + cai), d.tam);
+        g.visible = cai < 0.98 && g.position.y > -0.2;
+      });
+
+      // respingos
+      const rk = clamp((p - 0.2) / 0.3);
+      respingo.visible = rk > 0 && rk < 1;
+      if (respingo.visible) {
+        dR.forEach((d, i) => {
+          const k = clamp((rk - d.atraso) / 0.6);
+          espiral(1, d.s, curl, t, ponto);
+          const x0 = ponto.x + onda.position.x, y0 = Math.max(0.2, ponto.y + onda.position.y), z0 = lerp(-8, 1.5, d.s);
+          const y = y0 + d.vy * k - 4.5 * k * k * 1.6;
+          poe(respingo, i, x0 + d.vx * k, y, z0 + d.vz * k, k > 0 && k < 1 && y > 0 ? d.tam * (1 - k * 0.5) : 0);
+        });
+        respingo.instanceMatrix.needsUpdate = true;
+      }
+
+      // anéis na lâmina quando a onda bate
+      const anel = clamp((p - 0.22) / 0.5);
+      if (anel > 0 && anel < 1 || chao.userData.sujo) {
+        for (let i = 0; i < cPos.count; i++) {
+          const x = cPos.getX(i), y = cPos.getY(i);
+          const r = Math.hypot(x - 3.2, -y - 0.2), f = anel * 14, dd = r - f;
+          const z = anel > 0 && anel < 1 ? 0.12 * (1 - anel) * Math.sin(dd * 2.4) * Math.exp(-(dd * dd) / 6) : 0;
+          cPos.setZ(i, z);
+        }
+        cPos.needsUpdate = true; chaoGeo.computeVertexNormals();
+        chao.userData.sujo = anel > 0 && anel < 1;
+      }
+
+      // AURA de cima para baixo
+      letras.forEach(L => {
+        const kl = clamp((p - L.ini) / (L.fim - L.ini));
+        L.tracos.forEach(tr => {
+          const k = easeOut(clamp((kl - tr.a) / (tr.b - tr.a)));
+          tr.geo.setDrawRange(0, Math.floor(k * TS) * RS * 6);
+          const vis = k > 0.001;
+          tr.ponta.visible = tr.pe.visible = vis;
+          if (vis) {
+            const pt = tr.c.getPointAt(k);
+            const bolha = k < 1 ? 1.06 + (reduz ? 0 : Math.sin(t * 9) * 0.03) : 0.97;
+            tr.ponta.position.set(L.x + pt.x, pt.y, pt.z); tr.ponta.scale.setScalar(RL * bolha * Math.min(1, k / 0.04));
+            const p0 = tr.c.getPointAt(0); tr.pe.position.set(L.x + p0.x, p0.y, p0.z); tr.pe.scale.setScalar(RL * 0.97 * Math.min(1, k / 0.04));
+          }
+        });
+      });
+      // a palavra respira de leve depois de pronta
+      grupoLetras.position.y = RL + (reduz ? 0 : Math.sin(t * 1.1) * 0.02 * suave(0.66, 0.8, p));
+
+      // fio de água no chão
+      const kr = easeOut(suave(0.56, 0.8, p));
+      rioGeo.setDrawRange(0, Math.floor(kr * 120) * 20 * 6);
+
+      // o pote: deitado no enrolado, depois em pé na frente da palavra
+      const mp = suave(0.18, 0.62, p);
+      const bob = reduz ? 0 : Math.sin(t * 1.2) * 0.05;
+      pote.grupo.scale.setScalar(lerp(0.72, 0.9, mp));
+      pote.grupo.position.set(lerp(3.75, retrato ? 2.2 : 3.6, mp), lerp(0.62, 0.02, mp) + bob * (1 - mp * 0.6), lerp(-0.4, retrato ? 2.4 : 2.6, mp));
+      pote.grupo.rotation.set(lerp(0.12, -0.08, mp), lerp(-0.5, -0.35, mp) + mx * 0.3 + p * 0.5, lerp(-0.3, -0.2, mp));
+      sombra.position.set(pote.grupo.position.x + 0.15, 0.01, pote.grupo.position.z); sombra.material.opacity = (document.documentElement.dataset.temaAtual === 'escuro' ? 0.5 : 0.28) * (0.4 + mp * 0.6);
+
+      // câmera: perto da onda, depois abre e centraliza a palavra
+      const tanV = Math.tan(T.MathUtils.degToRad(cam.fov / 2)) * 2;
+      const mc = suave(0.14, 0.62, p);
+      let dI, dF;
+      if (retrato) {
+        dI = Math.max(8.5 / tanV, 8.6 / (tanV * cam.aspect)); dF = Math.max(7 / tanV, (LARG_PALAVRA + 1.6) / (tanV * cam.aspect));
+        alvoC.set(lerp(3.9, 0.2, mc), lerp(2.1, 1.7, mc), lerp(0, 0.4, mc));
+      } else {
+        dI = Math.max(6.6 / tanV, 8 / (tanV * cam.aspect)); dF = Math.max(6.2 / tanV, (LARG_PALAVRA + 2.6) / (tanV * cam.aspect));
+        alvoC.set(lerp(3.6, 0.3, mc), lerp(2.2, 1.85, mc), lerp(-0.5, 0.3, mc));
+      }
+      const d = lerp(dI, dF, mc);
+      posC.set(lerp(-0.32, 0, mc) + mx * 0.08, lerp(0.16, 0.2, mc) - my * 0.04, 1).normalize().multiplyScalar(d).add(alvoC);
+      cam.position.copy(posC); cam.lookAt(alvoC);
+      if (retrato) cam.setViewOffset(W, H, 0, lerp(-H * 0.2, -H * 0.02, mc), W, H);
+      else cam.setViewOffset(W, H, lerp(-W * 0.2, 0, mc), lerp(0, H * 0.09, mc), W, H);
+      cam.updateProjectionMatrix();
+      renderer.render(cena, cam);
+
+      legendas.forEach(el => { const [a, b] = el.dataset.fase.split(',').map(Number); el.classList.toggle('on', p >= a && p < b); });
+      sec.style.setProperty('--p', p.toFixed(3));
+      sec.style.setProperty('--intro', (1 - suave(0.03, 0.14, p)).toFixed(3));
+      sec.style.setProperty('--fim', suave(0.72, 0.84, p).toFixed(3));
+      sec.classList.toggle('fim-on', p > 0.76);
+    }
+    function laco() {
+      if (rodando) return; rodando = true;
+      const passo = agora => {
+        if (!visivel) { rodando = false; return; }
+        const alvo = pFixo ? +pFixo : progresso(sec);
+        atual = reduz || pFixo ? alvo : lerp(atual, alvo, 0.085);
+        quadro(atual, agora);
+        requestAnimationFrame(passo);
+      };
+      requestAnimationFrame(passo);
+    }
+    laco();
+  }
+
   // ---------- PALCO da Nascente: pote solto na página, gira no arrasto, abre a tampa e mostra frente e verso ----------
   function iniciaPalco() {
     const sec = document.querySelector('[data-palco]');
@@ -623,7 +966,7 @@
     let W = 0, H = 0, visivel = false, rodando = false;
     function ajusta() {
       W = canvas.clientWidth; H = canvas.clientHeight; if (!W || !H) return;
-      renderer.setSize(W, H, false); cam.aspect = W / H;
+      renderer.setSize(W, H, false); cam.aspect = W / H; cam.updateProjectionMatrix();
     }
     new ResizeObserver(ajusta).observe(canvas); ajusta();
 
@@ -641,6 +984,7 @@
       if (a === 'frente') rotAlvo = perto(FRENTE);
       if (a === 'verso') rotAlvo = perto(FRENTE + Math.PI);
     }));
+    document.addEventListener('aura:palco', e => { inercia = 0; ociosoDesde = performance.now() + 4000; rotAlvo = perto(e.detail === 'verso' ? FRENTE + Math.PI : FRENTE); });
 
     new IntersectionObserver(es => { visivel = es[0].isIntersecting; if (visivel) laco(); }, { rootMargin: '80px' }).observe(sec);
     function quadro(agora) {
@@ -667,8 +1011,9 @@
       po.mat.opacity = 0.9 * abreK * (1 - suave(0.7, 1, sopro) * 0.85);
       // câmera: pote inteiro, um pouco mais alto com a tampa aberta
       const tanV = Math.tan(T.MathUtils.degToRad(cam.fov / 2)) * 2;
-      const d = Math.max(lerp(3.4, 4.4, sai) / tanV, lerp(3.2, 4.4, sai) / (tanV * cam.aspect));
-      cam.position.set(0, lerp(2.1, 2.6, sai), d); cam.lookAt(lerp(0, 0.35, sai), lerp(1.0, 1.35, sai), 0);
+      const d = Math.max(lerp(3.4, 5.4, sai) / tanV, lerp(3.2, 4.8, sai) / (tanV * cam.aspect));
+      cam.position.set(0, lerp(2.1, 3.6, sai), d); cam.lookAt(lerp(0, 0.4, sai), lerp(1.0, 1.55, sai), 0);
+      cam.updateProjectionMatrix();
       renderer.render(cena, cam);
     }
     function laco() {
@@ -998,6 +1343,7 @@
     apoio.dispose(); if (apoio.forceContextLoss) apoio.forceContextLoss();
     iniciaHeroProduto();
     iniciaGota();
+    try { iniciaMare(); } catch (e) { console.error(e); }
     iniciaPalco();
     iniciaRitual();
     iniciaRotulo();

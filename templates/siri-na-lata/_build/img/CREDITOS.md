@@ -25,3 +25,9 @@ Fotos de demonstração: trocar pelas fotos reais do Siri na Lata quando o clien
 | Arquivo | Uso |
 |---|---|
 | capa-praia.webp | Capa do modelo Gold (imagem enviada pelo cliente) |
+
+## Enviadas pelo responsável do projeto
+
+| Arquivo | Origem |
+|---|---|
+| capa-silver.webp, capa-silver-1000.webp | Foto enviada em 2026-11-11 para a capa do Silver (drink e isca de peixe na mesa de frente para o mar). [CONFIRMAR] origem e direito de uso (não parece ser a praia do Estreito) |

@@ -21,6 +21,68 @@
     }
   }
 
+  // ---------- tratamentos: abas, carta e vale ----------
+  const abas = $$('.aba');
+  const celular = matchMedia('(max-width: 920px)');
+  const fundo = $('.gaveta-fundo');
+  let gavetaAberta = null;
+  let voltaFoco = null;
+  const fechaGaveta = () => {
+    if (!gavetaAberta) return;
+    gavetaAberta.classList.remove('aberta');
+    gavetaAberta = null;
+    fundo.hidden = true;
+    document.documentElement.classList.remove('gaveta');
+    if (voltaFoco) voltaFoco.focus();
+  };
+  const mostraVale = (btn, abrirGaveta) => {
+    const painel = btn.closest('.seg');
+    $$('.carta-item', painel).forEach((b) => { const sim = b === btn; b.classList.toggle('ativo', sim); b.setAttribute('aria-pressed', String(sim)); });
+    $$('[data-vale]', painel).forEach((v) => { v.hidden = v.id !== btn.dataset.abre; });
+    if (abrirGaveta && celular.matches) {
+      const box = $('[data-gaveta]', painel);
+      box.scrollTop = 0;
+      box.classList.add('aberta');
+      gavetaAberta = box;
+      voltaFoco = btn;
+      fundo.hidden = false;
+      document.documentElement.classList.add('gaveta');
+      $('[data-fecha-gaveta]', box).focus();
+    }
+  };
+  const ativaAba = (aba, foco) => {
+    abas.forEach((a) => {
+      const sim = a === aba;
+      a.setAttribute('aria-selected', String(sim));
+      a.tabIndex = sim ? 0 : -1;
+      const p = document.getElementById(a.getAttribute('aria-controls'));
+      if (p) p.hidden = !sim;
+    });
+    if (foco) aba.focus();
+  };
+  if (abas.length) {
+    ativaAba(abas.find((a) => a.getAttribute('aria-selected') === 'true') || abas[0]);
+    abas.forEach((a, i) => {
+      a.addEventListener('click', () => ativaAba(a));
+      a.addEventListener('keydown', (e) => {
+        const passo = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        if (passo) { e.preventDefault(); ativaAba(abas[(i + passo + abas.length) % abas.length], true); }
+      });
+    });
+    $$('.carta-item').forEach((b) => b.addEventListener('click', () => mostraVale(b, true)));
+    $$('[data-fecha-gaveta]').forEach((b) => b.addEventListener('click', fechaGaveta));
+    addEventListener('keydown', (e) => { if (e.key === 'Escape') fechaGaveta(); });
+    celular.addEventListener('change', fechaGaveta);
+    // links para um segmento (capa, rodapé) abrem a aba certa
+    $$('a[href^="#seg-"]').forEach((l) => l.addEventListener('click', (e) => {
+      const aba = abas.find((a) => a.getAttribute('aria-controls') === l.getAttribute('href').slice(1));
+      if (!aba) return;
+      e.preventDefault();
+      ativaAba(aba);
+      $('#tratamentos').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    }));
+  }
+
   // ---------- aberto agora ----------
   const nomes = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
   const hm = (h) => `${Math.floor(h)}h${h % 1 ? String(Math.round((h % 1) * 60)).padStart(2, '0') : ''}`;

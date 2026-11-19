@@ -27,7 +27,8 @@ fs.copyFileSync(path.join(__dirname, 'img', 'mapa_cambui.webp'), path.join(OUT, 
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
-const css = fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8');
+const css = `${require('./texturas').css}
+${fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8')}`;
 const js = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
   .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, nome: M.completo, abertura: C.abertura }));
 
@@ -54,48 +55,80 @@ const precoDe = (t) => {
   if (t.de) return `<span class="t-preco"><small>a partir de</small>${reais(t.de)}</span>`;
   return `<span class="t-preco"><small>sessão</small>${reais(t.preco)}</span>`;
 };
-const trat = (s, t) => `<details class="trat" data-seg="${s.id}">
-            <summary>
-              <span class="t-nome"><b>${esc(t.nome)}</b><small>${esc(t.resumo)}</small></span>
-              <span class="t-meta"><span>${I.relogio}${esc(t.duracao)}</span><span>${esc(t.sessoes)}</span></span>
-              ${precoDe(t)}
-              <span class="t-abre" aria-hidden="true">${I.mais}</span>
-            </summary>
-            <div class="t-corpo">
-              <div><h4>O que inclui</h4><ul>${t.inclui.map((i) => `<li>${esc(i)}</li>`).join('')}</ul></div>
-              <div class="t-valores">
-                ${t.pacote ? `<p><b>Pacote de ${t.pacote[0]} sessões:</b> ${reais(t.pacote[1])}</p>` : ''}
-                ${t.extra ? `<p>${esc(t.extra)}</p>` : ''}
-                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
-                <a class="btn btn-linha" href="${wa(`Olá! Quero agendar ${t.nome.toLowerCase()} na ${M.completo}.`)}" target="_blank" rel="noopener">${I.whats}<span>Agendar este tratamento</span></a>
-              </div>
-            </div>
-          </details>`;
 
-const extraSeg = (s) => {
+// Cada segmento vira uma aba. À esquerda, a carta compacta (uma linha por tratamento);
+// à direita, o "vale" com o detalhe do tratamento escolhido. No celular o vale sobe como gaveta.
+const fichaTopo = (titulo, preco, meta) => `<div class="vale-topo">
+              <h4>${titulo}</h4>
+              ${preco}
+              ${meta ? `<p class="vale-meta">${meta}</p>` : ''}
+            </div>`;
+const fichaTrat = (s, t, i) => `<article class="vale" id="v-${s.id}-${i}" data-vale${i ? ' hidden' : ''} aria-label="${esc(t.nome)}">
+            ${fichaTopo(esc(t.nome), precoDe(t), `${I.relogio}<span>${esc(t.duracao)}.</span><span>${esc(t.sessoes)}</span>`)}
+            <div class="vale-corpo">
+              <p class="vale-resumo">${esc(t.resumo)}</p>
+              <h5>O que inclui</h5>
+              <ul>${t.inclui.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
+              ${t.pacote ? `<p class="vale-pac"><b>Pacote de ${t.pacote[0]} sessões</b><span>${reais(t.pacote[1])}</span></p>` : ''}
+              ${t.extra ? `<p class="vale-extra">${esc(t.extra)}</p>` : ''}
+              <p class="t-nota">Valor final confirmado na avaliação. Pix, débito ou crédito.</p>
+              <a class="btn btn-vinho" href="${wa(`Olá! Quero agendar ${t.nome.toLowerCase()} na ${M.completo}.`)}" target="_blank" rel="noopener">${I.whats}<span>Agendar este tratamento</span></a>
+            </div>
+          </article>`;
+const fichaExtra = (s, i) => {
   if (s.peles) {
-    return `<div class="peles"><h3>Protocolos por tipo de pele</h3><dl>${s.peles.map(([p, d]) => `<div><dt>${p}</dt><dd>${d}</dd></div>`).join('')}</dl></div>`;
+    return `<article class="vale" id="v-${s.id}-${i}" data-vale hidden aria-label="Protocolos por tipo de pele">
+            ${fichaTopo('Protocolos por tipo de pele', '<span class="t-preco"><small>definido na</small>avaliação</span>', '')}
+            <div class="vale-corpo"><dl class="peles">${s.peles.map(([p, d]) => `<div><dt>${p}</dt><dd>${d}</dd></div>`).join('')}</dl></div>
+          </article>`;
   }
   if (s.areas) {
-    return `<div class="areas"><h3>Depilação por área</h3>
-          <table><thead><tr><th scope="col">Área</th><th scope="col">Cera</th><th scope="col">Laser, por sessão</th></tr></thead>
-          <tbody>${s.areas.map(([a, c, l]) => `<tr><th scope="row">${a}</th><td>${reais(c)}</td><td>${reais(l)}</td></tr>`).join('')}</tbody></table>
-          <p>${esc(s.laserNota)}</p></div>`;
+    return `<article class="vale" id="v-${s.id}-${i}" data-vale hidden aria-label="Depilação por área">
+            ${fichaTopo('Depilação por área', `<span class="t-preco"><small>cera a partir de</small>${reais(Math.min(...s.areas.map((a) => a[1])))}</span>`, '')}
+            <div class="vale-corpo">
+              <table class="areas"><thead><tr><th scope="col">Área</th><th scope="col">Cera</th><th scope="col">Laser</th></tr></thead>
+              <tbody>${s.areas.map(([a, c, l]) => `<tr><th scope="row">${a}</th><td>${reais(c)}</td><td>${reais(l)}</td></tr>`).join('')}</tbody></table>
+              <p class="t-nota">${esc(s.laserNota)}</p>
+              <a class="btn btn-vinho" href="${wa(`Olá! Quero agendar depilação na ${M.completo}.`)}" target="_blank" rel="noopener">${I.whats}<span>Agendar depilação</span></a>
+            </div>
+          </article>`;
   }
   return '';
 };
+const linhaTrat = (s, t, i) => `<li><button type="button" class="carta-item${i ? '' : ' ativo'}" data-abre="v-${s.id}-${i}" aria-controls="v-${s.id}-${i}" aria-pressed="${i ? 'false' : 'true'}">
+              <span class="c-nome">${esc(t.nome)}</span>
+              <span class="c-dur">${esc(t.duracao)}</span>
+              ${precoDe(t)}
+            </button></li>`;
+const linhaExtra = (s, i) => {
+  const nome = s.peles ? 'Protocolos por tipo de pele' : s.areas ? 'Tabela por área, cera e laser' : '';
+  if (!nome) return '';
+  return `<li><button type="button" class="carta-item carta-extra" data-abre="v-${s.id}-${i}" aria-controls="v-${s.id}-${i}" aria-pressed="false">
+              <span class="c-nome">${nome}</span>
+              <span class="c-dur">${s.peles ? `${s.peles.length} tipos` : `${s.areas.length} áreas`}</span>
+              <span class="c-ver">Ver ${I.seta}</span>
+            </button></li>`;
+};
 
-const blocoSeg = (s) => `<section class="seg" id="seg-${s.id}" data-seg="${s.id}" aria-labelledby="t-${s.id}">
-        <div class="seg-lado">
-          <div class="seg-foto revela">${foto(s.foto)}</div>
-          <h3 id="t-${s.id}">${esc(s.nome)}</h3>
-          <p>${esc(s.chamada)}</p>
+const abaSeg = (s, i) => `<button type="button" role="tab" class="aba" id="aba-${s.id}" data-seg="${s.id}" aria-controls="seg-${s.id}" aria-selected="${i ? 'false' : 'true'}"${i ? ' tabindex="-1"' : ''}>
+          <span class="aba-foto">${foto(s.foto)}</span>
+          <span class="aba-txt"><b class="aba-longo">${esc(s.nome)}</b><b class="aba-curto">${esc(s.curto)}</b><small>${s.itens.length} tratamentos</small></span>
+        </button>`;
+
+const blocoSeg = (s, i) => `<div class="seg" role="tabpanel" id="seg-${s.id}" data-seg="${s.id}" aria-labelledby="aba-${s.id}"${i ? ' hidden' : ''}>
+        <div class="carta">
+          <p class="carta-chamada">${esc(s.chamada)}</p>
+          <ul class="carta-lista">
+            ${s.itens.map((t, j) => linhaTrat(s, t, j)).join('\n            ')}
+            ${linhaExtra(s, s.itens.length)}
+          </ul>
         </div>
-        <div class="seg-lista">
-          ${s.itens.map((t) => trat(s, t)).join('\n          ')}
-          ${extraSeg(s)}
+        <div class="vale-box" data-gaveta>
+          <button type="button" class="vale-fecha" data-fecha-gaveta aria-label="Fechar detalhes">${I.fechar}</button>
+          ${s.itens.map((t, j) => fichaTrat(s, t, j)).join('\n          ')}
+          ${fichaExtra(s, s.itens.length)}
         </div>
-      </section>`;
+      </div>`;
 
 const segTiles = SEG.map((s, i) => `<li class="revela" data-seg="${s.id}"><a href="#seg-${s.id}" class="seg-tile${i === 0 ? ' seg-tile-g' : ''}">
           ${foto(s.foto)}
@@ -209,9 +242,13 @@ ${css}
     <div class="wrap">
       <div class="sec-topo">
         <h2 id="t-trat">Tratamentos e preços</h2>
-        <p>Valor da sessão avulsa e do pacote, duração e número de sessões. Toque no tratamento para ver o que inclui.</p>
+        <p>Escolha a área e toque no tratamento para ver o que inclui, as sessões e o valor do pacote.</p>
+      </div>
+      <div class="abas" role="tablist" aria-label="Segmentos" style="--n:${SEG.length}">
+        ${SEG.map(abaSeg).join('\n        ')}
       </div>
       ${SEG.map(blocoSeg).join('\n      ')}
+      <div class="gaveta-fundo" data-fecha-gaveta hidden></div>
       <div class="pagar">
         ${C.pagamento.map(([t, d]) => `<div class="revela"><h3>${t}</h3><p>${d}</p></div>`).join('')}
       </div>
@@ -288,8 +325,9 @@ ${css}
         </fieldset>
         <label class="campo"><span>Mensagem <small>(opcional)</small></span><textarea name="msg" rows="3"></textarea></label>
 
-        <fieldset class="saude" id="saude">
-          <legend>Ficha de saúde prévia <small>(opcional)</small></legend>
+        <details class="saude" id="saude">
+          <summary><span class="saude-tit"><b>Ficha de saúde prévia <small>(opcional)</small></b><small>Adiante gestação, alergias e medicamentos, se quiser. Leva um minuto.</small></span><span class="saude-abre" aria-hidden="true">${I.mais}</span></summary>
+          <div class="saude-in">
           <p>Se quiser, adiante algumas respostas da avaliação. São dados sensíveis pela LGPD: só usamos para conferir se o tratamento é seguro para você. Também dá para responder pessoalmente.</p>
           <label class="check"><input type="checkbox" name="ok_saude" id="ok-saude"><span>Autorizo a ${M.completo} a usar os dados de saúde que eu informar abaixo apenas para a minha avaliação e a segurança do atendimento.</span></label>
           <div class="saude-campos" id="saude-campos">
@@ -300,7 +338,8 @@ ${css}
               ${['Marca-passo ou implante metálico', 'Diabetes', 'Problema de coagulação', 'Herpes que volta com frequência'].map((c) => `<label class="check"><input type="checkbox" name="cond" value="${c}" disabled><span>${c}</span></label>`).join('')}
             </fieldset>
           </div>
-        </fieldset>
+          </div>
+        </details>
 
         <div class="consent">
           <label class="check"><input type="checkbox" name="ok_lgpd" required><span>Li a <button type="button" class="link" data-doc="privacidade">Política de privacidade</button> e autorizo o contato pelo WhatsApp, telefone ou e-mail para responder este pedido.</span></label>

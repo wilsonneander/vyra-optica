@@ -278,13 +278,12 @@ const gold = {
       { id: 'procedimentos', nome: 'Sala de procedimentos', curto: 'Procedimentos', x: [-0.5, 5.5], seg: 'facial' },
       { id: 'corporal', nome: 'Sala corporal', curto: 'Corporal', x: [5.5, 11], seg: 'corporal' },
       { id: 'olhar', nome: 'Estúdio do olhar', curto: 'Olhar', x: [11, 16.5], seg: 'depilacao' },
-      { id: 'esterilizacao', nome: 'Esterilização', curto: 'Esterilização', x: [16.5, 20] },
     ],
   },
   capa: {
     apoio: 'Clínica de estética no Cambuí, Campinas',
     titulo: ['Conheça a clínica ', 'por dentro', ' antes de marcar.'],
-    texto: 'Role a página e entre com a gente. O drone passa pelo consultório, pelas salas de cada tratamento e pela esterilização, do jeito que você vai encontrar no dia da sua avaliação.',
+    texto: 'Role a página e entre com a gente. O drone passa pelo consultório e pelas salas de cada tratamento, do jeito que você vai encontrar no dia da sua avaliação.',
     dica: 'Role para entrar',
   },
   consultorio: {
@@ -308,10 +307,6 @@ const gold = {
     titulo: ['Cílios, sobrancelhas e ', 'depilação', '.'],
     texto: 'Luz de anel para o desenho sair simétrico e laser de diodo com teste numa área pequena antes da primeira sessão.',
   },
-  esterilizacao: {
-    titulo: ['A sala que quase ninguém mostra. ', 'A gente mostra', '.'],
-    texto: 'É aqui que pinças e instrumentos passam por limpeza, embalagem e autoclave. O que é de uso único chega lacrado na sua sala e é aberto na sua frente.',
-  },
   vista: {
     titulo: ['Agora você já conhece a ', 'casa toda', '.'],
     texto: 'Falta só a sua avaliação. Escolha o dia e o horário que preferir e a gente confirma pelo WhatsApp.',
@@ -322,6 +317,14 @@ const gold = {
     ['Ela me disse que eu não precisava de metade do que eu achava. Fiz só o essencial.', 'Cliente de toxina botulínica'],
     ['Tive uma dúvida três dias depois e me responderam na hora. Isso fez diferença.', 'Cliente de peeling químico'],
   ],
+  // foto de cada sala, ao lado da placa (fora dela). pos = object-position do recorte em arco.
+  // [EXEMPLO] fotos de banco de imagens; cliente real: fotos da própria clínica e da equipe.
+  quadros: {
+    avaliacao: { foto: 'avaliacao', pos: '74% 40%', legenda: 'Análise da pele antes de qualquer protocolo' },
+    procedimentos: { foto: 'capa', pos: '50% 34%', legenda: 'Preenchimento labial com ácido hialurônico', mini: 'galeria-toxina' },
+    corporal: { foto: 'corporal', pos: '50% 38%', legenda: 'Massagem com a pressão combinada antes' },
+    olhar: { foto: 'depilacao', pos: '50% 40%', legenda: 'Design de sobrancelhas com pinça e linha', mini: 'galeria-cilios' },
+  },
   // agenda: intervalo entre os horários oferecidos no formulário (minutos) e quantos dias à frente mostrar
   agenda: { passo: 90, dias: 12, antesDoFim: 60 },
 };

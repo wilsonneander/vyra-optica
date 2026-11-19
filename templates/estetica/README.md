@@ -86,15 +86,16 @@ A página começa do lado de fora da clínica, em 3D, com luz clara de fim de ma
 | Parada | O que se vê | O que acontece na cena | Conteúdo da placa |
 |---|---|---|---|
 | Fachada | prédio térreo com janelas em arco, frontão com a camélia dourada, ciprestes e oliveiras | o drone paira e gira devagar em volta | título, chamada, agendar e começar a visita |
-| Consultório | parede rosa com boiserie, retrato da responsável em moldura de arco, diploma e registro no conselho, mesa oval e poltronas de bouclé | a luz de quadro acende sobre o retrato | quem cuida, registro, citação, equipe |
+| Consultório | parede rosa com boiserie, retrato da responsável em moldura de arco, diploma e registro no conselho, mesa oval e poltronas de bouclé | a luz de quadro acende sobre o retrato | retrato da responsável no arco da placa, quem cuida, registro, citação, equipe |
 | Sala de avaliação | aparelho de análise de pele (cúpula com anel de luz), monitor, espelho em arco, lupa | a lupa desce sobre a banqueta, o anel acende e o monitor faz a leitura da pele | como funciona, etapas da avaliação |
 | Sala de procedimentos | **a cadeira de procedimentos** em 3D, carrinho com seringas e luvas, armário com pia, geladeira de toxina | a cadeira reclina, a perneira sobe, a lupa vem para cima do rosto e acende | carta de tratamentos faciais com preço, o que inclui e agendar cada um |
 | Sala corporal | maca com apoio de rosto, toalhas, velas, pedras quentes, difusor com névoa, radiofrequência, cortina de linho | as velas tremulam, a névoa sobe e a cortina balança | carta corporal |
 | Estúdio do olhar | maca de cílios, luz de anel, laser de diodo, camélia em néon | o néon se desenha e a luz de anel acende | carta de cílios, sobrancelhas e depilação, tabela por área |
-| Esterilização | bancada de inox, autoclave, lavadora ultrassônica, seladora, armário com envelopes | a autoclave faz um ciclo até 134 graus | segurança e higiene |
 | Vista de cima | a planta inteira, sem telhado | o telhado sobe e some, os nomes das salas aparecem | chamada para a agenda e horários |
 
-Depois da visita vêm as seções comuns: antes e depois (cortina arrastável, simulação marcada como no Bronze e no Silver, agora com a foto em arco), depoimentos ilustrativos, pagamento e políticas, dúvidas, agenda e rodapé com o mapa padrão.
+Nas salas de avaliação, procedimentos, corporal e olhar, uma foto em arco fica ao lado da placa (fora dela), parada enquanto a placa rola, com legenda e, em procedimentos e olhar, uma foto menor sobreposta. Fotos e recorte em `gold.quadros`. No celular a foto sobe para cima da placa.
+
+Depois da visita vêm as seções comuns: antes e depois (cortina arrastável, simulação marcada como no Bronze e no Silver, agora com a foto em arco), depoimentos ilustrativos, pagamento e políticas (com o bloco de segurança e higiene: descartáveis, autoclave, Anvisa e licença sanitária), dúvidas, agenda e rodapé com o mapa padrão.
 
 | Pasta | O que é |
 |---|---|

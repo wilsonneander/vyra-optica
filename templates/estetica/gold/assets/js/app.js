@@ -1,5 +1,5 @@
 (() => {
-  const D = {"whatsapp":"5519999990000","nome":"Camélia Estética","abertura":[null,[9,20],[9,20],[9,20],[9,20],[9,20],[8,14]],"agenda":{"passo":90,"dias":12,"antesDoFim":60},"salas":[{"id":"recepcao","nome":"Recepção"},{"id":"consultorio","nome":"Consultório"},{"id":"avaliacao","nome":"Sala de avaliação"},{"id":"procedimentos","nome":"Sala de procedimentos"},{"id":"corporal","nome":"Sala corporal"},{"id":"olhar","nome":"Estúdio do olhar"},{"id":"esterilizacao","nome":"Esterilização"}]};
+  const D = {"whatsapp":"5519999990000","nome":"Camélia Estética","abertura":[null,[9,20],[9,20],[9,20],[9,20],[9,20],[8,14]],"agenda":{"passo":90,"dias":12,"antesDoFim":60},"salas":[{"id":"recepcao","nome":"Recepção"},{"id":"consultorio","nome":"Consultório"},{"id":"avaliacao","nome":"Sala de avaliação"},{"id":"procedimentos","nome":"Sala de procedimentos"},{"id":"corporal","nome":"Sala corporal"},{"id":"olhar","nome":"Estúdio do olhar"}]};
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const raiz = document.documentElement;
@@ -128,7 +128,7 @@
   // ---------- placas: o conteúdo entra quando a placa aparece ----------
   if ('IntersectionObserver' in window && !calmo) {
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px', threshold: 0.05 });
-    $$('[data-placa], .sec-topo, .ad-card, .depo, .pagar > div, .regras > div, .pergunta, .form, .ag-lado, .rodape-mapa > *').forEach((el) => { el.classList.add('rv'); io.observe(el); });
+    $$('[data-placa], .quadro-sala, .sec-topo, .ad-card, .depo, .pagar > div, .regras > div, .higiene, .pergunta, .form, .ag-lado, .rodape-mapa > *').forEach((el) => { el.classList.add('rv'); io.observe(el); });
   }
 
   // ---------- antes e depois: cada cartão tem a própria cortina ----------

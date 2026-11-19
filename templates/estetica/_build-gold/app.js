@@ -128,7 +128,7 @@
   // ---------- placas: o conteúdo entra quando a placa aparece ----------
   if ('IntersectionObserver' in window && !calmo) {
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -12% 0px', threshold: 0.05 });
-    $$('[data-placa], .sec-topo, .ad-card, .depo, .pagar > div, .regras > div, .pergunta, .form, .ag-lado, .rodape-mapa > *').forEach((el) => { el.classList.add('rv'); io.observe(el); });
+    $$('[data-placa], .quadro-sala, .sec-topo, .ad-card, .depo, .pagar > div, .regras > div, .higiene, .pergunta, .form, .ag-lado, .rodape-mapa > *').forEach((el) => { el.classList.add('rv'); io.observe(el); });
   }
 
   // ---------- antes e depois: cada cartão tem a própria cortina ----------

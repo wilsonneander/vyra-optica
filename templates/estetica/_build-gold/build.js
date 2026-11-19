@@ -1,6 +1,6 @@
 // Gera o modelo Gold de estética (Camélia Estética, marca fictícia) em "templates/estetica/gold/".
 // Gold: a página começa do lado de fora da clínica, em 3D. Na rolagem, um drone entra pela porta e passa sala por sala
-// (consultório com o retrato da responsável, avaliação, procedimentos com a cadeira, corporal, olhar, esterilização),
+// (consultório com o retrato da responsável, avaliação, procedimentos com a cadeira, corporal e olhar),
 // até o telhado subir e mostrar a planta vista de cima. Depois vêm resultados, combinados, dúvidas e a agenda.
 // Three.js r160 sem CDN (vira script comum para abrir até direto do arquivo). Texturas da cena vão como data URI.
 // Uso: node templates/estetica/_build-gold/build.js
@@ -114,15 +114,27 @@ const extraSeg = (s) => {
 
 // ---------- paradas da visita ----------
 const salaNome = Object.fromEntries(P.salas.map((s) => [s.id, s.nome]));
-const fotoParada = { fachada: 'galeria-corredor', consultorio: 'responsavel', avaliacao: 'avaliacao', procedimentos: 'capa', corporal: 'corporal', olhar: 'depilacao', esterilizacao: 'galeria-produtos', planta: 'galeria-harmonizacao' };
+const fotoParada = { fachada: 'galeria-corredor', consultorio: 'responsavel', avaliacao: 'avaliacao', procedimentos: 'capa', corporal: 'corporal', olhar: 'depilacao', planta: 'galeria-harmonizacao' };
 const fotoSem3d = (id) => `<figure class="parada-foto">${foto(fotoParada[id], { alt: '' })}</figure>`;
+// foto da sala ao lado da placa (fora dela), em arco, com uma foto menor sobreposta quando houver
+const quadroSala = (id) => {
+  const q = G.quadros && G.quadros[id];
+  if (!q) return '';
+  return `<figure class="quadro-sala${q.mini ? ' com-mini' : ''}">
+        <div class="qs-arco" style="--pos:${q.pos}">${foto(q.foto)}</div>
+        ${q.mini ? `<div class="qs-mini">${foto(q.mini)}</div>` : ''}
+        <figcaption>${esc(q.legenda)}</figcaption>
+      </figure>`;
+};
 const rotuloSala = (nome) => `<p class="sala">${florzinha}<span>${esc(nome)}</span></p>`;
-const parada = (id, secId, corpo, { seg, cls = '' } = {}) => `<section class="parada ${cls}" id="${secId}" data-parada="${id}"${seg ? ` data-seg="${seg}"` : ''} aria-labelledby="t-${id}">
+// retrato: a foto ocupa o arco do topo da placa (vale também sem WebGL, no lugar da foto da sala)
+const parada = (id, secId, corpo, { seg, cls = '', retrato = '' } = {}) => `<section class="parada ${cls}" id="${secId}" data-parada="${id}"${seg ? ` data-seg="${seg}"` : ''} aria-labelledby="t-${id}">
     <div class="wrap">
-      <article class="placa" data-placa>
-        ${fotoSem3d(id)}
+      <article class="placa${retrato ? ' placa-retrato' : ''}" data-placa>
+        ${retrato ? `<figure class="retrato">${foto(retrato, { alt: `${R.nome}, ${R.cargo.split(',')[0].toLowerCase()}` })}</figure>` : quadroSala(id) ? '' : fotoSem3d(id)}
         ${corpo}
       </article>
+      ${quadroSala(id)}
     </div>
   </section>`;
 const segPor = Object.fromEntries(SEG.map((s) => [s.id, s]));
@@ -153,17 +165,13 @@ const paradas = [
         <p class="placa-txt">${esc(R.texto)}</p>
         <blockquote class="citacao"><p>${esc(G.consultorio.citacao)}</p></blockquote>
         <p class="placa-txt">${esc(R.equipe)}</p>
-        <p class="miudo">${esc(G.consultorio.parede)}</p>`),
+        <p class="miudo">${esc(G.consultorio.parede)}</p>`, { retrato: R.foto }),
   parada('avaliacao', 'como-funciona', `${rotuloSala(salaNome.avaliacao)}
         <h2 id="t-avaliacao">${tit(G.avaliacao.titulo)}</h2>
         <p class="placa-txt">${esc(G.avaliacao.texto)}</p>
         <ol class="etapas" data-linha>${C.etapas.map(([t, d]) => `<li><h3>${t}</h3><p>${d}</p></li>`).join('')}</ol>
         <a class="btn btn-vinho" href="${waAval}" target="_blank" rel="noopener">${I.whats}<span>Agendar minha avaliação</span></a>`),
   ...['facial', 'corporal', 'depilacao'].map(paradaSeg),
-  parada('esterilizacao', 'seguranca', `${rotuloSala(salaNome.esterilizacao)}
-        <h2 id="t-esterilizacao">${tit(G.esterilizacao.titulo)}</h2>
-        <p class="placa-txt">${esc(G.esterilizacao.texto)}</p>
-        <dl class="seguro">${C.seguranca.map(([t, d]) => `<div><dt>${t}</dt><dd>${d}</dd></div>`).join('')}</dl>`),
   parada('planta', 'vista', `<p class="apoio">Vista de cima</p>
         <h2 id="t-planta">${tit(G.vista.titulo)}</h2>
         <p class="placa-txt">${esc(G.vista.texto)}</p>
@@ -356,6 +364,10 @@ ${css}
           <ul>${C.contraindicacoes.map((c) => `<li>${I.fechar}<span>${esc(c)}</span></li>`).join('')}</ul>
           <p class="miudo">A lista completa é conferida na ficha de saúde da avaliação.</p>
         </div>
+      </div>
+      <div class="higiene">
+        <h3>Segurança e higiene</h3>
+        <dl class="seguro">${C.seguranca.map(([t, d]) => `<div><dt>${t}</dt><dd>${d}</dd></div>`).join('')}</dl>
       </div>
     </div>
   </section>

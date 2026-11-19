@@ -131,11 +131,6 @@ const cvVinilico = tela(512, 512, (g, w, h) => {
   for (let k = 0; k < 2600; k++) { g.fillStyle = `rgba(${rnd() > 0.5 ? '255,255,255' : '190,175,165'},${0.05 + rnd() * 0.08})`; g.fillRect(rnd() * w, rnd() * h, 1 + rnd() * 2, 1 + rnd() * 2); }
   g.strokeStyle = 'rgba(170,155,145,.35)'; g.lineWidth = 1.5; g.strokeRect(0.75, 0.75, 256, 256); g.strokeRect(256.75, 256.75, 256, 256); g.strokeRect(256.75, 0.75, 256, 256); g.strokeRect(0.75, 256.75, 256, 256);
 });
-// azulejo branco da esterilização
-const cvAzulejo = tela(256, 256, (g, w, h) => {
-  g.fillStyle = '#E6E1DD'; g.fillRect(0, 0, w, h);
-  for (let i = 0; i < 4; i++) for (let j = 0; j < 8; j++) { const t = 246 + rnd() * 6; g.fillStyle = `rgb(${t},${t - 2},${t - 4})`; g.fillRect(i * 64 + 2, j * 32 + 2, 60, 28); }
-});
 // pedra do caminho do jardim
 const cvPedra = tela(256, 512, (g, w, h) => {
   g.fillStyle = '#D9CDBF'; g.fillRect(0, 0, w, h);
@@ -243,7 +238,6 @@ const mt = {
 mt.pisoGranilite = std('#FFFFFF', 0.55, { map: tex(cvGranilite, 1, 1) });
 mt.pisoCarvalho = std('#FFFFFF', 0.68, { map: tex(cvCarvalho, 1, 1) });
 mt.pisoVinilico = std('#FFFFFF', 0.42, { map: tex(cvVinilico, 1, 1) });
-mt.azulejo = std('#FFFFFF', 0.25, { map: tex(cvAzulejo, 1, 1) });
 // luzes que acendem (emissivas): a intensidade muda com o tema e com a chegada do drone
 const emissivo = (cor, base = 1, noite = base) => { const m = std('#FFFFFF', 0.5, { emissive: new T.Color(cor), emissiveIntensity: base }); m.userData.base = base; m.userData.noite = noite; return m; };
 mt.globo = emissivo('#FFE6CC', 0.35, 2.4);
@@ -439,8 +433,7 @@ const janelasFrente = [];
 salas.forEach((s) => {
   if (s.id === 'recepcao') {
     [-1, 1].forEach((l) => janelasFrente.push({ cx: s.cx + l * 1.75, w: 0.72, y0: 0.62, topo: 2.7 }));
-  } else if (s.w < 4) janelasFrente.push({ cx: s.cx, w: 1.05, y0: 1.15, topo: 2.8 });
-  else janelasFrente.push({ cx: s.cx, w: 1.9, y0: 0.6, topo: 2.95 });
+  } else janelasFrente.push({ cx: s.cx, w: 1.9, y0: 0.6, topo: 2.95 });
 });
 const uvEscala = (g, sx, sy) => { const uv = g.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * sx, uv.getY(i) * sy); return g; };
 const predio = new T.Group();
@@ -1341,69 +1334,6 @@ const olhar = {};
   const tp = tapete(1.3, 0.85, '#F4EDE6', '#ECD8D0'); tp.position.set(0.15, 0.004, -1.1); g.add(tp);
 }
 
-// ================= CENTRAL DE ESTERILIZAÇÃO =================
-const ester = {};
-{
-  const s = SALA.esterilizacao, g = poe(new T.Group(), s.cx, 0, 0); predio.add(g); g.userData.sala = s.id;
-  const l = s.w / 2;
-  const fundoX = -s.w / 2 + E / 2;
-  // azulejo atrás das bancadas
-  const az = (w, h) => { const m = mt.azulejo.clone(); m.map = mt.azulejo.map.clone(); m.map.repeat.set(w / 0.45, h / 0.45); m.map.needsUpdate = true; return reg(m); };
-  g.add(poe(new T.Mesh(new T.PlaneGeometry(s.w - E, 1.4), az(s.w - E, 1.4)), 0, 1.6, Z0 + 0.004));
-  const azL = new T.Mesh(new T.PlaneGeometry(2.8, 1.4), az(2.8, 1.4)); azL.rotation.y = -PI / 2; azL.position.set(l - 0.004, 1.6, -1.6); g.add(azL);
-  // bancada em L de inox sobre armários brancos
-  g.add(poe(caixa(s.w - E - 0.02, 0.86, 0.55, mt.laca, 0.02), (fundoX + l) / 2 - 0.01, 0.43, Z0 + 0.28));
-  g.add(poe(caixa(s.w - E + 0.02, 0.035, 0.6, mt.inox, 0.005), (fundoX + l) / 2, 0.878, Z0 + 0.3));
-  g.add(poe(caixa(0.55, 0.86, 2.3, mt.laca, 0.02), l - 0.28, 0.43, Z0 + 0.6 + 1.15));
-  g.add(poe(caixa(0.6, 0.035, 2.3, mt.inox, 0.005), l - 0.3, 0.878, Z0 + 0.6 + 1.15));
-  for (let i = 0; i < 4; i++) g.add(poe(barra(0.2, 0.006, mt.cromo), (fundoX + 0.25) + i * 0.82, 0.74, Z0 + 0.57));
-  // cuba e torneira alta
-  g.add(poe(caixa(0.4, 0.012, 0.42, mt.cinzaClaro, 0.06), l - 0.3, 0.9, -0.95));
-  g.add(poe(tubo([[0, 0, 0], [0, 0.34, 0], [-0.03, 0.42, 0], [-0.13, 0.38, 0]], 0.011, mt.cromo, 20), l - 0.08, 0.895, -0.95));
-  // autoclave com porta redonda e mostrador
-  {
-    const au = new T.Group(); au.position.set(0.55, 0.896, Z0 + 0.32); g.add(au);
-    au.add(poe(caixa(0.64, 0.46, 0.5, mt.laca, 0.05), 0, 0.24, 0));
-    au.add(poe(malha(new T.CylinderGeometry(0.16, 0.16, 0.04, 48).rotateX(PI / 2), mt.inox), -0.08, 0.24, 0.26));
-    au.add(poe(malha(new T.TorusGeometry(0.165, 0.016, 10, 48), mt.ouro), -0.08, 0.24, 0.28));
-    au.add(poe(malha(new T.CylinderGeometry(0.11, 0.11, 0.01, 40).rotateX(PI / 2), mt.vidro, false), -0.08, 0.24, 0.285));
-    au.add(poe(caixa(0.05, 0.025, 0.04, mt.cromo, 0.008), 0.08, 0.24, 0.29));
-    const disp = telaAparelho(0.14, 0.18, (c, w, h, t, p) => {
-      c.fillStyle = '#2B2427'; c.fillRect(0, 0, w, h);
-      c.strokeStyle = 'rgba(241,221,180,.25)'; c.lineWidth = 6; c.beginPath(); c.arc(w / 2, h * 0.42, w * 0.32, 0, PI * 2); c.stroke();
-      c.strokeStyle = '#D9B56E'; c.beginPath(); c.arc(w / 2, h * 0.42, w * 0.32, -PI / 2, -PI / 2 + PI * 2 * Math.max(0.02, p)); c.stroke();
-      c.fillStyle = '#F1DDB4'; c.textAlign = 'center'; c.font = `500 ${h * 0.16}px ${F_C}`; c.fillText(`${Math.round(20 + 114 * p)}°`, w / 2, h * 0.48);
-      c.font = `500 ${h * 0.08}px ${F_C}`; c.fillText(p > 0.98 ? 'ESTÉRIL' : 'CICLO', w / 2, h * 0.88);
-    }, 128);
-    disp.m.position.set(0.21, 0.26, 0.252); au.add(disp.m); ester.disp = disp;
-    au.add(sombraChao(0.9, 0.7, 0, 0, 0.35));
-  }
-  // lavadora ultrassônica e seladora
-  g.add(poe(grupo(caixa(0.36, 0.2, 0.26, mt.inox, 0.02), poe(caixa(0.37, 0.025, 0.27, mt.laca, 0.01), 0, 0.11, 0), poe(caixa(0.12, 0.03, 0.02, mt.tela, 0.005), 0, 0.03, 0.135)), -0.35, 0.996, Z0 + 0.32));
-  g.add(poe(grupo(caixa(0.44, 0.1, 0.22, mt.laca, 0.02), poe(barra(0.4, 0.012, mt.rosaLaca), -0.2, 0.06, 0.07)), -1.08, 0.946, Z0 + 0.32));
-  // armário de vidro com envelopes esterilizados
-  {
-    const ar = new T.Group(); ar.position.set(-0.3, 1.95, Z0 + 0.18); g.add(ar);
-    ar.add(caixa(2.0, 0.66, 0.34, mt.laca, 0.02));
-    ar.add(poe(caixa(1.94, 0.02, 0.3, mt.laca, 0.004), 0, 0, 0.0));
-    for (let i = 0; i < 16; i++) { const k = i % 8, fila = Math.floor(i / 8); const e2 = caixa(0.16, 0.012 + (k % 3) * 0.004, 0.24, k % 3 ? mt.branco : mt.toalhaRosa, 0.004); e2.position.set(-0.8 + k * 0.22, -0.28 + fila * 0.32 + 0.012 * (k % 2), 0.02); ar.add(e2); for (let j = 1; j < 3; j++) { const e3 = e2.clone(); e3.position.y += j * 0.02; ar.add(e3); } }
-    [-0.49, 0.49].forEach((x) => { const v = malha(new T.PlaneGeometry(0.96, 0.62), mt.vidro, false); v.position.set(x, 0, 0.172); ar.add(v); ar.add(poe(caixa(0.012, 0.16, 0.02, mt.ouro, 0.004), x + (x < 0 ? 0.44 : -0.44), -0.15, 0.185)); });
-  }
-  // aviso da área e registro de ciclos
-  const aviso = papelDesenhado(0.8, 0.16, (c, w, h) => { c.fillStyle = '#F3E1DA'; c.fillRect(0, 0, w, h); c.fillStyle = '#4A1624'; c.textAlign = 'center'; c.font = `500 ${h * 0.34}px ${F_C}`; c.letterSpacing = `${h * 0.04}px`; c.fillText('ÁREA DE ESTERILIZAÇÃO', w / 2, h * 0.62); });
-  g.add(poe(new T.Mesh(new T.PlaneGeometry(0.8, 0.16), aviso), -0.3, 2.55, Z0 + 0.012));
-  const ciclos = papelDesenhado(0.24, 0.32, (c, w, h) => {
-    c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, w, h); c.fillStyle = '#4A1624'; c.font = `500 ${w * 0.07}px ${F_C}`; c.fillText('REGISTRO DE CICLOS', w * 0.08, h * 0.1);
-    c.strokeStyle = 'rgba(46,35,38,.3)'; for (let i = 0; i < 10; i++) { c.beginPath(); c.moveTo(w * 0.08, h * (0.18 + i * 0.075)); c.lineTo(w * 0.92, h * (0.18 + i * 0.075)); c.stroke(); }
-    c.strokeStyle = '#6B2234'; c.lineWidth = 2; for (let i = 0; i < 7; i++) { c.beginPath(); c.moveTo(w * 0.75, h * (0.16 + i * 0.075)); c.lineTo(w * 0.79, h * (0.175 + i * 0.075)); c.lineTo(w * 0.86, h * (0.14 + i * 0.075)); c.stroke(); }
-  }, 256);
-  const pr = new T.Group(); pr.position.set(l - 0.02, 1.55, -2.15); pr.rotation.y = -PI / 2; g.add(pr);
-  pr.add(caixa(0.27, 0.36, 0.008, mt.carvalhoLiso, 0.004)); const fl = new T.Mesh(new T.PlaneGeometry(0.24, 0.32), ciclos); fl.position.z = 0.006; pr.add(fl);
-  // cestos com material embalado
-  for (let i = 0; i < 2; i++) { const ce = grupo(caixa(0.36, 0.12, 0.26, mt.cromo, 0.01)); for (let j = 0; j < 4; j++) ce.add(poe(caixa(0.08, 0.1, 0.22, j % 2 ? mt.toalhaRosa : mt.branco, 0.004), -0.12 + j * 0.08, 0.08, 0)); poe(ce, l - 0.3, 0.96, -1.55 - i * 0.42); g.add(ce); }
-  g.add(sombraChao(3.6, 1.0, 0, Z0 + 0.5, 0.35));
-}
-
 // junta o que é parado em cada sala (o que anima fica de fora)
 predio.children.filter((o) => o.isGroup && o.userData.sala).forEach((g) => funde(g));
 
@@ -1420,8 +1350,7 @@ const POSES = {
   procedimentos: { p: noLocal('procedimentos', -2.15, 1.78, 2.4), a: noLocal('procedimentos', 0.5, 0.8, -1.0), r: { p: noLocal('procedimentos', -1.3, 1.85, 2.7), a: noLocal('procedimentos', 0.55, 0.85, -1.0) } },
   corporal: { p: noLocal('corporal', -2.15, 1.72, 2.3), a: noLocal('corporal', 0.25, 0.72, -1.2), r: { p: noLocal('corporal', -1.2, 1.8, 2.65), a: noLocal('corporal', 0.2, 0.75, -1.2) } },
   olhar: { p: noLocal('olhar', -2.15, 1.7, 2.3), a: noLocal('olhar', 0.35, 1.12, -1.6), r: { p: noLocal('olhar', -1.2, 1.78, 2.65), a: noLocal('olhar', 0.4, 1.1, -1.6) } },
-  esterilizacao: { p: noLocal('esterilizacao', -1.15, 1.72, 1.95), a: noLocal('esterilizacao', 0.5, 1.02, -2.3), r: { p: noLocal('esterilizacao', -0.6, 1.8, 2.6), a: noLocal('esterilizacao', 0.3, 1.0, -2.2) } },
-  planta: { p: v3(1.5, 46, 36), a: v3(1.5, 0, -0.6), r: { p: v3(27, 31, 10), a: v3(3.5, 0, 0) } },
+  planta: { p: v3(-0.3, 43, 34), a: v3(-0.3, 0, -0.6), r: { p: v3(23.5, 30, 10), a: v3(0.5, 0, 0) } },
 };
 let retrato = false;
 const pose = (id) => { const q = POSES[id]; return retrato && q.r ? q.r : q; };
@@ -1475,7 +1404,7 @@ const ease = (f) => 0.5 - 0.5 * Math.cos(PI * T.MathUtils.clamp(f, 0, 1));
 const dentro = (p) => p.x > X0 - 0.1 && p.x < X1 + 0.1 && p.z > Z0 - 0.1 && p.z < Z1 + 0.15 && p.y < H;
 const lerpC = (a, b, t) => new T.Color(a).lerp(new T.Color(b), t);
 const DIA = { hemi: 0.24, sol: 3.8, exp: 1.22 }, NOITE = { hemi: 0.1, sol: 0.45, exp: 1.05 };
-const luzBase = { recepcao: ['#FFE3C8', 11], consultorio: ['#FFE2CC', 11], avaliacao: ['#FFF1E6', 10], procedimentos: ['#FFF4EC', 10], corporal: ['#FFD7B5', 8.5], olhar: ['#FFEDE6', 9.5], esterilizacao: ['#F4F6FA', 11] };
+const luzBase = { recepcao: ['#FFE3C8', 11], consultorio: ['#FFE2CC', 11], avaliacao: ['#FFF1E6', 10], procedimentos: ['#FFF4EC', 10], corporal: ['#FFD7B5', 8.5], olhar: ['#FFEDE6', 9.5] };
 
 function poeCamera(dt) {
   const n = roteiro.length;
@@ -1521,7 +1450,7 @@ function poeCamera(dt) {
 
 // ---------- presença em cada sala e o que acontece nela ----------
 const foraAlvo = new T.Vector3(), cabMundo = new T.Vector3();
-let cicloAutoclave = 0, ultimaTela = 0;
+let ultimaTela = 0;
 function atualizaSalas(dt) {
   const k = 1 - Math.exp(-dt * 1.9);
   roteiro.forEach((id, i) => { const alvo = T.MathUtils.clamp(1 - Math.abs(pos - i) * 2.6, 0, 1); const antes = presenca[id]; presenca[id] += ((calmo ? Math.round(alvo) : alvo) - presenca[id]) * (calmo ? 1 : k); if (Math.abs(presenca[id] - antes) > 2e-4 && id !== 'fachada') renderer.shadowMap.needsUpdate = true; });
@@ -1546,14 +1475,10 @@ function atualizaSalas(dt) {
   olhar.neon.desenha(Math.max(po, noite * 0.999));
   mt.neon.emissiveIntensity = 1.15 * Math.max(po, noite);
   olhar.anel.emissiveIntensity = 0.08 + 2.6 * suave((po - 0.3) / 0.7);
-  // esterilização: a autoclave faz um ciclo enquanto o drone está lá
-  const pe = pr('esterilizacao');
-  cicloAutoclave = pe > 0.5 ? Math.min(1, cicloAutoclave + dt / 4.5) : pe < 0.1 ? 0 : cicloAutoclave;
   // telas animadas (no máximo 15 quadros por segundo)
   if (tempo - ultimaTela > 1 / 15) {
     ultimaTela = tempo;
     if (pa > 0.02) aval.ecra.pinta(tempo, pa);
-    if (pe > 0.02) ester.disp.pinta(tempo, cicloAutoclave);
   }
   // luz de destaque: quadro do consultório, lupa da cadeira ou luz de anel
   const cands = [['consultorio', pr('consultorio')], ['procedimentos', pp], ['olhar', po]].sort((a, b) => b[1] - a[1]);

@@ -127,11 +127,6 @@ const cvVinilico = tela(512, 512, (g, w, h) => {
   for (let k = 0; k < 2600; k++) { g.fillStyle = `rgba(${rnd() > 0.5 ? '255,255,255' : '190,175,165'},${0.05 + rnd() * 0.08})`; g.fillRect(rnd() * w, rnd() * h, 1 + rnd() * 2, 1 + rnd() * 2); }
   g.strokeStyle = 'rgba(170,155,145,.35)'; g.lineWidth = 1.5; g.strokeRect(0.75, 0.75, 256, 256); g.strokeRect(256.75, 256.75, 256, 256); g.strokeRect(256.75, 0.75, 256, 256); g.strokeRect(0.75, 256.75, 256, 256);
 });
-// azulejo branco da esterilização
-const cvAzulejo = tela(256, 256, (g, w, h) => {
-  g.fillStyle = '#E6E1DD'; g.fillRect(0, 0, w, h);
-  for (let i = 0; i < 4; i++) for (let j = 0; j < 8; j++) { const t = 246 + rnd() * 6; g.fillStyle = `rgb(${t},${t - 2},${t - 4})`; g.fillRect(i * 64 + 2, j * 32 + 2, 60, 28); }
-});
 // pedra do caminho do jardim
 const cvPedra = tela(256, 512, (g, w, h) => {
   g.fillStyle = '#D9CDBF'; g.fillRect(0, 0, w, h);
@@ -239,7 +234,6 @@ const mt = {
 mt.pisoGranilite = std('#FFFFFF', 0.55, { map: tex(cvGranilite, 1, 1) });
 mt.pisoCarvalho = std('#FFFFFF', 0.68, { map: tex(cvCarvalho, 1, 1) });
 mt.pisoVinilico = std('#FFFFFF', 0.42, { map: tex(cvVinilico, 1, 1) });
-mt.azulejo = std('#FFFFFF', 0.25, { map: tex(cvAzulejo, 1, 1) });
 // luzes que acendem (emissivas): a intensidade muda com o tema e com a chegada do drone
 const emissivo = (cor, base = 1, noite = base) => { const m = std('#FFFFFF', 0.5, { emissive: new T.Color(cor), emissiveIntensity: base }); m.userData.base = base; m.userData.noite = noite; return m; };
 mt.globo = emissivo('#FFE6CC', 0.35, 2.4);

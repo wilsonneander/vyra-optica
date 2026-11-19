@@ -8,8 +8,7 @@ const janelasFrente = [];
 salas.forEach((s) => {
   if (s.id === 'recepcao') {
     [-1, 1].forEach((l) => janelasFrente.push({ cx: s.cx + l * 1.75, w: 0.72, y0: 0.62, topo: 2.7 }));
-  } else if (s.w < 4) janelasFrente.push({ cx: s.cx, w: 1.05, y0: 1.15, topo: 2.8 });
-  else janelasFrente.push({ cx: s.cx, w: 1.9, y0: 0.6, topo: 2.95 });
+  } else janelasFrente.push({ cx: s.cx, w: 1.9, y0: 0.6, topo: 2.95 });
 });
 const uvEscala = (g, sx, sy) => { const uv = g.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * sx, uv.getY(i) * sy); return g; };
 const predio = new T.Group();

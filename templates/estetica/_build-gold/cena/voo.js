@@ -10,8 +10,7 @@ const POSES = {
   procedimentos: { p: noLocal('procedimentos', -2.15, 1.78, 2.4), a: noLocal('procedimentos', 0.5, 0.8, -1.0), r: { p: noLocal('procedimentos', -1.3, 1.85, 2.7), a: noLocal('procedimentos', 0.55, 0.85, -1.0) } },
   corporal: { p: noLocal('corporal', -2.15, 1.72, 2.3), a: noLocal('corporal', 0.25, 0.72, -1.2), r: { p: noLocal('corporal', -1.2, 1.8, 2.65), a: noLocal('corporal', 0.2, 0.75, -1.2) } },
   olhar: { p: noLocal('olhar', -2.15, 1.7, 2.3), a: noLocal('olhar', 0.35, 1.12, -1.6), r: { p: noLocal('olhar', -1.2, 1.78, 2.65), a: noLocal('olhar', 0.4, 1.1, -1.6) } },
-  esterilizacao: { p: noLocal('esterilizacao', -1.15, 1.72, 1.95), a: noLocal('esterilizacao', 0.5, 1.02, -2.3), r: { p: noLocal('esterilizacao', -0.6, 1.8, 2.6), a: noLocal('esterilizacao', 0.3, 1.0, -2.2) } },
-  planta: { p: v3(1.5, 46, 36), a: v3(1.5, 0, -0.6), r: { p: v3(27, 31, 10), a: v3(3.5, 0, 0) } },
+  planta: { p: v3(-0.3, 43, 34), a: v3(-0.3, 0, -0.6), r: { p: v3(23.5, 30, 10), a: v3(0.5, 0, 0) } },
 };
 let retrato = false;
 const pose = (id) => { const q = POSES[id]; return retrato && q.r ? q.r : q; };
@@ -65,7 +64,7 @@ const ease = (f) => 0.5 - 0.5 * Math.cos(PI * T.MathUtils.clamp(f, 0, 1));
 const dentro = (p) => p.x > X0 - 0.1 && p.x < X1 + 0.1 && p.z > Z0 - 0.1 && p.z < Z1 + 0.15 && p.y < H;
 const lerpC = (a, b, t) => new T.Color(a).lerp(new T.Color(b), t);
 const DIA = { hemi: 0.24, sol: 3.8, exp: 1.22 }, NOITE = { hemi: 0.1, sol: 0.45, exp: 1.05 };
-const luzBase = { recepcao: ['#FFE3C8', 11], consultorio: ['#FFE2CC', 11], avaliacao: ['#FFF1E6', 10], procedimentos: ['#FFF4EC', 10], corporal: ['#FFD7B5', 8.5], olhar: ['#FFEDE6', 9.5], esterilizacao: ['#F4F6FA', 11] };
+const luzBase = { recepcao: ['#FFE3C8', 11], consultorio: ['#FFE2CC', 11], avaliacao: ['#FFF1E6', 10], procedimentos: ['#FFF4EC', 10], corporal: ['#FFD7B5', 8.5], olhar: ['#FFEDE6', 9.5] };
 
 function poeCamera(dt) {
   const n = roteiro.length;
@@ -111,7 +110,7 @@ function poeCamera(dt) {
 
 // ---------- presença em cada sala e o que acontece nela ----------
 const foraAlvo = new T.Vector3(), cabMundo = new T.Vector3();
-let cicloAutoclave = 0, ultimaTela = 0;
+let ultimaTela = 0;
 function atualizaSalas(dt) {
   const k = 1 - Math.exp(-dt * 1.9);
   roteiro.forEach((id, i) => { const alvo = T.MathUtils.clamp(1 - Math.abs(pos - i) * 2.6, 0, 1); const antes = presenca[id]; presenca[id] += ((calmo ? Math.round(alvo) : alvo) - presenca[id]) * (calmo ? 1 : k); if (Math.abs(presenca[id] - antes) > 2e-4 && id !== 'fachada') renderer.shadowMap.needsUpdate = true; });
@@ -136,14 +135,10 @@ function atualizaSalas(dt) {
   olhar.neon.desenha(Math.max(po, noite * 0.999));
   mt.neon.emissiveIntensity = 1.15 * Math.max(po, noite);
   olhar.anel.emissiveIntensity = 0.08 + 2.6 * suave((po - 0.3) / 0.7);
-  // esterilização: a autoclave faz um ciclo enquanto o drone está lá
-  const pe = pr('esterilizacao');
-  cicloAutoclave = pe > 0.5 ? Math.min(1, cicloAutoclave + dt / 4.5) : pe < 0.1 ? 0 : cicloAutoclave;
   // telas animadas (no máximo 15 quadros por segundo)
   if (tempo - ultimaTela > 1 / 15) {
     ultimaTela = tempo;
     if (pa > 0.02) aval.ecra.pinta(tempo, pa);
-    if (pe > 0.02) ester.disp.pinta(tempo, cicloAutoclave);
   }
   // luz de destaque: quadro do consultório, lupa da cadeira ou luz de anel
   const cands = [['consultorio', pr('consultorio')], ['procedimentos', pp], ['olhar', po]].sort((a, b) => b[1] - a[1]);

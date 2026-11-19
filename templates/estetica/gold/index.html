@@ -185,10 +185,25 @@ em { font-style: italic; color: var(--acento); }
 .parada-capa { display: flex; align-items: center; min-height: 100vh; min-height: 100svh; padding: 104px 0 48px; }
 .parada-capa + .parada { padding-top: 178vh; }
 .parada-fim { padding-bottom: 62vh; }
-.parada .wrap { display: flex; }
+.parada .wrap { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
+/* foto da sala, fora da placa: arco com moldura clara, foto menor sobreposta e legenda; fica parada enquanto a placa rola */
+.quadro-sala { position: sticky; top: 132px; flex: none; width: clamp(250px, 21vw, 360px); margin: 70px 0 0; pointer-events: auto; }
+.qs-arco { position: relative; aspect-ratio: 4 / 5; border-radius: 50% 50% 6px 6px / 38% 38% 6px 6px; overflow: hidden; background: var(--rosa); box-shadow: 0 34px 60px -34px rgba(46, 25, 30, .65); }
+.qs-arco::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(255, 253, 251, .75); border-radius: 50% 50% 4px 4px / 37% 37% 4px 4px; pointer-events: none; }
+.qs-arco .foto { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 40%); transition: transform 1.4s var(--suave); }
+.quadro-sala:hover .qs-arco .foto { transform: scale(1.05); }
+.qs-mini { position: absolute; left: -24%; bottom: 27%; width: 55%; aspect-ratio: 4 / 3; border: 5px solid var(--papel); border-radius: 6px; overflow: hidden; box-shadow: 0 20px 40px -22px rgba(46, 25, 30, .6); transform: rotate(-4deg); transition: transform .6s var(--suave); }
+.quadro-sala:hover .qs-mini { transform: rotate(-1deg) translateY(-4px); }
+.qs-mini .foto { width: 100%; height: 100%; object-fit: cover; }
+.quadro-sala figcaption { position: relative; margin: -24px 16px 0; padding: 11px 14px; background: var(--placa-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 4px; box-shadow: var(--sombra); text-align: center; font: italic 300 16px/1.35 var(--f-t); color: var(--titulo); }
 .placa { position: relative; width: min(492px, 100%); padding: 74px 40px 38px; background: var(--placa-bg); backdrop-filter: blur(18px) saturate(1.15); -webkit-backdrop-filter: blur(18px) saturate(1.15); border-radius: 50% 50% 8px 8px / 118px 118px 8px 8px; box-shadow: var(--sombra); pointer-events: auto; }
 .placa::before { content: ""; position: absolute; inset: 9px; border: 1px solid var(--placa-linha); border-radius: 50% 50% 5px 5px / 110px 110px 5px 5px; pointer-events: none; }
 .placa > * { position: relative; }
+/* placa com retrato: a foto preenche o arco do topo, se desfaz no fundo da placa e a moldura dourada passa por cima */
+.placa-retrato { overflow: hidden; padding-top: 0; }
+.placa-retrato::before { z-index: 2; }
+.retrato { height: 340px; margin: 0 -40px 24px; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+.retrato .foto { width: 100%; height: 100%; object-fit: cover; object-position: 50% 8%; }
 .sala, .placa > .apoio { display: flex; align-items: center; justify-content: center; gap: 9px; margin-bottom: 18px; font-size: 11.5px; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--ouro-esc); text-align: center; }
 .sala .florzinha { font-size: 14px; }
 .placa h1, .placa h2 { text-align: center; font-family: var(--f-t); font-weight: 300; letter-spacing: -.012em; color: var(--titulo); text-wrap: balance; }
@@ -355,6 +370,10 @@ em { font-style: italic; color: var(--acento); }
 .pol[open] summary .ic { transform: rotate(45deg); }
 .pol p { padding-bottom: 16px; font-size: 15px; color: var(--apoio); animation: desce .45s var(--suave); }
 
+.higiene { margin-top: 28px; padding: 32px; background: var(--papel); border-radius: 6px; box-shadow: var(--sombra); }
+.higiene h3 { margin-bottom: 18px; font: 400 25px var(--f-t); color: var(--titulo); }
+.higiene .seguro { grid-template-columns: repeat(4, 1fr); gap: 18px 28px; margin: 0; padding: 0; border: 0; }
+
 /* dúvidas */
 .faq { max-width: 840px; }
 .faq-lista { display: grid; gap: 12px; }
@@ -484,8 +503,11 @@ dialog.doc[open] { display: flex; flex-direction: column; animation: surge .45s 
 }
 /* telas em pé: a cena fica em cima e a placa centralizada, subindo por baixo */
 @media (max-aspect-ratio: 105/100), (max-width: 900px) {
-  .parada .wrap { justify-content: center; }
+  .parada .wrap { flex-direction: column; align-items: center; justify-content: flex-start; gap: 0; }
   .placa { width: min(560px, 100%); }
+  .quadro-sala { position: relative; top: auto; order: -1; z-index: 2; width: min(230px, 62%); margin: 0 0 -54px; }
+  .qs-mini { width: 48%; left: -22%; bottom: 22%; }
+  .quadro-sala figcaption { display: none; }
   .parada-capa { align-items: flex-start; padding-top: 54vh; padding-top: 54svh; }
   .palco-veu { background: radial-gradient(120% 90% at 50% 34%, transparent 52%, rgba(74, 22, 36, .1) 100%), linear-gradient(0deg, rgba(248, 245, 242, .5) 0%, rgba(248, 245, 242, 0) 40%); }
   [data-tema="escuro"] .palco-veu { background: radial-gradient(120% 90% at 50% 34%, transparent 50%, rgba(0, 0, 0, .35) 100%), linear-gradient(0deg, rgba(18, 12, 12, .5) 0%, rgba(18, 12, 12, 0) 40%); }
@@ -507,6 +529,7 @@ dialog.doc[open] { display: flex; flex-direction: column; animation: surge .45s 
   .depo:nth-child(2) { margin-top: 0; }
   .pagar { gap: 24px; }
   .regras { margin-top: 40px; }
+  .higiene .seguro { grid-template-columns: 1fr 1fr; }
   .cookies { left: 20px; right: 20px; max-width: none; }
   .planta-mini { right: auto; left: 12px; top: 76px; bottom: auto; width: 200px; padding: 8px 10px; }
   .pm-txt { margin-top: 5px; }
@@ -524,6 +547,7 @@ dialog.doc[open] { display: flex; flex-direction: column; animation: surge .45s 
   .parada-capa + .parada { padding-top: 150vh; }
   .placa { padding: 60px 20px 26px; border-radius: 50% 50% 6px 6px / 70px 70px 6px 6px; }
   .placa::before { inset: 7px; border-radius: 50% 50% 4px 4px / 64px 64px 4px 4px; }
+  .retrato { height: 280px; margin: 0 -20px 20px; }
   .placa h1 { font-size: 36px; }
   .placa h2 { font-size: 30px; }
   .placa-txt { font-size: 15.5px; }
@@ -536,6 +560,8 @@ dialog.doc[open] { display: flex; flex-direction: column; animation: surge .45s 
   .sec-topo h2 { font-size: 34px; }
   .regras-contra, .regras-pol { padding: 26px 20px; }
   .regra-24 b { font-size: 52px; }
+  .higiene { padding: 26px 20px; }
+  .higiene .seguro { grid-template-columns: 1fr; }
   .pergunta summary { padding: 18px 18px; font-size: 15.5px; }
   .pergunta p { padding: 0 18px 20px; }
   .form { padding: 26px 18px; }
@@ -600,17 +626,18 @@ dialog.doc[open] { display: flex; flex-direction: column; animation: surge .45s 
         <figure class="parada-foto"><img class="foto " src="assets/img/galeria-corredor.webp" alt="" loading="lazy"></figure>
         <p class="apoio">Clínica de estética no Cambuí, Campinas</p>
         <h1 id="t-fachada">Conheça a clínica <em>por dentro</em> antes de marcar.</h1>
-        <p class="placa-txt">Role a página e entre com a gente. O drone passa pelo consultório, pelas salas de cada tratamento e pela esterilização, do jeito que você vai encontrar no dia da sua avaliação.</p>
+        <p class="placa-txt">Role a página e entre com a gente. O drone passa pelo consultório e pelas salas de cada tratamento, do jeito que você vai encontrar no dia da sua avaliação.</p>
         <div class="capa-btns"><a class="btn btn-vinho" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar avaliação</span></a><a class="btn btn-linha" href="#sobre">Começar a visita</a></div>
         <p class="capa-status"><span data-status>Seg a sex, 9h às 20h</span>. Rua Coronel Quirino, Cambuí.</p>
         <p class="dica" aria-hidden="true"><svg class="drone" viewBox="0 0 64 40" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M22 20 10 12M42 20l12-8M22 22l-10 7M42 22l10 7"/><rect x="22" y="15" width="20" height="11" rx="5.5"/><path d="M29 26v4M35 26v4"/></g><ellipse class="helice" style="--d:0ms" cx="10" cy="11" rx="8" ry="1.6" fill="currentColor"/><ellipse class="helice" style="--d:60ms" cx="54" cy="11" rx="8" ry="1.6" fill="currentColor"/><ellipse class="helice" style="--d:120ms" cx="12" cy="29" rx="8" ry="1.6" fill="currentColor"/><ellipse class="helice" style="--d:180ms" cx="52" cy="29" rx="8" ry="1.6" fill="currentColor"/><circle cx="32" cy="20.5" r="2.4" fill="currentColor"/></svg><span>Role para entrar</span></p>
       </article>
+      
     </div>
   </section>
   <section class="parada " id="sobre" data-parada="consultorio" aria-labelledby="t-consultorio">
     <div class="wrap">
-      <article class="placa" data-placa>
-        <figure class="parada-foto"><img class="foto " src="assets/img/responsavel.webp" alt="" loading="lazy"></figure>
+      <article class="placa placa-retrato" data-placa>
+        <figure class="retrato"><img class="foto " src="assets/img/responsavel.webp" alt="Helena Prado, biomédica esteta" loading="lazy"></figure>
         <p class="sala"><svg class="florzinha" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.4" r="4.4"/><circle cx="19.2" cy="9.6" r="4.4"/><circle cx="16.5" cy="18.2" r="4.4"/><circle cx="7.5" cy="18.2" r="4.4"/><circle cx="4.8" cy="9.6" r="4.4"/><circle class="fz-c" cx="12" cy="12" r="3.3"/></svg><span>Consultório</span></p>
         <h2 id="t-consultorio">Quem recebe você é a <em>Helena</em>.</h2>
         <p class="placa-cargo">Biomédica esteta, responsável técnica. <b>CRBM-1 nº 00000</b></p>
@@ -619,24 +646,30 @@ dialog.doc[open] { display: flex; flex-direction: column; animation: surge .45s 
         <p class="placa-txt">Os atendimentos de depilação, cílios e sobrancelhas são feitos por esteticistas com curso técnico, sob a supervisão dela.</p>
         <p class="miudo">O diploma e o registro no conselho ficam na parede do consultório. Pode perguntar, a gente mostra.</p>
       </article>
+      
     </div>
   </section>
   <section class="parada " id="como-funciona" data-parada="avaliacao" aria-labelledby="t-avaliacao">
     <div class="wrap">
       <article class="placa" data-placa>
-        <figure class="parada-foto"><img class="foto " src="assets/img/avaliacao.webp" alt="" loading="lazy"></figure>
+        
         <p class="sala"><svg class="florzinha" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.4" r="4.4"/><circle cx="19.2" cy="9.6" r="4.4"/><circle cx="16.5" cy="18.2" r="4.4"/><circle cx="7.5" cy="18.2" r="4.4"/><circle cx="4.8" cy="9.6" r="4.4"/><circle class="fz-c" cx="12" cy="12" r="3.3"/></svg><span>Sala de avaliação</span></p>
         <h2 id="t-avaliacao">Tudo começa por uma <em>boa conversa</em>.</h2>
         <p class="placa-txt">Antes de qualquer protocolo, a pele é analisada com lupa de aumento e com o aparelho de análise facial. Você conta da sua rotina, preenche a ficha de saúde e sai com o plano por escrito. Sem custo e sem compromisso de fechar nada.</p>
         <ol class="etapas" data-linha><li><h3>Avaliação</h3><p>Conversa, ficha de saúde e análise da pele ou da área. Sem custo e sem compromisso de fechar nada.</p></li><li><h3>Plano por escrito</h3><p>Tratamento indicado, número de sessões, intervalo, valor e cuidados em casa.</p></li><li><h3>Sessões</h3><p>Com hora marcada, material descartável ou esterilizado aberto na sua frente.</p></li><li><h3>Retorno</h3><p>Revisamos como a pele respondeu e ajustamos o plano se for preciso.</p></li></ol>
         <a class="btn btn-vinho" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar minha avaliação</span></a>
       </article>
+      <figure class="quadro-sala">
+        <div class="qs-arco" style="--pos:74% 40%"><img class="foto " src="assets/img/avaliacao.webp" alt="Profissional de luvas fazendo tratamento facial com aparelho em cliente de touca" loading="lazy"></div>
+        
+        <figcaption>Análise da pele antes de qualquer protocolo</figcaption>
+      </figure>
     </div>
   </section>
   <section class="parada " id="seg-facial" data-parada="procedimentos" data-seg="facial" aria-labelledby="t-procedimentos">
     <div class="wrap">
       <article class="placa" data-placa>
-        <figure class="parada-foto"><img class="foto " src="assets/img/capa.webp" alt="" loading="lazy"></figure>
+        
         <p class="sala"><svg class="florzinha" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.4" r="4.4"/><circle cx="19.2" cy="9.6" r="4.4"/><circle cx="16.5" cy="18.2" r="4.4"/><circle cx="7.5" cy="18.2" r="4.4"/><circle cx="4.8" cy="9.6" r="4.4"/><circle class="fz-c" cx="12" cy="12" r="3.3"/></svg><span>Sala de procedimentos</span></p>
         <h2 id="t-procedimentos">Estética facial, <em>sem exagero</em>.</h2>
         <p class="placa-txt">Harmonização, limpeza, peelings, hidratação e rejuvenescimento, com o protocolo escolhido pelo seu tipo de pele. A cadeira reclina, a luz de aumento desce e cada produto tem o lote anotado no prontuário.</p>
@@ -735,12 +768,17 @@ dialog.doc[open] { display: flex; flex-direction: column; animation: surge .45s 
         <details class="extra"><summary>Protocolo pelo tipo de pele<span aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span></summary>
             <dl class="peles"><div><dt>Oleosa ou com acne</dt><dd>Limpeza profunda a cada 30 dias e peeling suave. Microagulhamento só depois que a acne ativa acalma.</dd></div><div><dt>Seca ou desidratada</dt><dd>Hidratação profunda mensal e, no inverno, sessões a cada 15 dias.</dd></div><div><dt>Sensível ou com rosácea</dt><dd>Protocolos sem calor e sem extração forte. Teste de ativo antes da primeira sessão.</dd></div><div><dt>Madura</dt><dd>Radiofrequência e microagulhamento, intercalados com hidratação.</dd></div><div><dt>Com manchas</dt><dd>Peeling em série e protetor solar todos os dias. O plano começa fora do verão.</dd></div></dl></details>
       </article>
+      <figure class="quadro-sala com-mini">
+        <div class="qs-arco" style="--pos:50% 34%"><img class="foto " src="assets/img/capa.webp" alt="Profissional de luvas rosa aplicando preenchimento labial em cliente deitada" loading="lazy"></div>
+        <div class="qs-mini"><img class="foto " src="assets/img/galeria-toxina.webp" alt="Aplicação de toxina botulínica na testa da cliente" loading="lazy"></div>
+        <figcaption>Preenchimento labial com ácido hialurônico</figcaption>
+      </figure>
     </div>
   </section>
   <section class="parada " id="seg-corporal" data-parada="corporal" data-seg="corporal" aria-labelledby="t-corporal">
     <div class="wrap">
       <article class="placa" data-placa>
-        <figure class="parada-foto"><img class="foto " src="assets/img/corporal.webp" alt="" loading="lazy"></figure>
+        
         <p class="sala"><svg class="florzinha" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.4" r="4.4"/><circle cx="19.2" cy="9.6" r="4.4"/><circle cx="16.5" cy="18.2" r="4.4"/><circle cx="7.5" cy="18.2" r="4.4"/><circle cx="4.8" cy="9.6" r="4.4"/><circle class="fz-c" cx="12" cy="12" r="3.3"/></svg><span>Sala corporal</span></p>
         <h2 id="t-corporal">Corpo leve, <em>no seu tempo</em>.</h2>
         <p class="placa-txt">Massagens, drenagem e protocolos para celulite e gordura localizada, avulsos ou em pacotes de sessões. Luz baixa, toalha aquecida e a pressão combinada com você antes de começar.</p>
@@ -798,12 +836,17 @@ dialog.doc[open] { display: flex; flex-direction: column; animation: surge .45s 
         </ul>
         
       </article>
+      <figure class="quadro-sala">
+        <div class="qs-arco" style="--pos:50% 38%"><img class="foto " src="assets/img/corporal.webp" alt="Massagem nas costas da cliente deitada na maca com toalha branca" loading="lazy"></div>
+        
+        <figcaption>Massagem com a pressão combinada antes</figcaption>
+      </figure>
     </div>
   </section>
   <section class="parada " id="seg-depilacao" data-parada="olhar" data-seg="depilacao" aria-labelledby="t-olhar">
     <div class="wrap">
       <article class="placa" data-placa>
-        <figure class="parada-foto"><img class="foto " src="assets/img/depilacao.webp" alt="" loading="lazy"></figure>
+        
         <p class="sala"><svg class="florzinha" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.4" r="4.4"/><circle cx="19.2" cy="9.6" r="4.4"/><circle cx="16.5" cy="18.2" r="4.4"/><circle cx="7.5" cy="18.2" r="4.4"/><circle cx="4.8" cy="9.6" r="4.4"/><circle class="fz-c" cx="12" cy="12" r="3.3"/></svg><span>Estúdio do olhar</span></p>
         <h2 id="t-olhar">Cílios, sobrancelhas e <em>depilação</em>.</h2>
         <p class="placa-txt">Laser e cera com preço por área, design de sobrancelhas, extensão de cílios e lash lifting. Luz de anel para o desenho sair simétrico e laser de diodo com teste numa área pequena antes da primeira sessão.</p>
@@ -854,17 +897,11 @@ dialog.doc[open] { display: flex; flex-direction: column; animation: surge .45s 
             <tbody><tr><th scope="row">Buço</th><td>R$ 20</td><td>R$ 70</td></tr><tr><th scope="row">Axilas</th><td>R$ 30</td><td>R$ 90</td></tr><tr><th scope="row">Virilha completa</th><td>R$ 70</td><td>R$ 140</td></tr><tr><th scope="row">Meia perna</th><td>R$ 45</td><td>R$ 180</td></tr><tr><th scope="row">Perna inteira</th><td>R$ 75</td><td>R$ 290</td></tr><tr><th scope="row">Braços</th><td>R$ 45</td><td>R$ 160</td></tr><tr><th scope="row">Abdômen (linha)</th><td>R$ 20</td><td>R$ 80</td></tr></tbody></table>
             <p class="miudo">Laser de diodo com registro na Anvisa. Pacote de 10 sessões com 15% de desconto. Antes da primeira sessão fazemos o teste em uma pequena área. Preço do laser por sessão.</p></details>
       </article>
-    </div>
-  </section>
-  <section class="parada " id="seguranca" data-parada="esterilizacao" aria-labelledby="t-esterilizacao">
-    <div class="wrap">
-      <article class="placa" data-placa>
-        <figure class="parada-foto"><img class="foto " src="assets/img/galeria-produtos.webp" alt="" loading="lazy"></figure>
-        <p class="sala"><svg class="florzinha" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="4.4" r="4.4"/><circle cx="19.2" cy="9.6" r="4.4"/><circle cx="16.5" cy="18.2" r="4.4"/><circle cx="7.5" cy="18.2" r="4.4"/><circle cx="4.8" cy="9.6" r="4.4"/><circle class="fz-c" cx="12" cy="12" r="3.3"/></svg><span>Esterilização</span></p>
-        <h2 id="t-esterilizacao">A sala que quase ninguém mostra. <em>A gente mostra</em>.</h2>
-        <p class="placa-txt">É aqui que pinças e instrumentos passam por limpeza, embalagem e autoclave. O que é de uso único chega lacrado na sua sala e é aberto na sua frente.</p>
-        <dl class="seguro"><div><dt>Material descartável</dt><dd>Agulhas, ponteiras, lençol, touca e espátulas são de uso único e abertos na sua frente.</dd></div><div><dt>Esterilização em autoclave</dt><dd>Pinças e instrumentos metálicos passam por limpeza, embalagem e autoclave, com registro de cada ciclo.</dd></div><div><dt>Registro na Anvisa</dt><dd>Equipamentos e produtos usados nos protocolos têm registro ou notificação na Anvisa, conforme exigido para cada item.</dd></div><div><dt>Licença sanitária</dt><dd>Clínica com alvará e licença da Vigilância Sanitária de Campinas, renovados todo ano.</dd></div></dl>
-      </article>
+      <figure class="quadro-sala com-mini">
+        <div class="qs-arco" style="--pos:50% 40%"><img class="foto " src="assets/img/depilacao.webp" alt="Design de sobrancelha com pinça, cliente de olhos fechados" loading="lazy"></div>
+        <div class="qs-mini"><img class="foto " src="assets/img/galeria-cilios.webp" alt="Extensão de cílios sendo aplicada com pinça" loading="lazy"></div>
+        <figcaption>Design de sobrancelhas com pinça e linha</figcaption>
+      </figure>
     </div>
   </section>
   <section class="parada parada-fim" id="vista" data-parada="planta" aria-labelledby="t-planta">
@@ -877,14 +914,15 @@ dialog.doc[open] { display: flex; flex-direction: column; animation: surge .45s 
         <div class="capa-btns"><a class="btn btn-vinho" href="#agendar">Escolher dia e horário</a><a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>WhatsApp</span></a></div>
         <table class="horas horas-placa"><caption>Horário de atendimento</caption><tbody><tr data-linha="0"><th scope="row">Segunda a sexta</th><td>9h às 20h</td></tr><tr data-linha="1"><th scope="row">Sábado</th><td>8h às 14h</td></tr><tr data-linha="2"><th scope="row">Domingo e feriado</th><td>Fechado</td></tr></tbody></table>
       </article>
+      
     </div>
   </section>
   </div>
 
   <nav class="planta-mini" id="planta-mini" aria-label="Salas da visita">
-    <svg class="pm-svg" viewBox="-17.6 -3.6 38.2 7.6" aria-hidden="true"><g class="pm-salas"><rect class="pm-sala" data-sala="recepcao" x="-17" y="-3" width="5.5" height="6"/><rect class="pm-sala" data-sala="consultorio" x="-11.5" y="-3" width="6" height="6"/><rect class="pm-sala" data-sala="avaliacao" x="-5.5" y="-3" width="5" height="6"/><rect class="pm-sala" data-sala="procedimentos" x="-0.5" y="-3" width="6" height="6"/><rect class="pm-sala" data-sala="corporal" x="5.5" y="-3" width="5.5" height="6"/><rect class="pm-sala" data-sala="olhar" x="11" y="-3" width="5.5" height="6"/><rect class="pm-sala" data-sala="esterilizacao" x="16.5" y="-3" width="3.5" height="6"/></g><g class="pm-paredes"><path d="M-15.2 3H-17V-3H20V3H-13.3"/><path d="M-11.5 -3V-0.75M-11.5 0.75V3"/><path d="M-5.5 -3V-0.75M-5.5 0.75V3"/><path d="M-0.5 -3V-0.75M-0.5 0.75V3"/><path d="M5.5 -3V-0.75M5.5 0.75V3"/><path d="M11 -3V-0.75M11 0.75V3"/><path d="M16.5 -3V-0.75M16.5 0.75V3"/></g><g class="pm-drone" transform="translate(-14.25 4)"><g transform="scale(.06) translate(-12 -12)"><circle cx="12" cy="4.4" r="4.4"/><circle cx="19.2" cy="9.6" r="4.4"/><circle cx="16.5" cy="18.2" r="4.4"/><circle cx="7.5" cy="18.2" r="4.4"/><circle cx="4.8" cy="9.6" r="4.4"/><circle class="fz-c" cx="12" cy="12" r="3.3"/></g></g></svg>
+    <svg class="pm-svg" viewBox="-17.6 -3.6 34.7 7.6" aria-hidden="true"><g class="pm-salas"><rect class="pm-sala" data-sala="recepcao" x="-17" y="-3" width="5.5" height="6"/><rect class="pm-sala" data-sala="consultorio" x="-11.5" y="-3" width="6" height="6"/><rect class="pm-sala" data-sala="avaliacao" x="-5.5" y="-3" width="5" height="6"/><rect class="pm-sala" data-sala="procedimentos" x="-0.5" y="-3" width="6" height="6"/><rect class="pm-sala" data-sala="corporal" x="5.5" y="-3" width="5.5" height="6"/><rect class="pm-sala" data-sala="olhar" x="11" y="-3" width="5.5" height="6"/></g><g class="pm-paredes"><path d="M-15.2 3H-17V-3H16.5V3H-13.3"/><path d="M-11.5 -3V-0.75M-11.5 0.75V3"/><path d="M-5.5 -3V-0.75M-5.5 0.75V3"/><path d="M-0.5 -3V-0.75M-0.5 0.75V3"/><path d="M5.5 -3V-0.75M5.5 0.75V3"/><path d="M11 -3V-0.75M11 0.75V3"/></g><g class="pm-drone" transform="translate(-14.25 4)"><g transform="scale(.06) translate(-12 -12)"><circle cx="12" cy="4.4" r="4.4"/><circle cx="19.2" cy="9.6" r="4.4"/><circle cx="16.5" cy="18.2" r="4.4"/><circle cx="7.5" cy="18.2" r="4.4"/><circle cx="4.8" cy="9.6" r="4.4"/><circle class="fz-c" cx="12" cy="12" r="3.3"/></g></g></svg>
     <div class="pm-txt"><small>Você está em</small><b data-sala-atual>Frente da clínica</b></div>
-    <div class="pm-botoes"><button type="button" data-ir="consultorio">Consultório</button><button type="button" data-ir="avaliacao">Sala de avaliação</button><button type="button" data-ir="procedimentos" data-seg="facial">Sala de procedimentos</button><button type="button" data-ir="corporal" data-seg="corporal">Sala corporal</button><button type="button" data-ir="olhar" data-seg="depilacao">Estúdio do olhar</button><button type="button" data-ir="esterilizacao">Esterilização</button></div>
+    <div class="pm-botoes"><button type="button" data-ir="consultorio">Consultório</button><button type="button" data-ir="avaliacao">Sala de avaliação</button><button type="button" data-ir="procedimentos" data-seg="facial">Sala de procedimentos</button><button type="button" data-ir="corporal" data-seg="corporal">Sala corporal</button><button type="button" data-ir="olhar" data-seg="depilacao">Estúdio do olhar</button></div>
   </nav>
 
   <section class="sec" id="resultados" aria-labelledby="t-res">
@@ -969,6 +1007,10 @@ dialog.doc[open] { display: flex; flex-direction: column; animation: surge .45s 
           <ul><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><span>Gravidez e amamentação: sem peelings, laser, radiofrequência e alguns ativos.</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><span>Uso de isotretinoína nos últimos 6 meses: sem peeling, microagulhamento, laser e cera.</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><span>Pele com ferida, herpes ativo, acne inflamada ou queimadura de sol na área.</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><span>Marca-passo, implante metálico ou prótese na área: sem radiofrequência e ultrassom.</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><span>Distúrbios de coagulação, diabetes descompensado ou doença de pele em crise: só com liberação médica.</span></li><li><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg><span>Trombose, insuficiência cardíaca ou renal: drenagem e massagem só com liberação médica.</span></li></ul>
           <p class="miudo">A lista completa é conferida na ficha de saúde da avaliação.</p>
         </div>
+      </div>
+      <div class="higiene">
+        <h3>Segurança e higiene</h3>
+        <dl class="seguro"><div><dt>Material descartável</dt><dd>Agulhas, ponteiras, lençol, touca e espátulas são de uso único e abertos na sua frente.</dd></div><div><dt>Esterilização em autoclave</dt><dd>Pinças e instrumentos metálicos passam por limpeza, embalagem e autoclave, com registro de cada ciclo.</dd></div><div><dt>Registro na Anvisa</dt><dd>Equipamentos e produtos usados nos protocolos têm registro ou notificação na Anvisa, conforme exigido para cada item.</dd></div><div><dt>Licença sanitária</dt><dd>Clínica com alvará e licença da Vigilância Sanitária de Campinas, renovados todo ano.</dd></div></dl>
       </div>
     </div>
   </section>

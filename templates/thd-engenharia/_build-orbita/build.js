@@ -12,7 +12,9 @@ const crypto = require('crypto');
 const C = require('../_build/content');
 const I = require('../_build/icons');
 const { css } = require('./style');
-const { js } = require('./script');
+const { js: baseJs } = require('./script');
+const TH = require('../_build/theme');
+const js = TH.themeJs + baseJs;
 
 const PREVIEW = process.argv.includes('--preview');
 const OUT = path.join(__dirname, '..', PREVIEW ? '_preview-orbita' : 'site-orbita');
@@ -106,6 +108,7 @@ function header(slug) {
       <img src="${asset(slug, 'img/logo-simbolo.png')}" alt="THD Engenharia, consultoria de provedores de internet" width="360" height="217">
     </a>
     <nav class="nav" aria-label="Principal">${items}<span class="nav-ind" aria-hidden="true"></span></nav>
+    ${TH.themeNav()}
     <a class="btn btn-o btn-sm hdr-cta" href="${C.waOrcamento}" target="_blank" rel="noopener" data-magnetic>${roll('Solicitar orçamento')}<span class="b-ar">${I.seta}</span></a>
     <button class="menu-btn" data-menu aria-controls="mmenu" aria-expanded="false" aria-label="Abrir menu"><span></span><span></span></button>
   </div>
@@ -116,6 +119,7 @@ function header(slug) {
   <div class="mmenu-foot">
     <a href="${C.waOrcamento}" target="_blank" rel="noopener">WhatsApp ${C.contato.whatsappTexto}</a>
     <a href="mailto:${C.contato.email}">${C.contato.email}</a>
+    ${TH.themeMenu()}
   </div>
 </div>`;
 }
@@ -206,7 +210,7 @@ function layout({ slug, title, desc, body, jsonld = '' }) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${asset(slug, 'css/style.css')}?v=${ver(css)}">
-${headScript}${ga}${jsonld}
+${headScript}${TH.head}${ga}${jsonld}
 </head>
 <body>
 ${header(slug)}

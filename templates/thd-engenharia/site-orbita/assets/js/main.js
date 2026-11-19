@@ -1,3 +1,28 @@
+// THD · tema claro/escuro
+(function () {
+  var root = document.documentElement;
+  function sync() {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    document.querySelectorAll('[data-theme-toggle]').forEach(function (b) {
+      b.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      b.setAttribute('aria-label', dark ? 'Ativar tema claro' : 'Ativar tema escuro');
+      if (b.classList.contains('th-btn')) b.title = dark ? 'Tema claro' : 'Tema escuro';
+      var l = b.querySelector('[data-theme-label]'); if (l) l.textContent = dark ? 'Tema claro' : 'Tema escuro';
+    });
+  }
+  sync();
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-theme-toggle]');
+    if (!b) return;
+    var dark = root.getAttribute('data-theme') !== 'dark';
+    root.classList.add('th-anim');
+    if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+    try { localStorage.setItem('thd-tema', dark ? 'dark' : 'light'); } catch (err) {}
+    sync();
+    document.dispatchEvent(new CustomEvent('thd:tema', { detail: { dark: dark } }));
+    setTimeout(function () { root.classList.remove('th-anim'); }, 450);
+  });
+})();
 /* THD Engenharia, modelo Órbita. Gerado por _build-orbita/build.js (edite _build-orbita/script.js) */
 (function () {
   'use strict';

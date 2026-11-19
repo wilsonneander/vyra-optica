@@ -50,7 +50,7 @@ Escolha da fonte:
 - Se a marca tem fonte definida em [brand/](brand/), ela tem prioridade.
 
 ## Componente de mapa no footer
-- Todo site tem o mapa no footer, e ele é sempre o mesmo componente padrão usado nos modelos (veja o footer de [templates/vyra-provedor/intermediario/index.html](templates/vyra-provedor/intermediario/index.html) e [templates/vyra-provedor/premium/index.html](templates/vyra-provedor/premium/index.html)).
+- Todo site tem o mapa no footer, e ele é sempre o mesmo componente padrão usado nos modelos (veja o footer de [templates/provedor-internet/silver/index.html](templates/provedor-internet/silver/index.html) e [templates/provedor-internet/gold/index.html](templates/provedor-internet/gold/index.html)).
 - O mapa é do **OpenStreetMap**. Proibido usar o componente do Google Maps: nada de `<iframe>` do Google (`google.com/maps/embed`, `google.com/maps?q=...&output=embed`), nem API JavaScript do Google Maps.
 - Estrutura padrão do componente (`.map-box`):
   - imagem do mapa gerada a partir do OpenStreetMap, salva em `assets/img/` (ex.: `mapa_<cidade>.jpg`), com `alt` descrevendo o local e `loading="lazy"`;

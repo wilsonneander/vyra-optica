@@ -2,7 +2,7 @@
 //   node clientes/thd-engenharia/_build/build.js            → site/     (produção, URLs limpas: /servicos/)
 //   node clientes/thd-engenharia/_build/build.js --preview  → _preview/ (links para index.html, abre sem servidor)
 //
-// Versão do cliente (cópia do modelo Blocos do catálogo em templates/thd-engenharia/):
+// Versão do cliente (cópia do modelo Blocos do catálogo em templates/assessoria-provedor/):
 // tema claro em todas as páginas menos Contato (claro.js), menu com faixa marinho translúcida
 // e Segurança do trabalho como serviço principal, sempre em primeiro.
 //

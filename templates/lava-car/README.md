@@ -7,25 +7,25 @@ Uma página só: Início, Serviços (lavagem técnica e acabamentos), Planos, An
 
 | Pasta | O que é |
 |---|---|
-| `_build/content.js` | Todo o conteúdo: marca, contatos, horários, níveis de lavagem, acabamentos, planos, preços, vídeos, avaliações, FAQ, bairros, Instagram. `[EXEMPLO]` = trocar pelo cliente |
-| `_build/build.js` | Gera o `index.html` e copia CSS, JS, fotos e vídeos |
-| `_build/style.css`, `_build/app.js` | Design e interação (copiados para `site-silver/assets/`) |
-| `_build/icons.js` | Logo e ícones desenhados para a marca (sem biblioteca de ícones) |
-| `_build/imagens.js` | Baixa as fotos do Unsplash e gera as versões "antes" (sujeira aplicada sobre a foto limpa) |
-| `_build/gerar-mapa.js` | Mapa do OpenStreetMap recolorido no tema `marinho` |
-| `_build/video/` | Vídeos do Mixkit (licença livre), 720p |
-| `site-silver/` | **Site pronto** (abre direto pelo `index.html`) |
+| `_build-silver/content.js` | Todo o conteúdo: marca, contatos, horários, níveis de lavagem, acabamentos, planos, preços, vídeos, avaliações, FAQ, bairros, Instagram. `[EXEMPLO]` = trocar pelo cliente |
+| `_build-silver/build.js` | Gera o `index.html` e copia CSS, JS, fotos e vídeos |
+| `_build-silver/style.css`, `_build-silver/app.js` | Design e interação (copiados para `silver/assets/`) |
+| `_build-silver/icons.js` | Logo e ícones desenhados para a marca (sem biblioteca de ícones) |
+| `_build-silver/imagens.js` | Baixa as fotos do Unsplash e gera as versões "antes" (sujeira aplicada sobre a foto limpa) |
+| `_build-silver/gerar-mapa.js` | Mapa do OpenStreetMap recolorido no tema `marinho` |
+| `_build-silver/video/` | Vídeos do Mixkit (licença livre), 720p |
+| `silver/` | **Site pronto** (abre direto pelo `index.html`) |
 
 ## Gerar
 
 ```bash
-node "templates/lava-car/_build/build.js"
+node "templates/lava-car/_build-silver/build.js"
 ```
 
 Fotos e mapa só precisam ser gerados de novo se mudarem (precisam do `sharp` instalado fora do projeto):
 
 ```bash
-NODE_PATH=<pasta com node_modules/sharp> MOTOR=<caminho de um motor.webp> node "templates/lava-car/_build/imagens.js"
+NODE_PATH=<pasta com node_modules/sharp> MOTOR=<caminho de um motor.webp> node "templates/lava-car/_build-silver/imagens.js"
 NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js marinho img/mapa_buritis.webp   # dentro de _build/
 ```
 

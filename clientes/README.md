@@ -6,7 +6,7 @@ Regra: **os templates do catálogo não mudam por causa de um cliente.** Todo aj
 
 | Pasta | Partiu de | Gerar |
 |---|---|---|
-| [thd-engenharia/](thd-engenharia/) | `templates/thd-engenharia/_build/` (modelo Blocos) | `node clientes/thd-engenharia/_build/build.js` (e `--preview`) |
+| [thd-engenharia/](thd-engenharia/) | `templates/assessoria-provedor/_build/` (modelo Blocos) | `node clientes/thd-engenharia/_build/build.js` (e `--preview`) |
 
 ## THD Engenharia: o que mudou em relação ao template
 

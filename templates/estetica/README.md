@@ -5,18 +5,18 @@ Referência de conteúdo: jessicaboza.com.br (avaliação antes do protocolo, fi
 
 | Pasta | O que é |
 |---|---|
-| `_build/content.js` | Todo o conteúdo: marca, responsável técnica, horários, segmentos e tratamentos com preço, pagamento, garantia, etapas, contraindicações, políticas, segurança, FAQ e bairros. `[EXEMPLO]` = trocar pelo cliente, `[JURÍDICO]` = passar pela revisão jurídica |
-| `_build/icons.js` | Logo da camélia, favicon e ícones próprios (sem biblioteca) |
-| `_build/style.css`, `_build/app.js` | Design e interação |
-| `_build/build.js` | Gera `site-bronze/index.html` com CSS e JS embutidos (padrão Bronze), mais os textos legais |
-| `_build/gerar-mapa.js` | Mapa estático do OpenStreetMap na paleta rosa e vinho |
-| `_build/img/fotos/` | Fotos em WebP com o nome de `fotos` do `content.js`. Sem o arquivo, o site mostra um espaço reservado com a descrição da foto |
-| `site-bronze/` | **Site pronto** (abrir o `index.html` no navegador) |
+| `_build-bronze/content.js` | Todo o conteúdo: marca, responsável técnica, horários, segmentos e tratamentos com preço, pagamento, garantia, etapas, contraindicações, políticas, segurança, FAQ e bairros. `[EXEMPLO]` = trocar pelo cliente, `[JURÍDICO]` = passar pela revisão jurídica |
+| `_build-bronze/icons.js` | Logo da camélia, favicon e ícones próprios (sem biblioteca) |
+| `_build-bronze/style.css`, `_build-bronze/app.js` | Design e interação |
+| `_build-bronze/build.js` | Gera `bronze/index.html` com CSS e JS embutidos (padrão Bronze), mais os textos legais |
+| `_build-bronze/gerar-mapa.js` | Mapa estático do OpenStreetMap na paleta rosa e vinho |
+| `_build-bronze/img/fotos/` | Fotos em WebP com o nome de `fotos` do `content.js`. Sem o arquivo, o site mostra um espaço reservado com a descrição da foto |
+| `bronze/` | **Site pronto** (abrir o `index.html` no navegador) |
 
 ## Gerar
 
 ```bash
-node templates/estetica/_build/build.js
+node templates/estetica/_build-bronze/build.js
 ```
 
 O build lista as fotos que ainda faltam. O mapa só precisa ser gerado de novo se o endereço mudar (sharp instalado fora do projeto; apagar a pasta `tiles/` depois):
@@ -27,7 +27,7 @@ NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js rosa img/mapa_cambui
 
 ## Imagens
 
-Fotos do Unsplash (licença Unsplash, uso livre), convertidas para WebP de até 1400px. O crédito de cada uma fica em `_build/img/creditos.json` e aparece no rodapé, em "Créditos das imagens". A capa e duas fotos da galeria mostram harmonização (preenchimento labial, queixo e toxina na testa). Ficaram de fora fotos com logo de outra clínica à vista. Para cliente real, trocar pelas fotos da clínica e da equipe, mantendo os nomes dos arquivos.
+Fotos do Unsplash (licença Unsplash, uso livre), convertidas para WebP de até 1400px. O crédito de cada uma fica em `_build-bronze/img/creditos.json` e aparece no rodapé, em "Créditos das imagens". A capa e duas fotos da galeria mostram harmonização (preenchimento labial, queixo e toxina na testa). Ficaram de fora fotos com logo de outra clínica à vista. Para cliente real, trocar pelas fotos da clínica e da equipe, mantendo os nomes dos arquivos.
 
 ## Ligar e desligar segmentos
 

@@ -1,15 +1,43 @@
 # Catálogo de templates
 
-Todos os sites ficam aqui. Antes de criar ou editar qualquer um, leia [DIRETRIZES-SITES.md](../DIRETRIZES-SITES.md).
+Todos os modelos de site ficam aqui, separados por nicho. Antes de criar ou editar qualquer um, leia [DIRETRIZES-SITES.md](../DIRETRIZES-SITES.md).
 
-| Pasta | Nicho | Modelos | Gerar |
-|---|---|---|---|
-| [vyra-provedor/](vyra-provedor/) | Provedor de internet (Vyra) | Básico, Intermediário, Premium | `node templates/vyra-provedor/_build/build.js` |
-| [thd-engenharia/](thd-engenharia/) | Provedor / assessoria (cliente THD) | site, site-orbita, site-fibra | `node templates/thd-engenharia/_build/build.js` (e `_build-orbita`, `_build-fibra`) |
-| [siri-na-lata/](siri-na-lata/) | Restaurante (cliente Siri na Lata) | Bronze, Silver, Gold | `node templates/siri-na-lata/_build-bronze/build.js` / `_build-gold/build.js` |
-| [pizzaria/](pizzaria/) | Pizzaria (Fornalha, fictícia) | Gold | `node templates/pizzaria/_build/build.js` |
+Quando um cliente fecha um modelo, ele é copiado para [../clientes/](../clientes/) e ajustado lá. Os modelos deste catálogo não mudam por causa de um cliente.
 
-Pastas auxiliares (começam com `_`, não são templates):
+## Como cada nicho é organizado
 
-- `vyra-provedor/_apresentacao/`, `siri-na-lata/_modelos/`, `_vitrine-food/`: vitrines publicadas no Firebase para mostrar os modelos.
-- `_build*/`: código-fonte e conteúdo de cada template. Edite ali e rode o build; as pastas `site*/` e `basico|intermediario|premium/` são geradas.
+```
+templates/<nicho>/
+  bronze/          site pronto do modelo Bronze (abre pelo index.html)
+  silver/          site pronto do modelo Silver
+  gold/            site pronto do modelo Gold (com subpastas quando o nicho tem mais de um Gold)
+  _build-bronze/   código-fonte e conteúdo do Bronze (idem _build-silver/, _build-gold/)
+  _build/          peças comuns aos modelos do nicho, quando existem
+  README*.md       guia do nicho e de cada modelo
+```
+
+As pastas `bronze/`, `silver/` e `gold/` são geradas: edite o `_build*` e rode o build.
+
+## Nichos
+
+| Pasta | Nicho (marca de demonstração) | Bronze | Silver | Gold | Gerar |
+|---|---|---|---|---|---|
+| [provedor-internet/](provedor-internet/) | Provedor de internet (Vyra) | sim | sim | sim, com Área do cliente | `node templates/provedor-internet/_build/build.js` (gera os três) |
+| [assessoria-provedor/](assessoria-provedor/) | Assessoria para provedores (THD Engenharia) | | | `gold/blocos`, `gold/orbita`, `gold/fibra` | `node templates/assessoria-provedor/_build/build.js` (e `_build-orbita`, `_build-fibra`) |
+| [restaurante/](restaurante/) | Restaurante (Siri na Lata) | sim | sim | sim | `node templates/restaurante/_build-<tier>/build.js` |
+| [lanches/](lanches/) | Hamburgueria, pizzaria e fast food | | Braseiro | `gold/fornalha` (pizzaria), `gold/monta` (Monta Burger) | `node templates/lanches/_build-fornalha/build.js` / `_build-monta/build.js` (o Braseiro não tem gerador) |
+| [autosservicos/](autosservicos/) | Centro automotivo (Pistão Auto Center) | sim | sim | sim, com loja e painel | `node templates/autosservicos/_build-<tier>/build.js` |
+| [lava-car/](lava-car/) | Lava car (Garoa) | | sim | | `node templates/lava-car/_build-silver/build.js` |
+| [bebidas/](bebidas/) | Distribuidora de bebidas (Tampinha) | sim | sim | sim | `node templates/bebidas/_build-<tier>/build.js` |
+| | Bebidas, marca própria (N3 Drinks) | | | `plus/` (modelo Plus, sem gerador) | |
+| [marcas-proprias/](marcas-proprias/) | Marca própria de produto (AURA Fresh) | | | `gold/`: cinco modelos (produto, guia, clube, nascente, mare) | `node templates/marcas-proprias/gold/_build/build.js` |
+| [turismo/](turismo/) | Agência de turismo (Peakalika) | | | sim | `node templates/turismo/_build-gold/build.js` |
+| [estetica/](estetica/) | Clínica de estética (Camélia) | sim | | | `node templates/estetica/_build-bronze/build.js` |
+
+Quando um nicho ganhar um modelo novo, ele entra na pasta do tier (`bronze/`, `silver/` ou `gold/`) com o código em `_build-<tier>/`.
+
+## Pastas auxiliares (começam com `_`)
+
+- `_comum/`: código usado por vários nichos (botões de tema `tema-pilula.js`, `tema-tampinha.js`, `tema-lanches.js`).
+- `_vitrine-auto/`, `_vitrine-bebidas/`, `_vitrine-food/`, `_vitrine-aura/`, `provedor-internet/_apresentacao/`, `restaurante/_modelos/`: vitrines publicadas no Firebase para mostrar os modelos. Ficam fora do git.
+- `_preview*/`: prévias que abrem sem servidor (fora do git).

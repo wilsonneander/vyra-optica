@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
+const T = require('../../../templates/_comum/tema-lanches');
 
 const OUT = path.join(__dirname, '..', 'site-gold');
 const M = C.marca;
@@ -80,7 +81,8 @@ const html = `<!doctype html>
 <meta property="og:title" content="${M.completo}">
 <meta property="og:description" content="${esc(M.frase)}">
 <meta property="og:image" content="assets/img/og.jpg">
-<meta name="theme-color" content="#C42E1A">
+<meta name="theme-color" content="#C42E1A" data-escuro="#9A2212">
+${T.head("fornalha-tema")}
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -412,6 +414,9 @@ const html = `<!doctype html>
 <div class="aviso" data-aviso role="status" aria-live="polite"></div>
 <a class="whats-flut" href="${wa('Oi, Fornalha! Quero fazer um pedido.')}" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">${I.whats}</a>
 
+<!-- tema claro/escuro (lateral, só no computador): botão do forno que gira de dia para noite -->
+${T.topo()}
+${T.lado('<span class="tl-forno" aria-hidden="true"><i></i></span><b class="tl-rot" aria-hidden="true">Forno</b>')}
 <script>window.FORNALHA=${JSON.stringify(dados)};</script>
 <script src="assets/app.js" defer></script>
 </body>

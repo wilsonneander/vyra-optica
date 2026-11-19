@@ -57,3 +57,7 @@ Se o GSAP ou o Lenis não carregarem (CDN fora do ar), a página aparece inteira
 ## Para virar site de cliente
 
 Trocar nome, WhatsApp (`5511900000000` no HTML e no `app.js`), endereço, horários, pratos e preços no `index.html`; trocar fotos e vídeos mantendo os nomes de arquivo; gerar o mapa do endereço real; ligar a newsletter (comentário "Integre aqui" no `app.js`) e tirar o `noindex`.
+
+## Tema claro e escuro
+
+Controle de duas posições (sol e lua) fixo na lateral direita no computador: uma cápsula de carvão em que o marcador é uma brasa, que desce até a lua e fica acesa soltando faíscas à noite. No celular vira um botão no topo, ao lado do menu. Abre sempre no claro; a escolha fica salva em `localStorage` `braseiro-tema` e `?tema=escuro` no link também vale. As peças comuns (botões, script do `<head>` e lógica) ficam em `templates/_comum/tema-lanches.js`; as cores do escuro ficam no fim do CSS do modelo.

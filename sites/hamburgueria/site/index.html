@@ -6,7 +6,8 @@
 <title>Braseiro Burger &amp; Cozinha | Smash na chapa, massas, saladas e sobremesas</title>
 <meta name="description" content="Hamburgueria e cozinha na Vila Madalena: smash prensado na chapa, massas frescas, saladas de verdade, porções e sobremesas da casa. Peça pelo WhatsApp.">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#0A0908">
+<meta name="theme-color" content="#0A0908" data-escuro="#0A0908">
+<script>(function(){try{var q=/[?&]tema=(escuro|claro)/.exec(location.search),t=q?(q[1]==='escuro'?'dark':'light'):localStorage.getItem('braseiro-tema');if(q)localStorage.setItem('braseiro-tema',t);if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
 <meta property="og:title" content="Braseiro Burger &amp; Cozinha">
 <meta property="og:description" content="Onde o fogo encontra o sabor. Smash na chapa, massas, saladas e sobremesas.">
 <meta property="og:image" content="assets/img/og.jpg">
@@ -63,6 +64,7 @@
       <a href="#contato">Contato</a>
     </nav>
     <a class="btn btn-brasa topo-cta" href="https://wa.me/5511900000000?text=Ol%C3%A1%2C%20quero%20fazer%20um%20pedido%20na%20Braseiro" target="_blank" rel="noopener">Pedir agora <svg><use href="#i-seta"/></svg></a>
+    <button class="tema-topo" type="button" data-tema-troca aria-pressed="false" aria-label="Ativar tema escuro" title="Tema escuro"><span class="tt-sol"><svg class="tl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></svg></span><span class="tt-lua"><svg class="tl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.6A8 8 0 0 1 9.4 4a8 8 0 1 0 10.6 10.6z"/></svg></span></button>
     <button class="burger-btn" id="abrirMenu" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
   </div>
 </header>
@@ -70,6 +72,9 @@
 <main>
 
 <!-- CAPA -->
+<!-- tema claro/escuro (lateral, só no computador): a brasa desce e acende à noite -->
+<div class="tema-lado" role="group" aria-label="Tema do site"><span class="tl-faiscas" aria-hidden="true"><i></i><i></i><i></i></span><div class="tl-trilho"><button class="tl-op" type="button" data-tema="claro" data-rot="Dia" aria-pressed="true" aria-label="Tema claro" title="Tema claro"><svg class="tl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.1M12 19.3v2.1M2.6 12h2.1M19.3 12h2.1M5.4 5.4l1.5 1.5M17.1 17.1l1.5 1.5M5.4 18.6l1.5-1.5M17.1 6.9l1.5-1.5"/></svg></button><button class="tl-op" type="button" data-tema="escuro" data-rot="Noite" aria-pressed="false" aria-label="Tema escuro" title="Tema escuro"><svg class="tl-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.6A8 8 0 0 1 9.4 4a8 8 0 1 0 10.6 10.6z"/></svg></button><i class="tl-marca" aria-hidden="true"></i></div></div>
+
 <section class="hero" id="inicio">
   <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/video/capa.webp">
     <source src="assets/video/capa.mp4" type="video/mp4">

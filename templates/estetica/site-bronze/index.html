@@ -1,0 +1,1198 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Camélia Estética | Clínica de estética no Cambuí, Campinas</title>
+<meta name="description" content="Camélia Estética: estética facial, estética corporal e depilação, cílios e sobrancelhas no Cambuí, Campinas. Avaliação sem custo, preços claros e agendamento pelo WhatsApp.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F8F5F2">
+<meta property="og:title" content="Camélia Estética">
+<meta property="og:description" content="Avaliação sem custo, plano por escrito e agendamento pelo WhatsApp.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Albert+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Camélia Estética, modelo Bronze. Paleta: branco gelo, rosa pó, dourado areia, cinzas claros e vinho. */
+:root {
+  --gelo: #F8F5F2;
+  --branco: #FFFFFF;
+  --rosa: #EFD9D4;
+  --rosa-cl: #F6E9E5;
+  --rosa-fundo: #FBF2EF;
+  --ouro: #B99D70;
+  --ouro-esc: #8A7149;
+  --cinza-1: #ECE7E3;
+  --cinza-2: #DCD3CE;
+  --apoio: #6F6466;
+  --texto: #2E2326;
+  --vinho: #6B2234;
+  --vinho-esc: #4A1624;
+  --verde-whats: #1E8E4E;
+  --f-t: 'Gilda Display', 'Times New Roman', Georgia, serif;
+  --f-c: 'Albert Sans', 'Segoe UI', Helvetica, Arial, sans-serif;
+  --suave: cubic-bezier(.22, .7, .2, 1);
+  --sombra: 0 28px 60px -34px rgba(74, 22, 36, .45);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--gelo); color: var(--texto); font: 400 16.5px/1.6 var(--f-c); overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3, h4 { margin: 0; font-weight: 400; }
+p { margin: 0; }
+ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--vinho); outline-offset: 3px; }
+.wrap { width: min(1200px, 100% - 64px); margin-inline: auto; }
+.pular { position: absolute; left: 16px; top: -60px; z-index: 100; padding: 10px 16px; background: var(--vinho); color: #fff; }
+.pular:focus { top: 12px; }
+.ic { width: 20px; height: 20px; flex: none; }
+.apoio { color: var(--ouro-esc); font-size: 14.5px; font-weight: 600; letter-spacing: .03em; margin-bottom: 18px; }
+.miudo { font-size: 13px; color: var(--apoio); line-height: 1.5; }
+
+/* botões */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 13px 24px; border-radius: 4px; border: 1px solid transparent; font: 600 15.5px var(--f-c); text-decoration: none; cursor: pointer; transition: background .3s, color .3s, border-color .3s, transform .3s var(--suave); }
+.btn:hover { transform: translateY(-2px); }
+.btn-vinho { background: var(--vinho); color: #fff; }
+.btn-vinho:hover { background: var(--vinho-esc); }
+.btn-linha { border-color: var(--vinho); color: var(--vinho); background: transparent; }
+.btn-linha:hover { background: var(--vinho); color: #fff; }
+.link { padding: 0; border: 0; background: none; color: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+/* marca */
+.logo { display: inline-flex; text-decoration: none; }
+.logo-marca { display: inline-flex; align-items: center; gap: 11px; }
+.flor { width: 40px; height: 40px; flex: none; }
+.logo-txt { display: grid; line-height: 1; }
+.logo-txt b { font: 400 26px var(--f-t); color: var(--vinho); }
+.logo-txt small { margin-top: 4px; font-size: 10.5px; font-weight: 600; letter-spacing: .32em; text-transform: uppercase; color: var(--ouro-esc); }
+
+/* topo */
+.topo { position: sticky; top: 0; z-index: 40; background: rgba(248, 245, 242, .86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); transition: box-shadow .3s; }
+.topo.rolou { box-shadow: 0 10px 30px -24px rgba(74, 22, 36, .6); }
+.topo-in { display: flex; align-items: center; gap: 32px; min-height: 78px; }
+.menu { display: flex; gap: 30px; margin-left: auto; }
+.menu a { font-size: 15px; font-weight: 500; text-decoration: none; color: var(--texto); padding: 6px 0; background: linear-gradient(var(--vinho), var(--vinho)) 0 100% / 0 1.5px no-repeat; transition: background-size .35s var(--suave), color .3s; }
+.menu a:hover { color: var(--vinho); background-size: 100% 1.5px; }
+.topo-cta { min-height: 44px; padding: 10px 18px; font-size: 14.5px; }
+.menu-btn { display: none; width: 44px; height: 44px; border: 0; background: none; cursor: pointer; position: relative; }
+.menu-btn span { position: absolute; left: 11px; right: 11px; height: 1.6px; background: var(--vinho); transition: transform .3s var(--suave), top .3s; }
+.menu-btn span:first-child { top: 17px; }
+.menu-btn span:last-child { top: 26px; }
+.topo.aberto .menu-btn span:first-child { top: 21.5px; transform: rotate(45deg); }
+.topo.aberto .menu-btn span:last-child { top: 21.5px; transform: rotate(-45deg); }
+
+/* capa */
+.capa { padding: 56px 0 40px; overflow: hidden; }
+.capa-in { display: grid; grid-template-columns: 1.08fr .92fr; gap: 64px; align-items: center; }
+.capa h1 { font: 400 clamp(42px, 5.6vw, 76px)/1.04 var(--f-t); color: var(--vinho-esc); letter-spacing: -.01em; }
+.capa-sub { margin-top: 26px; max-width: 540px; font-size: 18px; color: var(--apoio); }
+.capa-btns { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+.capa-dados { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--cinza-2); max-width: 560px; }
+.capa-dados dt { font-size: 12.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ouro-esc); }
+.capa-dados dd { margin-top: 4px; font-size: 15px; }
+.capa-foto { position: relative; }
+.capa-foto::before { content: ""; position: absolute; inset: 9% -14% -6% 16%; background: var(--rosa); border-radius: 50% 50% 8px 8px / 32% 32% 8px 8px; z-index: -1; }
+.arco { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 50% 50% 8px 8px / 32% 32% 8px 8px; }
+.capa-foto .arco { animation: surge 1.4s var(--suave) both; }
+@keyframes surge { from { opacity: 0; transform: translateY(26px) scale(.98); } }
+.capa-selo { position: absolute; left: -36px; bottom: 44px; display: grid; gap: 2px; padding: 16px 20px; background: var(--branco); border-radius: 6px; box-shadow: var(--sombra); }
+.capa-selo b { font: 400 21px var(--f-t); color: var(--vinho); }
+.capa-selo span { font-size: 13.5px; color: var(--apoio); }
+
+.segs { display: flex; gap: 18px; margin-top: 72px; }
+.segs > li { flex: 1; min-width: 0; }
+.segs > li:has(.seg-tile-g) { flex: 1.45; }
+.seg-tile { position: relative; display: block; height: 320px; overflow: hidden; border-radius: 6px; text-decoration: none; color: #fff; isolation: isolate; }
+.seg-tile .foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--suave); }
+.seg-tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(74, 22, 36, 0) 30%, rgba(74, 22, 36, .82)); z-index: 1; }
+.seg-tile:hover .foto { transform: scale(1.06); }
+.seg-tile-txt { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; display: grid; gap: 6px; padding: 26px; }
+.seg-tile-txt b { font: 400 27px/1.1 var(--f-t); }
+.seg-tile-txt small { font-size: 14.5px; opacity: .88; max-width: 380px; }
+.seg-ir { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 14px; font-weight: 600; color: var(--rosa); }
+.seg-ir .ic { width: 18px; transition: transform .35s var(--suave); }
+.seg-tile:hover .seg-ir .ic { transform: translateX(5px); }
+
+/* seções */
+.sec { padding: 110px 0; }
+.sec-rosa { background: var(--rosa-cl); }
+.sec-gelo { background: var(--branco); }
+.sec-topo { max-width: 700px; margin-bottom: 64px; }
+.sec h2, .galeria-topo h2, .faq h2 { font: 400 clamp(34px, 3.8vw, 52px)/1.08 var(--f-t); color: var(--vinho-esc); }
+.sec-topo p, .galeria-topo p { margin-top: 16px; font-size: 17.5px; color: var(--apoio); }
+
+/* tratamentos */
+.seg { display: grid; grid-template-columns: 330px 1fr; gap: 64px; padding-bottom: 90px; }
+.seg + .seg { padding-top: 90px; border-top: 1px solid var(--cinza-2); }
+.seg-lado { position: sticky; top: 108px; align-self: start; }
+.seg-foto .foto { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 50% 50% 6px 6px / 28% 28% 6px 6px; }
+.seg-lado h3 { margin-top: 26px; font: 400 32px/1.1 var(--f-t); color: var(--vinho); }
+.seg-lado p { margin-top: 10px; color: var(--apoio); }
+.trat { border-bottom: 1px solid var(--cinza-2); }
+.trat:first-child { border-top: 1px solid var(--cinza-2); }
+.trat summary { display: grid; grid-template-columns: 1fr 200px 150px 32px; gap: 24px; align-items: center; padding: 22px 0; cursor: pointer; list-style: none; }
+.trat summary::-webkit-details-marker { display: none; }
+.t-nome { display: grid; gap: 3px; }
+.t-nome b { font-size: 18px; font-weight: 600; color: var(--texto); transition: color .3s; }
+.t-nome small { font-size: 14.5px; color: var(--apoio); line-height: 1.45; }
+.trat summary:hover .t-nome b { color: var(--vinho); }
+.t-meta { display: grid; gap: 3px; font-size: 13.5px; color: var(--apoio); line-height: 1.35; }
+.t-meta > span:first-child { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--texto); }
+.t-meta .ic { width: 16px; height: 16px; color: var(--ouro-esc); }
+.t-preco { display: grid; text-align: right; font: 400 25px/1.1 var(--f-t); color: var(--vinho); white-space: nowrap; }
+.t-preco small { font: 500 12px var(--f-c); color: var(--apoio); letter-spacing: .02em; }
+.t-abre { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--cinza-2); color: var(--vinho); transition: transform .4s var(--suave), background .3s; }
+.t-abre .ic { width: 16px; height: 16px; }
+.trat[open] .t-abre { transform: rotate(45deg); background: var(--rosa); border-color: var(--rosa); }
+.t-corpo { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 24px; padding: 24px 26px; background: var(--rosa-fundo); border-radius: 6px; animation: desce .45s var(--suave); }
+@keyframes desce { from { opacity: 0; transform: translateY(-8px); } }
+.t-corpo h4 { margin-bottom: 10px; font-size: 12.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ouro-esc); }
+.t-corpo li { position: relative; padding-left: 18px; font-size: 15px; }
+.t-corpo li + li { margin-top: 5px; }
+.t-corpo li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 6px; height: 6px; background: var(--ouro); transform: rotate(45deg); }
+.t-valores { display: grid; gap: 8px; align-content: start; font-size: 15px; }
+.t-valores b { color: var(--vinho); }
+.t-nota { font-size: 13px; color: var(--apoio); }
+.t-valores .btn { justify-self: start; margin-top: 8px; min-height: 44px; padding: 10px 18px; font-size: 14.5px; }
+
+.peles, .areas { margin-top: 40px; }
+.peles h3, .areas h3 { font: 400 24px var(--f-t); color: var(--vinho); margin-bottom: 18px; }
+.peles dl { background: var(--branco); border-radius: 6px; overflow: hidden; }
+.peles dl > div { display: grid; grid-template-columns: 220px 1fr; gap: 20px; padding: 16px 22px; }
+.peles dl > div + div { border-top: 1px solid var(--cinza-1); }
+.peles dt { font-weight: 700; color: var(--vinho); }
+.peles dd { font-size: 15px; color: var(--apoio); }
+.areas table { width: 100%; border-collapse: collapse; background: var(--branco); border-radius: 6px; overflow: hidden; font-size: 15.5px; }
+.areas th, .areas td { padding: 13px 18px; text-align: left; }
+.areas thead th { font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ouro-esc); background: var(--rosa-cl); }
+.areas td { text-align: right; font-variant-numeric: tabular-nums; }
+.areas thead th:not(:first-child) { text-align: right; }
+.areas tbody tr + tr { border-top: 1px solid var(--cinza-1); }
+.areas tbody th { font-weight: 500; }
+.areas p { margin-top: 14px; font-size: 14px; color: var(--apoio); }
+
+.pagar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 10px; }
+.pagar > div { padding-top: 24px; border-top: 2px solid var(--vinho); }
+.pagar h3 { font: 400 23px var(--f-t); color: var(--vinho); }
+.pagar p { margin-top: 10px; font-size: 15px; color: var(--apoio); }
+
+/* atendimento */
+.etapas { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+.etapas::before { content: ""; position: absolute; left: 0; right: 0; top: 9px; height: 1px; background: var(--ouro); }
+.etapas li { position: relative; padding-top: 42px; }
+.etapas li::before { content: ""; position: absolute; left: 0; top: 0; width: 19px; height: 19px; border-radius: 50%; background: var(--rosa-cl); border: 1.5px solid var(--ouro); }
+.etapas li:first-child::before { background: var(--vinho); border-color: var(--vinho); }
+.etapas h3 { font: 400 25px var(--f-t); color: var(--vinho); }
+.etapas p { margin-top: 8px; font-size: 15px; color: var(--apoio); }
+.atend-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; margin-top: 80px; align-items: start; }
+.contra { overflow: hidden; background: var(--branco); border-radius: 8px; }
+.contra .foto { width: 100%; aspect-ratio: 16 / 8; object-fit: cover; }
+.contra-txt { padding: 30px 32px 32px; }
+.contra h3, .politicas > h3 { font: 400 27px/1.15 var(--f-t); color: var(--vinho-esc); margin-bottom: 18px; }
+.contra li { position: relative; padding: 10px 0 10px 26px; font-size: 15px; border-top: 1px solid var(--cinza-1); }
+.contra li::before { content: ""; position: absolute; left: 4px; top: 19px; width: 10px; height: 1.5px; background: var(--vinho); transform: rotate(45deg); box-shadow: 0 0 0 0 transparent; }
+.contra li::after { content: ""; position: absolute; left: 4px; top: 19px; width: 10px; height: 1.5px; background: var(--vinho); transform: rotate(-45deg); }
+.contra .miudo { margin-top: 14px; }
+.pol { border-bottom: 1px solid var(--cinza-2); }
+.pol summary { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 19px 0; font: 400 21px var(--f-t); color: var(--texto); cursor: pointer; list-style: none; }
+.pol summary::-webkit-details-marker { display: none; }
+.pol summary span { display: grid; place-items: center; transition: transform .4s var(--suave); color: var(--vinho); }
+.pol[open] summary span { transform: rotate(45deg); }
+.pol p { padding: 0 0 20px; font-size: 15.5px; color: var(--apoio); animation: desce .4s var(--suave); }
+
+/* clínica */
+.resp { display: grid; grid-template-columns: .8fr 1.2fr; gap: 72px; align-items: center; }
+.resp-foto .foto { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 6px 6px 50% 50% / 6px 6px 30% 30%; }
+.resp-txt h2 { font: 400 clamp(36px, 4vw, 54px)/1.05 var(--f-t); color: var(--vinho-esc); }
+.resp-cargo { margin: 10px 0 20px; color: var(--apoio); }
+.resp-cargo b { color: var(--vinho); font-weight: 600; }
+.resp-txt > p + p { margin-top: 12px; }
+.seguro { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 34px; margin-top: 34px; padding-top: 30px; border-top: 1px solid var(--cinza-2); }
+.seguro h3 { font-size: 16.5px; font-weight: 700; color: var(--vinho); }
+.seguro p { margin-top: 4px; font-size: 14.5px; color: var(--apoio); }
+.aviso-res { margin-top: 30px; padding: 18px 20px; background: var(--rosa-fundo); border-radius: 6px; font-size: 14px; color: var(--apoio); }
+.galeria-topo { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin: 110px 0 36px; }
+.galeria-topo p { max-width: 400px; margin: 0; }
+.galeria { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 230px 230px 200px; gap: 14px; grid-template-areas: "a a b c" "a a d c" "e e f f"; }
+.g { margin: 0; overflow: hidden; border-radius: 6px; }
+.g .foto { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--suave); }
+.g:hover .foto { transform: scale(1.05); }
+.g1 { grid-area: a; } .g2 { grid-area: b; } .g3 { grid-area: c; } .g4 { grid-area: d; } .g5 { grid-area: e; } .g6 { grid-area: f; }
+
+/* agendamento */
+.ag { display: grid; grid-template-columns: .82fr 1.18fr; gap: 64px; align-items: start; }
+.ag-lado > p { margin-top: 16px; color: var(--apoio); }
+.horas { width: 100%; margin-top: 34px; border-collapse: collapse; }
+.horas caption { text-align: left; font: 400 22px var(--f-t); color: var(--vinho); padding-bottom: 10px; }
+.horas th, .horas td { padding: 12px 14px; border-bottom: 1px solid var(--cinza-1); text-align: left; font-size: 15px; }
+.horas th { font-weight: 500; }
+.horas td { text-align: right; }
+.horas tr.hoje { background: var(--rosa-cl); }
+.horas tr.hoje th { font-weight: 700; color: var(--vinho); }
+.ag-end { display: flex; gap: 10px; margin: 24px 0 28px; font-size: 15px; }
+.ag-end .ic { color: var(--vinho); margin-top: 2px; }
+.form { display: grid; gap: 20px; padding: 36px; background: var(--gelo); border-radius: 8px; }
+.campos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.campo { display: grid; gap: 6px; }
+.campo > span, .form legend { font-size: 14px; font-weight: 600; }
+.campo small, .form legend small { font-weight: 400; color: var(--apoio); }
+.campo input, .campo select, .campo textarea { width: 100%; min-height: 48px; padding: 12px 14px; border: 1px solid var(--cinza-2); border-radius: 4px; background: var(--branco); font: 400 16px var(--f-c); color: var(--texto); transition: border-color .25s, box-shadow .25s; }
+.campo textarea { resize: vertical; min-height: 90px; }
+.campo input:focus, .campo select:focus, .campo textarea:focus { outline: none; border-color: var(--vinho); box-shadow: 0 0 0 3px rgba(107, 34, 52, .12); }
+.campo input:disabled { background: var(--cinza-1); cursor: not-allowed; }
+.campo.erro input, .check.erro input { outline: 2px solid #A8251C; outline-offset: 1px; }
+.form fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.form legend { padding: 0; margin-bottom: 8px; }
+.opts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.opts label { position: relative; }
+.opts input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.opts span { display: flex; align-items: center; justify-content: center; min-height: 46px; padding: 8px; border: 1px solid var(--cinza-2); border-radius: 4px; background: var(--branco); font-size: 15px; font-weight: 500; transition: background .25s, color .25s, border-color .25s; }
+.opts input:checked + span { background: var(--vinho); border-color: var(--vinho); color: #fff; }
+.opts input:focus-visible + span { outline: 2px solid var(--vinho); outline-offset: 2px; }
+.opts input:disabled + span { opacity: .55; cursor: not-allowed; }
+.sim-nao .opts { grid-template-columns: 1fr 1fr; }
+.saude { display: grid; gap: 14px; padding: 22px !important; background: var(--rosa-fundo); border-radius: 6px; }
+.saude > legend { float: left; width: 100%; margin-bottom: 0; font: 400 20px var(--f-t); color: var(--vinho); }
+.saude > p { font-size: 14px; color: var(--apoio); clear: both; }
+.saude-campos { display: grid; gap: 14px; opacity: .5; transition: opacity .35s; }
+.saude.liberado .saude-campos { opacity: 1; }
+.saude-campos > .campo { grid-template-columns: 1fr; }
+.conds { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 18px; }
+.conds legend { grid-column: 1 / -1; }
+.check { display: flex; gap: 11px; align-items: flex-start; font-size: 14.5px; line-height: 1.45; cursor: pointer; }
+.check input { flex: none; width: 19px; height: 19px; margin: 1px 0 0; accent-color: var(--vinho); cursor: pointer; }
+.consent { display: grid; gap: 12px; }
+.form-erro { padding: 12px 14px; border-radius: 4px; background: #F8E1DE; color: #8B1E16; font-size: 14.5px; font-weight: 600; }
+.btn-enviar { width: 100%; min-height: 56px; font-size: 16.5px; }
+
+/* dúvidas */
+.faq { display: grid; grid-template-columns: .75fr 1.25fr; gap: 64px; }
+
+/* rodapé */
+.rodape { background: var(--vinho-esc); color: #F2E6E3; padding: 90px 0 30px; --flor-1: #EFD9D4; --flor-2: #F8F5F2; }
+.rodape .logo-txt b { color: #fff; }
+.rodape .logo-txt small { color: var(--ouro); }
+.rodape .flor { --flor-2: #9B4357; }
+.rodape-mapa { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: center; }
+.map-box { position: relative; height: 340px; border-radius: 6px; overflow: hidden; background: var(--rosa-cl); box-shadow: 0 30px 60px -36px rgba(0, 0, 0, .8); }
+.map-box img { width: 100%; height: 100%; object-fit: cover; object-position: 68% 50%; transition: transform 1.2s var(--suave); }
+.map-box:hover img { transform: scale(1.06); }
+.map-box .pin { position: absolute; left: 50%; top: 50%; z-index: 2; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: var(--vinho); border: 4px solid #fff; box-shadow: 0 8px 18px -6px rgba(74, 22, 36, .8); }
+.map-box .pin::before { content: ""; position: absolute; inset: -11px; border-radius: 50%; border: 3px solid rgba(107, 34, 52, .45); animation: ping 2.2s ease-out infinite; }
+@keyframes ping { from { transform: scale(.6); opacity: 1; } to { transform: scale(1.5); opacity: 0; } }
+.map-box .pin b { position: absolute; left: 26px; top: -5px; white-space: nowrap; font: 400 18px var(--f-t); color: var(--vinho-esc); text-shadow: 0 0 4px #fff, 0 0 4px #fff, 0 0 4px #fff; }
+.map-info { position: absolute; left: 14px; top: 14px; z-index: 3; display: grid; gap: 3px; max-width: 330px; padding: 14px 16px; background: #fff; color: var(--texto); border-radius: 4px; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .5); }
+.map-info b { font: 400 18px var(--f-t); color: var(--vinho); }
+.map-info span { font-size: 12.5px; color: var(--apoio); line-height: 1.35; }
+.mbtns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.mbtns a { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 36px; padding: 6px 12px; border-radius: 4px; background: var(--vinho); color: #fff; font-size: 13px; font-weight: 600; text-decoration: none; }
+.mbtns a:hover { background: var(--vinho-esc); }
+.mbtns .ic { width: 16px; height: 16px; }
+.map-box .attr { position: absolute; right: 6px; bottom: 6px; z-index: 3; padding: 2px 6px; background: rgba(255, 255, 255, .85); color: #333; font-size: 11px; border-radius: 2px; }
+[data-iguais] > * { width: var(--larg, auto); max-width: 100%; justify-content: center; text-align: center; }
+.onde h2 { font: 400 32px var(--f-t); color: #fff; }
+.onde p { margin: 10px 0 20px; font-size: 15px; color: #DCC7C3; }
+.bairros { display: flex; flex-wrap: wrap; gap: 8px; }
+.bairros li { padding: 9px 12px; background: rgba(255, 255, 255, .08); border-radius: 4px; font-size: 14px; }
+.rodape-cols { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; margin-top: 70px; padding-top: 50px; border-top: 1px solid rgba(255, 255, 255, .14); }
+.rodape-marca p { margin-top: 16px; max-width: 320px; font-size: 14.5px; color: #DCC7C3; }
+.rodape h3 { margin-bottom: 14px; font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ouro); }
+.rodape-cols li + li { margin-top: 8px; }
+.rodape-cols a { font-size: 14.5px; text-decoration: none; color: #F2E6E3; }
+.rodape-cols a:hover { text-decoration: underline; }
+.redes { display: flex; gap: 10px; }
+.redes a { display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid rgba(255, 255, 255, .22); border-radius: 50%; transition: background .3s, border-color .3s; }
+.redes a:hover { background: var(--vinho); border-color: var(--vinho); }
+.user { margin-top: 10px; font-size: 14px; color: #DCC7C3; }
+.legal { display: grid; gap: 10px; margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, .14); font-size: 13.5px; color: #DCC7C3; }
+.legal b { color: #fff; font-weight: 600; }
+.legal-links { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 6px 0; }
+.legal-links .link { color: #fff; font-size: 14px; }
+.legal .miudo { color: #C9B1AC; }
+.creditos summary { cursor: pointer; }
+.creditos ul { margin-top: 8px; columns: 2; font-size: 12.5px; }
+.rodape-fim { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-top: 30px; font-size: 12.5px; color: #C9B1AC; }
+
+/* whatsapp flutuante */
+.whats-flutua { position: fixed; right: 20px; bottom: 20px; z-index: 50; display: inline-flex; align-items: center; gap: 9px; min-height: 56px; padding: 0 22px 0 18px; border-radius: 30px; background: var(--verde-whats); color: #fff; font-weight: 700; font-size: 15px; text-decoration: none; box-shadow: 0 16px 34px -14px rgba(20, 80, 45, .75); transition: transform .35s var(--suave), bottom .35s var(--suave); }
+.whats-flutua .ic { width: 26px; height: 26px; }
+.whats-flutua:hover { transform: translateY(-3px); }
+
+/* cookies */
+.cookies { position: fixed; left: 20px; bottom: 20px; z-index: 60; display: grid; gap: 14px; max-width: 460px; padding: 22px; background: var(--branco); border-radius: 8px; box-shadow: 0 24px 60px -20px rgba(46, 35, 38, .45); font-size: 14.5px; animation: surge .6s var(--suave); }
+.cookies[hidden] { display: none; }
+.cookies-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cookies .btn { min-height: 44px; padding: 10px 14px; font-size: 14.5px; }
+
+/* termos */
+dialog.doc { width: min(720px, 100% - 32px); max-height: 86vh; padding: 0; border: 0; border-radius: 8px; color: var(--texto); background: var(--branco); box-shadow: 0 40px 90px -30px rgba(46, 35, 38, .6); }
+dialog.doc::backdrop { background: rgba(46, 35, 38, .5); backdrop-filter: blur(3px); }
+dialog.doc[open] { display: flex; flex-direction: column; animation: surge .45s var(--suave); }
+.doc-topo { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 28px; border-bottom: 1px solid var(--cinza-1); }
+.doc-topo h2 { font: 400 26px var(--f-t); color: var(--vinho-esc); }
+.doc-fecha { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid var(--cinza-2); border-radius: 50%; background: none; cursor: pointer; flex: none; }
+.doc-corpo { padding: 22px 28px 30px; overflow: auto; font-size: 15px; }
+.doc-corpo h3 { margin: 20px 0 4px; font-size: 16px; font-weight: 700; color: var(--vinho); }
+.doc-corpo p { color: #4C4245; }
+.doc-fim { margin-top: 24px; font-size: 13px; color: var(--apoio) !important; }
+
+/* foto ainda não definida */
+.foto-falta { display: grid; place-content: center; justify-items: center; gap: 14px; min-height: 160px; background: linear-gradient(155deg, var(--rosa-fundo), var(--rosa)); color: var(--apoio); text-align: center; }
+.foto-falta .flor-falta { width: 58px; height: 58px; opacity: .55; }
+.seg-tile .foto-falta { align-content: start; padding-top: 36px; }
+.seg-tile .foto-falta span { display: none; }
+.foto-falta span { max-width: 260px; padding: 0 16px; font-size: 12.5px; line-height: 1.4; }
+
+/* revelar */
+.js .revela { opacity: 0; transform: translateY(24px); transition: opacity .9s var(--suave), transform .9s var(--suave); }
+.js .revela.visto { opacity: 1; transform: none; }
+.etapas .revela:nth-child(2), .segs .revela:nth-child(2), .pagar .revela:nth-child(2) { transition-delay: .12s; }
+.etapas .revela:nth-child(3), .segs .revela:nth-child(3), .pagar .revela:nth-child(3) { transition-delay: .24s; }
+.etapas .revela:nth-child(4) { transition-delay: .36s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+@media (max-width: 1100px) {
+  .seg { grid-template-columns: 280px 1fr; gap: 44px; }
+  .trat summary { grid-template-columns: 1fr 170px 130px 32px; gap: 18px; }
+  .rodape-cols { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 920px) {
+  .wrap { width: calc(100% - 40px); }
+  .menu-btn { display: block; margin-left: 4px; }
+  .topo-in { gap: 14px; }
+  .topo-cta { margin-left: auto; }
+  .menu { position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; gap: 0; margin: 0; padding: 8px 20px 20px; background: var(--gelo); box-shadow: 0 20px 30px -24px rgba(74, 22, 36, .5); visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity .3s, transform .3s var(--suave), visibility .3s; }
+  .menu a { padding: 14px 0; border-bottom: 1px solid var(--cinza-1); background: none; font-size: 17px; }
+  .topo.aberto .menu { visibility: visible; opacity: 1; transform: none; }
+  .capa { padding-top: 32px; }
+  .capa-in { grid-template-columns: 1fr; gap: 48px; }
+  .capa-foto { max-width: 520px; width: 88%; margin-inline: auto; }
+  .capa-selo { left: -6%; }
+  .segs { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 56px; }
+  .seg-tile { height: 240px; }
+  .sec { padding: 80px 0; }
+  .sec-topo { margin-bottom: 44px; }
+  .seg { grid-template-columns: 1fr; gap: 28px; padding-bottom: 64px; }
+  .seg + .seg { padding-top: 64px; }
+  .seg-lado { position: static; display: grid; grid-template-columns: 150px 1fr; gap: 6px 22px; align-items: center; }
+  .seg-foto { grid-row: span 2; }
+  .seg-foto .foto { aspect-ratio: 1; border-radius: 50%; }
+  .seg-lado h3 { margin: 0; align-self: end; font-size: 28px; }
+  .seg-lado p { margin: 0; align-self: start; }
+  .pagar { grid-template-columns: 1fr; gap: 22px; }
+  .etapas { grid-template-columns: 1fr; gap: 26px; padding-left: 38px; }
+  .etapas::before { left: 9px; right: auto; top: 6px; bottom: 6px; width: 1px; height: auto; }
+  .etapas li { padding-top: 0; }
+  .etapas li::before { left: -38px; top: 4px; }
+  .atend-grid, .resp, .ag, .faq, .rodape-mapa { grid-template-columns: 1fr; gap: 40px; }
+  .resp-foto { max-width: 420px; }
+  .galeria-topo { display: block; margin-top: 80px; }
+  .galeria-topo p { margin-top: 12px; }
+  .galeria { grid-template-columns: 1fr 1fr; grid-template-rows: 260px 180px 180px 180px; grid-template-areas: "a a" "b c" "d c" "e f"; gap: 10px; }
+}
+@media (max-width: 640px) {
+  .wrap { width: calc(100% - 32px); }
+  .topo-cta span { display: none; }
+  .topo-cta { width: 46px; min-height: 46px; padding: 0; }
+  .logo-txt b { font-size: 23px; }
+  .flor { width: 36px; height: 36px; }
+  .capa-sub { font-size: 16.5px; }
+  .capa-btns { display: grid; grid-template-columns: 1fr; }
+  .capa-dados { grid-template-columns: 1fr; gap: 14px; }
+  .capa-foto { width: 92%; }
+  .capa-selo { left: -4%; bottom: 22px; padding: 12px 16px; }
+  .trat summary { grid-template-columns: 1fr auto; grid-template-areas: "nome abre" "meta preco"; gap: 12px 14px; padding: 20px 0; }
+  .t-nome { grid-area: nome; }
+  .t-abre { grid-area: abre; align-self: start; justify-self: end; }
+  .t-meta { grid-area: meta; }
+  .t-preco { grid-area: preco; align-self: end; }
+  .t-corpo { grid-template-columns: 1fr; gap: 20px; padding: 20px; }
+  .t-valores .btn { justify-self: stretch; }
+  .seg-lado { grid-template-columns: 96px 1fr; gap: 4px 16px; }
+  .seg-lado h3 { font-size: 24px; }
+  .seg-lado p { font-size: 14.5px; }
+  .areas th, .areas td { padding: 11px 12px; font-size: 14.5px; }
+  .seguro { grid-template-columns: 1fr; }
+  .galeria { grid-template-rows: 220px 150px 150px 150px; }
+  .form { padding: 22px 18px; }
+  .campos { grid-template-columns: 1fr; }
+  .opts { grid-template-columns: 1fr 1fr; }
+  .peles dl > div { grid-template-columns: 1fr; gap: 4px; }
+  .conds { grid-template-columns: 1fr; }
+  .bairros { display: grid; grid-template-columns: 1fr 1fr; }
+  .bairros li { width: auto; }
+  .mbtns { display: grid; grid-template-columns: 1fr 1fr; }
+  .mbtns a { width: auto; }
+  .map-box { height: 380px; }
+  .map-info { right: 14px; max-width: none; }
+  .rodape-cols { grid-template-columns: 1fr; gap: 30px; }
+  .creditos ul { columns: 1; }
+  .whats-flutua { right: 14px; bottom: 14px; min-height: 54px; padding: 0 16px; }
+  .whats-flutua span { display: none; }
+  .cookies { left: 12px; right: 12px; bottom: 12px; max-width: none; padding: 18px; }
+  .ck .whats-flutua { bottom: 200px; }
+}
+
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BeautySalon","name":"Camélia Estética","legalName":"Camélia Estética Avançada Ltda.","telephone":"(19) 3333-0000","email":"contato@cameliaestetica.com.br","address":{"@type":"PostalAddress","streetAddress":"Rua Coronel Quirino, 1450, sala 12","addressLocality":"Campinas","addressRegion":"SP","postalCode":"13025-000","addressCountry":"BR"},"openingHours":["Mo-Fr 09:00-20:00","Sa 08:00-14:00"]}</script>
+</head>
+<body>
+<a class="pular" href="#tratamentos">Pular para os tratamentos</a>
+
+<header class="topo" id="topo">
+  <div class="wrap topo-in">
+    <a class="logo" href="#inicio" aria-label="Camélia Estética, início"><span class="logo-marca"><svg class="flor " viewBox="0 0 48 48" aria-hidden="true">
+  <g fill="var(--flor-1, #EFD9D4)" stroke="var(--flor-2, #6B2234)" stroke-width="1.3" stroke-linejoin="round"><path d="M24 24C16.5 18 16.5 7 24 4C31.5 7 31.5 18 24 24Z" transform="rotate(0 24 24)"/><path d="M24 24C16.5 18 16.5 7 24 4C31.5 7 31.5 18 24 24Z" transform="rotate(72 24 24)"/><path d="M24 24C16.5 18 16.5 7 24 4C31.5 7 31.5 18 24 24Z" transform="rotate(144 24 24)"/><path d="M24 24C16.5 18 16.5 7 24 4C31.5 7 31.5 18 24 24Z" transform="rotate(216 24 24)"/><path d="M24 24C16.5 18 16.5 7 24 4C31.5 7 31.5 18 24 24Z" transform="rotate(288 24 24)"/></g>
+  <g fill="var(--flor-2, #6B2234)"><path d="M24 24C19.8 20.4 19.8 13.8 24 12C28.2 13.8 28.2 20.4 24 24Z" transform="rotate(36 24 24)"/><path d="M24 24C19.8 20.4 19.8 13.8 24 12C28.2 13.8 28.2 20.4 24 24Z" transform="rotate(108 24 24)"/><path d="M24 24C19.8 20.4 19.8 13.8 24 12C28.2 13.8 28.2 20.4 24 24Z" transform="rotate(180 24 24)"/><path d="M24 24C19.8 20.4 19.8 13.8 24 12C28.2 13.8 28.2 20.4 24 24Z" transform="rotate(252 24 24)"/><path d="M24 24C19.8 20.4 19.8 13.8 24 12C28.2 13.8 28.2 20.4 24 24Z" transform="rotate(324 24 24)"/></g>
+  <circle cx="24" cy="24" r="2.8" fill="var(--flor-3, #B99D70)"/>
+</svg><span class="logo-txt"><b>Camélia</b><small>Estética</small></span></span></a>
+    <nav class="menu" id="menu" aria-label="Seções">
+      <a href="#tratamentos">Tratamentos e preços</a>
+      <a href="#atendimento">Como funciona</a>
+      <a href="#clinica">A clínica</a>
+      <a href="#agendar">Agendar</a>
+    </nav>
+    <a class="btn btn-vinho topo-cta" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar no WhatsApp</span></a>
+    <button class="menu-btn" type="button" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu"><span></span><span></span></button>
+  </div>
+</header>
+
+<main>
+  <section class="capa" id="inicio">
+    <div class="wrap capa-in">
+      <div class="capa-txt">
+        <p class="apoio">Clínica de estética no Cambuí, Campinas</p>
+        <h1>Cuidar da pele começa por uma boa conversa.</h1>
+        <p class="capa-sub">Estética facial, estética corporal e depilação, cílios e sobrancelhas. A primeira visita é uma avaliação sem custo: você sai com o plano por escrito, o número de sessões e o valor, e decide com calma.</p>
+        <div class="capa-btns">
+          <a class="btn btn-vinho" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar avaliação</span></a>
+          <a class="btn btn-linha" href="#tratamentos"><span>Ver tratamentos e preços</span></a>
+        </div>
+        <dl class="capa-dados">
+          <div><dt>Hoje</dt><dd data-status>Seg a sex, 9h às 20h</dd></div>
+          <div><dt>Responsável técnica</dt><dd>Helena Prado, CRBM-1 nº 00000</dd></div>
+        </dl>
+      </div>
+      <div class="capa-foto">
+        <img class="foto arco" src="assets/img/capa.webp" alt="Profissional de luvas rosa aplicando preenchimento labial em cliente deitada">
+        <p class="capa-selo"><b>Avaliação sem custo</b><span>40 minutos, com plano por escrito</span></p>
+      </div>
+    </div>
+    <ul class="wrap segs" style="--n:3">
+        <li class="revela" data-seg="facial"><a href="#seg-facial" class="seg-tile seg-tile-g">
+          <img class="foto " src="assets/img/facial.webp" alt="Cliente de olhos fechados recebendo tratamento facial de profissional de luvas" loading="lazy">
+          <span class="seg-tile-txt"><b>Estética facial</b><small>Harmonização, limpeza, peelings, hidratação e rejuvenescimento, com o protocolo escolhido pelo seu tipo de pele.</small><span class="seg-ir">Ver preços <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5"/></svg></span></span>
+        </a></li>
+        <li class="revela" data-seg="corporal"><a href="#seg-corporal" class="seg-tile">
+          <img class="foto " src="assets/img/corporal.webp" alt="Massagem nas costas da cliente deitada na maca com toalha branca" loading="lazy">
+          <span class="seg-tile-txt"><b>Estética corporal</b><small>Massagens, drenagem e protocolos para celulite e gordura localizada, avulsos ou em pacotes de sessões.</small><span class="seg-ir">Ver preços <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5"/></svg></span></span>
+        </a></li>
+        <li class="revela" data-seg="depilacao"><a href="#seg-depilacao" class="seg-tile">
+          <img class="foto " src="assets/img/depilacao.webp" alt="Design de sobrancelha com pinça, cliente de olhos fechados" loading="lazy">
+          <span class="seg-tile-txt"><b>Depilação, cílios e sobrancelhas</b><small>Laser e cera com preço por área, design de sobrancelhas, extensão de cílios e lash lifting.</small><span class="seg-ir">Ver preços <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5"/></svg></span></span>
+        </a></li>
+    </ul>
+  </section>
+
+  <section class="sec" id="tratamentos" aria-labelledby="t-trat">
+    <div class="wrap">
+      <div class="sec-topo">
+        <h2 id="t-trat">Tratamentos e preços</h2>
+        <p>Valor da sessão avulsa e do pacote, duração e número de sessões. Toque no tratamento para ver o que inclui.</p>
+      </div>
+      <section class="seg" id="seg-facial" data-seg="facial" aria-labelledby="t-facial">
+        <div class="seg-lado">
+          <div class="seg-foto revela"><img class="foto " src="assets/img/facial.webp" alt="Cliente de olhos fechados recebendo tratamento facial de profissional de luvas" loading="lazy"></div>
+          <h3 id="t-facial">Estética facial</h3>
+          <p>Harmonização, limpeza, peelings, hidratação e rejuvenescimento, com o protocolo escolhido pelo seu tipo de pele.</p>
+        </div>
+        <div class="seg-lista">
+          <details class="trat" data-seg="facial">
+            <summary>
+              <span class="t-nome"><b>Avaliação facial</b><small>Análise da pele com lupa e conversa sobre rotina, histórico e o que te incomoda.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>40 min</span><span>Visita única</span></span>
+              <span class="t-preco"><small>avaliação</small>Sem custo</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Ficha de anamnese</li><li>Análise da pele com lupa de aumento</li><li>Plano por escrito com número de sessões e valores</li><li>Indicação de cuidados em casa</li></ul></div>
+              <div class="t-valores">
+                
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20avalia%C3%A7%C3%A3o%20facial%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="facial">
+            <summary>
+              <span class="t-nome"><b>Harmonização facial</b><small>Toxina botulínica e ácido hialurônico em doses pensadas para um resultado natural, feita pela responsável técnica.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>1h a 1h30</span><span>Em 1 ou 2 etapas, retorno em 15 dias</span></span>
+              <span class="t-preco"><small>a partir de</small>R$ 1.800</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Mapeamento facial com fotos (com sua autorização)</li><li>Anestésico tópico</li><li>Produtos com registro na Anvisa e lote anotado no prontuário</li><li>Retorno de revisão em 15 dias</li></ul></div>
+              <div class="t-valores">
+                
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20harmoniza%C3%A7%C3%A3o%20facial%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="facial">
+            <summary>
+              <span class="t-nome"><b>Toxina botulínica</b><small>Suaviza as linhas de expressão da testa, da glabela e dos olhos.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>30 min</span><span>Reaplicação em média a cada 4 a 6 meses</span></span>
+              <span class="t-preco"><small>a partir de</small>R$ 950</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Avaliação da musculatura</li><li>Aplicação com agulha fina</li><li>Retorno de ajuste em 15 dias</li></ul></div>
+              <div class="t-valores">
+                
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20toxina%20botul%C3%ADnica%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="facial">
+            <summary>
+              <span class="t-nome"><b>Preenchimento labial</b><small>Contorno e hidratação dos lábios com ácido hialurônico, sem exagero no volume.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>1h</span><span>Sessão única, duração média de 9 a 12 meses</span></span>
+              <span class="t-preco"><small>a partir de</small>R$ 1.200</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Anestésico tópico</li><li>Ácido hialurônico com registro na Anvisa</li><li>Compressa fria e orientação de cuidados</li><li>Retorno em 15 dias</li></ul></div>
+              <div class="t-valores">
+                
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20preenchimento%20labial%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="facial">
+            <summary>
+              <span class="t-nome"><b>Limpeza de pele profunda</b><small>Tira cravos e impurezas e devolve o viço sem agredir a pele.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>1h30</span><span>Sessão avulsa, repetir a cada 30 a 45 dias</span></span>
+              <span class="t-preco"><small>sessão</small>R$ 180</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Higienização e esfoliação</li><li>Emoliência e extração manual</li><li>Alta frequência</li><li>Máscara calmante</li><li>Protetor solar ao final</li></ul></div>
+              <div class="t-valores">
+                <p><b>Pacote de 3 sessões:</b> R$ 480</p>
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20limpeza%20de%20pele%20profunda%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="facial">
+            <summary>
+              <span class="t-nome"><b>Hidratação facial profunda</b><small>Para pele seca, repuxando ou opaca depois do sol ou do frio.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>50 min</span><span>Sessão avulsa</span></span>
+              <span class="t-preco"><small>sessão</small>R$ 150</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Limpeza e tonificação</li><li>Ativos hidratantes com ácido hialurônico tópico</li><li>Massagem facial</li><li>Máscara de tratamento</li></ul></div>
+              <div class="t-valores">
+                
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20hidrata%C3%A7%C3%A3o%20facial%20profunda%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="facial">
+            <summary>
+              <span class="t-nome"><b>Peeling químico superficial</b><small>Renova a camada mais externa da pele para uniformizar o tom e a textura.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>40 min</span><span>4 sessões, a cada 15 dias</span></span>
+              <span class="t-preco"><small>a partir de</small>R$ 220</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Preparo da pele</li><li>Aplicação do ácido escolhido na avaliação</li><li>Neutralização e calmante</li><li>Kit de protetor solar para os dias seguintes</li></ul></div>
+              <div class="t-valores">
+                <p><b>Pacote de 4 sessões:</b> R$ 760</p>
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20peeling%20qu%C3%ADmico%20superficial%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="facial">
+            <summary>
+              <span class="t-nome"><b>Microagulhamento</b><small>Estimula a produção de colágeno. Indicado para marcas de acne, poros e linhas finas.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>1h</span><span>3 a 4 sessões, a cada 30 dias</span></span>
+              <span class="t-preco"><small>a partir de</small>R$ 350</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Anestésico tópico</li><li>Caneta de microagulhamento com ponteira descartável</li><li>Ativos aplicados durante a sessão</li><li>Máscara de LED calmante</li></ul></div>
+              <div class="t-valores">
+                <p><b>Pacote de 3 sessões:</b> R$ 960</p>
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20microagulhamento%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="facial">
+            <summary>
+              <span class="t-nome"><b>Rejuvenescimento com radiofrequência</b><small>Calor controlado para dar firmeza à pele do rosto e do pescoço, sem agulha.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>50 min</span><span>6 a 8 sessões, uma por semana</span></span>
+              <span class="t-preco"><small>a partir de</small>R$ 200</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Limpeza</li><li>Radiofrequência no rosto e no pescoço</li><li>Massagem com ativo firmador</li><li>Protetor solar</li></ul></div>
+              <div class="t-valores">
+                <p><b>Pacote de 6 sessões:</b> R$ 1.050</p>
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20rejuvenescimento%20com%20radiofrequ%C3%AAncia%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <div class="peles"><h3>Protocolos por tipo de pele</h3><dl><div><dt>Oleosa ou com acne</dt><dd>Limpeza profunda a cada 30 dias e peeling suave. Microagulhamento só depois que a acne ativa acalma.</dd></div><div><dt>Seca ou desidratada</dt><dd>Hidratação profunda mensal e, no inverno, sessões a cada 15 dias.</dd></div><div><dt>Sensível ou com rosácea</dt><dd>Protocolos sem calor e sem extração forte. Teste de ativo antes da primeira sessão.</dd></div><div><dt>Madura</dt><dd>Radiofrequência e microagulhamento, intercalados com hidratação.</dd></div><div><dt>Com manchas</dt><dd>Peeling em série e protetor solar todos os dias. O plano começa fora do verão.</dd></div></dl></div>
+        </div>
+      </section>
+      <section class="seg" id="seg-corporal" data-seg="corporal" aria-labelledby="t-corporal">
+        <div class="seg-lado">
+          <div class="seg-foto revela"><img class="foto " src="assets/img/corporal.webp" alt="Massagem nas costas da cliente deitada na maca com toalha branca" loading="lazy"></div>
+          <h3 id="t-corporal">Estética corporal</h3>
+          <p>Massagens, drenagem e protocolos para celulite e gordura localizada, avulsos ou em pacotes de sessões.</p>
+        </div>
+        <div class="seg-lista">
+          <details class="trat" data-seg="corporal">
+            <summary>
+              <span class="t-nome"><b>Drenagem linfática manual</b><small>Movimentos leves que ajudam a reduzir o inchaço e a sensação de peso nas pernas.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>1h</span><span>Avulsa ou pacote de 10</span></span>
+              <span class="t-preco"><small>sessão</small>R$ 140</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Corpo inteiro, do pescoço aos pés</li><li>Óleo neutro ou creme</li><li>Orientação de hidratação</li></ul></div>
+              <div class="t-valores">
+                <p><b>Pacote de 10 sessões:</b> R$ 1.200</p>
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20drenagem%20linf%C3%A1tica%20manual%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="corporal">
+            <summary>
+              <span class="t-nome"><b>Massagem modeladora</b><small>Manobras firmes e rápidas, focadas em abdômen, quadril e coxas.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>50 min</span><span>Pacote de 10, duas vezes por semana</span></span>
+              <span class="t-preco"><small>a partir de</small>R$ 130</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Áreas escolhidas na avaliação</li><li>Creme com ativos</li><li>Medidas no início e no fim do pacote</li></ul></div>
+              <div class="t-valores">
+                <p><b>Pacote de 10 sessões:</b> R$ 1.100</p>
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20massagem%20modeladora%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="corporal">
+            <summary>
+              <span class="t-nome"><b>Massagem relaxante</b><small>Para soltar a musculatura e desacelerar. Pressão combinada com você.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>1h</span><span>Sessão avulsa</span></span>
+              <span class="t-preco"><small>sessão</small>R$ 150</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Óleo aquecido</li><li>Aromaterapia</li><li>Toalha quente nos pés</li></ul></div>
+              <div class="t-valores">
+                
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20massagem%20relaxante%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="corporal">
+            <summary>
+              <span class="t-nome"><b>Protocolo para celulite</b><small>Radiofrequência corporal, massagem e ativos, combinados conforme o grau da celulite.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>1h</span><span>10 sessões, duas por semana</span></span>
+              <span class="t-preco"><small>pacote a partir de</small>R$ 1.400</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Avaliação com fotos de acompanhamento (com sua autorização)</li><li>Radiofrequência corporal</li><li>Massagem modeladora</li><li>Ativos de uso em casa</li></ul></div>
+              <div class="t-valores">
+                
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20protocolo%20para%20celulite%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="corporal">
+            <summary>
+              <span class="t-nome"><b>Protocolo para gordura localizada</b><small>Ultrassom e radiofrequência em abdômen, flancos ou culote.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>50 min</span><span>10 sessões, duas por semana</span></span>
+              <span class="t-preco"><small>pacote a partir de</small>R$ 1.300</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Medidas e bioimpedância no início e no fim</li><li>Ultrassom focado</li><li>Radiofrequência</li><li>Drenagem ao final da sessão</li></ul></div>
+              <div class="t-valores">
+                
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20protocolo%20para%20gordura%20localizada%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          
+        </div>
+      </section>
+      <section class="seg" id="seg-depilacao" data-seg="depilacao" aria-labelledby="t-depilacao">
+        <div class="seg-lado">
+          <div class="seg-foto revela"><img class="foto " src="assets/img/depilacao.webp" alt="Design de sobrancelha com pinça, cliente de olhos fechados" loading="lazy"></div>
+          <h3 id="t-depilacao">Depilação, cílios e sobrancelhas</h3>
+          <p>Laser e cera com preço por área, design de sobrancelhas, extensão de cílios e lash lifting.</p>
+        </div>
+        <div class="seg-lista">
+          <details class="trat" data-seg="depilacao">
+            <summary>
+              <span class="t-nome"><b>Design de sobrancelhas</b><small>Desenho feito a partir das medidas do seu rosto, com pinça e linha.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>40 min</span><span>Manutenção a cada 20 a 30 dias</span></span>
+              <span class="t-preco"><small>sessão</small>R$ 60</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Mapeamento do desenho</li><li>Retirada com pinça e linha</li><li>Retoque sem custo em até 7 dias</li></ul></div>
+              <div class="t-valores">
+                
+                <p>Com henna, R$ 80</p>
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20design%20de%20sobrancelhas%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="depilacao">
+            <summary>
+              <span class="t-nome"><b>Brow lamination</b><small>Alinha e fixa os fios para a sobrancelha parecer mais cheia.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>1h</span><span>Dura de 4 a 6 semanas</span></span>
+              <span class="t-preco"><small>sessão</small>R$ 140</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Design incluso</li><li>Nutrição dos fios ao final</li><li>Teste de alergia 48h antes</li></ul></div>
+              <div class="t-valores">
+                
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20brow%20lamination%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="depilacao">
+            <summary>
+              <span class="t-nome"><b>Extensão de cílios fio a fio</b><small>Um fio sintético colado em cada cílio natural, efeito discreto.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>2h</span><span>Manutenção a cada 15 a 21 dias</span></span>
+              <span class="t-preco"><small>sessão</small>R$ 220</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Escolha de curvatura e tamanho</li><li>Cola hipoalergênica</li><li>Reposição de fios caídos em até 72h</li><li>Teste de alergia 48h antes</li></ul></div>
+              <div class="t-valores">
+                
+                <p>Manutenção, R$ 120. Volume russo, R$ 280</p>
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20extens%C3%A3o%20de%20c%C3%ADlios%20fio%20a%20fio%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <details class="trat" data-seg="depilacao">
+            <summary>
+              <span class="t-nome"><b>Lash lifting</b><small>Curva os seus próprios cílios, sem extensão. Dura de 6 a 8 semanas.</small></span>
+              <span class="t-meta"><span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.2"/><path d="M12 7.6V12l3 2"/></svg>1h</span><span>Sessão avulsa</span></span>
+              <span class="t-preco"><small>sessão</small>R$ 150</span>
+              <span class="t-abre" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span>
+            </summary>
+            <div class="t-corpo">
+              <div><h4>O que inclui</h4><ul><li>Curvatura e fixação</li><li>Tintura dos fios</li><li>Nutrição ao final</li></ul></div>
+              <div class="t-valores">
+                
+                
+                <p class="t-nota">Valor final confirmado na avaliação. Pagamento em Pix, débito ou crédito.</p>
+                <a class="btn btn-linha" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20lash%20lifting%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar este tratamento</span></a>
+              </div>
+            </div>
+          </details>
+          <div class="areas"><h3>Depilação por área</h3>
+          <table><thead><tr><th scope="col">Área</th><th scope="col">Cera</th><th scope="col">Laser, por sessão</th></tr></thead>
+          <tbody><tr><th scope="row">Buço</th><td>R$ 20</td><td>R$ 70</td></tr><tr><th scope="row">Axilas</th><td>R$ 30</td><td>R$ 90</td></tr><tr><th scope="row">Virilha completa</th><td>R$ 70</td><td>R$ 140</td></tr><tr><th scope="row">Meia perna</th><td>R$ 45</td><td>R$ 180</td></tr><tr><th scope="row">Perna inteira</th><td>R$ 75</td><td>R$ 290</td></tr><tr><th scope="row">Braços</th><td>R$ 45</td><td>R$ 160</td></tr><tr><th scope="row">Abdômen (linha)</th><td>R$ 20</td><td>R$ 80</td></tr></tbody></table>
+          <p>Laser de diodo com registro na Anvisa. Pacote de 10 sessões com 15% de desconto. Antes da primeira sessão fazemos o teste em uma pequena área.</p></div>
+        </div>
+      </section>
+      <div class="pagar">
+        <div class="revela"><h3>Formas de pagamento</h3><p>Pix, débito e crédito. Sessão avulsa em até 3x e pacotes em até 10x sem juros no cartão.</p></div><div class="revela"><h3>Pacotes de sessões</h3><p>Valem por 6 meses a partir da primeira sessão. O plano sai por escrito na avaliação, com o número de sessões e o valor total.</p></div><div class="revela"><h3>Garantia do serviço</h3><p>Retoque do design em até 7 dias, reposição de cílios caídos em até 72h e remarcação sem custo de sessão perdida por falha nossa. Garantimos o serviço bem feito, não um resultado específico.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec-rosa" id="atendimento" aria-labelledby="t-atend">
+    <div class="wrap">
+      <div class="sec-topo">
+        <h2 id="t-atend">Como funciona o atendimento</h2>
+        <p>Nenhum protocolo começa sem avaliação. É nela que a gente confere se o tratamento é indicado para você.</p>
+      </div>
+      <ol class="etapas">
+        <li class="revela"><h3>Avaliação</h3><p>Conversa, ficha de saúde e análise da pele ou da área. Sem custo e sem compromisso de fechar nada.</p></li><li class="revela"><h3>Plano por escrito</h3><p>Tratamento indicado, número de sessões, intervalo, valor e cuidados em casa.</p></li><li class="revela"><h3>Sessões</h3><p>Com hora marcada, material descartável ou esterilizado aberto na sua frente.</p></li><li class="revela"><h3>Retorno</h3><p>Revisamos como a pele respondeu e ajustamos o plano se for preciso.</p></li>
+      </ol>
+      <div class="atend-grid">
+        <div class="contra revela">
+          <img class="foto " src="assets/img/avaliacao.webp" alt="Profissional de luvas fazendo tratamento facial com aparelho em cliente de touca" loading="lazy">
+          <div class="contra-txt">
+            <h3>Quando o tratamento não é indicado</h3>
+            <ul><li>Gravidez e amamentação: sem peelings, laser, radiofrequência e alguns ativos.</li><li>Uso de isotretinoína nos últimos 6 meses: sem peeling, microagulhamento, laser e cera.</li><li>Pele com ferida, herpes ativo, acne inflamada ou queimadura de sol na área.</li><li>Marca-passo, implante metálico ou prótese na área: sem radiofrequência e ultrassom.</li><li>Distúrbios de coagulação, diabetes descompensado ou doença de pele em crise: só com liberação médica.</li><li>Trombose, insuficiência cardíaca ou renal: drenagem e massagem só com liberação médica.</li></ul>
+            <p class="miudo">A lista completa é conferida na ficha de saúde da avaliação.</p>
+          </div>
+        </div>
+        <div class="politicas">
+          <h3>Agendamento, cancelamento e remarcação</h3>
+          <details class="pol" open><summary>Avaliação prévia<span aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span></summary><p>Todo tratamento facial e corporal e toda primeira sessão de laser começam pela avaliação. Nela você preenche a ficha de saúde, tira dúvidas e recebe o plano por escrito. Para cílios, henna e brow lamination fazemos teste de alergia 48h antes.</p></details><details class="pol"><summary>Agendamento<span aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span></summary><p>Pelo WhatsApp ou pelo formulário desta página. Confirmamos por mensagem um dia antes. A sessão é sua por hora marcada, sem encaixe de outra cliente no mesmo horário.</p></details><details class="pol"><summary>Cancelamento<span aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span></summary><p>Cancele ou remarque sem custo até 24h antes. Com menos de 24h, a sessão avulsa é cobrada em 50% e a sessão de pacote conta como feita. Imprevisto de saúde com atestado não entra nessa regra.</p></details><details class="pol"><summary>Remarcação e atraso<span aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span></summary><p>Remarque quantas vezes precisar dentro da validade do pacote, respeitando as 24h. Toleramos 15 minutos de atraso; depois disso a sessão é encurtada ou remarcada, para não atrasar a próxima cliente.</p></details><details class="pol"><summary>Desistência de pacote<span aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span></summary><p>Você pode desistir a qualquer momento. Devolvemos o valor das sessões não feitas, calculado pelo preço do pacote, descontados 10% de custo administrativo.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="clinica" aria-labelledby="t-clin">
+    <div class="wrap">
+      <div class="resp">
+        <div class="resp-foto revela"><img class="foto " src="assets/img/responsavel.webp" alt="Profissional de jaleco branco sorrindo" loading="lazy"></div>
+        <div class="resp-txt">
+          <p class="apoio">Quem responde pela clínica</p>
+          <h2 id="t-clin">Helena Prado</h2>
+          <p class="resp-cargo">Biomédica esteta, responsável técnica. <b>CRBM-1 nº 00000</b></p>
+          <p>Formada em Biomedicina, com habilitação em estética. Cuida dos protocolos, da avaliação de pele e do treinamento da equipe. Cada plano passa por ela antes da primeira sessão.</p>
+          <p>Os atendimentos de depilação, cílios e sobrancelhas são feitos por esteticistas com curso técnico, sob a supervisão dela.</p>
+          <div class="seguro">
+            <div><h3>Material descartável</h3><p>Agulhas, ponteiras, lençol, touca e espátulas são de uso único e abertos na sua frente.</p></div><div><h3>Esterilização em autoclave</h3><p>Pinças e instrumentos metálicos passam por limpeza, embalagem e autoclave, com registro de cada ciclo.</p></div><div><h3>Registro na Anvisa</h3><p>Equipamentos e produtos usados nos protocolos têm registro ou notificação na Anvisa, conforme exigido para cada item.</p></div><div><h3>Licença sanitária</h3><p>Clínica com alvará e licença da Vigilância Sanitária de Campinas, renovados todo ano.</p></div>
+          </div>
+          <p class="aviso-res">Cada pele responde de um jeito. Os tratamentos não prometem cura nem resultado garantido, e o número de sessões pode mudar depois da avaliação. Fotos de antes e depois só são usadas com autorização por escrito da cliente.</p>
+        </div>
+      </div>
+      <div class="galeria-topo"><h2>Por dentro da clínica</h2><p>Salas individuais, luz clara e silêncio. Desde 2017 no Cambuí.</p></div>
+      <div class="galeria">
+        <figure class="g g1 revela"><img class="foto " src="assets/img/galeria-harmonizacao.webp" alt="Aplicação de harmonização no queixo da cliente" loading="lazy"></figure><figure class="g g2 revela"><img class="foto " src="assets/img/galeria-produtos.webp" alt="Texturas de sérum, óleo e creme com folhas verdes" loading="lazy"></figure><figure class="g g3 revela"><img class="foto " src="assets/img/galeria-corredor.webp" alt="Corredor claro com prateleiras de produtos de skincare" loading="lazy"></figure><figure class="g g4 revela"><img class="foto " src="assets/img/galeria-serum.webp" alt="Frasco de sérum com conta-gotas sobre fundo rosa" loading="lazy"></figure><figure class="g g5 revela"><img class="foto " src="assets/img/galeria-cilios.webp" alt="Extensão de cílios sendo aplicada com pinça" loading="lazy"></figure><figure class="g g6 revela"><img class="foto " src="assets/img/galeria-toxina.webp" alt="Aplicação de toxina botulínica na testa da cliente" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec-gelo" id="agendar" aria-labelledby="t-ag">
+    <div class="wrap ag">
+      <div class="ag-lado">
+        <h2 id="t-ag">Agende sua avaliação</h2>
+        <p>Preencha e o pedido abre pronto no WhatsApp. Respondemos em horário de atendimento, normalmente em menos de uma hora.</p>
+        <table class="horas"><caption>Horário de funcionamento</caption><tbody><tr data-linha="0"><th scope="row">Segunda a sexta</th><td>9h às 20h</td></tr><tr data-linha="1"><th scope="row">Sábado</th><td>8h às 14h</td></tr><tr data-linha="2"><th scope="row">Domingo e feriado</th><td>Fechado</td></tr></tbody></table>
+        <p class="ag-end"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/></svg><span>Rua Coronel Quirino, 1450, sala 12, Cambuí, Campinas, SP<br>CEP 13025-000</span></p>
+        <a class="btn btn-vinho" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Prefiro chamar direto</span></a>
+      </div>
+      <form class="form" id="form" novalidate>
+        <div class="campos">
+          <label class="campo"><span>Nome</span><input name="nome" autocomplete="name" required></label>
+          <label class="campo"><span>WhatsApp</span><input name="whats" type="tel" inputmode="tel" autocomplete="tel" placeholder="(19) 90000-0000" required></label>
+          <label class="campo"><span>E-mail <small>(opcional)</small></span><input name="email" type="email" autocomplete="email"></label>
+          <label class="campo"><span>Tratamento</span><select name="trat"><option>Ainda não sei, quero a avaliação</option><optgroup label="Estética facial" data-seg="facial"><option>Avaliação facial</option><option>Harmonização facial</option><option>Toxina botulínica</option><option>Preenchimento labial</option><option>Limpeza de pele profunda</option><option>Hidratação facial profunda</option><option>Peeling químico superficial</option><option>Microagulhamento</option><option>Rejuvenescimento com radiofrequência</option></optgroup><optgroup label="Estética corporal" data-seg="corporal"><option>Drenagem linfática manual</option><option>Massagem modeladora</option><option>Massagem relaxante</option><option>Protocolo para celulite</option><option>Protocolo para gordura localizada</option></optgroup><optgroup label="Depilação, cílios e sobrancelhas" data-seg="depilacao"><option>Design de sobrancelhas</option><option>Brow lamination</option><option>Extensão de cílios fio a fio</option><option>Lash lifting</option><option>Depilação com cera</option><option>Depilação a laser</option></optgroup></select></label>
+        </div>
+        <fieldset class="periodo"><legend>Melhor período</legend>
+          <div class="opts"><label><input type="radio" name="periodo" value="Manhã" checked><span>Manhã</span></label><label><input type="radio" name="periodo" value="Tarde"><span>Tarde</span></label><label><input type="radio" name="periodo" value="Noite"><span>Noite</span></label><label><input type="radio" name="periodo" value="Sábado"><span>Sábado</span></label></div>
+        </fieldset>
+        <label class="campo"><span>Mensagem <small>(opcional)</small></span><textarea name="msg" rows="3"></textarea></label>
+
+        <fieldset class="saude" id="saude">
+          <legend>Ficha de saúde prévia <small>(opcional)</small></legend>
+          <p>Se quiser, adiante algumas respostas da avaliação. São dados sensíveis pela LGPD: só usamos para conferir se o tratamento é seguro para você. Também dá para responder pessoalmente.</p>
+          <label class="check"><input type="checkbox" name="ok_saude" id="ok-saude"><span>Autorizo a Camélia Estética a usar os dados de saúde que eu informar abaixo apenas para a minha avaliação e a segurança do atendimento.</span></label>
+          <div class="saude-campos" id="saude-campos">
+            <fieldset class="sim-nao"><legend>Está grávida ou amamentando?</legend><div class="opts"><label><input type="radio" name="gest" value="Não" disabled><span>Não</span></label><label><input type="radio" name="gest" value="Sim" disabled><span>Sim</span></label></div></fieldset>
+            <label class="campo"><span>Alergias</span><input name="alergia" placeholder="Ex.: cola, henna, ácidos, látex" disabled></label>
+            <label class="campo"><span>Medicamentos em uso</span><input name="remedio" placeholder="Ex.: isotretinoína, anticoagulante" disabled></label>
+            <fieldset class="conds"><legend>Tem alguma destas condições?</legend>
+              <label class="check"><input type="checkbox" name="cond" value="Marca-passo ou implante metálico" disabled><span>Marca-passo ou implante metálico</span></label><label class="check"><input type="checkbox" name="cond" value="Diabetes" disabled><span>Diabetes</span></label><label class="check"><input type="checkbox" name="cond" value="Problema de coagulação" disabled><span>Problema de coagulação</span></label><label class="check"><input type="checkbox" name="cond" value="Herpes que volta com frequência" disabled><span>Herpes que volta com frequência</span></label>
+            </fieldset>
+          </div>
+        </fieldset>
+
+        <div class="consent">
+          <label class="check"><input type="checkbox" name="ok_lgpd" required><span>Li a <button type="button" class="link" data-doc="privacidade">Política de privacidade</button> e autorizo o contato pelo WhatsApp, telefone ou e-mail para responder este pedido.</span></label>
+          <label class="check"><input type="checkbox" name="ok_news"><span>Quero receber horários livres e novidades. Posso cancelar quando quiser.</span></label>
+        </div>
+        <p class="form-erro" id="form-erro" role="alert" hidden></p>
+        <button class="btn btn-vinho btn-enviar" type="submit"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Enviar pedido pelo WhatsApp</span></button>
+        <p class="miudo">O pedido abre no WhatsApp com a mensagem pronta. Nada fica salvo neste site.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="sec" id="duvidas" aria-labelledby="t-faq">
+    <div class="wrap faq">
+      <h2 id="t-faq">Dúvidas frequentes</h2>
+      <div><details class="pol"><summary>A avaliação é paga?<span aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span></summary><p>Não. A primeira avaliação é sem custo e não obriga você a fechar pacote.</p></details><details class="pol"><summary>Posso fazer só um tratamento avulso?<span aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span></summary><p>Pode. Os pacotes saem mais em conta, mas toda sessão também tem preço avulso, exceto os protocolos de celulite e gordura localizada, que só funcionam em série.</p></details><details class="pol"><summary>Dói?<span aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span></summary><p>A maioria dos tratamentos é tranquila. Microagulhamento e laser incomodam um pouco; usamos anestésico tópico e resfriamento.</p></details><details class="pol"><summary>Atendem homens?<span aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span></summary><p>Sim. Todos os tratamentos e a depilação a laser também são feitos em homens.</p></details><details class="pol"><summary>Tem estacionamento?<span aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg></span></summary><p>O prédio tem estacionamento rotativo conveniado. Avise na recepção para validar o tíquete.</p></details></div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape">
+  <div class="wrap">
+    <div class="rodape-mapa">
+      <div class="map-box">
+        <img src="assets/img/mapa_cambui.webp" alt="Mapa do Cambuí, Campinas, com a localização da Camélia Estética" width="1240" height="760" loading="lazy">
+        <span class="pin" style="left:68%" aria-hidden="true"><b>Camélia</b></span>
+        <div class="map-info"><b>Camélia Estética</b><span>Rua Coronel Quirino, 1450, sala 12, Cambuí, Campinas, SP</span><span>Seg a sex, 9h às 20h. Sábado, 8h às 14h</span>
+          <div class="mbtns" data-iguais><a href="https://www.openstreetmap.org/search?query=Rua%20Coronel%20Quirino%2C%20Cambu%C3%AD%2C%20Campinas" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/></svg>Abrir no Maps</a><a href="https://www.google.com/maps/dir/?api=1&destination=Rua%20Coronel%20Quirino%2C%201450%2C%20sala%2012%2C%20Cambu%C3%AD%2C%20Campinas%2C%20SP" target="_blank" rel="noopener"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5"/></svg>Como chegar</a></div>
+        </div>
+        <span class="attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
+      </div>
+      <div class="onde">
+        <h2>Onde atendemos</h2>
+        <p>Atendimento só na clínica, com hora marcada. Recebemos clientes destes bairros e cidades vizinhas.</p>
+        <ul class="bairros" data-iguais><li>Cambuí</li><li>Centro</li><li>Guanabara</li><li>Taquaral</li><li>Nova Campinas</li><li>Castelo</li><li>Barão Geraldo</li><li>Valinhos</li></ul>
+      </div>
+    </div>
+    <div class="rodape-cols">
+      <div class="rodape-marca"><a class="logo" href="#inicio" aria-label="Camélia Estética"><span class="logo-marca"><svg class="flor " viewBox="0 0 48 48" aria-hidden="true">
+  <g fill="var(--flor-1, #EFD9D4)" stroke="var(--flor-2, #6B2234)" stroke-width="1.3" stroke-linejoin="round"><path d="M24 24C16.5 18 16.5 7 24 4C31.5 7 31.5 18 24 24Z" transform="rotate(0 24 24)"/><path d="M24 24C16.5 18 16.5 7 24 4C31.5 7 31.5 18 24 24Z" transform="rotate(72 24 24)"/><path d="M24 24C16.5 18 16.5 7 24 4C31.5 7 31.5 18 24 24Z" transform="rotate(144 24 24)"/><path d="M24 24C16.5 18 16.5 7 24 4C31.5 7 31.5 18 24 24Z" transform="rotate(216 24 24)"/><path d="M24 24C16.5 18 16.5 7 24 4C31.5 7 31.5 18 24 24Z" transform="rotate(288 24 24)"/></g>
+  <g fill="var(--flor-2, #6B2234)"><path d="M24 24C19.8 20.4 19.8 13.8 24 12C28.2 13.8 28.2 20.4 24 24Z" transform="rotate(36 24 24)"/><path d="M24 24C19.8 20.4 19.8 13.8 24 12C28.2 13.8 28.2 20.4 24 24Z" transform="rotate(108 24 24)"/><path d="M24 24C19.8 20.4 19.8 13.8 24 12C28.2 13.8 28.2 20.4 24 24Z" transform="rotate(180 24 24)"/><path d="M24 24C19.8 20.4 19.8 13.8 24 12C28.2 13.8 28.2 20.4 24 24Z" transform="rotate(252 24 24)"/><path d="M24 24C19.8 20.4 19.8 13.8 24 12C28.2 13.8 28.2 20.4 24 24Z" transform="rotate(324 24 24)"/></g>
+  <circle cx="24" cy="24" r="2.8" fill="var(--flor-3, #B99D70)"/>
+</svg><span class="logo-txt"><b>Camélia</b><small>Estética</small></span></span></a><p>Estética facial, corporal e de beleza no Cambuí, com avaliação antes de qualquer protocolo.</p></div>
+      <div><h3>Tratamentos</h3><ul><li data-seg="facial"><a href="#seg-facial">Estética facial</a></li><li data-seg="corporal"><a href="#seg-corporal">Estética corporal</a></li><li data-seg="depilacao"><a href="#seg-depilacao">Depilação, cílios e sobrancelhas</a></li><li><a href="#atendimento">Políticas de atendimento</a></li></ul></div>
+      <div><h3>Canais de atendimento</h3><ul><li><a href="https://wa.me/5519999990000?text=Ol%C3%A1%2C%20Cam%C3%A9lia%20Est%C3%A9tica!" target="_blank" rel="noopener">WhatsApp (19) 99999-0000</a></li><li><a href="tel:1933330000">Telefone (19) 3333-0000</a></li><li><a href="mailto:contato@cameliaestetica.com.br">contato@cameliaestetica.com.br</a></li></ul></div>
+      <div><h3>Redes</h3>
+        <div class="redes">
+          <a href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17.2" cy="6.8" r=".6" fill="currentColor"/></svg></a>
+          <a href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 8.5H16V5.6h-2c-2.3 0-3.5 1.4-3.5 3.6v1.6H8.4v2.9h2.1V20h3v-6.3h2.2l.4-2.9h-2.6V9.5c0-.6.3-1 1-1Z"/></svg></a>
+          <a href="https://linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3"/><path d="M8 10.5V16M8 7.8v.1M11.5 16v-5.5M11.5 13c0-1.6 1-2.6 2.3-2.6s2.2.9 2.2 2.6V16"/></svg></a>
+          <a href="https://wa.me/5519999990000?text=Ol%C3%A1%2C%20Cam%C3%A9lia%20Est%C3%A9tica!" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg></a>
+        </div>
+        <p class="user">@cameliaestetica</p>
+      </div>
+    </div>
+    <div class="legal">
+      <p><b>Camélia Estética Avançada Ltda.</b>, CNPJ 00.000.000/0001-00. Rua Coronel Quirino, 1450, sala 12, Cambuí, Campinas, SP, CEP 13025-000. Telefone (19) 3333-0000, contato@cameliaestetica.com.br.</p>
+      <p>Responsável técnica: Helena Prado, biomédica esteta, CRBM-1 nº 00000.</p>
+      <div class="legal-links"><button type="button" class="link" data-doc="servico">Termos de prestação de serviço</button><button type="button" class="link" data-doc="uso">Termos de uso</button><button type="button" class="link" data-doc="privacidade">Política de privacidade</button><button type="button" class="link" data-cookies>Preferências de cookies</button></div>
+      <p class="miudo">Cada pele responde de um jeito. Os tratamentos não prometem cura nem resultado garantido, e o número de sessões pode mudar depois da avaliação. Fotos de antes e depois só são usadas com autorização por escrito da cliente. O conteúdo deste site é informativo e não substitui a avaliação individual.</p>
+      <details class="creditos"><summary>Créditos das imagens</summary><ul><li>capa: <a href="https://unsplash.com/photos/wsLalHyHflQ" target="_blank" rel="noopener">Studio Michael França, Unsplash</a></li><li>facial: <a href="https://unsplash.com/photos/PqyzuzFiQfY" target="_blank" rel="noopener">karelys Ruiz, Unsplash</a></li><li>corporal: <a href="https://unsplash.com/photos/-AakIaAPV0w" target="_blank" rel="noopener">Simon HUMLER, Unsplash</a></li><li>depilacao: <a href="https://unsplash.com/photos/-k0_8bZ4L8c" target="_blank" rel="noopener">Stefan Vibes, Unsplash</a></li><li>avaliacao: <a href="https://unsplash.com/photos/HtXyytr9304" target="_blank" rel="noopener">Look Studio, Unsplash</a></li><li>responsavel: <a href="https://unsplash.com/photos/2G73aoMR-Go" target="_blank" rel="noopener">Ike Ellyana, Unsplash</a></li><li>galeria-harmonizacao: <a href="https://unsplash.com/photos/35IcCEwNTqc" target="_blank" rel="noopener">Sum Sum, Unsplash</a></li><li>galeria-produtos: <a href="https://unsplash.com/photos/g6q3lFAe3kA" target="_blank" rel="noopener">ibnu ihza, Unsplash</a></li><li>galeria-corredor: <a href="https://unsplash.com/photos/uaD-0u_DwQw" target="_blank" rel="noopener">Grace Anne Bobadilla, Unsplash</a></li><li>galeria-serum: <a href="https://unsplash.com/photos/BlcA2-o-7IM" target="_blank" rel="noopener">Maria Lupan, Unsplash</a></li><li>galeria-cilios: <a href="https://unsplash.com/photos/xA_djNkH0Yo" target="_blank" rel="noopener">Bermix Studio, Unsplash</a></li><li>galeria-toxina: <a href="https://unsplash.com/photos/2dIvsGzzMLk" target="_blank" rel="noopener">Patient Perfect, Unsplash</a></li></ul></details>
+    </div>
+    <div class="rodape-fim"><span>© <span data-ano>2026</span> Camélia Estética. Marca fictícia de demonstração.</span><span>Preços e dados ilustrativos.</span></div>
+  </div>
+</footer>
+
+<a class="whats-flutua" href="https://wa.me/5519999990000?text=Ol%C3%A1!%20Quero%20agendar%20uma%20avalia%C3%A7%C3%A3o%20na%20Cam%C3%A9lia%20Est%C3%A9tica." target="_blank" rel="noopener" aria-label="Conversar no WhatsApp"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.7 9.7 0 0 0-8.3 14.7L2.3 21.8l5-1.3A9.7 9.7 0 1 0 12 2.2Zm0 17.7c-1.5 0-2.9-.4-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-6c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.5.1l-.8.9c-.1.2-.3.2-.5.1a6.6 6.6 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.7 2.6 4.1 3.6 1.5.7 2.1.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1l-.4-.3Z"/></svg><span>Agendar</span></a>
+
+<div class="cookies" id="cookies" role="region" aria-label="Aviso de cookies" hidden>
+  <p>Usamos só o essencial para o site funcionar. Se você permitir, também medimos visitas de forma anônima para melhorar a página. <button type="button" class="link" data-doc="privacidade">Saiba mais</button></p>
+  <div class="cookies-btns"><button type="button" class="btn btn-vinho" data-ck="todos">Aceitar todos</button><button type="button" class="btn btn-linha" data-ck="essenciais">Só os essenciais</button></div>
+</div>
+
+<dialog class="doc" id="doc-servico" aria-labelledby="doc-servico-t">
+  <div class="doc-topo"><h2 id="doc-servico-t">Termos de prestação de serviço</h2><button type="button" class="doc-fecha" data-fecha aria-label="Fechar"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button></div>
+  <div class="doc-corpo">
+    <p>Estes termos valem para todos os atendimentos da Camélia Estética (Camélia Estética Avançada Ltda., CNPJ 00.000.000/0001-00).</p>
+    <h3>Avaliação e plano</h3><p>Todo tratamento facial e corporal e toda primeira sessão de laser começam por uma avaliação sem custo. Nela a cliente preenche a ficha de saúde e recebe o plano por escrito, com tratamento, número de sessões, intervalo e valor. Informar alergias, medicamentos e condições de saúde é necessário para a segurança do procedimento.</p>
+    <h3>Preços e pagamento</h3><p>Os preços desta página são de sessão avulsa ou de pacote e podem mudar sem aviso; vale o valor do plano assinado. Pagamento em Pix, débito ou crédito, com sessão avulsa em até 3x e pacotes em até 10x sem juros no cartão.</p>
+    <h3>Pacotes</h3><p>Valem por 6 meses a partir da primeira sessão e são pessoais. Na desistência, devolvemos o valor das sessões não feitas, calculado pelo preço do pacote, descontados 10% de custo administrativo.</p>
+    <h3>Agendamento, cancelamento e remarcação</h3><p>Cancelamento e remarcação sem custo até 24h antes. Com menos de 24h, a sessão avulsa é cobrada em 50% e a de pacote conta como feita, exceto em caso de saúde com atestado. Tolerância de atraso de 15 minutos.</p>
+    <h3>Garantia</h3><p>Garantimos o serviço bem executado: retoque do design de sobrancelhas em até 7 dias, reposição de fios de cílios caídos em até 72h e remarcação sem custo de sessão perdida por falha nossa. Não há garantia de resultado: cada organismo responde de um jeito.</p>
+    <h3>Contraindicações</h3><p>A clínica pode recusar ou adiar um procedimento quando houver contraindicação ou risco à saúde, e pode pedir liberação médica.</p>
+    <p>Dúvidas: contato@cameliaestetica.com.br ou WhatsApp (19) 99999-0000.</p><p class="doc-fim">Texto de modelo, a validar na revisão jurídica. Atualizado em novembro de 2026.</p></div>
+</dialog>
+<dialog class="doc" id="doc-uso" aria-labelledby="doc-uso-t">
+  <div class="doc-topo"><h2 id="doc-uso-t">Termos de uso do site</h2><button type="button" class="doc-fecha" data-fecha aria-label="Fechar"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button></div>
+  <div class="doc-corpo">
+    <p>Este site apresenta a Camélia Estética, seus tratamentos, preços e políticas. O conteúdo é informativo e não substitui a avaliação individual.</p>
+    <h3>Informações e preços</h3><p>Fazemos o possível para manter tudo atualizado. Em caso de diferença, vale o que estiver no plano entregue na avaliação.</p>
+    <h3>Imagens e textos</h3><p>Textos, marca e fotos pertencem à Camélia Estética ou são usados com licença. Não é permitido copiar para uso comercial.</p>
+    <h3>Formulário</h3><p>O formulário monta uma mensagem e abre o WhatsApp no seu aparelho. Este site não guarda as respostas. O envio acontece só quando você toca em enviar dentro do WhatsApp.</p>
+    <h3>Links externos</h3><p>WhatsApp, mapas e redes sociais seguem os termos de cada serviço.</p><p class="doc-fim">Texto de modelo, a validar na revisão jurídica. Atualizado em novembro de 2026.</p></div>
+</dialog>
+<dialog class="doc" id="doc-privacidade" aria-labelledby="doc-privacidade-t">
+  <div class="doc-topo"><h2 id="doc-privacidade-t">Política de privacidade</h2><button type="button" class="doc-fecha" data-fecha aria-label="Fechar"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button></div>
+  <div class="doc-corpo">
+    <p>Controladora dos dados: Camélia Estética Avançada Ltda., CNPJ 00.000.000/0001-00, Rua Coronel Quirino, 1450, sala 12, Cambuí, Campinas, SP. Encarregado de dados: privacidade@cameliaestetica.com.br.</p>
+    <h3>Quais dados</h3><p>Nome, WhatsApp, e-mail, tratamento de interesse e período preferido, quando você envia o formulário. Se você autorizar de forma específica, também as informações de saúde da ficha prévia (gestação, alergias, medicamentos e condições de saúde).</p>
+    <h3>Para que usamos</h3><p>Responder o seu pedido, agendar e preparar a avaliação. Dados de saúde são dados sensíveis pela LGPD (Lei 13.709/2018, art. 11) e são usados apenas para avaliar a indicação e a segurança do procedimento, com o seu consentimento específico. Novidades e horários livres só com a sua autorização separada.</p>
+    <h3>Com quem compartilhamos</h3><p>Com ninguém para fins comerciais. A mensagem passa pelo WhatsApp, que tem a própria política. A ficha de saúde fica no prontuário da clínica, com acesso restrito à equipe que atende você.</p>
+    <h3>Por quanto tempo</h3><p>Pedidos sem atendimento são apagados em até 6 meses. Prontuário e ficha de saúde são guardados pelo prazo exigido pelas normas sanitárias e profissionais.</p>
+    <h3>Seus direitos</h3><p>Você pode pedir acesso, correção, cópia ou exclusão dos seus dados, e retirar o consentimento a qualquer momento, pelo e-mail privacidade@cameliaestetica.com.br.</p>
+    <h3>Cookies</h3><p>O site usa armazenamento essencial do navegador para lembrar a sua escolha sobre cookies. Não usamos cookies de publicidade. Medição de visitas só com a sua permissão no aviso de cookies.</p><p class="doc-fim">Texto de modelo, a validar na revisão jurídica. Atualizado em novembro de 2026.</p></div>
+</dialog>
+
+<script>
+(() => {
+  const D = {"whatsapp":"5519999990000","nome":"Camélia Estética","abertura":[null,[9,20],[9,20],[9,20],[9,20],[9,20],[8,14]]};
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const guarda = {
+    ler(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    por(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* sem armazenamento */ } },
+  };
+
+  // ---------- segmentos pelo link (?seg=facial,corporal) ----------
+  const pedido = new URLSearchParams(location.search).get('seg');
+  if (pedido) {
+    const ok = pedido.split(',').map((s) => s.trim()).filter(Boolean);
+    const todos = [...new Set($$('[data-seg]').map((el) => el.dataset.seg))];
+    if (ok.some((s) => todos.includes(s))) {
+      $$('[data-seg]').forEach((el) => { if (!ok.includes(el.dataset.seg)) el.remove(); });
+      const segs = $('.segs');
+      if (segs) segs.style.setProperty('--n', segs.children.length);
+      const primeiro = $('.seg-tile');
+      $$('.seg-tile').forEach((t) => t.classList.toggle('seg-tile-g', t === primeiro));
+    }
+  }
+
+  // ---------- aberto agora ----------
+  const nomes = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+  const hm = (h) => `${Math.floor(h)}h${h % 1 ? String(Math.round((h % 1) * 60)).padStart(2, '0') : ''}`;
+  const agora = new Date();
+  const dia = agora.getDay();
+  const hora = agora.getHours() + agora.getMinutes() / 60;
+  const hoje = D.abertura[dia];
+  let status;
+  if (hoje && hora >= hoje[0] && hora < hoje[1]) status = `Aberto agora, até as ${hm(hoje[1])}`;
+  else {
+    let d = dia, n = 0;
+    if (hoje && hora < hoje[0]) status = `Abre hoje às ${hm(hoje[0])}`;
+    else {
+      do { d = (d + 1) % 7; n++; } while (!D.abertura[d] && n < 7);
+      status = `Fechado agora. Abre ${n === 1 ? 'amanhã' : nomes[d]} às ${hm(D.abertura[d][0])}`;
+    }
+  }
+  $$('[data-status]').forEach((el) => { el.textContent = status; });
+  const linha = dia === 0 ? 2 : dia === 6 ? 1 : 0;
+  const tr = $(`.horas [data-linha="${linha}"]`);
+  if (tr) tr.classList.add('hoje');
+  $$('[data-ano]').forEach((el) => { el.textContent = agora.getFullYear(); });
+
+  // ---------- topo e menu ----------
+  const topo = $('#topo');
+  const rolou = () => topo.classList.toggle('rolou', scrollY > 10);
+  addEventListener('scroll', rolou, { passive: true });
+  rolou();
+  const btnMenu = $('.menu-btn');
+  const fechaMenu = () => { topo.classList.remove('aberto'); btnMenu.setAttribute('aria-expanded', 'false'); btnMenu.setAttribute('aria-label', 'Abrir menu'); };
+  btnMenu.addEventListener('click', () => {
+    const abre = !topo.classList.contains('aberto');
+    topo.classList.toggle('aberto', abre);
+    btnMenu.setAttribute('aria-expanded', String(abre));
+    btnMenu.setAttribute('aria-label', abre ? 'Fechar menu' : 'Abrir menu');
+  });
+  $$('#menu a').forEach((a) => a.addEventListener('click', fechaMenu));
+
+  // ---------- revelar na rolagem ----------
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); }
+    }), { rootMargin: '0px 0px -8% 0px' });
+    $$('.revela').forEach((el) => io.observe(el));
+  } else $$('.revela').forEach((el) => el.classList.add('visto'));
+
+  // ---------- grupos com a mesma largura ----------
+  const iguala = () => $$('[data-iguais]').forEach((g) => {
+    g.style.removeProperty('--larg');
+    const m = Math.max(...[...g.children].map((c) => c.scrollWidth));
+    if (m > 0) g.style.setProperty('--larg', `${Math.ceil(m) + 2}px`);
+  });
+  iguala();
+  if (document.fonts) document.fonts.ready.then(iguala);
+  addEventListener('resize', iguala);
+
+  // ---------- janelas dos termos ----------
+  const abreDoc = (id) => { const d = $(`#doc-${id}`); if (d && d.showModal) d.showModal(); };
+  $$('[data-doc]').forEach((b) => b.addEventListener('click', () => abreDoc(b.dataset.doc)));
+  $$('dialog.doc').forEach((d) => {
+    $('[data-fecha]', d).addEventListener('click', () => d.close());
+    d.addEventListener('click', (e) => { if (e.target === d) d.close(); });
+  });
+
+  // ---------- cookies ----------
+  const ck = $('#cookies');
+  const CK = 'camelia-cookies';
+  const marcaCk = () => document.documentElement.classList.toggle('ck', !ck.hidden);
+  if (!guarda.ler(CK)) ck.hidden = false;
+  marcaCk();
+  $$('[data-ck]').forEach((b) => b.addEventListener('click', () => { guarda.por(CK, b.dataset.ck); ck.hidden = true; marcaCk(); }));
+  $$('[data-cookies]').forEach((b) => b.addEventListener('click', () => { ck.hidden = false; marcaCk(); iguala(); $('[data-ck]', ck).focus(); }));
+
+  // ---------- formulário ----------
+  const form = $('#form');
+  const okSaude = $('#ok-saude');
+  const camposSaude = $$('#saude-campos input');
+  const ligaSaude = () => {
+    camposSaude.forEach((i) => { i.disabled = !okSaude.checked; if (!okSaude.checked) { if (i.type === 'radio' || i.type === 'checkbox') i.checked = false; else i.value = ''; } });
+    $('#saude').classList.toggle('liberado', okSaude.checked);
+  };
+  okSaude.addEventListener('change', ligaSaude);
+  ligaSaude();
+
+  const erro = $('#form-erro');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = new FormData(form);
+    const falta = [];
+    const nome = (f.get('nome') || '').trim();
+    const whats = (f.get('whats') || '').replace(/\D/g, '');
+    if (!nome) falta.push('seu nome');
+    if (whats.length < 10) falta.push('um WhatsApp com DDD');
+    if (!f.get('ok_lgpd')) falta.push('a autorização de contato');
+    $$('.campo, .check', form).forEach((c) => c.classList.remove('erro'));
+    if (falta.length) {
+      if (!nome) form.nome.closest('.campo').classList.add('erro');
+      if (whats.length < 10) form.whats.closest('.campo').classList.add('erro');
+      if (!f.get('ok_lgpd')) form.ok_lgpd.closest('.check').classList.add('erro');
+      erro.textContent = `Falta ${falta.join(', ').replace(/, ([^,]*)$/, ' e $1')}.`;
+      erro.hidden = false;
+      (form.querySelector('.erro input') || form.nome).focus();
+      return;
+    }
+    erro.hidden = true;
+    const l = [
+      `Olá! Quero agendar na ${D.nome}.`,
+      '',
+      `Nome: ${nome}`,
+      `WhatsApp: ${f.get('whats')}`,
+      f.get('email') ? `E-mail: ${f.get('email')}` : null,
+      `Tratamento: ${f.get('trat')}`,
+      `Melhor período: ${f.get('periodo')}`,
+      f.get('msg') ? `Mensagem: ${f.get('msg').trim()}` : null,
+    ];
+    if (f.get('ok_saude')) {
+      const conds = f.getAll('cond');
+      l.push('', 'Ficha de saúde prévia (autorizo o uso só para a avaliação):');
+      if (f.get('gest')) l.push(`Grávida ou amamentando: ${f.get('gest')}`);
+      if (f.get('alergia')) l.push(`Alergias: ${f.get('alergia')}`);
+      if (f.get('remedio')) l.push(`Medicamentos: ${f.get('remedio')}`);
+      if (conds.length) l.push(`Condições: ${conds.join(', ')}`);
+    }
+    l.push('', 'Li a política de privacidade e autorizo o contato.');
+    if (f.get('ok_news')) l.push('Aceito receber horários livres e novidades.');
+    window.open(`https://wa.me/${D.whatsapp}?text=${encodeURIComponent(l.filter((x) => x !== null).join('\n'))}`, '_blank', 'noopener');
+  });
+})();
+
+</script>
+</body>
+</html>

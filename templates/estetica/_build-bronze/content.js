@@ -229,6 +229,30 @@ const seguranca = [
 // [JURÍDICO] aviso de resultados conforme regras de publicidade do setor
 const avisoResultado = 'Cada pele responde de um jeito. Os tratamentos não prometem cura nem resultado garantido, e o número de sessões pode mudar depois da avaliação. Fotos de antes e depois só são usadas com autorização por escrito da cliente.';
 
+// Antes e depois. [EXEMPLO] SIMULAÇÃO: o "antes" é gerado no build por cima da mesma foto (tom apagado e manchas
+// desenhadas nas regiões abaixo). Cliente real: trocar por fotos da própria cliente, com autorização por escrito,
+// e apagar `simulacao`. regioes: [centro x, centro y, raio x, raio y, quantidade] em pixels da foto original.
+const antesDepois = [
+  {
+    foto: 'facial', titulo: 'Acne e poros dilatados', tratamento: 'Limpeza de pele profunda e peeling suave',
+    sessoes: '6 sessões', intervalo: '4 meses entre as fotos',
+    texto: 'Extração uma vez por mês, peeling a cada 15 dias e rotina em casa com sabonete de ácido salicílico.',
+    simulacao: { tipo: 'acne', filtro: 'saturate(.92) contrast(.96)', regioes: [[455, 430, 95, 115, 22], [770, 420, 105, 115, 24], [640, 225, 160, 42, 12], [565, 625, 75, 42, 8]] },
+  },
+  {
+    foto: 'avaliacao', titulo: 'Manchas de sol', tratamento: 'Peeling químico superficial em série',
+    sessoes: '4 sessões', intervalo: '2 meses entre as fotos',
+    texto: 'Uma sessão a cada 15 dias, clareador à noite e protetor solar todos os dias, começando fora do verão.',
+    simulacao: { tipo: 'manchas', filtro: 'sepia(.12) saturate(.9) brightness(.97)', regioes: [[1010, 570, 125, 90, 14], [960, 300, 120, 52, 8], [1290, 560, 55, 65, 6], [1120, 455, 70, 30, 6]] },
+  },
+  {
+    foto: 'galeria-harmonizacao', titulo: 'Marcas de acne', tratamento: 'Microagulhamento com ativos',
+    sessoes: '3 sessões', intervalo: '3 meses entre as fotos',
+    texto: 'Uma sessão por mês, com máscara de LED calmante no fim e regeneração com protetor físico nos dias seguintes.',
+    simulacao: { tipo: 'marcas', filtro: 'saturate(.9) contrast(.95) brightness(.98)', regioes: [[480, 395, 70, 95, 26], [600, 455, 45, 35, 8], [440, 230, 60, 30, 6]] },
+  },
+];
+
 const faq = [
   ['A avaliação é paga?', 'Não. A primeira avaliação é sem custo e não obriga você a fechar pacote.'],
   ['Posso fazer só um tratamento avulso?', 'Pode. Os pacotes saem mais em conta, mas toda sessão também tem preço avulso, exceto os protocolos de celulite e gordura localizada, que só funcionam em série.'],
@@ -239,4 +263,4 @@ const faq = [
 
 const bairros = ['Cambuí', 'Centro', 'Guanabara', 'Taquaral', 'Nova Campinas', 'Castelo', 'Barão Geraldo', 'Valinhos']; // [EXEMPLO]
 
-module.exports = { marca, responsavel, abertura, horarios, fotos, segmentos, pagamento, etapas, contraindicacoes, politicas, seguranca, avisoResultado, faq, bairros };
+module.exports = { marca, responsavel, abertura, horarios, fotos, segmentos, pagamento, etapas, contraindicacoes, politicas, seguranca, avisoResultado, antesDepois, faq, bairros };

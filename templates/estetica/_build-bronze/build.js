@@ -95,7 +95,7 @@ const fichaExtra = (s, i) => {
   }
   return '';
 };
-const linhaTrat = (s, t, i) => `<li><button type="button" class="carta-item${i ? '' : ' ativo'}" data-abre="v-${s.id}-${i}" aria-controls="v-${s.id}-${i}" aria-pressed="${i ? 'false' : 'true'}">
+const linhaTrat = (s, t, i) => `<li style="--i:${i}"><button type="button" class="carta-item${i ? '' : ' ativo'}" data-abre="v-${s.id}-${i}" aria-controls="v-${s.id}-${i}" aria-pressed="${i ? 'false' : 'true'}">
               <span class="c-nome">${esc(t.nome)}</span>
               <span class="c-dur">${esc(t.duracao)}</span>
               ${precoDe(t)}
@@ -103,7 +103,7 @@ const linhaTrat = (s, t, i) => `<li><button type="button" class="carta-item${i ?
 const linhaExtra = (s, i) => {
   const nome = s.peles ? 'Protocolos por tipo de pele' : s.areas ? 'Tabela por área, cera e laser' : '';
   if (!nome) return '';
-  return `<li><button type="button" class="carta-item carta-extra" data-abre="v-${s.id}-${i}" aria-controls="v-${s.id}-${i}" aria-pressed="false">
+  return `<li style="--i:${i}"><button type="button" class="carta-item carta-extra" data-abre="v-${s.id}-${i}" aria-controls="v-${s.id}-${i}" aria-pressed="false">
               <span class="c-nome">${nome}</span>
               <span class="c-dur">${s.peles ? `${s.peles.length} tipos` : `${s.areas.length} áreas`}</span>
               <span class="c-ver">Ver ${I.seta}</span>
@@ -129,6 +129,90 @@ const blocoSeg = (s, i) => `<div class="seg" role="tabpanel" id="seg-${s.id}" da
           ${fichaExtra(s, s.itens.length)}
         </div>
       </div>`;
+
+
+// ---------- antes e depois (simulação gerada aqui) ----------
+const dimWebp = (arq) => {
+  const d = fs.readFileSync(arq);
+  const t = d.toString('ascii', 12, 16);
+  if (t === 'VP8X') return [1 + d.readUIntLE(24, 3), 1 + d.readUIntLE(27, 3)];
+  if (t === 'VP8 ') return [d.readUInt16LE(26) & 0x3fff, d.readUInt16LE(28) & 0x3fff];
+  const v = d.readUInt32LE(21);
+  return [(v & 0x3fff) + 1, ((v >> 14) & 0x3fff) + 1];
+};
+let sementeAD = 11;
+const sorteia = () => { sementeAD = (sementeAD * 16807) % 2147483647; return (sementeAD - 1) / 2147483646; };
+const r1 = (v) => Math.round(v * 10) / 10;
+// manchas desenhadas só nas regiões do rosto; o svg usa o mesmo recorte central da foto (slice = cover)
+const camadaAntes = (c, k) => {
+  const [w, h] = dimWebp(path.join(FOTOS, `${c.foto}.webp`));
+  const s = c.simulacao;
+  const marcas = [];
+  for (const [cx, cy, rx, ry, q] of s.regioes) {
+    for (let j = 0; j < q; j++) {
+      const ang = sorteia() * Math.PI * 2, dist = Math.sqrt(sorteia());
+      const x = cx + Math.cos(ang) * rx * dist, y = cy + Math.sin(ang) * ry * dist;
+      if (s.tipo === 'acne') {
+        const r = 3.5 + sorteia() * 5;
+        if (j % 3 === 0) marcas.push(`<ellipse cx="${r1(x)}" cy="${r1(y)}" rx="${r1(r * 4)}" ry="${r1(r * 3)}" fill="#C0584C" fill-opacity=".09" filter="url(#ad-m${k})"/>`);
+        marcas.push(`<circle cx="${r1(x)}" cy="${r1(y)}" r="${r1(r)}" fill="#B4453C" fill-opacity="${r1(.14 + sorteia() * .14)}" filter="url(#ad-b${k})"/>`);
+        if (sorteia() > .7) marcas.push(`<circle cx="${r1(x)}" cy="${r1(y)}" r="${r1(r * .3)}" fill="#E9C9A8" fill-opacity=".35" filter="url(#ad-f${k})"/>`);
+      } else if (s.tipo === 'manchas') {
+        const r = 16 + sorteia() * 30;
+        marcas.push(`<ellipse cx="${r1(x)}" cy="${r1(y)}" rx="${r1(r)}" ry="${r1(r * (.6 + sorteia() * .4))}" fill="#7E4A2C" fill-opacity="${r1(.18 + sorteia() * .16)}" filter="url(#ad-b${k})"/>`);
+        for (let z = 0; z < 2; z++) marcas.push(`<circle cx="${r1(x + (sorteia() - .5) * r * 2)}" cy="${r1(y + (sorteia() - .5) * r * 2)}" r="${r1(1.6 + sorteia() * 2.4)}" fill="#6E4129" fill-opacity="${r1(.16 + sorteia() * .14)}" filter="url(#ad-b${k})"/>`);
+      } else {
+        const r = 2.5 + sorteia() * 4.5;
+        marcas.push(`<circle cx="${r1(x)}" cy="${r1(y)}" r="${r1(r)}" fill="#8E4A3A" fill-opacity="${r1(.12 + sorteia() * .14)}" filter="url(#ad-b${k})"/>`);
+      }
+    }
+  }
+  const blur = s.tipo === 'manchas' ? 9 : 1.8;
+  return `<div class="ad-antes" aria-hidden="true">
+          <img src="assets/img/${c.foto}.webp" alt="" loading="lazy" style="filter:${s.filtro}">
+          <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice"><defs><filter id="ad-b${k}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="${blur}"/></filter><filter id="ad-m${k}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter><filter id="ad-f${k}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1"/></filter></defs>${marcas.join('')}</svg>
+        </div>`;
+};
+const AD = C.antesDepois || [];
+const chevron = (d) => `<svg class="ad-seta" viewBox="0 0 10 16" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const secaoAD = !AD.length ? '' : `<section class="sec sec-palco" id="resultados" aria-labelledby="t-res">
+    <div class="wrap">
+      <div class="sec-topo revela">
+        <h2 id="t-res">Antes e depois</h2>
+        <p>Arraste a camélia sobre a foto para comparar. Cada caso mostra o tratamento, quantas sessões foram feitas e o tempo entre as duas fotos.</p>
+      </div>
+      <div class="ad revela">
+        <div class="ad-palco" style="--pos:50%">
+          ${AD.map((c, k) => `<figure class="ad-caso${k ? '' : ' ativo'}" data-caso="${k}">
+        <img class="ad-depois" src="assets/img/${c.foto}.webp" alt="Depois: ${esc(c.titulo.toLowerCase())}, ${esc(c.tratamento.toLowerCase())}" loading="lazy">
+        ${camadaAntes(c, k)}
+          </figure>`).join('\n          ')}
+          <span class="ad-selo">Simulação ilustrativa</span>
+          <span class="ad-rot ad-rot-a" aria-hidden="true">Antes</span><span class="ad-rot ad-rot-d" aria-hidden="true">Depois</span>
+          <span class="ad-linha" aria-hidden="true"><span class="ad-alca">${chevron('M7 2 2 8l5 6')}${I.flor('ad-flor')}${chevron('M3 2l5 6-5 6')}</span></span>
+          <input class="ad-range" type="range" min="0" max="100" value="50" step="1" aria-label="Comparar antes e depois: arraste para os lados">
+        </div>
+        <div class="ad-lado">
+          <div class="ad-lista" role="tablist" aria-label="Casos">
+            ${AD.map((c, k) => `<button type="button" role="tab" class="ad-item" data-caso="${k}" aria-selected="${k ? 'false' : 'true'}"${k ? ' tabindex="-1"' : ''}>
+              <span class="ad-mini"><img src="assets/img/${c.foto}.webp" alt="" loading="lazy"></span>
+              <span class="ad-item-txt"><b>${esc(c.titulo)}</b><small>${esc(c.sessoes)}, ${esc(c.intervalo)}</small></span>
+            </button>`).join('\n            ')}
+          </div>
+          <div class="ad-fichas">
+            ${AD.map((c, k) => `<div class="ad-ficha${k ? '' : ' ativo'}" data-caso="${k}">
+              <dl><div><dt>Tratamento</dt><dd>${esc(c.tratamento)}</dd></div><div><dt>Sessões</dt><dd>${esc(c.sessoes)}</dd></div><div><dt>Entre as fotos</dt><dd>${esc(c.intervalo.replace(' entre as fotos', ''))}</dd></div></dl>
+              <p>${esc(c.texto)}</p>
+            </div>`).join('\n            ')}
+          </div>
+          <a class="btn btn-claro" href="${wa(`Olá! Vi os casos de antes e depois e quero agendar uma avaliação na ${M.completo}.`)}" target="_blank" rel="noopener">${I.whats}<span>Quero avaliar a minha pele</span></a>
+        </div>
+      </div>
+      <p class="ad-aviso">As imagens desta demonstração são simulações feitas sobre fotos de banco de imagens. No site da clínica entram fotos reais, sempre com autorização por escrito da cliente. ${C.avisoResultado.split('. ').slice(0, 2).join('. ')}.</p>
+    </div>
+  </section>
+
+`;
 
 const segTiles = SEG.map((s, i) => `<li class="revela" data-seg="${s.id}"><a href="#seg-${s.id}" class="seg-tile${i === 0 ? ' seg-tile-g' : ''}">
           ${foto(s.foto)}
@@ -184,7 +268,7 @@ const html = `<!doctype html>
 <meta property="og:title" content="${M.completo}">
 <meta property="og:description" content="Avaliação sem custo, plano por escrito e agendamento pelo WhatsApp.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<script>document.documentElement.classList.add("js")</script>
+<script>(function(){var d=document.documentElement,t=null;d.classList.add("js");try{t=new URLSearchParams(location.search).get("tema")||localStorage.getItem("camelia-tema")}catch(e){}if(t==="escuro"){d.dataset.tema="escuro";var m=document.querySelector('meta[name="theme-color"]');if(m)m.content="#1A1215"}})()</script>
 ${fontes}
 <style>
 ${css}
@@ -204,9 +288,11 @@ ${css}
     <nav class="menu" id="menu" aria-label="Seções">
       <a href="#tratamentos">Tratamentos e preços</a>
       <a href="#atendimento">Como funciona</a>
+      <a href="#resultados">Antes e depois</a>
       <a href="#clinica">A clínica</a>
       <a href="#agendar">Agendar</a>
     </nav>
+    <button class="tema-btn" type="button" aria-pressed="false" aria-label="Ativar tema escuro" title="Tema escuro">${I.temaFlor}</button>
     <a class="btn btn-vinho topo-cta" href="${wa(`Olá! Quero agendar uma avaliação na ${M.completo}.`)}" target="_blank" rel="noopener">${I.whats}<span>Agendar no WhatsApp</span></a>
     <button class="menu-btn" type="button" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu"><span></span><span></span></button>
   </div>
@@ -240,14 +326,16 @@ ${css}
 
   <section class="sec" id="tratamentos" aria-labelledby="t-trat">
     <div class="wrap">
-      <div class="sec-topo">
+      <div class="sec-topo revela">
         <h2 id="t-trat">Tratamentos e preços</h2>
         <p>Escolha a área e toque no tratamento para ver o que inclui, as sessões e o valor do pacote.</p>
       </div>
-      <div class="abas" role="tablist" aria-label="Segmentos" style="--n:${SEG.length}">
+      <div class="abas revela" role="tablist" aria-label="Segmentos" style="--n:${SEG.length}">
         ${SEG.map(abaSeg).join('\n        ')}
       </div>
+      <div class="segs-pilha">
       ${SEG.map(blocoSeg).join('\n      ')}
+      </div>
       <div class="gaveta-fundo" data-fecha-gaveta hidden></div>
       <div class="pagar">
         ${C.pagamento.map(([t, d]) => `<div class="revela"><h3>${t}</h3><p>${d}</p></div>`).join('')}
@@ -257,35 +345,38 @@ ${css}
 
   <section class="sec sec-rosa" id="atendimento" aria-labelledby="t-atend">
     <div class="wrap">
-      <div class="sec-topo">
+      <div class="sec-topo revela">
         <h2 id="t-atend">Como funciona o atendimento</h2>
         <p>Nenhum protocolo começa sem avaliação. É nela que a gente confere se o tratamento é indicado para você.</p>
       </div>
       <ol class="etapas">
         ${C.etapas.map(([t, d]) => `<li class="revela"><h3>${t}</h3><p>${d}</p></li>`).join('')}
       </ol>
-      <div class="atend-grid">
-        <div class="contra revela">
-          ${foto('avaliacao')}
-          <div class="contra-txt">
-            <h3>Quando o tratamento não é indicado</h3>
-            <ul>${C.contraindicacoes.map((c) => `<li>${c}</li>`).join('')}</ul>
-            <p class="miudo">A lista completa é conferida na ficha de saúde da avaliação.</p>
-          </div>
-        </div>
-        <div class="politicas">
-          <h3>Agendamento, cancelamento e remarcação</h3>
-          ${C.politicas.map(([t, d], i) => `<details class="pol"${i === 0 ? ' open' : ''}><summary>${t}<span aria-hidden="true">${I.mais}</span></summary><p>${d}</p></details>`).join('')}
+      <div class="contra revela">
+        <div class="contra-foto">${foto('avaliacao')}</div>
+        <div class="contra-txt">
+          <h3>Quando o tratamento não é indicado</h3>
+          <p class="contra-sub">A avaliação confere cada caso. Estes são os mais comuns:</p>
+          <ul>${C.contraindicacoes.map((c, i) => `<li style="--i:${i}">${I.fechar}<span>${c}</span></li>`).join('')}</ul>
+          <p class="miudo">A lista completa é conferida na ficha de saúde da avaliação.</p>
         </div>
       </div>
+      <div class="regras-topo revela">
+        <h3>Agendamento, cancelamento e remarcação</h3>
+        <p>As regras valem para todas as clientes e estão também nos termos de prestação de serviço.</p>
+      </div>
+      <ul class="regras">
+        <li class="regra regra-destaque revela"><b>24h</b><p>Até 24 horas antes, você cancela ou remarca sem pagar nada.</p><a href="${wa(`Olá! Preciso remarcar meu horário na ${M.completo}.`)}" target="_blank" rel="noopener">Remarcar pelo WhatsApp ${I.seta}</a></li>
+        ${C.politicas.map(([t, d]) => `<li class="regra revela"><h4>${t}</h4><p>${d}</p></li>`).join('\n        ')}
+      </ul>
     </div>
   </section>
 
-  <section class="sec" id="clinica" aria-labelledby="t-clin">
+  ${secaoAD}<section class="sec" id="clinica" aria-labelledby="t-clin">
     <div class="wrap">
       <div class="resp">
         <div class="resp-foto revela">${foto('responsavel')}</div>
-        <div class="resp-txt">
+        <div class="resp-txt revela">
           <p class="apoio">Quem responde pela clínica</p>
           <h2 id="t-clin">${R.nome}</h2>
           <p class="resp-cargo">${R.cargo}. <b>${R.registro}</b></p>
@@ -297,7 +388,7 @@ ${css}
           <p class="aviso-res">${C.avisoResultado}</p>
         </div>
       </div>
-      <div class="galeria-topo"><h2>Por dentro da clínica</h2><p>Salas individuais, luz clara e silêncio. Desde ${M.desde} no ${M.bairro}.</p></div>
+      <div class="galeria-topo revela"><h2>Por dentro da clínica</h2><p>Salas individuais, luz clara e silêncio. Desde ${M.desde} no ${M.bairro}.</p></div>
       <div class="galeria">
         ${['galeria-harmonizacao', 'galeria-produtos', 'galeria-corredor', 'galeria-serum', 'galeria-cilios', 'galeria-toxina'].map((g, i) => `<figure class="g g${i + 1} revela">${foto(g)}</figure>`).join('')}
       </div>
@@ -306,14 +397,14 @@ ${css}
 
   <section class="sec sec-gelo" id="agendar" aria-labelledby="t-ag">
     <div class="wrap ag">
-      <div class="ag-lado">
+      <div class="ag-lado revela">
         <h2 id="t-ag">Agende sua avaliação</h2>
         <p>Preencha e o pedido abre pronto no WhatsApp. Respondemos em horário de atendimento, normalmente em menos de uma hora.</p>
         <table class="horas"><caption>Horário de funcionamento</caption><tbody>${dias}</tbody></table>
         <p class="ag-end">${I.pino}<span>${endereco}<br>CEP ${M.cep}</span></p>
         <a class="btn btn-vinho" href="${wa(`Olá! Quero agendar uma avaliação na ${M.completo}.`)}" target="_blank" rel="noopener">${I.whats}<span>Prefiro chamar direto</span></a>
       </div>
-      <form class="form" id="form" novalidate>
+      <form class="form revela" id="form" novalidate>
         <div class="campos">
           <label class="campo"><span>Nome</span><input name="nome" autocomplete="name" required></label>
           <label class="campo"><span>WhatsApp</span><input name="whats" type="tel" inputmode="tel" autocomplete="tel" placeholder="(19) 90000-0000" required></label>
@@ -354,7 +445,7 @@ ${css}
 
   <section class="sec" id="duvidas" aria-labelledby="t-faq">
     <div class="wrap faq">
-      <h2 id="t-faq">Dúvidas frequentes</h2>
+      <h2 id="t-faq" class="revela">Dúvidas frequentes</h2>
       <div>${C.faq.map(([q, a]) => `<details class="pol"><summary>${q}<span aria-hidden="true">${I.mais}</span></summary><p>${a}</p></details>`).join('')}</div>
     </div>
   </section>

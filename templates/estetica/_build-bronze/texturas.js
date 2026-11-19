@@ -68,5 +68,8 @@ const camelia = uri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="-300 -300 
   ${[0, 72, 144, 216, 288].map((a) => pet(110, 40, a + 20)).join('')}
   <circle r="22"/><circle r="10"/></g></svg>`);
 
-const css = `:root { --tx-papel: ${papel}; --tx-pele: ${pele}; --tx-petalas: ${petalas}; --tx-ouro: ${ouro}; --tx-camelia: ${camelia}; }`;
+const petalasNoite = uri(`<svg xmlns="http://www.w3.org/2000/svg" width="${ladrilho}" height="${ladrilho}">
+  <g fill="#8E3149" fill-opacity=".22" stroke="#EBA9B6" stroke-opacity=".12" stroke-width=".8">${petalasPts.join('')}</g></svg>`);
+
+const css = `:root { --tx-papel: ${papel}; --tx-pele: ${pele}; --tx-petalas: ${petalas}; --tx-petalas-noite: ${petalasNoite}; --tx-ouro: ${ouro}; --tx-camelia: ${camelia}; }`;
 module.exports = { css };

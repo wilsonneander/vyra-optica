@@ -87,7 +87,7 @@ function shell({ c, page, fonts, css = 'assets/style.css', bodyClass = '', body,
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?${fonts}&display=swap">
 <link rel="stylesheet" href="${css}">
-${head}</head>
+${THEME_HEAD}${head}</head>
 <body class="${bodyClass}" data-page="${page}">
 ${body}
 ${scripts.map(s => `<script src="${s}"></script>`).join('\n')}
@@ -108,8 +108,69 @@ const DUO_CSS = `
 .ico-grad { background: linear-gradient(145deg, #FF7A3D 0%, #FF5A1F 40%, #E11D2E 100%); }
 `;
 
+// Tema claro/escuro, comum aos três modelos.
+// O site abre sempre no claro (identidade da marca); o escuro só entra quando o visitante escolhe,
+// e a escolha fica salva em localStorage 'vyra-tema'. ?tema=escuro ou ?tema=claro no link também vale.
+// O script vai no <head> para aplicar o tema antes da primeira pintura (sem piscar branco).
+const THEME_HEAD = `<script>(function(){try{var q=/[?&]tema=(escuro|claro)/.exec(location.search),t=q?(q[1]==='escuro'?'dark':'light'):localStorage.getItem('vyra-tema');if(q)localStorage.setItem('vyra-tema',t);if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+`;
+
+// Ícone próprio: o disco da marca dividido ao meio. A metade cheia é a cor da marca e gira 180° no escuro.
+function themeToggle(cls = 'theme-btn') {
+  return `<button class="${cls}" type="button" data-theme-toggle aria-pressed="false" aria-label="Ativar tema escuro" title="Tema escuro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path class="half" d="M12 5.6a6.4 6.4 0 0 1 0 12.8z"/><circle class="led" cx="12" cy="12" r="1.9"/></svg></button>`;
+}
+
+// Tokens semânticos: os modelos usam --bg, --surface, --text, --accent-text e --accent-strong.
+// O escuro só redefine os tokens; as cores da marca (laranja, vermelho, gradiente) não mudam.
+function themeCss(dark, { hover = 'var(--orange)' } = {}) {
+  const vars = Object.entries(dark).map(([k, v]) => `--${k}: ${v};`).join(' ');
+  return `
+html { color-scheme: light; }
+html[data-theme="dark"] { color-scheme: dark; ${vars} }
+html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after { transition: background-color .35s ease, color .35s ease, border-color .35s ease, box-shadow .35s ease, fill .35s ease !important; }
+.theme-btn { flex: none; width: 40px; height: 40px; padding: 0; border-radius: 50%; display: grid; place-items: center; cursor: pointer; background: transparent; color: inherit; border: 1px solid color-mix(in srgb, currentColor 24%, transparent); opacity: .8; transition: opacity .2s, border-color .2s, transform .2s; }
+.theme-btn:hover { opacity: 1; border-color: ${hover}; }
+.theme-btn:active { transform: scale(.92); }
+.theme-btn svg { width: 20px; height: 20px; display: block; transition: transform .6s cubic-bezier(.2,.8,.2,1); }
+.theme-btn .half { fill: var(--orange); }
+.theme-btn .led { fill: var(--red); transition: fill .3s; }
+html[data-theme="dark"] .theme-btn svg { transform: rotate(180deg); }
+html[data-theme="dark"] .theme-btn .led { fill: var(--surface); }
+@media (prefers-reduced-motion: reduce) { .theme-btn svg { transition: none; } }
+`;
+}
+
+// Liga o botão: troca data-theme no <html>, salva a escolha e ajusta theme-color e o rótulo acessível.
+const THEME_JS = `// Vyra · tema claro/escuro
+(function () {
+  var root = document.documentElement, meta = document.querySelector('meta[name="theme-color"]');
+  var light = meta && meta.content;
+  function sync() {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    document.querySelectorAll('[data-theme-toggle]').forEach(function (b) {
+      b.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      b.setAttribute('aria-label', dark ? 'Ativar tema claro' : 'Ativar tema escuro');
+      b.title = dark ? 'Tema claro' : 'Tema escuro';
+    });
+    if (meta) meta.content = dark ? getComputedStyle(root).getPropertyValue('--bg').trim() || light : light;
+  }
+  sync();
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-theme-toggle]');
+    if (!b) return;
+    var dark = root.getAttribute('data-theme') !== 'dark';
+    root.classList.add('theme-anim');
+    if (dark) root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+    try { localStorage.setItem('vyra-tema', dark ? 'dark' : 'light'); } catch (err) {}
+    sync();
+    document.dispatchEvent(new CustomEvent('vyra:tema', { detail: { dark: dark } }));
+    setTimeout(function () { root.classList.remove('theme-anim'); }, 400);
+  });
+})();
+`;
+
 function socialIcon(k, cls = 'ico') {
   return `<svg class="${cls}" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">${SOCIAL_SOLID[k]}</svg>`;
 }
 
-module.exports = { DUO_CSS, logo, icon, duo, socialIcon, socialLinks, esc, navLinks, shell, PAGE_TITLES };
+module.exports = { THEME_HEAD, THEME_JS, themeToggle, themeCss, DUO_CSS, logo, icon, duo, socialIcon, socialLinks, esc, navLinks, shell, PAGE_TITLES };

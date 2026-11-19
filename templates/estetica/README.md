@@ -1,4 +1,4 @@
-# Estética: modelo Bronze "Camélia"
+# Estética: modelos Bronze e Silver "Camélia"
 
 Nicho **clínica de estética** (facial, corporal e depilação, cílios e sobrancelhas). Landing page de uma página só, com marca fictícia: Camélia Estética, Cambuí, Campinas. Público majoritariamente feminino.
 Referência de conteúdo: jessicaboza.com.br (avaliação antes do protocolo, ficha técnica do tratamento, tom acolhedor e sem promessa, FAQ). Nada foi copiado: textos, nomes, números e preços são próprios e fictícios.
@@ -47,7 +47,37 @@ Cada segmento tem `ativo: true/false` em `segmentos` no `content.js`. Desligado,
 - **Rodapé** com o mapa padrão `.map-box` do OpenStreetMap, "Onde atendemos", canais, redes (Instagram, Facebook, LinkedIn, WhatsApp), razão social, CNPJ, endereço, telefone, e-mail, responsável técnica e os links para Termos de prestação de serviço, Termos de uso, Política de privacidade e Preferências de cookies (abrem em janela na própria página)
 - **Botão flutuante do WhatsApp** e **aviso de cookies** (aceitar todos ou só os essenciais, escolha salva no navegador)
 
-Fica para Silver e Gold: antes e depois com controle deslizante, depoimentos, páginas por tratamento, agenda online e área da cliente.
+Fica para o Gold: páginas por tratamento, agenda online e área da cliente.
+
+## O que o Silver tem
+
+Landing page no formato clássico (capa, dores, medos, diferenciais, tratamentos, resultados, como funciona, quem cuida, dúvidas e chamada final), com os movimentos da referência dragrazicardoso.com.br refeitos na marca Camélia. Nada da referência foi copiado além da ideia dos efeitos: textos, fotos, cores e desenhos são próprios.
+
+| Pasta | O que é |
+|---|---|
+| `_build-silver/content.js` | Mesma base do Bronze, mais o bloco `silver` no fim: frases da abertura, faixa, dores, medos, pilares, depoimentos e chamada final |
+| `_build-silver/build.js`, `style.css`, `app.js` | Gerador, design e animações. Fotos, mapa, logo e texturas são cópias das do Bronze, para o modelo andar sozinho |
+| `silver/` | **Site pronto** |
+
+```bash
+node templates/estetica/_build-silver/build.js
+```
+
+Movimentos:
+- **Abertura**: três frases ("Cuidar da pele / começa por uma / boa conversa") surgem com desfoque sobre a camélia em contorno e a cortina sobe. Aparece uma vez por sessão; um toque pula. `?intro` força a abertura e `?semintro` pula (útil em prints)
+- **Flores no clique**: cada toque ou clique solta um punhado de camélias pequenas nas cores da marca, que giram e caem
+- **Brilhos na capa**: lascas de ouro e camélias piscando em volta da foto, sempre fora da área do rosto
+- **Camélias flutuando** devagar no fundo vinho de Tratamentos e da chamada final
+- **Entrada na rolagem**: textos sobem, fotos saem de um zoom leve e os cartões entram entrelaçados, alternando o lado com um giro pequeno
+- **Faixa rolante** vinho com a frase da marca e camélias como separador, e **galeria rolante** de fotos da clínica (para no hover)
+- **Cartões de medo** que sobem no hover, lista de tratamentos em cascata ao trocar de aba, linha das etapas que se desenha
+- **Antes e depois em grade**: três cartões, cada um com a própria cortina, que balança sozinha na primeira vez. Mesma simulação marcada do Bronze
+- **WhatsApp flutuante** respirando e barra de rolagem nas cores da marca
+- Tema claro e escuro com o mesmo botão de camélia do Bronze
+
+Tudo respeita `prefers-reduced-motion`: sem abertura, flores, brilhos nem entradas.
+
+Tipografia do Silver: **Cormorant Garamond** nos títulos (itálico vinho nos destaques) e **Jost** no texto. O formulário do Silver não pede dados de saúde: a ficha é preenchida na avaliação. Os depoimentos são ilustrativos e marcados `[EXEMPLO] [JURÍDICO]`: cliente real só com depoimentos verdadeiros e autorizados.
 
 ## Guia básico da marca
 

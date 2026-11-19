@@ -21,6 +21,117 @@
     }
   }
 
+  // ---------- tratamentos: abas, carta e vale ----------
+  const abas = $$('.aba');
+  const celular = matchMedia('(max-width: 920px)');
+  const fundo = $('.gaveta-fundo');
+  let gavetaAberta = null;
+  let voltaFoco = null;
+  const fechaGaveta = () => {
+    if (!gavetaAberta) return;
+    gavetaAberta.classList.remove('aberta');
+    gavetaAberta = null;
+    fundo.hidden = true;
+    document.documentElement.classList.remove('gaveta');
+    if (voltaFoco) voltaFoco.focus();
+  };
+  const mostraVale = (btn, abrirGaveta) => {
+    const painel = btn.closest('.seg');
+    $$('.carta-item', painel).forEach((b) => { const sim = b === btn; b.classList.toggle('ativo', sim); b.setAttribute('aria-pressed', String(sim)); });
+    $$('[data-vale]', painel).forEach((v) => { v.hidden = v.id !== btn.dataset.abre; });
+    if (abrirGaveta && celular.matches) {
+      const box = $('[data-gaveta]', painel);
+      box.scrollTop = 0;
+      box.classList.add('aberta');
+      gavetaAberta = box;
+      voltaFoco = btn;
+      fundo.hidden = false;
+      document.documentElement.classList.add('gaveta');
+      $('[data-fecha-gaveta]', box).focus();
+    }
+  };
+  // animar = true faz as linhas da carta entrarem em cascata
+  const ativaAba = (aba, foco, animar) => {
+    abas.forEach((a) => {
+      const sim = a === aba;
+      a.setAttribute('aria-selected', String(sim));
+      a.tabIndex = sim ? 0 : -1;
+      const p = document.getElementById(a.getAttribute('aria-controls'));
+      if (!p) return;
+      p.hidden = !sim;
+      p.classList.toggle('entra', false);
+      if (sim && animar) { void p.offsetWidth; p.classList.toggle('entra', true); }
+    });
+    if (foco) aba.focus();
+  };
+  if (abas.length) {
+    ativaAba(abas.find((a) => a.getAttribute('aria-selected') === 'true') || abas[0]);
+    abas.forEach((a, i) => {
+      a.addEventListener('click', () => { if (a.getAttribute('aria-selected') !== 'true') ativaAba(a, false, true); });
+      a.addEventListener('keydown', (e) => {
+        const passo = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        if (passo) { e.preventDefault(); ativaAba(abas[(i + passo + abas.length) % abas.length], true, true); }
+      });
+    });
+    $$('.carta-item').forEach((b) => b.addEventListener('click', () => mostraVale(b, true)));
+    $$('[data-fecha-gaveta]').forEach((b) => b.addEventListener('click', fechaGaveta));
+    addEventListener('keydown', (e) => { if (e.key === 'Escape') fechaGaveta(); });
+    celular.addEventListener('change', fechaGaveta);
+    // links para um segmento (capa, rodapé) abrem a aba certa
+    $$('a[href^="#seg-"]').forEach((l) => l.addEventListener('click', (e) => {
+      const aba = abas.find((a) => a.getAttribute('aria-controls') === l.getAttribute('href').slice(1));
+      if (!aba) return;
+      e.preventDefault();
+      ativaAba(aba, false, true);
+      $('#tratamentos').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    }));
+  }
+
+  // ---------- antes e depois ----------
+  const palco = $('.ad-palco');
+  if (palco) {
+    const range = $('.ad-range', palco);
+    const itens = $$('.ad-item');
+    let mexeu = false;
+    const poe = (v) => {
+      palco.style.setProperty('--pos', `${v}%`);
+      palco.dataset.lado = v < 12 ? 'depois' : v > 88 ? 'antes' : '';
+    };
+    range.addEventListener('input', () => { mexeu = true; poe(range.value); });
+    range.addEventListener('pointerdown', () => { mexeu = true; palco.classList.toggle('arrastando', true); });
+    addEventListener('pointerup', () => palco.classList.toggle('arrastando', false));
+    const escolhe = (k, foco) => {
+      itens.forEach((b) => { const sim = +b.dataset.caso === k; b.setAttribute('aria-selected', String(sim)); b.tabIndex = sim ? 0 : -1; if (sim && foco) b.focus(); });
+      $$('.ad-caso, .ad-ficha').forEach((el) => el.classList.toggle('ativo', +el.dataset.caso === k));
+    };
+    itens.forEach((b, i) => {
+      b.addEventListener('click', () => escolhe(i));
+      b.addEventListener('keydown', (e) => {
+        const passo = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+        if (passo) { e.preventDefault(); escolhe((i + passo + itens.length) % itens.length, true); }
+      });
+    });
+    // na primeira vez que aparece, a cortina balança para mostrar que dá para arrastar
+    const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!calmo && 'IntersectionObserver' in window) {
+      const vai = new IntersectionObserver((es) => {
+        if (!es[0].isIntersecting) return;
+        vai.disconnect();
+        const ini = performance.now() + 500, dur = 2200;
+        const passo = (t) => {
+          if (mexeu) return;
+          const p = Math.max(0, Math.min((t - ini) / dur, 1));
+          const v = 50 + Math.sin(p * Math.PI * 2) * 22 * (1 - p * .35);
+          poe(Math.round(v * 10) / 10);
+          range.value = v;
+          if (p < 1) requestAnimationFrame(passo); else poe(50);
+        };
+        requestAnimationFrame(passo);
+      }, { threshold: .55 });
+      vai.observe(palco);
+    }
+  }
+
   // ---------- aberto agora ----------
   const nomes = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
   const hm = (h) => `${Math.floor(h)}h${h % 1 ? String(Math.round((h % 1) * 60)).padStart(2, '0') : ''}`;
@@ -44,6 +155,42 @@
   if (tr) tr.classList.add('hoje');
   $$('[data-ano]').forEach((el) => { el.textContent = agora.getFullYear(); });
 
+  // ---------- tema claro e escuro ----------
+  const raiz = document.documentElement;
+  const btnTema = $('.tema-btn');
+  const corTopo = $('meta[name="theme-color"]');
+  const marcaTema = () => {
+    const escuro = raiz.dataset.tema === 'escuro';
+    btnTema.setAttribute('aria-pressed', String(escuro));
+    btnTema.setAttribute('aria-label', escuro ? 'Ativar tema claro' : 'Ativar tema escuro');
+    btnTema.title = escuro ? 'Tema claro' : 'Tema escuro';
+    if (corTopo) corTopo.content = escuro ? '#1A1215' : '#F8F5F2';
+  };
+  const aplicaTema = (escuro) => {
+    if (escuro) raiz.dataset.tema = 'escuro'; else delete raiz.dataset.tema;
+    guarda.por('camelia-tema', escuro ? 'escuro' : 'claro');
+    marcaTema();
+  };
+  marcaTema();
+  btnTema.addEventListener('click', () => {
+    const escuro = raiz.dataset.tema !== 'escuro';
+    const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (document.startViewTransition && !calmo) {
+      const r = btnTema.getBoundingClientRect();
+      const x = r.left + r.width / 2, y = r.top + r.height / 2;
+      const raio = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+      const vt = document.startViewTransition(() => aplicaTema(escuro));
+      vt.ready.then(() => raiz.animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${raio}px at ${x}px ${y}px)`] },
+        { duration: 850, easing: 'cubic-bezier(.22, .7, .2, 1)', pseudoElement: '::view-transition-new(root)' },
+      )).catch(() => {});
+    } else {
+      if (!calmo) raiz.classList.add('tema-anim');
+      aplicaTema(escuro);
+      setTimeout(() => raiz.classList.toggle('tema-anim', false), 700);
+    }
+  });
+
   // ---------- topo e menu ----------
   const topo = $('#topo');
   const rolou = () => topo.classList.toggle('rolou', scrollY > 10);
@@ -64,8 +211,8 @@
     const io = new IntersectionObserver((es) => es.forEach((e) => {
       if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); }
     }), { rootMargin: '0px 0px -8% 0px' });
-    $$('.revela').forEach((el) => io.observe(el));
-  } else $$('.revela').forEach((el) => el.classList.add('visto'));
+    $$('.revela, .etapas').forEach((el) => io.observe(el));
+  } else $$('.revela, .etapas').forEach((el) => el.classList.add('visto'));
 
   // ---------- grupos com a mesma largura ----------
   const iguala = () => $$('[data-iguais]').forEach((g) => {

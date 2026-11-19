@@ -1,4 +1,4 @@
-# Estética: modelos Bronze e Silver "Camélia"
+# Estética: modelos Bronze, Silver e Gold "Camélia"
 
 Nicho **clínica de estética** (facial, corporal e depilação, cílios e sobrancelhas). Landing page de uma página só, com marca fictícia: Camélia Estética, Cambuí, Campinas. Público majoritariamente feminino.
 Referência de conteúdo: jessicaboza.com.br (avaliação antes do protocolo, ficha técnica do tratamento, tom acolhedor e sem promessa, FAQ). Nada foi copiado: textos, nomes, números e preços são próprios e fictícios.
@@ -47,7 +47,7 @@ Cada segmento tem `ativo: true/false` em `segmentos` no `content.js`. Desligado,
 - **Rodapé** com o mapa padrão `.map-box` do OpenStreetMap, "Onde atendemos", canais, redes (Instagram, Facebook, LinkedIn, WhatsApp), razão social, CNPJ, endereço, telefone, e-mail, responsável técnica e os links para Termos de prestação de serviço, Termos de uso, Política de privacidade e Preferências de cookies (abrem em janela na própria página)
 - **Botão flutuante do WhatsApp** e **aviso de cookies** (aceitar todos ou só os essenciais, escolha salva no navegador)
 
-Fica para o Gold: páginas por tratamento, agenda online e área da cliente.
+Ainda não entraram em nenhum tier: páginas por tratamento e área da cliente. O Gold tem um pedido de horário com dias e horários (sem agenda conectada).
 
 ## O que o Silver tem
 
@@ -78,6 +78,48 @@ Movimentos:
 Tudo respeita `prefers-reduced-motion`: sem abertura, flores, brilhos nem entradas.
 
 Tipografia do Silver: **Cormorant Garamond** nos títulos (itálico vinho nos destaques) e **Jost** no texto. O formulário do Silver não pede dados de saúde: a ficha é preenchida na avaliação. Os depoimentos são ilustrativos e marcados `[EXEMPLO] [JURÍDICO]`: cliente real só com depoimentos verdadeiros e autorizados.
+
+## O que o Gold tem
+
+A página começa do lado de fora da clínica, em 3D, com luz clara de fim de manhã. Na rolagem, um drone desce até a porta de vidro (que abre quando ele chega), atravessa a recepção e passa pela fileira de arcos que liga as salas. Em cada sala ele para, a placa da sala sobe com o conteúdo e alguma coisa acontece na cena. No fim o telhado sobe e some, e a clínica aparece vista de cima com o nome de cada sala.
+
+| Parada | O que se vê | O que acontece na cena | Conteúdo da placa |
+|---|---|---|---|
+| Fachada | prédio térreo com janelas em arco, frontão com a camélia dourada, ciprestes e oliveiras | o drone paira e gira devagar em volta | título, chamada, agendar e começar a visita |
+| Consultório | parede rosa com boiserie, retrato da responsável em moldura de arco, diploma e registro no conselho, mesa oval e poltronas de bouclé | a luz de quadro acende sobre o retrato | quem cuida, registro, citação, equipe |
+| Sala de avaliação | aparelho de análise de pele (cúpula com anel de luz), monitor, espelho em arco, lupa | a lupa desce sobre a banqueta, o anel acende e o monitor faz a leitura da pele | como funciona, etapas da avaliação |
+| Sala de procedimentos | **a cadeira de procedimentos** em 3D, carrinho com seringas e luvas, armário com pia, geladeira de toxina | a cadeira reclina, a perneira sobe, a lupa vem para cima do rosto e acende | carta de tratamentos faciais com preço, o que inclui e agendar cada um |
+| Sala corporal | maca com apoio de rosto, toalhas, velas, pedras quentes, difusor com névoa, radiofrequência, cortina de linho | as velas tremulam, a névoa sobe e a cortina balança | carta corporal |
+| Estúdio do olhar | maca de cílios, luz de anel, laser de diodo, camélia em néon | o néon se desenha e a luz de anel acende | carta de cílios, sobrancelhas e depilação, tabela por área |
+| Esterilização | bancada de inox, autoclave, lavadora ultrassônica, seladora, armário com envelopes | a autoclave faz um ciclo até 134 graus | segurança e higiene |
+| Vista de cima | a planta inteira, sem telhado | o telhado sobe e some, os nomes das salas aparecem | chamada para a agenda e horários |
+
+Depois da visita vêm as seções comuns: antes e depois (cortina arrastável, simulação marcada como no Bronze e no Silver, agora com a foto em arco), depoimentos ilustrativos, pagamento e políticas, dúvidas, agenda e rodapé com o mapa padrão.
+
+| Pasta | O que é |
+|---|---|
+| `_build-gold/content.js` | Mesma base do Bronze, mais o bloco `gold`: a **planta** (salas e medidas, fonte única da cena e da mini planta) e os textos de cada parada |
+| `_build-gold/cena/` | A clínica em 3D, feita em código com Three.js r160 (nenhum modelo pronto): `base.js` (luz, materiais, texturas desenhadas, formas), `predio.js` (paredes, arcos, janelas, porta, telhado, jardim), `salas.js` (móveis de cada sala), `voo.js` (poses do drone, caminhos pelos arcos, o que anima em cada sala, tema noite) |
+| `_build-gold/app.js` | Liga a rolagem ao drone, mini planta, rótulos da vista de cima, agenda de dias e horários, tema e formulário |
+| `_build-gold/build.js`, `style.css` | Gerador e design. O build junta os quatro arquivos de `cena/` em `gold/assets/js/cena.js` e converte o Three.js em script comum |
+| `_build-gold/preparar-texturas.js` | Recorta o retrato e as gravuras que viram quadros na cena (`img/texturas/`). Elas entram como data URI, então o site abre até direto do arquivo |
+| `gold/` | **Site pronto** |
+
+```bash
+node templates/estetica/_build-gold/build.js
+```
+
+Detalhes:
+- **Mini planta** no canto (embaixo à direita no computador, em cima no celular e no tablet): mostra a sala em que o drone está e leva a qualquer sala com um toque
+- **Tema escuro** com o mesmo botão de camélia: a clínica anoitece, o sol vira lua, as janelas acendem por fora e os balizadores do caminho brilham
+- **Agenda**: o formulário mostra os próximos dias abertos e os horários de cada dia (a cada 1h30, até 1h antes de fechar) e manda o pedido pronto no WhatsApp, avisando que é um pedido a confirmar. Intervalo e quantidade de dias em `gold.agenda`
+- **Segmentos**: segmento desligado tira a parada da sala dele (o drone só atravessa a sala). Também vale `?seg=facial`
+- `?parada=procedimentos` abre a página já dentro de uma sala, bom para mostrar ao cliente. `?tema=escuro` abre à noite
+- **Movimento reduzido**: a câmera corta de sala em sala, sem voo. **Sem WebGL**: cada placa ganha uma foto recortada pelo arco e a página vira uma lista normal
+- **Desempenho**: os objetos parados de cada sala são fundidos por material (cerca de 300 chamadas de desenho na fachada e menos de 80 dentro das salas), a sombra só é refeita quando algo se mexe e o drone para de desenhar quando a visita sai da tela
+- Prints automáticos: `window.__camelia` expõe a cena para testes (`cena.simula(segundos)` avança o tempo sem desenhar)
+
+Tipografia do Gold: **Spectral** leve nos títulos (itálico vinho nos destaques) e **Urbanist** no texto. A clínica em 3D é uma ilustração: o rodapé e os termos de uso avisam isso. Para cliente real, trocar o retrato e as gravuras (rodar `preparar-texturas.js` com as fotos novas), o nome e o registro (vão para o diploma desenhado na parede) e conferir se as salas da planta batem com a clínica.
 
 ## Guia básico da marca
 

@@ -32,7 +32,7 @@ As pastas `bronze/`, `silver/` e `gold/` são geradas: edite o `_build*` e rode 
 | | Bebidas, marca própria (N3 Drinks) | | | `plus/` (modelo Plus, sem gerador) | |
 | [marcas-proprias/](marcas-proprias/) | Marca própria de produto (AURA Fresh) | | | `gold/`: cinco modelos (produto, guia, clube, nascente, mare) | `node templates/marcas-proprias/gold/_build/build.js` |
 | [turismo/](turismo/) | Agência de turismo (Peakalika) | | | sim | `node templates/turismo/_build-gold/build.js` |
-| [estetica/](estetica/) | Clínica de estética (Camélia) | sim | sim, landing page animada | | `node templates/estetica/_build-<tier>/build.js` |
+| [estetica/](estetica/) | Clínica de estética (Camélia) | sim | sim, landing page animada | sim, visita de drone em 3D pela clínica | `node templates/estetica/_build-<tier>/build.js` |
 
 Quando um nicho ganhar um modelo novo, ele entra na pasta do tier (`bronze/`, `silver/` ou `gold/`) com o código em `_build-<tier>/`.
 

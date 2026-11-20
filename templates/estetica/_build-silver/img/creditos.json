@@ -1,74 +1,20 @@
 [
-  {
-    "arq": "capa",
-    "autor": "Studio Michael França",
-    "fonte": "Unsplash",
-    "url": "https://unsplash.com/photos/wsLalHyHflQ"
-  },
-  {
-    "arq": "facial",
-    "autor": "karelys Ruiz",
-    "fonte": "Unsplash",
-    "url": "https://unsplash.com/photos/PqyzuzFiQfY"
-  },
-  {
-    "arq": "corporal",
-    "autor": "Simon HUMLER",
-    "fonte": "Unsplash",
-    "url": "https://unsplash.com/photos/-AakIaAPV0w"
-  },
-  {
-    "arq": "depilacao",
-    "autor": "Stefan Vibes",
-    "fonte": "Unsplash",
-    "url": "https://unsplash.com/photos/-k0_8bZ4L8c"
-  },
-  {
-    "arq": "avaliacao",
-    "autor": "Look Studio",
-    "fonte": "Unsplash",
-    "url": "https://unsplash.com/photos/HtXyytr9304"
-  },
-  {
-    "arq": "responsavel",
-    "autor": "Ike Ellyana",
-    "fonte": "Unsplash",
-    "url": "https://unsplash.com/photos/2G73aoMR-Go"
-  },
-  {
-    "arq": "galeria-harmonizacao",
-    "autor": "Sum Sum",
-    "fonte": "Unsplash",
-    "url": "https://unsplash.com/photos/35IcCEwNTqc"
-  },
-  {
-    "arq": "galeria-produtos",
-    "autor": "ibnu ihza",
-    "fonte": "Unsplash",
-    "url": "https://unsplash.com/photos/g6q3lFAe3kA"
-  },
-  {
-    "arq": "galeria-corredor",
-    "autor": "Grace Anne Bobadilla",
-    "fonte": "Unsplash",
-    "url": "https://unsplash.com/photos/uaD-0u_DwQw"
-  },
-  {
-    "arq": "galeria-serum",
-    "autor": "Maria Lupan",
-    "fonte": "Unsplash",
-    "url": "https://unsplash.com/photos/BlcA2-o-7IM"
-  },
-  {
-    "arq": "galeria-cilios",
-    "autor": "Bermix Studio",
-    "fonte": "Unsplash",
-    "url": "https://unsplash.com/photos/xA_djNkH0Yo"
-  },
-  {
-    "arq": "galeria-toxina",
-    "autor": "Patient Perfect",
-    "fonte": "Unsplash",
-    "url": "https://unsplash.com/photos/2dIvsGzzMLk"
-  }
+  { "arq": "capa", "autor": "alan caishan", "fonte": "Unsplash", "url": "https://unsplash.com/photos/cU53ZFBr3lk" },
+  { "arq": "massagens", "autor": "Massage a Domicile", "fonte": "Unsplash", "url": "https://unsplash.com/photos/3aGV2ViCzrM" },
+  { "arq": "relaxante", "autor": "engin akyurt", "fonte": "Unsplash", "url": "https://unsplash.com/photos/SMwCQZWayj0" },
+  { "arq": "drenagem", "autor": "Mat Kilkeary", "fonte": "Unsplash", "url": "https://unsplash.com/photos/yBLLzNcA6GU" },
+  { "arq": "celulite", "autor": "Rosalie Gdy", "fonte": "Unsplash", "url": "https://unsplash.com/photos/0rj_pj7XdxM" },
+  { "arq": "gordura", "autor": "Patient Perfect", "fonte": "Unsplash", "url": "https://unsplash.com/photos/FIkfmwPTKqM" },
+  { "arq": "avaliacao", "autor": "Huha Inc.", "fonte": "Unsplash", "url": "https://unsplash.com/photos/OfVESgqrbJc" },
+  { "arq": "pacotes", "autor": "Anna Keibalo", "fonte": "Unsplash", "url": "https://unsplash.com/photos/-kYCpF55lIg" },
+  { "arq": "responsavel", "autor": "Ike Ellyana", "fonte": "Unsplash", "url": "https://unsplash.com/photos/2G73aoMR-Go" },
+  { "arq": "galeria-ferramentas", "autor": "Eric Prouzet", "fonte": "Unsplash", "url": "https://unsplash.com/photos/hYIZOhaxELY" },
+  { "arq": "galeria-vela", "autor": "Anna Keibalo", "fonte": "Unsplash", "url": "https://unsplash.com/photos/q8xEBCO6DQg" },
+  { "arq": "galeria-escova", "autor": "Katya Azimova", "fonte": "Unsplash", "url": "https://unsplash.com/photos/fdnjoFzPGrM" },
+  { "arq": "galeria-toalha", "autor": "Camille Brodard", "fonte": "Unsplash", "url": "https://unsplash.com/photos/VxAwTeiqDao" },
+  { "arq": "galeria-costas", "autor": "Toa Heftiba", "fonte": "Unsplash", "url": "https://unsplash.com/photos/hBLf2nvp-Yc" },
+  { "arq": "galeria-abdomen", "autor": "Studio Michael França", "fonte": "Unsplash", "url": "https://unsplash.com/photos/BDwQHbWr9Lo" },
+  { "arq": "galeria-oleo", "autor": "Chelsea shapouri", "fonte": "Unsplash", "url": "https://unsplash.com/photos/r40EYKVyutI" },
+  { "arq": "ad-quadril", "autor": "Greg Kubrak", "fonte": "Unsplash", "url": "https://unsplash.com/photos/IayAKmaZ67E" },
+  { "arq": "ad-perna", "autor": "莎莉 彭", "fonte": "Unsplash", "url": "https://unsplash.com/photos/B2gcxsFqbnY" }
 ]

@@ -1,6 +1,6 @@
 # Estética: modelos Bronze, Silver e Gold "Camélia"
 
-Nicho **clínica de estética** (facial, corporal e depilação, cílios e sobrancelhas). Landing page de uma página só, com marca fictícia: Camélia Estética, Cambuí, Campinas. Público majoritariamente feminino.
+Nicho **clínica de estética** (facial, corporal e depilação, cílios e sobrancelhas no Bronze e no Gold; o Silver é só estética corporal). Landing page de uma página só, com marca fictícia: Camélia Estética, Cambuí, Campinas. Público majoritariamente feminino.
 Referência de conteúdo: jessicaboza.com.br (avaliação antes do protocolo, ficha técnica do tratamento, tom acolhedor e sem promessa, FAQ). Nada foi copiado: textos, nomes, números e preços são próprios e fictícios.
 
 | Pasta | O que é |
@@ -51,27 +51,41 @@ Ainda não entraram em nenhum tier: páginas por tratamento e área da cliente. 
 
 ## O que o Silver tem
 
-Landing page no formato clássico (capa, dores, medos, diferenciais, tratamentos, resultados, como funciona, quem cuida, dúvidas e chamada final), com os movimentos da referência dragrazicardoso.com.br refeitos na marca Camélia. Nada da referência foi copiado além da ideia dos efeitos: textos, fotos, cores e desenhos são próprios.
+**Só estética corporal**: massagens modeladoras e relaxantes, drenagem linfática, tratamentos para celulite e gordura localizada e pacotes de sessões. Landing page no formato clássico (capa, dores, medos, diferenciais, tratamentos, resultados, como funciona, quem cuida, dúvidas e chamada final), com os movimentos da referência dragrazicardoso.com.br refeitos na marca Camélia. Nada da referência foi copiado além da ideia dos efeitos: textos, fotos, cores e desenhos são próprios.
 
 | Pasta | O que é |
 |---|---|
-| `_build-silver/content.js` | Mesma base do Bronze, mais o bloco `silver` no fim: frases da abertura, faixa, dores, medos, pilares, depoimentos e chamada final |
-| `_build-silver/build.js`, `style.css`, `app.js` | Gerador, design e animações. Fotos, mapa, logo e texturas são cópias das do Bronze, para o modelo andar sozinho |
+| `_build-silver/content.js` | Conteúdo corporal: responsável técnica fisioterapeuta dermatofuncional, os quatro segmentos com preços, pagamento, garantia, etapas, contraindicações, políticas, segurança, antes e depois, FAQ e o bloco `silver` (abertura, faixa, dores, medos, pilares, depoimentos e chamada final) |
+| `_build-silver/build.js`, `style.css`, `app.js` | Gerador, design e animações. Mapa, logo e texturas são cópias das do Bronze, para o modelo andar sozinho |
+| `_build-silver/img/fotos/` | Fotos corporais próprias do Silver (Unsplash, créditos em `img/creditos.json`) |
 | `silver/` | **Site pronto** |
 
 ```bash
 node templates/estetica/_build-silver/build.js
 ```
 
+Segmentos (`segmentos` no `content.js`), cada um com `ativo: true/false`:
+
+| id | Aba | O que tem |
+|---|---|---|
+| `massagens` | Massagens | modeladora, modeladora com instrumentos de madeira, relaxante e pedras quentes, mais o guia de pressão |
+| `drenagem` | Drenagem | corporal, pernas e abdômen, pós-operatória e na gestação |
+| `celulite` | Celulite e gordura | protocolos para celulite e gordura localizada, radiofrequência, endermoterapia e tabela de preço por área |
+| `pacotes` | Pacotes | Leveza, Contorno, Pausa e Recuperação, com valor do pacote e quanto sairia avulso, mais as regras dos pacotes |
+
+Desligar um segmento tira do site inteiro a aba, as opções do formulário, o link do rodapé e o que estiver marcado com `seg` (dores, cartões de antes e depois, depoimentos e dúvidas). Pacote com `requer` só aparece se os segmentos de que depende estiverem ligados (o Pacote Contorno precisa de massagens e drenagem). Com um segmento só, as abas somem e o nome dele vira o título da lista. Para mostrar ao cliente sem gerar de novo: `?seg=drenagem`, `?seg=massagens,drenagem` ou `?seg=celulite,pacotes`.
+
+Antes e depois: simulações marcadas feitas no build. `celulite` desenha furinhos rasos de sombra e reflexo sobre a foto; `volume` mostra a mesma foto um pouco mais larga no "antes". Cliente real: fotos verdadeiras com autorização por escrito.
+
 Movimentos:
-- **Abertura**: três frases ("Cuidar da pele / começa por uma / boa conversa") surgem com desfoque sobre a camélia em contorno e a cortina sobe. Aparece uma vez por sessão; um toque pula. `?intro` força a abertura e `?semintro` pula (útil em prints)
+- **Abertura**: três frases ("Cuidar do corpo / começa por uma / boa conversa") surgem com desfoque sobre a camélia em contorno e a cortina sobe. Aparece uma vez por sessão; um toque pula. `?intro` força a abertura e `?semintro` pula (útil em prints)
 - **Flores no clique**: cada toque ou clique solta um punhado de camélias pequenas nas cores da marca, que giram e caem
-- **Brilhos na capa**: lascas de ouro e camélias piscando em volta da foto, sempre fora da área do rosto
+- **Brilhos na capa**: lascas de ouro e camélias piscando em volta da foto, sempre fora da área livre definida em `silver.capa.livre` (mãos, óleo e rosto)
 - **Camélias flutuando** devagar no fundo vinho de Tratamentos e da chamada final
 - **Entrada na rolagem**: textos sobem, fotos saem de um zoom leve e os cartões entram entrelaçados, alternando o lado com um giro pequeno
 - **Faixa rolante** vinho com a frase da marca e camélias como separador, e **galeria rolante** de fotos da clínica (para no hover)
 - **Cartões de medo** que sobem no hover, lista de tratamentos em cascata ao trocar de aba, linha das etapas que se desenha
-- **Antes e depois em grade**: três cartões, cada um com a própria cortina, que balança sozinha na primeira vez. Mesma simulação marcada do Bronze
+- **Antes e depois em grade**: até três cartões (celulite, pernas inchadas, gordura no abdômen), cada um com a própria cortina, que balança sozinha na primeira vez
 - **WhatsApp flutuante** respirando e barra de rolagem nas cores da marca
 - Tema claro e escuro com o mesmo botão de camélia do Bronze
 

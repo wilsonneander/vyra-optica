@@ -11,7 +11,7 @@
   const sorte = (a, b) => a + Math.random() * (b - a);
   // camélia pequena: cinco pétalas redondas e miolo
   const florSvg = (petala, miolo) => `<svg viewBox="0 0 24 24" width="100%" height="100%">${[[12, 4.4], [19.2, 9.6], [16.5, 18.2], [7.5, 18.2], [4.8, 9.6]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4.4" fill="${petala}"/>`).join('')}<circle cx="12" cy="12" r="3.3" fill="${miolo}"/></svg>`;
-  const cores = [['#6B2234', '#B99D70'], ['#EFD9D4', '#6B2234'], ['#B99D70', '#4A1624'], ['#C9798A', '#F8F5F2'], ['#4A1624', '#EFD9D4']];
+  const cores = [['#8C6B35', '#B99D70'], ['#EBE0D2', '#8C6B35'], ['#B99D70', '#1F1B18'], ['#D8C3A5', '#F8F5F2'], ['#1F1B18', '#EBE0D2']];
 
   // ---------- abertura: três frases que surgem com desfoque, depois a cortina sobe ----------
   const abertura = $('#abertura');
@@ -71,10 +71,10 @@
   const brilhos = $('[data-brilhos]');
   if (brilhos && !calmo) {
     const cel = matchMedia('(max-width: 900px)').matches;
-    // caixa aproximada do rosto na foto da capa, em % da área da foto
-    const rosto = cel ? { x0: 30, x1: 96, y0: 14, y1: 52 } : { x0: 34, x1: 98, y0: 14, y1: 50 };
+    // área da foto da capa sem brilhos (mãos, rosto), em % da área da foto: vem de silver.capa.livre no content.js
+    const rosto = (D.livre && (cel ? D.livre.cel : D.livre.pc)) || { x0: 34, x1: 98, y0: 14, y1: 50 };
     const noRosto = (x, y) => x > rosto.x0 && x < rosto.x1 && y > rosto.y0 && y < rosto.y1;
-    const ouro = ['#D9B56E', '#B99D70', '#F1DDB4', '#C9798A', '#EFD9D4'];
+    const ouro = ['#D9B56E', '#B99D70', '#F1DDB4', '#D8C3A5', '#EBE0D2'];
     for (let i = 0; i < 30; i++) {
       let x, y, t = 0;
       do { x = sorte(4, 96); y = sorte(4, 94); t++; } while (noRosto(x, y) && t < 24);
@@ -84,7 +84,7 @@
       const tam = flor ? sorte(13, 22) : sorte(9, 18);
       el.className = flor ? 'brilho brilho-flor' : 'brilho';
       el.style.cssText = `left:${x.toFixed(1)}%;top:${y.toFixed(1)}%;width:${tam.toFixed(0)}px;height:${tam.toFixed(0)}px;animation-duration:${sorte(2.6, 5.2).toFixed(2)}s;animation-delay:${(-sorte(0, 5)).toFixed(2)}s;--brilho:${ouro[i % ouro.length]}`;
-      if (flor) el.innerHTML = florSvg(ouro[i % ouro.length], '#6B2234');
+      if (flor) el.innerHTML = florSvg(ouro[i % ouro.length], '#8C6B35');
       else {
         // lasca de ouro: polígono irregular, desenho próprio da marca
         const lados = 5 + (i % 2), pts = [];
@@ -102,20 +102,44 @@
       const el = document.createElement('i');
       const tam = Math.round(sorte(12, 24));
       el.style.cssText = `left:${x}%;top:${y}%;width:${tam}px;height:${tam}px;opacity:${sorte(.22, .5).toFixed(2)};animation-name:flutua${'abc'[i % 3]};animation-duration:${sorte(11, 20).toFixed(1)}s;animation-delay:-${sorte(0, 10).toFixed(1)}s`;
-      el.innerHTML = florSvg(['#8E3149', '#B99D70', '#C9798A'][i % 3], ['#B99D70', '#4A1624', '#EFD9D4'][i % 3]);
+      el.innerHTML = florSvg(['#A8844A', '#B99D70', '#D8C3A5'][i % 3], ['#B99D70', '#1F1B18', '#EBE0D2'][i % 3]);
       camada.appendChild(el);
     }));
   }
 
-  // ---------- segmentos pelo link (?seg=facial,corporal) ----------
+  // ---------- segmentos pelo link (?seg=drenagem ou ?seg=massagens,drenagem) ----------
   const pedido = new URLSearchParams(location.search).get('seg');
   if (pedido) {
     const ok = pedido.split(',').map((s) => s.trim()).filter(Boolean);
     const todos = [...new Set($$('[data-seg]').map((el) => el.dataset.seg))];
     if (ok.some((s) => todos.includes(s))) {
       $$('[data-seg]').forEach((el) => { if (!ok.includes(el.dataset.seg)) el.remove(); });
+      // pacote que depende de um segmento desligado também sai
+      $$('[data-requer]').forEach((el) => { if (!el.dataset.requer.split(',').every((s) => ok.includes(s))) el.remove(); });
+      // segmento que ficou sem nenhum item some com a aba, o link do rodapé e a opção do formulário
+      $$('.seg').forEach((p) => {
+        if ($('.tr', p)) return;
+        $$(`[data-seg="${p.dataset.seg}"]`).forEach((el) => el.remove());
+      });
       const ab = $('.abas');
-      if (ab) ab.style.setProperty('--n', ab.children.length);
+      if (ab) {
+        ab.style.setProperty('--n', ab.children.length);
+        // um segmento só: sem abas, o bloco aparece direto com o nome como título
+        if (ab.children.length < 2) {
+          const p = $('.seg');
+          const nome = $('.aba-longo', ab);
+          if (p) {
+            p.hidden = false;
+            p.removeAttribute('role');
+            p.removeAttribute('aria-labelledby');
+            if (nome) p.insertAdjacentHTML('afterbegin', `<h3 class="seg-nome">${nome.textContent}</h3>`);
+          }
+          ab.remove();
+        }
+      }
+      const ads = $('.ads');
+      if (ads && !ads.children.length) { ads.remove(); const av = $('.ad-aviso'); if (av) av.hidden = true; }
+      $$('optgroup').forEach((g) => { if (!g.children.length) g.remove(); });
     }
   }
 

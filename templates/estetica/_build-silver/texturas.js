@@ -1,8 +1,8 @@
 // Texturas próprias da Camélia, geradas aqui como SVG e embutidas no CSS (nenhum arquivo extra).
 // papel: grão fino de papel de algodão em toda a página
 // pele: curvas de nível que lembram a textura da pele, atrás dos tratamentos
-// petalas: pétalas soltas tom sobre tom, na faixa rosa do atendimento
-// ouro: lascas de folha de ouro espalhadas, no rodapé vinho
+// petalas: pétalas soltas tom sobre tom, na faixa nude do atendimento
+// ouro: lascas de folha de ouro espalhadas, no rodapé escuro
 // camelia: camélia grande só no contorno, atrás da capa
 // Sorteio com semente fixa: o desenho sai igual a cada build.
 let semente = 7;
@@ -16,7 +16,7 @@ const uri = (svg) => {
 
 const papel = uri(`<svg xmlns="http://www.w3.org/2000/svg" width="220" height="220">
   <filter id="g"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/>
-  <feColorMatrix values="0 0 0 0 .29  0 0 0 0 .09  0 0 0 0 .14  0 0 0 .55 0"/></filter>
+  <feColorMatrix values="0 0 0 0 .22  0 0 0 0 .18  0 0 0 0 .13  0 0 0 .55 0"/></filter>
   <rect width="220" height="220" filter="url(#g)" opacity=".22"/></svg>`);
 
 // curvas de nível: anéis tortos em volta de três centros, como uma impressão digital ampliada
@@ -45,7 +45,7 @@ for (let i = 0; i < 11; i++) {
   }
 }
 const petalas = uri(`<svg xmlns="http://www.w3.org/2000/svg" width="${ladrilho}" height="${ladrilho}">
-  <g fill="#E3C3BC" fill-opacity=".3" stroke="#C99A92" stroke-opacity=".22" stroke-width=".8">${petalasPts.join('')}</g></svg>`);
+  <g fill="#E6D7C2" fill-opacity=".3" stroke="#C9B08A" stroke-opacity=".22" stroke-width=".8">${petalasPts.join('')}</g></svg>`);
 
 // lascas de ouro: polígonos pequenos e irregulares
 const lasca = (x, y, r) => {
@@ -62,14 +62,14 @@ const ouro = uri(`<svg xmlns="http://www.w3.org/2000/svg" width="320" height="32
 // camélia grande em contorno: duas voltas de pétalas
 const pet = (r, d, a) => `<path d="M0 0C${-d} ${-r * .3} ${-d} ${-r * .85} 0 ${-r}C${d} ${-r * .85} ${d} ${-r * .3} 0 0Z" transform="rotate(${a})"/>`;
 const camelia = uri(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="-300 -300 600 600">
-  <g fill="none" stroke="#C99A92" stroke-opacity=".42" stroke-width="1.4" stroke-linejoin="round">
+  <g fill="none" stroke="#C9B08A" stroke-opacity=".42" stroke-width="1.4" stroke-linejoin="round">
   ${[0, 72, 144, 216, 288].map((a) => pet(280, 110, a + 8)).join('')}
   ${[36, 108, 180, 252, 324].map((a) => pet(190, 72, a + 8)).join('')}
   ${[0, 72, 144, 216, 288].map((a) => pet(110, 40, a + 20)).join('')}
   <circle r="22"/><circle r="10"/></g></svg>`);
 
 const petalasNoite = uri(`<svg xmlns="http://www.w3.org/2000/svg" width="${ladrilho}" height="${ladrilho}">
-  <g fill="#8E3149" fill-opacity=".22" stroke="#EBA9B6" stroke-opacity=".12" stroke-width=".8">${petalasPts.join('')}</g></svg>`);
+  <g fill="#A8844A" fill-opacity=".22" stroke="#D9B97F" stroke-opacity=".12" stroke-width=".8">${petalasPts.join('')}</g></svg>`);
 
 const css = `:root { --tx-papel: ${papel}; --tx-pele: ${pele}; --tx-petalas: ${petalas}; --tx-petalas-noite: ${petalasNoite}; --tx-ouro: ${ouro}; --tx-camelia: ${camelia}; }`;
 module.exports = { css };

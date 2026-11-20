@@ -13,7 +13,12 @@ const FOTOS = path.join(__dirname, 'img', 'fotos');
 const M = C.marca;
 const R = C.responsavel;
 const S = C.silver;
-const SEG = C.segmentos.filter((s) => s.ativo);
+// segmentos ligados; pacote com `requer` só entra se todos os segmentos de que depende estiverem ligados
+const ligados = C.segmentos.filter((s) => s.ativo).map((s) => s.id);
+const ligado = (seg) => !seg || ligados.includes(seg);
+const requerOk = (t) => !t.requer || t.requer.every(ligado);
+const SEG = C.segmentos.filter((s) => s.ativo).map((s) => ({ ...s, itens: s.itens.filter(requerOk) })).filter((s) => s.itens.length);
+const dataSeg = (seg) => (seg ? ` data-seg="${seg}"` : '');
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const wa = (msg) => `https://wa.me/${M.whatsapp}?text=${encodeURIComponent(msg)}`;
 const waAval = wa(`Olá! Quero agendar uma avaliação na ${M.completo}.`);
@@ -36,7 +41,7 @@ fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 const css = `${require('./texturas').css}
 ${fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8')}`;
 const js = fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
-  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, nome: M.completo, abertura: C.abertura, intro: S.abertura }));
+  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, nome: M.completo, abertura: C.abertura, intro: S.abertura, livre: S.capa.livre }));
 
 // Cormorant Garamond nos títulos (itálico de alto contraste para os destaques) e Jost no texto. Dupla nova no projeto.
 const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">';
@@ -61,35 +66,41 @@ const florzinha = `<svg class="florzinha" viewBox="0 0 24 24" aria-hidden="true"
 // ---------- tratamentos ----------
 const precoDe = (t) => {
   if (t.gratis) return `<span class="tr-preco"><small>avaliação</small>${t.gratis}</span>`;
+  if (t.total) return `<span class="tr-preco"><small>pacote</small>${reais(t.total)}</span>`;
   if (t.pacoteSo) return `<span class="tr-preco"><small>pacote a partir de</small>${reais(t.de)}</span>`;
   if (t.de) return `<span class="tr-preco"><small>a partir de</small>${reais(t.de)}</span>`;
   return `<span class="tr-preco"><small>sessão</small>${reais(t.preco)}</span>`;
 };
-const linhaTrat = (t, i) => `<li class="tr" style="--i:${i}"><a href="${wa(`Olá! Quero agendar ${t.nome.toLowerCase()} na ${M.completo}.`)}" target="_blank" rel="noopener">
+const linhaTrat = (t, i) => `<li class="tr" style="--i:${i}"${t.requer ? ` data-requer="${t.requer.join(',')}"` : ''}><a href="${wa(`Olá! Quero agendar ${t.nome.toLowerCase()} na ${M.completo}.`)}" target="_blank" rel="noopener">
             <span class="tr-topo"><b>${esc(t.nome)}</b>${precoDe(t)}</span>
             <span class="tr-desc">${esc(t.resumo)}</span>
-            <span class="tr-meta">${esc(t.duracao)}. ${esc(t.sessoes)}<span class="tr-ir">Agendar ${I.seta}</span></span>
+            <span class="tr-meta">${esc(t.duracao)}. ${esc(t.sessoes)}${t.avulso ? `. Em sessões avulsas, ${reais(t.avulso)}` : ''}<span class="tr-ir">Agendar ${I.seta}</span></span>
           </a></li>`;
 const extraSeg = (s) => {
-  if (s.areas) {
-    return `<div class="areas-box">
-          <h3>Depilação por área</h3>
-          <table class="areas"><thead><tr><th scope="col">Área</th><th scope="col">Cera</th><th scope="col">Laser, por sessão</th></tr></thead>
-          <tbody>${s.areas.map(([a, c, l]) => `<tr><th scope="row">${a}</th><td>${reais(c)}</td><td>${reais(l)}</td></tr>`).join('')}</tbody></table>
-          <p>${esc(s.laserNota)}</p>
-        </div>`;
+  const out = [];
+  if (s.tabela) {
+    const T = s.tabela;
+    out.push(`<div class="areas-box">
+          <h3>${esc(T.titulo)}</h3>
+          <table class="areas"><thead><tr>${T.colunas.map((c) => `<th scope="col">${esc(c)}</th>`).join('')}</tr></thead>
+          <tbody>${T.linhas.map(([a, ...v]) => `<tr><th scope="row">${esc(a)}</th>${v.map((x) => `<td>${reais(x)}</td>`).join('')}</tr>`).join('')}</tbody></table>
+          <p>${esc(T.nota)}</p>
+        </div>`);
   }
-  if (s.peles) {
-    return `<div class="areas-box">
-          <h3>Protocolo pelo tipo de pele</h3>
-          <dl class="peles">${s.peles.map(([p, d]) => `<div><dt>${p}</dt><dd>${d}</dd></div>`).join('')}</dl>
-        </div>`;
+  if (s.extra) {
+    out.push(`<div class="areas-box">
+          <h3>${esc(s.extra.titulo)}</h3>
+          <dl class="peles">${s.extra.lista.map(([p, d]) => `<div><dt>${esc(p)}</dt><dd>${esc(d)}</dd></div>`).join('')}</dl>
+        </div>`);
   }
-  return '';
+  return out.join('\n        ');
 };
-const abaSeg = (s, i) => `<button type="button" role="tab" class="aba" id="aba-${s.id}" data-seg="${s.id}" aria-controls="seg-${s.id}" aria-selected="${i ? 'false' : 'true'}"${i ? ' tabindex="-1"' : ''}><b class="aba-longo">${esc(s.nome)}</b><b class="aba-curto">${esc(s.curto)}</b><small>${s.itens.length} tratamentos</small></button>`;
-const blocoSeg = (s, i) => `<div class="seg" role="tabpanel" id="seg-${s.id}" data-seg="${s.id}" aria-labelledby="aba-${s.id}"${i ? ' hidden' : ''}>
-        <p class="seg-chamada">${esc(s.chamada)}</p>
+const plural = (n, um, varios) => `${n} ${n === 1 ? um : varios}`;
+const abaSeg = (s, i) => `<button type="button" role="tab" class="aba" id="aba-${s.id}" data-seg="${s.id}" aria-controls="seg-${s.id}" aria-selected="${i ? 'false' : 'true'}"${i ? ' tabindex="-1"' : ''}><b class="aba-longo">${esc(s.nome)}</b><b class="aba-curto">${esc(s.curto)}</b><small>${s.id === 'pacotes' ? plural(s.itens.length, 'pacote', 'pacotes') : plural(s.itens.length, 'tratamento', 'tratamentos')}</small></button>`;
+// com um segmento só não há abas: o bloco aparece direto, com o nome do segmento como título
+const blocoSeg = (s, i) => `<div class="seg"${SEG.length > 1 ? ` role="tabpanel" aria-labelledby="aba-${s.id}"` : ''} id="seg-${s.id}" data-seg="${s.id}"${i ? ' hidden' : ''}>
+        ${SEG.length > 1 ? '' : `<h3 class="seg-nome">${esc(s.nome)}</h3>`}
+        <div class="seg-topo">${foto(s.foto, { cls: 'seg-foto' })}<p class="seg-chamada">${esc(s.chamada)}</p></div>
         <ul class="trat-lista">
           ${s.itens.map(linhaTrat).join('\n          ')}
         </ul>
@@ -112,11 +123,16 @@ const camadaAntes = (c, k) => {
   const [w, h] = dimWebp(path.join(FOTOS, `${c.foto}.webp`));
   const s = c.simulacao;
   const marcas = [];
-  for (const [cx, cy, rx, ry, q] of s.regioes) {
+  for (const [cx, cy, rx, ry, q] of s.regioes || []) {
     for (let j = 0; j < q; j++) {
       const ang = sorteia() * Math.PI * 2, dist = Math.sqrt(sorteia());
       const x = cx + Math.cos(ang) * rx * dist, y = cy + Math.sin(ang) * ry * dist;
-      if (s.tipo === 'acne') {
+      if (s.tipo === 'celulite') {
+        // furinho: sombra rasa e alongada com um reflexo logo abaixo, como a pele "acolchoada" (casca de laranja)
+        const r = 10 + sorteia() * 12, ry = r * (.5 + sorteia() * .25);
+        marcas.push(`<ellipse cx="${r1(x)}" cy="${r1(y)}" rx="${r1(r)}" ry="${r1(ry)}" fill="${s.cor}" fill-opacity="${r1(.05 + sorteia() * .06)}" filter="url(#ad-b${k})"/>`);
+        marcas.push(`<ellipse cx="${r1(x)}" cy="${r1(y + ry * 1.4)}" rx="${r1(r * .9)}" ry="${r1(ry * .55)}" fill="#fff" fill-opacity="${r1(.05 + sorteia() * .05)}" filter="url(#ad-b${k})"/>`);
+      } else if (s.tipo === 'acne') {
         const r = 3.5 + sorteia() * 5;
         if (j % 3 === 0) marcas.push(`<ellipse cx="${r1(x)}" cy="${r1(y)}" rx="${r1(r * 4)}" ry="${r1(r * 3)}" fill="#C0584C" fill-opacity=".09" filter="url(#ad-m${k})"/>`);
         marcas.push(`<circle cx="${r1(x)}" cy="${r1(y)}" r="${r1(r)}" fill="#B4453C" fill-opacity="${r1(.14 + sorteia() * .14)}" filter="url(#ad-b${k})"/>`);
@@ -131,15 +147,17 @@ const camadaAntes = (c, k) => {
       }
     }
   }
-  const blur = s.tipo === 'manchas' ? 9 : 1.8;
+  const blur = { manchas: 9, celulite: 6 }[s.tipo] ?? 1.8;
+  // volume: a mesma foto um pouco mais larga, sem desenho por cima
+  const estilo = s.tipo === 'volume' ? `filter:${s.filtro};transform:scaleX(${s.escala});transform-origin:${s.origem}` : `filter:${s.filtro}`;
   return `<div class="ad-antes" aria-hidden="true">
-            <img src="assets/img/${c.foto}.webp" alt="" loading="lazy" style="filter:${s.filtro}">
+            <img src="assets/img/${c.foto}.webp" alt="" loading="lazy" style="${estilo}">
             <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice"><defs><filter id="ad-b${k}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="${blur}"/></filter><filter id="ad-m${k}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="10"/></filter><filter id="ad-f${k}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1"/></filter></defs>${marcas.join('')}</svg>
           </div>`;
 };
-const AD = C.antesDepois || [];
+const AD = (C.antesDepois || []).filter((c) => ligado(c.seg));
 const setas = '<svg viewBox="0 0 22 12" aria-hidden="true"><path d="M8 1.5 3.5 6 8 10.5M14 1.5 18.5 6 14 10.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-const cartaoAD = (c, k) => `<figure class="ad-card" data-cartao>
+const cartaoAD = (c, k) => `<figure class="ad-card" data-cartao${dataSeg(c.seg)}>
         <div class="ad-palco" style="--p:50%">
           <img class="ad-depois" src="assets/img/${c.foto}.webp" alt="Depois: ${esc(c.titulo.toLowerCase())}, ${esc(c.tratamento.toLowerCase())}" loading="lazy">
           ${camadaAntes(c, k)}
@@ -152,19 +170,19 @@ const cartaoAD = (c, k) => `<figure class="ad-card" data-cartao>
       </figure>`;
 
 // ---------- formulário ----------
-const opcoes = SEG.map((s) => `<optgroup label="${esc(s.nome)}" data-seg="${s.id}">${s.itens.map((t) => `<option>${esc(t.nome)}</option>`).join('')}${s.areas ? '<option>Depilação com cera</option><option>Depilação a laser</option>' : ''}</optgroup>`).join('');
+const opcoes = SEG.map((s) => `<optgroup label="${esc(s.nome)}" data-seg="${s.id}">${s.itens.map((t) => `<option${t.requer ? ` data-requer="${t.requer.join(',')}"` : ''}>${esc(t.nome)}</option>`).join('')}</optgroup>`).join('');
 const dias = C.horarios.map(([d, h], i) => `<tr data-linha="${i}"><th scope="row">${d}</th><td>${h}</td></tr>`).join('');
 
 // ---------- textos legais [JURÍDICO] (mesma base do Bronze; o Silver não coleta dados de saúde no site) ----------
 const legal = {
   servico: ['Termos de prestação de serviço', `
     <p>Estes termos valem para todos os atendimentos da ${M.completo} (${M.razao}, CNPJ ${M.cnpj}).</p>
-    <h3>Avaliação e plano</h3><p>Todo tratamento facial e corporal e toda primeira sessão de laser começam por uma avaliação sem custo. Nela a cliente preenche a ficha de saúde e recebe o plano por escrito, com tratamento, número de sessões, intervalo e valor. Informar alergias, medicamentos e condições de saúde é necessário para a segurança do procedimento.</p>
+    <h3>Avaliação e plano</h3><p>Todo protocolo de celulite e gordura localizada, toda drenagem pós-operatória e todo primeiro pacote começam por uma avaliação sem custo. Nela a cliente preenche a ficha de saúde, tem as medidas registradas e recebe o plano por escrito, com tratamento, número de sessões, intervalo e valor. Informar alergias, medicamentos e condições de saúde é necessário para a segurança do procedimento.</p>
     <h3>Preços e pagamento</h3><p>Os preços desta página são de sessão avulsa ou de pacote e podem mudar sem aviso; vale o valor do plano assinado. Pagamento em Pix, débito ou crédito, com sessão avulsa em até 3x e pacotes em até 10x sem juros no cartão.</p>
-    <h3>Pacotes</h3><p>Valem por 6 meses a partir da primeira sessão e são pessoais. Na desistência, devolvemos o valor das sessões não feitas, calculado pelo preço do pacote, descontados 10% de custo administrativo.</p>
+    <h3>Pacotes</h3><p>Têm a validade escrita no plano (de 2 a 4 meses, contada da primeira sessão) e são pessoais. Na desistência, devolvemos o valor das sessões não feitas, calculado pelo preço do pacote, descontados 10% de custo administrativo.</p>
     <h3>Agendamento, cancelamento e remarcação</h3><p>Cancelamento e remarcação sem custo até 24h antes. Com menos de 24h, a sessão avulsa é cobrada em 50% e a de pacote conta como feita, exceto em caso de saúde com atestado. Tolerância de atraso de 15 minutos.</p>
-    <h3>Garantia</h3><p>Garantimos o serviço bem executado: retoque do design de sobrancelhas em até 7 dias, reposição de fios de cílios caídos em até 72h e remarcação sem custo de sessão perdida por falha nossa. Não há garantia de resultado: cada organismo responde de um jeito.</p>
-    <h3>Contraindicações</h3><p>A clínica pode recusar ou adiar um procedimento quando houver contraindicação ou risco à saúde, e pode pedir liberação médica.</p>
+    <h3>Garantia</h3><p>Garantimos o serviço bem executado: pressão ajustada durante a sessão sempre que a cliente pedir, remarcação sem custo de sessão perdida por falha nossa e medidas refeitas no meio do pacote sem custo. Não há garantia de resultado: cada organismo responde de um jeito.</p>
+    <h3>Contraindicações</h3><p>A clínica pode recusar ou adiar um procedimento quando houver contraindicação ou risco à saúde, e pode pedir liberação médica. Drenagem pós-operatória só com pedido ou liberação do cirurgião.</p>
     <p>Dúvidas: ${M.email} ou WhatsApp ${M.whatsappTexto}.</p>`],
   uso: ['Termos de uso do site', `
     <p>Este site apresenta a ${M.completo}, seus tratamentos, preços e políticas. O conteúdo é informativo e não substitui a avaliação individual.</p>
@@ -175,8 +193,8 @@ const legal = {
   privacidade: ['Política de privacidade', `
     <p>Controladora dos dados: ${M.razao}, CNPJ ${M.cnpj}, ${endereco}. Encarregado de dados: ${M.encarregado}.</p>
     <h3>Quais dados</h3><p>Nome, WhatsApp, e-mail, tratamento de interesse e período preferido, quando você envia o formulário. Este site não pede dados de saúde: a ficha de saúde é preenchida na avaliação, na clínica.</p>
-    <h3>Para que usamos</h3><p>Responder o seu pedido, agendar e preparar a avaliação. Dados de saúde informados na avaliação são dados sensíveis pela LGPD (Lei 13.709/2018, art. 11) e são usados apenas para avaliar a indicação e a segurança do procedimento, com o seu consentimento específico. Novidades e horários livres só com a sua autorização separada.</p>
-    <h3>Com quem compartilhamos</h3><p>Com ninguém para fins comerciais. A mensagem passa pelo WhatsApp, que tem a própria política. A ficha de saúde fica no prontuário da clínica, com acesso restrito à equipe que atende você.</p>
+    <h3>Para que usamos</h3><p>Responder o seu pedido, agendar e preparar a avaliação. Dados de saúde, medidas e fotos de acompanhamento feitos na avaliação são dados sensíveis pela LGPD (Lei 13.709/2018, art. 11) e são usados apenas para avaliar a indicação e a segurança do procedimento, com o seu consentimento específico. Novidades e horários livres só com a sua autorização separada.</p>
+    <h3>Com quem compartilhamos</h3><p>Com ninguém para fins comerciais. A mensagem passa pelo WhatsApp, que tem a própria política. A ficha de saúde, as medidas e as fotos ficam no prontuário da clínica, com acesso restrito à equipe que atende você.</p>
     <h3>Por quanto tempo</h3><p>Pedidos sem atendimento são apagados em até 6 meses. Prontuário e ficha de saúde são guardados pelo prazo exigido pelas normas sanitárias e profissionais.</p>
     <h3>Seus direitos</h3><p>Você pode pedir acesso, correção, cópia ou exclusão dos seus dados, e retirar o consentimento a qualquer momento, pelo e-mail ${M.encarregado}.</p>
     <h3>Cookies</h3><p>O site usa armazenamento essencial do navegador para lembrar a sua escolha sobre cookies e o tema claro ou escuro. Não usamos cookies de publicidade. Medição de visitas só com a sua permissão no aviso de cookies.</p>`],
@@ -186,6 +204,7 @@ const dialogs = Object.entries(legal).map(([id, [t, corpo]]) => `<dialog class="
   <div class="doc-corpo">${corpo}<p class="doc-fim">Texto de modelo, a validar na revisão jurídica. Atualizado em novembro de 2026.</p></div>
 </dialog>`).join('\n');
 
+const DEP = S.depoimentos.filter((d) => ligado(d[2]));
 const segNomes = lista(SEG.map((s) => s.nome.toLowerCase()));
 const faixaTxt = Array.from({ length: 6 }, () => `<span>${esc(S.faixa)}</span>${florzinha}`).join('');
 
@@ -194,12 +213,12 @@ const html = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${M.completo} | Harmonização e estética no ${M.bairro}, ${M.cidade}</title>
-<meta name="description" content="${M.completo}: ${segNomes} no ${M.bairro}, ${M.cidade}. Resultado natural, avaliação sem custo e plano por escrito. Agende pelo WhatsApp.">
+<title>${M.completo} | Estética corporal no ${M.bairro}, ${M.cidade}</title>
+<meta name="description" content="${M.completo}: ${segNomes} no ${M.bairro}, ${M.cidade}. Avaliação com medidas sem custo e plano por escrito. Agende pelo WhatsApp.">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#3A1520">
+<meta name="theme-color" content="#1C1916">
 <meta property="og:title" content="${M.completo}">
-<meta property="og:description" content="Realçar o que já é seu, sem exagero. Avaliação sem custo e plano por escrito.">
+<meta property="og:description" content="Estética corporal com avaliação sem custo, medidas e plano por escrito.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <script>(function(){var d=document.documentElement,t=null,v=null;d.classList.add("js");try{var q=new URLSearchParams(location.search);t=q.get("tema")||localStorage.getItem("camelia-tema");v=q.has("intro")?null:q.has("semintro")?"1":sessionStorage.getItem("camelia-intro")}catch(e){}if(t==="escuro")d.dataset.tema="escuro";if(!v&&!matchMedia("(prefers-reduced-motion: reduce)").matches)d.classList.add("intro")})()</script>
 ${fontes}
@@ -256,7 +275,7 @@ ${css}
         <h2 id="t-dores">${tit(S.dores.titulo)}</h2>
       </div>
       <div class="dores">
-        ${S.dores.itens.map(([t, d]) => `<article class="dor" data-cartao><h3>${esc(t)}</h3><p>${esc(d)}</p></article>`).join('\n        ')}
+        ${S.dores.itens.filter((d) => ligado(d[2])).map(([t, d, seg]) => `<article class="dor" data-cartao${dataSeg(seg)}><h3>${esc(t)}</h3><p>${esc(d)}</p></article>`).join('\n        ')}
       </div>
     </div>
   </section>
@@ -296,9 +315,9 @@ ${css}
         <p class="apoio">${esc(S.tratamentos.apoio)}</p>
         <h2 id="t-trat">${tit(S.tratamentos.titulo)}</h2>
       </div>
-      <div class="abas" role="tablist" aria-label="Segmentos" style="--n:${SEG.length}">
+      ${SEG.length > 1 ? `<div class="abas" role="tablist" aria-label="Segmentos" style="--n:${SEG.length}">
         ${SEG.map(abaSeg).join('\n        ')}
-      </div>
+      </div>` : ''}
       ${SEG.map(blocoSeg).join('\n      ')}
       <div class="pagar">
         ${C.pagamento.map(([t, d]) => `<div><h3>${t}</h3><p>${d}</p></div>`).join('')}
@@ -310,19 +329,19 @@ ${css}
     </div>
   </section>
 
-  ${AD.length ? `<section class="sec" id="resultados" aria-labelledby="t-res">
+  ${AD.length || DEP.length ? `<section class="sec" id="resultados" aria-labelledby="t-res">
     <div class="wrap">
       <div class="sec-topo">
         <p class="apoio">Resultados</p>
-        <h2 id="t-res">Pele tratada com calma. <em>Sem exagero.</em></h2>
+        <h2 id="t-res">${tit(S.resultados.titulo)}</h2>
         <p class="sec-sub">Arraste sobre a foto para comparar o antes e o depois.</p>
       </div>
-      <div class="ads">
+      ${AD.length ? `<div class="ads">
       ${AD.map(cartaoAD).join('\n      ')}
-      </div>
-      <p class="ad-aviso">As imagens desta demonstração são simulações feitas sobre fotos de banco de imagens. No site da clínica entram fotos reais, sempre com autorização por escrito da cliente. ${C.avisoResultado.split('. ').slice(0, 2).join('. ')}.</p>
+      </div>` : ''}
+      <p class="ad-aviso"${AD.length ? '' : ' hidden'}>As imagens desta demonstração são simulações feitas sobre fotos de banco de imagens. No site da clínica entram fotos reais, sempre com autorização por escrito da cliente. ${C.avisoResultado.split('. ').slice(0, 2).join('. ')}.</p>
       <div class="depos">
-        ${S.depoimentos.map(([t, q]) => `<blockquote class="depo" data-cartao><p>${esc(t)}</p><footer>${esc(q)}</footer></blockquote>`).join('\n        ')}
+        ${DEP.map(([t, q, seg]) => `<blockquote class="depo" data-cartao${dataSeg(seg)}><p>${esc(t)}</p><footer>${esc(q)}</footer></blockquote>`).join('\n        ')}
       </div>
       <p class="miudo depos-nota">Depoimentos ilustrativos do modelo.</p>
     </div>
@@ -375,7 +394,7 @@ ${css}
         <p class="apoio">Dúvidas frequentes</p>
         <h2 id="t-faq">Antes de você <em>decidir</em></h2>
       </div>
-      <div class="faq-lista">${C.faq.map(([q, a]) => `<details class="pergunta" data-cartao><summary><span>${q}</span><span class="pergunta-sinal" aria-hidden="true">${I.mais}</span></summary><p>${a}</p></details>`).join('')}</div>
+      <div class="faq-lista">${C.faq.filter((f) => ligado(f[2])).map(([q, a, seg]) => `<details class="pergunta" data-cartao${dataSeg(seg)}><summary><span>${q}</span><span class="pergunta-sinal" aria-hidden="true">${I.mais}</span></summary><p>${a}</p></details>`).join('')}</div>
     </div>
   </section>
 

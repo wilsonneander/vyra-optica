@@ -1,6 +1,6 @@
-# Estética: modelos Bronze e Silver "Camélia"
+# Estética: modelos Bronze, Silver e Gold "Camélia"
 
-Nicho **clínica de estética** (facial, corporal e depilação, cílios e sobrancelhas). Landing page de uma página só, com marca fictícia: Camélia Estética, Cambuí, Campinas. Público majoritariamente feminino.
+Nicho **clínica de estética** (facial, corporal e depilação, cílios e sobrancelhas no Bronze e no Gold; o Silver é só estética corporal). Landing page de uma página só, com marca fictícia: Camélia Estética, Cambuí, Campinas. Público majoritariamente feminino.
 Referência de conteúdo: jessicaboza.com.br (avaliação antes do protocolo, ficha técnica do tratamento, tom acolhedor e sem promessa, FAQ). Nada foi copiado: textos, nomes, números e preços são próprios e fictícios.
 
 | Pasta | O que é |
@@ -47,37 +47,96 @@ Cada segmento tem `ativo: true/false` em `segmentos` no `content.js`. Desligado,
 - **Rodapé** com o mapa padrão `.map-box` do OpenStreetMap, "Onde atendemos", canais, redes (Instagram, Facebook, LinkedIn, WhatsApp), razão social, CNPJ, endereço, telefone, e-mail, responsável técnica e os links para Termos de prestação de serviço, Termos de uso, Política de privacidade e Preferências de cookies (abrem em janela na própria página)
 - **Botão flutuante do WhatsApp** e **aviso de cookies** (aceitar todos ou só os essenciais, escolha salva no navegador)
 
-Fica para o Gold: páginas por tratamento, agenda online e área da cliente.
+Ainda não entraram em nenhum tier: páginas por tratamento e área da cliente. O Gold tem um pedido de horário com dias e horários (sem agenda conectada).
 
 ## O que o Silver tem
 
-Landing page no formato clássico (capa, dores, medos, diferenciais, tratamentos, resultados, como funciona, quem cuida, dúvidas e chamada final), com os movimentos da referência dragrazicardoso.com.br refeitos na marca Camélia. Nada da referência foi copiado além da ideia dos efeitos: textos, fotos, cores e desenhos são próprios.
+**Só estética corporal**: massagens modeladoras e relaxantes, drenagem linfática, tratamentos para celulite e gordura localizada e pacotes de sessões. Landing page no formato clássico (capa, dores, medos, diferenciais, tratamentos, resultados, como funciona, quem cuida, dúvidas e chamada final), com os movimentos da referência dragrazicardoso.com.br refeitos na marca Camélia. Nada da referência foi copiado além da ideia dos efeitos: textos, fotos, cores e desenhos são próprios.
 
 | Pasta | O que é |
 |---|---|
-| `_build-silver/content.js` | Mesma base do Bronze, mais o bloco `silver` no fim: frases da abertura, faixa, dores, medos, pilares, depoimentos e chamada final |
-| `_build-silver/build.js`, `style.css`, `app.js` | Gerador, design e animações. Fotos, mapa, logo e texturas são cópias das do Bronze, para o modelo andar sozinho |
+| `_build-silver/content.js` | Conteúdo corporal: responsável técnica fisioterapeuta dermatofuncional, os quatro segmentos com preços, pagamento, garantia, etapas, contraindicações, políticas, segurança, antes e depois, FAQ e o bloco `silver` (abertura, faixa, dores, medos, pilares, depoimentos e chamada final) |
+| `_build-silver/build.js`, `style.css`, `app.js` | Gerador, design e animações. Mapa, logo e texturas são cópias das do Bronze, para o modelo andar sozinho |
+| `_build-silver/img/fotos/` | Fotos corporais próprias do Silver (Unsplash, créditos em `img/creditos.json`) |
 | `silver/` | **Site pronto** |
 
 ```bash
 node templates/estetica/_build-silver/build.js
 ```
 
+Segmentos (`segmentos` no `content.js`), cada um com `ativo: true/false`:
+
+| id | Aba | O que tem |
+|---|---|---|
+| `massagens` | Massagens | modeladora, modeladora com instrumentos de madeira, relaxante e pedras quentes, mais o guia de pressão |
+| `drenagem` | Drenagem | corporal, pernas e abdômen, pós-operatória e na gestação |
+| `celulite` | Celulite e gordura | protocolos para celulite e gordura localizada, radiofrequência, endermoterapia e tabela de preço por área |
+| `pacotes` | Pacotes | Leveza, Contorno, Pausa e Recuperação, com valor do pacote e quanto sairia avulso, mais as regras dos pacotes |
+
+Desligar um segmento tira do site inteiro a aba, as opções do formulário, o link do rodapé e o que estiver marcado com `seg` (dores, cartões de antes e depois, depoimentos e dúvidas). Pacote com `requer` só aparece se os segmentos de que depende estiverem ligados (o Pacote Contorno precisa de massagens e drenagem). Com um segmento só, as abas somem e o nome dele vira o título da lista. Para mostrar ao cliente sem gerar de novo: `?seg=drenagem`, `?seg=massagens,drenagem` ou `?seg=celulite,pacotes`.
+
+Antes e depois: simulações marcadas feitas no build. `celulite` desenha furinhos rasos de sombra e reflexo sobre a foto; `volume` mostra a mesma foto um pouco mais larga no "antes". Cliente real: fotos verdadeiras com autorização por escrito.
+
 Movimentos:
-- **Abertura**: três frases ("Cuidar da pele / começa por uma / boa conversa") surgem com desfoque sobre a camélia em contorno e a cortina sobe. Aparece uma vez por sessão; um toque pula. `?intro` força a abertura e `?semintro` pula (útil em prints)
+- **Abertura**: três frases ("Cuidar do corpo / começa por uma / boa conversa") surgem com desfoque sobre a camélia em contorno e a cortina sobe. Aparece uma vez por sessão; um toque pula. `?intro` força a abertura e `?semintro` pula (útil em prints)
 - **Flores no clique**: cada toque ou clique solta um punhado de camélias pequenas nas cores da marca, que giram e caem
-- **Brilhos na capa**: lascas de ouro e camélias piscando em volta da foto, sempre fora da área do rosto
+- **Brilhos na capa**: lascas de ouro e camélias piscando em volta da foto, sempre fora da área livre definida em `silver.capa.livre` (mãos, óleo e rosto)
 - **Camélias flutuando** devagar no fundo vinho de Tratamentos e da chamada final
 - **Entrada na rolagem**: textos sobem, fotos saem de um zoom leve e os cartões entram entrelaçados, alternando o lado com um giro pequeno
 - **Faixa rolante** vinho com a frase da marca e camélias como separador, e **galeria rolante** de fotos da clínica (para no hover)
 - **Cartões de medo** que sobem no hover, lista de tratamentos em cascata ao trocar de aba, linha das etapas que se desenha
-- **Antes e depois em grade**: três cartões, cada um com a própria cortina, que balança sozinha na primeira vez. Mesma simulação marcada do Bronze
+- **Antes e depois em grade**: até três cartões (celulite, pernas inchadas, gordura no abdômen), cada um com a própria cortina, que balança sozinha na primeira vez
 - **WhatsApp flutuante** respirando e barra de rolagem nas cores da marca
 - Tema claro e escuro com o mesmo botão de camélia do Bronze
 
 Tudo respeita `prefers-reduced-motion`: sem abertura, flores, brilhos nem entradas.
 
-Tipografia do Silver: **Cormorant Garamond** nos títulos (itálico vinho nos destaques) e **Jost** no texto. O formulário do Silver não pede dados de saúde: a ficha é preenchida na avaliação. Os depoimentos são ilustrativos e marcados `[EXEMPLO] [JURÍDICO]`: cliente real só com depoimentos verdadeiros e autorizados.
+Cores do Silver (próprias, diferentes do vinho do Bronze e do Gold): **preto quente** `#1F1B18` nos títulos e `#1C1916` nas seções escuras, **dourado champanhe** `#8C6B35` nos botões e `#A8844A` / `#D9B56E` nos destaques, **nude** `#EBE0D2` e `#F3EDE4` nos fundos claros, marfim `#FAF7F1` na base. A abertura mostra só as frases, sem a camélia desenhada atrás.
+
+Tipografia do Silver: **Cormorant Garamond** nos títulos (itálico dourado nos destaques) e **Jost** no texto. O formulário do Silver não pede dados de saúde: a ficha é preenchida na avaliação. Os depoimentos são ilustrativos e marcados `[EXEMPLO] [JURÍDICO]`: cliente real só com depoimentos verdadeiros e autorizados.
+
+## O que o Gold tem
+
+A página começa do lado de fora da clínica, em 3D, com luz clara de fim de manhã. Na rolagem, um drone desce até a porta de vidro (que abre quando ele chega), atravessa a recepção e passa pela fileira de arcos que liga as salas. Em cada sala ele para, a placa da sala sobe com o conteúdo e alguma coisa acontece na cena. No fim o telhado sobe e some, e a clínica aparece vista de cima com o nome de cada sala.
+
+| Parada | O que se vê | O que acontece na cena | Conteúdo da placa |
+|---|---|---|---|
+| Fachada | prédio térreo com janelas em arco, frontão com a camélia dourada, ciprestes e oliveiras | o drone paira e gira devagar em volta | título, chamada, agendar e começar a visita |
+| Consultório | parede rosa com boiserie, retrato da responsável em moldura de arco, diploma e registro no conselho, mesa oval e poltronas de bouclé | a luz de quadro acende sobre o retrato | retrato da responsável no arco da placa, quem cuida, registro, citação, equipe |
+| Sala de avaliação | aparelho de análise de pele (cúpula com anel de luz), monitor, espelho em arco, lupa | a lupa desce sobre a banqueta, o anel acende e o monitor faz a leitura da pele | como funciona, etapas da avaliação |
+| Sala de procedimentos | **a cadeira de procedimentos** em 3D, carrinho com seringas e luvas, armário com pia, geladeira de toxina | a cadeira reclina, a perneira sobe, a lupa vem para cima do rosto e acende | carta de tratamentos faciais com preço, o que inclui e agendar cada um |
+| Sala corporal | maca com apoio de rosto, toalhas, velas, pedras quentes, difusor com névoa, radiofrequência, cortina de linho | as velas tremulam, a névoa sobe e a cortina balança | carta corporal |
+| Estúdio do olhar | maca de cílios, luz de anel, laser de diodo, camélia em néon | o néon se desenha e a luz de anel acende | carta de cílios, sobrancelhas e depilação, tabela por área |
+| Vista de cima | a planta inteira, sem telhado | o telhado sobe e some, os nomes das salas aparecem | chamada para a agenda e horários |
+
+Nas salas de avaliação, procedimentos, corporal e olhar, uma foto em arco fica ao lado da placa (fora dela), parada enquanto a placa rola, com legenda e, em procedimentos e olhar, uma foto menor sobreposta. Fotos e recorte em `gold.quadros`. No celular a foto sobe para cima da placa.
+
+Depois da visita vêm as seções comuns: antes e depois (cortina arrastável, simulação marcada como no Bronze e no Silver, agora com a foto em arco), depoimentos ilustrativos, pagamento e políticas (com o bloco de segurança e higiene: descartáveis, autoclave, Anvisa e licença sanitária), dúvidas, agenda e rodapé com o mapa padrão.
+
+| Pasta | O que é |
+|---|---|
+| `_build-gold/content.js` | Mesma base do Bronze, mais o bloco `gold`: a **planta** (salas e medidas, fonte única da cena e da mini planta) e os textos de cada parada |
+| `_build-gold/cena/` | A clínica em 3D, feita em código com Three.js r160 (nenhum modelo pronto): `base.js` (luz, materiais, texturas desenhadas, formas), `predio.js` (paredes, arcos, janelas, porta, telhado, jardim), `salas.js` (móveis de cada sala), `voo.js` (poses do drone, caminhos pelos arcos, o que anima em cada sala, tema noite) |
+| `_build-gold/app.js` | Liga a rolagem ao drone, mini planta, rótulos da vista de cima, agenda de dias e horários, tema e formulário |
+| `_build-gold/build.js`, `style.css` | Gerador e design. O build junta os quatro arquivos de `cena/` em `gold/assets/js/cena.js` e converte o Three.js em script comum |
+| `_build-gold/preparar-texturas.js` | Recorta o retrato e as gravuras que viram quadros na cena (`img/texturas/`). Elas entram como data URI, então o site abre até direto do arquivo |
+| `gold/` | **Site pronto** |
+
+```bash
+node templates/estetica/_build-gold/build.js
+```
+
+Detalhes:
+- **Mini planta** no canto (embaixo à direita no computador, em cima no celular e no tablet): mostra a sala em que o drone está e leva a qualquer sala com um toque
+- **Tema escuro** com o mesmo botão de camélia: a clínica anoitece, o sol vira lua, as janelas acendem por fora e os balizadores do caminho brilham
+- **Agenda**: o formulário mostra os próximos dias abertos e os horários de cada dia (a cada 1h30, até 1h antes de fechar) e manda o pedido pronto no WhatsApp, avisando que é um pedido a confirmar. Intervalo e quantidade de dias em `gold.agenda`
+- **Segmentos**: segmento desligado tira a parada da sala dele (o drone só atravessa a sala). Também vale `?seg=facial`
+- `?parada=procedimentos` abre a página já dentro de uma sala, bom para mostrar ao cliente. `?tema=escuro` abre à noite
+- **Movimento reduzido**: a câmera corta de sala em sala, sem voo. **Sem WebGL**: cada placa ganha uma foto recortada pelo arco e a página vira uma lista normal
+- **Desempenho**: os objetos parados de cada sala são fundidos por material (cerca de 300 chamadas de desenho na fachada e menos de 80 dentro das salas), a sombra só é refeita quando algo se mexe e o drone para de desenhar quando a visita sai da tela
+- Prints automáticos: `window.__camelia` expõe a cena para testes (`cena.simula(segundos)` avança o tempo sem desenhar)
+
+Tipografia do Gold: **Spectral** leve nos títulos (itálico vinho nos destaques) e **Urbanist** no texto. A clínica em 3D é uma ilustração: o rodapé e os termos de uso avisam isso. Para cliente real, trocar o retrato e as gravuras (rodar `preparar-texturas.js` com as fotos novas), o nome e o registro (vão para o diploma desenhado na parede) e conferir se as salas da planta batem com a clínica.
 
 ## Guia básico da marca
 

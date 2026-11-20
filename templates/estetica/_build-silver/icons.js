@@ -1,16 +1,16 @@
 // Marca e ícones próprios da Camélia Estética (traço 1.6, pontas arredondadas, sem biblioteca de ícones).
 const petala = (r, d, a) => `<path d="M24 24C${24 - d} ${24 - r * .3} ${24 - d} ${24 - r * .85} 24 ${24 - r}C${24 + d} ${24 - r * .85} ${24 + d} ${24 - r * .3} 24 24Z" transform="rotate(${a} 24 24)"/>`;
 const flor = (cls = '') => `<svg class="flor ${cls}" viewBox="0 0 48 48" aria-hidden="true">
-  <g fill="var(--flor-1, #EFD9D4)" stroke="var(--flor-2, #6B2234)" stroke-width="1.3" stroke-linejoin="round">${[0, 72, 144, 216, 288].map((a) => petala(20, 7.5, a)).join('')}</g>
-  <g fill="var(--flor-2, #6B2234)">${[36, 108, 180, 252, 324].map((a) => petala(12, 4.2, a)).join('')}</g>
+  <g fill="var(--flor-1, #EBE0D2)" stroke="var(--flor-2, #8C6B35)" stroke-width="1.3" stroke-linejoin="round">${[0, 72, 144, 216, 288].map((a) => petala(20, 7.5, a)).join('')}</g>
+  <g fill="var(--flor-2, #8C6B35)">${[36, 108, 180, 252, 324].map((a) => petala(12, 4.2, a)).join('')}</g>
   <circle cx="24" cy="24" r="2.8" fill="var(--flor-3, #B99D70)"/>
 </svg>`;
 
 const logo = `<span class="logo-marca">${flor()}<span class="logo-txt"><b>Camélia</b><small>Estética</small></span></span>`;
 
 const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#F8F5F2"/>
-  <g fill="#EFD9D4" stroke="#6B2234" stroke-width="1.6" stroke-linejoin="round">${[0, 72, 144, 216, 288].map((a) => petala(20, 7.5, a)).join('')}</g>
-  <g fill="#6B2234">${[36, 108, 180, 252, 324].map((a) => petala(12, 4.2, a)).join('')}</g>
+  <g fill="#EBE0D2" stroke="#8C6B35" stroke-width="1.6" stroke-linejoin="round">${[0, 72, 144, 216, 288].map((a) => petala(20, 7.5, a)).join('')}</g>
+  <g fill="#8C6B35">${[36, 108, 180, 252, 324].map((a) => petala(12, 4.2, a)).join('')}</g>
   <circle cx="24" cy="24" r="2.8" fill="#B99D70"/></svg>`;
 
 const s = (d, extra = '') => `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"${extra}>${d}</svg>`;

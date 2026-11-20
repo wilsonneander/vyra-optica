@@ -290,7 +290,7 @@ const bairros = ['Cambuí', 'Centro', 'Guanabara', 'Taquaral', 'Nova Campinas', 
 // ---------- só do Silver: landing page com abertura, dores, medos, pilares e depoimentos ----------
 const silver = {
   // abertura: três frases que surgem e somem antes da página (cor = token do CSS)
-  abertura: [['Cuidar do corpo', 'vinho'], ['começa por uma', 'rosa'], ['boa conversa', 'ouro']],
+  abertura: [['Cuidar do corpo', 'preto'], ['começa por uma', 'rosa'], ['boa conversa', 'ouro']],
   faixa: 'Cuidar do corpo começa por uma boa conversa',
   capa: {
     apoio: 'Estética corporal no Cambuí', // o build completa com os segmentos ligados

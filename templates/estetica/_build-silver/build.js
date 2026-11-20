@@ -216,7 +216,7 @@ const html = `<!doctype html>
 <title>${M.completo} | Estética corporal no ${M.bairro}, ${M.cidade}</title>
 <meta name="description" content="${M.completo}: ${segNomes} no ${M.bairro}, ${M.cidade}. Avaliação com medidas sem custo e plano por escrito. Agende pelo WhatsApp.">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#3A1520">
+<meta name="theme-color" content="#1C1916">
 <meta property="og:title" content="${M.completo}">
 <meta property="og:description" content="Estética corporal com avaliação sem custo, medidas e plano por escrito.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">

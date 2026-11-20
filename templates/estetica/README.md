@@ -91,7 +91,9 @@ Movimentos:
 
 Tudo respeita `prefers-reduced-motion`: sem abertura, flores, brilhos nem entradas.
 
-Tipografia do Silver: **Cormorant Garamond** nos títulos (itálico vinho nos destaques) e **Jost** no texto. O formulário do Silver não pede dados de saúde: a ficha é preenchida na avaliação. Os depoimentos são ilustrativos e marcados `[EXEMPLO] [JURÍDICO]`: cliente real só com depoimentos verdadeiros e autorizados.
+Cores do Silver (próprias, diferentes do vinho do Bronze e do Gold): **preto quente** `#1F1B18` nos títulos e `#1C1916` nas seções escuras, **dourado champanhe** `#8C6B35` nos botões e `#A8844A` / `#D9B56E` nos destaques, **nude** `#EBE0D2` e `#F3EDE4` nos fundos claros, marfim `#FAF7F1` na base. A abertura mostra só as frases, sem a camélia desenhada atrás.
+
+Tipografia do Silver: **Cormorant Garamond** nos títulos (itálico dourado nos destaques) e **Jost** no texto. O formulário do Silver não pede dados de saúde: a ficha é preenchida na avaliação. Os depoimentos são ilustrativos e marcados `[EXEMPLO] [JURÍDICO]`: cliente real só com depoimentos verdadeiros e autorizados.
 
 ## O que o Gold tem
 

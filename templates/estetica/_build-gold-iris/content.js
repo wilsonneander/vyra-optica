@@ -296,68 +296,6 @@ const produtos = [
 ];
 const entrega = [['retirar', 'Retirar na clínica', 0], ['campinas', 'Entrega em Campinas', 12], ['correios', 'Correios, para outras cidades', null]];
 
-// Blog. Cada post vira uma página em blog/<slug>.html com dados estruturados de artigo.
-const posts = [
-  {
-    slug: 'depilacao-a-laser-no-verao', seg: 'laser', foto: 'laser', data: '2026-11-04', min: 4,
-    titulo: 'Dá para fazer depilação a laser no verão?',
-    resumo: 'Dá, com três cuidados. O problema não é a estação, é a pele bronzeada na hora do disparo.',
-    corpo: [
-      ['p', 'A pergunta aparece toda vez que o calor chega. A resposta curta é sim: a depilação a laser pode continuar no verão. O que muda é o cuidado com o sol nas áreas tratadas, porque o laser procura o pigmento do pelo, e uma pele bronzeada também tem mais pigmento.'],
-      ['h2', 'Por que o bronzeado atrapalha'],
-      ['p', 'O laser de diodo é calibrado para aquecer o folículo sem aquecer a pele em volta. Quando a pele escurece pelo sol, a diferença entre o tom do pelo e o tom da pele diminui, e o risco de mancha ou de queimadura aumenta. Por isso pedimos 15 dias sem sol direto na área antes da sessão.'],
-      ['h2', 'Os três cuidados'],
-      ['p', 'Protetor solar FPS 50 todos os dias nas áreas expostas, como rosto, axilas no biquíni e pernas. Nada de bronzeamento natural ou artificial durante o pacote. E sessões marcadas fora das semanas de praia: se a viagem é em janeiro, faça a sessão de dezembro logo no começo do mês.'],
-      ['h2', 'Áreas que quase não pegam sol'],
-      ['p', 'Virilha, glúteos e axilas costumam ficar cobertas e seguem normalmente no verão. Para rosto e pernas, a profissional confere o tom da pele no dia e pode ajustar a potência ou adiar a sessão. Adiar uma sessão não faz você perder o que já foi feito.'],
-      ['p', 'Ficou com dúvida sobre a sua pele? A avaliação com teste de mecha é sem custo e já sai com o plano por escrito.'],
-    ],
-  },
-  {
-    slug: 'como-fazer-a-extensao-de-cilios-durar', seg: 'cilios', foto: 'olho-cilios', data: '2026-10-21', min: 3,
-    titulo: 'Como fazer a extensão de cílios durar até a manutenção',
-    resumo: 'Nas primeiras 24 horas, nada de água. Depois, limpeza todo dia, e não o contrário.',
-    corpo: [
-      ['p', 'Os fios de extensão caem junto com os seus cílios naturais, que se renovam o tempo todo. Por isso a manutenção existe. O que dá para evitar é a queda antes da hora, e ela quase sempre vem de três hábitos.'],
-      ['h2', 'As primeiras 24 horas'],
-      ['p', 'A cola termina de curar ao longo do primeiro dia. Evite água, vapor, sauna e academia nesse período. Depois disso, pode molhar normalmente.'],
-      ['h2', 'Limpar não é inimigo'],
-      ['p', 'Muita gente deixa de lavar os cílios com medo de perder fios, e o acúmulo de oleosidade e maquiagem é justamente o que solta a cola. Use espuma sem óleo, uma vez por dia, e seque com o ar frio do secador.'],
-      ['h2', 'O travesseiro e o rímel'],
-      ['p', 'Dormir de bruços amassa os fios contra o travesseiro. Fronha de cetim ajuda. E não use rímel nem curvex: a extensão já faz o papel dos dois.'],
-      ['p', 'Com esses cuidados, a manutenção a cada 15 a 21 dias costuma repor entre 30% e 40% dos fios.'],
-    ],
-  },
-  {
-    slug: 'cera-ou-laser-como-escolher', seg: 'cera', foto: 'cera', data: '2026-10-08', min: 5,
-    titulo: 'Cera ou laser: como escolher para cada área do corpo',
-    resumo: 'Não precisa ser uma coisa ou outra. A escolha depende da área, do pelo e do seu calendário.',
-    corpo: [
-      ['p', 'Cera e laser não competem: muitas clientes fazem laser nas pernas e nas axilas e continuam com a cera no buço ou na virilha durante o pacote. O que decide é o tipo de pelo, a área e quanto tempo você quer gastar com depilação nos próximos anos.'],
-      ['h2', 'Quando o laser faz mais sentido'],
-      ['p', 'Pelo escuro e grosso, em áreas maiores, como pernas, axilas e virilha. É nessas áreas que o laser de diodo trabalha melhor e onde a soma das sessões de cera ao longo dos anos fica mais alta.'],
-      ['h2', 'Quando a cera continua melhor'],
-      ['p', 'Pelos muito claros, ruivos ou brancos, que o laser não enxerga bem. Quem está grávida, em uso de isotretinoína ou não pode evitar o sol por alguns meses. E quem quer resolver uma área pequena de vez em quando.'],
-      ['h2', 'Durante o pacote de laser'],
-      ['p', 'Entre as sessões, não arranque o pelo: nada de cera, pinça ou linha na área tratada. Pode usar lâmina. O laser precisa do pelo dentro do folículo para funcionar.'],
-      ['p', 'No simulador desta página dá para comparar o custo das duas opções por área antes de decidir.'],
-    ],
-  },
-  {
-    slug: 'design-de-sobrancelhas-comeca-pela-regua', seg: 'sobrancelhas', foto: 'sobrancelha-feita', data: '2026-09-23', min: 3,
-    titulo: 'Design de sobrancelhas começa pela régua, não pela pinça',
-    resumo: 'Onde a sobrancelha começa, sobe e termina depende do seu rosto, não da moda do ano.',
-    corpo: [
-      ['p', 'Antes de tirar o primeiro fio, a designer marca três pontos no seu rosto: onde a sobrancelha começa, onde fica o ponto mais alto do arco e onde ela termina. As medidas saem da linha do nariz, do centro da pupila e do canto externo do olho.'],
-      ['h2', 'Por que medir'],
-      ['p', 'Duas sobrancelhas nunca são iguais, e o rosto também não. A medida evita o erro mais comum, que é afinar demais o começo ou subir demais o arco, o que muda a sua expressão e leva meses para crescer de volta.'],
-      ['h2', 'Henna, lamination ou só o design'],
-      ['p', 'O design sozinho limpa e define. A henna preenche falhas e marca o desenho por alguns dias. A lamination penteia os fios para cima e dá volume por até seis semanas. A designer indica a melhor opção depois de ver os seus fios.'],
-      ['p', 'Entre uma visita e outra, não tire fio nenhum dentro do desenho. Os fios de fora podem sair com pinça, com calma, uma vez por semana.'],
-    ],
-  },
-];
-
 // Avaliação inicial online (anamnese simplificada). [JURÍDICO] Dados de saúde = dados sensíveis (LGPD, art. 11):
 // as respostas ficam só no navegador da cliente e só saem se ela tocar em enviar para a clínica.
 // `seg`: a pergunta aparece se a cliente escolheu algum desses serviços. `regras`: resposta -> { segmento: [status, motivo] }
@@ -394,6 +332,9 @@ const anamnese = [
     regras: { sim: { sobrancelhas: ['adiar', 'Espere completar 30 dias da micropigmentação.'] } } },
 ];
 
+// Abertura: três frases que surgem e somem antes da página (uma vez por visita). Cor = token do CSS.
+const aberturaFrases = [['Cada fio', 'tinta'], ['cada detalhe', 'iris'], ['no seu lugar', 'cobre']];
+
 // `seg`: a pergunta só aparece se o segmento estiver ligado
 const faq = [
   ['A depilação a laser é definitiva?', 'Não prometemos depilação definitiva. O laser reduz os pelos aos poucos, sessão a sessão, e a maioria das clientes faz manutenção uma ou duas vezes por ano depois do pacote.', 'laser'],
@@ -420,5 +361,5 @@ const seoLocal = {
 module.exports = {
   marca, responsavel, abertura, horarios, equipe, fotos, segmentos, areas, laserPacotes, laserCombo, laserIntervalo, parcelas,
   servicos, provador, pagamento, etapas, contraindicacoes, politicas, seguranca, avisoResultado, antesDepois, google, clube, vale,
-  produtos, entrega, posts, anamnese, faq, bairros, seoLocal,
+  produtos, entrega, aberturaFrases, anamnese, faq, bairros, seoLocal,
 };

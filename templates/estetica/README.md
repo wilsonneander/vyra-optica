@@ -144,11 +144,11 @@ Segundo modelo Gold, **só depilação, cílios e sobrancelhas**: depilação a 
 
 | Pasta | O que é |
 |---|---|
-| `_build-gold-iris/content.js` | Todo o conteúdo: marca, equipe com a agenda de cada profissional, áreas do corpo com preço de cera e laser, pacotes, serviços, provador, políticas, contraindicações, anamnese, avaliações do Google, clube, vale-presente, loja, blog, FAQ e SEO local. `[EXEMPLO]` e `[JURÍDICO]` como nos outros |
+| `_build-gold-iris/content.js` | Todo o conteúdo: marca, equipe com a agenda de cada profissional, áreas do corpo com preço de cera e laser, pacotes, serviços, provador, políticas, contraindicações, anamnese, avaliações do Google, clube, vale-presente, loja, FAQ, frases da abertura e SEO local. `[EXEMPLO]` e `[JURÍDICO]` como nos outros |
 | `_build-gold-iris/desenho.js` | Desenhos em SVG feitos em código: olho com cílios fio a fio (estilos, curvatura, tamanho, piscar), sobrancelha fio a fio (formas, henna, "antes" desarrumado), perna com e sem pelos e a silhueta do mapa do corpo. Roda no build e no navegador |
 | `_build-gold-iris/build.js`, `style.css`, `app.js` | Gerador, design e interações. CSS e JS em arquivos próprios (`assets/site.css`, `assets/site.js`), porque o site tem várias páginas |
 | `_build-gold-iris/img/` | 18 fotos do Unsplash (créditos em `creditos.json`) e o mapa na paleta Íris (`node gerar-mapa.js iris img/mapa_cambui.webp`) |
-| `gold-iris/` | **Site pronto**: `index.html`, `blog/` (índice e 4 artigos), `sitemap.xml`, `robots.txt` |
+| `gold-iris/` | **Site pronto**: `index.html`, `sitemap.xml`, `robots.txt` |
 
 ```bash
 node templates/estetica/_build-gold-iris/build.js
@@ -169,14 +169,17 @@ O que tem, de cima para baixo:
 - **Clube Íris**: quatro planos, mensal sem fidelidade ou anual com valor menor, com o avulso equivalente e as regras
 - **Vale-presente**: valor ou serviço, três estampas, para, de e mensagem, com o cartão ao vivo (inclina com o cursor), código e validade. Compra pelo WhatsApp
 - **Loja** com 8 produtos (embalagens desenhadas, sem foto) e sacola lateral que guarda os itens no navegador, com entrega e pedido pelo WhatsApp
-- **Blog**: destaque e lista na home, página de índice e 4 artigos com autora (responsável técnica), migalha e "Leia também"
 - **Como funciona**: etapas em linha, contraindicações por segmento, políticas (avaliação prévia, agendamento, cancelamento com destaque 24h, remarcação, desistência) e segurança e higiene (descartáveis, autoclave, Anvisa, licença)
 - **Dúvidas**, **SEO local** (texto do bairro, como chegar, estacionamento, endereço) e o **rodapé** padrão com mapa OpenStreetMap, bairros, horários com o dia de hoje, canais, redes, razão social, CNPJ, responsável técnica e os termos
-- **Tema claro e escuro**: botão no topo com um olho que fecha à noite; a troca abre em círculo a partir do botão (View Transitions). Fica guardado no navegador (`camelia-iris-tema`) e o link aceita `?tema=escuro`. Provador, clube e rodapé continuam escuros nos dois temas
+- **Abertura**: um olho se desenha e três frases ("Cada fio", "cada detalhe", "no seu lugar") surgem com desfoque antes da cortina subir, uma vez por visita. `?intro` mostra de novo, `?semintro` pula; as frases ficam em `aberturaFrases` no `content.js`
+- **História na rolagem**: cada bloco acompanha a posição da página (sobe, entra de lado ou cresce) e se desfaz quando você volta; títulos, fotos e contadores também refazem a entrada
+- **Fundos vivos**: manchas de luz lilás e cobre derivam devagar atrás de cada seção, algumas com anéis girando
+- **Flores no clique**: o mesmo gesto do Silver, com camélias nas cores Íris
+- **Tema claro e escuro**: no computador, botão fixo na lateral esquerda, no meio da tela, com "Dia" e "Noite" na vertical; no celular, no topo. É um olho que fecha à noite; a troca abre em círculo a partir do botão (View Transitions). Fica guardado no navegador (`camelia-iris-tema`) e o link aceita `?tema=escuro`. Provador, clube e rodapé continuam escuros nos dois temas
 - **Camada premium**: cursor próprio (ponto cobre e anel que segue com atraso, cresce sobre o que é clicável e mostra "Arraste", "Preços", "Ler", "Gire" onde faz sentido; some nos campos e no toque), botões com fundo que sobe em onda e efeito magnético, títulos que sobem palavra a palavra, fotos que se revelam de baixo para cima, paralaxe leve, barra de leitura no topo, números da capa e do Google que contam ao aparecer, e um grão finíssimo de papel. Tudo desliga com "reduzir movimento"
-- **SEO**: título e descrição por página, canonical, Open Graph, geo, dados estruturados (BeautySalon com endereço, coordenadas, horários, bairros atendidos, equipe com registro, catálogo de serviços com preço, nota; FAQPage; BlogPosting e BreadcrumbList nos artigos) e `sitemap.xml`. Como é modelo, sai com `noindex` e `robots.txt` fechado: no site real, liberar os dois
+- **SEO**: título e descrição por página, canonical, Open Graph, geo, dados estruturados (BeautySalon com endereço, coordenadas, horários, bairros atendidos, equipe com registro, catálogo de serviços com preço, nota; FAQPage) e `sitemap.xml`. Como é modelo, sai com `noindex` e `robots.txt` fechado: no site real, liberar os dois
 
-Segmentos: `ativo` em `segmentos` no `content.js` (`laser`, `cera`, `sobrancelhas`, `cilios`). Desligado, some da faixa, do provador ou do mapa do corpo, dos preços, da agenda, da anamnese, das avaliações, do clube, da loja e do blog.
+Segmentos: `ativo` em `segmentos` no `content.js` (`laser`, `cera`, `sobrancelhas`, `cilios`). Desligado, some da faixa, do provador ou do mapa do corpo, dos preços, da agenda, da anamnese, das avaliações, do clube e da loja. O blog foi tirado do modelo a pedido (está no histórico do git, commit 5c13db7).
 
 **Paleta Íris** (só deste modelo)
 

@@ -1,7 +1,8 @@
 // Gera o Gold "Íris" de estética (Camélia Estética, marca fictícia) em "templates/estetica/gold-iris/".
 // Depilação a laser e com cera, design de sobrancelhas, extensão de cílios e lash lifting.
 // Site completo: provador do olhar, mapa do corpo com simulador de pacotes, preços, antes e depois arrastável,
-// agenda por profissional, avaliação online, avaliações do Google, clube, vale-presente, loja, blog e SEO local.
+// agenda por profissional, avaliação online, avaliações do Google, clube, vale-presente, loja e SEO local.
+// Abre com três frases (uma vez por visita), tem tema claro e escuro e a página se monta conforme a rolagem.
 // Uso: node templates/estetica/_build-gold-iris/build.js
 const fs = require('fs');
 const path = require('path');
@@ -36,7 +37,6 @@ const tit = ([a, b, c = '']) => `${esc(a)}<em>${esc(b)}</em>${esc(c)}`;
 // ---------- arquivos ----------
 if (fs.existsSync(OUT)) for (const f of fs.readdirSync(OUT)) fs.rmSync(path.join(OUT, f), { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, 'assets', 'img'), { recursive: true });
-fs.mkdirSync(path.join(OUT, 'blog'), { recursive: true });
 for (const f of fs.readdirSync(FOTOS)) fs.copyFileSync(path.join(FOTOS, f), path.join(OUT, 'assets', 'img', f));
 fs.copyFileSync(path.join(__dirname, 'img', 'mapa_cambui.webp'), path.join(OUT, 'assets', 'img', 'mapa_cambui.webp'));
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
@@ -56,7 +56,7 @@ const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link
 
 // ---------- dados para o navegador ----------
 const dados = {
-  whatsapp: M.whatsapp, nome: M.completo, endereco, abertura: C.abertura, ligados,
+  whatsapp: M.whatsapp, nome: M.completo, endereco, abertura: C.abertura, intro: C.aberturaFrases, ligados,
   equipe: C.equipe.map(({ id, nome, cargo, foto: f, faz, agenda }) => ({ id, nome, cargo, foto: f, faz: faz.filter(ligado), agenda })).filter((p) => p.faz.length),
   servicos: SERV.map(({ id, cat, nome, min, preco, de, gratis, manut, porArea }) => ({ id, cat, nome, min, preco, de, gratis, manut, porArea })),
   areas: C.areas.map(([id, nome, cera, laser, vista, x, y, sessoes]) => ({ id, nome, cera, laser, vista, x, y, sessoes })),
@@ -69,21 +69,21 @@ const dados = {
   segNomes: Object.fromEntries(C.segmentos.map((s) => [s.id, s.curto])),
 };
 
-// ---------- topo e rodapé (compartilhados com o blog; `pre` = caminho até a raiz) ----------
+// ---------- topo e rodapé (`pre` = caminho até a raiz, para páginas em subpastas) ----------
 const nav = [
   ['servicos', 'Serviços'], temOlhar && ['provador', 'Provador'], temCorpo && ['corpo', 'Mapa do corpo'], ['precos', 'Preços'],
-  ['clube', 'Clube'], ['loja', 'Loja'], ['blog', 'Blog'],
+  ['clube', 'Clube'], ['loja', 'Loja'], ['contato', 'Contato'],
 ].filter(Boolean);
 const topo = (pre = '', ancora = (id) => `${pre ? `${pre}index.html` : ''}#${id}`) => `<a class="pular" href="#conteudo">Pular para o conteúdo</a>
 <header class="topo" id="topo">
   <div class="topo-in">
     <a class="logo" href="${pre || './'}${pre ? 'index.html' : ''}#inicio" aria-label="${M.completo}, início">${I.logo}</a>
     <nav class="menu" id="menu" aria-label="Principal">
-      ${nav.map(([id, t]) => `<a href="${ancora(id)}">${t}</a>`).join('\n      ')}
+      ${nav.map(([id, t]) => `<a href="${ancora(id)}"><span data-t="${t}">${t}</span></a>`).join('\n      ')}
     </nav>
     <div class="topo-acoes">
       <span class="aberto" data-aberto hidden></span>
-      <button type="button" class="tema-btn" data-tema-btn aria-pressed="false" aria-label="Ativar o tema escuro"><svg viewBox="0 0 40 40" aria-hidden="true">
+      <button type="button" class="tema-btn tema-topo" data-tema-btn aria-pressed="false" aria-label="Ativar o tema escuro"><svg viewBox="0 0 40 40" aria-hidden="true">
         <path class="tb-palp" d="M6 20C11 11.5 29 11.5 34 20"/><path d="M6 20C11 28.5 29 28.5 34 20"/>
         <g class="tb-cil"><path d="M11.5 15.2 9.6 12.4M16.4 13 15.6 9.8M21.6 12.4l.2-3.3M26.6 13.6l1.4-3M30.6 16.2l2.4-2.2"/></g>
         <circle class="tb-iris" cx="20" cy="20" r="5"/><circle class="tb-brilho" cx="18.4" cy="18.4" r="1.4"/>
@@ -95,7 +95,13 @@ const topo = (pre = '', ancora = (id) => `${pre ? `${pre}index.html` : ''}#${id}
     </div>
   </div>
   <span class="progresso" aria-hidden="true"></span>
-</header>`;
+</header>
+<div class="tema-lado"><button type="button" class="tema-btn" data-tema-btn aria-pressed="false" aria-label="Ativar o tema escuro"><svg viewBox="0 0 40 40" aria-hidden="true">
+        <path class="tb-palp" d="M6 20C11 11.5 29 11.5 34 20"/><path d="M6 20C11 28.5 29 28.5 34 20"/>
+        <g class="tb-cil"><path d="M11.5 15.2 9.6 12.4M16.4 13 15.6 9.8M21.6 12.4l.2-3.3M26.6 13.6l1.4-3M30.6 16.2l2.4-2.2"/></g>
+        <circle class="tb-iris" cx="20" cy="20" r="5"/><circle class="tb-brilho" cx="18.4" cy="18.4" r="1.4"/>
+        <text class="tb-z" x="28" y="11">z</text>
+      </svg></button><span class="tema-rot" aria-hidden="true"><b>Dia</b><b>Noite</b></span></div>`;
 
 const dias = C.horarios.map(([d, h], i) => `<tr data-linha="${i}"><th scope="row">${d}</th><td>${h}</td></tr>`).join('');
 const rodape = (pre = '') => `<footer class="rodape" id="contato">
@@ -202,11 +208,11 @@ const cabeca = ({ titulo, descricao, url, pre = '', imagem = 'capa', extra = '',
 <link rel="canonical" href="${M.dominio}/${url}">
 <meta name="robots" content="noindex, nofollow"><!-- modelo de catálogo: no site real, trocar por "index, follow" e liberar o robots.txt -->
 <meta name="geo.region" content="BR-${M.uf}"><meta name="geo.placename" content="${M.cidade}"><meta name="geo.position" content="${M.geo.join(';')}"><meta name="ICBM" content="${M.geo.join(', ')}">
-<meta property="og:type" content="${url.startsWith('blog/') && url !== 'blog/' ? 'article' : 'website'}"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="${M.completo}">
+<meta property="og:type" content="website"><meta property="og:locale" content="pt_BR"><meta property="og:site_name" content="${M.completo}">
 <meta property="og:title" content="${esc(titulo)}"><meta property="og:description" content="${esc(descricao)}"><meta property="og:url" content="${M.dominio}/${url}"><meta property="og:image" content="${M.dominio}/assets/img/${imagem}.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1E2233">
-<script>try{var t=new URLSearchParams(location.search).get('tema')||localStorage.getItem('camelia-iris-tema');if(t==='escuro')document.documentElement.dataset.tema='escuro'}catch(e){}</script>
+<script>(function(){var d=document.documentElement,t=null,v=null;try{var q=new URLSearchParams(location.search);t=q.get('tema')||localStorage.getItem('camelia-iris-tema');v=q.has('intro')?null:q.has('semintro')?'1':sessionStorage.getItem('camelia-iris-intro')}catch(e){}if(t==='escuro')d.dataset.tema='escuro';if(!v&&!matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('intro')})()</script>
 <link rel="icon" href="${pre}assets/favicon.svg" type="image/svg+xml">
 ${fontes}
 <link rel="stylesheet" href="${pre}assets/site.css">
@@ -643,22 +649,6 @@ const loja = !PR.length ? '' : `<section class="loja" id="loja" aria-labelledby=
   <p class="mini centro">Cosméticos com notificação na Anvisa. Preços de exemplo do modelo.</p>
 </section>`;
 
-// blog
-const POSTS = C.posts.filter((p) => ligado(p.seg));
-const dataBR = (d) => new Date(`${d}T12:00:00`).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
-const blog = !POSTS.length ? '' : `<section class="blog" id="blog" aria-labelledby="blog-t">
-  <div class="sec-cab"><h2 id="blog-t">${tit(['Dicas ', 'de quem faz', ''])}</h2><p>Cuidados antes e depois, escolhas e dúvidas que aparecem toda semana na clínica.</p></div>
-  <div class="posts">
-    ${POSTS.map((p, i) => `<article class="post${i ? '' : ' post-grande'}">
-      <a href="blog/${p.slug}.html">${foto(p.foto, { cls: 'post-foto' })}
-      <span class="post-meta">${dataBR(p.data)}, ${p.min} min de leitura</span>
-      <h3>${esc(p.titulo)}</h3>
-      <p>${esc(p.resumo)}</p></a>
-    </article>`).join('\n    ')}
-  </div>
-  <p class="centro"><a class="link-seta" href="blog/index.html">Todos os artigos ${I.seta}</a></p>
-</section>`;
-
 // como funciona, políticas, contraindicações e segurança
 const atendimento = `<section class="atendimento" id="atendimento" aria-labelledby="atend-t">
   <div class="sec-cab"><h2 id="atend-t">${tit(['Como funciona ', 'antes, durante e depois', ''])}</h2><p>Avaliação, testes, regras de agendamento e o que fazemos para cada atendimento ser seguro.</p></div>
@@ -695,6 +685,11 @@ const index = `${cabeca({
   url: '', ld: ldIndex,
 })}
 <body>
+<div class="abertura" id="abertura" aria-hidden="true">
+  <svg class="ab-olho" viewBox="0 0 120 60"><path class="ab-palp" d="M8 32C30 6 90 6 112 30"/><path class="ab-baixo" d="M8 32C32 52 88 52 112 30"/><circle class="ab-iris" cx="60" cy="30" r="13"/><circle class="ab-pupila" cx="60" cy="30" r="5"/><g class="ab-cil"><path d="M22.6 22.2l-4.1 -8.0"/><path d="M31.9 16.8l-3.1 -8.5"/><path d="M41.3 12.6l-2.1 -8.8"/><path d="M50.6 9.9l-1.1 -8.9"/><path d="M60.0 9.0l0.0 -9.0"/><path d="M69.4 9.9l1.1 -8.9"/><path d="M78.7 12.6l2.1 -8.8"/><path d="M88.1 16.8l3.1 -8.5"/><path d="M97.4 22.2l4.1 -8.0"/></g></svg>
+  <p class="abertura-frase"></p>
+  <span class="abertura-pular">Toque para pular</span>
+</div>
 ${topo()}
 <main id="conteudo">
 ${capa}
@@ -710,7 +705,6 @@ ${google}
 ${clube}
 ${vale}
 ${loja}
-${blog}
 ${atendimento}
 ${duvidas}
 ${local}
@@ -724,66 +718,9 @@ ${dialogs()}
 `;
 fs.writeFileSync(path.join(OUT, 'index.html'), index);
 
-// ================= blog =================
-const migalha = (itens) => ({ '@type': 'BreadcrumbList', itemListElement: itens.map(([n, u], i) => ({ '@type': 'ListItem', position: i + 1, name: n, item: `${M.dominio}/${u}` })) });
-const paginaBlog = (conteudo, opts) => `${cabeca({ pre: '../', ...opts })}
-<body class="pag-blog">
-${topo('../')}
-<main id="conteudo">
-${conteudo}
-</main>
-${rodape('../')}
-${dialogs('../')}
-<script type="application/json" id="dados">${JSON.stringify({ whatsapp: M.whatsapp, nome: M.completo, abertura: C.abertura, produtos: dados.produtos, entrega: C.entrega }).replace(/</g, '\\u003c')}</script>
-<script src="../assets/site.js" defer></script>
-</body>
-</html>
-`;
-for (const p of POSTS) {
-  const outros = POSTS.filter((x) => x !== p).slice(0, 3);
-  const segP = C.segmentos.find((s) => s.id === p.seg);
-  const corpo = `<article class="artigo">
-  <nav class="migalha" aria-label="Você está em"><a href="../index.html">Início</a><span aria-hidden="true">/</span><a href="index.html">Blog</a><span aria-hidden="true">/</span><span>${esc(segP.curto)}</span></nav>
-  <header class="artigo-cab">
-    <p class="post-meta">${dataBR(p.data)}, ${p.min} min de leitura</p>
-    <h1>${esc(p.titulo)}</h1>
-    <p class="artigo-lead">${esc(p.resumo)}</p>
-  </header>
-  <figure class="artigo-foto">${foto(p.foto, { pre: '../', lazy: false })}</figure>
-  <div class="artigo-corpo">
-    ${p.corpo.map(([t, x]) => `<${t}>${esc(x)}</${t}>`).join('\n    ')}
-    <aside class="artigo-autora">${foto('helena', { pre: '../', cls: 'autora-foto' })}<p><b>Revisado por ${R.nome}</b><br>${R.cargo}, ${R.registro}</p></aside>
-    <div class="artigo-cta"><p>Quer conversar sobre o seu caso?</p><div data-iguais><a class="btn btn-tinta" href="../index.html#agenda">${I.agenda}Agendar</a><a class="btn btn-linha" href="../index.html#avaliacao">Avaliação online</a></div></div>
-  </div>
-  ${outros.length ? `<section class="relacionados" aria-labelledby="rel-t"><h2 id="rel-t">Leia também</h2><div class="posts posts-mini">${outros.map((o) => `<article class="post"><a href="${o.slug}.html">${foto(o.foto, { pre: '../', cls: 'post-foto' })}<span class="post-meta">${o.min} min de leitura</span><h3>${esc(o.titulo)}</h3></a></article>`).join('')}</div></section>` : ''}
-</article>`;
-  fs.writeFileSync(path.join(OUT, 'blog', `${p.slug}.html`), paginaBlog(corpo, {
-    titulo: `${p.titulo} | Blog ${M.completo}`, descricao: p.resumo, url: `blog/${p.slug}.html`, imagem: p.foto,
-    ld: {
-      '@context': 'https://schema.org',
-      '@graph': [
-        { '@type': 'BlogPosting', headline: p.titulo, description: p.resumo, datePublished: p.data, dateModified: p.data, inLanguage: 'pt-BR',
-          image: `${M.dominio}/assets/img/${p.foto}.webp`, mainEntityOfPage: `${M.dominio}/blog/${p.slug}.html`,
-          author: { '@type': 'Person', name: R.nome, jobTitle: R.cargo }, publisher: { '@id': negocioId } },
-        migalha([['Início', ''], ['Blog', 'blog/'], [p.titulo, `blog/${p.slug}.html`]]),
-        { '@type': ['BeautySalon'], '@id': negocioId, name: M.completo, address: negocio.address, telephone: negocio.telephone },
-      ],
-    },
-  }));
-}
-const blogIndex = `<div class="blog-pag">
-  <nav class="migalha" aria-label="Você está em"><a href="../index.html">Início</a><span aria-hidden="true">/</span><span>Blog</span></nav>
-  <header class="artigo-cab"><h1>Dicas <em>de quem faz</em></h1><p class="artigo-lead">Depilação, cílios e sobrancelhas: cuidados, escolhas e dúvidas da clínica, revisados pela responsável técnica.</p></header>
-  <div class="posts">${POSTS.map((p, i) => `<article class="post${i ? '' : ' post-grande'}"><a href="${p.slug}.html">${foto(p.foto, { pre: '../', cls: 'post-foto' })}<span class="post-meta">${dataBR(p.data)}, ${p.min} min de leitura</span><h2>${esc(p.titulo)}</h2><p>${esc(p.resumo)}</p></a></article>`).join('')}</div>
-</div>`;
-fs.writeFileSync(path.join(OUT, 'blog', 'index.html'), paginaBlog(blogIndex, {
-  titulo: `Blog de depilação, cílios e sobrancelhas | ${M.completo}`, descricao: 'Dicas de cuidados antes e depois da depilação a laser e com cera, extensão de cílios e design de sobrancelhas.', url: 'blog/',
-  ld: { '@context': 'https://schema.org', '@graph': [{ '@type': 'Blog', name: `Blog ${M.completo}`, url: `${M.dominio}/blog/`, publisher: { '@id': negocioId }, blogPost: POSTS.map((p) => ({ '@type': 'BlogPosting', headline: p.titulo, url: `${M.dominio}/blog/${p.slug}.html`, datePublished: p.data })) }, migalha([['Início', ''], ['Blog', 'blog/']])] },
-}));
-
 // sitemap e robots
 const hoje = '2026-11-20';
-const urls = [['', hoje, '1.0'], ['blog/', hoje, '0.6'], ...POSTS.map((p) => [`blog/${p.slug}.html`, p.data, '0.5'])];
+const urls = [['', hoje, '1.0']];
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map(([u, d, p]) => `  <url><loc>${M.dominio}/${u}</loc><lastmod>${d}</lastmod><priority>${p}</priority></url>`).join('\n')}
@@ -792,5 +729,5 @@ ${urls.map(([u, d, p]) => `  <url><loc>${M.dominio}/${u}</loc><lastmod>${d}</las
 // modelo de catálogo: bloqueado. No site real: "Allow: /" e a linha do Sitemap
 fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nDisallow: /\n# Site real: trocar por "Allow: /" e manter a linha abaixo\n# Sitemap: ${M.dominio}/sitemap.xml\n`);
 
-console.log(`ok: ${path.relative(process.cwd(), OUT)} (index + ${POSTS.length + 1} páginas de blog)`);
+console.log(`ok: ${path.relative(process.cwd(), OUT)}`);
 if (faltando.length) console.log('fotos faltando:', [...new Set(faltando)].join(', '));

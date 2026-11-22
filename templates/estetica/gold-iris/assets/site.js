@@ -330,17 +330,6 @@
     if ((i === 0 && d >= 1 && d <= 5) || (i === 1 && d === 6) || (i === 2 && d === 0)) tr.classList.add('hoje');
   });
 
-  // ---------- entrada ao rolar ----------
-  const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => {
-    if (e.isIntersecting) { e.target.classList.add('visto'); io.unobserve(e.target); }
-  }), { rootMargin: '0px 0px -8% 0px' }) : null;
-  if (io && !reduz) {
-    $$('.sec-cab, .painel, .pessoa, .plano, .produto, .post, .etapas li, .politica, .av, .serv-lista, .tab-areas, .contra, .seguranca').forEach((el, i) => {
-      el.classList.add('revela');
-      el.style.transitionDelay = `${(i % 4) * 70}ms`;
-      io.observe(el);
-    });
-  }
   const etapas = $('.etapas');
   if (etapas && 'IntersectionObserver' in window) {
     new IntersectionObserver((es, ob) => es.forEach((e) => { if (e.isIntersecting) { etapas.style.setProperty('--linha-p', '100%'); ob.disconnect(); } }), { threshold: .6 }).observe(etapas);
@@ -1030,53 +1019,122 @@
   }
 })();
 
-// ===================== camada premium: tema, cursor, botões magnéticos, rolagem e contadores =====================
+// ===================== camada premium: abertura, tema, história na rolagem, cursor, flores e fundos vivos =====================
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const raiz = document.documentElement;
   const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fino = matchMedia('(pointer: fine)').matches;
-  const guarda = (k, v) => { try { localStorage.setItem(k, v); } catch { /* sem armazenamento */ } };
+  const dadosEl = $('#dados');
+  const D = dadosEl ? JSON.parse(dadosEl.textContent) : {};
+  const guarda = (k, v, t = localStorage) => { try { t.setItem(k, v); } catch { /* sem armazenamento */ } };
+  const sorte = (a, b) => a + Math.random() * (b - a);
+  const limita = (v) => Math.max(0, Math.min(1, v));
 
-  // ---------- tema claro e escuro: o olho do botão fecha à noite, e a troca abre em círculo a partir dele ----------
-  const temaBtn = $('[data-tema-btn]');
+  // ---------- abertura: o olho se desenha, três frases surgem com desfoque, depois a cortina sobe ----------
+  const abertura = $('#abertura');
+  const fimAbertura = () => { raiz.classList.add('pos-intro'); dispatchEvent(new Event('camelia:pronto')); };
+  if (raiz.classList.contains('intro') && abertura && D.intro) {
+    const frase = $('.abertura-frase', abertura);
+    $$('.ab-cil path', abertura).forEach((p, k) => p.style.setProperty('--k', k));
+    const cada = 1150, inicio = 900, timers = [];
+    let fim = false;
+    const termina = () => {
+      if (fim) return;
+      fim = true;
+      timers.forEach(clearTimeout);
+      guarda('camelia-iris-intro', '1', sessionStorage);
+      abertura.classList.add('sobe');
+      fimAbertura();
+      setTimeout(() => { raiz.classList.remove('intro'); abertura.remove(); }, 900);
+    };
+    const mostra = (i) => {
+      const [t, cor] = D.intro[i];
+      frase.textContent = t;
+      frase.dataset.cor = cor;
+      frase.classList.remove('vai');
+      void frase.offsetWidth;
+      frase.classList.add('vai');
+    };
+    abertura.addEventListener('click', termina);
+    addEventListener('keydown', termina, { once: true });
+    D.intro.forEach((_, i) => timers.push(setTimeout(() => mostra(i), inicio + i * cada)));
+    timers.push(setTimeout(termina, inicio + D.intro.length * cada));
+  } else {
+    abertura?.remove();
+    raiz.classList.remove('intro');
+    requestAnimationFrame(fimAbertura);
+  }
+
+  // ---------- tema claro e escuro: o olho fecha à noite e a troca abre em círculo a partir do botão ----------
+  const temaBtns = $$('[data-tema-btn]');
   const metaCor = $('meta[name="theme-color"]');
   const marcaTema = () => {
     const escuro = raiz.dataset.tema === 'escuro';
-    if (temaBtn) { temaBtn.setAttribute('aria-pressed', String(escuro)); temaBtn.setAttribute('aria-label', escuro ? 'Ativar o tema claro' : 'Ativar o tema escuro'); }
+    temaBtns.forEach((b) => { b.setAttribute('aria-pressed', String(escuro)); b.setAttribute('aria-label', escuro ? 'Ativar o tema claro' : 'Ativar o tema escuro'); });
     if (metaCor) metaCor.content = escuro ? '#101325' : '#1E2233';
   };
   const aplica = (t) => { if (t === 'escuro') raiz.dataset.tema = 'escuro'; else delete raiz.dataset.tema; marcaTema(); guarda('camelia-iris-tema', t); };
   marcaTema();
-  temaBtn?.addEventListener('click', () => {
+  temaBtns.forEach((btn) => btn.addEventListener('click', () => {
     const novo = raiz.dataset.tema === 'escuro' ? 'claro' : 'escuro';
     if (!document.startViewTransition || reduz) return aplica(novo);
-    const r = temaBtn.getBoundingClientRect();
+    const r = btn.getBoundingClientRect();
     const x = r.left + r.width / 2, y = r.top + r.height / 2;
     const raio = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
     const vt = document.startViewTransition(() => aplica(novo));
-    vt.ready.then(() => raiz.animate({ clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${raio}px at ${x}px ${y}px)`] }, { duration: 750, easing: 'cubic-bezier(.2,.7,.2,1)', pseudoElement: '::view-transition-new(root)' })).catch(() => {});
-  });
+    vt.ready.then(() => raiz.animate({ clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${raio}px at ${x}px ${y}px)`] }, { duration: 800, easing: 'cubic-bezier(.2,.7,.2,1)', pseudoElement: '::view-transition-new(root)' })).catch(() => {});
+  }));
 
-  // ---------- títulos: cada palavra numa máscara, para subir em sequência ----------
+  // ---------- flores do clique: o gesto do Silver, nas cores Íris ----------
+  if (!reduz) {
+    const florSvg = (p, m) => `<svg viewBox="0 0 24 24" width="100%" height="100%">${[[12, 4.4], [19.2, 9.6], [16.5, 18.2], [7.5, 18.2], [4.8, 9.6]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="4.4" fill="${p}"/>`).join('')}<circle cx="12" cy="12" r="3.3" fill="${m}"/></svg>`;
+    const cores = [['#B7ACD8', '#62558E'], ['#E7E3EE', '#62558E'], ['#D9A58C', '#1E2233'], ['#62558E', '#E7E3EE'], ['#A9654B', '#F6F3EF'], ['#1E2233', '#B7ACD8']];
+    let camada = null;
+    addEventListener('pointerdown', (e) => {
+      if (e.button > 0 || raiz.classList.contains('intro') && !raiz.classList.contains('pos-intro')) return;
+      if (e.target.closest?.('input:not([type="radio"]):not([type="checkbox"]), textarea, select, .ad-palco')) return;
+      if (!camada || !camada.isConnected) { camada = document.createElement('div'); camada.className = 'flores-clique'; document.body.appendChild(camada); }
+      const n = 12 + Math.floor(Math.random() * 6);
+      for (let i = 0; i < n; i++) {
+        const el = document.createElement('i');
+        const ang = Math.random() * Math.PI * 2, dist = sorte(46, 130);
+        const [p, m] = cores[Math.floor(Math.random() * cores.length)];
+        const tam = sorte(7, 15);
+        el.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;width:${tam}px;height:${tam}px;--tx:${(Math.cos(ang) * dist).toFixed(1)}px;--ty:${(Math.sin(ang) * dist + sorte(36, 76)).toFixed(1)}px;--rot:${Math.round(sorte(-320, 320))}deg;--sc:${sorte(.7, 1.35).toFixed(2)};animation-duration:${Math.round(sorte(900, 1550))}ms`;
+        el.innerHTML = florSvg(p, m);
+        el.addEventListener('animationend', () => el.remove());
+        camada.appendChild(el);
+      }
+    }, { passive: true });
+  }
+
+  // ---------- fundos vivos: manchas de luz que derivam atrás das seções ----------
+  if (!reduz) {
+    $$('main > section, .rodape').forEach((sec, k) => {
+      const a = document.createElement('div');
+      a.className = 'aura';
+      a.setAttribute('aria-hidden', 'true');
+      a.innerHTML = `<i></i>${k % 3 === 1 ? '<b></b>' : ''}<i></i>`;
+      a.querySelectorAll('i').forEach((i) => { i.style.animationDelay = `${-sorte(0, 20).toFixed(1)}s`; });
+      sec.prepend(a);
+    });
+  }
+
+  // ---------- títulos palavra a palavra ----------
   const quebra = (el) => {
     let i = 0;
     const anda = (no) => {
       for (const filho of [...no.childNodes]) {
         if (filho.nodeType === 3) {
-          const partes = filho.textContent.split(/(\s+)/);
           const frag = document.createDocumentFragment();
-          for (const p of partes) {
+          for (const p of filho.textContent.split(/(\s+)/)) {
             if (!p) continue;
             if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(' ')); continue; }
-            const pal = document.createElement('span');
-            pal.className = 'pal';
-            const dentro = document.createElement('span');
-            dentro.textContent = p;
-            dentro.style.setProperty('--i', i++);
-            pal.appendChild(dentro);
-            frag.appendChild(pal);
+            const pal = document.createElement('span'), dentro = document.createElement('span');
+            pal.className = 'pal'; dentro.textContent = p; dentro.style.setProperty('--i', i++);
+            pal.appendChild(dentro); frag.appendChild(pal);
           }
           no.replaceChild(frag, filho);
         } else if (filho.nodeType === 1 && filho.tagName !== 'BR') anda(filho);
@@ -1085,114 +1143,150 @@
     anda(el);
     el.classList.add('palavras');
   };
-  const titulos = $$('.sec-cab h2, [data-palavras], .ta-cab h3, .aval-txt h2, .vale-form h2, .google-resumo h2, .local h2, .seg-txt h3, .contra > h3, .artigo-cab h1');
+  const titulos = $$('.sec-cab h2, [data-palavras], .ta-cab h3, .aval-txt h2, .vale-form h2, .google-resumo h2, .local h2, .seg-txt h3, .contra > h3, .prov-ctrl h2, .onde h2, .ad-txt h3, .pessoa h3, .plano h3');
   if (!reduz) titulos.forEach(quebra);
-
-  // ---------- fotos que se revelam e entradas ----------
-  const revelaImg = $$('.pessoa-foto, .aba-foto .foto-caixa, img.aval-foto, img.seg-foto, .post-foto, .artigo-foto img, .produto-img');
+  const revelaImg = $$('.pessoa-foto, .aba-foto .foto-caixa, img.aval-foto, img.seg-foto, .produto-img');
   if (!reduz) revelaImg.forEach((el) => el.classList.add('revela-img'));
-  const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => {
-    if (!e.isIntersecting) return;
-    e.target.classList.add('visto');
-    io.unobserve(e.target);
-  }), { rootMargin: '0px 0px -10% 0px' }) : null;
-  [...titulos, ...revelaImg].forEach((el) => (io && !reduz ? io.observe(el) : el.classList.add('visto')));
-  // o título da capa sobe logo ao abrir
-  const h1 = $('.capa h1');
-  if (h1) requestAnimationFrame(() => setTimeout(() => h1.classList.add('visto'), 150));
 
-  // ---------- contadores ----------
+  // entra quando aparece e se desfaz quando a página volta (o elemento sai por baixo)
+  const vaiVolta = (els, entra, sai, opts) => {
+    if (!('IntersectionObserver' in window) || reduz) { els.forEach(entra); return; }
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) entra(e.target);
+      else if (e.boundingClientRect.top > 0) sai(e.target);
+    }), opts);
+    els.forEach((el) => io.observe(el));
+  };
+  const h1 = $('.capa h1');
+  vaiVolta([...titulos, ...revelaImg].filter((el) => el !== h1), (el) => el.classList.add('visto'), (el) => el.classList.remove('visto'), { rootMargin: '0px 0px -8% 0px' });
+  if (h1) addEventListener('camelia:pronto', () => setTimeout(() => h1.classList.add('visto'), 120), { once: true });
+
+  // ---------- contadores: contam ao aparecer e de novo quando a pessoa volta ----------
   const formata = (v, casas) => (casas ? v.toFixed(casas).replace('.', ',') : String(Math.round(v)));
   const conta = (el) => {
     const alvo = +el.dataset.conta, de = +(el.dataset.de || 0), casas = +(el.dataset.casas || 0);
+    cancelAnimationFrame(el._raf);
     if (reduz) { el.textContent = formata(alvo, casas); return; }
-    const dur = 1700, t0 = performance.now();
+    const dur = 1800, t0 = performance.now();
     const passo = (t) => {
-      const k = Math.min(1, (t - t0) / dur);
-      const e = 1 - Math.pow(1 - k, 4);
+      const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 4);
       el.textContent = formata(de + (alvo - de) * e, casas);
-      if (k < 1) requestAnimationFrame(passo);
+      if (k < 1) el._raf = requestAnimationFrame(passo);
     };
-    el.textContent = formata(de, casas);
-    requestAnimationFrame(passo);
+    el._raf = requestAnimationFrame(passo);
   };
-  const ioConta = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => {
-    if (!e.isIntersecting) return;
-    conta(e.target);
-    ioConta.unobserve(e.target);
-  }), { threshold: .6 }) : null;
-  $$('[data-conta]').forEach((el) => {
-    if (!ioConta) return;
-    el.textContent = formata(+(el.dataset.de || 0), +(el.dataset.casas || 0));
-    ioConta.observe(el);
-  });
+  const zera = (el) => { cancelAnimationFrame(el._raf); el.textContent = formata(+(el.dataset.de || 0), +(el.dataset.casas || 0)); };
+  const contadores = $$('[data-conta]');
+  if (!reduz) contadores.forEach(zera);
+  const naCapa = (el) => !!el.closest('.capa');
+  vaiVolta(contadores.filter((el) => !naCapa(el)), conta, zera, { threshold: .6 });
+  addEventListener('camelia:pronto', () => setTimeout(() => contadores.filter(naCapa).forEach(conta), 900), { once: true });
 
-  // ---------- progresso da leitura e paralaxe ----------
-  const prog = $('.progresso');
-  const paralaxe = [['.capa-olho .olho-palco', -0.08], ['img.aval-foto', 0.1], ['img.seg-foto', 0.12], ['.pessoa-foto img', 0.06], ['.prov-palco .olho-palco', -0.05], ['.cartao-vale', -0.04]];
+  // ---------- a história na rolagem: blocos seguem a posição da página ----------
+  const paralaxe = [['.capa-olho .olho-palco', -0.08], ['img.aval-foto', 0.1], ['img.seg-foto', 0.12], ['.pessoa-foto img', 0.06], ['.cartao-vale', -0.04]];
   const moveis = [];
   if (!reduz) paralaxe.forEach(([s, v]) => $$(s).forEach((el) => { el.setAttribute('data-paralaxe', ''); moveis.push([el, v]); }));
+  const CENAS = [
+    ['.servicos .painel', 'cena'], ['.prov-palco', 'cena-zoom'], ['.prov-ctrl > *', 'cena'],
+    ['.silhueta-box', 'cena-lado'], ['.simulador > *', 'cena'],
+    ['#precos .abas, .aba-painel, .pagamento > div', 'cena'],
+    ['.resultados .abas, .ad', 'cena'], ['.resultados .aviso', 'cena'],
+    ['.pessoa', 'cena'], ['.equipe .rt', 'cena'],
+    ['.ag', 'cena-lado'], ['.ag-resumo', 'cena'],
+    ['.aval-txt > :not(img)', 'cena'], ['.aval-cartao', 'cena-zoom'],
+    ['.google-resumo > *', 'cena'], ['.google-lista', 'cena'],
+    ['.clube .periodo, .plano, .clube-regras', 'cena'],
+    ['.vale-form > *', 'cena'], ['.vale-vitrine', 'cena-zoom'],
+    ['.produto', 'cena'], ['.etapas li, .contra, .politica, .seg-txt > *', 'cena'],
+    ['.faq details', 'cena'], ['.local-in > *', 'cena'],
+    ['.mapa-linha > *, .rodape-cols > div', 'cena'], ['.sec-cab > p', 'cena'],
+  ];
+  const cenas = [];
+  if (!reduz) {
+    CENAS.forEach(([sel, cls]) => $$(sel).forEach((el) => {
+      if (el.hasAttribute('data-paralaxe') || el.closest('.capa')) return;
+      el.classList.add(cls);
+      if (cls === 'cena-lado' && el.matches('.ag-resumo, .simulador > *')) el.style.setProperty('--lado', '60px');
+      // irmãos lado a lado entram em sequência: o atraso vira distância de rolagem
+      const irmaos = [...el.parentElement.children].filter((x) => x.classList.contains(cls));
+      cenas.push({ el, atraso: Math.min(irmaos.indexOf(el), 5) * 0.045 });
+    }));
+  }
+  const prog = $('.progresso');
   let pedido = false;
   const rola = () => {
     pedido = false;
-    const alto = raiz.scrollHeight - innerHeight;
+    const vh = innerHeight, alto = raiz.scrollHeight - vh;
     if (prog) prog.style.setProperty('--prog', alto > 0 ? (scrollY / alto).toFixed(4) : 0);
-    for (const [el, v] of moveis) {
-      const r = el.getBoundingClientRect();
-      if (r.bottom < -200 || r.top > innerHeight + 200) continue;
-      const centro = r.top + r.height / 2 - innerHeight / 2;
-      el.style.setProperty('--py', `${(centro * v).toFixed(1)}px`);
+    // primeiro lê tudo, depois escreve, para não forçar o layout a cada elemento
+    const leituras = cenas.map(({ el, atraso }) => [el, el.getBoundingClientRect().top, atraso]);
+    const mov = moveis.map(([el, v]) => [el, el.getBoundingClientRect(), v]);
+    for (const [el, top, atraso] of leituras) {
+      const p = limita((vh * (1.02 - atraso) - top) / (vh * 0.24));
+      const suave = 1 - Math.pow(1 - p, 3);
+      el.style.setProperty('--p', suave.toFixed(3));
+    }
+    for (const [el, r, v] of mov) {
+      if (r.bottom < -200 || r.top > vh + 200) continue;
+      el.style.setProperty('--py', `${((r.top + r.height / 2 - vh / 2) * v).toFixed(1)}px`);
     }
   };
   addEventListener('scroll', () => { if (!pedido) { pedido = true; requestAnimationFrame(rola); } }, { passive: true });
   addEventListener('resize', rola);
   rola();
 
-  // ---------- botões magnéticos: puxam um pouco na direção do cursor ----------
+  // ---------- botões magnéticos ----------
   if (fino && !reduz) {
     $$('.capa-btns .btn, .btn-agendar, .tema-btn, .sacola-btn, .whats-flutua, .prov-btns .btn, .ta-cab .btn, .sim-btns .btn, .plano .btn').forEach((el) => {
       el.style.transition += ', translate .5s cubic-bezier(.2,.7,.2,1)';
       el.addEventListener('pointermove', (e) => {
         const r = el.getBoundingClientRect();
-        const dx = (e.clientX - r.left - r.width / 2) / r.width, dy = (e.clientY - r.top - r.height / 2) / r.height;
-        el.style.translate = `${(dx * 10).toFixed(1)}px ${(dy * 8).toFixed(1)}px`;
+        el.style.translate = `${(((e.clientX - r.left) / r.width - 0.5) * 10).toFixed(1)}px ${(((e.clientY - r.top) / r.height - 0.5) * 8).toFixed(1)}px`;
       });
       el.addEventListener('pointerleave', () => { el.style.translate = ''; });
     });
   }
 
-  // ---------- cursor: ponto e anel; cresce sobre o que é clicável e mostra uma palavra onde faz sentido ----------
+  // ---------- cursor: o JS só move os invólucros (transform); o clique encolhe o desenho de dentro, sem tirar do lugar ----------
   if (fino && !reduz) {
-    const ponto = document.createElement('span'), anel = document.createElement('span'), cx = document.createElement('div');
-    ponto.className = 'cur-ponto'; anel.className = 'cur-anel'; cx.className = 'cursor fora';
-    const rot = document.createElement('b'); anel.appendChild(rot);
-    cx.append(anel, ponto); document.body.appendChild(cx);
+    const cx = document.createElement('div');
+    cx.className = 'cursor fora';
+    cx.setAttribute('aria-hidden', 'true');
+    cx.innerHTML = '<span class="cur-anel"><i><b></b></i></span><span class="cur-ponto"><i></i></span>';
+    document.body.appendChild(cx);
+    const anel = $('.cur-anel', cx), ponto = $('.cur-ponto', cx), rot = $('b', cx);
     raiz.classList.add('cursor-on');
-    let mx = innerWidth / 2, my = innerHeight / 2, ax = mx, ay = my;
-    const ROTULOS = [['.ad-palco', 'Arraste'], ['.painel', 'Preços'], ['.post a, .relacionados a', 'Ler'], ['.cartao-vale', 'Gire'], ['.olho-palco[data-olho-capa]', 'Olhe']];
-    const ESCURO = '.provador, .clube, .rodape, .politica-24, .sacola-fundo';
+    let mx = -100, my = -100, ax = -100, ay = -100, ativo = false;
+    const ROTULOS = [['.ad-palco', 'Arraste'], ['.painel', 'Preços'], ['.cartao-vale', 'Gire'], ['[data-olho-capa]', 'Olhe']];
+    const ESCURO = '.provador, .clube, .rodape, .politica-24, .sacola-fundo, .painel';
+    const avalia = (alvo) => {
+      if (!(alvo instanceof Element)) return;
+      const campo = alvo.closest('input:not([type="range"]):not([type="radio"]):not([type="checkbox"]), textarea, select');
+      const r = !campo && ROTULOS.find(([s]) => alvo.closest(s));
+      const link = !campo && !r && alvo.closest('a, button, label, summary, [role="tab"], [role="option"], .ponto, input[type="range"]');
+      cx.classList.toggle('rotulo', !!r);
+      if (r) rot.textContent = r[1];
+      cx.classList.toggle('link', !!link);
+      cx.classList.toggle('campo', !!campo);
+      cx.classList.toggle('escuro', !!alvo.closest(ESCURO));
+    };
     addEventListener('pointermove', (e) => {
       if (e.pointerType !== 'mouse') return;
       mx = e.clientX; my = e.clientY;
-      ponto.style.transform = `translate(${mx}px, ${my}px)`;
+      if (!ativo) { ax = mx; ay = my; ativo = true; }
+      ponto.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
       cx.classList.remove('fora');
-      const alvo = e.target instanceof Element ? e.target : null;
-      if (!alvo) return;
-      const r = ROTULOS.find(([s]) => alvo.closest(s));
-      const campo = alvo.closest('input:not([type="range"]):not([type="radio"]):not([type="checkbox"]), textarea, select');
-      const link = alvo.closest('a, button, label, summary, [role="tab"], .ponto, input[type="range"]');
-      cx.classList.toggle('rotulo', !!r && !campo);
-      if (r) rot.textContent = r[1];
-      cx.classList.toggle('link', !r && !!link && !campo);
-      cx.classList.toggle('campo', !!campo);
-      cx.classList.toggle('escuro', !!alvo.closest(ESCURO));
+      avalia(e.target);
     }, { passive: true });
-    document.addEventListener('pointerleave', () => cx.classList.add('fora'));
+    // ao rolar sem mexer o mouse, o que está sob o cursor muda
+    addEventListener('scroll', () => { if (ativo) avalia(document.elementFromPoint(mx, my)); }, { passive: true });
+    document.documentElement.addEventListener('pointerleave', () => cx.classList.add('fora'));
     addEventListener('pointerdown', () => cx.classList.add('aperta'));
     addEventListener('pointerup', () => cx.classList.remove('aperta'));
+    addEventListener('blur', () => cx.classList.remove('aperta'));
     const segue = () => {
-      ax += (mx - ax) * 0.18; ay += (my - ay) * 0.18;
-      anel.style.transform = `translate(${ax.toFixed(1)}px, ${ay.toFixed(1)}px)`;
+      ax += (mx - ax) * 0.2; ay += (my - ay) * 0.2;
+      anel.style.transform = `translate3d(${ax.toFixed(1)}px, ${ay.toFixed(1)}px, 0)`;
       requestAnimationFrame(segue);
     };
     requestAnimationFrame(segue);

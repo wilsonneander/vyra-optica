@@ -287,7 +287,7 @@ const vale = {
 const produtos = [
   { id: 'serum', seg: 'cilios', nome: 'Sérum fortalecedor de cílios e sobrancelhas', tam: '4 ml', preco: 129, forma: 'conta-gotas', cor: '#8E80B6', texto: 'Aplicação noturna na raiz dos fios. Pode ser usado com extensão.' },
   { id: 'espuma', seg: 'cilios', nome: 'Espuma de limpeza para extensão', tam: '50 ml', preco: 69, forma: 'frasco', cor: '#C9BFDF', texto: 'Limpa sem óleo, para não soltar a cola. Use com a escovinha.' },
-  { id: 'escovas', seg: 'cilios', nome: 'Escovinhas descartáveis', tam: '10 unidades', preco: 19, forma: 'escovas', cor: '#1E2233', texto: 'Para pentear cílios e sobrancelhas todos os dias.' },
+  { id: 'escovas', seg: 'cilios', nome: 'Escovinhas descartáveis', tam: '10 unidades', preco: 19, forma: 'escovas', cor: '#3A3F5C', texto: 'Para pentear cílios e sobrancelhas todos os dias.' },
   { id: 'demaquilante', seg: 'cilios', nome: 'Demaquilante bifásico sem óleo', tam: '120 ml', preco: 59, forma: 'frasco', cor: '#DCD5E9', texto: 'Tira a maquiagem dos olhos sem soltar a extensão nem o lifting.' },
   { id: 'fixador', seg: 'sobrancelhas', nome: 'Gel fixador de sobrancelhas', tam: '5 g', preco: 49, forma: 'tubo', cor: '#B8735A', texto: 'Transparente. Mantém o efeito da lamination entre as sessões.' },
   { id: 'calmante', seg: 'cera', nome: 'Gel calmante pós-depilação', tam: '150 g', preco: 59, forma: 'bisnaga', cor: '#9FB5A8', texto: 'Com aloe e pantenol. Para usar logo depois da cera ou do laser.' },

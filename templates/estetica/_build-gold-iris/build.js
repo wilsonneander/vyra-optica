@@ -83,11 +83,18 @@ const topo = (pre = '', ancora = (id) => `${pre ? `${pre}index.html` : ''}#${id}
     </nav>
     <div class="topo-acoes">
       <span class="aberto" data-aberto hidden></span>
+      <button type="button" class="tema-btn" data-tema-btn aria-pressed="false" aria-label="Ativar o tema escuro"><svg viewBox="0 0 40 40" aria-hidden="true">
+        <path class="tb-palp" d="M6 20C11 11.5 29 11.5 34 20"/><path d="M6 20C11 28.5 29 28.5 34 20"/>
+        <g class="tb-cil"><path d="M11.5 15.2 9.6 12.4M16.4 13 15.6 9.8M21.6 12.4l.2-3.3M26.6 13.6l1.4-3M30.6 16.2l2.4-2.2"/></g>
+        <circle class="tb-iris" cx="20" cy="20" r="5"/><circle class="tb-brilho" cx="18.4" cy="18.4" r="1.4"/>
+        <text class="tb-z" x="28" y="11">z</text>
+      </svg></button>
       <button type="button" class="sacola-btn" data-sacola aria-label="Abrir a sacola">${I.sacola}<b data-sacola-n>0</b></button>
       <a class="btn btn-tinta btn-agendar" href="${ancora('agenda')}">${I.agenda}<span>Agendar</span></a>
       <button type="button" class="menu-btn" aria-controls="menu" aria-expanded="false" aria-label="Abrir o menu"><span></span><span></span></button>
     </div>
   </div>
+  <span class="progresso" aria-hidden="true"></span>
 </header>`;
 
 const dias = C.horarios.map(([d, h], i) => `<tr data-linha="${i}"><th scope="row">${d}</th><td>${h}</td></tr>`).join('');
@@ -199,6 +206,7 @@ const cabeca = ({ titulo, descricao, url, pre = '', imagem = 'capa', extra = '',
 <meta property="og:title" content="${esc(titulo)}"><meta property="og:description" content="${esc(descricao)}"><meta property="og:url" content="${M.dominio}/${url}"><meta property="og:image" content="${M.dominio}/assets/img/${imagem}.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1E2233">
+<script>try{var t=new URLSearchParams(location.search).get('tema')||localStorage.getItem('camelia-iris-tema');if(t==='escuro')document.documentElement.dataset.tema='escuro'}catch(e){}</script>
 <link rel="icon" href="${pre}assets/favicon.svg" type="image/svg+xml">
 ${fontes}
 <link rel="stylesheet" href="${pre}assets/site.css">
@@ -256,20 +264,20 @@ const olhoCapa = D.olho({ estilo: 'natural', curva: 'C', sobr: 'arco', id: 'oc',
 const capa = `<section class="capa" id="inicio">
   <div class="capa-in">
     <div class="capa-txt">
-      <p class="apoio">${esc(lista(SEG.map((s) => s.curto)))} no ${M.bairro}, ${M.cidade}</p>
-      <h1>Cada fio<br><em>no seu lugar.</em></h1>
-      <p class="capa-lead">${esc(SEG.length === 4 ? 'Depilação a laser e com cera, design de sobrancelhas, extensão de cílios e lash lifting.' : `${lista(SEG.map((s) => s.nome))}.`)} Preço por área, agenda aberta por profissional e avaliação online antes de marcar.</p>
-      <div class="capa-btns" data-iguais>
+      <p class="apoio entra" style="--d:.1s">${esc(lista(SEG.map((s) => s.curto)))} no ${M.bairro}, ${M.cidade}</p>
+      <h1 class="palavras" data-palavras>Cada fio<br><em>no seu lugar.</em></h1>
+      <p class="capa-lead entra" style="--d:.55s">${esc(SEG.length === 4 ? 'Depilação a laser e com cera, design de sobrancelhas, extensão de cílios e lash lifting.' : `${lista(SEG.map((s) => s.nome))}.`)} Preço por área, agenda aberta por profissional e avaliação online antes de marcar.</p>
+      <div class="capa-btns entra" style="--d:.7s" data-iguais>
         <a class="btn btn-tinta" href="#agenda">${I.agenda}Ver horários livres</a>
         <a class="btn btn-linha" href="#avaliacao">Fazer a avaliação online</a>
       </div>
-      <dl class="capa-fatos">
-        <div><dt>${C.google.nota}</dt><dd>no Google, ${C.google.total} avaliações</dd></div>
-        <div><dt>${C.equipe.length}</dt><dd>profissionais com agenda própria</dd></div>
-        <div><dt>${M.desde}</dt><dd>no ${M.bairro}, com responsável técnica</dd></div>
+      <dl class="capa-fatos entra" style="--d:.85s">
+        <div><dt data-conta="${C.google.nota.replace(',', '.')}" data-casas="1">${C.google.nota}</dt><dd>no Google, ${C.google.total} avaliações</dd></div>
+        <div><dt data-conta="${C.equipe.length}">${C.equipe.length}</dt><dd>profissionais com agenda própria</dd></div>
+        <div><dt data-conta="${M.desde}" data-de="${M.desde - 30}">${M.desde}</dt><dd>no ${M.bairro}, com responsável técnica</dd></div>
       </dl>
     </div>
-    <figure class="capa-olho" aria-label="Olho desenhado fio a fio">
+    <figure class="capa-olho entra" style="--d:.3s" aria-label="Olho desenhado fio a fio">
       <div class="olho-palco" data-olho-capa>${olhoCapa}</div>
       ${temOlhar && ligado('cilios') ? `<div class="capa-estilos" role="group" aria-label="Estilo dos cílios no desenho" data-iguais>
         ${C.provador.cilios.slice(0, 4).map((c, i) => `<button type="button" data-capa-estilo="${c.id}" aria-pressed="${i ? 'false' : 'true'}">${c.nome.replace('Fio a fio natural', 'Natural')}</button>`).join('')}
@@ -368,22 +376,37 @@ const linhaServ = (s) => `<li class="serv" data-servico="${s.id}">
             </div>
           </details>
         </li>`;
-const tabelaAreas = (cat) => `<div class="tab-areas">
-          <h3>${cat === 'laser' ? 'Laser por área' : 'Cera por área'}</h3>
-          <table><thead><tr><th scope="col">Área</th>${cat === 'laser' ? '<th scope="col">Sessão</th><th scope="col">Pacote de 10</th><th scope="col">Sessões indicadas</th>' : '<th scope="col">Por sessão</th>'}</tr></thead>
-          <tbody>${C.areas.map((a) => `<tr><th scope="row">${a[1]}</th>${cat === 'laser' ? `<td>${reais(a[3])}</td><td>${reais(Math.round(a[3] * 10 * (1 - C.laserPacotes.at(-1)[1])))}</td><td>${a[7]} a ${a[7] + 2}</td>` : `<td>${reais(a[2])}</td>`}</tr>`).join('')}</tbody></table>
-          <p>${cat === 'laser' ? `Pacote de 6 sessões com 10% de desconto, de 8 com 15% e de 10 com 20%. Três áreas ou mais no mesmo pacote: mais 10%. Em até ${C.parcelas}x sem juros.` : 'Cera de uso único. Duas áreas ou mais na mesma visita entram no tempo de um atendimento só.'}</p>
+const metade = (a) => [a.slice(0, Math.ceil(a.length / 2)), a.slice(Math.ceil(a.length / 2))];
+const tabelaLarga = (cat) => {
+  const laser = cat === 'laser';
+  const cab = laser ? '<th scope="col">Área</th><th scope="col">Sessão</th><th scope="col">Pacote de 10</th><th scope="col">Sessões</th>' : '<th scope="col">Área</th><th scope="col">Por sessão</th><th scope="col">Tempo</th>';
+  const linha = (a) => laser
+    ? `<tr><th scope="row">${a[1]}</th><td><b>${reais(a[3])}</b></td><td>${reais(Math.round(a[3] * 10 * (1 - C.laserPacotes.at(-1)[1])))}</td><td><small>${a[7]} a ${a[7] + 2}</small></td></tr>`
+    : `<tr><th scope="row">${a[1]}</th><td><b>${reais(a[2])}</b></td><td><small>${a[2] >= 60 ? '30 min' : a[2] >= 40 ? '20 min' : '10 min'}</small></td></tr>`;
+  return `<div class="ta">
+          <div class="ta-cab">
+            <h3>${laser ? 'Laser <em>por área</em>' : 'Cera <em>por área</em>'}</h3>
+            <p>${laser ? `Pacote de 6 sessões com 10% de desconto, de 8 com 15% e de 10 com 20%. Três áreas ou mais no mesmo pacote: mais 10%. Em até ${C.parcelas}x sem juros.` : 'Cera de uso único, espátula descartável e calmante ao final. Duas áreas ou mais na mesma visita entram num atendimento só.'}</p>
+            ${temCorpo ? `<a class="btn btn-tinta" href="#corpo">Simular o meu pacote${I.seta}</a>` : ''}
+          </div>
+          <div class="ta-tabelas">${metade(C.areas).map((parte) => `<table><thead><tr>${cab}</tr></thead><tbody>${parte.map(linha).join('')}</tbody></table>`).join('')}</div>
         </div>`;
+};
 const precos = `<section class="precos" id="precos" aria-labelledby="precos-t">
   <div class="sec-cab"><h2 id="precos-t">${tit(['Preços ', 'abertos', ', do jeito que você vai pagar'])}</h2><p>O que inclui, duração, número de sessões e valor. Toque num serviço para ver os detalhes.</p></div>
   ${SEG.length > 1 ? `<div class="abas" role="tablist" aria-label="Serviços" data-iguais>${SEG.map((s, i) => `<button type="button" role="tab" id="aba-${s.id}" aria-controls="painel-${s.id}" aria-selected="${i ? 'false' : 'true'}"${i ? ' tabindex="-1"' : ''} data-aba="${s.id}">${s.curto}</button>`).join('')}</div>` : ''}
   ${SEG.map((s, i) => `<div class="aba-painel" id="painel-${s.id}"${SEG.length > 1 ? ` role="tabpanel" aria-labelledby="aba-${s.id}"` : ''}${i ? ' hidden' : ''}>
-      <div class="aba-grade">
+      ${s.id === 'laser' || s.id === 'cera' ? `<div class="aba-grade aba-grade-areas">
+        <ul class="serv-lista serv-linha">
+        ${SERV.filter((x) => x.cat === s.id).map(linhaServ).join('\n        ')}
+        </ul>
+        ${tabelaLarga(s.id)}
+      </div>` : `<div class="aba-grade">
         <ul class="serv-lista">
         ${SERV.filter((x) => x.cat === s.id).map(linhaServ).join('\n        ')}
         </ul>
-        ${s.id === 'laser' || s.id === 'cera' ? tabelaAreas(s.id) : `<figure class="aba-foto">${foto(s.id === 'cilios' ? 'lifting' : 'sobrancelha-feita')}<figcaption>${s.id === 'cilios' ? 'Fios escolhidos pelo formato do olho, com cola hipoalergênica.' : 'Desenho medido antes de tirar o primeiro fio.'}</figcaption></figure>`}
-      </div>
+        <figure class="aba-foto"><div class="foto-caixa">${foto(s.id === 'cilios' ? 'lifting' : 'sobrancelha-feita')}</div><figcaption>${s.id === 'cilios' ? 'Fios escolhidos pelo formato do olho, com cola hipoalergênica.' : 'Desenho medido antes de tirar o primeiro fio.'}</figcaption></figure>
+      </div>`}
     </div>`).join('\n  ')}
   <div class="pagamento">${C.pagamento.map(([t, d]) => `<div><h3>${t}</h3><p>${esc(d)}</p></div>`).join('')}</div>
 </section>`;
@@ -530,7 +553,7 @@ const google = `<section class="google" id="avaliacoes" aria-labelledby="google-
   <div class="google-in">
     <div class="google-resumo">
       <h2 id="google-t">${tit(['O que dizem ', 'no Google', ''])}</h2>
-      <p class="google-nota"><b>${G.nota}</b>${estrelas(5)}<span>${G.total} avaliações</span></p>
+      <p class="google-nota"><b data-conta="${G.nota.replace(',', '.')}" data-casas="1">${G.nota}</b>${estrelas(5)}<span><b class="google-total" data-conta="${G.total}">${G.total}</b> avaliações</span></p>
       <ul class="google-dist">${G.distribuicao.map((p, i) => `<li><span>${5 - i}</span><i style="--p:${p}%"></i></li>`).join('')}</ul>
       <div class="google-btns" data-iguais><a class="btn btn-linha" href="${G.link}" target="_blank" rel="noopener">Ver todas no Google</a><a class="btn btn-tinta" href="${G.link}" target="_blank" rel="noopener">Avaliar a clínica</a></div>
       <p class="mini">Modelo: no site real, as avaliações entram direto do Perfil da Empresa no Google.</p>

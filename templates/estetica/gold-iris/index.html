@@ -12,6 +12,7 @@
 <meta property="og:title" content="Depilação a laser, cílios e sobrancelhas no Cambuí, Campinas | Camélia Estética"><meta property="og:description" content="Depilação a laser e com cera, sobrancelhas e cílios no Cambuí, com preço por área e agenda aberta por profissional. Agenda online, avaliação online, clube de assinatura e vale-presente."><meta property="og:url" content="https://www.cameliaestetica.com.br/"><meta property="og:image" content="https://www.cameliaestetica.com.br/assets/img/capa.webp">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1E2233">
+<script>try{var t=new URLSearchParams(location.search).get('tema')||localStorage.getItem('camelia-iris-tema');if(t==='escuro')document.documentElement.dataset.tema='escuro'}catch(e){}</script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Commissioner:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
@@ -37,30 +38,37 @@
     </nav>
     <div class="topo-acoes">
       <span class="aberto" data-aberto hidden></span>
+      <button type="button" class="tema-btn" data-tema-btn aria-pressed="false" aria-label="Ativar o tema escuro"><svg viewBox="0 0 40 40" aria-hidden="true">
+        <path class="tb-palp" d="M6 20C11 11.5 29 11.5 34 20"/><path d="M6 20C11 28.5 29 28.5 34 20"/>
+        <g class="tb-cil"><path d="M11.5 15.2 9.6 12.4M16.4 13 15.6 9.8M21.6 12.4l.2-3.3M26.6 13.6l1.4-3M30.6 16.2l2.4-2.2"/></g>
+        <circle class="tb-iris" cx="20" cy="20" r="5"/><circle class="tb-brilho" cx="18.4" cy="18.4" r="1.4"/>
+        <text class="tb-z" x="28" y="11">z</text>
+      </svg></button>
       <button type="button" class="sacola-btn" data-sacola aria-label="Abrir a sacola"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 8.5h13l-1 11.5h-11Z"/><path d="M9 10.5V7a3 3 0 0 1 6 0v3.5"/></svg><b data-sacola-n>0</b></button>
       <a class="btn btn-tinta btn-agendar" href="#agenda"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></svg><span>Agendar</span></a>
       <button type="button" class="menu-btn" aria-controls="menu" aria-expanded="false" aria-label="Abrir o menu"><span></span><span></span></button>
     </div>
   </div>
+  <span class="progresso" aria-hidden="true"></span>
 </header>
 <main id="conteudo">
 <section class="capa" id="inicio">
   <div class="capa-in">
     <div class="capa-txt">
-      <p class="apoio">Laser, Cera, Sobrancelhas e Cílios no Cambuí, Campinas</p>
-      <h1>Cada fio<br><em>no seu lugar.</em></h1>
-      <p class="capa-lead">Depilação a laser e com cera, design de sobrancelhas, extensão de cílios e lash lifting. Preço por área, agenda aberta por profissional e avaliação online antes de marcar.</p>
-      <div class="capa-btns" data-iguais>
+      <p class="apoio entra" style="--d:.1s">Laser, Cera, Sobrancelhas e Cílios no Cambuí, Campinas</p>
+      <h1 class="palavras" data-palavras>Cada fio<br><em>no seu lugar.</em></h1>
+      <p class="capa-lead entra" style="--d:.55s">Depilação a laser e com cera, design de sobrancelhas, extensão de cílios e lash lifting. Preço por área, agenda aberta por profissional e avaliação online antes de marcar.</p>
+      <div class="capa-btns entra" style="--d:.7s" data-iguais>
         <a class="btn btn-tinta" href="#agenda"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></svg>Ver horários livres</a>
         <a class="btn btn-linha" href="#avaliacao">Fazer a avaliação online</a>
       </div>
-      <dl class="capa-fatos">
-        <div><dt>4,9</dt><dd>no Google, 312 avaliações</dd></div>
-        <div><dt>3</dt><dd>profissionais com agenda própria</dd></div>
-        <div><dt>2017</dt><dd>no Cambuí, com responsável técnica</dd></div>
+      <dl class="capa-fatos entra" style="--d:.85s">
+        <div><dt data-conta="4.9" data-casas="1">4,9</dt><dd>no Google, 312 avaliações</dd></div>
+        <div><dt data-conta="3">3</dt><dd>profissionais com agenda própria</dd></div>
+        <div><dt data-conta="2017" data-de="1987">2017</dt><dd>no Cambuí, com responsável técnica</dd></div>
       </dl>
     </div>
-    <figure class="capa-olho" aria-label="Olho desenhado fio a fio">
+    <figure class="capa-olho entra" style="--d:.3s" aria-label="Olho desenhado fio a fio">
       <div class="olho-palco" data-olho-capa><svg class="olho-svg" viewBox="0 0 480 320" role="img" aria-label="Desenho de um olho com extensão de cílios fio a fio">
   <defs>
     <clipPath id="oc-abertura"><path d="M92 214C150 104 318 94 402 200L402 200C322 262 160 270 92 214Z"/></clipPath>
@@ -194,8 +202,8 @@
   <div class="sec-cab"><h2 id="precos-t">Preços <em>abertos</em>, do jeito que você vai pagar</h2><p>O que inclui, duração, número de sessões e valor. Toque num serviço para ver os detalhes.</p></div>
   <div class="abas" role="tablist" aria-label="Serviços" data-iguais><button type="button" role="tab" id="aba-laser" aria-controls="painel-laser" aria-selected="true" data-aba="laser">Laser</button><button type="button" role="tab" id="aba-cera" aria-controls="painel-cera" aria-selected="false" tabindex="-1" data-aba="cera">Cera</button><button type="button" role="tab" id="aba-sobrancelhas" aria-controls="painel-sobrancelhas" aria-selected="false" tabindex="-1" data-aba="sobrancelhas">Sobrancelhas</button><button type="button" role="tab" id="aba-cilios" aria-controls="painel-cilios" aria-selected="false" tabindex="-1" data-aba="cilios">Cílios</button></div>
   <div class="aba-painel" id="painel-laser" role="tabpanel" aria-labelledby="aba-laser">
-      <div class="aba-grade">
-        <ul class="serv-lista">
+      <div class="aba-grade aba-grade-areas">
+        <ul class="serv-lista serv-linha">
         <li class="serv" data-servico="laser-areas">
           <details>
             <summary><span class="serv-nome"><b>Depilação a laser</b><span>Preço por área e por sessão, com desconto em pacote. Laser de diodo com registro na Anvisa.</span></span><span class="pr"><small>a partir de</small>R$ 60</span></summary>
@@ -217,17 +225,19 @@
           </details>
         </li>
         </ul>
-        <div class="tab-areas">
-          <h3>Laser por área</h3>
-          <table><thead><tr><th scope="col">Área</th><th scope="col">Sessão</th><th scope="col">Pacote de 10</th><th scope="col">Sessões indicadas</th></tr></thead>
-          <tbody><tr><th scope="row">Buço</th><td>R$ 70</td><td>R$ 560</td><td>10 a 12</td></tr><tr><th scope="row">Queixo</th><td>R$ 70</td><td>R$ 560</td><td>10 a 12</td></tr><tr><th scope="row">Rosto completo</th><td>R$ 190</td><td>R$ 1.520</td><td>10 a 12</td></tr><tr><th scope="row">Axilas</th><td>R$ 90</td><td>R$ 720</td><td>8 a 10</td></tr><tr><th scope="row">Braços inteiros</th><td>R$ 180</td><td>R$ 1.440</td><td>8 a 10</td></tr><tr><th scope="row">Mãos e dedos</th><td>R$ 60</td><td>R$ 480</td><td>6 a 8</td></tr><tr><th scope="row">Linha do abdômen</th><td>R$ 80</td><td>R$ 640</td><td>8 a 10</td></tr><tr><th scope="row">Virilha completa</th><td>R$ 140</td><td>R$ 1.120</td><td>8 a 10</td></tr><tr><th scope="row">Coxas</th><td>R$ 200</td><td>R$ 1.600</td><td>8 a 10</td></tr><tr><th scope="row">Meia perna</th><td>R$ 180</td><td>R$ 1.440</td><td>8 a 10</td></tr><tr><th scope="row">Pés e dedos</th><td>R$ 60</td><td>R$ 480</td><td>6 a 8</td></tr><tr><th scope="row">Nuca</th><td>R$ 80</td><td>R$ 640</td><td>8 a 10</td></tr><tr><th scope="row">Costas</th><td>R$ 260</td><td>R$ 2.080</td><td>8 a 10</td></tr><tr><th scope="row">Lombar</th><td>R$ 110</td><td>R$ 880</td><td>8 a 10</td></tr><tr><th scope="row">Glúteos</th><td>R$ 130</td><td>R$ 1.040</td><td>8 a 10</td></tr><tr><th scope="row">Perna inteira</th><td>R$ 290</td><td>R$ 2.320</td><td>8 a 10</td></tr></tbody></table>
-          <p>Pacote de 6 sessões com 10% de desconto, de 8 com 15% e de 10 com 20%. Três áreas ou mais no mesmo pacote: mais 10%. Em até 10x sem juros.</p>
+        <div class="ta">
+          <div class="ta-cab">
+            <h3>Laser <em>por área</em></h3>
+            <p>Pacote de 6 sessões com 10% de desconto, de 8 com 15% e de 10 com 20%. Três áreas ou mais no mesmo pacote: mais 10%. Em até 10x sem juros.</p>
+            <a class="btn btn-tinta" href="#corpo">Simular o meu pacote<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5"/></svg></a>
+          </div>
+          <div class="ta-tabelas"><table><thead><tr><th scope="col">Área</th><th scope="col">Sessão</th><th scope="col">Pacote de 10</th><th scope="col">Sessões</th></tr></thead><tbody><tr><th scope="row">Buço</th><td><b>R$ 70</b></td><td>R$ 560</td><td><small>10 a 12</small></td></tr><tr><th scope="row">Queixo</th><td><b>R$ 70</b></td><td>R$ 560</td><td><small>10 a 12</small></td></tr><tr><th scope="row">Rosto completo</th><td><b>R$ 190</b></td><td>R$ 1.520</td><td><small>10 a 12</small></td></tr><tr><th scope="row">Axilas</th><td><b>R$ 90</b></td><td>R$ 720</td><td><small>8 a 10</small></td></tr><tr><th scope="row">Braços inteiros</th><td><b>R$ 180</b></td><td>R$ 1.440</td><td><small>8 a 10</small></td></tr><tr><th scope="row">Mãos e dedos</th><td><b>R$ 60</b></td><td>R$ 480</td><td><small>6 a 8</small></td></tr><tr><th scope="row">Linha do abdômen</th><td><b>R$ 80</b></td><td>R$ 640</td><td><small>8 a 10</small></td></tr><tr><th scope="row">Virilha completa</th><td><b>R$ 140</b></td><td>R$ 1.120</td><td><small>8 a 10</small></td></tr></tbody></table><table><thead><tr><th scope="col">Área</th><th scope="col">Sessão</th><th scope="col">Pacote de 10</th><th scope="col">Sessões</th></tr></thead><tbody><tr><th scope="row">Coxas</th><td><b>R$ 200</b></td><td>R$ 1.600</td><td><small>8 a 10</small></td></tr><tr><th scope="row">Meia perna</th><td><b>R$ 180</b></td><td>R$ 1.440</td><td><small>8 a 10</small></td></tr><tr><th scope="row">Pés e dedos</th><td><b>R$ 60</b></td><td>R$ 480</td><td><small>6 a 8</small></td></tr><tr><th scope="row">Nuca</th><td><b>R$ 80</b></td><td>R$ 640</td><td><small>8 a 10</small></td></tr><tr><th scope="row">Costas</th><td><b>R$ 260</b></td><td>R$ 2.080</td><td><small>8 a 10</small></td></tr><tr><th scope="row">Lombar</th><td><b>R$ 110</b></td><td>R$ 880</td><td><small>8 a 10</small></td></tr><tr><th scope="row">Glúteos</th><td><b>R$ 130</b></td><td>R$ 1.040</td><td><small>8 a 10</small></td></tr><tr><th scope="row">Perna inteira</th><td><b>R$ 290</b></td><td>R$ 2.320</td><td><small>8 a 10</small></td></tr></tbody></table></div>
         </div>
       </div>
     </div>
   <div class="aba-painel" id="painel-cera" role="tabpanel" aria-labelledby="aba-cera" hidden>
-      <div class="aba-grade">
-        <ul class="serv-lista">
+      <div class="aba-grade aba-grade-areas">
+        <ul class="serv-lista serv-linha">
         <li class="serv" data-servico="cera-areas">
           <details>
             <summary><span class="serv-nome"><b>Depilação com cera</b><span>Preço por área. Cera de uso único, espátula descartável e calmante ao final.</span></span><span class="pr"><small>a partir de</small>R$ 15</span></summary>
@@ -239,11 +249,13 @@
           </details>
         </li>
         </ul>
-        <div class="tab-areas">
-          <h3>Cera por área</h3>
-          <table><thead><tr><th scope="col">Área</th><th scope="col">Por sessão</th></tr></thead>
-          <tbody><tr><th scope="row">Buço</th><td>R$ 20</td></tr><tr><th scope="row">Queixo</th><td>R$ 20</td></tr><tr><th scope="row">Rosto completo</th><td>R$ 55</td></tr><tr><th scope="row">Axilas</th><td>R$ 30</td></tr><tr><th scope="row">Braços inteiros</th><td>R$ 50</td></tr><tr><th scope="row">Mãos e dedos</th><td>R$ 15</td></tr><tr><th scope="row">Linha do abdômen</th><td>R$ 20</td></tr><tr><th scope="row">Virilha completa</th><td>R$ 70</td></tr><tr><th scope="row">Coxas</th><td>R$ 50</td></tr><tr><th scope="row">Meia perna</th><td>R$ 45</td></tr><tr><th scope="row">Pés e dedos</th><td>R$ 15</td></tr><tr><th scope="row">Nuca</th><td>R$ 25</td></tr><tr><th scope="row">Costas</th><td>R$ 70</td></tr><tr><th scope="row">Lombar</th><td>R$ 30</td></tr><tr><th scope="row">Glúteos</th><td>R$ 40</td></tr><tr><th scope="row">Perna inteira</th><td>R$ 75</td></tr></tbody></table>
-          <p>Cera de uso único. Duas áreas ou mais na mesma visita entram no tempo de um atendimento só.</p>
+        <div class="ta">
+          <div class="ta-cab">
+            <h3>Cera <em>por área</em></h3>
+            <p>Cera de uso único, espátula descartável e calmante ao final. Duas áreas ou mais na mesma visita entram num atendimento só.</p>
+            <a class="btn btn-tinta" href="#corpo">Simular o meu pacote<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6.5 18.5 12 13 17.5"/></svg></a>
+          </div>
+          <div class="ta-tabelas"><table><thead><tr><th scope="col">Área</th><th scope="col">Por sessão</th><th scope="col">Tempo</th></tr></thead><tbody><tr><th scope="row">Buço</th><td><b>R$ 20</b></td><td><small>10 min</small></td></tr><tr><th scope="row">Queixo</th><td><b>R$ 20</b></td><td><small>10 min</small></td></tr><tr><th scope="row">Rosto completo</th><td><b>R$ 55</b></td><td><small>20 min</small></td></tr><tr><th scope="row">Axilas</th><td><b>R$ 30</b></td><td><small>10 min</small></td></tr><tr><th scope="row">Braços inteiros</th><td><b>R$ 50</b></td><td><small>20 min</small></td></tr><tr><th scope="row">Mãos e dedos</th><td><b>R$ 15</b></td><td><small>10 min</small></td></tr><tr><th scope="row">Linha do abdômen</th><td><b>R$ 20</b></td><td><small>10 min</small></td></tr><tr><th scope="row">Virilha completa</th><td><b>R$ 70</b></td><td><small>30 min</small></td></tr></tbody></table><table><thead><tr><th scope="col">Área</th><th scope="col">Por sessão</th><th scope="col">Tempo</th></tr></thead><tbody><tr><th scope="row">Coxas</th><td><b>R$ 50</b></td><td><small>20 min</small></td></tr><tr><th scope="row">Meia perna</th><td><b>R$ 45</b></td><td><small>20 min</small></td></tr><tr><th scope="row">Pés e dedos</th><td><b>R$ 15</b></td><td><small>10 min</small></td></tr><tr><th scope="row">Nuca</th><td><b>R$ 25</b></td><td><small>10 min</small></td></tr><tr><th scope="row">Costas</th><td><b>R$ 70</b></td><td><small>30 min</small></td></tr><tr><th scope="row">Lombar</th><td><b>R$ 30</b></td><td><small>10 min</small></td></tr><tr><th scope="row">Glúteos</th><td><b>R$ 40</b></td><td><small>20 min</small></td></tr><tr><th scope="row">Perna inteira</th><td><b>R$ 75</b></td><td><small>30 min</small></td></tr></tbody></table></div>
         </div>
       </div>
     </div>
@@ -281,7 +293,7 @@
           </details>
         </li>
         </ul>
-        <figure class="aba-foto"><img class="foto " src="assets/img/sobrancelha-feita.webp" alt="Sobrancelha desenhada e preenchida, vista de perto" loading="lazy" decoding="async"><figcaption>Desenho medido antes de tirar o primeiro fio.</figcaption></figure>
+        <figure class="aba-foto"><div class="foto-caixa"><img class="foto " src="assets/img/sobrancelha-feita.webp" alt="Sobrancelha desenhada e preenchida, vista de perto" loading="lazy" decoding="async"></div><figcaption>Desenho medido antes de tirar o primeiro fio.</figcaption></figure>
       </div>
     </div>
   <div class="aba-painel" id="painel-cilios" role="tabpanel" aria-labelledby="aba-cilios" hidden>
@@ -348,7 +360,7 @@
           </details>
         </li>
         </ul>
-        <figure class="aba-foto"><img class="foto " src="assets/img/lifting.webp" alt="Olho com cílios naturais curvados depois do lash lifting" loading="lazy" decoding="async"><figcaption>Fios escolhidos pelo formato do olho, com cola hipoalergênica.</figcaption></figure>
+        <figure class="aba-foto"><div class="foto-caixa"><img class="foto " src="assets/img/lifting.webp" alt="Olho com cílios naturais curvados depois do lash lifting" loading="lazy" decoding="async"></div><figcaption>Fios escolhidos pelo formato do olho, com cola hipoalergênica.</figcaption></figure>
       </div>
     </div>
   <div class="pagamento"><div><h3>Formas de pagamento</h3><p>Pix, débito e crédito. Serviço avulso em até 3x e pacotes de laser em até 10x sem juros no cartão.</p></div><div><h3>Pacotes de laser</h3><p>Valem por 18 meses a partir da primeira sessão, com o número de sessões e o valor total escritos no plano. Três áreas ou mais no mesmo pacote têm 10% de desconto extra.</p></div><div><h3>Garantia do serviço</h3><p>Retoque do design em até 7 dias, reposição de cílios caídos em até 72 horas, nova aplicação de cera sem custo nos pelos que ficarem e remarcação sem custo de sessão perdida por falha nossa. Garantimos o serviço bem feito, não um resultado específico.</p></div></div>
@@ -629,7 +641,7 @@
   <div class="google-in">
     <div class="google-resumo">
       <h2 id="google-t">O que dizem <em>no Google</em></h2>
-      <p class="google-nota"><b>4,9</b><span class="estrelas" aria-label="5 de 5 estrelas"><i class="cheia"><svg class="st" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.4 5.3 5.8.6-4.3 3.9 1.2 5.7L10 14.4l-5.1 2.9 1.2-5.7L1.8 7.7l5.8-.6Z"/></svg></i><i class="cheia"><svg class="st" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.4 5.3 5.8.6-4.3 3.9 1.2 5.7L10 14.4l-5.1 2.9 1.2-5.7L1.8 7.7l5.8-.6Z"/></svg></i><i class="cheia"><svg class="st" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.4 5.3 5.8.6-4.3 3.9 1.2 5.7L10 14.4l-5.1 2.9 1.2-5.7L1.8 7.7l5.8-.6Z"/></svg></i><i class="cheia"><svg class="st" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.4 5.3 5.8.6-4.3 3.9 1.2 5.7L10 14.4l-5.1 2.9 1.2-5.7L1.8 7.7l5.8-.6Z"/></svg></i><i class="cheia"><svg class="st" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.4 5.3 5.8.6-4.3 3.9 1.2 5.7L10 14.4l-5.1 2.9 1.2-5.7L1.8 7.7l5.8-.6Z"/></svg></i></span><span>312 avaliações</span></p>
+      <p class="google-nota"><b data-conta="4.9" data-casas="1">4,9</b><span class="estrelas" aria-label="5 de 5 estrelas"><i class="cheia"><svg class="st" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.4 5.3 5.8.6-4.3 3.9 1.2 5.7L10 14.4l-5.1 2.9 1.2-5.7L1.8 7.7l5.8-.6Z"/></svg></i><i class="cheia"><svg class="st" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.4 5.3 5.8.6-4.3 3.9 1.2 5.7L10 14.4l-5.1 2.9 1.2-5.7L1.8 7.7l5.8-.6Z"/></svg></i><i class="cheia"><svg class="st" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.4 5.3 5.8.6-4.3 3.9 1.2 5.7L10 14.4l-5.1 2.9 1.2-5.7L1.8 7.7l5.8-.6Z"/></svg></i><i class="cheia"><svg class="st" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.4 5.3 5.8.6-4.3 3.9 1.2 5.7L10 14.4l-5.1 2.9 1.2-5.7L1.8 7.7l5.8-.6Z"/></svg></i><i class="cheia"><svg class="st" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.8l2.4 5.3 5.8.6-4.3 3.9 1.2 5.7L10 14.4l-5.1 2.9 1.2-5.7L1.8 7.7l5.8-.6Z"/></svg></i></span><span><b class="google-total" data-conta="312">312</b> avaliações</span></p>
       <ul class="google-dist"><li><span>5</span><i style="--p:92%"></i></li><li><span>4</span><i style="--p:6%"></i></li><li><span>3</span><i style="--p:1%"></i></li><li><span>2</span><i style="--p:0%"></i></li><li><span>1</span><i style="--p:1%"></i></li></ul>
       <div class="google-btns" data-iguais><a class="btn btn-linha" href="https://www.google.com/maps/search/?api=1&query=Cam%C3%A9lia+Est%C3%A9tica+Cambu%C3%AD+Campinas" target="_blank" rel="noopener">Ver todas no Google</a><a class="btn btn-tinta" href="https://www.google.com/maps/search/?api=1&query=Cam%C3%A9lia+Est%C3%A9tica+Cambu%C3%AD+Campinas" target="_blank" rel="noopener">Avaliar a clínica</a></div>
       <p class="mini">Modelo: no site real, as avaliações entram direto do Perfil da Empresa no Google.</p>
@@ -748,7 +760,7 @@
       <div class="produto-pe"><b>R$ 69</b><button type="button" class="btn btn-tinta" data-add="espuma"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg>Adicionar</button></div>
     </article>
     <article class="produto" data-produto="escovas" data-seg="cilios">
-      <div class="produto-img" style="--cor:#1E2233"><svg class="emb" viewBox="0 0 120 160" aria-hidden="true"><ellipse cx="60" cy="152" rx="34" ry="4" fill="#1E2233" opacity=".12"/><g transform="rotate(-12 60 146)"><rect x="57" y="62" width="6" height="84" rx="3" fill="#1E2233"/><path d="M60 22c-9 0-10 9-10 20s1 22 10 22 10-11 10-22-1-20-10-20Z" fill="none" stroke="#1E2233" stroke-width="1.2" stroke-dasharray="1.6 1.4"/><path d="M52 30h16M51 38h18M51 46h18M51 54h18" stroke="#1E2233" stroke-width="1.1"/></g><g transform="rotate(0 60 146)"><rect x="57" y="62" width="6" height="84" rx="3" fill="#B8735A"/><path d="M60 22c-9 0-10 9-10 20s1 22 10 22 10-11 10-22-1-20-10-20Z" fill="none" stroke="#B8735A" stroke-width="1.2" stroke-dasharray="1.6 1.4"/><path d="M52 30h16M51 38h18M51 46h18M51 54h18" stroke="#B8735A" stroke-width="1.1"/></g><g transform="rotate(12 60 146)"><rect x="57" y="62" width="6" height="84" rx="3" fill="#1E2233"/><path d="M60 22c-9 0-10 9-10 20s1 22 10 22 10-11 10-22-1-20-10-20Z" fill="none" stroke="#1E2233" stroke-width="1.2" stroke-dasharray="1.6 1.4"/><path d="M52 30h16M51 38h18M51 46h18M51 54h18" stroke="#1E2233" stroke-width="1.1"/></g></svg></div>
+      <div class="produto-img" style="--cor:#3A3F5C"><svg class="emb" viewBox="0 0 120 160" aria-hidden="true"><ellipse cx="60" cy="152" rx="34" ry="4" fill="#1E2233" opacity=".12"/><g transform="rotate(-12 60 146)"><rect x="57" y="62" width="6" height="84" rx="3" fill="#3A3F5C"/><path d="M60 22c-9 0-10 9-10 20s1 22 10 22 10-11 10-22-1-20-10-20Z" fill="none" stroke="#3A3F5C" stroke-width="1.2" stroke-dasharray="1.6 1.4"/><path d="M52 30h16M51 38h18M51 46h18M51 54h18" stroke="#3A3F5C" stroke-width="1.1"/></g><g transform="rotate(0 60 146)"><rect x="57" y="62" width="6" height="84" rx="3" fill="#B8735A"/><path d="M60 22c-9 0-10 9-10 20s1 22 10 22 10-11 10-22-1-20-10-20Z" fill="none" stroke="#B8735A" stroke-width="1.2" stroke-dasharray="1.6 1.4"/><path d="M52 30h16M51 38h18M51 46h18M51 54h18" stroke="#B8735A" stroke-width="1.1"/></g><g transform="rotate(12 60 146)"><rect x="57" y="62" width="6" height="84" rx="3" fill="#3A3F5C"/><path d="M60 22c-9 0-10 9-10 20s1 22 10 22 10-11 10-22-1-20-10-20Z" fill="none" stroke="#3A3F5C" stroke-width="1.2" stroke-dasharray="1.6 1.4"/><path d="M52 30h16M51 38h18M51 46h18M51 54h18" stroke="#3A3F5C" stroke-width="1.1"/></g></svg></div>
       <h3>Escovinhas descartáveis</h3>
       <p class="produto-tam">10 unidades</p>
       <p>Para pentear cílios e sobrancelhas todos os dias.</p>

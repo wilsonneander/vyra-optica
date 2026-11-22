@@ -780,3 +780,172 @@
     $$('[data-cookies]').forEach((b) => b.addEventListener('click', () => { ck.hidden = false; igualaDepois(); }));
   }
 })();
+
+// ===================== camada premium: tema, cursor, botões magnéticos, rolagem e contadores =====================
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const raiz = document.documentElement;
+  const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fino = matchMedia('(pointer: fine)').matches;
+  const guarda = (k, v) => { try { localStorage.setItem(k, v); } catch { /* sem armazenamento */ } };
+
+  // ---------- tema claro e escuro: o olho do botão fecha à noite, e a troca abre em círculo a partir dele ----------
+  const temaBtn = $('[data-tema-btn]');
+  const metaCor = $('meta[name="theme-color"]');
+  const marcaTema = () => {
+    const escuro = raiz.dataset.tema === 'escuro';
+    if (temaBtn) { temaBtn.setAttribute('aria-pressed', String(escuro)); temaBtn.setAttribute('aria-label', escuro ? 'Ativar o tema claro' : 'Ativar o tema escuro'); }
+    if (metaCor) metaCor.content = escuro ? '#101325' : '#1E2233';
+  };
+  const aplica = (t) => { if (t === 'escuro') raiz.dataset.tema = 'escuro'; else delete raiz.dataset.tema; marcaTema(); guarda('camelia-iris-tema', t); };
+  marcaTema();
+  temaBtn?.addEventListener('click', () => {
+    const novo = raiz.dataset.tema === 'escuro' ? 'claro' : 'escuro';
+    if (!document.startViewTransition || reduz) return aplica(novo);
+    const r = temaBtn.getBoundingClientRect();
+    const x = r.left + r.width / 2, y = r.top + r.height / 2;
+    const raio = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    const vt = document.startViewTransition(() => aplica(novo));
+    vt.ready.then(() => raiz.animate({ clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${raio}px at ${x}px ${y}px)`] }, { duration: 750, easing: 'cubic-bezier(.2,.7,.2,1)', pseudoElement: '::view-transition-new(root)' })).catch(() => {});
+  });
+
+  // ---------- títulos: cada palavra numa máscara, para subir em sequência ----------
+  const quebra = (el) => {
+    let i = 0;
+    const anda = (no) => {
+      for (const filho of [...no.childNodes]) {
+        if (filho.nodeType === 3) {
+          const partes = filho.textContent.split(/(\s+)/);
+          const frag = document.createDocumentFragment();
+          for (const p of partes) {
+            if (!p) continue;
+            if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(' ')); continue; }
+            const pal = document.createElement('span');
+            pal.className = 'pal';
+            const dentro = document.createElement('span');
+            dentro.textContent = p;
+            dentro.style.setProperty('--i', i++);
+            pal.appendChild(dentro);
+            frag.appendChild(pal);
+          }
+          no.replaceChild(frag, filho);
+        } else if (filho.nodeType === 1 && filho.tagName !== 'BR') anda(filho);
+      }
+    };
+    anda(el);
+    el.classList.add('palavras');
+  };
+  const titulos = $$('.sec-cab h2, [data-palavras], .ta-cab h3, .aval-txt h2, .vale-form h2, .google-resumo h2, .local h2, .seg-txt h3, .contra > h3, .artigo-cab h1');
+  if (!reduz) titulos.forEach(quebra);
+
+  // ---------- fotos que se revelam e entradas ----------
+  const revelaImg = $$('.pessoa-foto, .aba-foto .foto-caixa, img.aval-foto, img.seg-foto, .post-foto, .artigo-foto img, .produto-img');
+  if (!reduz) revelaImg.forEach((el) => el.classList.add('revela-img'));
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('visto');
+    io.unobserve(e.target);
+  }), { rootMargin: '0px 0px -10% 0px' }) : null;
+  [...titulos, ...revelaImg].forEach((el) => (io && !reduz ? io.observe(el) : el.classList.add('visto')));
+  // o título da capa sobe logo ao abrir
+  const h1 = $('.capa h1');
+  if (h1) requestAnimationFrame(() => setTimeout(() => h1.classList.add('visto'), 150));
+
+  // ---------- contadores ----------
+  const formata = (v, casas) => (casas ? v.toFixed(casas).replace('.', ',') : String(Math.round(v)));
+  const conta = (el) => {
+    const alvo = +el.dataset.conta, de = +(el.dataset.de || 0), casas = +(el.dataset.casas || 0);
+    if (reduz) { el.textContent = formata(alvo, casas); return; }
+    const dur = 1700, t0 = performance.now();
+    const passo = (t) => {
+      const k = Math.min(1, (t - t0) / dur);
+      const e = 1 - Math.pow(1 - k, 4);
+      el.textContent = formata(de + (alvo - de) * e, casas);
+      if (k < 1) requestAnimationFrame(passo);
+    };
+    el.textContent = formata(de, casas);
+    requestAnimationFrame(passo);
+  };
+  const ioConta = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => {
+    if (!e.isIntersecting) return;
+    conta(e.target);
+    ioConta.unobserve(e.target);
+  }), { threshold: .6 }) : null;
+  $$('[data-conta]').forEach((el) => {
+    if (!ioConta) return;
+    el.textContent = formata(+(el.dataset.de || 0), +(el.dataset.casas || 0));
+    ioConta.observe(el);
+  });
+
+  // ---------- progresso da leitura e paralaxe ----------
+  const prog = $('.progresso');
+  const paralaxe = [['.capa-olho .olho-palco', -0.08], ['img.aval-foto', 0.1], ['img.seg-foto', 0.12], ['.pessoa-foto img', 0.06], ['.prov-palco .olho-palco', -0.05], ['.cartao-vale', -0.04]];
+  const moveis = [];
+  if (!reduz) paralaxe.forEach(([s, v]) => $$(s).forEach((el) => { el.setAttribute('data-paralaxe', ''); moveis.push([el, v]); }));
+  let pedido = false;
+  const rola = () => {
+    pedido = false;
+    const alto = raiz.scrollHeight - innerHeight;
+    if (prog) prog.style.setProperty('--prog', alto > 0 ? (scrollY / alto).toFixed(4) : 0);
+    for (const [el, v] of moveis) {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > innerHeight + 200) continue;
+      const centro = r.top + r.height / 2 - innerHeight / 2;
+      el.style.setProperty('--py', `${(centro * v).toFixed(1)}px`);
+    }
+  };
+  addEventListener('scroll', () => { if (!pedido) { pedido = true; requestAnimationFrame(rola); } }, { passive: true });
+  addEventListener('resize', rola);
+  rola();
+
+  // ---------- botões magnéticos: puxam um pouco na direção do cursor ----------
+  if (fino && !reduz) {
+    $$('.capa-btns .btn, .btn-agendar, .tema-btn, .sacola-btn, .whats-flutua, .prov-btns .btn, .ta-cab .btn, .sim-btns .btn, .plano .btn').forEach((el) => {
+      el.style.transition += ', translate .5s cubic-bezier(.2,.7,.2,1)';
+      el.addEventListener('pointermove', (e) => {
+        const r = el.getBoundingClientRect();
+        const dx = (e.clientX - r.left - r.width / 2) / r.width, dy = (e.clientY - r.top - r.height / 2) / r.height;
+        el.style.translate = `${(dx * 10).toFixed(1)}px ${(dy * 8).toFixed(1)}px`;
+      });
+      el.addEventListener('pointerleave', () => { el.style.translate = ''; });
+    });
+  }
+
+  // ---------- cursor: ponto e anel; cresce sobre o que é clicável e mostra uma palavra onde faz sentido ----------
+  if (fino && !reduz) {
+    const ponto = document.createElement('span'), anel = document.createElement('span'), cx = document.createElement('div');
+    ponto.className = 'cur-ponto'; anel.className = 'cur-anel'; cx.className = 'cursor fora';
+    const rot = document.createElement('b'); anel.appendChild(rot);
+    cx.append(anel, ponto); document.body.appendChild(cx);
+    raiz.classList.add('cursor-on');
+    let mx = innerWidth / 2, my = innerHeight / 2, ax = mx, ay = my;
+    const ROTULOS = [['.ad-palco', 'Arraste'], ['.painel', 'Preços'], ['.post a, .relacionados a', 'Ler'], ['.cartao-vale', 'Gire'], ['.olho-palco[data-olho-capa]', 'Olhe']];
+    const ESCURO = '.provador, .clube, .rodape, .politica-24, .sacola-fundo';
+    addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      mx = e.clientX; my = e.clientY;
+      ponto.style.transform = `translate(${mx}px, ${my}px)`;
+      cx.classList.remove('fora');
+      const alvo = e.target instanceof Element ? e.target : null;
+      if (!alvo) return;
+      const r = ROTULOS.find(([s]) => alvo.closest(s));
+      const campo = alvo.closest('input:not([type="range"]):not([type="radio"]):not([type="checkbox"]), textarea, select');
+      const link = alvo.closest('a, button, label, summary, [role="tab"], .ponto, input[type="range"]');
+      cx.classList.toggle('rotulo', !!r && !campo);
+      if (r) rot.textContent = r[1];
+      cx.classList.toggle('link', !r && !!link && !campo);
+      cx.classList.toggle('campo', !!campo);
+      cx.classList.toggle('escuro', !!alvo.closest(ESCURO));
+    }, { passive: true });
+    document.addEventListener('pointerleave', () => cx.classList.add('fora'));
+    addEventListener('pointerdown', () => cx.classList.add('aperta'));
+    addEventListener('pointerup', () => cx.classList.remove('aperta'));
+    const segue = () => {
+      ax += (mx - ax) * 0.18; ay += (my - ay) * 0.18;
+      anel.style.transform = `translate(${ax.toFixed(1)}px, ${ay.toFixed(1)}px)`;
+      requestAnimationFrame(segue);
+    };
+    requestAnimationFrame(segue);
+  }
+})();

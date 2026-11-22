@@ -51,8 +51,8 @@ const foto = (nome, { cls = '', lazy = true, alt, pre = '' } = {}) => {
 };
 const creditos = JSON.parse(fs.readFileSync(path.join(__dirname, 'img', 'creditos.json'), 'utf8'));
 
-// Bodoni Moda nos títulos (traço fino de alto contraste, como um fio) e Commissioner no texto. Dupla nova no projeto.
-const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Commissioner:wght@300;400;500;600&display=swap" rel="stylesheet">';
+// DM Serif Display nos títulos (serifa de revista, contraste alto e traço firme, que não some em tela) e Commissioner no texto.
+const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">';
 
 // ---------- dados para o navegador ----------
 const dados = {
@@ -420,27 +420,32 @@ const precos = `<section class="precos" id="precos" aria-labelledby="precos-t">
 // antes e depois (ilustrações)
 const AD = C.antesDepois.filter((a) => ligado(a.seg));
 const adPar = (a) => {
+  if (a.fotos) return a.fotos.map((f, k) => foto(f, { cls: 'ad-foto', alt: `${k ? 'Depois' : 'Antes'}: ${C.fotos[f]}` }));
   if (a.id === 'cilios') return [D.olho({ estilo: 'antes', sobr: ligado('sobrancelhas') ? 'arco' : 'antes', id: 'ad1a', rotulo: 'Antes: cílios naturais curtos' }), D.olho({ estilo: 'natural', curva: 'C', sobr: ligado('sobrancelhas') ? 'arco' : 'antes', id: 'ad1d', rotulo: 'Depois: extensão fio a fio' })];
   if (a.id === 'sobrancelhas') return [D.olho({ estilo: 'antes', sobr: 'antes', id: 'ad2a', semente: 11, rotulo: 'Antes: sobrancelha sem design' }), D.olho({ estilo: 'antes', sobr: 'arco', henna: true, id: 'ad2d', semente: 11, rotulo: 'Depois: design com henna' })];
   return [D.perna({ pelos: true, id: 'ad3a', rotulo: 'Antes: perna com pelos' }), D.perna({ id: 'ad3d', rotulo: 'Depois: perna lisa' })];
 };
 const resultados = !AD.length ? '' : `<section class="resultados" id="resultados" aria-labelledby="resultados-t">
-  <div class="sec-cab"><h2 id="resultados-t">${tit(['Arraste e ', 'compare', ''])}</h2><p>Ilustrações de casos típicos, com o protocolo ao lado. Nada aqui é promessa: cada pele e cada fio respondem de um jeito.</p></div>
+  <div class="sec-cab"><h2 id="resultados-t">${tit(['Arraste e ', 'compare', ''])}</h2><p>Fotos de representação e ilustrações de casos típicos, com o protocolo ao lado. Nada aqui é promessa: cada pele e cada fio respondem de um jeito.</p></div>
   ${AD.length > 1 ? `<div class="abas abas-claras" role="tablist" aria-label="Antes e depois" data-iguais>${AD.map((a, i) => `<button type="button" role="tab" aria-selected="${i ? 'false' : 'true'}"${i ? ' tabindex="-1"' : ''} data-ad="${a.id}">${a.nome}</button>`).join('')}</div>` : ''}
   ${AD.map((a, i) => {
     const [antes, depois] = adPar(a);
     return `<div class="ad" data-ad-painel="${a.id}"${i ? ' hidden' : ''}>
-    <div class="ad-palco" style="--corte:50%">
+    <div class="ad-palco${a.fotos ? ' ad-palco-foto' : ''}" style="--corte:50%">
       <div class="ad-camada ad-depois">${depois}</div>
       <div class="ad-camada ad-antes">${antes}</div>
       <span class="ad-rot ad-rot-a">Antes</span><span class="ad-rot ad-rot-d">Depois</span>
       <span class="ad-alca" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M15 13l-6 7 6 7M25 13l6 7-6 7"/></svg></span>
       <input class="ad-range" type="range" min="0" max="100" value="50" aria-label="Arraste para comparar antes e depois: ${esc(a.titulo)}">
-      <span class="ad-selo">Ilustração</span>
+      <span class="ad-selo">${a.fotos ? 'Fotos de representação' : 'Ilustração'}</span>
     </div>
     <div class="ad-txt"><h3>${esc(a.titulo)}</h3><p>${esc(a.texto)}</p></div>
   </div>`;
   }).join('\n  ')}
+  ${ligado('cilios') ? `<div class="faixa-fotos" aria-label="Fotos de representação de extensão de cílios">
+    <div class="faixa-trilho">${[0, 1].map((k) => C.galeriaCilios.map((f, i) => `<figure class="ff ff-${i % 3}"${k ? ' aria-hidden="true"' : ''}>${foto(f, { alt: k ? '' : undefined })}</figure>`).join('')).join('')}</div>
+    <p class="faixa-rot">Na cadeira da lash designer. Fotos de representação.</p>
+  </div>` : ''}
   <p class="aviso">${esc(C.avisoResultado)}</p>
 </section>`;
 

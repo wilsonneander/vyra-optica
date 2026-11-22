@@ -87,6 +87,18 @@ const fotos = {
   'cera-buco': 'Aplicação de cera no buço com espátula',
   pernas: 'Pernas lisas cruzadas no ar sobre fundo branco',
   'pinca-fios': 'Pinça sobre bandeja de fios para extensão de cílios',
+  'ad-fio-antes': 'Olho azul com cílios naturais, sem extensão',
+  'ad-fio-depois': 'Olho azul com extensão de cílios fio a fio',
+  'ad-volume-antes': 'Olho verde-acinzentado com cílios naturais retos',
+  'ad-volume-depois': 'Olho verde com volume russo, cílios longos e curvados',
+  'proc-1': 'Lash designer aplicando extensão de cílios na cliente deitada',
+  'proc-2': 'Lash designer separando os fios com pinça, cliente de olhos fechados',
+  'proc-3': 'Profissional de máscara aplicando cílios fio a fio',
+  'proc-4': 'Pinça colocando um leque de volume russo nos cílios',
+  'proc-5': 'Cliente deitada recebendo extensão de cílios',
+  'proc-6': 'Lash designer sorrindo com a escovinha na mão',
+  'proc-7': 'Mulher de olhos fechados ao pôr do sol, com cílios longos',
+  'proc-8': 'Mulher de perfil com cílios curvados',
   helena: 'Helena Prado, biomédica esteta, de jaleco branco',
   livia: 'Lívia Moraes, lash designer, na sala de atendimento',
   bruna: 'Bruna Tavares, designer de sobrancelhas, sentada na recepção',
@@ -228,14 +240,21 @@ const seguranca = [
 ];
 
 // [JURÍDICO] aviso de resultados conforme regras de publicidade do setor
-const avisoResultado = 'Cada pele, cada pelo e cada cílio respondem de um jeito. O laser reduz os pelos aos poucos e não há garantia de depilação definitiva; o número de sessões pode mudar depois da avaliação. As imagens de antes e depois desta página são ilustrações, não fotos de clientes. Fotos reais só com autorização por escrito.';
+const avisoResultado = 'Cada pele, cada pelo e cada cílio respondem de um jeito. O laser reduz os pelos aos poucos e não há garantia de depilação definitiva; o número de sessões pode mudar depois da avaliação. As imagens de antes e depois desta página são ilustrações e fotos de representação (pessoas diferentes), não fotos de clientes. Fotos reais só com autorização por escrito.';
 
 // Antes e depois arrastável. [EXEMPLO] Ilustrações desenhadas pelo site. Cliente real: trocar por fotos com autorização.
+// `fotos: [antes, depois]` = par de fotos de REPRESENTAÇÃO (pessoas diferentes, Unsplash), recortadas no mesmo enquadramento do olho.
+// Sem `fotos`, o par é desenhado pelo site (ilustração).
 const antesDepois = [
-  { id: 'cilios', seg: 'cilios', nome: 'Cílios', titulo: 'Extensão fio a fio, curvatura C', texto: 'Fios de 10 a 12 mm, mais longos no canto externo. Manutenção a cada 18 dias.' },
+  { id: 'fio', seg: 'cilios', nome: 'Fio a fio', titulo: 'Extensão fio a fio', texto: 'Um fio sintético em cada cílio natural, curvatura C, de 10 a 12 mm. Efeito de rímel, sem pesar.', fotos: ['ad-fio-antes', 'ad-fio-depois'] },
+  { id: 'volume', seg: 'cilios', nome: 'Volume russo', titulo: 'Volume russo', texto: 'Leques ultrafinos em cada cílio natural, mais longos no centro. Olhar marcado, sem rímel.', fotos: ['ad-volume-antes', 'ad-volume-depois'] },
+  { id: 'cilios', seg: 'cilios', nome: 'Cílios em desenho', titulo: 'Extensão fio a fio, curvatura C', texto: 'Fios de 10 a 12 mm, mais longos no canto externo. Manutenção a cada 18 dias.' },
   { id: 'sobrancelhas', seg: 'sobrancelhas', nome: 'Sobrancelhas', titulo: 'Design com henna', texto: 'Desenho medido, fios do excesso retirados com pinça e henna nas falhas.' },
   { id: 'laser', seg: 'laser', nome: 'Laser', titulo: 'Meia perna, depois de 6 sessões', texto: 'Redução progressiva dos pelos, com sessões a cada 45 dias. Pode precisar de manutenção.' },
 ];
+
+// Faixa de fotos de representação sob o antes e depois (Unsplash, créditos em img/creditos.json)
+const galeriaCilios = ['proc-1', 'proc-4', 'proc-7', 'proc-2', 'proc-6', 'proc-3', 'proc-8', 'proc-5'];
 
 // Avaliações do Google. [EXEMPLO] Textos fictícios do modelo. No site real, entram pela API do Perfil da Empresa no Google
 // (Places API) ou por um widget autorizado, com nome, nota e data reais.
@@ -361,5 +380,5 @@ const seoLocal = {
 module.exports = {
   marca, responsavel, abertura, horarios, equipe, fotos, segmentos, areas, laserPacotes, laserCombo, laserIntervalo, parcelas,
   servicos, provador, pagamento, etapas, contraindicacoes, politicas, seguranca, avisoResultado, antesDepois, google, clube, vale,
-  produtos, entrega, aberturaFrases, anamnese, faq, bairros, seoLocal,
+  produtos, entrega, aberturaFrases, galeriaCilios, anamnese, faq, bairros, seoLocal,
 };

@@ -904,7 +904,7 @@
     if (!('IntersectionObserver' in window) || reduz) { els.forEach(entra); return; }
     const io = new IntersectionObserver((es) => es.forEach((e) => {
       if (e.isIntersecting) entra(e.target);
-      else if (e.boundingClientRect.top > 0) sai(e.target);
+      else sai(e.target);
     }), opts);
     els.forEach((el) => io.observe(el));
   };
@@ -964,19 +964,25 @@
     }));
   }
   const prog = $('.progresso');
-  let pedido = false;
+  let pedido = false, ultimoY = scrollY;
+  raiz.dataset.rolagem = 'desce';
   const rola = () => {
     pedido = false;
     const vh = innerHeight, alto = raiz.scrollHeight - vh;
     if (prog) prog.style.setProperty('--prog', alto > 0 ? (scrollY / alto).toFixed(4) : 0);
     // primeiro lê tudo, depois escreve, para não forçar o layout a cada elemento
-    const leituras = cenas.map(({ el, atraso }) => [el, el.getBoundingClientRect().top, atraso]);
+    const leituras = cenas.map(({ el, atraso }) => { const r = el.getBoundingClientRect(); return [el, r.top, r.bottom, atraso]; });
     const mov = moveis.map(([el, v]) => [el, el.getBoundingClientRect(), v]);
-    for (const [el, top, atraso] of leituras) {
+    // --p: entrada pela borda de baixo; --q: saída pela borda de cima. Descendo, o bloco sobe e some no topo;
+    // subindo, ele volta descendo pelo topo e se desfaz quando passa da borda de baixo.
+    for (const [el, top, bottom, atraso] of leituras) {
       const p = limita((vh * (1.02 - atraso) - top) / (vh * 0.24));
-      const suave = 1 - Math.pow(1 - p, 3);
-      el.style.setProperty('--p', suave.toFixed(3));
+      const q = limita((bottom - vh * 0.04) / (vh * 0.2));
+      el.style.setProperty('--p', (1 - Math.pow(1 - p, 3)).toFixed(3));
+      el.style.setProperty('--q', (1 - Math.pow(1 - q, 3)).toFixed(3));
     }
+    const y = scrollY;
+    if (Math.abs(y - ultimoY) > 2) { raiz.dataset.rolagem = y > ultimoY ? 'desce' : 'sobe'; ultimoY = y; }
     for (const [el, r, v] of mov) {
       if (r.bottom < -200 || r.top > vh + 200) continue;
       el.style.setProperty('--py', `${((r.top + r.height / 2 - vh / 2) * v).toFixed(1)}px`);

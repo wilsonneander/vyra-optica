@@ -1112,11 +1112,13 @@
 
   // ---------- fundos vivos: manchas de luz que derivam atrás das seções ----------
   if (!reduz) {
+    const VIVAS = '.capa, .provador, #precos, .resultados, .avaliacao, .google, .clube, .vale, .local';
     $$('main > section, .rodape').forEach((sec, k) => {
       const a = document.createElement('div');
-      a.className = 'aura';
+      const viva = sec.matches(VIVAS);
+      a.className = viva ? 'aura viva' : 'aura';
       a.setAttribute('aria-hidden', 'true');
-      a.innerHTML = `<i></i>${k % 3 === 1 ? '<b></b>' : ''}<i></i>`;
+      a.innerHTML = viva ? '<i></i><i></i><i></i><b></b><s></s>' : `<i></i>${k % 3 === 1 ? '<b></b>' : ''}<i></i>`;
       a.querySelectorAll('i').forEach((i) => { i.style.animationDelay = `${-sorte(0, 20).toFixed(1)}s`; });
       sec.prepend(a);
     });
@@ -1149,16 +1151,14 @@
   if (!reduz) revelaImg.forEach((el) => el.classList.add('revela-img'));
 
   // entra quando aparece e se desfaz quando a página volta (o elemento sai por baixo)
-  const vaiVolta = (els, entra, sai, opts) => {
-    if (!('IntersectionObserver' in window) || reduz) { els.forEach(entra); return; }
-    const io = new IntersectionObserver((es) => es.forEach((e) => {
-      if (e.isIntersecting) entra(e.target);
-      else sai(e.target);
-    }), opts);
-    els.forEach((el) => io.observe(el));
+  // o laço da rolagem decide quem está na tela (mais confiável que esperar o observador do navegador)
+  const alternam = [];
+  const vaiVolta = (els, entra, sai, opts = {}) => {
+    if (reduz) { els.forEach(entra); return; }
+    els.forEach((el) => alternam.push({ el, entra, sai, dentro: false, margem: opts.margem ?? 0.08 }));
   };
   const h1 = $('.capa h1');
-  vaiVolta([...titulos, ...revelaImg].filter((el) => el !== h1), (el) => el.classList.add('visto'), (el) => el.classList.remove('visto'), { rootMargin: '0px 0px -8% 0px' });
+  vaiVolta([...titulos, ...revelaImg].filter((el) => el !== h1), (el) => el.classList.add('visto'), (el) => el.classList.remove('visto'), { margem: 0.08 });
   if (h1) addEventListener('camelia:pronto', () => setTimeout(() => h1.classList.add('visto'), 120), { once: true });
 
   // ---------- contadores: contam ao aparecer e de novo quando a pessoa volta ----------
@@ -1179,7 +1179,7 @@
   const contadores = $$('[data-conta]');
   if (!reduz) contadores.forEach(zera);
   const naCapa = (el) => !!el.closest('.capa');
-  vaiVolta(contadores.filter((el) => !naCapa(el)), conta, zera, { threshold: .6 });
+  vaiVolta(contadores.filter((el) => !naCapa(el)), conta, zera, { margem: 0.12 });
   addEventListener('camelia:pronto', () => setTimeout(() => contadores.filter(naCapa).forEach(conta), 900), { once: true });
 
   // ---------- a história na rolagem: blocos seguem a posição da página ----------
@@ -1189,18 +1189,23 @@
   const CENAS = [
     ['.servicos .painel', 'cena'], ['.prov-palco', 'cena-zoom'], ['.prov-ctrl > *', 'cena'],
     ['.silhueta-box', 'cena-lado'], ['.simulador > *', 'cena'],
-    ['#precos .abas, .aba-painel, .pagamento > div', 'cena'],
-    ['.resultados .abas, .ad', 'cena'], ['.resultados .aviso', 'cena'],
+    ['#precos .abas, .serv-lista .serv, .ta-cab, .ta-tabelas tr, .pagamento > div', 'cena'], ['.aba-foto', 'cena-zoom'],
+    ['.resultados .abas, .ad-txt, .faixa-fotos, .resultados .aviso', 'cena'], ['.ad-palco', 'cena-zoom'],
     ['.pessoa', 'cena'], ['.equipe .rt', 'cena'],
-    ['.ag', 'cena-lado'], ['.ag-resumo', 'cena'],
-    ['.aval-txt > :not(img)', 'cena'], ['.aval-cartao', 'cena-zoom'],
-    ['.google-resumo > *', 'cena'], ['.google-lista', 'cena'],
-    ['.clube .periodo, .plano, .clube-regras', 'cena'],
+    ['.ag-passos, .ag-nav', 'cena'], ['.ag', 'cena-lado'], ['.ag-resumo', 'cena-lado'],
+    ['.aval-txt > :not(img), .aval-garantias li', 'cena'], ['.aval-cartao', 'cena-zoom'],
+    ['.google-resumo > *, .filtros, .av, .rola-btns', 'cena'],
+    ['.clube .periodo, .plano, .clube-regras li', 'cena'],
     ['.vale-form > *', 'cena'], ['.vale-vitrine', 'cena-zoom'],
-    ['.produto', 'cena'], ['.etapas li, .contra, .politica, .seg-txt > *', 'cena'],
+    ['.produto', 'cena'], ['.loja .mini', 'cena'],
+    ['.etapas li, .contra > h3, .contra-grade > div, .politica, .seg-txt > *', 'cena'],
     ['.faq details', 'cena'], ['.local-in > *', 'cena'],
-    ['.mapa-linha > *, .rodape-cols > div', 'cena'], ['.sec-cab > p', 'cena'],
+    ['.mapa-linha > *, .rodape-cols > div, .legal > *', 'cena'], ['.sec-cab > p', 'cena'],
   ];
+  // títulos grandes deslizam de lado conforme a rolagem
+  const deslizam = reduz ? [] : $$('.sec-cab h2, .prov-ctrl h2, .aval-txt h2, .vale-form h2, .google-resumo h2, .ta-cab h3, .local h2, .onde h2');
+  deslizam.forEach((el, k) => { el.classList.add('desliza'); el.dataset.lado = k % 2 ? '-1' : '1'; });
+  const capaTxt = $('.capa-txt'), capaOlho = $('.capa-olho');
   const cenas = [];
   if (!reduz) {
     CENAS.forEach(([sel, cls]) => $$(sel).forEach((el) => {
@@ -1209,7 +1214,7 @@
       if (cls === 'cena-lado' && el.matches('.ag-resumo, .simulador > *')) el.style.setProperty('--lado', '60px');
       // irmãos lado a lado entram em sequência: o atraso vira distância de rolagem
       const irmaos = [...el.parentElement.children].filter((x) => x.classList.contains(cls));
-      cenas.push({ el, atraso: Math.min(irmaos.indexOf(el), 5) * 0.045 });
+      cenas.push({ el, atraso: Math.min(irmaos.indexOf(el), 7) * (el.matches('tr') ? 0.022 : 0.04) });
     }));
   }
   const prog = $('.progresso');
@@ -1220,16 +1225,31 @@
     const vh = innerHeight, alto = raiz.scrollHeight - vh;
     if (prog) prog.style.setProperty('--prog', alto > 0 ? (scrollY / alto).toFixed(4) : 0);
     // primeiro lê tudo, depois escreve, para não forçar o layout a cada elemento
-    const leituras = cenas.map(({ el, atraso }) => { const r = el.getBoundingClientRect(); return [el, r.top, r.bottom, atraso]; });
+    const leituras = cenas.map(({ el, atraso }) => { const r = el.getBoundingClientRect(); return [el, r.top, r.bottom, atraso, r.height === 0 && r.width === 0]; });
+    const titulos2 = deslizam.map((el) => [el, el.getBoundingClientRect()]);
+    const estados = alternam.map((a) => [a, a.el.getBoundingClientRect()]);
     const mov = moveis.map(([el, v]) => [el, el.getBoundingClientRect(), v]);
     // --p: entrada pela borda de baixo; --q: saída pela borda de cima. Descendo, o bloco sobe e some no topo;
     // subindo, ele volta descendo pelo topo e se desfaz quando passa da borda de baixo.
-    for (const [el, top, bottom, atraso] of leituras) {
-      const p = limita((vh * (1.02 - atraso) - top) / (vh * 0.24));
-      const q = limita((bottom - vh * 0.04) / (vh * 0.2));
+    for (const [el, top, bottom, atraso, oculto] of leituras) {
+      if (oculto) { el.style.setProperty('--p', 1); el.style.setProperty('--q', 1); continue; }
+      const p = limita((vh * (1.01 - atraso) - top) / (vh * 0.3));
+      const q = limita((bottom - vh * 0.02) / (vh * 0.3));
       el.style.setProperty('--p', (1 - Math.pow(1 - p, 3)).toFixed(3));
       el.style.setProperty('--q', (1 - Math.pow(1 - q, 3)).toFixed(3));
     }
+    for (const [a, r] of estados) {
+      const dentro = r.height > 0 && r.top < vh * (1 - a.margem) && r.bottom > vh * a.margem * 0.5;
+      if (dentro !== a.dentro) { a.dentro = dentro; (dentro ? a.entra : a.sai)(a.el); }
+    }
+    for (const [el, r] of titulos2) {
+      if (r.bottom < -100 || r.top > vh + 100) continue;
+      const c = (r.top + r.height / 2 - vh / 2) / vh;
+      el.style.setProperty('--dx', `${(c * 90 * +el.dataset.lado).toFixed(1)}px`);
+    }
+    // capa: o texto sobe mais rápido e some; o olho cresce e desce devagar
+    const h = limita(scrollY / (vh * 0.95));
+    if (capaTxt) { capaTxt.style.setProperty('--h', h.toFixed(3)); capaOlho?.style.setProperty('--h', h.toFixed(3)); }
     const y = scrollY;
     if (Math.abs(y - ultimoY) > 2) { raiz.dataset.rolagem = y > ultimoY ? 'desce' : 'sobe'; ultimoY = y; }
     for (const [el, r, v] of mov) {
@@ -1239,6 +1259,11 @@
   };
   addEventListener('scroll', () => { if (!pedido) { pedido = true; requestAnimationFrame(rola); } }, { passive: true });
   addEventListener('resize', rola);
+  addEventListener('click', () => requestAnimationFrame(() => requestAnimationFrame(rola)));
+  addEventListener('toggle', () => requestAnimationFrame(rola), true);
+  // fotos que carregam depois e qualquer mudança de altura também mexem nas posições
+  addEventListener('load', () => requestAnimationFrame(rola), true);
+  if ('ResizeObserver' in window) { let ro = false; new ResizeObserver(() => { if (!ro) { ro = true; requestAnimationFrame(() => { ro = false; rola(); }); } }).observe(document.querySelector('main') || document.body); }
   rola();
 
   // ---------- botões magnéticos ----------

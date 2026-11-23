@@ -992,7 +992,6 @@ main > section, .rodape { position: relative; isolation: isolate; overflow: clip
 /* textos de apoio entram abrindo o espaçamento */
 .apoio.entra { animation-name: entra-apoio; }
 @keyframes entra-apoio { from { opacity: 0; letter-spacing: .5em; filter: blur(4px); } to { opacity: 1; letter-spacing: .16em; filter: none; } }
-.sec-cab p { transition: opacity .8s, translate .8s; }
 
 @media (prefers-reduced-motion: reduce) {
   .cena, .cena-lado, .cena-zoom { opacity: 1; translate: none; scale: none; }
@@ -1041,3 +1040,65 @@ main > section, .rodape { position: relative; isolation: isolate; overflow: clip
 @media (prefers-reduced-motion: reduce) {
   .faixa-trilho { animation: none; overflow-x: auto; }
 }
+
+/* ===================== v5: rolagem mais presente, capa que reage, fundos vivos fortes, hover escuro nos preços ===================== */
+
+/* blocos: curso maior, entram crescendo de leve e saem subindo */
+.cena { opacity: min(var(--p, 1), var(--q, 1)); translate: 0 calc((1 - var(--p, 1)) * 110px - (1 - var(--q, 1)) * 90px); scale: calc(.94 + min(var(--p, 1), var(--q, 1)) * .06); }
+.cena-lado { opacity: min(var(--p, 1), var(--q, 1)); translate: calc((1 - var(--p, 1)) * var(--lado, -120px)) calc((1 - var(--q, 1)) * -80px); }
+.cena-zoom { opacity: min(var(--p, 1), var(--q, 1)); scale: calc(.82 + min(var(--p, 1), var(--q, 1)) * .18); translate: 0 calc((1 - var(--q, 1)) * -60px); }
+.ag-resumo.cena-lado, .simulador > .cena-lado { --lado: 120px; }
+tr.cena { scale: none; translate: 0 calc((1 - var(--p, 1)) * 40px - (1 - var(--q, 1)) * 30px); }
+
+/* títulos grandes deslizam de lado com a rolagem */
+.desliza { translate: var(--dx, 0px) 0; will-change: translate; }
+
+/* capa: o texto sobe e se apaga, o olho cresce e desce */
+.capa-txt { translate: 0 calc(var(--h, 0) * -160px); opacity: calc(1 - var(--h, 0) * .95); }
+.capa-olho { translate: 0 calc(var(--h, 0) * 90px); scale: calc(1 + var(--h, 0) * .28); opacity: calc(1 - var(--h, 0) * .6); }
+
+/* fundos vivos fortes: três manchas grandes que viajam, anéis girando e um brilho que atravessa */
+:root { --aura-c: rgba(140, 165, 220, .26); }
+:root[data-tema="escuro"] { --aura-c: rgba(80, 110, 180, .2); }
+.aura.viva i { width: max(58vw, 520px); opacity: 1; animation: viaja 16s ease-in-out infinite alternate; }
+.aura.viva i:nth-child(1) { left: -18vw; top: -25%; background: radial-gradient(circle, var(--aura-a) 0, transparent 64%); }
+.aura.viva i:nth-child(2) { right: -20vw; bottom: -30%; top: auto; left: auto; background: radial-gradient(circle, var(--aura-b) 0, transparent 64%); animation-duration: 21s; animation-direction: alternate-reverse; }
+.aura.viva i:nth-child(3) { left: 30%; top: 20%; width: max(40vw, 380px); background: radial-gradient(circle, var(--aura-c) 0, transparent 62%); animation-name: viaja-2; animation-duration: 25s; }
+.aura.viva b { right: 4%; top: 8%; width: 460px; animation-duration: 40s; }
+.aura.viva s { position: absolute; inset: -50% -20%; background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, .22) 50%, transparent 60%); animation: atravessa 11s ease-in-out infinite; text-decoration: none; }
+:root[data-tema="escuro"] .aura.viva s, :is(.provador, .clube) .aura.viva s { background: linear-gradient(115deg, transparent 40%, rgba(183, 172, 216, .08) 50%, transparent 60%); }
+:root { --aura-a: rgba(160, 140, 210, .42); --aura-b: rgba(228, 165, 140, .32); }
+:root[data-tema="escuro"] { --aura-a: rgba(110, 97, 170, .34); --aura-b: rgba(169, 101, 75, .2); }
+@keyframes viaja { 0% { transform: translate(0, 0) scale(1); } 33% { transform: translate(18vw, 10vh) scale(1.2); } 66% { transform: translate(6vw, 26vh) scale(.9); } 100% { transform: translate(-8vw, 8vh) scale(1.1); } }
+@keyframes viaja-2 { 0% { transform: translate(0, 0) scale(.9); } 50% { transform: translate(-22vw, -12vh) scale(1.25); } 100% { transform: translate(14vw, 14vh) scale(1); } }
+@keyframes atravessa { 0% { transform: translateX(-60%); } 55%, 100% { transform: translateX(60%); } }
+
+/* preços: hover escuro nas linhas, nos serviços e nas abas */
+.ta-tabelas tbody tr { transition: background-color .35s var(--suave-in); }
+.ta-tabelas tbody tr:hover { background: var(--sec-escura); }
+.ta-tabelas tbody tr:hover th, .ta-tabelas tbody tr:hover td { color: #F6F3EF; }
+.ta-tabelas tbody tr:hover td b { color: #E7BBA4; }
+.ta-tabelas tbody tr:hover td small { color: #B7ACD8; }
+.ta-tabelas tbody tr:hover th:first-child { padding-left: 14px; }
+.ta-tabelas th, .ta-tabelas td { transition: color .3s, padding .35s var(--suave-in); }
+.ta-tabelas tbody th:first-child { border-radius: 10px 0 0 10px; }
+.ta-tabelas tbody td:last-child { border-radius: 0 10px 10px 0; }
+.serv summary { margin: 0 -16px; padding: 20px 16px; border-radius: 16px; transition: background-color .4s var(--suave-in), color .3s; }
+.serv summary:hover { background: var(--sec-escura); }
+.serv summary:hover .serv-nome b, .serv summary:hover .pr { color: #F6F3EF; }
+.serv summary:hover .serv-nome span, .serv summary:hover .pr small { color: rgba(246, 243, 239, .7); }
+.serv details[open] summary:hover .serv-nome b { color: #CFC6EA; }
+#precos .abas > button:hover { background: var(--sec-escura); color: #F6F3EF; border-color: var(--sec-escura); }
+.pagamento div { padding: 18px 18px 20px; margin: 0 -18px; border-radius: 16px; transition: background-color .4s, color .3s, transform .5s var(--suave-in); }
+.pagamento div:hover { background: var(--sec-escura); color: #F6F3EF; }
+.pagamento div:hover p { color: rgba(246, 243, 239, .72); }
+
+@media (prefers-reduced-motion: reduce) {
+  .desliza, .capa-txt, .capa-olho { translate: none; scale: none; opacity: 1; }
+  .aura.viva i, .aura.viva b, .aura.viva s { animation: none; }
+}
+@media (max-width: 860px) {
+  .pagamento div { margin: 0; }
+}
+.capa-estilos { max-width: 580px; }
+.cena { translate: 0 calc((1 - var(--p, 1)) * 90px - (1 - var(--q, 1)) * 80px); }

@@ -248,7 +248,7 @@ const avisoResultado = 'Cada pele, cada pelo e cada cílio respondem de um jeito
 const antesDepois = [
   { id: 'fio', seg: 'cilios', nome: 'Fio a fio', titulo: 'Extensão fio a fio', texto: 'Um fio sintético em cada cílio natural, curvatura C, de 10 a 12 mm. Efeito de rímel, sem pesar.', fotos: ['ad-fio-antes', 'ad-fio-depois'] },
   { id: 'volume', seg: 'cilios', nome: 'Volume russo', titulo: 'Volume russo', texto: 'Leques ultrafinos em cada cílio natural, mais longos no centro. Olhar marcado, sem rímel.', fotos: ['ad-volume-antes', 'ad-volume-depois'] },
-  { id: 'cilios', seg: 'cilios', nome: 'Cílios em desenho', titulo: 'Extensão fio a fio, curvatura C', texto: 'Fios de 10 a 12 mm, mais longos no canto externo. Manutenção a cada 18 dias.' },
+  { id: 'cilios', seg: 'cilios', nome: 'Desenho', titulo: 'Extensão fio a fio, curvatura C', texto: 'Fios de 10 a 12 mm, mais longos no canto externo. Manutenção a cada 18 dias.' },
   { id: 'sobrancelhas', seg: 'sobrancelhas', nome: 'Sobrancelhas', titulo: 'Design com henna', texto: 'Desenho medido, fios do excesso retirados com pinça e henna nas falhas.' },
   { id: 'laser', seg: 'laser', nome: 'Laser', titulo: 'Meia perna, depois de 6 sessões', texto: 'Redução progressiva dos pelos, com sessões a cada 45 dias. Pode precisar de manutenção.' },
 ];

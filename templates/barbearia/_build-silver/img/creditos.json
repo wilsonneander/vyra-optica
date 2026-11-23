@@ -1,0 +1,357 @@
+[
+ {
+  "arq": "capa",
+  "autor": "César Badilla Miranda",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/t34TLxxmwws",
+  "w": 1400,
+  "h": 934
+ },
+ {
+  "arq": "sobre-navalha",
+  "autor": "Reza Ghaemi",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/5P-eClxMg1s",
+  "w": 1400,
+  "h": 934
+ },
+ {
+  "arq": "espaco-salao",
+  "autor": "Barney Goodman",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/AXurvQTtO3Y",
+  "w": 1400,
+  "h": 959
+ },
+ {
+  "arq": "corte-tesoura",
+  "autor": "David Cano Soriano",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/Z4ZS4Ry6E-U",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "corte-maquina",
+  "autor": "Tá Focando",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/YDOc9F6HUFA",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "corte-degrade",
+  "autor": "Hai Phung",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/m4Pd_e-4zKs",
+  "w": 1400,
+  "h": 934
+ },
+ {
+  "arq": "corte-pente",
+  "autor": "Gulom Nazarov",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/DrG4V5skbMY",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "corte-secador",
+  "autor": "delfina pan",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/8esvJeVUdes",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "corte-acabamento",
+  "autor": "Mitchell Orr",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/X03HwElKqfM",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "corte-risco",
+  "autor": "Amritpal Singh",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/wE-GAKR9WaY",
+  "w": 1050,
+  "h": 1400
+ },
+ {
+  "arq": "corte-perfil",
+  "autor": "Megan Bagshaw",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/YmaaUNbHHtw",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "barba-navalha",
+  "autor": "Allef Vinicius",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/IvQeAVeJULw",
+  "alt_original": "man sitting on barber's chair",
+  "w": 1400,
+  "h": 934
+ },
+ {
+  "arq": "barba-tesoura",
+  "autor": "Nathon Oski",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/fE42nRlBcG8",
+  "w": 930,
+  "h": 1400
+ },
+ {
+  "arq": "barba-espuma",
+  "autor": "Victor Sirbu",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/TGdKH24tX7I",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "barba-toalha",
+  "autor": "Jonathan Cooper",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/Nh-A851W2ro",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "barba-toalha-escura",
+  "autor": "Tá Focando",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/1VTQaaI0HP8",
+  "w": 1120,
+  "h": 1400
+ },
+ {
+  "arq": "barba-pincel",
+  "autor": "Arthur Humeau",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/Twd3yaqA2NM",
+  "w": 1400,
+  "h": 934
+ },
+ {
+  "arq": "barba-luvas",
+  "autor": "Antonio Reynoso",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/_25iXtaa6oY",
+  "w": 1400,
+  "h": 931
+ },
+ {
+  "arq": "barba-pb",
+  "autor": "Shrikant Ambawale",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/sqtcS14Cho8",
+  "w": 1400,
+  "h": 934
+ },
+ {
+  "arq": "sobrancelha-navalha",
+  "autor": "Savannah Bolton",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/PMIF_mn6FQk",
+  "w": 1400,
+  "h": 934
+ },
+ {
+  "arq": "sobrancelha-contorno",
+  "autor": "Ace Maxwell",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/alPVAV3zMMI",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "acabamento-nuca",
+  "autor": "Jonathan Cooper",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/2pLskwi7mR4",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "infantil-capa",
+  "autor": "🔥John Rodriguez🔥",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/mn8-zTvax-4",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "infantil-pb",
+  "autor": "Tommy van Kessel",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/0iW0NSHjiiw",
+  "w": 1400,
+  "h": 934
+ },
+ {
+  "arq": "infantil-penteado",
+  "autor": "Tommy van Kessel",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/ZPRBeg7Lsh0",
+  "w": 1400,
+  "h": 934
+ },
+ {
+  "arq": "infantil-maquina",
+  "autor": "Tommy van Kessel",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/vDkQO0VVsIA",
+  "w": 1400,
+  "h": 934
+ },
+ {
+  "arq": "espaco-cadeira",
+  "autor": "André Reis",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/1_DAlXy0wng",
+  "w": 1400,
+  "h": 969
+ },
+ {
+  "arq": "espaco-cadeiras",
+  "autor": "Georgi Kyurpanov",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/XTAtx9UhNBo",
+  "alt_original": "red and black leather office rolling chair",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "espaco-espelhos",
+  "autor": "Waves Barbershop",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/QmH_pfIuojQ",
+  "w": 1400,
+  "h": 934
+ },
+ {
+  "arq": "espaco-retro",
+  "autor": "Ilia",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/e3T9DZ1g2Aw",
+  "w": 1050,
+  "h": 1400
+ },
+ {
+  "arq": "espaco-maquinas",
+  "autor": "Nazmi Javier",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/iVIfMA9zSfQ",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "espaco-janela",
+  "autor": "Ten",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/4y50IXfnaIo",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "espaco-navalha",
+  "autor": "Josh Sorenson",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/FvKpUZCbZ-s",
+  "w": 1400,
+  "h": 934
+ },
+ {
+  "arq": "barbeiro-1",
+  "autor": "Glib Albovsky",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/cmoQYMqGgoI",
+  "w": 1120,
+  "h": 1400
+ },
+ {
+  "arq": "barbeiro-2",
+  "autor": "Salah Regouane",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/8HkPnJhC5Ic",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "barbeiro-3",
+  "autor": "Obi",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/-sRVfY0f2d8",
+  "w": 1053,
+  "h": 1400
+ },
+ {
+  "arq": "barbeiro-4",
+  "autor": "André Reis",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/bmIJtELt3Ck",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "barbeiro-acao",
+  "autor": "Chris Knight",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/-ucnC7PMDqE",
+  "w": 1400,
+  "h": 934
+ },
+ {
+  "arq": "insta-1",
+  "autor": "José Pinto",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/yG0Z9OwXWks",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "insta-2",
+  "autor": "André Reis",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/z0Cyh9nGLFY",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "insta-3",
+  "autor": "Victor Sirbu",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a04Xt_QI8c8",
+  "w": 1120,
+  "h": 1400
+ },
+ {
+  "arq": "insta-4",
+  "autor": "Amr Taha™",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/R-jHwwvODBI",
+  "w": 1085,
+  "h": 1400
+ },
+ {
+  "arq": "insta-5",
+  "autor": "Redd Francisco",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/PDDvMlScofU",
+  "w": 933,
+  "h": 1400
+ },
+ {
+  "arq": "insta-6",
+  "autor": "Nate Johnston",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/tgPrIYnW3g4",
+  "alt_original": "a man cutting another mans hair with a pair of scissors",
+  "w": 1120,
+  "h": 1400
+ }
+]

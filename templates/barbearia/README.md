@@ -5,7 +5,7 @@ Nicho só de barbearia, separado de [Salões de Beleza](../Sal%C3%B5es%20de%20Be
 | Modelo | Pasta | Gerar |
 |---|---|---|
 | Bronze: landing page de uma página no desenho da referência Salona, escura e areia, com tema claro/escuro | [bronze/](bronze/) | `node templates/barbearia/_build-bronze/build.js` |
-| Silver | ainda não feito | |
+| Silver Cobre Barbearia: duas páginas (início e equipe), grafite e cobre da referência Barbor, seções animadas, agendamento com serviço, barbeiro, data e horário, tema claro/escuro (marca própria Cobre, não usa a Mecha) | [silver/](silver/) | `node templates/barbearia/_build-silver/build.js` |
 | Gold Pente Fino: barbearia premium escura, cadeira 3D sob o foco, agendamento em quatro passos, Área do cliente (marca própria Pente Fino, não usa a Mecha) | [gold-pente/](gold-pente/) | em `_build-gold-pente/`: `npm install` e depois `npm run catalogo` |
 
 ## Bronze
@@ -17,6 +17,24 @@ Nicho só de barbearia, separado de [Salões de Beleza](../Sal%C3%B5es%20de%20Be
 - `_build-bronze/img/`: todas as fotos, o mapa e `creditos.json`. As fotos dos barbeiros e a da barba com tesoura são imagens de referência enviadas: confirmar a licença antes de publicar.
 
 Seções: capa escura com retrato, sobre com três fotos em paralaxe, serviços com foto presa, avaliações com colunas de fotos, cartão de agendamento, equipe com selo girando e agenda por barbeiro (Google Agenda e .ics), foto larga que cresce com frase corrida, políticas e higiene, rodapé claro com mapa. Textos de políticas a validar na revisão jurídica.
+
+## Silver Cobre Barbearia
+
+Referência de desenho: https://barbor.framer.website/ (Framer). Aproveitadas as cores (grafite #111111, superfície #181818, branco e cobre #F0AD73), o clima escuro e a ordem das seções (sobre, serviços, equipe, depoimentos, planos, galeria, dúvidas, chamada final). Nada do texto ou das imagens da referência foi copiado; a fonte dela (DM Sans) é proibida nas diretrizes, então o Silver usa **Antonio** nos títulos e **Rethink Sans** no texto. Marca fictícia **Cobre Barbearia**, Alameda Dom Pedro II, Batel, Curitiba.
+
+- `_build-silver/content.js`: marca, horários, segmentos e serviços com preço e tempo, pacotes, equipe com agenda e serviços de cada barbeiro, depoimentos, galeria por categoria, posts do Instagram, dúvidas, bairros e o texto alternativo de cada foto. `[EXEMPLO]` = trocar pelo cliente, `[JURÍDICO]` = revisão jurídica.
+- `_build-silver/build.js`: gera `silver/index.html`, `silver/equipe.html`, `assets/site.css`, `assets/site.js`, as fotos usadas, o mapa, robots e sitemap.
+- `_build-silver/style.css`, `app.js`, `icons.js`: desenho, interação e ícones próprios (símbolo de losango com navalha em C). Tema pela `../_comum/tema-pilula.js` (chave `cobre-barbearia-tema`); escuro é o padrão, `?tema=claro` abre no claro.
+- `_build-silver/img/fotos/`: 44 fotos reais do Unsplash (fotógrafos, não geradas por IA), nenhuma repetida do Bronze. Créditos em `img/creditos.json` e no rodapé. Para cliente real, trocar pelas fotos do espaço e da equipe mantendo os nomes dos arquivos.
+- `_build-silver/gerar-mapa.js`: mapa do OpenStreetMap em grafite e cobre (`NODE_PATH=<pasta com sharp> node gerar-mapa.js cobre img/mapa_batel.webp`, dentro de `_build-silver/`).
+
+**Início:** capa com foto cheia, relógio de Curitiba ao vivo e "aberto agora" calculado pelo horário; faixa corrida em cobre; sobre com fotos que se revelam por máscara, selo girando e contadores; **serviços em cartões por segmento** (Cabelo, Barba, Sobrancelha e acabamento, Infantil) em abas com marcador que desliza; pacotes no formato de planos; prévia da equipe (preto e branco que ganha cor); **galeria por categoria** com filtro e ampliação com setas; **depoimentos** em carrossel com arraste e passagem automática; **Instagram incorporado** (cabeçalho do perfil e 6 posts com curtidas e legenda, todos levando ao perfil); **agendamento** e **dúvidas** em sanfona animada; chamada final; rodapé com o mapa padrão `.map-box`, "Onde atendemos", horário com o dia de hoje em destaque, textos legais e cookies.
+
+**Equipe (`equipe.html`):** perfil de cada barbeiro com foto, frase, história, anos de profissão, dias e horários da semana, serviços que atende com preço, três trabalhos e botão "Agendar com" que abre o agendamento já com o barbeiro escolhido (`index.html?barbeiro=otavio#agendar`). Fecha com "Como a equipe trabalha".
+
+**Agendamento:** escolhe o serviço (com risco opcional nos cortes), o barbeiro (só aparecem os que fazem aquele serviço; "Sem preferência" pega o primeiro livre), a data (14 dias, sem os dias de folga do barbeiro) e o horário livre conforme a duração. O resumo mostra duração e total na hora. O pedido abre no WhatsApp com tudo preenchido e depois oferece Google Agenda e `.ics`. A ocupação dos horários é simulada (fixa por data e hora) até ligar uma agenda de verdade. Os botões "Agendar" dos serviços e pacotes já selecionam o serviço; `?servico=degrade` também.
+
+Tudo é demonstração: marca, CNPJ, endereço, barbeiros, preços, nota, depoimentos e números do Instagram.
 
 ## Gold Pente Fino (barbearia premium)
 

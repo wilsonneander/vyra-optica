@@ -94,7 +94,7 @@ const bairros = ['Vila Madalena', 'Pinheiros', 'Sumarezinho', 'Alto de Pinheiros
 
 // descrição das fotos (alt)
 const fotos = {
-  l13: 'Homem de barba cheia e risco no cabelo, de perfil, sobre fundo escuro',
+  'capa-barbeiro': 'Barbeiro tatuado fazendo o acabamento da barba na navalha em um cliente reclinado na cadeira',
   'barba-tesoura': 'Barbeiro de luvas pretas aparando a barba de um cliente com tesoura e pente, cliente reclinado na cadeira',
   'corte-m4': 'Barbeiro passando a máquina na nuca de um cliente',
   'corte-m3': 'Barbeiro fazendo degradê com máquina em cliente de capa listrada',
@@ -110,7 +110,7 @@ const fotos = {
   l12: 'Cliente de degradê com topete e barba curta',
   l9: 'Cliente de topete com laterais baixas e barba por fazer',
   kids: 'Barbeiro tatuado cortando o cabelo de um menino',
-  'espaco-equipe': 'O espaço da Mecha, com cadeiras de barbeiro e espelhos em arco iluminados',
+  'espaco-barbearia': 'O espaço da Mecha Barbearia: recepção de madeira, sofá de couro, cadeiras de barbeiro pretas, espelhos iluminados e lavatórios ao fundo',
   'barbeiro-rafael': 'Rafael Duarte, barbeiro, apoiado na cadeira de couro segurando a tesoura dourada diante do espelho redondo iluminado',
   'barbeiro-thiago': 'Thiago Sena, barbeiro, mostrando a tesoura para a câmera',
   'barbeiro-diego': 'Diego Amaral, barbeiro de barba ruiva, apontando a tesoura para a câmera',

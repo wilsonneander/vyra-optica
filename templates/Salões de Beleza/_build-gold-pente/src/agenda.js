@@ -161,7 +161,7 @@ export function agenda({ lenis }) {
   function horario() {
     const hoje = agora();
     const dias = Array.from({ length: 7 }, (_, i) => { const d = new Date(hoje); d.setDate(d.getDate() + i); d.setHours(0, 0, 0, 0); return d; });
-    if (!s.dia) s.dia = dias[0];
+    if (!s.dia) s.dia = dias.find((d) => HORARIO[d.getDay()]) ?? dias[0];
     const faixa = document.createElement('div');
     faixa.className = 'datas';
     dias.forEach((d, i) => {
@@ -179,12 +179,13 @@ export function agenda({ lenis }) {
     corpo.append(grade);
     function horas() {
       grade.innerHTML = '';
-      const [abre, fechaH] = HORARIO[s.dia.getDay()];
+      if (!HORARIO[s.dia.getDay()]) { grade.innerHTML = '<p class="horas__vazio">A casa não abre nesse dia. Escolha outro ali em cima.</p>'; return; }
+      const [abre, fechaH] = HORARIO[s.dia.getDay()].map((h) => Math.round(h * 3) / 3);
       const agoraMin = hoje.getHours() * 60 + hoje.getMinutes();
       const eHoje = s.dia.toDateString() === hoje.toDateString();
       let semente = s.dia.getDate() * 7 + (s.barbeiro ?? 0) * 13;
       const sorteio = () => { semente = (semente * 9301 + 49297) % 233280; return semente / 233280; };
-      for (let m = abre * 60; m <= fechaH * 60 - 40; m += 20) {
+      for (let m = Math.round(abre * 60); m <= Math.round(fechaH * 60) - 40; m += 20) {
         const b = document.createElement('button');
         b.type = 'button';
         b.className = 'hora';

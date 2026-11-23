@@ -90,9 +90,11 @@
 .espelho__vidro img { width: 100%; height: 100%; object-fit: cover; border-radius: calc(18 * var(--su)) calc(18 * var(--su)) 0 0; filter: brightness(0.32) contrast(1.05); transform: scale(1.04); transition: filter 0.9s var(--curva), transform 1.2s var(--curva); }
 .espelho.is-ativo .espelho__vidro img { filter: brightness(1) contrast(1.02); transform: scale(1); }
 @media (hover: hover) { .espelho:hover:not(.is-ativo) .espelho__vidro img { filter: brightness(0.5); } }
+/* com fotos coloridas e claras, um degradê escuro embaixo segura o nome e a especialidade legíveis */
+.espelho__vidro::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgb(0 0 0 / 0.86) 0%, rgb(0 0 0 / 0.5) 34%, transparent 62%); pointer-events: none; }
 .espelho__vidro::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 45%; background: radial-gradient(50% 70% at 50% 0%, rgb(255 255 255 / 0.22), transparent 70%); opacity: 0; transition: opacity 0.8s; pointer-events: none; }
 .espelho.is-ativo .espelho__vidro::after { opacity: 1; }
-.espelho__info { position: absolute; left: calc(26 * var(--su)); right: calc(20 * var(--su)); top: calc(386 * var(--su)); display: grid; gap: 2px; }
+.espelho__info { position: absolute; z-index: 2; left: calc(26 * var(--su)); right: calc(20 * var(--su)); top: calc(386 * var(--su)); display: grid; gap: 2px; }
 .espelho__num { font: 500 15px / 1 var(--display); color: rgb(242 241 238 / 0.85); }
 .espelho__nome { font: 700 calc(27 * var(--su)) / 1.1 var(--display); letter-spacing: -0.035em; white-space: nowrap; }
 .espelho__extra { margin-top: 8px; color: var(--cinza-1); font-size: 12px; white-space: nowrap; opacity: 0; transform: translateY(6px); transition: opacity 0.5s, transform 0.6s var(--curva); }
@@ -237,16 +239,25 @@
 .horario div.is-hoje dt::after { content: ' · hoje'; }
 .adesivo { display: inline-block; margin-top: calc(38 * var(--su)); padding: 10px 16px; border-radius: 6px; border: 1px dashed rgb(255 255 255 / 0.32); background: #141414; color: #e2e1de; font-weight: 700; transform: rotate(-4deg); box-shadow: 0 10px 20px -12px #000; }
 .mapa { margin: 0; }
-.mapa__svg { width: 100%; height: auto; border-radius: calc(24 * var(--su)); background: #0e0e0e; overflow: hidden; }
-.mapa__ruas path { stroke: #1d1d1d; stroke-width: 26; }
-.mapa__ruas path.fina { stroke-width: 12; stroke: #171717; }
-.mapa__nomes text { fill: #4a4a48; font-size: 12px; letter-spacing: 0.12em; }
-.mapa__rota { stroke: var(--branco); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
-.mapa__metro circle { fill: #0e0e0e; stroke: var(--branco); stroke-width: 3; }
-.mapa__metro text, .mapa__nos text { fill: var(--branco); font-size: 12px; font-weight: 700; letter-spacing: 0.1em; }
-.mapa__nos circle { fill: var(--branco); }
-.mapa__pulso { transform-box: fill-box; transform-origin: center; animation: pulso 2.6s var(--curva) infinite; opacity: 0.35; }
-@keyframes pulso { 0% { transform: scale(1); opacity: 0.35; } 80%, 100% { transform: scale(2.4); opacity: 0; } }
+/* mapa: OpenStreetMap recolorido (gerar-mapa.cjs), pino com onda e cartão por cima, como nos outros modelos */
+.mapa__caixa { position: relative; height: calc(480 * var(--su)); min-height: 340px; border-radius: calc(24 * var(--su)); overflow: hidden; background: #111; border: 1px solid var(--fio-claro); isolation: isolate; }
+.mapa__caixa img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; transition: transform 1.4s var(--curva); }
+@media (hover: hover) { .mapa__caixa:hover img { transform: scale(1.04); } }
+.mapa__pino { position: absolute; left: 62%; top: 50%; z-index: 2; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: var(--branco); box-shadow: 0 0 0 5px rgb(242 241 238 / 0.18), 0 10px 22px -6px #000; }
+.mapa__pino::before { content: ""; position: absolute; inset: -12px; border-radius: 50%; border: 2px solid rgb(242 241 238 / 0.5); animation: pulso 2.6s var(--curva) infinite; }
+.mapa__pino b { position: absolute; left: 30px; top: 50%; transform: translateY(-50%); white-space: nowrap; font: 800 18px / 1 var(--display); letter-spacing: -0.04em; color: var(--branco); text-shadow: 0 0 6px #000, 0 0 12px #000; }
+.mapa__info { position: absolute; left: 16px; top: 16px; z-index: 3; display: grid; gap: 4px; max-width: 300px; padding: 16px 18px; border-radius: 16px; background: rgb(12 12 12 / 0.86); border: 1px solid var(--fio-claro-2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: var(--cinza-1); font-size: 14px; line-height: 1.45; box-shadow: 0 18px 36px -16px #000; }
+.mapa__info b { font: 700 17px / 1.2 var(--display); letter-spacing: -0.03em; color: var(--branco); }
+.mapa__ref { color: var(--cinza-2); font-size: 13px; }
+.mapa__botoes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.mapa__botoes a { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; padding: 6px 12px; border-radius: 99px; background: var(--branco); color: var(--tinta); font: 600 13px / 1 var(--corpo); white-space: nowrap; transition: transform 0.3s var(--curva-mola), background-color 0.25s; }
+.mapa__botoes a + a { background: transparent; color: var(--branco); border: 1px solid var(--fio-claro-2); }
+.mapa__botoes a:active { transform: scale(0.96); }
+.mapa__botoes svg { width: 15px; height: 15px; }
+@media (hover: hover) { .mapa__botoes a:hover { transform: translateY(-2px); } .mapa__botoes a + a:hover { background: rgb(255 255 255 / 0.08); } }
+.mapa__attr { position: absolute; right: 8px; bottom: 6px; z-index: 3; padding: 1px 7px; border-radius: 3px; background: rgb(0 0 0 / 0.7); color: var(--cinza-1); font-size: 11px; }
+.mapa__attr a { text-decoration: underline; }
+@keyframes pulso { 0% { transform: scale(1); opacity: 0.6; } 80%, 100% { transform: scale(2.4); opacity: 0; } }
 .mapa figcaption { margin-top: 16px; color: var(--cinza-2); }
 
 /* ================= ANTES DE AGENDAR ================= */
@@ -290,7 +301,7 @@
 .rodape__links { display: flex; flex-wrap: wrap; gap: 8px 26px; }
 .rodape__links a { font-size: 14.5px; color: var(--cinza-1); transition: color 0.25s; }
 @media (hover: hover) { .rodape__links a:hover { color: var(--branco); } }
-.rodape__nota { max-width: 380px; text-align: right; color: var(--cinza-3); font-size: 12px; }
+.rodape__nota { max-width: 560px; text-align: right; color: var(--cinza-3); font-size: 12px; }
 
 /* ================= CELULAR ================= */
 @media (max-width: 760px) {
@@ -346,6 +357,9 @@
   .depo p { font-size: 17px; }
   .endereco__miolo { grid-template-columns: 1fr; gap: 50px; }
   .endereco__fone { font-size: 19px; }
+  .mapa__caixa { height: 460px; }
+  .mapa__info { left: 10px; right: 10px; top: auto; bottom: 30px; max-width: none; }
+  .mapa__pino b { left: auto; right: 30px; }
   .duvidas__miolo { grid-template-columns: 1fr; gap: 30px; }
   .duvidas__titulo { position: static; }
   .acordeao summary { font-size: 16px; padding: 20px 0; }

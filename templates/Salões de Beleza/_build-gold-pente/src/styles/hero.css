@@ -24,7 +24,13 @@
 @media (hover: hover) { .nav__links a:hover { color: var(--branco); background: rgb(255 255 255 / 0.08); } }
 .nav__links a.is-aqui { color: var(--branco); }
 .nav__links a.is-aqui::after { content: ''; position: absolute; left: 50%; bottom: 3px; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: currentColor; }
-.nav__cta { justify-self: end; --alto: 46px; font-size: 14.5px; }
+.nav__fim { justify-self: end; display: flex; align-items: center; gap: 10px; }
+.nav__cta { --alto: 46px; font-size: 14.5px; }
+.nav__conta { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--fio-claro-2); background: rgb(20 20 20 / 0.55); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); color: var(--branco); transition: background-color 0.3s, color 0.4s, border-color 0.4s, transform 0.3s var(--curva-mola); }
+.nav__conta svg { width: 21px; height: 21px; }
+.nav__conta:active { transform: scale(0.92); }
+@media (hover: hover) { .nav__conta:hover { background: rgb(255 255 255 / 0.12); } }
+.nav.is-clara .nav__conta { color: var(--tinta); border-color: var(--fio-escuro-2); background: rgb(234 232 229 / 0.72); }
 /* sobre as seções claras a barra vira tinta escura */
 .nav.is-clara .nav__logo { color: var(--tinta); }
 .nav.is-clara .nav__links { background: rgb(234 232 229 / 0.72); border-color: var(--fio-escuro); }
@@ -123,6 +129,8 @@
   .nav { padding: 14px 16px 0; grid-template-columns: 1fr auto; }
   .nav__links { display: none; }
   .nav__cta { --alto: 42px; font-size: 14px; padding-left: 18px; }
+  .nav__conta { width: 42px; height: 42px; }
+  .nav__fim { gap: 8px; }
   .nav__logo { padding: 13px 0; }
   .hero__frase { left: 20px; top: calc(84 * var(--u)); font-size: calc(21 * var(--u)); }
   .hero__p--1 { left: calc(12 * var(--u)); top: calc(128 * var(--u)); font-size: calc(116 * var(--u)); }

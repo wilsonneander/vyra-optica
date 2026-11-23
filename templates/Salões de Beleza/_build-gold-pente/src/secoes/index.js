@@ -28,12 +28,13 @@ function horario() {
   const p = proximaCadeira();
   const status = document.querySelector('[data-status]');
   const ponto = document.querySelector('.hero__status .ponto');
-  if (status) status.textContent = p.aberto ? `Aberto agora · próxima cadeira ${p.hora}` : `Fechado agora · abre ${p.quando} às ${p.hora}`;
+  if (status) status.textContent = p.aberto ? `Aberto agora · próxima cadeira ${p.hora}` : p.hora ? `Fechado agora · abre ${p.quando} às ${p.hora}` : 'Fechado agora';
   ponto?.classList.toggle('is-fechado', !p.aberto);
   const leve = document.querySelector('[data-fecho-leve]'), hora = document.querySelector('[data-fecho-hora]');
   if (leve && hora) {
     if (p.aberto) { leve.textContent = 'A cadeira fica livre'; hora.textContent = `às ${p.hora}.`; }
-    else { leve.textContent = `A cadeira abre ${p.quando}`; hora.textContent = `às ${p.hora}.`; }
+    else if (p.hora) { leve.textContent = `A cadeira abre ${p.quando}`; hora.textContent = `às ${p.hora}.`; }
+    else { leve.textContent = 'A cadeira volta'; hora.textContent = 'em breve.'; }
   }
 }
 
@@ -42,7 +43,7 @@ function cardapio() {
   const sec = document.querySelector('.cardapio');
   const linhas = [...sec.querySelectorAll('.linha')];
   const caixa = sec.querySelector('.cardapio__ferramenta');
-  const nomes = [...new Set(linhas.map((l) => l.dataset.ferramenta))];
+  const nomes = [...new Set(linhas.map((l) => l.dataset.ferramenta).filter(Boolean))];
   const imgs = Object.fromEntries(nomes.map((n) => {
     const i = new Image();
     i.src = `${import.meta.env.BASE_URL}img/ferramentas/${n}.webp`;
@@ -279,18 +280,21 @@ function avaliacoes() {
   arruma(false);
 }
 
-/* ---------- #6 endereço: hoje marcado e o caminho do metrô desenhado ---------- */
+/* ---------- #6 endereço: hoje marcado e o mapa (OpenStreetMap recolorido) que se revela com o pino caindo ---------- */
 function endereco() {
   const hoje = new Date().getDay();
   for (const d of document.querySelectorAll('.horario [data-dias]')) {
-    const [a, b = a] = d.dataset.dias.split('-').map(Number);
-    d.classList.toggle('is-hoje', hoje >= a && hoje <= b);
+    // "1-5" (faixa) ou "6,0" (lista, como a Área do cliente grava)
+    const v = d.dataset.dias;
+    const dias = v.includes('-') ? (([a, b]) => Array.from({ length: b - a + 1 }, (_, i) => a + i))(v.split('-').map(Number)) : v.split(',').map(Number);
+    d.classList.toggle('is-hoje', dias.includes(hoje));
   }
-  const rota = document.querySelector('.mapa__rota');
-  rota.setAttribute('pathLength', '1');
-  if (REDUZIDO) { rota.style.strokeDashoffset = '0'; return; }
-  gsap.to(rota, { strokeDashoffset: 0, duration: 1.8, ease: 'pf-io', scrollTrigger: { trigger: '.mapa', start: 'top 70%' } });
-  gsap.from('.mapa__nos', { scale: 0, svgOrigin: '452 280', duration: 0.9, ease: 'back.out(2)', delay: 1.2, scrollTrigger: { trigger: '.mapa', start: 'top 70%' } });
+  const caixa = document.querySelector('.mapa__caixa');
+  if (!caixa || REDUZIDO) return;
+  const gatilho = { trigger: caixa, start: 'top 80%' };
+  gsap.from(caixa.querySelector('img'), { scale: 1.12, opacity: 0, duration: 1.4, ease: 'pf-out', scrollTrigger: gatilho });
+  gsap.from(caixa.querySelector('.mapa__pino'), { y: -60, opacity: 0, duration: 0.9, delay: 0.5, ease: 'bounce.out', scrollTrigger: gatilho });
+  gsap.from(caixa.querySelector('.mapa__info'), { y: 24, opacity: 0, duration: 0.9, delay: 0.3, ease: 'pf-out', scrollTrigger: gatilho });
 }
 
 /* ---------- dúvidas: acordeão com altura animada (um aberto por vez) ---------- */

@@ -14,6 +14,10 @@ import { barra } from './motion/nav.js';
 import { titulos } from './motion/titulos.js';
 import { secoes } from './secoes/index.js';
 import { agenda } from './agenda.js';
+import { aplicarLoja } from './loja/aplicar.js';
+
+// o que a Área do cliente salvou (serviços, barbeiros, produtos, horário) entra antes de tudo ler o HTML
+aplicarLoja();
 
 // a primeira pintura nasce sem transição (nada pisca); depois de dois quadros as transições valem
 requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.add('assentou')));

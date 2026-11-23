@@ -90,3 +90,29 @@ No catálogo: esta pasta é a fonte; `npm run catalogo` gera `../gold-pente/`. `
 - Mantenha a estrutura que dá o efeito: as duas palavras do hero com a cadeira entre elas, o `data-ferramenta` de cada serviço, quatro espelhos, três peças no manifesto.
 - O agendamento é demonstração: não cobra nem envia nada. Para valer, ligue o passo 4 a um sistema de agenda e pagamento de verdade.
 - Cliente que fechar este modelo: copie para `clientes/` e ajuste lá (o catálogo não muda por cliente).
+
+## Mudanças deste catálogo (depois da demo)
+
+### Fotos coloridas
+As fotos do pacote eram preto e branco. Espelhos, cortes e produtos agora são fotos coloridas do Unsplash (as mesmas do Gold Mecha, `../_build-gold/img/fotos/`), recortadas por `preparar-fotos.mjs` nos formatos do site (espelho 3:2, corte 6:7, produto 4:5). Créditos em `public/img/creditos.json` e no rodapé. Rodar: `NODE_PATH=<pasta com sharp>/node_modules node preparar-fotos.mjs`.
+- A foto "de costas" dos cortes virou **"Ver na cadeira"**: mostra um corte sendo feito (pessoa diferente, ilustrativa). Com fotos do cliente, volte a frente e costas da mesma pessoa e o rótulo "Ver de costas".
+- Os produtos mudaram para pomada, óleo, shampoo e kit. Duas fotos (shampoo e kit) mostram rótulos de marcas reais: trocar antes de publicar para cliente.
+- Os espelhos ganharam um degradê escuro embaixo (`.espelho__vidro::before`) para o nome ficar legível sobre foto clara.
+
+### Mapa no padrão dos outros modelos
+O mapa desenhado em SVG saiu. Agora é o OpenStreetMap recolorido na paleta (escuro), gerado por `gerar-mapa.cjs` em `public/img/mapa.webp`, com pino com onda, cartão (nome, endereço, referência, "Abrir no mapa" e "Como chegar") e o crédito do OSM. Ponto de exemplo: Rua São Clemente, Botafogo, Rio de Janeiro (número fictício). Para outro endereço, troque `lat, lon` no script e rode `NODE_PATH=<pasta com sharp>/node_modules node gerar-mapa.cjs public/img/mapa.webp`; o pino fica a 62% da largura (`PINO_X` e `.mapa__pino { left }` precisam bater).
+
+### Área do cliente (login, cadastro do dono e painel)
+Três páginas a mais na raiz, no build do Vite (`vite.config.js`, `build.rollupOptions.input`):
+
+| página | o que faz | código |
+|---|---|---|
+| `cliente.html` | login com as credenciais de demonstração já nos campos (`dono@pentefino.com.br` / `pentefino123`) | `src/cliente/entrar.js` |
+| `cadastro.html` | cadastro do dono (nome, barbearia, CPF/CNPJ, WhatsApp, e-mail, senha, aceite); entra direto no painel | `src/cliente/cadastro.js` |
+| `painel.html` | abas Serviços, Barbeiros, Produtos, Loja e horário, Conta | `src/cliente/painel.js` |
+
+- Em serviços, barbeiros e produtos, cada item tem: **chave Visível/Oculto** (arquivar tira do site sem apagar), **editar** (gaveta com foto, campos e "Mostrar no site"), **excluir** (com confirmação) e **subir/descer** (a ordem do painel é a do site). Filtros Todos / No site / Arquivados. Foto enviada é reduzida no navegador (JPEG, até 1400 px).
+- **Loja e horário:** nome curto (pino) e completo (cartão e rodapé), endereço, referência, estacionamento, WhatsApp, Instagram, aviso sem hora marcada e o horário de cada dia (com dia fechado). O status do hero, o fecho e a grade da agenda seguem esse horário.
+- **Como o site lê:** `src/loja/dados.js` guarda tudo no `localStorage` (`pentefino:loja:v1`); `src/loja/aplicar.js` roda no início do `main.js` e remonta cardápio, espelhos, filtros, cortes (ligados aos barbeiros e serviços pelos ids `b0..b3` e `s0..s6` do padrão; corte de barbeiro arquivado some), bancada, horário e endereço. **Sem nada salvo, o site é o HTML original.** "Conta → Restaurar exemplo" volta ao padrão.
+- O nome desenhado no topo (pente / fino) não muda pelo painel: é design (ver "Nome da casa" acima).
+- **É demonstração:** sem servidor, a senha fica no navegador e cada navegador tem os próprios dados. Para um cliente de verdade, troque `ler/salvar/entrar` em `dados.js` por uma API com autenticação (os módulos do site não mudam).

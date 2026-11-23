@@ -50,7 +50,10 @@
       <a href="#loja">Loja</a>
       <a href="#endereco">Endereço</a>
     </nav>
-    <button class="botao botao--claro botao--seta nav__cta" type="button" data-agendar>Agendar</button>
+    <div class="nav__fim">
+      <a class="nav__conta" href="./cliente.html" aria-label="Área do cliente" title="Área do cliente"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4.8 19.4c1.4-3.2 4-4.8 7.2-4.8s5.8 1.6 7.2 4.8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a>
+      <button class="botao botao--claro botao--seta nav__cta" type="button" data-agendar>Agendar</button>
+    </div>
   </header>
 
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -192,17 +195,17 @@
           <div class="espelhos__fila" role="tablist" aria-label="Barbeiros">
             <button class="espelho is-ativo" type="button" role="tab" aria-selected="true" data-barbeiro="0">
               <span class="espelho__luminaria" aria-hidden="true"><i></i></span>
-              <span class="espelho__vidro"><img src="/img/espelho-1.webp" alt="Caio fazendo um degradê na máquina, visto pelo espelho" loading="lazy" decoding="async"></span>
+              <span class="espelho__vidro"><img src="/img/espelho-1.webp" alt="Caio passando a máquina na nuca de um cliente" loading="lazy" decoding="async"></span>
               <span class="espelho__info"><span class="espelho__num">#1</span><span class="espelho__nome">Caio</span><span class="espelho__extra mono">Degradê e disfarçado · 9 anos de cadeira</span></span>
             </button>
             <button class="espelho" type="button" role="tab" aria-selected="false" data-barbeiro="1">
               <span class="espelho__luminaria" aria-hidden="true"><i></i></span>
-              <span class="espelho__vidro"><img src="/img/espelho-2.webp" alt="Renan acertando o contorno com o aparador" loading="lazy" decoding="async"></span>
+              <span class="espelho__vidro"><img src="/img/espelho-2.webp" alt="Renan acertando o degradê com o aparador" loading="lazy" decoding="async"></span>
               <span class="espelho__info"><span class="espelho__num">#2</span><span class="espelho__nome">Renan</span><span class="espelho__extra mono">Desenho e contorno · 6 anos de cadeira</span></span>
             </button>
             <button class="espelho" type="button" role="tab" aria-selected="false" data-barbeiro="2">
               <span class="espelho__luminaria" aria-hidden="true"><i></i></span>
-              <span class="espelho__vidro"><img src="/img/espelho-3.webp" alt="Seu Toninho cortando na tesoura sobre o pente" loading="lazy" decoding="async"></span>
+              <span class="espelho__vidro"><img src="/img/espelho-3.webp" alt="Seu Toninho aparando a barba na tesoura" loading="lazy" decoding="async"></span>
               <span class="espelho__info"><span class="espelho__num">#3</span><span class="espelho__nome">Toninho</span><span class="espelho__extra mono">Tesoura e navalha · 31 anos de cadeira</span></span>
             </button>
             <button class="espelho" type="button" role="tab" aria-selected="false" data-barbeiro="3">
@@ -215,7 +218,7 @@
       </div>
     </section>
 
-    <!-- CORTES: filtro por barbeiro; a foto vira de costas no hover (no toque, no toque) -->
+    <!-- CORTES: filtro por barbeiro; no hover (no toque, ao passar pelo meio da tela) a foto vira o corte sendo feito na cadeira -->
     <section class="cortes secao secao--escura" id="cortes" aria-labelledby="cortes-titulo">
       <div class="secao__miolo">
         <h2 class="sr" id="cortes-titulo">Cortes da casa</h2>
@@ -228,66 +231,66 @@
         </div>
         <ul class="cortes__grade">
           <li class="corte" data-barbeiro="0">
-            <button class="corte__foto" type="button" aria-label="Ver o degradê com risca de costas">
+            <button class="corte__foto" type="button" aria-label="Ver o degradê com risca sendo feito na cadeira">
               <img class="corte__frente" src="/img/cortes/corte-1-frente.webp" alt="Degradê com risca, de frente" loading="lazy" decoding="async">
               <img class="corte__costas" src="/img/cortes/corte-1-costas.webp" alt="" loading="lazy" decoding="async">
-              <span class="corte__dica mono">Ver de costas</span>
+              <span class="corte__dica mono">Ver na cadeira</span>
             </button>
             <div class="corte__pe"><h3>Degradê com risca</h3><span class="corte__preco">R$ 65</span><button class="corte__agendar mono" type="button" data-agendar="0" data-com="0">Agendar este corte</button></div>
           </li>
           <li class="corte" data-barbeiro="1">
-            <button class="corte__foto" type="button" aria-label="Ver o cacheado disfarçado de costas">
+            <button class="corte__foto" type="button" aria-label="Ver o cacheado disfarçado sendo feito na cadeira">
               <img class="corte__frente" src="/img/cortes/corte-2-frente.webp" alt="Cacheado com disfarçado, de frente" loading="lazy" decoding="async">
               <img class="corte__costas" src="/img/cortes/corte-2-costas.webp" alt="" loading="lazy" decoding="async">
-              <span class="corte__dica mono">Ver de costas</span>
+              <span class="corte__dica mono">Ver na cadeira</span>
             </button>
             <div class="corte__pe"><h3>Cacheado disfarçado</h3><span class="corte__preco">R$ 60</span><button class="corte__agendar mono" type="button" data-agendar="1" data-com="1">Agendar este corte</button></div>
           </li>
           <li class="corte" data-barbeiro="0">
-            <button class="corte__foto" type="button" aria-label="Ver a franja texturizada de costas">
+            <button class="corte__foto" type="button" aria-label="Ver a franja texturizada sendo feita na cadeira">
               <img class="corte__frente" src="/img/cortes/corte-3-frente.webp" alt="Franja texturizada, de frente" loading="lazy" decoding="async">
               <img class="corte__costas" src="/img/cortes/corte-3-costas.webp" alt="" loading="lazy" decoding="async">
-              <span class="corte__dica mono">Ver de costas</span>
+              <span class="corte__dica mono">Ver na cadeira</span>
             </button>
             <div class="corte__pe"><h3>Franja texturizada</h3><span class="corte__preco">R$ 70</span><button class="corte__agendar mono" type="button" data-agendar="0" data-com="0">Agendar este corte</button></div>
           </li>
           <li class="corte" data-barbeiro="2">
-            <button class="corte__foto" type="button" aria-label="Ver o social com risca de costas">
+            <button class="corte__foto" type="button" aria-label="Ver o social com risca sendo feito na cadeira">
               <img class="corte__frente" src="/img/cortes/corte-4-frente.webp" alt="Social com risca lateral, de frente" loading="lazy" decoding="async">
               <img class="corte__costas" src="/img/cortes/corte-4-costas.webp" alt="" loading="lazy" decoding="async">
-              <span class="corte__dica mono">Ver de costas</span>
+              <span class="corte__dica mono">Ver na cadeira</span>
             </button>
             <div class="corte__pe"><h3>Social com risca</h3><span class="corte__preco">R$ 70</span><button class="corte__agendar mono" type="button" data-agendar="2" data-com="2">Agendar este corte</button></div>
           </li>
           <li class="corte" data-barbeiro="3">
-            <button class="corte__foto" type="button" aria-label="Ver a máquina com contorno de costas">
+            <button class="corte__foto" type="button" aria-label="Ver a máquina com contorno sendo feita na cadeira">
               <img class="corte__frente" src="/img/cortes/corte-5-frente.webp" alt="Máquina com contorno e barba, de frente" loading="lazy" decoding="async">
               <img class="corte__costas" src="/img/cortes/corte-5-costas.webp" alt="" loading="lazy" decoding="async">
-              <span class="corte__dica mono">Ver de costas</span>
+              <span class="corte__dica mono">Ver na cadeira</span>
             </button>
             <div class="corte__pe"><h3>Máquina e barba</h3><span class="corte__preco">R$ 85</span><button class="corte__agendar mono" type="button" data-agendar="6" data-com="3">Agendar este corte</button></div>
           </li>
           <li class="corte" data-barbeiro="2">
-            <button class="corte__foto" type="button" aria-label="Ver o topete solto de costas">
+            <button class="corte__foto" type="button" aria-label="Ver o topete solto sendo feito na cadeira">
               <img class="corte__frente" src="/img/cortes/corte-6-frente.webp" alt="Topete solto, de frente" loading="lazy" decoding="async">
               <img class="corte__costas" src="/img/cortes/corte-6-costas.webp" alt="" loading="lazy" decoding="async">
-              <span class="corte__dica mono">Ver de costas</span>
+              <span class="corte__dica mono">Ver na cadeira</span>
             </button>
             <div class="corte__pe"><h3>Topete solto</h3><span class="corte__preco">R$ 70</span><button class="corte__agendar mono" type="button" data-agendar="2" data-com="2">Agendar este corte</button></div>
           </li>
           <li class="corte" data-barbeiro="1">
-            <button class="corte__foto" type="button" aria-label="Ver o degradê com desenho de costas">
+            <button class="corte__foto" type="button" aria-label="Ver o degradê com desenho sendo feito na cadeira">
               <img class="corte__frente" src="/img/cortes/corte-7-frente.webp" alt="Degradê com desenho na lateral, de frente" loading="lazy" decoding="async">
               <img class="corte__costas" src="/img/cortes/corte-7-costas.webp" alt="" loading="lazy" decoding="async">
-              <span class="corte__dica mono">Ver de costas</span>
+              <span class="corte__dica mono">Ver na cadeira</span>
             </button>
             <div class="corte__pe"><h3>Degradê com desenho</h3><span class="corte__preco">R$ 75</span><button class="corte__agendar mono" type="button" data-agendar="0" data-com="1">Agendar este corte</button></div>
           </li>
           <li class="corte" data-barbeiro="3">
-            <button class="corte__foto" type="button" aria-label="Ver a barba cheia de costas">
+            <button class="corte__foto" type="button" aria-label="Ver a barba cheia sendo feita na cadeira">
               <img class="corte__frente" src="/img/cortes/corte-8-frente.webp" alt="Barba cheia desenhada com degradê baixo, de frente" loading="lazy" decoding="async">
               <img class="corte__costas" src="/img/cortes/corte-8-costas.webp" alt="" loading="lazy" decoding="async">
-              <span class="corte__dica mono">Ver de costas</span>
+              <span class="corte__dica mono">Ver na cadeira</span>
             </button>
             <div class="corte__pe"><h3>Barba cheia</h3><span class="corte__preco">R$ 95</span><button class="corte__agendar mono" type="button" data-agendar="6" data-com="3">Agendar este corte</button></div>
           </li>
@@ -335,10 +338,10 @@
         <h2 class="titulo" id="loja-titulo" data-titulo><span class="leve">O que seu barbeiro</span> <span class="forte">usou em você.</span></h2>
         <p class="secao__texto">Leve na hora do corte ou receba em casa no dia seguinte.</p>
         <ul class="loja__grade">
-          <li class="produto"><div class="produto__foto"><img src="/img/produtos/pomada.webp" alt="Lata de pomada matte num pedestal preto" loading="lazy" decoding="async"></div><div class="produto__pe"><h3>Pomada matte</h3><span class="produto__preco">R$ 59</span><span class="produto__det mono">100 g</span><button class="pilula pilula--escura" type="button" data-sacola>Adicionar</button></div></li>
+          <li class="produto"><div class="produto__foto"><img src="/img/produtos/pomada.webp" alt="Pote de pomada matte" loading="lazy" decoding="async"></div><div class="produto__pe"><h3>Pomada matte</h3><span class="produto__preco">R$ 59</span><span class="produto__det mono">100 g</span><button class="pilula pilula--escura" type="button" data-sacola>Adicionar</button></div></li>
           <li class="produto"><div class="produto__foto"><img src="/img/produtos/oleo.webp" alt="Frasco de óleo para barba com conta-gotas" loading="lazy" decoding="async"></div><div class="produto__pe"><h3>Óleo para barba</h3><span class="produto__preco">R$ 49</span><span class="produto__det mono">30 ml</span><button class="pilula pilula--escura" type="button" data-sacola>Adicionar</button></div></li>
-          <li class="produto"><div class="produto__foto"><img src="/img/produtos/tonico.webp" alt="Frasco de tônico capilar de vidro fosco" loading="lazy" decoding="async"></div><div class="produto__pe"><h3>Tônico capilar</h3><span class="produto__preco">R$ 45</span><span class="produto__det mono">200 ml</span><button class="pilula pilula--escura" type="button" data-sacola>Adicionar</button></div></li>
-          <li class="produto"><div class="produto__foto"><img src="/img/produtos/pente.webp" alt="Pente de bolso de acetato com lombada cromada" loading="lazy" decoding="async"></div><div class="produto__pe"><h3>Pente de bolso</h3><span class="produto__preco">R$ 29</span><span class="produto__det mono">acetato</span><button class="pilula pilula--escura" type="button" data-sacola>Adicionar</button></div></li>
+          <li class="produto"><div class="produto__foto"><img src="/img/produtos/shampoo.webp" alt="Frasco de shampoo com válvula" loading="lazy" decoding="async"></div><div class="produto__pe"><h3>Shampoo de barbearia</h3><span class="produto__preco">R$ 45</span><span class="produto__det mono">300 ml</span><button class="pilula pilula--escura" type="button" data-sacola>Adicionar</button></div></li>
+          <li class="produto"><div class="produto__foto"><img src="/img/produtos/kit.webp" alt="Kit de shampoo e condicionador" loading="lazy" decoding="async"></div><div class="produto__pe"><h3>Shampoo e condicionador</h3><span class="produto__preco">R$ 89</span><span class="produto__det mono">kit</span><button class="pilula pilula--escura" type="button" data-sacola>Adicionar</button></div></li>
         </ul>
       </div>
     </section>
@@ -387,13 +390,13 @@
       </div>
     </section>
 
-    <!-- #6 ONDE FICA: endereço, horário (hoje marcado) e o mapa desenhado com o caminho do metrô -->
+    <!-- #6 ONDE FICA: endereço, horário (hoje marcado) e o mapa do OpenStreetMap recolorido (gerar-mapa.cjs) com pino e cartão -->
     <section class="endereco secao secao--escura" id="endereco" aria-labelledby="endereco-titulo">
       <div class="secao__miolo endereco__miolo">
         <div class="endereco__texto">
           <p class="rotulo mono">#6 · Onde fica</p>
           <h2 class="titulo titulo--duas" id="endereco-titulo" data-titulo><span class="leve">A duas quadras</span> <span class="forte">do metrô.</span></h2>
-          <address class="endereco__lugar">Rua das Palmeiras, 240 · Centro<br>Estacionamento conveniado na esquina<br><a href="#endereco" class="endereco__fone">WhatsApp (00) 90000-0142</a></address>
+          <address class="endereco__lugar">Rua São Clemente, 240 · Botafogo<br>Estacionamento conveniado na esquina<br><a href="#endereco" class="endereco__fone">WhatsApp (00) 90000-0142</a></address>
           <dl class="horario mono">
             <div data-dias="1-5"><dt>Seg – sex</dt><dd>9h – 21h</dd></div>
             <div data-dias="6"><dt>Sábado</dt><dd>9h – 20h</dd></div>
@@ -402,22 +405,21 @@
           <p class="adesivo mono">Sem hora marcada até as 18h</p>
         </div>
         <figure class="mapa">
-          <svg class="mapa__svg" viewBox="0 0 600 520" role="img" aria-label="Mapa: quatro minutos a pé do metrô até a barbearia">
-            <g class="mapa__ruas" fill="none" stroke-linecap="round">
-              <path d="M-40 150 L640 -60"/><path d="M-40 380 L640 170"/><path d="M-40 610 L640 400"/>
-              <path d="M60 -40 L380 560"/><path d="M300 -40 L620 560"/><path d="M-120 60 L200 660"/>
-              <path class="fina" d="M-40 265 L640 55"/><path class="fina" d="M-40 495 L640 285"/>
-            </g>
-            <g class="mapa__nomes mono">
-              <text transform="translate(452 128) rotate(-17)">Av. Central</text>
-              <text transform="translate(186 300) rotate(62)">R. das Palmeiras</text>
-              <text transform="translate(470 420) rotate(62)">R. do Comércio</text>
-            </g>
-            <path class="mapa__rota" d="M150 372 L262 337 L335 314 L372 304" fill="none"/>
-            <g class="mapa__metro"><circle cx="150" cy="372" r="11"/><text class="mono" x="128" y="410">Metrô</text></g>
-            <g class="mapa__nos"><circle class="mapa__pulso" cx="452" cy="280" r="26"/><circle cx="452" cy="280" r="26"/><text class="mono" x="406" y="336">Pente Fino</text></g>
-          </svg>
-          <figcaption class="mono">4 min a pé do metrô</figcaption>
+          <div class="mapa__caixa">
+            <img src="/img/mapa.webp" alt="Mapa de Botafogo, no Rio de Janeiro, com a localização da barbearia na Rua São Clemente" width="1240" height="760" loading="lazy" decoding="async">
+            <span class="mapa__pino" aria-hidden="true"><b data-loja="curto">Pente Fino</b></span>
+            <div class="mapa__info">
+              <b data-loja="nome">Pente Fino Barbearia</b>
+              <span data-loja="endereco">Rua São Clemente, 240 · Botafogo, Rio de Janeiro</span>
+              <span class="mapa__ref" data-loja="referencia">A duas quadras do metrô Botafogo</span>
+              <div class="mapa__botoes">
+                <a data-loja="mapa" href="https://www.openstreetmap.org/search?query=Rua%20S%C3%A3o%20Clemente%2C%20Botafogo%2C%20Rio%20de%20Janeiro" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14.5s4.6-4.1 4.6-7.6A4.6 4.6 0 0 0 3.4 6.9C3.4 10.4 8 14.5 8 14.5z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="8" cy="6.9" r="1.6" fill="currentColor"/></svg>Abrir no mapa</a>
+                <a data-loja="rota" href="https://www.google.com/maps/dir/?api=1&amp;destination=Rua%20S%C3%A3o%20Clemente%2C%20Botafogo%2C%20Rio%20de%20Janeiro" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><use href="#seta"/></svg>Como chegar</a>
+              </div>
+            </div>
+            <span class="mapa__attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
+          </div>
+          <figcaption class="mono">Endereço de exemplo · 4 min a pé do metrô</figcaption>
         </figure>
       </div>
     </section>
@@ -456,9 +458,9 @@
     <p class="rodape__nome" aria-hidden="true"><span>pente</span> <span>fino</span></p>
     <div class="rodape__pe">
       <nav class="rodape__links" aria-label="Rodapé">
-        <a href="#cardapio">Serviços</a><a href="#espelhos">Barbeiros</a><a href="#cortes">Cortes</a><a href="#clube">Clube</a><a href="#loja">Loja</a><a href="#endereco">Endereço</a><a href="#topo">Instagram</a>
+        <a href="#cardapio">Serviços</a><a href="#espelhos">Barbeiros</a><a href="#cortes">Cortes</a><a href="#clube">Clube</a><a href="#loja">Loja</a><a href="#endereco">Endereço</a><a href="https://www.instagram.com/pentefino/" target="_blank" rel="noopener" data-loja="instagram">Instagram</a><a href="./cliente.html">Área do cliente</a>
       </nav>
-      <p class="rodape__nota mono">Pente Fino Barbearia · Rua das Palmeiras, 240 · Horários, preços e pessoas de exemplo · Cadeira 3D: “Barber Chair”, de sweedboy69 (CC BY 4.0)</p>
+      <p class="rodape__nota mono"><span data-loja="rodape">Pente Fino Barbearia · Rua São Clemente, 240 · Botafogo, Rio de Janeiro</span> · Horários, preços e pessoas de exemplo · Cadeira 3D: “Barber Chair”, de sweedboy69 (CC BY 4.0) · Fotos: Unsplash (Agustin Fernandez, Michael DeMoya, Mr Shave, Alex Mihai C, Hannah Skelly, Stephan Louis, Mazda Mehrad, Nathan Fertig, Ahmed Warraich, Damian Barczak, David Herron, Ahmad Ebadi, Mitchell Orr, Salah Regouane, Glib Albovsky, Kawê Rodrigues, Jonathan Cooper, Marília Castelli, Denley Photography, Apothecary 87, Ela De Pure) · Mapa © OpenStreetMap</p>
     </div>
   </footer>
 

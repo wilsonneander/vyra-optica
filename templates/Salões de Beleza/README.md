@@ -6,7 +6,7 @@ Nicho de salão de beleza (com barbearia no mesmo endereço). Barbearia sozinha 
 |---|---|---|
 | Gold: salão de beleza com barbearia masculina no mesmo endereço | [gold/](gold/) | `node "templates/Salões de Beleza/_build-gold/build.js"` |
 | Silver | ainda não feito | |
-| Bronze | ainda não feito (o antigo Bronze, Mecha Barbearia, foi para [../barbearia/bronze/](../barbearia/bronze/)) | |
+| Bronze: página única enxuta só do salão (Mecha Salão), paleta ameixa | [bronze/](bronze/) | `node "templates/Salões de Beleza/_build-bronze/build.js"` |
 
 ## Gold
 
@@ -36,3 +36,15 @@ Formulário com consentimento LGPD, WhatsApp flutuante, serviços com o que incl
 ### Imagens
 
 Fotos em `_build-gold/img/fotos/` (Unsplash, com autor e link em `img/creditos.json`, listados no rodapé), com leve tom quente para combinar com a paleta. As três fotos do salão com espelhos em arco (`capa`, `escova`, `espaco-equipe`) são as imagens de referência enviadas para o projeto. As fotos de antes e depois são ilustrativas, de pessoas diferentes; no site do cliente entram fotos reais com autorização de imagem. O mapa é gerado por `_build-gold/gerar-mapa.js` a partir do OpenStreetMap.
+
+## Bronze
+
+Página única, enxuta e de baixo custo, no desenho da referência pedida (Stylicle) e com a paleta ameixa enviada: #42293C, #785B77, #BC7895, #EBC3D6, #EFDCE5. Só o lado salão da marca, como **Mecha Salão** (e-mail salao@mechasalao.com.br); CNPJ, endereço e redes são os da casa. Títulos em Prata e texto em Albert Sans. Tema claro e escuro com a pílula lateral comum (chave `mecha-salao-bronze-tema`).
+
+Seções, na ordem: capa ameixa com a foto da cabeleireira fazendo escova diante dos espelhos em arco e barra rápida (serviço e dia, abre o WhatsApp); galeria fixa em mosaico; serviços e preços em quatro grupos (o que inclui, duração, valor ou "a partir de", aviso de teste de mecha nas químicas) com pagamento, regra do "a partir de" e remarcação; avaliação em cartão ameixa com setas; políticas em sanfona (coloração e química em destaque) e higiene; cartão de agendamento com foto e formulário (nome, telefone, e-mail, serviço, dia, período, observações, aceite LGPD obrigatório e novidades opcional) que monta a mensagem do WhatsApp; rodapé com mapa OpenStreetMap, horário, dados legais, termos, privacidade e aviso de cookies.
+
+Serviço e dia (na capa e no formulário) usam lista e calendário próprios no lugar dos do navegador: a lista mostra os grupos com preço e o aviso de teste de mecha; o calendário bloqueia dias passados e os dias em que o salão fecha, e funciona pelo teclado. O campo original continua guardando o valor, então sem JavaScript volta o campo nativo.
+
+Animações leves: botões sobem um pouco com sombra tingida e um brilho que atravessa, links com sublinhado que cresce, lista e calendário que abrem deslizando, fotos da galeria com zoom e legenda que sobe, entrada suave dos blocos. Tudo parado com `prefers-reduced-motion`.
+
+Fotos e mapa vêm de `_build-gold/img/` (créditos no rodapé). Textos de políticas, higiene e termos a validar na revisão jurídica; marca, preços, CNPJ e avaliações fictícios.

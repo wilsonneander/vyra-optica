@@ -1,6 +1,6 @@
-// Ícones do Bronze: reaproveita a marca e os ícones da Mecha (../_build-gold/icons.js) e acrescenta os desenhos próprios da barbearia,
+// Ícones do Bronze: reaproveita a marca e os ícones da Mecha (icons-mecha.js, cópia do Gold do salão) e acrescenta os desenhos próprios da barbearia,
 // no mesmo traço (1.6, pontas retas, sem biblioteca de ícones).
-const G = require('../_build-gold/icons');
+const G = require('./icons-mecha');
 
 const s = (d, extra = '') => `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"${extra}>${d}</svg>`;
 

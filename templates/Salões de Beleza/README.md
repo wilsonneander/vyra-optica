@@ -1,13 +1,13 @@
 # Salões de Beleza (marca de demonstração: Mecha Salão & Barbearia)
 
-Nicho de salão de beleza e barbearia. Os três modelos (Bronze, Silver e Gold) usam a mesma marca fictícia, descrita em [MARCA.md](MARCA.md) junto com os perfis de exemplo de Instagram, Facebook, LinkedIn e WhatsApp Business.
+Nicho de salão de beleza (com barbearia no mesmo endereço). Barbearia sozinha tem nicho próprio em [../barbearia/](../barbearia/). Os modelos do salão usam a mesma marca fictícia, descrita em [MARCA.md](MARCA.md) junto com os perfis de exemplo de Instagram, Facebook, LinkedIn e WhatsApp Business.
 
 | Modelo | Pasta | Gerar |
 |---|---|---|
 | Gold: salão de beleza com barbearia masculina no mesmo endereço | [gold/](gold/) | `node "templates/Salões de Beleza/_build-gold/build.js"` |
 | Gold Pente Fino: barbearia premium escura, cadeira 3D sob o foco, agendamento em quatro passos (marca própria Pente Fino, não usa a Mecha) | [gold-pente/](gold-pente/) | em `_build-gold-pente/`: `npm install` e depois `npm run catalogo` |
 | Silver | ainda não feito | |
-| Bronze: barbearia (Mecha Barbearia, o lado barbearia da marca), landing page de uma página | [bronze/](bronze/) | `node "templates/Salões de Beleza/_build-bronze/build.js"` |
+| Bronze | ainda não feito (o antigo Bronze, Mecha Barbearia, foi para [../barbearia/bronze/](../barbearia/bronze/)) | |
 
 ## Gold
 

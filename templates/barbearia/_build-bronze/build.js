@@ -1,8 +1,8 @@
-// Gera o Bronze de barbearia (Mecha Barbearia, marca fictícia) em "templates/Salões de Beleza/bronze/".
+// Gera o Bronze de barbearia (Mecha Barbearia, marca fictícia) em "templates/barbearia/bronze/".
 // Landing page de uma página com o desenho da referência pedida (Salona, feito no Framer): capa escura com retrato,
 // sobre com três fotos em paralaxe, lista de serviços com foto presa, frase com colunas de fotos passando, cartão de agendamento,
 // equipe em grade com selo girando, foto larga que cresce, frase corrida, políticas no lugar do blog e rodapé claro com mapa.
-// Uso: node "templates/Salões de Beleza/_build-bronze/build.js"
+// Uso: node templates/barbearia/_build-bronze/build.js
 const fs = require('fs');
 const path = require('path');
 const C = require('./content');
@@ -11,7 +11,7 @@ const T = require('../../_comum/tema-pilula');
 const CHAVE_TEMA = 'mecha-barbearia-tema';
 
 const OUT = path.join(__dirname, '..', 'bronze');
-const PASTAS = [path.join(__dirname, 'img', 'fotos'), path.join(__dirname, '..', '_build-gold', 'img', 'fotos')];
+const PASTAS = [path.join(__dirname, 'img', 'fotos')];
 const M = C.marca;
 
 const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -264,7 +264,6 @@ const politicas = `<section class="politicas" id="politicas">
 
 // ---------- rodapé ----------
 const creditos = [
-  ...JSON.parse(fs.readFileSync(path.join(__dirname, '..', '_build-gold', 'img', 'creditos.json'), 'utf8')),
   ...JSON.parse(fs.readFileSync(path.join(__dirname, 'img', 'creditos.json'), 'utf8')),
 ];
 const dias = C.horarios.map(([d, h], i) => `<tr data-dia="${i}"><th scope="row">${d}</th><td>${h}</td></tr>`).join('');
@@ -399,7 +398,7 @@ ${dialogs}
 
 // ---------- grava ----------
 for (const [nome, arq] of usadas) if (arq) fs.copyFileSync(arq, path.join(OUT, 'assets', 'img', `${nome}.webp`));
-fs.copyFileSync(path.join(__dirname, '..', '_build-gold', 'img', 'mapa_vila-madalena.webp'), path.join(OUT, 'assets', 'img', 'mapa_vila-madalena.webp'));
+fs.copyFileSync(path.join(__dirname, 'img', 'mapa_vila-madalena.webp'), path.join(OUT, 'assets', 'img', 'mapa_vila-madalena.webp'));
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
 fs.writeFileSync(path.join(OUT, 'assets', 'site.css'), fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8') + T.css);
 fs.writeFileSync(path.join(OUT, 'assets', 'site.js'), fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8') + T.js(CHAVE_TEMA, '#161311', '#161311'));

@@ -1,8 +1,8 @@
-// Gera o Gold de salão de beleza com barbearia (Mecha Salão & Barbearia, marca fictícia) em "templates/Salões de Beleza/gold/".
+// Gera o Gold de salão de beleza com barbearia (Mecha Salão & Barbearia, marca fictícia) em templates/saloes/gold/.
 // Desenho baseado na referência pedida pelo cliente (capa em foto cheia, faixa corrida, colunas que abrem, cardápio em sanfona,
 // cartões que se empilham, antes e depois, equipe, visita em rolagem lateral, lookbook em arco, dúvidas e agendamento).
 // Os segmentos ligam e desligam em content.js. A página se monta conforme a rolagem e se desfaz ao voltar.
-// Uso: node "templates/Salões de Beleza/_build-gold/build.js"
+// Uso: node templates/saloes/_build-gold/build.js
 const fs = require('fs');
 const path = require('path');
 const C = require(process.env.CONTEUDO || './content');

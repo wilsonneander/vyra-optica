@@ -94,7 +94,7 @@ No catálogo: esta pasta é a fonte; `npm run catalogo` gera `../gold-pente/`. `
 ## Mudanças deste catálogo (depois da demo)
 
 ### Fotos coloridas
-As fotos do pacote eram preto e branco. Espelhos, cortes e produtos agora são fotos coloridas do Unsplash (as mesmas do Gold Mecha, `../../Salões de Beleza/_build-gold/img/fotos/`), recortadas por `preparar-fotos.mjs` nos formatos do site (espelho 3:2, corte 6:7, produto 4:5). Créditos em `public/img/creditos.json` e no rodapé. Rodar: `NODE_PATH=<pasta com sharp>/node_modules node preparar-fotos.mjs`.
+As fotos do pacote eram preto e branco. Espelhos, cortes e produtos agora são fotos coloridas do Unsplash (as mesmas do Gold Mecha, `../../saloes/_build-gold/img/fotos/`), recortadas por `preparar-fotos.mjs` nos formatos do site (espelho 3:2, corte 6:7, produto 4:5). Créditos em `public/img/creditos.json` e no rodapé. Rodar: `NODE_PATH=<pasta com sharp>/node_modules node preparar-fotos.mjs`.
 - A foto "de costas" dos cortes virou **"Ver na cadeira"**: mostra um corte sendo feito (pessoa diferente, ilustrativa). Com fotos do cliente, volte a frente e costas da mesma pessoa e o rótulo "Ver de costas".
 - Os produtos mudaram para pomada, óleo, shampoo e kit. Duas fotos (shampoo e kit) mostram rótulos de marcas reais: trocar antes de publicar para cliente.
 - Os espelhos ganharam um degradê escuro embaixo (`.espelho__vidro::before`) para o nome ficar legível sobre foto clara.

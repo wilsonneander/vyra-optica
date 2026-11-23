@@ -4,9 +4,9 @@ Nicho de salão de beleza (com barbearia no mesmo endereço). Barbearia sozinha 
 
 | Modelo | Pasta | Gerar |
 |---|---|---|
-| Gold: salão de beleza com barbearia masculina no mesmo endereço | [gold/](gold/) | `node "templates/Salões de Beleza/_build-gold/build.js"` |
-| Silver: site do salão (Mecha Salão) com páginas de equipe e galeria e Área do cliente, paleta terracota | [silver/](silver/) | `node "templates/Salões de Beleza/_build-silver/build.js"` |
-| Bronze: página única enxuta só do salão (Mecha Salão), paleta ameixa | [bronze/](bronze/) | `node "templates/Salões de Beleza/_build-bronze/build.js"` |
+| Gold: salão de beleza com barbearia masculina no mesmo endereço | [gold/](gold/) | `node templates/saloes/_build-gold/build.js` |
+| Silver: site do salão (Mecha Salão) com páginas de equipe e galeria e Área do cliente, paleta terracota | [silver/](silver/) | `node templates/saloes/_build-silver/build.js` |
+| Bronze: página única enxuta só do salão (Mecha Salão), paleta ameixa | [bronze/](bronze/) | `node templates/saloes/_build-bronze/build.js` |
 
 ## Gold
 

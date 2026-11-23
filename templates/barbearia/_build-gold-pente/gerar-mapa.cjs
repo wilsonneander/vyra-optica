@@ -1,5 +1,5 @@
 // Gera o mapa do Gold Pente Fino a partir de tiles do OpenStreetMap, recolorido na paleta (preto e osso).
-// Mesmo método dos outros modelos (Salões de Beleza/_build-gold/gerar-mapa.js). Nunca usar mapa do Google.
+// Mesmo método dos outros modelos (saloes/_build-gold/gerar-mapa.js). Nunca usar mapa do Google.
 //
 // Uso (sharp instalado fora do projeto, por NODE_PATH):
 //   node gerar-mapa.cjs public/img/mapa.webp

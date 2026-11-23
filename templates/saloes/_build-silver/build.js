@@ -1,10 +1,10 @@
-// Gera o Silver do salão (Mecha Salão, marca fictícia) em "templates/Salões de Beleza/silver/".
+// Gera o Silver do salão (Mecha Salão, marca fictícia) em templates/saloes/silver/.
 // Desenho baseado na referência pedida (Elysia, feita no Framer): topo escuro, capa com foto inteira e título serifado,
 // serviços em cartões por segmento com menu preso ao lado, tendências em grade desencontrada, seção escura de motivos
 // com a garantia, equipe em carrossel, antes e depois, avaliações correndo, Instagram, produtos, bom saber,
 // políticas, dúvidas e agendamento com serviço, profissional, dia e horário. Mais as páginas da equipe e da galeria
 // e a Área do cliente (entrar, criar conta e painel para cadastrar serviços, produtos, equipe e dados da empresa).
-// Uso: node "templates/Salões de Beleza/_build-silver/build.js"
+// Uso: node templates/saloes/_build-silver/build.js
 const fs = require('fs');
 const path = require('path');
 const C = require('./content');

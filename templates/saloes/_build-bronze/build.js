@@ -1,8 +1,8 @@
-// Gera o Bronze do salão (Mecha Salão, marca fictícia) em "templates/Salões de Beleza/bronze/".
+// Gera o Bronze do salão (Mecha Salão, marca fictícia) em templates/saloes/bronze/.
 // Página única, enxuta, no desenho da referência pedida (Stylicle): capa ameixa com foto e barra de agendamento,
 // galeria fixa em mosaico, lista de serviços e preços, avaliação em cartão ameixa,
 // políticas e higiene, cartão de agendamento com foto (no lugar da newsletter) e rodapé ameixa com mapa.
-// Uso: node "templates/Salões de Beleza/_build-bronze/build.js"
+// Uso: node templates/saloes/_build-bronze/build.js
 const fs = require('fs');
 const path = require('path');
 const C = require('./content');

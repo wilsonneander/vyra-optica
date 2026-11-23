@@ -1,5 +1,5 @@
 // Fotos coloridas do Gold Pente Fino: recorta fotos do Unsplash (as mesmas do Gold Mecha, com créditos em
-// ../../Salões de Beleza/_build-gold/img/creditos.json) nos formatos que o site usa e grava em public/img/.
+// ../../saloes/_build-gold/img/creditos.json) nos formatos que o site usa e grava em public/img/.
 //
 // Uso (sharp instalado fora do projeto):
 //   NODE_PATH=<pasta com sharp>/node_modules node preparar-fotos.mjs
@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 const require = createRequire(import.meta.url);
 const sharp = require('sharp');
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
-const ORIGEM = path.join(AQUI, '..', '..', 'Salões de Beleza', '_build-gold', 'img', 'fotos');
+const ORIGEM = path.join(AQUI, '..', '..', 'saloes', '_build-gold', 'img', 'fotos');
 const DESTINO = path.join(AQUI, 'public', 'img');
 
 // [origem, destino, largura, altura, recorte opcional em frações {x, y, w, h} da foto de origem]

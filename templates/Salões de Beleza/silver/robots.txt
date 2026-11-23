@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /cliente.html
+Disallow: /cadastro.html
+Disallow: /painel.html
+Sitemap: https://mechasalao.com.br/salao/sitemap.xml

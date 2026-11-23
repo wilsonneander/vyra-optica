@@ -65,7 +65,7 @@ const servicos = [
   { id: 'cera', seg: 'sobrancelha', nome: 'Nariz e orelha na cera', inclui: 'Cera morna aplicada com espátula descartável.', min: 10, preco: 20, foto: 'barba-espuma' },
   { id: 'infantil', seg: 'infantil', nome: 'Corte infantil', inclui: 'Até 12 anos. Pode trazer o brinquedo, a gente espera o tempo da criança.', min: 35, preco: 50, foto: 'infantil-capa' },
   { id: 'primeiro', seg: 'infantil', nome: 'Primeiro corte', inclui: 'Mecha guardada num envelope e foto do momento para a família.', min: 30, preco: 60, foto: 'infantil-penteado' },
-  { id: 'pai-filho', seg: 'infantil', nome: 'Pai e filho', inclui: 'Dois cortes lado a lado, nas cadeiras vizinhas e no mesmo horário.', min: 45, preco: 110, foto: 'infantil-pb' },
+  { id: 'pai-filho', seg: 'infantil', nome: 'Pai e filho', inclui: 'Dois cortes lado a lado, nas cadeiras vizinhas e no mesmo horário.', min: 45, preco: 110, foto: 'pai-filho' },
 ];
 
 // pacotes no formato de planos (a referência tem dois planos lado a lado)
@@ -139,7 +139,7 @@ const galeria = [
   ['infantil-maquina', 'infantil'], ['espaco-retro', 'espaco'], ['barba-espuma', 'barba'], ['sobrancelha-contorno', 'sobrancelha'],
   ['corte-acabamento', 'cortes'], ['espaco-maquinas', 'espaco'], ['barba-toalha-escura', 'barba'], ['infantil-penteado', 'infantil'],
   ['corte-secador', 'cortes'], ['espaco-janela', 'espaco'], ['barba-tesoura', 'barba'], ['espaco-navalha', 'espaco'],
-  ['infantil-pb', 'infantil'], ['espaco-cadeiras', 'espaco'],
+  ['infantil-pb', 'infantil'], ['espaco-cadeiras', 'espaco'], ['pai-filho', 'infantil'],
 ];
 
 // Instagram: posts recentes (foto, legenda, curtidas e comentários) [EXEMPLO]
@@ -167,7 +167,7 @@ const faq = [
 const capaSlides = [
   { foto: 'corte-degrade', rotulo: 'Cabelo', pos: '50% 45%' },
   { foto: 'capa', rotulo: 'Barba', pos: '50% 40%' },
-  { foto: 'sobrancelha-contorno', rotulo: 'Sobrancelha', pos: '50% 30%' },
+  { foto: 'sobrancelha-navalha', rotulo: 'Sobrancelha', pos: '68% 30%' },
 ];
 
 const bairros = ['Batel', 'Bigorrilho', 'Centro', 'Água Verde', 'Mercês', 'Seminário'];
@@ -184,22 +184,23 @@ const fotos = {
   'corte-secador': 'Barbeiro de luvas secando o cabelo de um cliente de barba ruiva num salão com espelhos iluminados',
   'corte-acabamento': 'Barbeiro de boné acertando o contorno da testa de um cliente de corte curto',
   'corte-risco': 'Cliente de costas com degradê e riscos desenhados na lateral',
-  'corte-perfil': 'Perfil de um homem com corte curto e nuca baixa, sobre fundo branco',
+  'corte-perfil': 'Barbeiro passando a máquina na lateral do cabelo de um cliente de barba cheia',
   'barba-navalha': 'Barbeiro passando navalha no pescoço de um cliente reclinado, em luz baixa',
   'barba-tesoura': 'Barbeiro tatuado aparando com tesoura a barba de um cliente de capa listrada',
   'barba-espuma': 'Cliente sorrindo com espuma de barbear no rosto enquanto o barbeiro prepara a navalha',
   'barba-toalha': 'Barbeiro pressionando a toalha quente no rosto de um cliente',
   'barba-toalha-escura': 'Barbeiro ajeitando a toalha escura sobre os olhos de um cliente reclinado',
-  'barba-pincel': 'Barbeiro espalhando espuma com pincel na barba de um cliente, em preto e branco',
+  'barba-pincel': 'Barbeiro espalhando espuma com pincel na barba de um cliente reclinado',
   'barba-luvas': 'Barbeiro de luvas finalizando a barba de um cliente deitado na cadeira',
-  'barba-pb': 'Barbeiro passando navalha no rosto de um cliente com espuma, em preto e branco',
-  'sobrancelha-navalha': 'Homem segurando uma lâmina perto da sobrancelha, em preto e branco',
+  'barba-pb': 'Barbeiro aparando a barba de um cliente reclinado, com toalha quente sobre os olhos',
+  'sobrancelha-navalha': 'Barbeiro de luvas acertando com navalha a sobrancelha de um cliente reclinado na cadeira',
   'sobrancelha-contorno': 'Barbeiro de luvas azuis acertando com navalha o contorno do rosto de um cliente',
   'acabamento-nuca': 'Barbeiro tatuado fazendo o acabamento na navalha atrás da orelha de um cliente',
   'infantil-capa': 'Menino de cabelo cacheado na cadeira do barbeiro, de capa vermelha',
-  'infantil-pb': 'Barbeiro cortando o cabelo de um menino, em preto e branco',
-  'infantil-penteado': 'Barbeiro penteando o cabelo de um menino, em preto e branco',
-  'infantil-maquina': 'Barbeiro passando máquina no cabelo de um menino, em preto e branco',
+  'infantil-pb': 'Barbeiro cortando o cabelo de um menino na cadeira da barbearia',
+  'infantil-penteado': 'Menino sorrindo na cadeira do barbeiro no primeiro corte',
+  'infantil-maquina': 'Barbeiro de camisa branca aparando o cabelo de um menino com máquina',
+  'pai-filho': 'Pai sentado na cadeira do barbeiro brincando com o filho antes do corte',
   'espaco-cadeira': 'Cadeira de barbeiro vermelha num ambiente de madeira com quadros antigos',
   'espaco-cadeiras': 'Cadeiras de barbeiro de couro vermelho enfileiradas',
   'espaco-espelhos': 'Salão claro com cadeiras de barbeiro e espelhos de moldura de madeira',

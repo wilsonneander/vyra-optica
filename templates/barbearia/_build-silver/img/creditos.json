@@ -81,9 +81,10 @@
  },
  {
   "arq": "corte-perfil",
-  "autor": "Megan Bagshaw",
-  "fonte": "Unsplash",
-  "url": "https://unsplash.com/photos/YmaaUNbHHtw",
+  "autor": "Anthony Shkraba",
+  "fonte": "Pexels",
+  "url": "https://www.pexels.com/photo/man-getting-a-haircut-4625630/",
+  "alt_original": "A man receives a haircut and trim in a professional barbershop setting with focus on style and detail.",
   "w": 933,
   "h": 1400
  },
@@ -130,11 +131,12 @@
  },
  {
   "arq": "barba-pincel",
-  "autor": "Arthur Humeau",
-  "fonte": "Unsplash",
-  "url": "https://unsplash.com/photos/Twd3yaqA2NM",
-  "w": 1400,
-  "h": 934
+  "autor": "Aaron Lares",
+  "fonte": "Pexels",
+  "url": "https://www.pexels.com/photo/customer-at-barber-16553361/",
+  "alt_original": "A man receiving a relaxing shave with foam at a barber shop.",
+  "w": 933,
+  "h": 1400
  },
  {
   "arq": "barba-luvas",
@@ -146,17 +148,19 @@
  },
  {
   "arq": "barba-pb",
-  "autor": "Shrikant Ambawale",
-  "fonte": "Unsplash",
-  "url": "https://unsplash.com/photos/sqtcS14Cho8",
+  "autor": "Alexandre Saraiva Carniato",
+  "fonte": "Pexels",
+  "url": "https://www.pexels.com/photo/a-person-shaving-a-man-s-beard-6007400/",
+  "alt_original": "An adult man receiving a precise beard trim in a barbershop with a warm towel treatment.",
   "w": 1400,
   "h": 934
  },
  {
   "arq": "sobrancelha-navalha",
-  "autor": "Savannah Bolton",
-  "fonte": "Unsplash",
-  "url": "https://unsplash.com/photos/PMIF_mn6FQk",
+  "autor": "Clark07",
+  "fonte": "Pexels",
+  "url": "https://www.pexels.com/photo/a-man-sitting-on-the-chair-9315046/",
+  "alt_original": "A barber carefully shaves a relaxed client using a straight razor at a salon.",
   "w": 1400,
   "h": 934
  },
@@ -186,25 +190,28 @@
  },
  {
   "arq": "infantil-pb",
-  "autor": "Tommy van Kessel",
-  "fonte": "Unsplash",
-  "url": "https://unsplash.com/photos/0iW0NSHjiiw",
+  "autor": "RDNE Stock project",
+  "fonte": "Pexels",
+  "url": "https://www.pexels.com/photo/barber-cutting-a-boy-s-hair-7697673/",
+  "alt_original": "A skilled barber cuts a young boy's hair with precision in a modern barbershop.",
   "w": 1400,
   "h": 934
  },
  {
   "arq": "infantil-penteado",
-  "autor": "Tommy van Kessel",
-  "fonte": "Unsplash",
-  "url": "https://unsplash.com/photos/ZPRBeg7Lsh0",
-  "w": 1400,
-  "h": 934
+  "autor": "RDNE Stock project",
+  "fonte": "Pexels",
+  "url": "https://www.pexels.com/photo/a-boy-sitting-on-a-barber-shop-chair-7697670/",
+  "alt_original": "A child smiling joyfully while getting a haircut in a barber shop.",
+  "w": 933,
+  "h": 1400
  },
  {
   "arq": "infantil-maquina",
-  "autor": "Tommy van Kessel",
-  "fonte": "Unsplash",
-  "url": "https://unsplash.com/photos/vDkQO0VVsIA",
+  "autor": "RDNE Stock project",
+  "fonte": "Pexels",
+  "url": "https://www.pexels.com/photo/a-barber-trimming-a-boy-s-hair-7697366/",
+  "alt_original": "Barber in a white shirt carefully trimming a boy's hair at a salon.",
   "w": 1400,
   "h": 934
  },
@@ -353,5 +360,14 @@
   "alt_original": "a man cutting another mans hair with a pair of scissors",
   "w": 1120,
   "h": 1400
+ },
+ {
+  "arq": "pai-filho",
+  "autor": "RDNE Stock project",
+  "fonte": "Pexels",
+  "url": "https://www.pexels.com/photo/a-man-in-a-barber-chair-showing-a-basketball-to-a-boy-7697328/",
+  "alt_original": "A man sits in a barbershop chair holding a basketball, engaging with a child indoors.",
+  "w": 1400,
+  "h": 934
  }
 ]

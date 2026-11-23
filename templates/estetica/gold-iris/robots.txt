@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+# Site real: trocar por "Allow: /" e manter a linha abaixo
+# Sitemap: https://www.cameliaestetica.com.br/sitemap.xml

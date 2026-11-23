@@ -1,6 +1,6 @@
 # Estética: modelos Bronze, Silver e Gold "Camélia"
 
-Nicho **clínica de estética** (facial, corporal e depilação, cílios e sobrancelhas no Bronze e no Gold; o Silver é só estética corporal). Landing page de uma página só, com marca fictícia: Camélia Estética, Cambuí, Campinas. Público majoritariamente feminino.
+Nicho **clínica de estética** (facial, corporal e depilação, cílios e sobrancelhas no Bronze e no Gold; o Silver é só estética corporal). O Gold tem dois modelos: `gold/` (visita de drone em 3D) e `gold-iris/` (só depilação, cílios e sobrancelhas). Bronze, Silver e o primeiro Gold são landing pages de uma página só, com marca fictícia: Camélia Estética, Cambuí, Campinas. Público majoritariamente feminino.
 Referência de conteúdo: jessicaboza.com.br (avaliação antes do protocolo, ficha técnica do tratamento, tom acolhedor e sem promessa, FAQ). Nada foi copiado: textos, nomes, números e preços são próprios e fictícios.
 
 | Pasta | O que é |
@@ -137,6 +137,64 @@ Detalhes:
 - Prints automáticos: `window.__camelia` expõe a cena para testes (`cena.simula(segundos)` avança o tempo sem desenhar)
 
 Tipografia do Gold: **Spectral** leve nos títulos (itálico vinho nos destaques) e **Urbanist** no texto. A clínica em 3D é uma ilustração: o rodapé e os termos de uso avisam isso. Para cliente real, trocar o retrato e as gravuras (rodar `preparar-texturas.js` com as fotos novas), o nome e o registro (vão para o diploma desenhado na parede) e conferir se as salas da planta batem com a clínica.
+
+## O que o Gold Íris tem
+
+Segundo modelo Gold, **só depilação, cílios e sobrancelhas**: depilação a laser e com cera com preço por área, design de sobrancelhas (com henna e brow lamination), extensão de cílios (fio a fio, híbrida, volume russo) e lash lifting. Site completo e interativo, com paleta própria (diferente do Bronze e do Silver) e tudo desenhado em código, sem biblioteca.
+
+| Pasta | O que é |
+|---|---|
+| `_build-gold-iris/content.js` | Todo o conteúdo: marca, equipe com a agenda de cada profissional, áreas do corpo com preço de cera e laser, pacotes, serviços, provador, políticas, contraindicações, anamnese, avaliações do Google, clube, vale-presente, loja, FAQ, frases da abertura e SEO local. `[EXEMPLO]` e `[JURÍDICO]` como nos outros |
+| `_build-gold-iris/desenho.js` | Desenhos em SVG feitos em código: olho com cílios fio a fio (estilos, curvatura, tamanho, piscar), sobrancelha fio a fio (formas, henna, "antes" desarrumado), perna com e sem pelos e a silhueta do mapa do corpo. Roda no build e no navegador |
+| `_build-gold-iris/build.js`, `style.css`, `app.js` | Gerador, design e interações. CSS e JS em arquivos próprios (`assets/site.css`, `assets/site.js`), porque o site tem várias páginas |
+| `_build-gold-iris/img/` | 30 fotos do Unsplash (créditos em `creditos.json`) e o mapa na paleta Íris (`node gerar-mapa.js iris img/mapa_cambui.webp`) |
+| `gold-iris/` | **Site pronto**: `index.html`, `sitemap.xml`, `robots.txt` |
+
+```bash
+node templates/estetica/_build-gold-iris/build.js
+```
+
+O que tem, de cima para baixo:
+
+- **Capa** dividida: texto e botões na metade esquerda e, na metade direita, a foto inteira (de ponta a ponta, sem moldura) num carrossel de três serviços (cílios, depilação, sobrancelhas, em `capaCarrossel` no `content.js`): a foto nova abre do centro em círculo, como uma íris, com zoom lento; troca sozinho a cada 6 segundos, pausa no mouse, arrasta no toque e tem abas com barra de tempo
+- **Serviços** em quatro painéis de foto que se abrem com o cursor
+- **Provador do olhar**: o olho acompanha o mouse e pisca; estilo dos cílios, curvatura C, D ou L, tamanho de 8 a 14 mm, forma da sobrancelha e henna. O desenho muda na hora e mostra o serviço, o tempo, o preço e a manutenção. "Agendar este olhar" já leva para a agenda com o serviço escolhido
+- **Mapa do corpo e simulador de pacotes**: silhueta de frente e de costas com pontos clicáveis (16 áreas), laser ou cera, pacote avulso, de 6, 8 ou 10 sessões. Mostra total, parcelas, economia, a previsão das sessões mês a mês e quanto a cera custaria em 2 anos. Três áreas ou mais ganham desconto extra
+- **Preços** em abas por segmento: o que inclui, duração, sessões, valor ou "a partir de", manutenção e tabela por área de cera e laser. Pagamento, pacotes e garantia logo abaixo
+- **Antes e depois arrastável**: fio a fio e volume russo com **fotos de representação** (pessoas diferentes, recortadas no mesmo enquadramento do olho, marcadas como tal), e cílios, sobrancelhas e laser em ilustração. Embaixo, uma faixa de fotos de lash designers trabalhando corre devagar e para no mouse
+- **Equipe** com responsável técnica e registro; cada profissional tem o botão "Ver a agenda"
+- **Agenda online** por profissional: serviço (e áreas, no laser e na cera), profissional com o próximo horário livre, dia (3 semanas, com "livres", "lotado" ou "fechado") e horário pela duração do serviço, dados com consentimento LGPD. No fim, pedido pronto no WhatsApp e arquivo `.ics` para a agenda do celular. Os horários ocupados são simulados; o horário pedido fica marcado como ocupado no navegador
+- **Avaliação online (anamnese simplificada)**: consentimento específico para dados de saúde antes da primeira pergunta, escolha dos serviços, perguntas só dos serviços escolhidos (tom de pele em amostras, cor do pelo, gestação, isotretinoína, sol, remédios, varizes, ácidos, alergia à cola e à henna, olhos, micropigmentação). Resultado por serviço: pode agendar, agendar com avaliação presencial ou melhor esperar, com o motivo. As respostas ficam só no navegador e só vão para a clínica se a cliente tocar em enviar
+- **Avaliações do Google**: nota, distribuição, filtro por serviço e cartões que rolam. No site real, ligar à API do Perfil da Empresa no Google
+- **Clube Íris**: quatro planos, mensal sem fidelidade ou anual com valor menor, com o avulso equivalente e as regras
+- **Vale-presente**: valor ou serviço, três estampas, para, de e mensagem, com o cartão ao vivo (inclina com o cursor), código e validade. Compra pelo WhatsApp
+- **Loja** com 8 produtos (embalagens desenhadas, sem foto) e sacola lateral que guarda os itens no navegador, com entrega e pedido pelo WhatsApp
+- **Como funciona**: etapas em linha, contraindicações por segmento, políticas (avaliação prévia, agendamento, cancelamento com destaque 24h, remarcação, desistência) e segurança e higiene (descartáveis, autoclave, Anvisa, licença)
+- **Dúvidas** em sanfona fluida (a altura anima ao abrir e ao fechar, o mesmo nos detalhes dos preços), **SEO local** (texto do bairro, como chegar, estacionamento, endereço) e o **rodapé** padrão com mapa OpenStreetMap, bairros, horários com o dia de hoje, canais, redes, razão social, CNPJ, responsável técnica e os termos
+- **Abertura**: um olho se desenha e três frases ("Cada fio", "cada detalhe", "no seu lugar") surgem com desfoque antes da cortina subir, uma vez por visita. `?intro` mostra de novo, `?semintro` pula; as frases ficam em `aberturaFrases` no `content.js`
+- **História na rolagem (Scroll Direction-Based Reveal, obrigatória em Gold e premium, ver DIRETRIZES-SITES.md)**: cada bloco acompanha a posição da página; descendo, entra por baixo e se apaga ao passar do topo; subindo, volta descendo pelo topo e se desfaz embaixo; títulos, fotos e contadores também refazem a entrada
+- **Fundos vivos**: manchas de luz lilás e cobre derivam devagar atrás de cada seção, algumas com anéis girando
+- **Flores no clique**: o mesmo gesto do Silver, com camélias nas cores Íris
+- **Tema claro e escuro**: no computador, botão fixo na lateral esquerda, no meio da tela, com "Dia" e "Noite" na vertical; no celular, no topo. É um olho que fecha à noite; a troca abre em círculo a partir do botão (View Transitions). Fica guardado no navegador (`camelia-iris-tema`) e o link aceita `?tema=escuro`. Provador, clube e rodapé continuam escuros nos dois temas
+- **Camada premium**: cursor próprio (ponto cobre e anel que segue com atraso, cresce sobre o que é clicável e mostra "Arraste", "Preços", "Ler", "Gire" onde faz sentido; some nos campos e no toque), botões com fundo que sobe em onda e efeito magnético, títulos que sobem palavra a palavra, fotos que se revelam de baixo para cima, paralaxe leve, barra de leitura no topo, números da capa e do Google que contam ao aparecer, e um grão finíssimo de papel. Tudo desliga com "reduzir movimento"
+- **SEO**: título e descrição por página, canonical, Open Graph, geo, dados estruturados (BeautySalon com endereço, coordenadas, horários, bairros atendidos, equipe com registro, catálogo de serviços com preço, nota; FAQPage) e `sitemap.xml`. Como é modelo, sai com `noindex` e `robots.txt` fechado: no site real, liberar os dois
+
+Segmentos: `ativo` em `segmentos` no `content.js` (`laser`, `cera`, `sobrancelhas`, `cilios`). Desligado, some da faixa, do provador ou do mapa do corpo, dos preços, da agenda, da anamnese, das avaliações, do clube e da loja. O blog foi tirado do modelo a pedido (está no histórico do git, commit 5c13db7).
+
+**Paleta Íris** (só deste modelo)
+
+| Nome | Hex | Uso |
+|---|---|---|
+| Tinta | `#1E2233` | texto, botões, seções escuras (provador, clube, rodapé) |
+| Íris | `#62558E` | itálicos dos títulos, textos de apoio |
+| Íris claro | `#B7ACD8` | destaques sobre o escuro |
+| Névoa | `#DFD5E7` | fundo de antes e depois, avaliação online e SEO local; fim do degradê da capa |
+| Rosé | `#F0E3DF` | fundo quente de serviços, mapa do corpo, agenda, vale e como funciona |
+| Pérola | `#ECE5ED` | fundo principal, lavanda acinzentado (o claro não é branco) |
+| Papel | `#F9F5F7` | cartões e campos, que se destacam sobre os fundos |
+| Cobre | `#A9654B` (`#D9A58C` no escuro) | áreas marcadas, preços no escuro, selo do plano |
+
+Tipografia: **DM Serif Display** nos títulos (serifa de revista, contraste alto e traço firme; trocou a Bodoni Moda, que sumia em tela) e **Commissioner** no texto. Logo: a mesma camélia, em tinta e névoa com centro cobre, com "OLHAR E PELE" no lugar de "ESTÉTICA".
 
 ## Guia básico da marca
 

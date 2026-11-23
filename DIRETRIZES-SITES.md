@@ -75,6 +75,17 @@ Escolha da fonte:
 - Imagens e fotos mantêm a proporção (`object-fit: contain` para produto recortado, `cover` para foto de ambiente) e nunca aparecem esticadas ou achatadas.
 - Conferir o site em pelo menos três larguras antes de entregar: computador (1440px), tablet (768px) e celular (390px e 360px). Em nenhuma delas pode haver rolagem horizontal, texto cortado ou bloco desalinhado.
 
+## Modelos Gold e premium: animação de rolagem com direção (obrigatória)
+Todo modelo **Gold** ou **premium** tem a **Scroll Direction-Based Reveal Animation** (também chamada de scroll reveal com direção, direction-aware scroll animation ou scroll-driven animation): a página se monta conforme a rolagem, como quem conta uma história, e se desfaz e se refaz nos dois sentidos.
+- **Descendo**: cada bloco entra pela borda de baixo (sobe e aparece) e, ao passar da borda de cima, sobe e se apaga.
+- **Subindo**: o mesmo bloco volta descendo pelo topo e, ao passar da borda de baixo, se desfaz. Nada fica "preso" já revelado.
+- O efeito **segue a posição da rolagem** (não é só um gatilho de uma vez): parar no meio deixa o bloco no meio do caminho.
+- Títulos sobem palavra por palavra e fotos se revelam por máscara; o lado de onde entram acompanha o sentido da rolagem. Contadores contam de novo ao voltar à tela.
+- Blocos lado a lado entram em sequência (o atraso vira distância de rolagem), e cada seção pode variar o movimento: subir, entrar de lado ou crescer.
+- Implementação recomendada (sem biblioteca): um laço em `requestAnimationFrame` no evento de rolagem que lê `getBoundingClientRect()` de todos os blocos e depois grava `--p` (entrada por baixo, de 0 a 1) e `--q` (saída por cima, de 0 a 1) em cada um. CSS: `opacity: min(var(--p), var(--q)); translate: 0 calc((1 - var(--p)) * 64px - (1 - var(--q)) * 52px);`. Usar `translate`/`scale` (propriedades separadas) para não brigar com o `transform` dos efeitos de hover. O sentido da rolagem vai em `data-rolagem="desce|sobe"` no `<html>`. Títulos, fotos e contadores usam `IntersectionObserver` que liga ao entrar e desliga ao sair por qualquer borda.
+- Com `prefers-reduced-motion: reduce`, tudo aparece parado.
+- Exemplo pronto: [templates/estetica/_build-gold-iris/app.js](templates/estetica/_build-gold-iris/app.js) (bloco "a história na rolagem") e o fim de [style.css](templates/estetica/_build-gold-iris/style.css).
+
 ## Outros vícios de IA a evitar
 - Gradiente roxo/azul com brilho ("glow") atrás do título.
 - Título com uma palavra em gradiente colorido.
@@ -101,5 +112,6 @@ E conferir visualmente:
 - Nenhuma grade de cards com ícone em quadradinho.
 - Nenhum número marcando tópico.
 - Mapa do footer é o componente padrão com OpenStreetMap, igual aos modelos.
+- Gold e premium: a página se monta conforme a rolagem e se desfaz ao voltar (descendo e subindo).
 - Botões, chips e etiquetas com fundo que aparecem em grupo têm todos a mesma largura e altura (a do item mais longo).
 - No celular, grupos e grades ocupam 100% da largura útil, sem espaço vazio sobrando ao lado; cards e componentes proporcionais em 1440px, 768px, 390px e 360px.

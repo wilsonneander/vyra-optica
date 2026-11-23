@@ -199,12 +199,11 @@
  },
  {
   "arq": "infantil-penteado",
-  "autor": "RDNE Stock project",
-  "fonte": "Pexels",
-  "url": "https://www.pexels.com/photo/a-boy-sitting-on-a-barber-shop-chair-7697670/",
-  "alt_original": "A child smiling joyfully while getting a haircut in a barber shop.",
-  "w": 933,
-  "h": 1400
+  "autor": "13on",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/-2NujTiGjNQ",
+  "w": 1400,
+  "h": 934
  },
  {
   "arq": "infantil-maquina",
@@ -365,9 +364,9 @@
   "arq": "pai-filho",
   "autor": "RDNE Stock project",
   "fonte": "Pexels",
-  "url": "https://www.pexels.com/photo/a-man-in-a-barber-chair-showing-a-basketball-to-a-boy-7697328/",
-  "alt_original": "A man sits in a barbershop chair holding a basketball, engaging with a child indoors.",
-  "w": 1400,
-  "h": 934
+  "url": "https://www.pexels.com/photo/a-boy-sitting-on-a-barber-shop-chair-7697670/",
+  "alt_original": "A child smiling joyfully while getting a haircut in a barber shop.",
+  "w": 933,
+  "h": 1400
  }
 ]

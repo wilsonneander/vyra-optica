@@ -730,3 +730,6 @@ section { position: relative; }
 @media (prefers-reduced-motion: reduce) {
   .carrega.abre { display: none; }
 }
+
+/* enquadramento da foto do primeiro corte: o rosto da criança fica à esquerda da foto original */
+.serv-foto img[src$="infantil-penteado.webp"] { object-position: 18% 50%; }

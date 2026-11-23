@@ -731,6 +731,9 @@ section { position: relative; }
   .carrega.abre { display: none; }
 }
 
+/* enquadramento da foto do primeiro corte: o rosto da criança fica à esquerda da foto original */
+.serv-foto img[src$="infantil-penteado.webp"] { object-position: 18% 50%; }
+
 /* ---------- seletor de tema: pílula com sol e lua e um marcador que desliza como gota ---------- */
 /* position com especificidade zero: a lateral fixa (.tema-lado) de cada modelo continua valendo */
 :where(.tema-pilula) { position: relative; }

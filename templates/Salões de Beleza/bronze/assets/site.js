@@ -277,3 +277,26 @@
     $$('[data-cookies]').forEach((b) => b.addEventListener('click', () => { ck.hidden = false; igualaDepois(); }));
   }
 })();
+
+/* ---------- tema claro ou escuro (pílula na lateral e no menu do celular) ---------- */
+(() => {
+  const raiz = document.documentElement;
+  const meta = document.querySelector('meta[name="theme-color"]');
+  let fim;
+  const marca = () => {
+    document.querySelectorAll('[data-tema-ir]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.temaIr === raiz.dataset.tema)));
+    if (meta) meta.content = raiz.dataset.tema === 'claro' ? '#161311' : '#161311';
+  };
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-tema-ir]');
+    if (!b || b.dataset.temaIr === raiz.dataset.tema) return;
+    // tema-anim liga a passagem suave das cores só durante a troca
+    raiz.classList.add('tema-anim');
+    raiz.dataset.tema = b.dataset.temaIr;
+    try { localStorage.setItem('mecha-barbearia-tema', raiz.dataset.tema); } catch (err) { /* sem armazenamento, vale só nesta visita */ }
+    marca();
+    clearTimeout(fim);
+    fim = setTimeout(() => raiz.classList.remove('tema-anim'), 800);
+  });
+  marca();
+})();

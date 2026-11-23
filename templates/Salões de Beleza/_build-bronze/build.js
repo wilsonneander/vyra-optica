@@ -7,6 +7,8 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
+const T = require('../../_comum/tema-pilula');
+const CHAVE_TEMA = 'mecha-barbearia-tema';
 
 const OUT = path.join(__dirname, '..', 'bronze');
 const PASTAS = [path.join(__dirname, 'img', 'fotos'), path.join(__dirname, '..', '_build-gold', 'img', 'fotos')];
@@ -87,6 +89,7 @@ const topo = `<a class="pular" href="#conteudo">Pular para o conteúdo</a>
       <div><dt>Telefone</dt><dd><a href="tel:${tel}">${M.telefone}</a></dd></div>
       <div><dt>E-mail</dt><dd><a href="mailto:${M.email}">${M.email}</a></dd></div>
     </dl>
+    ${T.pilula('deitada', 'claro')}
     ${redes('redes-painel')}
   </aside>
 </div>`;
@@ -358,7 +361,7 @@ const titulo = `${M.completo} | Barbearia na ${M.bairro}, ${M.cidade}`;
 const descricao = `Barbearia com hora marcada na ${M.bairro}: corte masculino, degradê na navalha, barba com toalha quente, sobrancelha e pigmentação. Preços claros e agendamento online.`;
 
 const html = `<!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="claro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -367,6 +370,7 @@ const html = `<!doctype html>
 <link rel="canonical" href="${M.dominio}/">
 <meta property="og:type" content="website"><meta property="og:title" content="${esc(titulo)}"><meta property="og:description" content="${esc(descricao)}"><meta property="og:image" content="${M.dominio}/assets/img/capa-barba.webp"><meta property="og:locale" content="pt_BR">
 <meta name="theme-color" content="#161311">
+${T.head(CHAVE_TEMA)}
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 ${fontes}
 <link rel="stylesheet" href="assets/site.css">
@@ -385,6 +389,7 @@ ${espaco}
 ${politicas}
 </main>
 ${rodape}
+${T.pilula('tema-lado', 'claro')}
 ${dialogs}
 <script type="application/json" id="dados">${JSON.stringify(dados)}</script>
 <script src="assets/site.js" defer></script>
@@ -396,8 +401,8 @@ ${dialogs}
 for (const [nome, arq] of usadas) if (arq) fs.copyFileSync(arq, path.join(OUT, 'assets', 'img', `${nome}.webp`));
 fs.copyFileSync(path.join(__dirname, '..', '_build-gold', 'img', 'mapa_vila-madalena.webp'), path.join(OUT, 'assets', 'img', 'mapa_vila-madalena.webp'));
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
-fs.writeFileSync(path.join(OUT, 'assets', 'site.css'), fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8'));
-fs.writeFileSync(path.join(OUT, 'assets', 'site.js'), fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8'));
+fs.writeFileSync(path.join(OUT, 'assets', 'site.css'), fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8') + T.css);
+fs.writeFileSync(path.join(OUT, 'assets', 'site.js'), fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8') + T.js(CHAVE_TEMA, '#161311', '#161311'));
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${M.dominio}/sitemap.xml\n`);
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${M.dominio}/</loc></url></urlset>\n`);

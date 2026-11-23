@@ -5,7 +5,7 @@ Nicho de salão de beleza (com barbearia no mesmo endereço). Barbearia sozinha 
 | Modelo | Pasta | Gerar |
 |---|---|---|
 | Gold: salão de beleza com barbearia masculina no mesmo endereço | [gold/](gold/) | `node "templates/Salões de Beleza/_build-gold/build.js"` |
-| Silver | ainda não feito | |
+| Silver: site do salão (Mecha Salão) com páginas de equipe e galeria e Área do cliente, paleta terracota | [silver/](silver/) | `node "templates/Salões de Beleza/_build-silver/build.js"` |
 | Bronze: página única enxuta só do salão (Mecha Salão), paleta ameixa | [bronze/](bronze/) | `node "templates/Salões de Beleza/_build-bronze/build.js"` |
 
 ## Gold
@@ -48,3 +48,32 @@ Serviço e dia (na capa e no formulário) usam lista e calendário próprios no 
 Animações leves: botões sobem um pouco com sombra tingida e um brilho que atravessa, links com sublinhado que cresce, lista e calendário que abrem deslizando, fotos da galeria com zoom e legenda que sobe, entrada suave dos blocos. Tudo parado com `prefers-reduced-motion`.
 
 Fotos e mapa vêm de `_build-gold/img/` (créditos no rodapé). Textos de políticas, higiene e termos a validar na revisão jurídica; marca, preços, CNPJ e avaliações fictícios.
+
+## Silver
+
+Site mais completo que o Bronze, no desenho da referência pedida (Elysia, feita no Framer) e com a paleta dela: creme #FFF9F2, café #211B18, terracota #E58A68, telha #B4532F, tijolo #7D3827 e oliva #66705A. As fontes da referência (Fraunces e DM Sans) estão na lista proibida das diretrizes, então os títulos usam Newsreader e o texto usa Hanken Grotesk. Só o lado salão da marca, como **Mecha Salão** (salao@mechasalao.com.br). Tema claro e escuro com a pílula lateral comum (chave `mecha-salao-silver-tema`).
+
+Páginas:
+
+- `index.html`: topo escuro que some ao descer e volta ao subir; capa com foto inteira e título que sobe palavra por palavra; faixa corrida de serviços; serviços em cartões por segmento (corte e escova, cor e mechas, cachos, tratamentos, unhas, sobrancelha e maquiagem), com menu de segmentos preso ao lado que acompanha a rolagem, fotos levemente tortas que se endireitam e o que inclui, duração, valor ou "a partir de" e aviso de teste de mecha; condições de pagamento e remarcação; tendências da estação em grade desencontrada com paralaxe; seção escura de motivos, contadores e garantia de ajuste por serviço; quem somos e equipe em carrossel; antes e depois arrastável com tempo e preço; avaliações em duas faixas que correm (pausam no mouse e no botão); Instagram incorporado; produtos para levar para casa (reserva pelo WhatsApp); bom saber antes da visita; políticas (coloração e química em destaque) e higiene; dúvidas; agendamento; rodapé com mapa OpenStreetMap, horário, dados legais, termos, privacidade e aviso de cookies.
+- `equipe.html`: perfil de cada profissional com apresentação, especialidade, formação, segmentos que atende, agenda da semana e botão "Agendar com" (abre o formulário da página inicial com a profissional escolhida).
+- `galeria.html`: fotos por categoria com filtros animados e foto ampliada (setas, teclado e deslizar no celular).
+- `cliente.html`, `cadastro.html` e `painel.html`: Área do cliente (veja abaixo).
+
+### Agendamento
+
+Serviço (lista própria agrupada por segmento, com preço e duração), profissional (só aparece quem faz o serviço, ou "sem preferência"), dia (calendário próprio que risca os dias em que o salão fecha ou a profissional está de folga) e horário (passos de 30 minutos dentro da agenda da profissional e do horário da casa, já descontando a duração do serviço). Um resumo ao lado acompanha cada escolha. O envio monta a mensagem e abre o WhatsApp; aceite da Política de Privacidade obrigatório e novidades opcional. Os horários mostrados não consultam uma agenda real: o pedido é confirmado pela recepção.
+
+### Área do cliente
+
+Login de demonstração já preenchido: `dono@mechasalao.com.br` / `mecha2026` (ou crie uma conta em `cadastro.html`). O painel tem cinco abas: dados da empresa (nome, razão social, CNPJ, contatos, WhatsApp que recebe os pedidos, endereço), horário de funcionamento, serviços, produtos e funcionários (com foto, cargo, especialidade, apresentação, segmentos que atende e agenda por dia). Cada item pode ser criado, editado, escondido do site, reordenado e excluído; "Restaurar o padrão" volta aos dados do modelo.
+
+O site lê o que o painel salvou e remonta serviços, formulário, equipe (carrossel e página), produtos, rodapé, horário e links de WhatsApp. As peças de HTML vêm de `_build-silver/partes.js`, o mesmo arquivo que o build usa, então o resultado é igual ao gerado. **Nesta demonstração tudo fica no navegador (localStorage) e a conta não tem segurança de verdade.** Para um cliente, `loja.js` passa a ler e gravar numa API e o login vira autenticação no servidor.
+
+### Instagram
+
+O bloco do Instagram é um feed de exemplo montado com fotos do site (perfil @mecha.salao, números e legendas fictícios). No site do cliente entra o feed real: o código de incorporação do próprio Instagram ou um widget como Behold ou LightWidget no lugar de `.insta-grade`.
+
+### Fontes do build
+
+`_build-silver/`: `content.js` (textos, preços, equipe, produtos, galeria), `partes.js` (peças de HTML usadas no build e no navegador), `build.js`, `style.css`, `comum.js`, `app.js` (site), `painel.js` (Área do cliente), `loja.js` (dados e sessão), `icons.js`. Fotos novas em `_build-silver/img/fotos/` (Unsplash, créditos em `img/creditos.json` e no rodapé); as demais e o mapa vêm de `_build-gold/img/`. Políticas, higiene e termos a validar na revisão jurídica; marca, pessoas, preços, CNPJ e avaliações fictícios.

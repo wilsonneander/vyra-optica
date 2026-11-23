@@ -10,6 +10,8 @@ No nicho [Barbearia](../barbearia/) (Bronze), só a barbearia aparece, como **Me
 
 No Bronze do salão, só o salão aparece, como **Mecha Salão** ("salão" embaixo do nome, e-mail salao@mechasalao.com.br), com a paleta ameixa pedida para esse modelo: ameixa #42293C, uva #785B77, rosa-antigo #BC7895, rosa-claro #EBC3D6, névoa #EFDCE5; títulos em Prata e texto em Albert Sans.
 
+No Silver do salão, a mesma **Mecha Salão** aparece com a paleta terracota da referência pedida para esse modelo: creme #FFF9F2, café #211B18, terracota #E58A68, telha #B4532F (botões), tijolo #7D3827, oliva #66705A (bloco de higiene) e areia #D7CEC3; títulos em Newsreader e texto em Hanken Grotesk. O símbolo usa lâmina creme e mecha terracota sobre o topo café.
+
 ## Logo
 
 Símbolo: uma mecha curva (o salão) cruza uma lâmina reta (a barbearia) e as duas formam um X que lembra uma tesoura aberta. Ao lado, a palavra **Mecha** em Instrument Sans 600 com espaçamento apertado e, embaixo, "salão & barbearia" em tamanho pequeno. O desenho está em `_build-gold/icons.js` (`simbolo`, `logo`, `favicon`).

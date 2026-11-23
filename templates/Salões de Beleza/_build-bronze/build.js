@@ -93,14 +93,18 @@ const topo = `<a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
 // ---------- capa ----------
 const capa = `<section class="capa" id="inicio">
-  <div class="capa-foto">${foto('capa-barbeiro', { lazy: false })}</div>
   <div class="largo capa-in">
+    <div class="capa-txt">
     <p class="oferta"><b>5% de desconto</b><span>na sua primeira visita</span></p>
     <h1 class="capa-tit"><span>Degradê no ponto,</span> <em>barba na navalha,</em> <span>estilo que dura.</span></h1>
     <div class="prova">
       <span class="rostos">${['l12', 'l9', 'l10'].map((f) => foto(f, { alt: '' })).join('')}</span>
       <div><p class="nota">${estrelas}<b>${String(M.nota).replace('.', ',')}</b></p><p>${M.avaliacoes.toLocaleString('pt-BR')} avaliações no Google</p></div>
     </div>
+    </div>
+    <figure class="capa-foto">${foto('capa-barba', { lazy: false, attrs: ' width="1200" height="628"' })}
+      <figcaption class="vidro"><b>Corte e barba</b><span>1h10, ${reais(105)}, o mais pedido</span><a href="#agendar" data-servico="combo">Agendar ${I.seta}</a></figcaption>
+    </figure>
   </div>
   <div class="largo capa-base">
     <p>Barbearia com hora marcada na ${M.bairro}. Corte, barba e acabamento na navalha, com o preço combinado no espelho antes de começar.</p>
@@ -345,7 +349,7 @@ const dialogs = `${Object.entries(legal).map(([id, [t, corpo]]) => `<dialog clas
 // ---------- SEO local ----------
 const ld = {
   '@context': 'https://schema.org', '@type': 'BarberShop', name: M.completo, url: M.dominio,
-  image: `${M.dominio}/assets/img/capa-barbeiro.webp`, telephone: M.telefone, email: M.email, priceRange: 'R$ 25 a R$ 105',
+  image: `${M.dominio}/assets/img/capa-barba.webp`, telephone: M.telefone, email: M.email, priceRange: 'R$ 25 a R$ 105',
   address: { '@type': 'PostalAddress', streetAddress: M.endereco, addressLocality: M.cidade, addressRegion: M.uf, postalCode: M.cep, addressCountry: 'BR' },
   geo: { '@type': 'GeoCoordinates', latitude: -23.5564, longitude: -46.6893 },
   openingHoursSpecification: Object.entries(C.abertura).filter(([, h]) => h).map(([d, h]) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d], opens: `${String(h[0]).padStart(2, '0')}:00`, closes: `${String(h[1]).padStart(2, '0')}:00` })),
@@ -363,7 +367,7 @@ const html = `<!doctype html>
 <title>${esc(titulo)}</title>
 <meta name="description" content="${esc(descricao)}">
 <link rel="canonical" href="${M.dominio}/">
-<meta property="og:type" content="website"><meta property="og:title" content="${esc(titulo)}"><meta property="og:description" content="${esc(descricao)}"><meta property="og:image" content="${M.dominio}/assets/img/capa-barbeiro.webp"><meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="website"><meta property="og:title" content="${esc(titulo)}"><meta property="og:description" content="${esc(descricao)}"><meta property="og:image" content="${M.dominio}/assets/img/capa-barba.webp"><meta property="og:locale" content="pt_BR">
 <meta name="theme-color" content="#161311">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 ${fontes}

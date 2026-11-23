@@ -94,7 +94,7 @@ const bairros = ['Vila Madalena', 'Pinheiros', 'Sumarezinho', 'Alto de Pinheiros
 
 // descrição das fotos (alt)
 const fotos = {
-  'capa-barbeiro': 'Barbeiro tatuado fazendo o acabamento da barba na navalha em um cliente reclinado na cadeira',
+  'capa-barba': 'Barbeiro aparando com tesoura e pente a barba ruiva de um cliente, em close',
   'barba-tesoura': 'Barbeiro de luvas pretas aparando a barba de um cliente com tesoura e pente, cliente reclinado na cadeira',
   'corte-m4': 'Barbeiro passando a máquina na nuca de um cliente',
   'corte-m3': 'Barbeiro fazendo degradê com máquina em cliente de capa listrada',

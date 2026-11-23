@@ -208,27 +208,26 @@ const agendar = `<section class="agendar" id="agendar">
   </div>
 </section>`;
 
-// ---------- equipe ----------
-const selo = `<div class="selo-gira" aria-hidden="true">
-  <svg viewBox="0 0 200 200"><defs><path id="circ" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs>
-    <text><textPath href="#circ" textLength="486">MECHA BARBEARIA   HORA MARCADA   VILA MADALENA   </textPath></text></svg>
-  <span class="selo-meio">${I.simbolo()}</span>
-</div>`;
+// ---------- equipe (seção escura, cabeçalho centralizado e quatro cartões lado a lado) ----------
 const equipe = `<section class="equipe" id="equipe">
-  <div class="largo equipe-in">
-    <div class="equipe-lado">
+  <div class="largo">
+    <div class="equipe-cab rev">
       ${rotulo('Equipe')}
-      ${selo}
-      <p>Cada barbeiro tem a própria agenda. No formulário, os horários livres aparecem de acordo com quem você escolher.</p>
+      <h2>Quatro barbeiros, quatro jeitos de acertar o seu corte.</h2>
+      <p>Cada um tem a própria agenda. Escolha quem vai te atender e o formulário mostra só os horários livres dele.</p>
     </div>
-    <div class="equipe-dir">
-      <h2 class="rev">Quatro barbeiros, quatro jeitos de acertar o seu corte.</h2>
-      <div class="cards-equipe">
-        ${C.equipe.map((p) => `<article class="barbeiro rev">
-          ${foto(p.foto)}
-          <div class="vidro"><h3>${esc(p.nome)}</h3><p>${esc(p.esp)}</p><p class="dias">${resumoAgenda(p.agenda).join('<br>')}</p><a href="#agendar" data-prof="${p.id}">Agendar com ${esc(p.nome.split(' ')[0])} ${I.seta}</a></div>
-        </article>`).join('\n        ')}
-      </div>
+    <div class="cards-equipe">
+      ${C.equipe.map((p) => `<article class="barbeiro rev">
+        ${foto(p.foto)}
+        <div class="vidro">
+          <div class="barbeiro-nome"><h3>${esc(p.nome)}</h3><p>${esc(p.esp)}</p></div>
+          <div class="barbeiro-acoes">
+            <a href="${M.instagram}" target="_blank" rel="noopener" aria-label="Trabalhos de ${esc(p.nome.split(' ')[0])} no Instagram da Mecha">${I.insta}</a>
+            <a href="#agendar" data-prof="${p.id}" aria-label="Agendar com ${esc(p.nome.split(' ')[0])}">${I.agenda}</a>
+          </div>
+          <p class="dias">${resumoAgenda(p.agenda).join('<br>')}</p>
+        </div>
+      </article>`).join('\n      ')}
     </div>
   </div>
 </section>`;

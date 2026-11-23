@@ -55,10 +55,10 @@ const servicos = [
 
 // equipe: agenda por dia da semana (getDay) com [entrada, saída]; faz = ids de serviços que atende
 const equipe = [
-  { id: 'rafael', nome: 'Rafael Duarte', cargo: 'Barbeiro', esp: 'Degradê na navalha e barba', foto: 'rafael', faz: ['corte', 'degrade', 'barba', 'desenho', 'sobrancelha', 'combo'], agenda: { 1: [10, 20], 2: [10, 20], 3: [10, 20], 4: [10, 20], 5: [10, 20], 6: [9, 15] } },
-  { id: 'thiago', nome: 'Thiago Sena', cargo: 'Barbeiro', esp: 'Pigmentação e corte infantil', foto: 'thiago', faz: ['corte', 'barba', 'sobrancelha', 'pigmentacao', 'infantil', 'combo'], agenda: { 1: [12, 20], 3: [11, 20], 4: [11, 21], 5: [11, 21], 6: [9, 18] } },
-  { id: 'diego', nome: 'Diego Amaral', cargo: 'Barbeiro', esp: 'Cortes na tesoura e barba cheia', foto: 'l11', faz: ['corte', 'barba', 'desenho', 'combo'], agenda: { 2: [9, 18], 3: [9, 18], 4: [12, 21], 5: [12, 21], 6: [9, 18] } },
-  { id: 'caio', nome: 'Caio Ribeiro', cargo: 'Barbeiro', esp: 'Degradê, risco e desenho de barba', foto: 'l15', faz: ['corte', 'degrade', 'desenho', 'sobrancelha', 'infantil', 'combo'], agenda: { 1: [10, 19], 2: [11, 20], 4: [9, 18], 5: [9, 18], 6: [10, 18] } },
+  { id: 'rafael', nome: 'Rafael Duarte', cargo: 'Barbeiro', esp: 'Degradê na navalha e barba', foto: 'barbeiro-rafael', faz: ['corte', 'degrade', 'barba', 'desenho', 'sobrancelha', 'combo'], agenda: { 1: [10, 20], 2: [10, 20], 3: [10, 20], 4: [10, 20], 5: [10, 20], 6: [9, 15] } },
+  { id: 'thiago', nome: 'Thiago Sena', cargo: 'Barbeiro', esp: 'Pigmentação e corte infantil', foto: 'barbeiro-thiago', faz: ['corte', 'barba', 'sobrancelha', 'pigmentacao', 'infantil', 'combo'], agenda: { 1: [12, 20], 3: [11, 20], 4: [11, 21], 5: [11, 21], 6: [9, 18] } },
+  { id: 'diego', nome: 'Diego Amaral', cargo: 'Barbeiro', esp: 'Cortes na tesoura e barba cheia', foto: 'barbeiro-diego', faz: ['corte', 'barba', 'desenho', 'combo'], agenda: { 2: [9, 18], 3: [9, 18], 4: [12, 21], 5: [12, 21], 6: [9, 18] } },
+  { id: 'caio', nome: 'Caio Ribeiro', cargo: 'Barbeiro', esp: 'Degradê, risco e desenho de barba', foto: 'barbeiro-caio', faz: ['corte', 'degrade', 'desenho', 'sobrancelha', 'infantil', 'combo'], agenda: { 1: [10, 19], 2: [11, 20], 4: [9, 18], 5: [9, 18], 6: [10, 18] } },
 ];
 
 // avaliações (fictícias, no formato das do Google)
@@ -111,10 +111,10 @@ const fotos = {
   l9: 'Cliente de topete com laterais baixas e barba por fazer',
   kids: 'Barbeiro tatuado cortando o cabelo de um menino',
   'espaco-equipe': 'O espaço da Mecha, com cadeiras de barbeiro e espelhos em arco iluminados',
-  rafael: 'Rafael Duarte, barbeiro, de braços cruzados na barbearia',
-  thiago: 'Thiago Sena, barbeiro, de boné, concentrado no corte',
-  l11: 'Diego Amaral, barbeiro, de barba aparada e jaqueta escura',
-  l15: 'Caio Ribeiro, barbeiro, de topete e barba desenhada',
+  'barbeiro-rafael': 'Rafael Duarte, barbeiro, apoiado na cadeira de couro segurando a tesoura dourada diante do espelho redondo iluminado',
+  'barbeiro-thiago': 'Thiago Sena, barbeiro, mostrando a tesoura para a câmera',
+  'barbeiro-diego': 'Diego Amaral, barbeiro de barba ruiva, apontando a tesoura para a câmera',
+  'barbeiro-caio': 'Caio Ribeiro, barbeiro tatuado, de braços cruzados sobre fundo azul',
 };
 
 module.exports = { marca, horarios, abertura, horarioCurto, servicos, equipe, depoimentos, colunas, politicas, higiene, pagamento, bairros, fotos };

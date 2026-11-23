@@ -240,31 +240,28 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .form-ok .cal a + a { background: var(--branco); color: var(--cafe); }
 .form-ok .cal .ic { width: 16px; height: 16px; }
 
-/* ---------- equipe ---------- */
-.equipe { padding: 110px 0 120px; background: var(--branco); }
-.equipe-in { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; }
-.equipe-lado { display: grid; align-content: start; gap: 60px; }
-.equipe-lado > p { font-size: 15.5px; color: var(--apoio); max-width: 30ch; }
-.selo-gira { position: relative; width: 180px; height: 180px; }
-.selo-gira svg { width: 100%; height: 100%; animation: gira 22s linear infinite; }
-.selo-gira text { font: 600 15px var(--f-t); letter-spacing: .08em; fill: var(--cafe); }
-.selo-meio { position: absolute; inset: 44px; display: grid; place-items: center; border-radius: 50%; background: var(--ouro); }
-.selo-meio .simbolo { width: 52px; height: 52px; --sim-lamina: var(--cafe); --sim-mecha: var(--creme); }
-@keyframes gira { to { rotate: 360deg; } }
-.equipe-dir h2 { font-size: clamp(32px, 3.6vw, 50px); max-width: 17ch; margin-bottom: 70px; }
-.cards-equipe { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.barbeiro { position: relative; border-radius: var(--raio); overflow: hidden; aspect-ratio: 354 / 400; background: var(--areia); }
-.barbeiro img { width: 100%; height: 100%; object-fit: cover; transition: scale 1s var(--suave); }
-.barbeiro:hover img { scale: 1.05; }
-.barbeiro .vidro { position: absolute; left: 16px; right: 16px; bottom: 16px; padding: 16px 20px; display: grid; gap: 3px; }
-.barbeiro h3 { font-size: 22px; letter-spacing: -.03em; }
-.barbeiro p { font-size: 15px; }
-.barbeiro .dias { font-size: 13px; color: var(--apoio-claro); max-height: 0; overflow: hidden; transition: max-height .5s var(--suave), margin .5s; }
-.barbeiro a { font: 500 14px var(--f-t); color: var(--caramelo-claro); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; max-height: 0; overflow: hidden; transition: max-height .5s var(--suave); }
-.barbeiro a .ic { width: 16px; height: 16px; }
+/* ---------- equipe: seção escura, cartões lado a lado ---------- */
+.equipe { padding: 110px 0 120px; background: var(--preto); color: var(--creme); }
+.equipe-cab { display: grid; justify-items: center; gap: 16px; text-align: center; margin-bottom: 60px; }
+.equipe-cab .rotulo { color: var(--caramelo-claro); }
+.equipe-cab .rotulo .simbolo { --sim-lamina: var(--creme); --sim-mecha: var(--caramelo-claro); }
+.equipe-cab h2 { font-size: clamp(32px, 3.8vw, 54px); max-width: 18ch; }
+.equipe-cab > p { color: var(--apoio-claro); max-width: 52ch; }
+.cards-equipe { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.barbeiro { position: relative; border-radius: var(--raio); overflow: hidden; aspect-ratio: 3 / 4; background: var(--noite); }
+.barbeiro img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; filter: saturate(.92); transition: scale 1s var(--suave), filter .6s; }
+.barbeiro:hover img { scale: 1.05; filter: saturate(1.05); }
+.barbeiro::after { content: ""; position: absolute; inset: 55% 0 0; background: linear-gradient(0deg, rgba(22, 19, 17, .7), rgba(22, 19, 17, 0)); pointer-events: none; }
+.barbeiro .vidro { position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 1; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 10px; padding: 14px 14px 14px 16px; }
+.barbeiro h3 { font-size: 20px; letter-spacing: -.03em; }
+.barbeiro-nome p { font-size: 13.5px; color: var(--apoio-claro); margin-top: 3px; }
+.barbeiro-acoes { display: flex; gap: 4px; }
+.barbeiro-acoes a { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 9px; color: var(--creme); transition: background .3s, color .3s; }
+.barbeiro-acoes a:hover { background: var(--ouro); color: var(--preto); }
+.barbeiro-acoes .ic { width: 19px; height: 19px; }
+.barbeiro .dias { grid-column: 1 / -1; font-size: 12.5px; color: var(--apoio-claro); max-height: 0; overflow: hidden; transition: max-height .5s var(--suave), margin .5s; }
 .barbeiro:hover .dias, .barbeiro:focus-within .dias { max-height: 80px; margin-top: 6px; }
-.barbeiro:hover a, .barbeiro:focus-within a { max-height: 30px; }
-@media (hover: none) { .barbeiro .dias { max-height: 80px; margin-top: 6px; } .barbeiro a { max-height: 30px; } }
+@media (hover: none) { .barbeiro .dias { max-height: 80px; margin-top: 6px; } }
 
 /* ---------- o espaço ---------- */
 .espaco { padding: 20px 0 40px; background: var(--branco); overflow: hidden; }
@@ -401,10 +398,7 @@ dialog.doc::backdrop { background: rgba(22, 19, 17, .66); backdrop-filter: blur(
   .aval-cols { position: static; width: auto; display: flex; gap: 12px; overflow-x: auto; padding: 0 24px; scroll-snap-type: x mandatory; pointer-events: auto; }
   .aval-col { display: contents; }
   .aval-col img, .aval-col img:nth-child(n) { flex: 0 0 62%; aspect-ratio: 4 / 5 !important; scroll-snap-align: center; translate: none !important; }
-  .equipe-in { grid-template-columns: 1fr; }
-  .equipe-lado { grid-template-columns: auto 1fr; align-items: center; gap: 24px; }
-  .equipe-lado .rotulo { grid-column: 1 / -1; }
-  .equipe-dir h2 { margin-bottom: 40px; }
+  .cards-equipe { grid-template-columns: repeat(2, 1fr); }
   .espaco-foto { width: calc(100% - 48px); }
   .pol-grade { grid-template-columns: 1fr; gap: 44px; }
   .pol { grid-template-columns: 1fr 1.4fr; gap: 20px; align-items: start; }
@@ -434,10 +428,8 @@ dialog.doc::backdrop { background: rgba(22, 19, 17, .66); backdrop-filter: blur(
   .agendar-cartao { padding: 40px 18px 18px; gap: 34px; }
   .form { padding: 22px 16px; }
   .campos { grid-template-columns: 1fr; }
-  .cards-equipe { grid-template-columns: 1fr; }
-  .selo-gira { width: 130px; height: 130px; }
-  .selo-meio { inset: 32px; }
-  .selo-meio .simbolo { width: 38px; height: 38px; }
+  .cards-equipe { grid-template-columns: 1fr; gap: 16px; }
+  .barbeiro { aspect-ratio: 4 / 5; }
   .espaco-foto { width: calc(100% - 32px); }
   .espaco-foto img { height: 60vh; }
   .higiene ul { grid-template-columns: 1fr; }

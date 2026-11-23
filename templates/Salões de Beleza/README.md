@@ -5,6 +5,7 @@ Nicho de salão de beleza e barbearia. Os três modelos (Bronze, Silver e Gold) 
 | Modelo | Pasta | Gerar |
 |---|---|---|
 | Gold: salão de beleza com barbearia masculina no mesmo endereço | [gold/](gold/) | `node "templates/Salões de Beleza/_build-gold/build.js"` |
+| Gold Pente Fino: barbearia premium escura, cadeira 3D sob o foco, agendamento em quatro passos (marca própria Pente Fino, não usa a Mecha) | [gold-pente/](gold-pente/) | em `_build-gold-pente/`: `npm install` e depois `npm run catalogo` |
 | Silver | ainda não feito | |
 | Bronze | ainda não feito | |
 
@@ -36,3 +37,14 @@ Formulário com consentimento LGPD, WhatsApp flutuante, serviços com o que incl
 ### Imagens
 
 Fotos em `_build-gold/img/fotos/` (Unsplash, com autor e link em `img/creditos.json`, listados no rodapé), com leve tom quente para combinar com a paleta. As três fotos do salão com espelhos em arco (`capa`, `escova`, `espaco-equipe`) são as imagens de referência enviadas para o projeto. As fotos de antes e depois são ilustrativas, de pessoas diferentes; no site do cliente entram fotos reais com autorização de imagem. O mapa é gerado por `_build-gold/gerar-mapa.js` a partir do OpenStreetMap.
+
+## Gold Pente Fino (barbearia premium)
+
+Modelo da biblioteca ProfitizeBuild (template "Pente Fino"), montado como a demo, sem mudanças no código. Marca fictícia **Pente Fino**: "Você escolhe o corte. A gente passa o pente fino." Preto e osso, sem cor de acento; a cor vem só do cromo e do couro da cadeira.
+
+- **Stack:** Vite sem framework, Three.js, GSAP com ScrollTrigger e Lenis. Código em `_build-gold-pente/src/`, textos em `_build-gold-pente/index.html`, imagens, fonte e modelo 3D em `_build-gold-pente/public/`.
+- **Gerar:** em `_build-gold-pente/`, `npm install` e depois `npm run catalogo` (grava em `gold-pente/`, com `base: './'`, e abre em qualquer subpasta). `npm run dev` para editar.
+- **Guia completo:** `_build-gold-pente/CLAUDE.md` (arquitetura, regras do 3D, do movimento e do celular, e como personalizar). Os prints de referência de cada cena estão em `_build-gold-pente/arquivos/conceito/` e os prompts das imagens em `arquivos/receitas/`.
+- **Cenas:** abertura com o pente atravessando o cabelo em macro; cadeira 3D que gira e some numa névoa clara; cardápio #0 a #6 com a ferramenta seguindo o mouse; manifesto com relógio, lata de pomada e borrifador em 3D; quatro espelhos (um por barbeiro); cortes que viram de costas; clube; bancada de produtos; vale-presente de metal; nota 4,9; mapa em SVG; dúvidas; fecho com o próximo horário livre; gaveta de agendamento em quatro passos com `.ics`.
+- **Parâmetros:** `?tema=vinho` ou `?tema=conhaque` troca o couro da cadeira; `?hora=14:20` simula a hora.
+- **Tudo é demonstração:** fotos dos barbeiros, cortes e produtos, preços, nota, depoimentos, endereço e o pagamento do sinal (não cobra nada). A cadeira 3D é "Barber Chair", de sweedboy69 (CC BY 4.0), com crédito no rodapé.

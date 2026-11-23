@@ -62,16 +62,6 @@ const grupos = [
   ] },
 ];
 
-// faixa de atalhos da capa (cada um leva ao serviço na lista)
-const atalhos = [
-  { icone: 'tesoura', nome: 'Corte', alvo: 'corte' },
-  { icone: 'secador', nome: 'Escova', alvo: 'escova-lisa' },
-  { icone: 'pincel', nome: 'Coloração', alvo: 'raiz' },
-  { icone: 'mecha', nome: 'Mechas', alvo: 'mechas' },
-  { icone: 'pote', nome: 'Hidratação', alvo: 'hidratacao' },
-  { icone: 'prancha', nome: 'Alinhamento', alvo: 'alinhamento' },
-];
-
 const pagamento = 'Pix, débito e crédito. Mechas, balayage e alinhamento em até 3 vezes sem juros no crédito.';
 const aPartir = 'O valor "a partir de" muda com o comprimento e o volume do cabelo e é fechado no diagnóstico, antes de começar. Nada é cobrado além do combinado.';
 
@@ -110,16 +100,16 @@ const bairros = ['Vila Madalena', 'Pinheiros', 'Sumarezinho', 'Alto de Pinheiros
 
 // descrição das fotos (alt)
 const fotos = {
-  'depois-escova': 'Mulher sorrindo com o cabelo liso e brilhante, segurando um secador',
   escova5: 'Cabeleireira fazendo escova em cliente de cabelo escuro e comprido',
   mechas: 'Cabelo loiro com balayage e ondas largas, visto de costas',
   coloracao: 'Cabeleireira aplicando mechas com pincel sobre papel alumínio',
   lavatorio2: 'Cliente reclinada no lavatório recebendo massagem no couro cabeludo',
   'corte-f2': 'Cliente de costas com ondas modeladas em tom castanho iluminado',
-  escova: 'Salão com espelhos em arco, cabeleireira finalizando o cabelo de uma cliente',
+  escova: 'Cabeleireira fazendo escova com secador e escova redonda numa cliente sorridente, diante dos espelhos em arco do salão',
+  escova2: 'Cabeleireira fazendo escova com escova redonda no cabelo castanho de uma cliente',
   l4: 'Mariana, cliente do salão, de cabelo castanho comprido',
   l6: 'Juliana, cliente do salão, de cabelo escuro ondulado',
   l2: 'Camila, cliente do salão, de cabelo cacheado',
 };
 
-module.exports = { marca, horarios, abertura, horarioCurto, grupos, atalhos, pagamento, aPartir, galeria, depoimentos, politicas, higiene, bairros, fotos };
+module.exports = { marca, horarios, abertura, horarioCurto, grupos, pagamento, aPartir, galeria, depoimentos, politicas, higiene, bairros, fotos };

@@ -1,6 +1,6 @@
 // Gera o Bronze do salão (Mecha Salão, marca fictícia) em "templates/Salões de Beleza/bronze/".
 // Página única, enxuta, no desenho da referência pedida (Stylicle): capa ameixa com foto e barra de agendamento,
-// faixa de atalhos com ícones, galeria fixa em mosaico, lista de serviços e preços, avaliação em cartão ameixa,
+// galeria fixa em mosaico, lista de serviços e preços, avaliação em cartão ameixa,
 // políticas e higiene, cartão de agendamento com foto (no lugar da newsletter) e rodapé ameixa com mapa.
 // Uso: node "templates/Salões de Beleza/_build-bronze/build.js"
 const fs = require('fs');
@@ -69,26 +69,19 @@ const topo = `<a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
 // ---------- capa ----------
 const capa = `<section class="capa" id="inicio">
-  <figure class="capa-foto">${foto('depois-escova', { lazy: false, attrs: ' width="1400" height="933"' })}</figure>
+  <figure class="capa-foto">${foto('escova', { lazy: false, attrs: ' width="1024" height="572"' })}</figure>
   <div class="largo capa-in">
     <p class="capa-apoio">${I.simbolo()}<span>Corte, escova, cor e tratamentos na ${M.bairro}</span></p>
     <h1>Cabelo bem cuidado, <em>pertinho de você.</em></h1>
     <p class="capa-txt">Salão com hora marcada, preço combinado antes de começar e teste de mecha antes de qualquer química.</p>
     <form class="barra" id="form-rapido" novalidate>
-      <label><span>Serviço</span><select name="servico" aria-label="Serviço"><option value="">O que vamos fazer?</option>${opcoes}</select></label>
-      <label><span>Melhor dia</span><input name="data" type="date" aria-label="Melhor dia"></label>
+      <label><span>Serviço</span><select name="servico" aria-label="Serviço" data-lista><option value="">O que vamos fazer?</option>${opcoes}</select></label>
+      <label><span>Melhor dia</span><input name="data" type="date" aria-label="Melhor dia" data-cal></label>
       <button class="btn btn-rosa" type="submit">${I.whats}<span>Agendar</span></button>
     </form>
     <p class="capa-nota">${estrelas}<b>${nota}</b><span>${M.avaliacoes.toLocaleString('pt-BR')} avaliações no Google</span></p>
   </div>
 </section>`;
-
-// ---------- atalhos de serviço ----------
-const atalhos = `<nav class="atalhos" aria-label="Atalhos para os serviços">
-  <div class="largo atalhos-in">
-    ${C.atalhos.map((a) => `<a class="atalho" href="#s-${a.alvo}"><span class="atalho-ic">${I[a.icone]}</span><span>${a.nome}</span></a>`).join('\n    ')}
-  </div>
-</nav>`;
 
 // ---------- galeria fixa ----------
 const galeria = `<section class="galeria" id="galeria">
@@ -182,7 +175,7 @@ const politicas = `<section class="politicas" id="politicas">
 const agendar = `<section class="agendar" id="agendar">
   <div class="largo">
     <div class="ag-cartao rev">
-      <figure class="ag-foto">${foto('escova')}<figcaption><b>Confirmação em até 1 hora</b><span>no horário de funcionamento</span></figcaption></figure>
+      <figure class="ag-foto">${foto('escova2')}<figcaption><b>Confirmação em até 1 hora</b><span>no horário de funcionamento</span></figcaption></figure>
       <form class="form" id="form-agenda" novalidate>
         <h2>Agende seu horário</h2>
         <p class="form-intro">Preencha e o pedido segue pronto pelo WhatsApp. Campos com * são obrigatórios.</p>
@@ -190,8 +183,8 @@ const agendar = `<section class="agendar" id="agendar">
           <label><span>Nome *</span><input name="nome" autocomplete="name" required placeholder="Seu nome"></label>
           <label><span>Telefone ou WhatsApp *</span><input name="tel" type="tel" autocomplete="tel" inputmode="tel" required placeholder="(11) 90000-0000"></label>
           <label class="larga"><span>E-mail</span><input name="email" type="email" autocomplete="email" placeholder="voce@email.com"></label>
-          <label><span>Serviço *</span><select name="servico" required><option value="">Escolha</option>${opcoes}</select></label>
-          <label><span>Dia *</span><input name="data" type="date" required></label>
+          <label><span>Serviço *</span><select name="servico" required data-lista><option value="">Escolha</option>${opcoes}</select></label>
+          <label><span>Dia *</span><input name="data" type="date" required data-cal></label>
           <fieldset class="larga periodo"><legend>Período *</legend>
             <div class="periodos" data-iguais>${['Manhã', 'Tarde', 'Noite'].map((p) => `<label><input type="radio" name="periodo" value="${p.toLowerCase()}"${p === 'Manhã' ? ' required' : ''}><span>${p}</span></label>`).join('')}</div>
           </fieldset>
@@ -289,7 +282,7 @@ const dialogs = `${Object.entries(legal).map(([id, [t, corpo]]) => `<dialog clas
 const precos = todos.map((s) => s.preco);
 const ld = {
   '@context': 'https://schema.org', '@type': 'HairSalon', name: M.completo, url: M.dominio,
-  image: `${M.dominio}/assets/img/depois-escova.webp`, telephone: M.telefone, email: M.email, priceRange: `R$ ${Math.min(...precos)} a R$ ${Math.max(...precos)}`,
+  image: `${M.dominio}/assets/img/escova.webp`, telephone: M.telefone, email: M.email, priceRange: `R$ ${Math.min(...precos)} a R$ ${Math.max(...precos)}`,
   address: { '@type': 'PostalAddress', streetAddress: M.endereco, addressLocality: M.cidade, addressRegion: M.uf, postalCode: M.cep, addressCountry: 'BR' },
   geo: { '@type': 'GeoCoordinates', latitude: -23.5564, longitude: -46.6893 },
   openingHoursSpecification: Object.entries(C.abertura).filter(([, h]) => h).map(([d, h]) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d], opens: `${String(h[0]).padStart(2, '0')}:00`, closes: `${String(h[1]).padStart(2, '0')}:00` })),
@@ -307,7 +300,7 @@ const html = `<!doctype html>
 <title>${esc(titulo)}</title>
 <meta name="description" content="${esc(descricao)}">
 <link rel="canonical" href="${M.dominio}/">
-<meta property="og:type" content="website"><meta property="og:title" content="${esc(titulo)}"><meta property="og:description" content="${esc(descricao)}"><meta property="og:image" content="${M.dominio}/assets/img/depois-escova.webp"><meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="website"><meta property="og:title" content="${esc(titulo)}"><meta property="og:description" content="${esc(descricao)}"><meta property="og:image" content="${M.dominio}/assets/img/escova.webp"><meta property="og:locale" content="pt_BR">
 <meta name="theme-color" content="${COR_CLARO}">
 ${T.head(CHAVE_TEMA)}
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -319,7 +312,6 @@ ${fontes}
 ${topo}
 <main id="conteudo">
 ${capa}
-${atalhos}
 ${galeria}
 ${servicos}
 ${avaliacoes}

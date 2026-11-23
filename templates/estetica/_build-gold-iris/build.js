@@ -79,7 +79,9 @@ const topo = (pre = '', ancora = (id) => `${pre ? `${pre}index.html` : ''}#${id}
   <div class="topo-in">
     <a class="logo" href="${pre || './'}${pre ? 'index.html' : ''}#inicio" aria-label="${M.completo}, início">${I.logo}</a>
     <nav class="menu" id="menu" aria-label="Principal">
-      ${nav.map(([id, t]) => `<a href="${ancora(id)}"><span data-t="${t}">${t}</span></a>`).join('\n      ')}
+      ${nav.map(([id, t], k) => `<a href="${ancora(id)}" style="--k:${k}"><span data-t="${t}">${t}</span></a>`).join('\n      ')}
+      <a class="btn btn-tinta menu-agendar" href="${ancora('agenda')}" style="--k:${nav.length}">${I.agenda}Agendar horário</a>
+      <p class="menu-rodape" style="--k:${nav.length + 1}">${M.endereco}, ${M.bairro}<br>WhatsApp ${M.whatsappTexto}</p>
     </nav>
     <div class="topo-acoes">
       <span class="aberto" data-aberto hidden></span>

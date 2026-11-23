@@ -306,9 +306,10 @@
     menuBtn.addEventListener('click', () => {
       const abre = menuBtn.getAttribute('aria-expanded') !== 'true';
       menuBtn.setAttribute('aria-expanded', String(abre));
-      menu.classList.toggle('aberto', abre);
+      menu.classList.toggle('mostra', abre);
+      document.documentElement.classList.toggle('menu-on', abre);
     });
-    $$('a', menu).forEach((a) => a.addEventListener('click', () => { menuBtn.setAttribute('aria-expanded', 'false'); menu.classList.remove('aberto'); }));
+    $$('a', menu).forEach((a) => a.addEventListener('click', () => { menuBtn.setAttribute('aria-expanded', 'false'); menu.classList.remove('mostra'); document.documentElement.classList.remove('menu-on'); }));
   }
   // aberto agora / fechado, pelo horário da casa
   const agora = new Date();

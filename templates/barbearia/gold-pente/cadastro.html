@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Cadastro do dono · Pente Fino</title>
+  <meta name="description" content="Crie a conta do dono da barbearia para gerenciar o site.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="./marca.svg" type="image/svg+xml">
+  <style>html,body{color:#f2f1ee;background:#070707;margin:0}</style>
+  <script type="module" crossorigin src="./assets/cadastro-BxcCzNm6.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/dados-pj6Ph-G0.js">
+  <link rel="modulepreload" crossorigin href="./assets/comum-CLAC-EA7.js">
+  <link rel="stylesheet" crossorigin href="./assets/comum-C9Ue8Lg7.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="marca" viewBox="0 0 48 20"><g fill="currentColor"><rect x="1" y="1" width="46" height="4.4" rx="2.2"/><rect x="1" y="3" width="2.6" height="16" rx="1.3"/><rect x="44.4" y="3" width="2.6" height="16" rx="1.3"/><rect x="6" y="4.6" width="2.2" height="14" rx="1.1"/><rect x="10" y="4.6" width="2.2" height="14" rx="1.1"/><rect x="14" y="4.6" width="2.2" height="14" rx="1.1"/><rect x="18" y="4.6" width="2.2" height="14" rx="1.1"/><rect x="22.9" y="4.6" width="1.3" height="14" rx="0.65"/><rect x="25.6" y="4.6" width="1.3" height="14" rx="0.65"/><rect x="28.3" y="4.6" width="1.3" height="14" rx="0.65"/><rect x="31" y="4.6" width="1.3" height="14" rx="0.65"/><rect x="33.7" y="4.6" width="1.3" height="14" rx="0.65"/><rect x="36.4" y="4.6" width="1.3" height="14" rx="0.65"/><rect x="39.1" y="4.6" width="1.3" height="14" rx="0.65"/><rect x="41.8" y="4.6" width="1.3" height="14" rx="0.65"/></g></symbol>
+    </defs>
+  </svg>
+
+  <main class="acesso">
+    <div class="acesso__arte">
+      <img src="./img/espelho-4.webp" alt="" fetchpriority="high">
+      <a class="acesso__topo" href="./index.html"><svg class="marca" viewBox="0 0 48 20" aria-hidden="true"><use href="#marca"/></svg>Pente Fino</a>
+      <div class="acesso__nome" aria-hidden="true">
+        <p>sua</p><p>casa</p>
+        <small class="mono">Cadastro do dono · leva um minuto</small>
+      </div>
+    </div>
+
+    <div class="acesso__lado">
+      <form class="acesso__form acesso__form--largo" novalidate data-cadastro>
+        <p class="mono entra">Cadastro do dono</p>
+        <h1 class="entra"><span>Abra a casa</span> <strong>no site.</strong></h1>
+        <p class="entra">Com a conta criada, você entra no painel e cadastra serviços, barbeiros, produtos e o horário.</p>
+        <div class="acesso__erro" role="alert" hidden data-erro></div>
+        <div class="linha-2 entra">
+          <label class="campo"><span>Seu nome</span><input name="nome" autocomplete="name" required placeholder="Nome e sobrenome"><em class="campo__erro" aria-live="polite"></em></label>
+          <label class="campo"><span>Nome da barbearia</span><input name="barbearia" autocomplete="organization" required placeholder="Como aparece na fachada"><em class="campo__erro" aria-live="polite"></em></label>
+        </div>
+        <div class="linha-2 entra">
+          <label class="campo"><span>CPF ou CNPJ</span><input name="documento" inputmode="numeric" required placeholder="000.000.000-00"><em class="campo__erro" aria-live="polite"></em></label>
+          <label class="campo"><span>WhatsApp da casa</span><input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(00) 00000-0000"><em class="campo__erro" aria-live="polite"></em></label>
+        </div>
+        <label class="campo entra"><span>E-mail</span><input name="email" type="email" autocomplete="email" required placeholder="voce@suabarbearia.com.br"><em class="campo__erro" aria-live="polite"></em></label>
+        <div class="linha-2 entra">
+          <label class="campo campo--senha"><span>Senha</span><input name="senha" type="password" autocomplete="new-password" required minlength="8" placeholder="8 caracteres ou mais"><button class="campo__olho" type="button" aria-label="Mostrar a senha" aria-pressed="false" data-olho></button><em class="campo__erro" aria-live="polite"></em></label>
+          <label class="campo"><span>Repita a senha</span><input name="senha2" type="password" autocomplete="new-password" required><em class="campo__erro" aria-live="polite"></em></label>
+        </div>
+        <label class="aceite entra"><input type="checkbox" name="aceite" required><span>Li e aceito os termos de uso e a política de privacidade da plataforma (texto de exemplo nesta demonstração).</span></label>
+        <button class="botao botao--claro botao--seta entra" type="submit">Criar conta e entrar</button>
+        <div class="acesso__links entra">
+          <span>Já tem conta? <a href="./cliente.html">Entrar</a></span>
+          <a href="./index.html">← Voltar ao site</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+</body>
+</html>

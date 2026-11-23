@@ -93,6 +93,7 @@ const topo = `<a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
 // ---------- capa ----------
 const capa = `<section class="capa" id="inicio">
+  <figure class="capa-foto">${foto('capa-barba', { lazy: false, attrs: ' width="1200" height="628"' })}</figure>
   <div class="largo capa-in">
     <div class="capa-txt">
     <p class="oferta"><b>5% de desconto</b><span>na sua primeira visita</span></p>
@@ -102,9 +103,6 @@ const capa = `<section class="capa" id="inicio">
       <div><p class="nota">${estrelas}<b>${String(M.nota).replace('.', ',')}</b></p><p>${M.avaliacoes.toLocaleString('pt-BR')} avaliações no Google</p></div>
     </div>
     </div>
-    <figure class="capa-foto">${foto('capa-barba', { lazy: false, attrs: ' width="1200" height="628"' })}
-      <figcaption class="vidro"><b>Corte e barba</b><span>1h10, ${reais(105)}, o mais pedido</span><a href="#agendar" data-servico="combo">Agendar ${I.seta}</a></figcaption>
-    </figure>
   </div>
   <div class="largo capa-base">
     <p>Barbearia com hora marcada na ${M.bairro}. Corte, barba e acabamento na navalha, com o preço combinado no espelho antes de começar.</p>

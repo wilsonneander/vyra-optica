@@ -8,6 +8,8 @@ Marca de demonstração usada nos três modelos do nicho de salões de beleza e 
 
 No nicho [Barbearia](../barbearia/) (Bronze), só a barbearia aparece, como **Mecha Barbearia**: mesmo símbolo, com "barbearia" embaixo do nome no lugar de "salão & barbearia", e e-mail próprio barbearia@mechasalao.com.br. Endereço, CNPJ, telefone, WhatsApp e redes são os mesmos da casa.
 
+No Bronze do salão, só o salão aparece, como **Mecha Salão** ("salão" embaixo do nome, e-mail salao@mechasalao.com.br), com a paleta ameixa pedida para esse modelo: ameixa #42293C, uva #785B77, rosa-antigo #BC7895, rosa-claro #EBC3D6, névoa #EFDCE5; títulos em Prata e texto em Albert Sans.
+
 ## Logo
 
 Símbolo: uma mecha curva (o salão) cruza uma lâmina reta (a barbearia) e as duas formam um X que lembra uma tesoura aberta. Ao lado, a palavra **Mecha** em Instrument Sans 600 com espaçamento apertado e, embaixo, "salão & barbearia" em tamanho pequeno. O desenho está em `_build-gold/icons.js` (`simbolo`, `logo`, `favicon`).

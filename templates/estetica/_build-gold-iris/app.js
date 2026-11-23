@@ -86,53 +86,8 @@
     new IntersectionObserver((es, ob) => es.forEach((e) => { if (e.isIntersecting) { etapas.style.setProperty('--linha-p', '100%'); ob.disconnect(); } }), { threshold: .6 }).observe(etapas);
   }
 
-  // ---------- olho da capa: acompanha o cursor, pisca e troca o estilo fio a fio ----------
+  // ---------- provador do olhar: o desenho muda com as escolhas, acompanha o mouse e pisca ----------
   const Dz = window.Desenho;
-  const capaEl = $('[data-olho-capa]');
-  if (capaEl && Dz) {
-    const est = { estilo: 'natural', curva: 'C', sobr: ligado('sobrancelhas') ? 'arco' : 'antes', id: 'oc', rotulo: 'Desenho de um olho com extensão de cílios' };
-    let olhar = [0, 0], alvo = [0, 0], piscando = false;
-    const desenha = (abertura = 1, anima = false) => {
-      capaEl.innerHTML = Dz.olho({ ...est, abertura, hibrido: est.estilo === 'boneca' });
-      aplicaOlhar();
-      if (anima && !reduz) {
-        capaEl.classList.add('desenhando');
-        const fios = $$('.cil path', capaEl);
-        fios.forEach((p, i) => { p.style.animationDelay = `${i * 9}ms`; });
-        setTimeout(() => { capaEl.classList.remove('desenhando'); fios.forEach((p) => { p.style.animationDelay = ''; }); }, fios.length * 9 + 600);
-      }
-    };
-    const aplicaOlhar = () => { const g = $('.iris-g', capaEl); if (g) g.setAttribute('transform', `translate(${(olhar[0] * 34).toFixed(1)} ${(olhar[1] * 14).toFixed(1)})`); };
-    desenha(1, true);
-    addEventListener('pointermove', (e) => {
-      const r = capaEl.getBoundingClientRect();
-      const cx = r.left + r.width * 0.51, cy = r.top + r.height * 0.57;
-      const dx = (e.clientX - cx) / (innerWidth * 0.5), dy = (e.clientY - cy) / (innerHeight * 0.5);
-      alvo = [Math.max(-1, Math.min(1, dx)), Math.max(-1, Math.min(1, dy))];
-    }, { passive: true });
-    const segue = () => {
-      olhar = [olhar[0] + (alvo[0] - olhar[0]) * 0.12, olhar[1] + (alvo[1] - olhar[1]) * 0.12];
-      if (!piscando) aplicaOlhar();
-      requestAnimationFrame(segue);
-    };
-    if (!reduz) requestAnimationFrame(segue);
-    const pisca = () => {
-      if (reduz || capaEl.classList.contains('desenhando') || document.hidden) return setTimeout(pisca, 3000);
-      piscando = true;
-      const quadros = [0.6, 0.2, 0, 0.25, 0.65, 1];
-      quadros.forEach((a, i) => setTimeout(() => { desenha(a); if (i === quadros.length - 1) piscando = false; }, i * 38));
-      setTimeout(pisca, 3200 + Math.random() * 3600);
-    };
-    setTimeout(pisca, 2600);
-    $$('[data-capa-estilo]').forEach((b) => b.addEventListener('click', () => {
-      $$('[data-capa-estilo]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-      est.estilo = b.dataset.capaEstilo;
-      est.curva = est.estilo === 'volume' || est.estilo === 'boneca' ? 'D' : 'C';
-      desenha(1, true);
-    }));
-  }
-
-  // ---------- provador do olhar ----------
   const provEl = $('[data-prov-olho]');
   const servPorId = Object.fromEntries((D.servicos || []).map((s) => [s.id, s]));
   let provEscolha = null;
@@ -147,14 +102,18 @@
         sobr: v('prov-sobr'), henna: !!$('[name="prov-henna"]', form)?.checked,
       };
     };
+    let olhar = [0, 0], alvo = [0, 0], abertura = 1, piscando = false;
+    const aplicaOlhar = () => { const g = $('.iris-g', provEl); if (g) g.setAttribute('transform', `translate(${(olhar[0] * 34).toFixed(1)} ${(olhar[1] * 14).toFixed(1)})`); };
     const atualiza = () => {
       const e = ler();
       const mmEl = $('[data-prov-mm]');
       if (mmEl) mmEl.textContent = `${e.mm} mm`;
       provEl.innerHTML = Dz.olho({
         estilo: e.cilios || 'antes', curva: e.curva, comp: 0.62 + e.mm * 0.038, hibrido: e.cilios === 'boneca',
-        sobr: e.sobr || 'antes', henna: e.henna && e.sobr !== 'lamination', id: 'op', rotulo: 'Desenho do olhar escolhido no provador',
+        sobr: e.sobr || 'antes', henna: e.henna && e.sobr !== 'lamination', id: 'op', rotulo: 'Desenho do olhar escolhido no provador', abertura,
       });
+      aplicaOlhar();
+      if (piscando) return;
       const c = P.cilios.find((x) => x.id === e.cilios);
       const sb = P.sobrancelhas.find((x) => x.id === e.sobr);
       const txt = $('[data-prov-texto]');
@@ -173,6 +132,29 @@
     };
     form.addEventListener('input', atualiza);
     atualiza();
+    if (!reduz) {
+      addEventListener('pointermove', (ev) => {
+        const r = provEl.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) return;
+        const cx = r.left + r.width * 0.51, cy = r.top + r.height * 0.57;
+        alvo = [Math.max(-1, Math.min(1, (ev.clientX - cx) / (innerWidth * 0.45))), Math.max(-1, Math.min(1, (ev.clientY - cy) / (innerHeight * 0.45)))];
+      }, { passive: true });
+      const segue = () => {
+        olhar = [olhar[0] + (alvo[0] - olhar[0]) * 0.12, olhar[1] + (alvo[1] - olhar[1]) * 0.12];
+        aplicaOlhar();
+        requestAnimationFrame(segue);
+      };
+      requestAnimationFrame(segue);
+      const pisca = () => {
+        const r = provEl.getBoundingClientRect();
+        if (document.hidden || r.bottom < 0 || r.top > innerHeight) return setTimeout(pisca, 2500);
+        piscando = true;
+        const quadros = [0.6, 0.2, 0, 0.25, 0.65, 1];
+        quadros.forEach((a, i) => setTimeout(() => { abertura = a; if (i === quadros.length - 1) piscando = false; atualiza(); }, i * 38));
+        setTimeout(pisca, 3200 + Math.random() * 3600);
+      };
+      setTimeout(pisca, 2600);
+    }
     $('[data-prov-agendar]')?.addEventListener('click', () => {
       if (!provEscolha?.servicos.length) return;
       const [primeiro, segundo] = provEscolha.servicos;
@@ -770,6 +752,72 @@
   }
 })();
 
+// ===================== carrossel da capa e sanfonas fluidas =====================
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const reduz = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // carrossel: a próxima foto abre em círculo do centro, como uma íris; troca sozinho, pausa no mouse, arrasta no toque
+  const car = $('[data-carrossel]');
+  if (car) {
+    const slides = $$('.cc-slide', car), botoes = $$('[data-cc]', car);
+    const TEMPO = 6000;
+    let atual = 0, timer = null, parado = false;
+    const vai = (n, auto = false) => {
+      n = (n + slides.length) % slides.length;
+      if (n === atual && !auto) return;
+      const antes = slides[atual];
+      antes.classList.remove('ativo'); antes.classList.add('saindo');
+      antes.setAttribute('aria-hidden', 'true'); antes.tabIndex = -1;
+      setTimeout(() => antes.classList.remove('saindo'), 1300);
+      atual = n;
+      slides[n].classList.add('ativo'); slides[n].removeAttribute('aria-hidden'); slides[n].removeAttribute('tabindex');
+      botoes.forEach((b, i) => { b.setAttribute('aria-selected', String(i === n)); b.classList.remove('corre'); });
+      reinicia();
+    };
+    const reinicia = () => {
+      clearTimeout(timer);
+      const b = botoes[atual];
+      if (b) { void b.offsetWidth; b.classList.toggle('corre', !parado && !reduz); }
+      if (!parado && !reduz) timer = setTimeout(() => vai(atual + 1, true), TEMPO);
+    };
+    botoes.forEach((b, i) => b.addEventListener('click', () => vai(i)));
+    car.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { parado = true; car.classList.add('parado'); clearTimeout(timer); } });
+    car.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { parado = false; car.classList.remove('parado'); reinicia(); } });
+    car.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') vai(atual + 1); if (e.key === 'ArrowLeft') vai(atual - 1); });
+    let x0 = null;
+    const palco = $('.cc-palco', car);
+    palco.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') x0 = e.clientX; });
+    palco.addEventListener('pointerup', (e) => { if (x0 !== null && Math.abs(e.clientX - x0) > 40) vai(atual + (e.clientX < x0 ? 1 : -1)); x0 = null; });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) clearTimeout(timer); else reinicia(); });
+    reinicia();
+  }
+
+  // sanfonas (dúvidas e serviços): a altura anima ao abrir e ao fechar
+  $$('.faq details, .serv details').forEach((d) => {
+    const sum = $('summary', d);
+    sum.addEventListener('click', (e) => {
+      if (reduz || !d.animate) return;
+      e.preventDefault();
+      if (d._anim) { d._anim.cancel(); d._anim = null; }
+      const borda = d.offsetHeight - d.clientHeight;
+      const ini = d.offsetHeight;
+      const abre = !d.open || d.classList.contains('fechando');
+      d.classList.remove('fechando');
+      if (abre) d.open = true;
+      const fim = abre ? d.scrollHeight + borda : sum.offsetHeight + borda;
+      if (!abre) d.classList.add('fechando');
+      d.style.overflow = 'hidden';
+      d._anim = d.animate({ height: [`${ini}px`, `${fim}px`] }, { duration: abre ? 520 : 420, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      d._anim.onfinish = () => {
+        d._anim = null; d.style.overflow = '';
+        if (!abre) { d.open = false; d.classList.remove('fechando'); }
+      };
+    });
+  });
+})();
+
 // ===================== camada premium: abertura, tema, história na rolagem, cursor, flores e fundos vivos =====================
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
@@ -934,7 +982,7 @@
   addEventListener('camelia:pronto', () => setTimeout(() => contadores.filter(naCapa).forEach(conta), 900), { once: true });
 
   // ---------- a história na rolagem: blocos seguem a posição da página ----------
-  const paralaxe = [['.capa-olho .olho-palco', -0.08], ['img.aval-foto', 0.1], ['img.seg-foto', 0.12], ['.pessoa-foto img', 0.06], ['.cartao-vale', -0.04]];
+  const paralaxe = [['.prov-palco .olho-palco', -0.05], ['img.aval-foto', 0.1], ['img.seg-foto', 0.12], ['.pessoa-foto img', 0.06], ['.cartao-vale', -0.04]];
   const moveis = [];
   if (!reduz) paralaxe.forEach(([s, v]) => $$(s).forEach((el) => { el.setAttribute('data-paralaxe', ''); moveis.push([el, v]); }));
   const CENAS = [
@@ -1039,7 +1087,7 @@
     const anel = $('.cur-anel', cx), ponto = $('.cur-ponto', cx), rot = $('b', cx);
     raiz.classList.add('cursor-on');
     let mx = -100, my = -100, ax = -100, ay = -100, ativo = false;
-    const ROTULOS = [['.ad-palco', 'Arraste'], ['.painel', 'Preços'], ['.cartao-vale', 'Gire'], ['[data-olho-capa]', 'Olhe']];
+    const ROTULOS = [['.ad-palco', 'Arraste'], ['.painel', 'Preços'], ['.cartao-vale', 'Gire'], ['[data-prov-olho]', 'Olhe'], ['.cc-palco', 'Ver']];
     const ESCURO = '.provador, .clube, .rodape, .politica-24, .sacola-fundo, .painel';
     const avalia = (alvo) => {
       if (!(alvo instanceof Element)) return;

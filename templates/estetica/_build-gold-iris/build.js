@@ -266,7 +266,9 @@ const minPreco = (cat) => {
 };
 
 // capa
-const olhoCapa = D.olho({ estilo: 'natural', curva: 'C', sobr: 'arco', id: 'oc', rotulo: 'Desenho de um olho com extensão de cílios fio a fio' });
+// carrossel da capa: só os serviços ligados (laser ou cera mantêm o slide de depilação)
+const SLIDES = C.capaCarrossel.filter((x) => (x.seg === 'laser' ? temCorpo : ligado(x.seg)));
+const precoSlide = (x) => reais(x.seg === 'laser' ? Math.min(...['laser', 'cera'].filter(ligado).map(minPreco)) : minPreco(x.seg));
 const capa = `<section class="capa" id="inicio">
   <div class="capa-in">
     <div class="capa-txt">
@@ -283,13 +285,15 @@ const capa = `<section class="capa" id="inicio">
         <div><dt data-conta="${M.desde}" data-de="${M.desde - 30}">${M.desde}</dt><dd>no ${M.bairro}, com responsável técnica</dd></div>
       </dl>
     </div>
-    <figure class="capa-olho entra" style="--d:.3s" aria-label="Olho desenhado fio a fio">
-      <div class="olho-palco" data-olho-capa>${olhoCapa}</div>
-      ${temOlhar && ligado('cilios') ? `<div class="capa-estilos" role="group" aria-label="Estilo dos cílios no desenho" data-iguais>
-        ${C.provador.cilios.slice(0, 4).map((c, i) => `<button type="button" data-capa-estilo="${c.id}" aria-pressed="${i ? 'false' : 'true'}">${c.nome.replace('Fio a fio natural', 'Natural')}</button>`).join('')}
-      </div>` : ''}
-      <figcaption>Desenhado fio a fio. Mexa o cursor e o olho acompanha.</figcaption>
-    </figure>
+    <div class="capa-olho capa-carrossel entra" style="--d:.3s" role="region" aria-roledescription="carrossel" aria-label="Serviços da clínica" data-carrossel>
+      <div class="cc-palco">
+        ${SLIDES.map((x, i) => `<a class="cc-slide${i ? '' : ' ativo'}" href="#precos" data-aba-ir="${x.seg}" role="group" aria-roledescription="slide" aria-label="${esc(x.nome)}"${i ? ' aria-hidden="true" tabindex="-1"' : ''}>
+          ${foto(x.foto, { lazy: i > 0 })}
+          <span class="cc-leg"><small>a partir de ${precoSlide(x)}</small><b>${esc(x.nome)}</b><span>${esc(x.frase)}</span></span>
+        </a>`).join('\n        ')}
+      </div>
+      <div class="cc-nav" role="tablist" aria-label="Escolher serviço" data-iguais>${SLIDES.map((x, i) => `<button type="button" role="tab" aria-selected="${i ? 'false' : 'true'}" data-cc="${i}"><span>${x.curto}</span><i aria-hidden="true"></i></button>`).join('')}</div>
+    </div>
   </div>
 </section>`;
 

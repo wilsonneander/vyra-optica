@@ -156,9 +156,9 @@ node templates/estetica/_build-gold-iris/build.js
 
 O que tem, de cima para baixo:
 
-- **Capa** com um olho desenhado fio a fio que acompanha o cursor e pisca. Os botões Natural, Boneca, Gatinho e Volume russo trocam os cílios, que entram um a um
+- **Capa** dividida: texto e botões na metade esquerda e, na metade direita, a foto inteira (de ponta a ponta, sem moldura) num carrossel de três serviços (cílios, depilação, sobrancelhas, em `capaCarrossel` no `content.js`): a foto nova abre do centro em círculo, como uma íris, com zoom lento; troca sozinho a cada 6 segundos, pausa no mouse, arrasta no toque e tem abas com barra de tempo
 - **Serviços** em quatro painéis de foto que se abrem com o cursor
-- **Provador do olhar**: estilo dos cílios, curvatura C, D ou L, tamanho de 8 a 14 mm, forma da sobrancelha e henna. O desenho muda na hora e mostra o serviço, o tempo, o preço e a manutenção. "Agendar este olhar" já leva para a agenda com o serviço escolhido
+- **Provador do olhar**: o olho acompanha o mouse e pisca; estilo dos cílios, curvatura C, D ou L, tamanho de 8 a 14 mm, forma da sobrancelha e henna. O desenho muda na hora e mostra o serviço, o tempo, o preço e a manutenção. "Agendar este olhar" já leva para a agenda com o serviço escolhido
 - **Mapa do corpo e simulador de pacotes**: silhueta de frente e de costas com pontos clicáveis (16 áreas), laser ou cera, pacote avulso, de 6, 8 ou 10 sessões. Mostra total, parcelas, economia, a previsão das sessões mês a mês e quanto a cera custaria em 2 anos. Três áreas ou mais ganham desconto extra
 - **Preços** em abas por segmento: o que inclui, duração, sessões, valor ou "a partir de", manutenção e tabela por área de cera e laser. Pagamento, pacotes e garantia logo abaixo
 - **Antes e depois arrastável**: fio a fio e volume russo com **fotos de representação** (pessoas diferentes, recortadas no mesmo enquadramento do olho, marcadas como tal), e cílios, sobrancelhas e laser em ilustração. Embaixo, uma faixa de fotos de lash designers trabalhando corre devagar e para no mouse
@@ -170,7 +170,7 @@ O que tem, de cima para baixo:
 - **Vale-presente**: valor ou serviço, três estampas, para, de e mensagem, com o cartão ao vivo (inclina com o cursor), código e validade. Compra pelo WhatsApp
 - **Loja** com 8 produtos (embalagens desenhadas, sem foto) e sacola lateral que guarda os itens no navegador, com entrega e pedido pelo WhatsApp
 - **Como funciona**: etapas em linha, contraindicações por segmento, políticas (avaliação prévia, agendamento, cancelamento com destaque 24h, remarcação, desistência) e segurança e higiene (descartáveis, autoclave, Anvisa, licença)
-- **Dúvidas**, **SEO local** (texto do bairro, como chegar, estacionamento, endereço) e o **rodapé** padrão com mapa OpenStreetMap, bairros, horários com o dia de hoje, canais, redes, razão social, CNPJ, responsável técnica e os termos
+- **Dúvidas** em sanfona fluida (a altura anima ao abrir e ao fechar, o mesmo nos detalhes dos preços), **SEO local** (texto do bairro, como chegar, estacionamento, endereço) e o **rodapé** padrão com mapa OpenStreetMap, bairros, horários com o dia de hoje, canais, redes, razão social, CNPJ, responsável técnica e os termos
 - **Abertura**: um olho se desenha e três frases ("Cada fio", "cada detalhe", "no seu lugar") surgem com desfoque antes da cortina subir, uma vez por visita. `?intro` mostra de novo, `?semintro` pula; as frases ficam em `aberturaFrases` no `content.js`
 - **História na rolagem (Scroll Direction-Based Reveal, obrigatória em Gold e premium, ver DIRETRIZES-SITES.md)**: cada bloco acompanha a posição da página; descendo, entra por baixo e se apaga ao passar do topo; subindo, volta descendo pelo topo e se desfaz embaixo; títulos, fotos e contadores também refazem a entrada
 - **Fundos vivos**: manchas de luz lilás e cobre derivam devagar atrás de cada seção, algumas com anéis girando

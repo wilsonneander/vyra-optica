@@ -112,6 +112,13 @@ const segmentos = [
   { id: 'cilios', ativo: true, nome: 'Extensão de cílios e lash lifting', curto: 'Cílios', foto: 'cilios', frase: 'Fio a fio, híbrido ou volume russo, e lash lifting para curvar os seus próprios fios.' },
 ];
 
+// Carrossel da capa: três serviços em foto (segmento desligado sai do carrossel)
+const capaCarrossel = [
+  { seg: 'cilios', foto: 'cilios', curto: 'Cílios', nome: 'Extensão de cílios', frase: 'Fio a fio, híbrido ou volume russo, com cola hipoalergênica.' },
+  { seg: 'laser', foto: 'laser', curto: 'Depilação', nome: 'Depilação a laser e com cera', frase: 'Preço por área, teste de mecha e pacotes em até 10x.' },
+  { seg: 'sobrancelhas', foto: 'sobrancelha', curto: 'Sobrancelhas', nome: 'Design de sobrancelhas', frase: 'Desenho medido no seu rosto, com henna ou lamination.' },
+];
+
 // Áreas do corpo: [id, nome, cera (R$ por sessão), laser (R$ por sessão), vista, x, y, sessões de laser indicadas]
 // x e y são a posição do ponto na silhueta (viewBox 0 0 220 500). vista: 'frente' ou 'costas'. [EXEMPLO] preços
 const areas = [
@@ -380,5 +387,5 @@ const seoLocal = {
 module.exports = {
   marca, responsavel, abertura, horarios, equipe, fotos, segmentos, areas, laserPacotes, laserCombo, laserIntervalo, parcelas,
   servicos, provador, pagamento, etapas, contraindicacoes, politicas, seguranca, avisoResultado, antesDepois, google, clube, vale,
-  produtos, entrega, aberturaFrases, galeriaCilios, anamnese, faq, bairros, seoLocal,
+  produtos, entrega, aberturaFrases, galeriaCilios, capaCarrossel, anamnese, faq, bairros, seoLocal,
 };

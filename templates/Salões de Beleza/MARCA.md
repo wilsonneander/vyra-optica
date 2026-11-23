@@ -6,6 +6,8 @@ Marca de demonstração usada nos três modelos do nicho de salões de beleza e 
 
 **Mecha**. Em português, mecha é ao mesmo tempo uma porção de cabelo e o nome da técnica de clarear fios. Serve para o salão e para a barbearia sem soar feminino ou masculino demais. Nome completo: Mecha Salão & Barbearia. Razão social fictícia: Mecha Beleza e Barbearia Ltda., CNPJ 47.318.552/0001-09.
 
+No Bronze, só a barbearia aparece, como **Mecha Barbearia**: mesmo símbolo, com "barbearia" embaixo do nome no lugar de "salão & barbearia", e e-mail próprio barbearia@mechasalao.com.br. Endereço, CNPJ, telefone, WhatsApp e redes são os mesmos da casa.
+
 ## Logo
 
 Símbolo: uma mecha curva (o salão) cruza uma lâmina reta (a barbearia) e as duas formam um X que lembra uma tesoura aberta. Ao lado, a palavra **Mecha** em Instrument Sans 600 com espaçamento apertado e, embaixo, "salão & barbearia" em tamanho pequeno. O desenho está em `_build-gold/icons.js` (`simbolo`, `logo`, `favicon`).

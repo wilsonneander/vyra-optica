@@ -97,13 +97,18 @@ const topo = (base, atual) => `<a class="pular" href="#conteudo">Pular para o co
 
 // ---------- capa ----------
 const capa = `<section class="capa" id="inicio">
-  <figure class="capa-foto" data-capa>${foto('capa', { lazy: false })}</figure>
+  <div class="capa-fotos" data-capa>
+    ${C.capaSlides.map((sl, i) => `<figure class="capa-slide${i === 0 ? ' ativo' : ''}" style="--pos:${sl.pos}">${foto(sl.foto, { lazy: false })}</figure>`).join('\n    ')}
+  </div>
   <div class="largo capa-in">
     <p class="capa-hora" data-relogio>${M.cidade}, ${M.bairro}</p>
     <h1 class="capa-tit palavras">${palavras('Afiado do jeito que você pede')}</h1>
     <div class="capa-base">
       <p>Barbearia com hora marcada no ${M.bairro}. Corte na tesoura, degradê, barba com toalha quente e sobrancelha na navalha, com quatro barbeiros e preço fechado antes de começar.</p>
       <div class="capa-btns"><a class="btn btn-cobre" href="#agendar">Agendar horário ${I.setaDir}</a><a class="btn btn-vidro" href="#servicos">Ver serviços</a></div>
+    </div>
+    <div class="capa-nav" role="group" aria-label="Fotos da capa: cabelo, barba e sobrancelha">
+      ${C.capaSlides.map((sl, i) => `<button type="button" data-slide="${i}" aria-pressed="${i === 0}"><span>${sl.rotulo}</span><i aria-hidden="true"></i></button>`).join('')}
     </div>
     <a class="capa-nota" href="#depoimentos">${estrelas}<b>${nota}</b><span>${M.avaliacoes.toLocaleString('pt-BR')} avaliações no Google</span></a>
   </div>
@@ -136,7 +141,7 @@ const sobre = `<section class="sobre" id="sobre">
 
 // ---------- serviços por segmento ----------
 const cartaoServ = (s, i) => `<article class="serv${i === 0 ? ' serv-grande' : ''}" style="--i:${i}">
-          ${i === 0 ? `<figure>${foto(s.foto)}</figure>` : ''}
+          <figure class="serv-foto">${foto(s.foto)}</figure>
           <div class="serv-corpo">
             <h4>${esc(s.nome)}</h4>
             <p>${esc(s.inclui)}</p>
@@ -508,6 +513,15 @@ ${fontes}
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
 <body class="${classe}">
+<div class="carrega" id="carrega" aria-hidden="true">
+  <div class="carrega-metade carrega-cima"></div><div class="carrega-metade carrega-baixo"></div>
+  <div class="carrega-in">
+    <svg class="carrega-simbolo" viewBox="0 0 40 40"><path class="cs-losango" d="M20 2 38 20 20 38 2 20Z" pathLength="1"/><path class="cs-c" d="M26.5 14.2a8.6 8.6 0 1 0 0 11.6" pathLength="1"/><path class="cs-lamina" d="M25.6 20h7" pathLength="1"/></svg>
+    <p class="carrega-num"><b data-pc>0</b><span>%</span></p>
+    <p class="carrega-frase" data-frase>Afiando a navalha</p>
+  </div>
+  <div class="carrega-linha"><i></i><span class="carrega-navalha">${I.navalha}</span></div>
+</div>
 ${topo(base, atual)}
 <main id="conteudo">
 ${corpo}

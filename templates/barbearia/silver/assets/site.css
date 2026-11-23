@@ -43,7 +43,6 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: var(--fundo); color: var(--txt); font: 400 16.5px/1.6 var(--f-c); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
-.tema-anim, .tema-anim *, .tema-anim *::before, .tema-anim *::after { transition: background-color .7s ease, color .7s ease, border-color .7s ease, fill .7s ease !important; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 button, input, select, textarea { font: inherit; color: inherit; }
@@ -117,9 +116,17 @@ section { position: relative; }
 
 /* ---------- capa ---------- */
 .capa { min-height: max(680px, 100svh); display: flex; align-items: flex-end; padding: 150px 0 48px; overflow: hidden; background: #0b0b0b; }
-.capa-foto { position: absolute; inset: 0; margin: 0; }
-.capa-foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; scale: calc(1.12 - var(--cp, 0) * .12); transition: scale .1s linear; }
-.capa-foto::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 10, 10, .55) 0%, rgba(10, 10, 10, .15) 35%, rgba(10, 10, 10, .78) 78%, #111 100%); }
+/* carrossel da capa: a foto nova entra num corte diagonal, como uma passada de navalha, e cresce devagar */
+.capa-fotos { position: absolute; inset: 0; overflow: hidden; scale: calc(1.08 - var(--cp, 0) * .08); }
+.capa-slide { position: absolute; inset: 0; margin: 0; opacity: 0; z-index: 0; }
+.capa-slide img { width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 40%); }
+.capa-slide.antes { opacity: 1; z-index: 1; }
+.capa-slide.ativo { opacity: 1; z-index: 2; animation: navalhada 1.25s cubic-bezier(.7, 0, .2, 1) both; }
+.capa-slide.ativo img { animation: aproxima 7.5s ease-out both; }
+.capa-slide.ativo.primeira { animation: none; }
+@keyframes navalhada { from { clip-path: polygon(100% 0, 130% 0, 100% 100%, 70% 100%); } to { clip-path: polygon(-30% 0, 130% 0, 100% 100%, -60% 100%); } }
+@keyframes aproxima { from { scale: 1.14; } to { scale: 1; } }
+.capa-fotos::after { content: ""; position: absolute; inset: 0; z-index: 3; background: linear-gradient(180deg, rgba(10, 10, 10, .55) 0%, rgba(10, 10, 10, .15) 35%, rgba(10, 10, 10, .78) 78%, #111 100%); }
 .capa-in { position: relative; display: grid; gap: 28px; }
 .capa-hora { font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--txt-2); }
 .capa-hora b { color: var(--cobre); font-weight: 600; }
@@ -127,6 +134,14 @@ section { position: relative; }
 .capa-base { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
 .capa-base p { max-width: 520px; color: var(--txt-2); font-size: 17.5px; }
 .capa-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.capa-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 520px; }
+.capa-nav button { display: grid; gap: 10px; padding: 0 0 4px; border: 0; background: none; color: rgba(255, 255, 255, .62); font: 600 14px/1 var(--f-c); letter-spacing: .1em; text-transform: uppercase; text-align: left; cursor: pointer; transition: color .4s; }
+.capa-nav button[aria-pressed="true"], .capa-nav button:hover { color: #fff; }
+.capa-nav i { position: relative; display: block; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .22); overflow: hidden; }
+.capa-nav i::after { content: ""; position: absolute; inset: 0; background: var(--cobre); transform-origin: left; scale: 0 1; }
+.capa-nav button[aria-pressed="true"] i::after { animation: enche var(--dur, 6s) linear forwards; }
+.capa-nav.parado button[aria-pressed="true"] i::after { animation-play-state: paused; }
+@keyframes enche { to { scale: 1 1; } }
 .capa-nota { position: absolute; right: 32px; top: -40px; display: grid; justify-items: end; gap: 2px; text-decoration: none; text-align: right; }
 .capa-nota b { font: 700 52px/1 var(--f-t); }
 .capa-nota span:last-child { font-size: 13.5px; color: var(--txt-2); }
@@ -189,9 +204,14 @@ section { position: relative; }
 /* 4 serviços: o último ocupa as duas colunas; 3 serviços: os dois menores esticam na altura do grande */
 .serv-grade:has(> :nth-child(4):last-child) > :last-child { grid-column: span 2; }
 .serv-grade:has(> :nth-child(3):last-child) > :not(.serv-grande) { grid-row: span 2; }
-.serv-grande figure { margin: 0; flex: 1; min-height: 220px; overflow: hidden; }
-.serv-grande img { width: 100%; height: 100%; object-fit: cover; transition: scale 1s var(--suave); }
-.serv-grande:hover img { scale: 1.06; }
+.serv-foto { margin: 0; height: 150px; flex: none; overflow: hidden; background: var(--sup-2); }
+.serv-foto img { width: 100%; height: 100%; object-fit: cover; transition: scale 1s var(--suave); }
+.serv:hover .serv-foto img { scale: 1.06; }
+.serv-grande .serv-foto, .serv-grade:has(> :nth-child(3):last-child) .serv-foto { flex: 1; height: auto; min-height: 200px; }
+/* com 4 serviços o último fica largo: foto ao lado do texto */
+.serv-grade:has(> :nth-child(4):last-child) > :last-child { flex-direction: row; }
+.serv-grade:has(> :nth-child(4):last-child) > :last-child .serv-foto { width: 42%; height: auto; }
+.serv-grade:has(> :nth-child(4):last-child) > :last-child .serv-corpo { flex: 1; align-content: center; }
 .serv-corpo { display: grid; gap: 10px; padding: 22px; }
 .serv h4 { font-size: 27px; }
 .serv-corpo > p { color: var(--txt-2); font-size: 15px; }
@@ -596,7 +616,8 @@ section { position: relative; }
   .seg-cab { grid-template-columns: 1fr; gap: 16px; }
   .seg-cab figure { height: 150px; }
   .serv-grade { grid-template-columns: 1fr; }
-  .serv-grande, .serv-grade > * { grid-row: auto !important; grid-column: auto !important; }
+  .serv-grande, .serv-grade > * { grid-row: auto !important; grid-column: auto !important; flex-direction: column !important; }
+  .serv-grade .serv-foto { flex: none !important; width: auto !important; height: 190px !important; min-height: 0 !important; }
   .serv-grande figure { min-height: 200px; flex: none; height: 200px; }
   .eq-grade { gap: 10px; }
   .eq-info { padding: 14px; translate: 0 0; }
@@ -655,11 +676,59 @@ section { position: relative; }
 
 /* lateral do tema (pílula) */
 .tema-lado { position: fixed; left: 18px; top: 50%; translate: 0 -50%; z-index: 45; --tb: 36px; }
+:root { --tema-halo: rgba(240, 173, 115, .18); }
+.tema-pilula { transition: background-color .6s ease, box-shadow .6s ease; }
+.tema-pilula button { transition: color .45s ease, transform .4s cubic-bezier(.34, 1.5, .5, 1); }
+:root[data-tema="escuro"] .tema-pilula { background: #232120; box-shadow: 0 12px 30px -10px rgba(0, 0, 0, .8), 0 0 0 1px rgba(255, 255, 255, .1); }
+:root[data-tema="escuro"] .tema-pilula button { color: #8f8a85; }
+:root[data-tema="escuro"] .tema-pilula button[aria-pressed="true"] { color: #111; }
+:root[data-tema="claro"] .tema-pilula button[aria-pressed="true"] { color: #111; }
+.gaveta-caixa .tema-pilula { align-self: flex-start; flex: none; }
 @media (max-width: 1180px) { :root .tema-pilula.tema-lado { display: none; } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .js .rev, .js .palavras > span > span, .js .revela, .js .revela img { opacity: 1; translate: none; clip-path: none; scale: 1; }
+}
+
+/* ---------- tela de carregando ----------
+   O símbolo se desenha conforme carrega (--pc de 0 a 1), a navalha corre na linha cobre deixando o corte para trás
+   e, no fim, a tela se abre em duas metades a partir da linha, como uma passada de navalha. */
+.carrega { display: none; }
+.js .carrega { position: fixed; inset: 0; z-index: 200; display: grid; overflow: hidden; place-items: center; --pc: 0; color: #fff; pointer-events: auto; }
+.js.carregou .carrega { pointer-events: none; }
+/* rede de segurança: se o script falhar, a tela some sozinha depois de 10 s */
+.js .carrega { animation: carregaSome .01s 10s forwards; }
+@keyframes carregaSome { to { visibility: hidden; } }
+.carrega-metade { position: absolute; left: 0; right: 0; height: 50.5%; background: #111; transition: translate 1s cubic-bezier(.76, 0, .24, 1); }
+.carrega-cima { top: 0; }
+.carrega-baixo { bottom: 0; background: #0e0e0e; }
+.carrega-in { position: absolute; left: 0; right: 0; bottom: calc(50% + 26px); z-index: 2; display: grid; justify-items: center; gap: 6px; transition: opacity .45s, translate .6s var(--suave); }
+.carrega-simbolo { width: 84px; height: 84px; margin-bottom: 18px; overflow: visible; }
+.carrega-simbolo path { fill: none; stroke-dasharray: 1; }
+.cs-losango { stroke: rgba(255, 255, 255, .85); stroke-width: 1.6; stroke-dashoffset: calc(1 - var(--pc)); }
+.cs-c { stroke: #F0AD73; stroke-width: 3.4; stroke-dashoffset: calc(1 - min(1, var(--pc) * 1.5)); }
+.cs-lamina { stroke: #F0AD73; stroke-width: 2.2; stroke-dashoffset: calc(1 - max(0, var(--pc) * 3 - 2)); }
+.carrega-num { display: flex; align-items: flex-start; gap: 4px; font-family: var(--f-t); font-weight: 700; line-height: .9; }
+.carrega-num b { font-size: clamp(88px, 16vw, 160px); font-variant-numeric: tabular-nums; min-width: 2ch; text-align: right; }
+.carrega-num span { font-size: 34px; color: #F0AD73; margin-top: 10px; }
+.carrega-frase { position: absolute; left: 0; right: 0; top: calc(100% + 52px); text-align: center; min-height: 1.4em; color: rgba(255, 255, 255, .7); font-size: 14px; letter-spacing: .22em; text-transform: uppercase; transition: opacity .3s; }
+.carrega-frase.troca { opacity: 0; }
+.carrega-linha { position: absolute; left: 0; right: 0; top: 50%; z-index: 3; height: 2px; margin-top: -1px; background: rgba(255, 255, 255, .08); }
+.carrega-linha i { position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--pc) * 100%); background: #F0AD73; box-shadow: 0 0 14px rgba(240, 173, 115, .7); transition: width .25s linear; }
+.carrega-navalha { position: absolute; top: -9px; left: calc(var(--pc) * 100%); translate: -50% 0; color: #fff; transition: left .25s linear, opacity .4s; }
+.carrega-navalha svg { width: 56px; height: 18px; display: block; --fundo: #111; filter: drop-shadow(0 0 8px rgba(0, 0, 0, .9)); }
+.carrega.abre .carrega-in { opacity: 0; translate: 0 -40px; }
+.carrega.abre .carrega-navalha { opacity: 0; }
+.carrega.abre .carrega-linha { transition: opacity .5s .35s; opacity: 0; }
+.carrega.abre .carrega-cima { translate: 0 -101%; transition-delay: .25s; }
+.carrega.abre .carrega-baixo { translate: 0 101%; transition-delay: .25s; }
+.carrega.fim { display: none; }
+@media (max-width: 720px) {
+  .carrega-simbolo { width: 64px; height: 64px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carrega.abre { display: none; }
 }
 
 /* ---------- seletor de tema: pílula com sol e lua e um marcador que desliza como gota ---------- */

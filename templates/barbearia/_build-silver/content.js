@@ -43,10 +43,10 @@ const horarioCurto = 'Seg, 13h às 20h. Ter a sex, 9h às 20h (qui e sex até 21
 
 // segmentos dos serviços (abas). foto = capa do segmento
 const segmentos = [
-  { id: 'cabelo', nome: 'Cabelo', frase: 'Tesoura, máquina e navalha. O corte começa pela conversa no espelho.', foto: 'corte-tesoura' },
-  { id: 'barba', nome: 'Barba', frase: 'Toalha quente, óleo, navalha nova e o desenho que combina com o seu rosto.', foto: 'barba-navalha' },
-  { id: 'sobrancelha', nome: 'Sobrancelha e acabamento', frase: 'Detalhes que fecham o visual: sobrancelha limpa, pezinho e nuca alinhados.', foto: 'sobrancelha-navalha' },
-  { id: 'infantil', nome: 'Infantil', frase: 'Cadeira com assento alto, paciência e desenho animado na tela.', foto: 'infantil-capa' },
+  { id: 'cabelo', nome: 'Cabelo', frase: 'Tesoura, máquina e navalha. O corte começa pela conversa no espelho.', foto: 'corte-acabamento' },
+  { id: 'barba', nome: 'Barba', frase: 'Toalha quente, óleo, navalha nova e o desenho que combina com o seu rosto.', foto: 'barba-toalha-escura' },
+  { id: 'sobrancelha', nome: 'Sobrancelha e acabamento', frase: 'Detalhes que fecham o visual: sobrancelha limpa, pezinho e nuca alinhados.', foto: 'insta-3' },
+  { id: 'infantil', nome: 'Infantil', frase: 'Cadeira com assento alto, paciência e desenho animado na tela.', foto: 'infantil-maquina' },
 ];
 
 // serviços: min = duração; de = preço "a partir de"; foto opcional para o cartão grande
@@ -163,6 +163,13 @@ const faq = [
   ['Tem estacionamento?', 'Não temos estacionamento próprio. Há vagas de Estar na Alameda Dom Pedro II e um estacionamento conveniado na esquina, com 1 hora grátis para clientes. [EXEMPLO]'],
 ];
 
+// carrossel da capa (troca sozinho): uma foto por serviço principal
+const capaSlides = [
+  { foto: 'corte-degrade', rotulo: 'Cabelo', pos: '50% 45%' },
+  { foto: 'capa', rotulo: 'Barba', pos: '50% 40%' },
+  { foto: 'sobrancelha-contorno', rotulo: 'Sobrancelha', pos: '50% 30%' },
+];
+
 const bairros = ['Batel', 'Bigorrilho', 'Centro', 'Água Verde', 'Mercês', 'Seminário'];
 
 // descrição das fotos (alt). Fotos reais do Unsplash, créditos em img/creditos.json
@@ -213,4 +220,4 @@ const fotos = {
   'insta-6': 'Barbeiro cortando com pente e tesoura o cabelo de um cliente',
 };
 
-module.exports = { marca, horarios, abertura, horarioCurto, segmentos, servicos, pacotes, equipe, depoimentos, galeriaCats, galeria, instagram, faq, bairros, fotos };
+module.exports = { capaSlides, marca, horarios, abertura, horarioCurto, segmentos, servicos, pacotes, equipe, depoimentos, galeriaCats, galeria, instagram, faq, bairros, fotos };

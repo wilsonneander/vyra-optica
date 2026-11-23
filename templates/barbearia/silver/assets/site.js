@@ -106,9 +106,10 @@
     };
     requestAnimationFrame(passo);
   };
-  const alvos = $$('.rev, .palavras, .revela, [data-conta]');
-  if (reduz || !('IntersectionObserver' in window)) alvos.forEach((el) => { el.classList.add('ve'); if (el.dataset.conta) conta(el); });
-  else {
+  // as revelações só começam quando a tela de carregando se abre (senão a capa se monta escondida)
+  const comecaRevelar = () => {
+    const alvos = $$('.rev, .palavras, .revela, [data-conta]');
+    if (reduz || !('IntersectionObserver' in window)) { alvos.forEach((el) => { el.classList.add('ve'); if (el.dataset.conta) conta(el); }); return; }
     const io = new IntersectionObserver((es) => es.forEach((e) => {
       if (!e.isIntersecting) return;
       e.target.classList.add('ve');
@@ -116,6 +117,83 @@
       io.unobserve(e.target);
     }), { rootMargin: '0px 0px -10% 0px' });
     alvos.forEach((el) => io.observe(el));
+  };
+
+  // ---------- carrossel da capa: cabelo, barba e sobrancelha ----------
+  const slides = $$('.capa-slide'), slideBtns = $$('.capa-nav button'), slideNav = $('.capa-nav');
+  if (slides.length > 1) {
+    const DUR = 6000;
+    let atual = 0, timer;
+    slideNav.style.setProperty('--dur', `${DUR}ms`);
+    slideNav.classList.add('parado');
+    slides[0].classList.add('primeira');
+    const agenda = () => { clearTimeout(timer); if (!reduz) timer = setTimeout(() => vai(atual + 1), DUR); };
+    function vai(n) {
+      n = (n + slides.length) % slides.length;
+      if (n === atual) return;
+      slides.forEach((s) => s.classList.remove('antes', 'primeira'));
+      slides[atual].classList.remove('ativo');
+      slides[atual].classList.add('antes');
+      atual = n;
+      void slides[atual].offsetWidth; // reinicia a animação do corte
+      slides[atual].classList.add('ativo');
+      slideBtns.forEach((b, i) => b.setAttribute('aria-pressed', String(i === atual)));
+      agenda();
+    }
+    slideBtns.forEach((b, i) => b.addEventListener('click', () => vai(i)));
+    addEventListener('cobre:pronto', () => { if (!reduz) slideNav.classList.remove('parado'); agenda(); }, { once: true });
+  }
+
+  // ---------- tela de carregando ----------
+  const carrega = $('#carrega');
+  const pronto = () => {
+    document.documentElement.classList.add('carregou');
+    document.body.style.overflow = '';
+    comecaRevelar();
+    dispatchEvent(new Event('cobre:pronto'));
+  };
+  if (!carrega || reduz) { carrega?.classList.add('fim'); pronto(); } else {
+    document.body.style.overflow = 'hidden';
+    let rapido = false;
+    try { rapido = sessionStorage.getItem('cobre-carregou') === '1'; sessionStorage.setItem('cobre-carregou', '1'); } catch { /* sem armazenamento */ }
+    const minimo = rapido ? 700 : 2300; // na primeira visita a navalha passa devagar; nas páginas seguintes, rápido
+    const imgs = $$('img').filter((i) => i.loading !== 'lazy');
+    const total = imgs.length + 2;
+    let feitos = 0;
+    const conta1 = () => { feitos++; };
+    imgs.forEach((i) => { if (i.complete) feitos++; else { i.addEventListener('load', conta1, { once: true }); i.addEventListener('error', conta1, { once: true }); } });
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(conta1);
+    if (document.readyState === 'complete') feitos++; else addEventListener('load', conta1, { once: true });
+    const pcEl = $('[data-pc]', carrega), fraseEl = $('[data-frase]', carrega);
+    const frases = ['Afiando a navalha', 'Esquentando a toalha', 'Ajeitando a cadeira'];
+    let fraseI = 0, mostrado = 0, acabou = false;
+    const t0 = performance.now();
+    const passo = (t) => {
+      if (acabou) return;
+      const tempo = Math.min(1, (t - t0) / minimo);
+      const real = t - t0 > 8000 ? 1 : feitos / total; // nunca prende o visitante: depois de 8 s abre de qualquer jeito
+      mostrado += (Math.min(real, tempo) - mostrado) * .16;
+      if (Math.min(real, tempo) >= 1 && mostrado > .985) mostrado = 1;
+      carrega.style.setProperty('--pc', mostrado.toFixed(4));
+      pcEl.textContent = Math.round(mostrado * 100);
+      const f = Math.min(2, Math.floor(mostrado * 3));
+      if (f !== fraseI) {
+        fraseI = f;
+        fraseEl.classList.add('troca');
+        setTimeout(() => { fraseEl.textContent = frases[fraseI]; fraseEl.classList.remove('troca'); }, 260);
+      }
+      if (mostrado >= 1) {
+        acabou = true;
+        setTimeout(() => {
+          carrega.classList.add('abre');
+          setTimeout(pronto, 450);
+          setTimeout(() => carrega.classList.add('fim'), 1500);
+        }, 220);
+        return;
+      }
+      requestAnimationFrame(passo);
+    };
+    requestAnimationFrame(passo);
   }
 
   // ---------- rolagem: topo, capa e paralaxe ----------

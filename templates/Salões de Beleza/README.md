@@ -7,7 +7,7 @@ Nicho de salão de beleza e barbearia. Os três modelos (Bronze, Silver e Gold) 
 | Gold: salão de beleza com barbearia masculina no mesmo endereço | [gold/](gold/) | `node "templates/Salões de Beleza/_build-gold/build.js"` |
 | Gold Pente Fino: barbearia premium escura, cadeira 3D sob o foco, agendamento em quatro passos (marca própria Pente Fino, não usa a Mecha) | [gold-pente/](gold-pente/) | em `_build-gold-pente/`: `npm install` e depois `npm run catalogo` |
 | Silver | ainda não feito | |
-| Bronze | ainda não feito | |
+| Bronze: barbearia (Mecha Barbearia, o lado barbearia da marca), landing page de uma página | [bronze/](bronze/) | `node "templates/Salões de Beleza/_build-bronze/build.js"` |
 
 ## Gold
 

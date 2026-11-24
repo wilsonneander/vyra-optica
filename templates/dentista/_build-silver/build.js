@@ -132,24 +132,26 @@ const hero = `<section class="hero" id="inicio" aria-label="Apresentação">
     <div class="hero-fotos">${H.slides.map((s, i) => `<figure class="hero-foto${i === 0 ? ' ativa' : ''}" data-slide>${foto(s.foto, { lazy: i > 0, alt: s.alt, pos: s.pos })}</figure>`).join('')}</div>
     <div class="hero-veu" aria-hidden="true"></div>
     <div class="hero-in">
-      <div class="hero-lado">
-        <a class="hero-prof" href="#equipe" data-hero-prof>
-          <span class="hero-prof-fotos">${H.slides.map((s, i) => `<img src="assets/img/${eq[s.prof].foto}.webp" alt=""${i === 0 ? ' class="on"' : ''} loading="lazy">`).join('')}</span>
-          <span class="hero-prof-txt"><b data-prof-nome>${eq[H.slides[0].prof].nome}</b><span data-prof-area>${eq[H.slides[0].prof].area}</span><small><span data-prof-exp>${eq[H.slides[0].prof].experiencia}</span> de experiência</small></span>
-          <span class="redondo mini">${I.diag}</span>
-        </a>
-        <div class="hero-ctrl">
-          <button type="button" class="redondo vidro" data-hero-ant aria-label="Foto anterior">${I.esq}</button>
-          <div class="hero-barras" aria-hidden="true">${H.slides.map((_, i) => `<span${i === 0 ? ' class="on"' : ''}><i></i></span>`).join('')}</div>
-          <button type="button" class="redondo vidro" data-hero-prox aria-label="Próxima foto">${I.dir}</button>
-        </div>
-      </div>
       <h1 class="hero-tit">${H.titulo.split(' ').map((w, i) => `<span class="pa" style="--i:${i}"><span>${esc(w)}</span></span>`).join(' ')}</h1>
-      <div class="hero-linha">
-        <p class="hero-txt">${H.texto}</p>
-        <div class="hero-btns">
-          <a class="btn btn-claro" href="#agendar">Agendar avaliação<span class="btn-ic">${I.dir}</span></a>
-          <a class="btn btn-vidro" href="#tratamentos">Ver tratamentos</a>
+      <div class="hero-rodape">
+        <div class="hero-linha">
+          <p class="hero-txt">${H.texto}</p>
+          <div class="hero-btns">
+            <a class="btn btn-claro" href="#agendar">Agendar avaliação<span class="btn-ic">${I.dir}</span></a>
+            <a class="btn btn-vidro" href="#tratamentos">Ver tratamentos</a>
+          </div>
+        </div>
+        <div class="hero-lado">
+          <div class="hero-ctrl">
+            <button type="button" class="redondo vidro" data-hero-ant aria-label="Foto anterior">${I.esq}</button>
+            <div class="hero-barras" aria-hidden="true">${H.slides.map((_, i) => `<span${i === 0 ? ' class="on"' : ''}><i></i></span>`).join('')}</div>
+            <button type="button" class="redondo vidro" data-hero-prox aria-label="Próxima foto">${I.dir}</button>
+          </div>
+          <a class="hero-prof" href="#equipe" data-hero-prof>
+            <span class="hero-prof-fotos">${H.slides.map((s, i) => `<img src="assets/img/${eq[s.prof].foto}.webp" alt=""${i === 0 ? ' class="on"' : ''} loading="lazy">`).join('')}</span>
+            <span class="hero-prof-txt"><b data-prof-nome>${eq[H.slides[0].prof].nome}</b><span data-prof-area>${eq[H.slides[0].prof].area}</span><small><span data-prof-exp>${eq[H.slides[0].prof].experiencia}</span> de experiência</small></span>
+            <span class="redondo mini">${I.diag}</span>
+          </a>
         </div>
       </div>
     </div>

@@ -186,10 +186,11 @@ button.redondo:hover, a.redondo:hover { transform: scale(1.06); }
 .pa > span { display: inline-block; }
 .js .pa > span { translate: 0 108%; transition: translate 1.1s var(--suave-in) calc(var(--i) * 70ms + .1s); }
 .js.pronto .pa > span { translate: 0 0; }
-.hero-linha { display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; margin-top: 34px; flex-wrap: wrap; }
+.hero-rodape { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px 40px; margin-top: 34px; }
+.hero-linha { display: flex; align-items: center; gap: 24px 40px; flex-wrap: wrap; }
 .hero-txt { max-width: 44ch; font-size: 17px; opacity: .92; }
 .hero-btns { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px; margin-right: auto; }
-.hero-lado { width: 380px; flex: none; display: grid; gap: 12px; align-self: flex-end; }
+.hero-lado { width: 380px; flex: none; display: grid; gap: 12px; margin-right: 62px; }
 .hero-ctrl { display: flex; align-items: center; gap: 12px; }
 .hero-ctrl .redondo { width: 38px; height: 38px; }
 .hero-ctrl .ic { width: 18px; height: 18px; }
@@ -641,7 +642,8 @@ body:has(.janela[open]) { overflow: hidden; }
   .topo-acoes { margin-left: auto; }
   .abre-menu { display: inline-grid; }
   .topo-acoes { margin-left: auto; }
-  .hero-lado { width: min(400px, 100%); }
+  .hero-rodape { flex-direction: column; align-items: stretch; }
+  .hero-lado { width: min(420px, 100%); margin-right: 0; }
   .sec-cab { grid-template-columns: 1fr; }
   .sec-cab > p, .sec-cab > .btn { justify-self: start; }
   .trat-corpo { grid-template-columns: 1fr; gap: 28px; }
@@ -698,7 +700,7 @@ body:has(.janela[open]) { overflow: hidden; }
   .hero-linha { margin-top: 22px; padding-bottom: 22px; }
   .hero-txt { font-size: 16px; }
   .hero-btns { grid-auto-flow: row; width: 100%; }
-  .hero-lado { width: 100%; align-self: stretch; }
+  .hero-lado { width: 100%; }
   .hero-prof { grid-template-columns: 64px 1fr auto; }
   .hero-prof-fotos { width: 64px; height: 64px; }
   .jornada { padding-top: 60px; }

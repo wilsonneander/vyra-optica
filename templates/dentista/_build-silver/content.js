@@ -34,7 +34,7 @@ module.exports = {
     slides: [
       { foto: 'hero-espelho', pos: '50% 28%', alt: 'Paciente sorrindo diante do espelho depois da consulta', prof: 'helena' },
       { foto: 'hero-conversa', pos: '60% 40%', alt: 'Dentista conversando com o paciente na cadeira do consultório', prof: 'rafael' },
-      { foto: 'hero-cuidado', pos: '55% 40%', alt: 'Profissional sorrindo ao conversar com uma paciente idosa', prof: 'livia' },
+      { foto: 'hero-cuidado', pos: '62% 45%', alt: 'Paciente sorrindo enquanto conversa com o dentista no consultório', prof: 'livia' },
       { foto: 'hero-consulta', pos: '50% 45%', alt: 'Dentista mostrando a placa à paciente durante a consulta', prof: 'caio' },
     ],
   },

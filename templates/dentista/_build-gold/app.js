@@ -28,12 +28,14 @@
     Promise.race([Promise.all([...tarefas, minimo]), teto]).then(() => {
       barra.style.setProperty('--cg', 1);
       try { sessionStorage.setItem('sorrisus-cg', '1'); } catch { /* sem armazenamento */ }
+      // primeiro o texto some e a fresta de luz acende no meio; depois as portas se abrem a partir dela
+      setTimeout(() => cg.classList.add('luz'), 300);
       setTimeout(() => {
         cg.classList.add('abre');
         raiz.classList.remove('carregando-on');
         if (window.ScrollTrigger) ScrollTrigger.refresh();
         setTimeout(() => cg.remove(), 1400);
-      }, 350);
+      }, reduz ? 350 : 1000);
     });
   } else cg?.remove();
 

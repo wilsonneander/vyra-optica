@@ -350,7 +350,7 @@ ${temaCedo(true)}
 </head>
 <body>
 <div class="carregando" aria-hidden="true">
-  <span class="cg-porta cg-esq"></span><span class="cg-porta cg-dir"></span>
+  <span class="cg-porta cg-esq"></span><span class="cg-porta cg-dir"></span><span class="cg-fresta"></span>
   <div class="cg-centro">${dente('cg-dente').replace(/<path /g, '<path pathLength="1" ')}<b>${M.nome}</b><small>${M.sub}</small><span class="cg-barra"><i></i></span><span class="cg-txt">Abrindo a recepção</span></div>
 </div>
 ${topo}

@@ -483,15 +483,17 @@ html:not(.carregando-on) .carregando { display: none; }
 html.carregando-on { overflow: hidden; }
 .carregando-on .entrada * { animation-play-state: paused !important; }
 .cg-porta { position: absolute; top: 0; bottom: 0; width: 50.5%; background: #1C1915; transition: transform 1.25s cubic-bezier(.7, 0, .2, 1); }
-.cg-porta::after { content: ""; position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(216, 195, 160, .35); }
 .cg-esq { left: 0; }
-.cg-esq::after { right: 0; }
 .cg-dir { right: 0; }
-.cg-dir::after { left: 0; }
 .carregando.abre .cg-esq { transform: translateX(-101%); }
 .carregando.abre .cg-dir { transform: translateX(101%); }
 .cg-centro { position: relative; z-index: 1; display: grid; justify-items: center; color: var(--champanhe); transition: opacity .5s, transform .8s var(--suave-in); }
-.carregando.abre .cg-centro { opacity: 0; transform: scale(.94); }
+.carregando.luz .cg-centro, .carregando.abre .cg-centro { animation: none; opacity: 0; transform: scale(.96); }
+.cg-centro { animation: surge .9s var(--suave-in) both .1s; }
+/* fresta de luz: só aparece no fim, bem no meio, e as portas se abrem a partir dela */
+.cg-fresta { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; translate: -50% 0; z-index: 2; background: linear-gradient(transparent, rgba(216, 195, 160, .7) 22%, #FFE9C2 50%, rgba(216, 195, 160, .7) 78%, transparent); box-shadow: 0 0 18px 3px rgba(255, 220, 160, .45); transform: scaleY(0); opacity: 0; transition: transform .6s cubic-bezier(.6, 0, .2, 1), opacity .5s, width 1.1s cubic-bezier(.7, 0, .2, 1); }
+.carregando.luz .cg-fresta { transform: scaleY(1); opacity: 1; }
+.carregando.abre .cg-fresta { width: 40vw; opacity: 0; }
 .cg-dente { width: 86px; height: 86px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .cg-dente path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: desenha 1.6s cubic-bezier(.6, 0, .2, 1) forwards; }
 .cg-dente path:nth-child(2) { animation-delay: .9s; animation-duration: .8s; }

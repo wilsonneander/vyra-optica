@@ -73,7 +73,7 @@
   atualizaStatus(); setInterval(atualizaStatus, 60000);
 
   // ---------- tema claro e escuro ----------
-  const btnTema = $('[data-tema]');
+  const btnTema = $('[data-botao-tema]');
   const sincTema = () => {
     const escuro = raiz.dataset.tema === 'escuro';
     btnTema.setAttribute('aria-pressed', String(escuro));

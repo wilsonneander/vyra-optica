@@ -94,7 +94,7 @@ const arcada = (() => {
 // ---------- tema cedo (antes de pintar) ----------
 const temaCedo = `<script>(function(){var r=document.documentElement;r.classList.add('js');var t=null;try{t=localStorage.getItem('raiz-tema')}catch(e){}if(!t&&matchMedia('(prefers-color-scheme: dark)').matches)t='escuro';if(t==='escuro')r.dataset.tema='escuro';})();</script>`;
 const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300..600&family=Mona+Sans:wght@400..600&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">';
-const botaoTema = `<button type="button" class="tema" data-tema aria-pressed="false" aria-label="Mudar para o tema escuro">${I.tema}</button>`;
+const botaoTema = `<button type="button" class="tema" data-botao-tema aria-pressed="false" aria-label="Mudar para o tema escuro">${I.tema}</button>`;
 
 // ---------- topo ----------
 const nav = [['tratamentos', 'Tratamentos'], ['equipe', 'Equipe'], ['clinica', 'A clínica'], ['resultados', 'Resultados'], ['faq', 'Dúvidas'], ['contato', 'Contato']];

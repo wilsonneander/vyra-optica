@@ -133,7 +133,7 @@ const hero = `<section class="hero" id="inicio" aria-label="Apresentação">
         </div>
       </div>
       <div class="hero-base">
-        <ul class="hero-chips" data-iguais aria-label="Tratamentos">${C.tratamentos.slice(0, 6).map((t, i) => `<li><a class="chip${i === 0 ? ' on' : ''}" href="#tratamentos" data-abre-trat="${t.id}">${t.nome}</a></li>`).join('')}</ul>
+        <ul class="hero-chips" aria-label="Tratamentos">${C.tratamentos.slice(0, 6).map((t) => `<li><a class="chip" href="#tratamentos" data-abre-trat="${t.id}">${t.nome}${I.diag}</a></li>`).join('')}</ul>
         <div class="hero-lado">
           <div class="hero-ctrl">
             <button type="button" class="redondo vidro" data-hero-ant aria-label="Foto anterior">${I.esq}</button>

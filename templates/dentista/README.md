@@ -2,6 +2,7 @@
 
 Nicho de clínicas odontológicas.
 
+- **Bronze**: Lume Odontologia (marca de demonstração), inspirado nas referências [Elan Dental](https://elandental.framer.website/) e [Curevanta](https://curevanta.framer.website/). Detalhes em "Bronze" abaixo.
 - **Silver**: Raiz Odontologia (marca de demonstração), no desenho da referência [Aveline](https://aveline-visuvate.framer.website/). Detalhes em "Silver" abaixo.
 - **Gold**: Sorrisus Prime (Odontologia Avançada), a partir da fachada enviada pelo cliente.
 
@@ -14,11 +15,15 @@ Nicho de clínicas odontológicas.
 | `gold/` | **Site pronto** (abrir o `index.html` no navegador) |
 | `_build-silver/` | Código-fonte e conteúdo do Silver (`content.js`, `style.css`, `app.js`, `build.js`, `gerar-mapa.js`) |
 | `silver/` | **Silver pronto**, com `404.html` |
+| `_build-bronze/` | Código-fonte e conteúdo do Bronze (`content.js`, `style.css`, `app.js`, `build.js`, `gerar-mapa.js`) |
+| `bronze/` | **Bronze pronto**, com `404.html` |
 
 ## Gerar
 
 ```bash
 node templates/dentista/_build-gold/build.js
+node templates/dentista/_build-silver/build.js
+node templates/dentista/_build-bronze/build.js
 ```
 
 O mapa só precisa ser gerado de novo se o endereço mudar (sharp instalado fora do projeto; apagar a pasta `tiles/` depois):
@@ -86,3 +91,23 @@ Desenho da referência Aveline (névoa de sálvia, azul-petróleo e menta), com 
 - **404** (`silver/404.html`, arquivo único): a arcada perdeu um dente, que flutua acima do vão. "Esta página foi extraída."
 
 **Dados de demonstração do Silver** (trocar para cliente real): marca, equipe e CROs, endereço (Rua Francisco Rocha, Batel, Curitiba), telefones, CNPJ, números da seção "Sobre", nota 4,9 do Google, exemplo de alinhadores e de orçamento (valores marcados como exemplo), depoimentos (fotos e textos de exemplo, aviso na página) e o antes e depois (simulação ilustrativa, mesmas imagens do Gold). Fotos do Unsplash com crédito em `_build-silver/img/creditos.json`, também no rodapé.
+
+## Bronze: Lume Odontologia
+
+Leve, sofisticado e direto: uma página só, sem biblioteca (HTML de cerca de 44 KB; o site inteiro, com as fotos, 2,4 MB). Linho, argila e pêssego, com seções escuras em café; fontes Petrona (títulos, com itálico na segunda linha) e Libre Franklin. Desenho inspirado na Elan Dental (creme, serifa elegante, mosaico de tratamentos, antes e depois, dúvidas em cartões) e na Curevanta (muitas fotos em cartões, equipe com foto e especialidade, seção escura).
+
+- **Topo flutuante** translúcido com o logo (o dente da marca com a luz acesa), menu, botão de tema e "Agendar"; vira menu de celular abaixo de 1100px.
+- **Hero** com a foto da consulta à direita fundida no linho, título em duas linhas, botão do WhatsApp e cartão com "Aberto agora, até 19h" (calculado pelo horário do `content.js`), garantias e endereço.
+- **Tratamentos** em mosaico: clareamento em destaque com o texto sobre a foto, cartões com foto, prazo e descrição, dois cartões largos (o último em pêssego). Cada um abre o WhatsApp com a mensagem do tratamento.
+- **Resultados**: antes e depois arrastável (mouse, dedo ou teclado) com abas e ficha do caso. A linha balança uma vez ao aparecer.
+- **Procedimentos**: lista com duração e como fica depois; a foto ao lado troca conforme o item (no celular, cada item tem a miniatura).
+- **Equipe**: quatro profissionais com foto, especialidade, CRO e uma frase.
+- **A clínica** (seção escura): texto, diferenciais, duas fotos e uma faixa de fotos que corre devagar (para com o mouse em cima).
+- **Dúvidas** em sanfona com foto; **agendamento** com cartão escuro de contato e formulário (nome, WhatsApp com máscara, tratamento, período, mensagem, LGPD) que abre o WhatsApp com tudo preenchido.
+- **Rodapé** escuro com o mapa padrão `.map-box` do OpenStreetMap (`mapa_savassi.webp`, tema `argila` no `gerar-mapa.js`), "Onde atendemos" e a marca gigante.
+- **WhatsApp fixo** no canto, que aparece depois do hero.
+- **Tema claro e escuro**: o dente do botão perde a luz e ganha uma lua; o novo tema se abre em círculo a partir do botão (View Transitions). Guarda em `localStorage` (`lume-tema`); sem escolha, segue o sistema.
+- **Animações leves**: entrada do hero, blocos que sobem uma vez ao aparecer, zoom suave nas fotos e a faixa da clínica. Com `prefers-reduced-motion`, tudo fica parado.
+- **404** (`bronze/404.html`, arquivo único): o zero é o dente da marca com a luz piscando. "A luz não chegou até aqui."
+
+**Dados de demonstração do Bronze** (trocar para cliente real): marca, equipe e CROs, endereço (Rua Paraíba, Savassi, Belo Horizonte), telefones, CNPJ e o antes e depois (simulação ilustrativa, mesmas imagens do Silver e do Gold, com aviso na página). Fotos do Unsplash com crédito em `_build-bronze/img/creditos.json`, também no rodapé.

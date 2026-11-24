@@ -1,0 +1,200 @@
+[
+ {
+  "arq": "hero",
+  "autor": "D Dental Office",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/dentist-examining-teeth-in-dental-office-BiknMFl7iOw"
+ },
+ {
+  "arq": "equipe-beatriz",
+  "autor": "SoyBreno",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a-woman-sitting-in-a-dental-chair-holding-a-plaque-32nW021dW4Q"
+ },
+ {
+  "arq": "equipe-tomas",
+  "autor": "Laurent Yasiel",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a-man-in-a-dentists-office-holding-a-pair-of-scissors-607-cXjrge4"
+ },
+ {
+  "arq": "equipe-clara",
+  "autor": "Vitaly Gariev",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a-smiling-woman-with-glasses-and-arms-crossed-NS3_cp6vSpI"
+ },
+ {
+  "arq": "equipe-andre",
+  "autor": "Filip Rankovic Grobgaard",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a-man-smiling-for-the-camera-9_1Y_IKP4tY"
+ },
+ {
+  "arq": "limpeza",
+  "autor": "Caroline LM",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/dental-exam-with-mirror-and-tool-8BkF0sTC6Uo"
+ },
+ {
+  "arq": "sorriso",
+  "autor": "Lesly Juarez",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/long-black-haired-woman-smiling-close-up-photography-1AhGNGKuhR0"
+ },
+ {
+  "arq": "implante",
+  "autor": "Katarzyna Zygnerska",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/gloved-hand-holding-a-dental-implant-and-crown-eHwRLpfHSKY"
+ },
+ {
+  "arq": "lentes-close",
+  "autor": "Kamal Hoseinianzade",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a-close-up-of-a-womans-mouth-with-white-teeth-RCQnbyQsnUg"
+ },
+ {
+  "arq": "protese",
+  "autor": "Susanna Marsiglia",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/smiling-older-woman-with-grey-hair-and-floral-dress-SDfkKh7MSbs"
+ },
+ {
+  "arq": "restauracao",
+  "autor": "Ozkan Guner",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a-dentist-working-on-a-patient-AWqHc49SU-c"
+ },
+ {
+  "arq": "canal",
+  "autor": "Ozkan Guner",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a-dentist-examining-a-patient-rRgjO2Y1g1E"
+ },
+ {
+  "arq": "cirurgia",
+  "autor": "Jonathan Borba",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/dentists-performing-procedure-in-clinic-hl6uG9cHW5A"
+ },
+ {
+  "arq": "gengiva",
+  "autor": "SoyBreno",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a-woman-getting-her-teeth-checked-by-a-dentist-z8BIWPwV3zo"
+ },
+ {
+  "arq": "modelo",
+  "autor": "Jonathan Borba",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/dental-implant-model-with-teeth-W9YEY6G8LVM"
+ },
+ {
+  "arq": "protese-modelo",
+  "autor": "Harold Hisona",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/dentist-demonstrating-dental-implant-on-model-LOgBp87WzIk"
+ },
+ {
+  "arq": "urgencia",
+  "autor": "SoyBreno",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a-woman-getting-her-teeth-brushed-by-a-dentist-7n50uixCBV8"
+ },
+ {
+  "arq": "sala-laranja",
+  "autor": "Atikah Akhtar",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/dental-chair-in-clinical-office-XJptUS8nbhs"
+ },
+ {
+  "arq": "consultorio-claro",
+  "autor": "Benyamin Bohlouli",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/modern-dental-office-with-chair-and-equipment-e7MJLM5VGjY"
+ },
+ {
+  "arq": "espera",
+  "autor": "Amy Vosters",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/modern-waiting-room-with-chairs-and-inspirational-sign-pxOQ-P97sA8"
+ },
+ {
+  "arq": "corredor",
+  "autor": "Caroline Badran",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/woman-sitting-in-a-modern-waiting-room-reading-jH05wxjmAWE"
+ },
+ {
+  "arq": "sala-quadro",
+  "autor": "Ozkan Guner",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a-dentist-chair-in-a-room-with-a-painting-on-the-wall-aFqSRokmw2E"
+ },
+ {
+  "arq": "instrumento",
+  "autor": "Caroline LM",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/dental-mirror-and-explorer-tool-ux18C551ghI"
+ },
+ {
+  "arq": "instrumentos-mao",
+  "autor": "Katarzyna Zygnerska",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/gloved-hand-holding-dental-examination-tools-98eodnv1abo"
+ },
+ {
+  "arq": "retrato-sorriso",
+  "autor": "Michael Dam",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/closeup-photography-of-woman-smiling-mEZ3PoFGs_k"
+ },
+ {
+  "arq": "cadeira-sorriso",
+  "autor": "Laurent Yasiel",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a-woman-is-smiling-while-holding-a-toothbrush-47fKvu4niMk"
+ },
+ {
+  "arq": "kids",
+  "autor": "Mufid Majnun",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/woman-in-black-long-sleeve-shirt-sitting-beside-girl-in-pink-shirt-_9b4WKR_u9I"
+ },
+ {
+  "arq": "ortodontia",
+  "autor": "Ozkan Guner",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/woman-adjusting-clear-dental-aligners-on-teeth-uTUsnv_UCSQ"
+ },
+ {
+  "arq": "escaner",
+  "autor": "Quang Tri NGUYEN",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/dentist-pointing-at-dental-scan-VckdJzo7ig0"
+ },
+ {
+  "arq": "radiografia",
+  "autor": "Jonathan Borba",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/dentist-examining-dental-x-ray-scans-v_2FRXEba94"
+ },
+ {
+  "arq": "ad-lentes",
+  "autor": "Lesly Juarez (antes simulado digitalmente)",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/close-up-of-a-womans-smiling-mouth-with-red-lipstick-KzmhiJJ041M"
+ },
+ {
+  "arq": "ad-estetica",
+  "autor": "Ozkan Guner (antes simulado digitalmente)",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a-persons-mouth-with-teeth-lilsT4lhaLQ"
+ },
+ {
+  "arq": "ad-clareamento",
+  "autor": "Patient Perfect (antes simulado digitalmente)",
+  "fonte": "Unsplash",
+  "url": "https://unsplash.com/photos/a-close-up-of-a-womans-mouth-with-white-teeth-glPVwPr1FKo"
+ }
+]

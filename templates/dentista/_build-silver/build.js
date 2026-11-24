@@ -254,11 +254,11 @@ const equipe = `<section class="equipe" id="equipe">
     <div class="eq-corpo" data-equipe>
       <figure class="eq-foto" data-rv>${C.equipe.map((p, i) => `<img class="${i === 0 ? 'on' : ''}" src="assets/img/${p.foto}.webp" alt="${esc(`${p.nome}, ${p.area}`)}" loading="lazy" data-eq-foto="${p.id}">`).join('')}<figcaption class="eq-cro" data-eq-cro>${e0.cro}</figcaption></figure>
       <div class="eq-info">
-        <ul class="eq-lista" role="tablist" aria-label="Profissionais">${C.equipe.map((p, i) => `<li><button type="button" role="tab" aria-selected="${i === 0}" data-eq="${p.id}"><b>${p.nome}</b><span>${p.area}</span></button></li>`).join('')}</ul>
+        <ul class="eq-lista" role="tablist" aria-label="Profissionais">${C.equipe.map((p, i) => `<li><button type="button" role="tab" aria-selected="${i === 0}" data-eq="${p.id}"><b>${p.nome}</b><span>${p.area}</span><i class="eq-prog" aria-hidden="true"></i></button></li>`).join('')}</ul>
         <div class="eq-bio" role="tabpanel" aria-live="polite">
           <p data-eq-bio>${e0.bio}</p>
           <dl><div><dt>Experiência</dt><dd data-eq-exp>${e0.experiencia}</dd></div><div><dt>Formação</dt><dd data-eq-form>${e0.formacao}</dd></div><div><dt>Na clínica</dt><dd data-eq-dias>${e0.dias}</dd></div></dl>
-          <a class="btn btn-escuro" data-eq-wa href="${wa(`Olá! Gostaria de agendar uma consulta com ${e0.nome}.`)}" target="_blank" rel="noopener"><span>Agendar com <span data-eq-nome>${e0.nome}</span></span><span class="btn-ic">${I.dir}</span></a>
+          <div class="eq-btns"><a class="btn btn-escuro" data-eq-agendar href="#agendar"><span>Agendar com <span data-eq-nome>${e0.nome}</span></span><span class="btn-ic">${I.dir}</span></a><a class="btn btn-whats" data-eq-wa href="${wa(`Olá! Gostaria de agendar uma consulta com ${e0.nome}.`)}" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp para agendar com ${esc(e0.nome)}">${I.conversa}WhatsApp</a></div>
         </div>
       </div>
     </div>

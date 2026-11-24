@@ -288,8 +288,14 @@
     const tabs = $$('[data-eq]', eqBox);
     const fotos = $$('[data-eq-foto]', eqBox);
     const eq = Object.fromEntries(D.equipe.map((p) => [p.id, p]));
-    escolheProf = (id) => {
+    // os profissionais passam sozinhos; um clique para a troca e fixa o escolhido
+    const consultaDo = { helena: 'clareamento', rafael: 'alinhadores', livia: 'checkup', caio: 'implantes' };
+    let atual = tabs[0].dataset.eq;
+    const para = () => eqBox.classList.add('eq-parado');
+    escolheProf = (id, manual = true) => {
       const p = eq[id]; if (!p) return;
+      if (manual) para();
+      atual = id;
       tabs.forEach((t) => t.setAttribute('aria-selected', String(t.dataset.eq === id)));
       fotos.forEach((f) => {
         const on = f.dataset.eqFoto === id;
@@ -305,9 +311,19 @@
       $('[data-eq-nome]', eqBox).textContent = p.nome;
       $('[data-eq-wa]', eqBox).href = wa(`Olá! Gostaria de agendar uma consulta com ${p.nome}.`);
     };
+    const proximo = () => { const k = tabs.findIndex((t) => t.dataset.eq === atual); escolheProf(tabs[(k + 1) % tabs.length].dataset.eq, false); };
+    tabs.forEach((t) => t.querySelector('.eq-prog').addEventListener('animationend', () => { if (t.getAttribute('aria-selected') === 'true' && !eqBox.classList.contains('eq-parado')) proximo(); }));
+    eqBox.classList.add('eq-pausado');
+    if (calmo) para();
+    new IntersectionObserver(([e]) => eqBox.classList.toggle('eq-pausado', !e.isIntersecting), { threshold: 0.35 }).observe(eqBox);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) eqBox.classList.add('eq-pausado'); });
+    // "Agendar com" leva ao agendamento rápido com a consulta do profissional marcada
+    $('[data-eq-agendar]', eqBox).addEventListener('click', () => {
+      const r = document.querySelector(`[data-agendar] input[name="consulta"][value="${consultaDo[atual]}"]`);
+      if (r) { r.checked = true; r.dispatchEvent(new Event('change', { bubbles: true })); }
+    });
     tabs.forEach((t, k) => {
       t.addEventListener('click', () => escolheProf(t.dataset.eq));
-      t.addEventListener('mouseenter', () => { if (matchMedia('(hover: hover)').matches) escolheProf(t.dataset.eq); });
       t.addEventListener('keydown', (e) => {
         const d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
         if (!d) return; e.preventDefault(); const n = tabs[(k + d + tabs.length) % tabs.length]; n.focus(); escolheProf(n.dataset.eq);

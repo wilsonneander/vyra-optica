@@ -29,14 +29,15 @@
   // ---------- topo ----------
   const topo = $('[data-topo]');
   const heroQ = $('[data-hero]');
-  const links = $$('.menu a');
-  const secoes = links.map((a) => $(a.getAttribute('href'))).filter(Boolean);
+  const links = $$('.menu > ul > li > a, .menu .sub-btn');
+  const alvo = (a) => a.getAttribute('href') || a.dataset.alvo;
+  const secoes = links.map((a) => $(alvo(a))).filter(Boolean);
   const aoRolar = () => {
-    const limite = heroQ ? heroQ.offsetHeight - 90 : 80;
+    const limite = innerWidth <= 640 ? 12 : heroQ ? heroQ.offsetHeight - 90 : 80;
     topo.classList.toggle('solido', scrollY > limite);
     let atual = null; let maior = -Infinity;
     secoes.forEach((s) => { const t = s.getBoundingClientRect().top; if (t < innerHeight * 0.4 && t > maior) { maior = t; atual = s.id; } });
-    links.forEach((a) => a.classList.toggle('ativo', a.getAttribute('href') === `#${atual}`));
+    links.forEach((a) => a.classList.toggle('ativo', alvo(a) === `#${atual}`));
   };
   addEventListener('scroll', aoRolar, { passive: true });
   aoRolar();
@@ -54,6 +55,20 @@
   });
   $$('a', menuCel).forEach((a) => a.addEventListener('click', fechaMenu));
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menuCel.hidden) fechaMenu(); });
+
+  // submenu de tratamentos (hover no computador, clique e teclado em qualquer tela)
+  $$('[data-sub]').forEach((li) => {
+    const btn = $('.sub-btn', li);
+    let t;
+    const abre = (v) => { clearTimeout(t); li.classList.toggle('aberto', v); btn.setAttribute('aria-expanded', String(v)); };
+    li.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') abre(true); });
+    li.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') t = setTimeout(() => abre(false), 180); });
+    btn.addEventListener('click', () => abre(!li.classList.contains('aberto')));
+    li.addEventListener('focusout', (e) => { if (!li.contains(e.relatedTarget)) abre(false); });
+    li.addEventListener('keydown', (e) => { if (e.key === 'Escape') { abre(false); btn.focus(); } });
+    $$('a', li).forEach((a) => a.addEventListener('click', () => abre(false)));
+    document.addEventListener('click', (e) => { if (!li.contains(e.target)) abre(false); });
+  });
 
   // aberto agora / fechado
   const status = $('[data-aberto]');
@@ -309,7 +324,6 @@
       $('[data-eq-form]', eqBox).textContent = p.formacao;
       $('[data-eq-dias]', eqBox).textContent = p.dias;
       $('[data-eq-nome]', eqBox).textContent = p.nome;
-      $('[data-eq-wa]', eqBox).href = wa(`Olá! Gostaria de agendar uma consulta com ${p.nome}.`);
     };
     const proximo = () => { const k = tabs.findIndex((t) => t.dataset.eq === atual); escolheProf(tabs[(k + 1) % tabs.length].dataset.eq, false); };
     tabs.forEach((t) => t.querySelector('.eq-prog').addEventListener('animationend', () => { if (t.getAttribute('aria-selected') === 'true' && !eqBox.classList.contains('eq-parado')) proximo(); }));

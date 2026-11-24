@@ -98,11 +98,17 @@ const botaoTema = `<button type="button" class="tema" data-botao-tema aria-press
 
 // ---------- topo ----------
 const nav = [['tratamentos', 'Tratamentos'], ['equipe', 'Equipe'], ['clinica', 'A clínica'], ['resultados', 'Resultados'], ['faq', 'Dúvidas'], ['contato', 'Contato']];
+// submenu "Tratamentos": abre no hover, no foco e no clique; cada item abre a ficha do tratamento
+const subTrat = `<li class="tem-sub" data-sub><button type="button" class="sub-btn" data-alvo="#tratamentos" aria-expanded="false" aria-controls="sub-trat">Tratamentos${S('<path d="M7 10l5 5 5-5"/>', 'ic ic-desce')}</button>
+      <div class="sub" id="sub-trat"><div class="sub-in">
+        <ul class="sub-lista">${C.tratamentos.map((t) => `<li><a href="#tratamentos" data-abre-trat="${t.id}"><img src="assets/img/${t.foto}.webp" alt="" loading="lazy"><span><b>${t.nome}</b><small>${t.tempo}</small></span>${I.diag}</a></li>`).join('')}</ul>
+        <a class="sub-todos" href="#tratamentos">Ver todos os tratamentos${I.dir}</a>
+      </div></div></li>`;
 const topo = `<a class="pular" href="#conteudo">Pular para o conteúdo</a>
 <header class="topo" data-topo>
   <div class="topo-in">
     <a class="logo" href="#inicio" aria-label="${M.completo}, início">${logo}</a>
-    <nav class="menu" aria-label="Principal"><ul>${nav.map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('')}</ul></nav>
+    <nav class="menu" aria-label="Principal"><ul>${nav.map(([id, t]) => id === 'tratamentos' ? subTrat : `<li><a href="#${id}">${t}</a></li>`).join('')}</ul></nav>
     <div class="topo-acoes">
       <span class="aberto" data-aberto>${I.relogio}<span data-aberto-txt>Segunda a sábado</span></span>
       ${botaoTema}
@@ -112,7 +118,7 @@ const topo = `<a class="pular" href="#conteudo">Pular para o conteúdo</a>
   </div>
 </header>
 <div class="menu-cel" id="menu-cel" data-menu-cel hidden>
-  <nav aria-label="Menu do celular"><ul>${nav.map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('')}</ul></nav>
+  <nav aria-label="Menu do celular"><ul>${nav.map(([id, t]) => `<li><a href="#${id}">${t}</a>${id === 'tratamentos' ? `<ul class="cel-sub">${C.tratamentos.map((x) => `<li><a href="#tratamentos" data-abre-trat="${x.id}">${x.nome}</a></li>`).join('')}</ul>` : ''}</li>`).join('')}</ul></nav>
   <div class="menu-cel-base"><a class="btn btn-escuro" href="#agendar">Agendar consulta</a><a class="btn btn-linha" href="${wa('Olá! Gostaria de agendar uma consulta na Raiz Odontologia.')}" target="_blank" rel="noopener">${I.conversa}WhatsApp</a></div>
 </div>`;
 
@@ -133,7 +139,6 @@ const hero = `<section class="hero" id="inicio" aria-label="Apresentação">
         </div>
       </div>
       <div class="hero-base">
-        <ul class="hero-chips" aria-label="Tratamentos">${C.tratamentos.slice(0, 6).map((t) => `<li><a class="chip" href="#tratamentos" data-abre-trat="${t.id}">${t.nome}${I.diag}</a></li>`).join('')}</ul>
         <div class="hero-lado">
           <div class="hero-ctrl">
             <button type="button" class="redondo vidro" data-hero-ant aria-label="Foto anterior">${I.esq}</button>
@@ -258,7 +263,7 @@ const equipe = `<section class="equipe" id="equipe">
         <div class="eq-bio" role="tabpanel" aria-live="polite">
           <p data-eq-bio>${e0.bio}</p>
           <dl><div><dt>Experiência</dt><dd data-eq-exp>${e0.experiencia}</dd></div><div><dt>Formação</dt><dd data-eq-form>${e0.formacao}</dd></div><div><dt>Na clínica</dt><dd data-eq-dias>${e0.dias}</dd></div></dl>
-          <div class="eq-btns"><a class="btn btn-escuro" data-eq-agendar href="#agendar"><span>Agendar com <span data-eq-nome>${e0.nome}</span></span><span class="btn-ic">${I.dir}</span></a><a class="btn btn-whats" data-eq-wa href="${wa(`Olá! Gostaria de agendar uma consulta com ${e0.nome}.`)}" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp para agendar com ${esc(e0.nome)}">${I.conversa}WhatsApp</a></div>
+          <a class="btn btn-escuro" data-eq-agendar href="#agendar"><span>Agendar com <span data-eq-nome>${e0.nome}</span></span><span class="btn-ic">${I.dir}</span></a>
         </div>
       </div>
     </div>
@@ -491,6 +496,7 @@ ${faq}
 ${contato}
 </main>
 ${rodape}
+<a class="wa-fixo" href="${wa('Olá! Gostaria de agendar uma consulta na Raiz Odontologia.')}" target="_blank" rel="noopener" aria-label="Falar com a clínica no WhatsApp"><span class="wa-fixo-txt">Fale com a gente</span><span class="wa-fixo-ic">${I.conversa}</span></a>
 ${janelas}
 <script id="dados" type="application/json">${JSON.stringify(dados).replace(/</g, '\\u003c')}</script>
 <script src="assets/site.js" defer></script>

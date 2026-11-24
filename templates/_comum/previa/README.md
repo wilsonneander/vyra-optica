@@ -21,12 +21,23 @@ O endereço guarda o modelo e o aparelho (`?m=gold&d=tablet&o=deitado`), então 
 
 Medidas: celular 390 × 844, tablet 768 × 1024 (1024 × 768 deitado), computador 1440 de largura com a altura do palco (em monitor maior que 1440, usa a largura toda). Quando o aparelho não cabe na tela, ele é reduzido por inteiro (o zoom aparece na barra), sem mudar o layout que o site recebe.
 
+## Dentro de cada site do catálogo
+
+As cópias dos sites que ficam nas vitrines também recebem o adaptador (`adaptador.js`): um controle discreto no canto inferior esquerdo com Celular, Tablet e Computador.
+
+- **Celular** ou **Tablet** abre o próprio site por cima, na mesma página, dentro do aparelho e com a medida real. Trocar entre os dois não recarrega, e o botão de girar deita o aparelho.
+- **Computador**, o X ou a tecla Esc voltam ao site normal.
+- O controle desvia sozinho de elementos fixos pequenos no mesmo canto: sobe acima do aviso de cookies enquanto ele está aberto e vai para o lado de uma barra lateral estreita.
+- Fica isolado num shadow DOM, então o CSS do site não muda o controle e o controle não muda o site. Some em telas com menos de 620 px, onde a pessoa já está num celular.
+- Os modelos originais em `templates/<nicho>/` **não** recebem o adaptador: ele entra só nas cópias das vitrines, então um site copiado para cliente nunca o leva junto.
+
 ## Arquivos
 
 ```
 templates/_comum/previa/
   index.html, previa.css, previa.js   o visualizador
   vitrine.js                          coloca o botão "Ver nos aparelhos" na vitrine
+  adaptador.js                        controle de aparelhos dentro de cada site da vitrine
   instalar.js                         instala tudo nas vitrines
 ```
 
@@ -46,7 +57,9 @@ Rode **depois de montar ou atualizar uma vitrine e antes do `firebase deploy`**.
 - trata como modelo cada subpasta com `index.html` (fora `img/`, `assets/`, `previa/` e pastas com `_` ou `.`);
 - tira o nome do modelo do `aria-label="Abrir o modelo X"`, de um texto "Modelo X" no bloco, do botão "Abrir o X" ou, por último, do nome da pasta;
 - copia o visualizador para `<vitrine>/previa/` e gera `previa/modelos.js`;
-- coloca no fim do `index.html` da vitrine um bloco marcado (`<!-- previa-nos-aparelhos -->`). Rodar de novo troca o bloco, nunca duplica.
+- coloca no fim do `index.html` da vitrine um bloco marcado (`<!-- previa-nos-aparelhos -->`);
+- coloca o adaptador em toda página `.html` das pastas dos modelos (bloco `<!-- previa-adaptador -->`).
+Rodar de novo troca os blocos, nunca duplica. Como as cópias dos modelos são substituídas a cada atualização de vitrine, rode o instalador sempre depois de copiar.
 
 ## Botão na vitrine
 

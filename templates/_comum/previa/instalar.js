@@ -21,7 +21,9 @@ const path = require('path');
 
 const AQUI = __dirname;
 const RAIZ = path.resolve(AQUI, '..', '..', '..');
-const ARQUIVOS = ['index.html', 'previa.css', 'previa.js', 'vitrine.js'];
+const ARQUIVOS = ['index.html', 'previa.css', 'previa.js', 'vitrine.js', 'adaptador.js'];
+const A_INICIO = '<!-- previa-adaptador -->';
+const A_FIM = '<!-- /previa-adaptador -->';
 const FORA = new Set(['img', 'assets', 'previa', 'node_modules', 'fonts', 'video', 'videos']);
 const INICIO = '<!-- previa-nos-aparelhos -->';
 const FIM = '<!-- /previa-nos-aparelhos -->';
@@ -123,7 +125,35 @@ function instalar(vitrine) {
   else if (/<\/body>/i.test(html)) html = html.replace(/<\/body>/i, bloco + '\n</body>');
   else html += '\n' + bloco + '\n';
   fs.writeFileSync(indice, html);
-  console.log(`  instalado em ${rel}/previa/`);
+
+  /* adaptador dentro de cada página dos sites da vitrine (só nestas cópias, nunca no modelo original) */
+  let paginas = 0;
+  for (const m of modelos) {
+    for (const pagina of paginasHtml(path.join(vitrine, m.pasta))) {
+      let h = fs.readFileSync(pagina, 'utf8');
+      if (!/<body|<html/i.test(h)) continue;
+      const src = path.relative(path.dirname(pagina), path.join(destino, 'adaptador.js')).split(path.sep).join('/');
+      const b = `${A_INICIO}<script src="${src}" defer></script>${A_FIM}`;
+      const velho = new RegExp(`${A_INICIO}[\\s\\S]*?${A_FIM}\\n?`);
+      if (velho.test(h)) h = h.replace(velho, b + '\n');
+      else if (/<\/body>/i.test(h)) h = h.replace(/<\/body>(?![\s\S]*<\/body>)/i, b + '\n</body>');
+      else h += '\n' + b + '\n';
+      fs.writeFileSync(pagina, h);
+      paginas++;
+    }
+  }
+  console.log(`  instalado em ${rel}/previa/ e em ${paginas} página(s) dos sites`);
+}
+
+function paginasHtml(dir) {
+  const saida = [];
+  for (const it of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (it.name.startsWith('.') || it.name === 'node_modules' || it.name === 'previa') continue;
+    const p = path.join(dir, it.name);
+    if (it.isDirectory()) saida.push(...paginasHtml(p));
+    else if (/\.html?$/i.test(it.name)) saida.push(p);
+  }
+  return saida;
 }
 
 const vitrines = alvos.length

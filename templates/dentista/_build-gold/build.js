@@ -60,6 +60,20 @@ const I = {
 // indicação de rolagem: um arco de porta com uma linha que desce por dentro
 const rolarSvg = '<svg class="rolar-arco" viewBox="0 0 30 46" aria-hidden="true"><path d="M3 45V15a12 12 0 0 1 24 0v30"/><path class="rolar-linha" d="M15 13v12"/></svg>';
 
+// ---------- abajur do tema: o pendente cúbico da recepção, pendurado no topo ----------
+const abajur = `<button type="button" class="abajur" data-abajur aria-pressed="false" aria-label="Apagar a luz (tema escuro)">
+      <svg viewBox="0 0 40 76" aria-hidden="true">
+        <defs><radialGradient id="ab-brilho"><stop offset="0" stop-color="#FFE2A8" stop-opacity=".75"/><stop offset="1" stop-color="#FFE2A8" stop-opacity="0"/></radialGradient></defs>
+        <circle class="ab-luz" cx="20" cy="62" r="24" fill="url(#ab-brilho)"/>
+        <path class="ab-fio" d="M20 -40V46"/>
+        <path class="ab-face" d="M8 52 20 58V72L8 66Z"/><path class="ab-face ab-face-2" d="M20 58 32 52V66L20 72Z"/>
+        <path class="ab-cubo" d="M20 46 32 52V66L20 72 8 66V52ZM8 52 20 58 32 52M20 58V72"/>
+      </svg>
+      <span class="abajur-dica" aria-hidden="true">Apagar</span>
+    </button>`;
+// aplica o tema salvo (ou o do sistema) antes de pintar, e decide se a tela de carregamento aparece (uma vez por visita)
+const temaCedo = (comCarregando) => `<script>(function(){var r=document.documentElement;r.classList.add('js');var t=null;try{t=localStorage.getItem('sorrisus-tema')}catch(e){}if(!t&&matchMedia('(prefers-color-scheme: dark)').matches)t='escuro';if(t==='escuro')r.dataset.tema='escuro';${comCarregando ? "var v=null;try{v=sessionStorage.getItem('sorrisus-cg')}catch(e){}if(!v)r.classList.add('carregando-on');" : ''}})();</script>`;
+
 // ---------- topo ----------
 const nav = [['dentista', 'A dentista'], ['tratamentos', 'Tratamentos'], ['clinica', 'A clínica'], ['pacientes', 'Avaliações'], ['faq', 'Dúvidas'], ['contato', 'Contato']];
 const topo = `<a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -70,6 +84,7 @@ const topo = `<a class="pular" href="#conteudo">Pular para o conteúdo</a>
       ${nav.map(([id, t]) => `<a href="#${id}">${t}</a>`).join('\n      ')}
       <a class="btn btn-ouro menu-agendar" href="#agendar">Agendar avaliação</a>
     </nav>
+    ${abajur}
     <a class="btn btn-linha topo-agendar" href="#agendar">Agendar avaliação</a>
     <button type="button" class="menu-btn" aria-controls="menu" aria-expanded="false" aria-label="Abrir o menu"><span></span><span></span></button>
   </div>
@@ -330,10 +345,14 @@ const html = `<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@1&family=Gantari:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
-<script>document.documentElement.classList.add('js');</script>
+${temaCedo(true)}
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 </head>
 <body>
+<div class="carregando" aria-hidden="true">
+  <span class="cg-porta cg-esq"></span><span class="cg-porta cg-dir"></span>
+  <div class="cg-centro">${dente('cg-dente').replace(/<path /g, '<path pathLength="1" ')}<b>${M.nome}</b><small>${M.sub}</small><span class="cg-barra"><i></i></span><span class="cg-txt">Abrindo a recepção</span></div>
+</div>
 ${topo}
 <main id="conteudo">
 ${entrada}
@@ -355,4 +374,86 @@ ${rodape}
 `;
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nAllow: /\n');
+
+// ---------- 404: a porta que não abre. Página inteira em um arquivo, para funcionar em qualquer endereço ----------
+const p404 = `<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página não encontrada, ${M.nome}</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1C1915">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital@1&family=Gantari:wght@400;500&display=swap" rel="stylesheet">
+${temaCedo(false)}
+<style>
+:root { --fundo: #F6F1E9; --tit: #1C1915; --texto: #6E655B; --ouro: #B08A52; --ouro-txt: #8A6A3B; --linha: rgba(43, 38, 33, .16); --btn: #1C1915; --btn-txt: #D8C3A0; color-scheme: light; }
+:root[data-tema="escuro"] { --fundo: #14110E; --tit: #F1E8D9; --texto: #A3978A; --ouro-txt: #CDA86C; --linha: rgba(236, 227, 212, .16); --btn: #D8C3A0; --btn-txt: #14110E; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; min-height: 100svh; display: grid; place-items: center; background: var(--fundo); color: var(--texto); font: 400 17px/1.6 "Gantari", "Segoe UI", sans-serif; padding: 90px 16px 40px; overflow-x: hidden; transition: background-color .5s, color .5s; }
+.topo { position: fixed; inset: 0 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(16px, 5vw, 72px); color: var(--tit); }
+.logo { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.logo svg { width: 36px; height: 36px; fill: none; stroke: var(--ouro); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.logo b { font: 400 21px/1 "Libre Caslon Display", Georgia, serif; }
+main { text-align: center; max-width: 620px; position: relative; }
+.arco { position: absolute; left: 50%; top: -30px; width: min(440px, 92vw); height: min(520px, 110vw); translate: -50% 0; border: 1px solid var(--linha); border-bottom: 0; border-radius: 50% 50% 0 0 / 38% 38% 0 0; z-index: -1; }
+.codigo { display: flex; align-items: center; justify-content: center; gap: clamp(6px, 2vw, 18px); font: 400 clamp(110px, 24vw, 220px)/1 "Libre Caslon Display", Georgia, serif; color: var(--tit); }
+.codigo svg { width: .78em; height: .78em; fill: none; stroke: var(--ouro); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transform-origin: 50% 90%; animation: balanca 3.6s ease-in-out infinite; }
+.codigo svg path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: desenha 1.8s cubic-bezier(.6, 0, .2, 1) forwards .2s; }
+.codigo svg path:nth-child(2) { animation-delay: 1.1s; animation-duration: .7s; }
+.codigo svg path:nth-child(3) { animation-delay: 1.6s; animation-duration: .4s; }
+.codigo span { animation: sobe 1.1s cubic-bezier(.2, .7, .2, 1) both; }
+.codigo span:last-child { animation-delay: .12s; }
+@keyframes desenha { to { stroke-dashoffset: 0; } }
+@keyframes balanca { 0%, 100% { rotate: -5deg; } 50% { rotate: 5deg; } }
+@keyframes sobe { from { opacity: 0; transform: translateY(30px); } }
+h1 { font: 400 clamp(30px, 4.4vw, 46px)/1.1 "Libre Caslon Display", Georgia, serif; color: var(--tit); margin: 18px 0 14px; }
+h1 em { font-family: "Libre Caslon Text", Georgia, serif; font-style: italic; color: var(--ouro-txt); }
+p { margin: 0 auto 32px; max-width: 460px; }
+.btns { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 12px; }
+.btns a { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 24px; text-decoration: none; font-weight: 500; letter-spacing: .03em; border: 1px solid var(--btn); transition: background-color .35s, color .35s, transform .35s; white-space: nowrap; }
+.btns a:first-child { background: var(--btn); color: var(--btn-txt); }
+.btns a:last-child { color: var(--tit); }
+.btns a:hover { transform: translateY(-2px); }
+.btns a:last-child:hover { background: var(--btn); color: var(--btn-txt); }
+.tema { width: 40px; height: 40px; border: 1px solid var(--linha); background: none; color: var(--tit); cursor: pointer; display: grid; place-items: center; transition: border-color .3s; }
+.tema:hover { border-color: var(--ouro); }
+.tema svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round; }
+.tema .face { fill: #F6DFAE; stroke: none; transition: opacity .4s; }
+:root[data-tema="escuro"] .tema .face { opacity: 0; }
+:focus-visible { outline: 2px solid var(--ouro); outline-offset: 3px; }
+@media (max-width: 520px) { .btns { grid-auto-flow: row; width: 100%; } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } .codigo svg path { stroke-dashoffset: 0; } }
+</style>
+</head>
+<body>
+<header class="topo">
+  <a class="logo" href="index.html" aria-label="${M.completo}, início">${dente()}<b>${M.nome}</b></a>
+  <button type="button" class="tema" aria-pressed="false" aria-label="Alternar entre tema claro e escuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="face" d="M5 8.5 12 12v8L5 16.5Z"/><path class="face" d="M12 12l7-3.5v8L12 20Z"/><path d="M12 4 19 8.5v8L12 20l-7-3.5v-8ZM5 8.5 12 12l7-3.5M12 12v8"/></svg></button>
+</header>
+<main>
+  <span class="arco" aria-hidden="true"></span>
+  <div class="codigo" role="img" aria-label="Erro 404"><span>4</span>${dente().replace(/<path /g, '<path pathLength="1" ')}<span>4</span></div>
+  <h1>Esta porta <em>não abre</em>.</h1>
+  <p>O endereço que você procurou não existe ou mudou de lugar. A recepção continua no mesmo endereço, pronta para receber você.</p>
+  <div class="btns"><a href="index.html">Voltar à recepção</a><a href="${wa(`Olá! Cheguei numa página que não existe no site da ${M.nome} e gostaria de agendar uma avaliação.`)}" target="_blank" rel="noopener">Falar no WhatsApp</a></div>
+</main>
+<script>
+(function () {
+  var r = document.documentElement, b = document.querySelector('.tema');
+  var marca = function () { b.setAttribute('aria-pressed', String(r.dataset.tema === 'escuro')); };
+  marca();
+  b.addEventListener('click', function () {
+    var novo = r.dataset.tema === 'escuro' ? 'claro' : 'escuro';
+    if (novo === 'escuro') r.dataset.tema = 'escuro'; else delete r.dataset.tema;
+    try { localStorage.setItem('sorrisus-tema', novo); } catch (e) {}
+    marca();
+  });
+})();
+</script>
+</body>
+</html>
+`;
+fs.writeFileSync(path.join(OUT, '404.html'), p404);
 console.log(`ok ${path.relative(process.cwd(), OUT)}${faltando.length ? `\nfotos faltando: ${faltando.join(', ')}` : ''}`);

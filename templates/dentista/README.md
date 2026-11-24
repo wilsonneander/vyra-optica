@@ -45,6 +45,13 @@ A página abre na fachada inteira, em tela cheia. A rolagem controla uma câmera
 - **Contato e agendamento**: endereço, WhatsApp, telefone, horários e formulário que abre o pedido pronto no WhatsApp, com consentimento da LGPD
 - **Rodapé** com o mapa padrão `.map-box` do OpenStreetMap, "Onde atendemos", contatos, redes, responsável técnico, razão social e créditos das imagens
 
+## Extras
+
+- **Carregando** (uma vez por visita, `sessionStorage` `sorrisus-cg`): o dente da marca se desenha, o nome surge e a barra acompanha o carregamento da fachada, da recepção e das fontes (mínimo de 2,2 s, máximo de 7 s). Depois, duas folhas de vidro se abrem para os lados e revelam a fachada; a animação do título só começa nessa hora.
+- **Cursor** (só com mouse): anel dourado com ponto. Sobre links e botões, o anel vira o dente da marca; sobre o antes e depois e o carrossel aparece "Arraste"; sobre a fachada e a galeria, "Role". Fica champanhe nas áreas escuras. O carrossel também pode ser puxado com o mouse.
+- **Tema claro e escuro**: o botão é o pendente cúbico da recepção pendurado no topo. Ao clicar, a cordinha é puxada, a luminária balança e a luz (ou a noite) se espalha a partir dela pela página (View Transitions). Guarda a escolha em `localStorage` (`sorrisus-tema`); sem escolha, segue o sistema. Cores do tema escuro no fim do `style.css`. Textos sobre foto e sobre seções escuras usam `--claro`, que não muda com o tema.
+- **404** (`gold/404.html`, gerada pelo build): página em um arquivo só (funciona em qualquer endereço, inclusive no Firebase). O zero do "404" é o dente da marca, que se desenha e balança dentro de um arco de porta: "Esta porta não abre." Botões para voltar à recepção e para o WhatsApp, e o mesmo tema escolhido no site.
+
 A página se monta conforme a rolagem e se desfaz ao voltar (descendo e subindo), como pedem as diretrizes dos modelos Gold. Com `prefers-reduced-motion`, a fachada fica parada e tudo aparece sem movimento.
 
 ## Dados de demonstração

@@ -12,6 +12,108 @@
   const lerp = (a, b, t) => a + (b - a) * t;
   const suave = (t) => t * t * (3 - 2 * t);
   const easeIO = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const fino = matchMedia('(pointer: fine)').matches;
+
+  // ---------- carregando: espera a fachada, a recepção e as fontes; depois as portas de vidro se abrem ----------
+  const cg = $('.carregando');
+  if (cg && raiz.classList.contains('carregando-on')) {
+    const barra = $('.cg-barra', cg);
+    const fontes = document.fonts ? document.fonts.ready : Promise.resolve();
+    const tarefas = ['assets/img/fachada.webp', 'assets/img/recepcao.webp'].map((src) => new Promise((ok) => { const im = new Image(); im.onload = im.onerror = ok; im.src = src; }));
+    tarefas.push(fontes);
+    let feitas = 0;
+    tarefas.forEach((t) => t.then(() => { feitas++; barra.style.setProperty('--cg', (feitas / tarefas.length * 0.9).toFixed(2)); }));
+    const minimo = new Promise((ok) => setTimeout(ok, reduz ? 300 : 2200));
+    const teto = new Promise((ok) => setTimeout(ok, 7000)); // conexão lenta: não prende a pessoa
+    Promise.race([Promise.all([...tarefas, minimo]), teto]).then(() => {
+      barra.style.setProperty('--cg', 1);
+      try { sessionStorage.setItem('sorrisus-cg', '1'); } catch { /* sem armazenamento */ }
+      setTimeout(() => {
+        cg.classList.add('abre');
+        raiz.classList.remove('carregando-on');
+        if (window.ScrollTrigger) ScrollTrigger.refresh();
+        setTimeout(() => cg.remove(), 1400);
+      }, 350);
+    });
+  } else cg?.remove();
+
+  // ---------- abajur: puxa a cordinha, a luminária balança e a luz (ou a noite) se espalha a partir dela ----------
+  const abajur = $('[data-abajur]');
+  const metaCor = $('meta[name="theme-color"]');
+  const marcaTema = () => {
+    const escuro = raiz.dataset.tema === 'escuro';
+    if (!abajur) return;
+    abajur.setAttribute('aria-pressed', String(escuro));
+    abajur.setAttribute('aria-label', escuro ? 'Acender a luz (tema claro)' : 'Apagar a luz (tema escuro)');
+    $('.abajur-dica', abajur).textContent = escuro ? 'Acender' : 'Apagar';
+    if (metaCor) metaCor.content = escuro ? '#0C0A08' : '#1C1915';
+  };
+  const aplicaTema = (t) => {
+    if (t === 'escuro') raiz.dataset.tema = 'escuro'; else delete raiz.dataset.tema;
+    try { localStorage.setItem('sorrisus-tema', t); } catch { /* sem armazenamento */ }
+    marcaTema();
+  };
+  marcaTema();
+  abajur?.addEventListener('click', () => {
+    const novo = raiz.dataset.tema === 'escuro' ? 'claro' : 'escuro';
+    abajur.classList.remove('puxa'); void abajur.offsetWidth; abajur.classList.add('puxa');
+    if (!document.startViewTransition || reduz) return aplicaTema(novo);
+    const r = abajur.getBoundingClientRect();
+    const x = r.left + r.width / 2, y = r.bottom - 12;
+    const raio = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    // um instante para a cordinha ser puxada antes da luz mudar
+    setTimeout(() => {
+      const vt = document.startViewTransition(() => aplicaTema(novo));
+      vt.ready.then(() => raiz.animate(
+        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${raio}px at ${x}px ${y}px)`] },
+        { duration: 950, easing: 'cubic-bezier(.3,.6,.2,1)', pseudoElement: '::view-transition-new(root)' },
+      )).catch(() => {});
+    }, 170);
+  });
+
+  // ---------- cursor: anel dourado que vira o dente da marca sobre links e um rótulo sobre o que se arrasta ----------
+  if (fino && !reduz) {
+    const cx = document.createElement('div');
+    cx.className = 'cursor fora';
+    cx.setAttribute('aria-hidden', 'true');
+    cx.innerHTML = '<span class="cur-anel"><i><svg viewBox="0 0 64 64"><circle class="cur-circ" cx="32" cy="32" r="30"/><g class="cur-dente"><path d="M32 15C26 8.5 14.5 9 11.6 18.6 9 27.5 14.4 35.4 16.2 45.5 17.3 52 19 57.6 22.2 57.6 26 57.6 26.2 46.4 32 44.2 37.8 46.4 38 57.6 41.8 57.6 45 57.6 46.7 52 47.8 45.5 49.6 35.4 55 27.5 52.4 18.6 49.5 9 38 8.5 32 15Z"/><path d="M21.5 41.5C28.5 37.5 36.5 30 44.5 21"/><path d="M38.6 22.2 45.6 19.6 43.6 26.4"/></g></svg><b></b></i></span><span class="cur-ponto"><i></i></span>';
+    document.body.appendChild(cx);
+    const anel = $('.cur-anel', cx), ponto = $('.cur-ponto', cx), rot = $('b', cx);
+    raiz.classList.add('cursor-on');
+    const ROTULOS = [['[data-ad]', 'Arraste'], ['.av-trilho', 'Arraste'], ['.cl-trilho', 'Role'], ['.palco', 'Role']];
+    const ESCURO = '.entrada, .diferenca, .clinica, .pacientes, .rodape, .carregando, .menu-aberto .menu';
+    let mx = -100, my = -100, ax = -100, ay = -100, ativo = false;
+    const avalia = (alvo) => {
+      if (!(alvo instanceof Element)) return;
+      const campo = alvo.closest('input:not([type="radio"]):not([type="checkbox"]), textarea');
+      const r = !campo && ROTULOS.find(([s]) => alvo.closest(s));
+      const link = !campo && !r && alvo.closest('a, button, summary, label, select, .map-box');
+      cx.classList.toggle('rotulo', !!r);
+      if (r) rot.textContent = r[1];
+      cx.classList.toggle('link', !!link);
+      cx.classList.toggle('campo', !!campo);
+      cx.classList.toggle('claro', raiz.dataset.tema === 'escuro' || !!alvo.closest(ESCURO));
+    };
+    addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      mx = e.clientX; my = e.clientY;
+      if (!ativo) { ax = mx; ay = my; ativo = true; }
+      ponto.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
+      cx.classList.remove('fora');
+      avalia(e.target);
+    }, { passive: true });
+    addEventListener('scroll', () => { if (ativo) avalia(document.elementFromPoint(mx, my)); }, { passive: true });
+    document.documentElement.addEventListener('pointerleave', () => cx.classList.add('fora'));
+    addEventListener('pointerdown', () => cx.classList.add('aperta'));
+    addEventListener('pointerup', () => cx.classList.remove('aperta'));
+    addEventListener('blur', () => cx.classList.remove('aperta'));
+    const segue = () => {
+      ax += (mx - ax) * 0.18; ay += (my - ay) * 0.18;
+      anel.style.transform = `translate3d(${ax.toFixed(1)}px, ${ay.toFixed(1)}px, 0)`;
+      requestAnimationFrame(segue);
+    };
+    requestAnimationFrame(segue);
+  }
 
   // ---------- menu ----------
   const menuBtn = $('.menu-btn');
@@ -241,6 +343,31 @@
     };
     btns.forEach((b) => b.addEventListener('click', () => { trilho.scrollBy({ left: cartao() * +b.dataset.av, behavior: reduz ? 'auto' : 'smooth' }); parado = true; }));
     trilho.addEventListener('scroll', () => requestAnimationFrame(marca), { passive: true });
+    // no computador, dá para puxar o carrossel com o mouse; ao soltar, ele encaixa no cartão mais próximo
+    let px = null, sl = 0, puxou = false;
+    trilho.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || e.button) return;
+      px = e.clientX; sl = trilho.scrollLeft; puxou = false;
+      trilho.classList.add('puxando');
+      trilho.setPointerCapture(e.pointerId);
+    });
+    trilho.addEventListener('pointermove', (e) => {
+      if (px === null) return;
+      const dx = e.clientX - px;
+      if (Math.abs(dx) > 4) puxou = true;
+      trilho.scrollLeft = sl - dx;
+    });
+    const soltaTrilho = () => {
+      if (px === null) return;
+      px = null;
+      trilho.classList.remove('puxando');
+      const c = cartao();
+      trilho.scrollTo({ left: Math.round(trilho.scrollLeft / c) * c, behavior: 'smooth' });
+    };
+    trilho.addEventListener('pointerup', soltaTrilho);
+    trilho.addEventListener('pointercancel', soltaTrilho);
+    trilho.addEventListener('click', (e) => { if (puxou) { e.preventDefault(); e.stopPropagation(); puxou = false; } }, true);
+    trilho.addEventListener('dragstart', (e) => e.preventDefault());
     addEventListener('resize', marca);
     marca();
     // passa sozinho devagar enquanto está na tela; para quando a pessoa interage

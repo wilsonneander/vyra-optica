@@ -36,10 +36,12 @@ A página abre na fachada inteira, em tela cheia. A rolagem controla uma câmera
 ## Seções
 
 - **Fachada e entrada** com a chamada "Um novo conceito em odontologia." e o indicador de rolagem em arco de porta
-- **O dentista**: retrato em arco, nome, especialidade, registro no CRO, formação em linha do tempo, experiência, filosofia e o que muda na clínica
-- **Tratamentos**: implantes, lentes de contato dental, clareamento, ortodontia, harmonização orofacial, odontologia estética e clínica geral, cada um com foto própria em três composições que se alternam e botão de agendamento no WhatsApp
+- **A dentista**: retrato, nome, especialidade, registro no CRO, formação em linha do tempo, experiência e filosofia
+- **A diferença** (fundo escuro): foto da consulta com o cartão de números que contam de novo a cada volta (`diferenca.numeros`), título, texto e os diferenciais com ícones desenhados para a marca
+- **Tratamentos**: cartões em duas colunas desencontradas. Clareamento, lentes de contato e odontologia estética têm **antes e depois arrastável** (mouse, dedo ou setas do teclado; a linha balança ao entrar na tela até a pessoa mexer). Os outros têm foto. Cada cartão leva ao agendamento no WhatsApp
 - **Estrutura e experiência**: galeria que corre de lado enquanto a página desce (fixada pelo ScrollTrigger), e a primeira visita em linha do tempo
-- **Depoimentos e resultados**: espaços reservados para relatos com autorização por escrito, nota do Google e regra para casos clínicos. **Nada é inventado**: trocar os textos entre colchetes pelos relatos reais
+- **Avaliações**: carrossel com foto, nome, tratamento e nota, setas, barra de progresso e passagem automática que para quando a pessoa interage; abaixo, nota do Google e regra para casos clínicos
+- **Dúvidas frequentes** em sanfona (`faq` no `content.js`)
 - **Contato e agendamento**: endereço, WhatsApp, telefone, horários e formulário que abre o pedido pronto no WhatsApp, com consentimento da LGPD
 - **Rodapé** com o mapa padrão `.map-box` do OpenStreetMap, "Onde atendemos", contatos, redes, responsável técnico, razão social e créditos das imagens
 
@@ -48,3 +50,7 @@ A página se monta conforme a rolagem e se desfaz ao voltar (descendo e subindo)
 ## Dados de demonstração
 
 Dentista (Dra. Marina Albuquerque, CRO-SP 98.765; foto enviada pelo cliente), endereço (Alameda Lorena, Jardim Paulista, São Paulo), telefones, e-mail e CNPJ são fictícios. Para um cliente real, copiar para `clientes/<cliente>/` e trocar em `content.js`, junto com as fotos da equipe e dos ambientes (mesmos nomes de arquivo).
+
+**Antes de publicar para um cliente, trocar obrigatoriamente:**
+- **Antes e depois** (`ad-*-antes.webp` / `ad-*-depois.webp`): o "depois" é foto do Unsplash e o "antes" foi escurecido digitalmente só nos dentes. Cada um traz o selo "Simulação ilustrativa". Na clínica, entram só casos reais com termo de autorização assinado (Código de Ética Odontológica).
+- **Avaliações** (`avaliacoes` e `av-*.webp`): nomes e textos são de exemplo; as fotos são retratos do Unsplash de pessoas que não são pacientes. Trocar por depoimentos reais com autorização por escrito e, se a pessoa não quiser foto, usar outra imagem.

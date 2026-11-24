@@ -50,21 +50,51 @@ module.exports = {
     filosofia: 'Um bom tratamento não se nota. A pessoa só volta a sorrir sem pensar nisso.',
   },
 
+  // seção "A diferença": foto da consulta, números e o que muda no atendimento
+  diferenca: {
+    foto: 'diferenca',
+    titulo: 'Tecnologia de ponta, *cuidado de perto*',
+    texto: 'Da restauração simples à reabilitação completa, todo tratamento começa entendendo o que incomoda você e o que os seus dentes precisam. A técnica vem depois.',
+    numeros: [['15', 'anos', 'de prática clínica'], ['7', 'tratamentos', 'no mesmo endereço']],
+  },
+  // [título, texto, desenho do ícone]
   diferenciais: [
-    ['Planejamento digital do sorriso', 'Você vê a proposta na tela, com o seu rosto, antes de qualquer procedimento.'],
-    ['Uma consulta sem pressa', 'A primeira conversa dura o tempo necessário. Sem encaixe, sem fila.'],
-    ['Escaneamento sem massa', 'Moldagem digital em minutos, sem aquela massa desconfortável.'],
-    ['Orçamento por escrito', 'Etapas, prazos e valores no papel antes de começar.'],
+    ['Consulta sem pressa', 'A primeira conversa dura o tempo necessário. Sem encaixe, sem fila.', 'cafe'],
+    ['Diagnóstico digital', 'Escaneamento sem massa e imagens com dose reduzida, lidas junto com você.', 'scanner'],
+    ['Plano feito para você', 'Etapas, prazos e valores por escrito antes de começar.', 'plano'],
+    ['Resultado com cara de natural', 'O sorriso é desenhado na tela com o seu rosto e aprovado por você.', 'sorriso'],
   ],
 
+  // `ad`: par de fotos antes e depois (simulação ilustrativa do modelo); `alto`: mídia mais alta no cartão
   tratamentos: [
-    { id: 'implantes', nome: 'Implantes dentários', foto: 'implantes', frase: 'Raiz nova, firmeza de dente natural.', texto: 'Cirurgia guiada a partir da tomografia, com o implante posicionado no milímetro planejado. Coroas em cerâmica feitas para a sua cor de dente.', tempo: 'Planejamento em uma consulta' },
-    { id: 'lentes', nome: 'Lentes de contato dental', foto: 'lentes', frase: 'Finas como uma lente, desenhadas para o seu rosto.', texto: 'Lâminas de porcelana que corrigem forma, cor e pequenos espaços com desgaste mínimo ou nenhum. O desenho é aprovado por você antes.', tempo: 'Ensaio do sorriso antes de decidir' },
-    { id: 'clareamento', nome: 'Clareamento dental', foto: 'clareamento', frase: 'Mais claro, sem perder o natural.', texto: 'Técnica de consultório, caseira ou a combinação das duas, com controle de sensibilidade em cada etapa.', tempo: 'De duas a quatro semanas' },
+    { id: 'clareamento', nome: 'Clareamento dental', ad: 'ad-clareamento', alto: true, frase: 'Mais claro, sem perder o natural.', texto: 'Técnica de consultório, caseira ou a combinação das duas, com controle de sensibilidade em cada etapa.', tempo: 'De duas a quatro semanas' },
+    { id: 'implantes', nome: 'Implantes dentários', foto: 'implantes', alto: true, frase: 'Raiz nova, firmeza de dente natural.', texto: 'Cirurgia guiada a partir da tomografia, com o implante posicionado no milímetro planejado. Coroas em cerâmica feitas para a sua cor de dente.', tempo: 'Planejamento em uma consulta' },
     { id: 'ortodontia', nome: 'Ortodontia', foto: 'ortodontia', frase: 'Dentes no lugar, quase sem ninguém perceber.', texto: 'Alinhadores transparentes e aparelhos estéticos, com simulação digital do movimento do primeiro ao último dia.', tempo: 'Simulação na primeira visita' },
+    { id: 'lentes', nome: 'Lentes de contato dental', ad: 'ad-lentes', frase: 'Finas como uma lente, desenhadas para o seu rosto.', texto: 'Lâminas de porcelana que corrigem forma, cor e pequenos espaços com desgaste mínimo ou nenhum. O desenho é aprovado por você antes.', tempo: 'Ensaio do sorriso antes de decidir' },
+    { id: 'estetica', nome: 'Odontologia estética', ad: 'ad-estetica', frase: 'Pequenos ajustes, grande diferença.', texto: 'Restaurações em resina, recontorno e gengivoplastia para alinhar proporções e deixar o sorriso inteiro em harmonia.', tempo: 'Muitas vezes em uma sessão' },
     { id: 'harmonizacao', nome: 'Harmonização orofacial', foto: 'harmonizacao', frase: 'Equilíbrio entre sorriso e rosto.', texto: 'Toxina botulínica, preenchimentos e bioestimuladores em doses moderadas, para quem quer parecer descansado e não diferente.', tempo: 'Avaliação facial completa' },
-    { id: 'estetica', nome: 'Odontologia estética', foto: 'estetica', frase: 'Pequenos ajustes, grande diferença.', texto: 'Restaurações em resina, recontorno e gengivoplastia para alinhar proporções e deixar o sorriso inteiro em harmonia.', tempo: 'Muitas vezes em uma sessão' },
     { id: 'clinica', nome: 'Clínica geral', foto: 'clinica-geral', frase: 'O cuidado que mantém tudo de pé.', texto: 'Limpeza, prevenção, tratamento de canal e restaurações, com a mesma atenção dada aos casos mais complexos.', tempo: 'Retorno a cada seis meses' },
+  ],
+
+  // avaliações de EXEMPLO do modelo: trocar por depoimentos reais, com autorização por escrito
+  avaliacoes: [
+    { nome: 'Camila Ferraz', foto: 'av-1', trat: 'Lentes de contato dental', quando: 'há 3 semanas', texto: 'Eu tinha vergonha de sorrir em foto. A Dra. Marina me mostrou o desenho na tela antes de tudo, e o resultado ficou exatamente como combinamos. Ninguém percebe que são lentes.' },
+    { nome: 'Rafael Monteiro', foto: 'av-2', trat: 'Implante dentário', quando: 'há 1 mês', texto: 'Adiei o implante por anos por medo da cirurgia. Foi muito mais tranquilo do que eu imaginava, e o acompanhamento depois fez toda a diferença.' },
+    { nome: 'Patrícia Lemos', foto: 'av-3', trat: 'Clareamento dental', quando: 'há 2 meses', texto: 'Fiz o clareamento combinado, consultório e em casa. A sensibilidade foi mínima porque eles ajustaram o gel a cada etapa. Atendimento impecável do começo ao fim.' },
+    { nome: 'Antônio Guerra', foto: 'av-4', trat: 'Reabilitação oral', quando: 'há 2 meses', texto: 'Aos 68 anos voltei a comer de tudo. Explicaram cada etapa com calma e entregaram o orçamento por escrito, sem surpresa no meio do caminho.' },
+    { nome: 'Juliana Prado', foto: 'av-5', trat: 'Ortodontia com alinhadores', quando: 'há 4 meses', texto: 'Vi a simulação do meu sorriso antes de começar e acompanhei cada troca de alinhador. Terminei antes do previsto e sem ninguém no trabalho reparar.' },
+    { nome: 'Lucas Andrade', foto: 'av-6', trat: 'Clínica geral', quando: 'há 5 meses', texto: 'Cheguei com dor num sábado de manhã e fui atendido no mesmo dia. Recepção atenciosa, consultório impecável e nenhuma pressão para fazer o que eu não precisava.' },
+  ],
+
+  faq: [
+    ['A primeira consulta é cobrada?', 'A avaliação tem valor informado na hora do agendamento, sem surpresa no dia. Nela você sai com o diagnóstico e o plano de tratamento por escrito.'],
+    ['Vocês atendem convênio?', 'O atendimento é particular. Emitimos nota fiscal e relatório para você pedir reembolso ao seu plano, quando ele prevê essa opção.'],
+    ['Dá para parcelar o tratamento?', 'Sim. O orçamento por escrito traz as formas de pagamento, com parcelamento no cartão e condições para tratamentos longos.'],
+    ['O tratamento dói?', 'A anestesia é feita com aplicador eletrônico, bem mais confortável. Para quem tem medo de dentista, avaliamos o uso de sedação consciente.'],
+    ['Quanto tempo duram as lentes de contato dental?', 'Com higiene em dia e retornos periódicos, costumam durar muitos anos. Hábitos como ranger os dentes influenciam, e isso é avaliado antes de indicar.'],
+    ['Em quanto tempo fico com o dente do implante?', 'Depende do osso e de cada caso. Em alguns, o dente provisório é colocado no mesmo dia; em outros, espera-se a cicatrização. O prazo vem no seu plano.'],
+    ['O clareamento deixa os dentes sensíveis?', 'Pode haver sensibilidade passageira. Ajustamos a concentração do gel e usamos dessensibilizante para que ela fique leve ou nem apareça.'],
+    ['Vocês atendem urgência?', 'Sim. Em caso de dor, chame no WhatsApp: encaixamos no mesmo dia sempre que a agenda permite, inclusive aos sábados de manhã.'],
   ],
 
   estrutura: [
@@ -107,5 +137,6 @@ module.exports = {
     lounge: 'Sala de espera com sofás claros, parede de madeira e luz quente',
     radiografia: 'Dentista analisando radiografias dentárias num painel iluminado',
     instrumentos: 'Espelho e sonda odontológicos sobre superfície branca',
+    diferenca: 'Paciente sorrindo ao se ver no espelho de mão, ao lado da dentista, com a radiografia na tela ao fundo',
   },
 };

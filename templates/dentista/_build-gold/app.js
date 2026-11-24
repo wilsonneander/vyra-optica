@@ -155,10 +155,12 @@
   // =====================================================================
   const CENAS = [
     ['.dent-txt > :not(h2)', 'cena'], ['.dent-foto figcaption', 'cena-lado'],
-    ['.dent-sub h3, .anos li, .exp', 'cena'], ['.difs li', 'cena'],
-    ['.sec-cab > p:not(.rotulo), .trat-indice', 'cena'], ['.trat-txt > :not(h3)', 'cena'],
+    ['.dent-sub h3, .anos li, .exp', 'cena'],
+    ['.dif-intro, .dif-lista li', 'cena'], ['.dif-numeros', 'cena-zoom'],
+    ['.tc-cab > p:not(.rotulo), .tc', 'cena'],
     ['.visita .caminho li', 'cena'],
-    ['.relato', 'cena'], ['.resultados > div', 'cena'],
+    ['.sec-cab > p:not(.rotulo), .av-ctrl, .av-nota', 'cena'], ['.resultados > div', 'cena'],
+    ['.faq-cab > p:not(.rotulo), .faq-cab > a, .faq-lista details', 'cena'],
     ['.ag-txt > :not(h2)', 'cena'], ['.ag-form', 'cena-zoom'],
     ['.mapa-linha > *, .rodape-cols > div', 'cena'],
   ];
@@ -172,11 +174,87 @@
     }));
   }
   // títulos sobem palavra por palavra e fotos se revelam por máscara; ligam ao entrar e desligam ao sair por qualquer borda
-  const alterna = $$('.titulo, .trat-txt h3, .difs-tit, .revela');
+  const alterna = $$('.titulo, .revela');
   if ('IntersectionObserver' in window && !reduz) {
     const io = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('on', e.isIntersecting)), { rootMargin: '-6% 0px -6% 0px' });
     alterna.forEach((el) => io.observe(el));
   } else alterna.forEach((el) => el.classList.add('on'));
+
+  // ---------- contadores: contam de novo toda vez que voltam à tela ----------
+  const contadores = $$('[data-conta]');
+  const conta = (el) => {
+    const fim = +el.dataset.conta, t0 = performance.now(), dur = 1400;
+    const passo = (t) => { const k = lim((t - t0) / dur); el.textContent = Math.round(fim * (1 - Math.pow(1 - k, 3))); if (k < 1 && el.dataset.ativo === '1') requestAnimationFrame(passo); };
+    requestAnimationFrame(passo);
+  };
+  if ('IntersectionObserver' in window && !reduz) {
+    const ioC = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting && e.target.dataset.ativo !== '1') { e.target.dataset.ativo = '1'; conta(e.target); }
+      else if (!e.isIntersecting) { e.target.dataset.ativo = '0'; e.target.textContent = '0'; }
+    }), { rootMargin: '-4% 0px -4% 0px' });
+    contadores.forEach((el) => ioC.observe(el));
+  }
+
+  // ---------- antes e depois: arrasta a linha (mouse, dedo ou setas do teclado) ----------
+  $$('[data-ad]').forEach((ad) => {
+    let corte = 50, arrastando = false, mexeu = false, anim = 0;
+    const poe = (v) => { corte = lim(v, 0, 100); ad.style.setProperty('--corte', `${corte.toFixed(2)}%`); ad.setAttribute('aria-valuenow', String(Math.round(corte))); };
+    const doPonteiro = (e) => { const r = ad.getBoundingClientRect(); poe(((e.clientX - r.left) / r.width) * 100); };
+    const para = () => { cancelAnimationFrame(anim); mexeu = true; };
+    ad.addEventListener('pointerdown', (e) => { para(); arrastando = true; ad.classList.add('arrasta'); ad.setPointerCapture(e.pointerId); doPonteiro(e); });
+    ad.addEventListener('pointermove', (e) => { if (arrastando) doPonteiro(e); });
+    const solta = () => { arrastando = false; ad.classList.remove('arrasta'); };
+    ad.addEventListener('pointerup', solta);
+    ad.addEventListener('pointercancel', solta);
+    ad.addEventListener('keydown', (e) => {
+      const passos = { ArrowLeft: -5, ArrowDown: -5, ArrowRight: 5, ArrowUp: 5, Home: -100, End: 100 };
+      if (!(e.key in passos)) return;
+      e.preventDefault(); para(); poe(corte + passos[e.key]);
+    });
+    // ao entrar na tela, a linha balança uma vez para mostrar que dá para arrastar (até a pessoa mexer)
+    if ('IntersectionObserver' in window && !reduz) {
+      new IntersectionObserver((es) => es.forEach((e) => {
+        if (!e.isIntersecting || mexeu) return;
+        const t0 = performance.now();
+        const vai = (t) => {
+          const k = lim((t - t0) / 1800);
+          poe(50 + Math.sin(k * Math.PI * 2) * 18 * (1 - k));
+          if (k < 1 && !mexeu) anim = requestAnimationFrame(vai);
+        };
+        cancelAnimationFrame(anim);
+        anim = requestAnimationFrame(vai);
+      }), { threshold: 0.6 }).observe(ad);
+    }
+  });
+
+  // ---------- carrossel de avaliações ----------
+  $$('[data-carrossel]').forEach((car) => {
+    const trilho = $('.av-trilho', car), barra = $('.av-barra i', car), btns = $$('[data-av]', car);
+    const cartao = () => { const c = trilho.firstElementChild; return c ? c.getBoundingClientRect().width + parseFloat(getComputedStyle(trilho).columnGap || 0) : 300; };
+    const marca = () => {
+      const max = trilho.scrollWidth - trilho.clientWidth;
+      const vis = trilho.clientWidth / trilho.scrollWidth;
+      barra?.style.setProperty('--av-w', `${(vis * 100).toFixed(1)}%`);
+      barra?.style.setProperty('--av-x', `${(max > 0 ? (trilho.scrollLeft / max) * (1 - vis) * 100 : 0).toFixed(1)}%`);
+      btns[0].disabled = trilho.scrollLeft < 4;
+      btns[1].disabled = trilho.scrollLeft > max - 4;
+    };
+    btns.forEach((b) => b.addEventListener('click', () => { trilho.scrollBy({ left: cartao() * +b.dataset.av, behavior: reduz ? 'auto' : 'smooth' }); parado = true; }));
+    trilho.addEventListener('scroll', () => requestAnimationFrame(marca), { passive: true });
+    addEventListener('resize', marca);
+    marca();
+    // passa sozinho devagar enquanto está na tela; para quando a pessoa interage
+    let parado = reduz, visivel = false;
+    ['pointerdown', 'focusin', 'wheel', 'touchstart'].forEach((ev) => trilho.addEventListener(ev, () => { parado = true; }, { passive: true }));
+    car.addEventListener('pointerenter', () => { car.dataset.sobre = '1'; });
+    car.addEventListener('pointerleave', () => { car.dataset.sobre = '0'; });
+    if ('IntersectionObserver' in window) new IntersectionObserver((es) => { visivel = es[0].isIntersecting; }).observe(trilho);
+    setInterval(() => {
+      if (parado || !visivel || car.dataset.sobre === '1' || document.hidden) return;
+      const max = trilho.scrollWidth - trilho.clientWidth;
+      trilho.scrollTo({ left: trilho.scrollLeft >= max - 4 ? 0 : trilho.scrollLeft + cartao(), behavior: 'smooth' });
+    }, 5500);
+  });
 
   const topo = $('.topo'), dentista = $('#dentista');
   let pedido = false, ultimoY = scrollY;

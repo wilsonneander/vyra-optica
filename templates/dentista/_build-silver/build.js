@@ -98,6 +98,9 @@ const botaoTema = `<button type="button" class="tema" data-botao-tema aria-press
 
 // ---------- topo ----------
 const nav = [['tratamentos', 'Tratamentos'], ['equipe', 'Equipe'], ['clinica', 'A clínica'], ['resultados', 'Resultados'], ['faq', 'Dúvidas'], ['contato', 'Contato']];
+// no computador, "Tratamentos" fica no centro exato do topo
+const navEsq = [['equipe', 'Equipe'], ['clinica', 'A clínica'], ['resultados', 'Resultados']];
+const navDir = [['faq', 'Dúvidas'], ['contato', 'Contato']];
 // submenu "Tratamentos": abre no hover, no foco e no clique; cada item abre a ficha do tratamento
 const subTrat = `<li class="tem-sub" data-sub><button type="button" class="sub-btn" data-alvo="#tratamentos" aria-expanded="false" aria-controls="sub-trat">Tratamentos${S('<path d="M7 10l5 5 5-5"/>', 'ic ic-desce')}</button>
       <div class="sub" id="sub-trat"><div class="sub-in">
@@ -108,7 +111,7 @@ const topo = `<a class="pular" href="#conteudo">Pular para o conteúdo</a>
 <header class="topo" data-topo>
   <div class="topo-in">
     <a class="logo" href="#inicio" aria-label="${M.completo}, início">${logo}</a>
-    <nav class="menu" aria-label="Principal"><ul>${nav.map(([id, t]) => id === 'tratamentos' ? subTrat : `<li><a href="#${id}">${t}</a></li>`).join('')}</ul></nav>
+    <nav class="menu" aria-label="Principal"><ul class="menu-esq">${navEsq.map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('')}</ul><ul class="menu-meio">${subTrat}</ul><ul class="menu-dir">${navDir.map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join('')}</ul></nav>
     <div class="topo-acoes">
       <span class="aberto" data-aberto>${I.relogio}<span data-aberto-txt>Segunda a sábado</span></span>
       ${botaoTema}
@@ -129,27 +132,24 @@ const hero = `<section class="hero" id="inicio" aria-label="Apresentação">
     <div class="hero-fotos">${H.slides.map((s, i) => `<figure class="hero-foto${i === 0 ? ' ativa' : ''}" data-slide>${foto(s.foto, { lazy: i > 0, alt: s.alt, pos: s.pos })}</figure>`).join('')}</div>
     <div class="hero-veu" aria-hidden="true"></div>
     <div class="hero-in">
-      <p class="hero-prova"><span class="avatares" aria-hidden="true">${['av-1', 'av-2', 'av-3', 'av-4'].map((a) => foto(a, { alt: '', lazy: false })).join('')}</span>${H.prova}</p>
+      <div class="hero-lado">
+        <a class="hero-prof" href="#equipe" data-hero-prof>
+          <span class="hero-prof-fotos">${H.slides.map((s, i) => `<img src="assets/img/${eq[s.prof].foto}.webp" alt=""${i === 0 ? ' class="on"' : ''} loading="lazy">`).join('')}</span>
+          <span class="hero-prof-txt"><b data-prof-nome>${eq[H.slides[0].prof].nome}</b><span data-prof-area>${eq[H.slides[0].prof].area}</span><small><span data-prof-exp>${eq[H.slides[0].prof].experiencia}</span> de experiência</small></span>
+          <span class="redondo mini">${I.diag}</span>
+        </a>
+        <div class="hero-ctrl">
+          <button type="button" class="redondo vidro" data-hero-ant aria-label="Foto anterior">${I.esq}</button>
+          <div class="hero-barras" aria-hidden="true">${H.slides.map((_, i) => `<span${i === 0 ? ' class="on"' : ''}><i></i></span>`).join('')}</div>
+          <button type="button" class="redondo vidro" data-hero-prox aria-label="Próxima foto">${I.dir}</button>
+        </div>
+      </div>
       <h1 class="hero-tit">${H.titulo.split(' ').map((w, i) => `<span class="pa" style="--i:${i}"><span>${esc(w)}</span></span>`).join(' ')}</h1>
       <div class="hero-linha">
         <p class="hero-txt">${H.texto}</p>
         <div class="hero-btns">
           <a class="btn btn-claro" href="#agendar">Agendar avaliação<span class="btn-ic">${I.dir}</span></a>
           <a class="btn btn-vidro" href="#tratamentos">Ver tratamentos</a>
-        </div>
-      </div>
-      <div class="hero-base">
-        <div class="hero-lado">
-          <div class="hero-ctrl">
-            <button type="button" class="redondo vidro" data-hero-ant aria-label="Foto anterior">${I.esq}</button>
-            <div class="hero-barras" aria-hidden="true">${H.slides.map((_, i) => `<span${i === 0 ? ' class="on"' : ''}><i></i></span>`).join('')}</div>
-            <button type="button" class="redondo vidro" data-hero-prox aria-label="Próxima foto">${I.dir}</button>
-          </div>
-          <a class="hero-prof" href="#equipe" data-hero-prof>
-            <span class="hero-prof-fotos">${H.slides.map((s, i) => `<img src="assets/img/${eq[s.prof].foto}.webp" alt=""${i === 0 ? ' class="on"' : ''} loading="lazy">`).join('')}</span>
-            <span class="hero-prof-txt"><b data-prof-nome>${eq[H.slides[0].prof].nome}</b><span data-prof-area>${eq[H.slides[0].prof].area}</span><small><span data-prof-exp>${eq[H.slides[0].prof].experiencia}</span> de experiência</small></span>
-            <span class="redondo mini">${I.diag}</span>
-          </a>
         </div>
       </div>
     </div>

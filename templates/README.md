@@ -42,5 +42,6 @@ Quando um nicho ganhar um modelo novo, ele entra na pasta do tier (`bronze/`, `s
 ## Pastas auxiliares (começam com `_`)
 
 - `_comum/`: código usado por vários nichos (botões de tema `tema-pilula.js`, `tema-tampinha.js`, `tema-lanches.js`).
-- `_vitrine-auto/`, `_vitrine-bebidas/`, `_vitrine-food/`, `_vitrine-aura/`, `provedor-internet/_apresentacao/`, `restaurante/_modelos/`: vitrines publicadas no Firebase para mostrar os modelos. Ficam fora do git.
+- `_comum/previa/`: **Prévia nos aparelhos**, o visualizador comum que mostra qualquer modelo no celular, no tablet e no computador. Depois de montar ou atualizar uma vitrine, e antes do deploy, rode `node templates/_comum/previa/instalar.js` (veja o [README](_comum/previa/README.md)).
+- `_vitrine-auto/`, `_vitrine-bebidas/`, `_vitrine-food/`, `_vitrine-aura/`, `_vitrine-estetica/`, `<nicho>/_vitrine/`, `provedor-internet/_apresentacao/`, `assessoria-provedor/_apresentacao/`, `restaurante/_modelos/`: vitrines publicadas no Firebase para mostrar os modelos. Ficam fora do git. Cada uma recebe a pasta `previa/` e o botão "Ver nos aparelhos" pelo instalador.
 - `_preview*/`: prévias que abrem sem servidor (fora do git).

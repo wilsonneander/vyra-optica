@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prévia nos aparelhos</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='%23D9B26A' stroke-width='2.2' stroke-linejoin='round'%3E%3Crect x='3' y='7' width='18' height='13' rx='2'/%3E%3Crect x='20' y='12' width='9' height='15' rx='2.2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="previa.css">
+</head>
+<body data-aparelho="computador">
+
+<header class="barra">
+  <div class="barra-esq">
+    <a class="voltar" href="../" title="Voltar para a vitrine de modelos">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H6M11 6.5 5.5 12l5.5 5.5"/></svg>
+      <span>Modelos</span>
+    </a>
+    <label class="modelo">
+      <span class="sr">Modelo</span>
+      <select id="modelo" aria-label="Escolher o modelo"></select>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg>
+    </label>
+  </div>
+
+  <div class="aparelhos" role="radiogroup" aria-label="Aparelho">
+    <span class="indicador" aria-hidden="true"></span>
+    <button type="button" role="radio" data-aparelho="celular" title="Celular (tecla 1)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.8" width="10" height="18.4" rx="2.4"/><path d="M10.6 18.2h2.8"/></svg>
+      <span>Celular</span>
+    </button>
+    <button type="button" role="radio" data-aparelho="tablet" title="Tablet (tecla 2)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.2" y="3" width="15.6" height="18" rx="2.2"/><path d="M11 18.2h2"/></svg>
+      <span>Tablet</span>
+    </button>
+    <button type="button" role="radio" data-aparelho="computador" title="Computador (tecla 3)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.6" y="4" width="18.8" height="12.4" rx="1.6"/><path d="M9 20h6M12 16.4V20"/></svg>
+      <span>Computador</span>
+    </button>
+  </div>
+
+  <div class="barra-dir">
+    <p class="medida" aria-live="polite"><b id="medida">1440 × 900</b><span id="zoom">100%</span></p>
+    <button type="button" class="acao" id="girar" title="Girar o aparelho (tecla G)" aria-label="Girar o aparelho">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="7.5" width="8.5" height="13" rx="1.6"/><path d="M4 9.5a8 8 0 0 1 8-6.6M12 2.9l-2.3-1.4M12 2.9l-1.5 2.3"/></svg>
+    </button>
+    <button type="button" class="acao" id="recarregar" title="Recarregar o site (tecla R)" aria-label="Recarregar o site">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.2 12.6a7.2 7.2 0 1 1-2.4-6M17.4 3.4v3.4H14"/></svg>
+    </button>
+    <a class="acao" id="novaaba" href="../" target="_blank" rel="noopener" title="Abrir o site sozinho, em nova aba" aria-label="Abrir o site em nova aba">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 4.5h6v6M19.5 4.5l-8 8M17 14v4.2c0 .7-.6 1.3-1.3 1.3H5.8c-.7 0-1.3-.6-1.3-1.3V8.3c0-.7.6-1.3 1.3-1.3H10"/></svg>
+    </a>
+    <button type="button" class="acao" id="telacheia" title="Tela cheia para apresentar (tecla F)" aria-label="Tela cheia">
+      <svg class="entra" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>
+      <svg class="sai" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="palco" id="palco">
+  <div class="encaixe" id="encaixe">
+    <div class="aparelho" id="aparelho">
+      <div class="janela-topo" aria-hidden="true">
+        <span class="endereco" id="endereco"></span>
+      </div>
+      <div class="tela">
+        <iframe id="site" title="Site do modelo" allow="fullscreen; clipboard-write; geolocation; autoplay"></iframe>
+        <div class="carregando" id="carregando" aria-hidden="true"><span></span></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="modelos.js"></script>
+<script src="previa.js"></script>
+</body>
+</html>

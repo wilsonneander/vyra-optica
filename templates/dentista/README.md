@@ -1,6 +1,9 @@
 # Dentista (Sorrisus Prime)
 
-Nicho de clínicas odontológicas. Por enquanto só o **Gold**, a partir da fachada enviada pelo cliente (marca Sorrisus Prime, Odontologia Avançada).
+Nicho de clínicas odontológicas.
+
+- **Silver**: Raiz Odontologia (marca de demonstração), no desenho da referência [Aveline](https://aveline-visuvate.framer.website/). Detalhes em "Silver" abaixo.
+- **Gold**: Sorrisus Prime (Odontologia Avançada), a partir da fachada enviada pelo cliente.
 
 | Pasta | O que é |
 |---|---|
@@ -9,6 +12,8 @@ Nicho de clínicas odontológicas. Por enquanto só o **Gold**, a partir da fach
 | `_build-gold/img/fotos/` | Fotos em WebP. `fachada.webp` e `dentista.webp` são imagens do cliente; as outras são do Unsplash (licença livre), com crédito em `img/creditos.json`, que também aparece no rodapé |
 | `_build-gold/vendor/` | GSAP 3.12.5 e ScrollTrigger, copiados para o site (abre sem internet e sem CDN) |
 | `gold/` | **Site pronto** (abrir o `index.html` no navegador) |
+| `_build-silver/` | Código-fonte e conteúdo do Silver (`content.js`, `style.css`, `app.js`, `build.js`, `gerar-mapa.js`) |
+| `silver/` | **Silver pronto**, com `404.html` |
 
 ## Gerar
 
@@ -61,3 +66,23 @@ Dentista (Dra. Marina Albuquerque, CRO-SP 98.765; foto enviada pelo cliente), en
 **Antes de publicar para um cliente, trocar obrigatoriamente:**
 - **Antes e depois** (`ad-*-antes.webp` / `ad-*-depois.webp`): o "depois" é foto do Unsplash e o "antes" foi escurecido digitalmente só nos dentes. Cada um traz o selo "Simulação ilustrativa". Na clínica, entram só casos reais com termo de autorização assinado (Código de Ética Odontológica).
 - **Avaliações** (`avaliacoes` e `av-*.webp`): nomes e textos são de exemplo; as fotos são retratos do Unsplash de pessoas que não são pacientes. Trocar por depoimentos reais com autorização por escrito e, se a pessoa não quiser foto, usar outra imagem.
+
+## Silver: Raiz Odontologia
+
+Desenho da referência Aveline (névoa de sálvia, azul-petróleo e menta), com fontes Geologica, Mona Sans e Azeret Mono. Sem biblioteca: tudo em `app.js`.
+
+- **Hero emoldurado** com carrossel de quatro fotos (troca sozinha, setas, barras de progresso, arrastar no celular, pausa no mouse). Cada foto apresenta um profissional no cartão do canto, que leva à equipe já com ele escolhido. Chips dos tratamentos abrem a ficha de cada um.
+- **Topo** com "Aberto agora, até 19h" calculado pelo horário do `content.js`, botão de tema e menu de celular.
+- **Jornada** (avaliação, plano, tratamento, manutenção) numa linha que se preenche; **frase** que se escreve na rolagem; **números** que contam.
+- **Tratamentos** em trilho (setas, arrastar com o mouse); cada cartão abre uma janela com descrição, indicação, o que inclui e WhatsApp.
+- **Painel de cuidado**: agendamento rápido (consulta, próximos dias de atendimento e período, envia pelo WhatsApp), exemplo de plano de alinhadores, exemplo de orçamento por escrito e cartão "A cada 6 meses" com a arcada desenhada em SVG.
+- **Equipe**: lista de quatro profissionais que troca foto, CRO, bio e dados (passar o mouse, clicar ou setas do teclado).
+- **Antes e depois** arrastável com abas (clareamento, lentes, estética); a linha balança ao aparecer.
+- **A clínica**: itens com ícones próprios, foto com cartão de dados e agenda do dia, e galeria com foto ampliada.
+- **Avaliações** em carrossel, **blog** com artigos em janela, **FAQ** em sanfona.
+- **Formulário** (nome, WhatsApp com máscara, e-mail, tratamento, período, mensagem, LGPD) com validação; ao enviar mostra a confirmação e abre o WhatsApp com tudo preenchido.
+- **Rodapé** com novidades por e-mail (só confirma na tela), colunas, mapa padrão `.map-box` do OpenStreetMap (`mapa_batel.webp`, tema `petroleo` no `gerar-mapa.js`), "Onde atendemos" e a marca gigante.
+- **Tema claro e escuro**: botão com o dente que brilha (claro) e ganha uma lua (escuro); o novo tema se abre em círculo a partir do botão (View Transitions). Guarda em `localStorage` (`raiz-tema`); sem escolha, segue o sistema.
+- **404** (`silver/404.html`, arquivo único): a arcada perdeu um dente, que flutua acima do vão. "Esta página foi extraída."
+
+**Dados de demonstração do Silver** (trocar para cliente real): marca, equipe e CROs, endereço (Rua Francisco Rocha, Batel, Curitiba), telefones, CNPJ, números da seção "Sobre", nota 4,9 do Google, exemplo de alinhadores e de orçamento (valores marcados como exemplo), depoimentos (fotos e textos de exemplo, aviso na página) e o antes e depois (simulação ilustrativa, mesmas imagens do Gold). Fotos do Unsplash com crédito em `_build-silver/img/creditos.json`, também no rodapé.

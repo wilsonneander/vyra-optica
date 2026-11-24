@@ -479,7 +479,8 @@ body { transition: background-color .5s, color .5s; }
 
 /* ---------- carregando: o dente se desenha e as portas de vidro se abrem para a fachada ---------- */
 .carregando { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; pointer-events: none; }
-html:not(.carregando-on) .carregando { display: none; }
+/* sem a classe, o carregando some; menos enquanto as portas estão abrindo (.abre) */
+html:not(.carregando-on) .carregando:not(.abre) { display: none; }
 html.carregando-on { overflow: hidden; }
 .carregando-on .entrada * { animation-play-state: paused !important; }
 .cg-porta { position: absolute; top: 0; bottom: 0; width: 50.5%; background: #1C1915; transition: transform 1.25s cubic-bezier(.7, 0, .2, 1); }

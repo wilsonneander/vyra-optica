@@ -1,0 +1,254 @@
+/* Prévia nos aparelhos: visualizador comum a todas as vitrines.
+   Fonte única em templates/_comum/previa/. Não edite a cópia dentro de cada vitrine. */
+
+:root {
+  --fundo: #101012;
+  --palco-a: #1B1B20;
+  --palco-b: #0C0C0E;
+  --barra: #17171B;
+  --linha: #2A2A31;
+  --botao: #202026;
+  --txt: #EEEBE6;
+  --apoio: #8F8B85;
+  --acento: #D9B26A;
+  --acento-txt: #1A1408;
+  --casco: #060607;
+  --casco-borda: #3A3A42;
+  --mola: cubic-bezier(.22, .8, .24, 1);
+  --tempo: .62s;
+  --topo: 40px;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  background: var(--fundo);
+  color: var(--txt);
+  font: 500 14px/1.3 'Schibsted Grotesk', 'Segoe UI', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+button, select { font: inherit; color: inherit; }
+svg { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Barra de controle */
+.barra {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  background: var(--barra);
+  border-bottom: 1px solid var(--linha);
+}
+.barra-esq, .barra-dir { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.barra-dir { justify-content: flex-end; }
+
+.voltar {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 40px; padding: 0 12px 0 8px;
+  border-radius: 10px;
+  color: var(--apoio); text-decoration: none;
+  transition: color .2s, background .2s;
+}
+.voltar svg { width: 20px; height: 20px; }
+.voltar:hover { color: var(--txt); background: var(--botao); }
+
+.modelo { position: relative; display: block; min-width: 0; }
+.modelo select {
+  appearance: none; -webkit-appearance: none;
+  height: 40px; max-width: 260px; padding: 0 38px 0 14px;
+  border: 1px solid var(--linha); border-radius: 10px;
+  background: var(--botao);
+  font-weight: 600; text-overflow: ellipsis;
+  cursor: pointer;
+  transition: border-color .2s;
+}
+.modelo select:hover, .modelo select:focus-visible { border-color: var(--acento); outline: none; }
+.modelo select option { background: var(--barra); color: var(--txt); }
+.modelo svg { position: absolute; right: 12px; top: 50%; width: 16px; height: 16px; margin-top: -8px; pointer-events: none; color: var(--apoio); }
+
+/* Seletor de aparelho: três botões do mesmo tamanho e um marcador que desliza */
+.aparelhos {
+  position: relative;
+  display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+  padding: 4px;
+  border: 1px solid var(--linha); border-radius: 12px;
+  background: var(--fundo);
+}
+.aparelhos button {
+  position: relative; z-index: 1;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  height: 38px; padding: 0 16px;
+  border: 0; border-radius: 9px; background: none;
+  color: var(--apoio); font-weight: 600;
+  cursor: pointer;
+  transition: color .3s;
+}
+.aparelhos button svg { width: 20px; height: 20px; transition: transform .45s var(--mola); }
+.aparelhos button:hover { color: var(--txt); }
+.aparelhos button[aria-checked="true"] { color: var(--acento-txt); }
+.aparelhos button[aria-checked="true"] svg { transform: scale(1.08); }
+.aparelhos button:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+.indicador {
+  position: absolute; top: 4px; left: 0; bottom: 4px; width: 0;
+  border-radius: 9px;
+  background: var(--acento);
+  box-shadow: 0 6px 18px -8px rgba(217, 178, 106, .7);
+  transition: transform var(--tempo) var(--mola), width var(--tempo) var(--mola);
+}
+
+.medida { display: flex; align-items: baseline; gap: 10px; margin: 0 6px 0 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.medida b { font-weight: 600; }
+.medida span { color: var(--apoio); font-size: 13px; }
+.medida.pisca b { animation: pisca .7s var(--mola); }
+@keyframes pisca { from { color: var(--acento); } }
+
+.acao {
+  display: inline-grid; place-items: center;
+  width: 40px; height: 40px;
+  border: 1px solid var(--linha); border-radius: 10px;
+  background: var(--botao);
+  color: var(--apoio);
+  cursor: pointer;
+  transition: color .2s, border-color .2s, opacity .3s, transform .45s var(--mola);
+}
+.acao svg { width: 20px; height: 20px; }
+.acao:hover { color: var(--txt); border-color: var(--acento); }
+.acao:focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+.acao:disabled { opacity: .35; cursor: default; border-color: var(--linha); color: var(--apoio); }
+#girar svg { transition: transform var(--tempo) var(--mola); }
+body.deitado #girar svg { transform: rotate(-90deg); }
+#recarregar.gira svg { animation: gira .7s var(--mola); }
+@keyframes gira { to { transform: rotate(360deg); } }
+#telacheia .sai { display: none; }
+body.cheia #telacheia .entra { display: none; }
+body.cheia #telacheia .sai { display: block; }
+
+/* Palco e aparelho */
+.palco {
+  position: relative;
+  display: grid; place-items: center;
+  min-height: 0;
+  padding: 28px;
+  overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 40%, var(--palco-a), var(--palco-b));
+}
+.encaixe {
+  position: relative;
+  transition: width var(--tempo) var(--mola), height var(--tempo) var(--mola);
+}
+.aparelho {
+  position: absolute; left: 0; top: 0;
+  display: flex; flex-direction: column;
+  transform-origin: 0 0;
+  background: var(--casco);
+  box-shadow:
+    inset 0 0 0 1px var(--casco-borda),
+    0 0 0 1px #000,
+    0 50px 90px -30px rgba(0, 0, 0, .85),
+    0 18px 40px -20px rgba(0, 0, 0, .6);
+  transition:
+    width var(--tempo) var(--mola),
+    height var(--tempo) var(--mola),
+    transform var(--tempo) var(--mola),
+    padding var(--tempo) var(--mola),
+    border-radius var(--tempo) var(--mola);
+}
+.tela {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: #fff;
+  transition: border-radius var(--tempo) var(--mola);
+}
+.tela iframe { display: block; width: 100%; height: 100%; border: 0; background: #fff; }
+
+/* Celular: casco fino, cantos bem redondos e botões laterais */
+body[data-aparelho="celular"] .aparelho { padding: 12px; border-radius: 56px; }
+body[data-aparelho="celular"] .tela { border-radius: 44px; }
+/* Tablet: borda mais larga com a câmera no meio */
+body[data-aparelho="tablet"] .aparelho { padding: 22px; border-radius: 38px; }
+body[data-aparelho="tablet"] .tela { border-radius: 16px; }
+/* Computador: janela de navegador com a barra de endereço */
+body[data-aparelho="computador"] .aparelho { padding: 0; border-radius: 12px; }
+body[data-aparelho="computador"] .tela { border-radius: 0 0 12px 12px; }
+
+.aparelho::before, .aparelho::after {
+  content: "";
+  position: absolute;
+  background: #232329;
+  opacity: 0;
+  transition: opacity .3s;
+}
+/* botões de volume e de ligar do celular */
+body[data-aparelho="celular"] .aparelho::before { left: -3px; top: 170px; width: 3px; height: 64px; border-radius: 2px 0 0 2px; box-shadow: 0 84px 0 #232329; opacity: 1; }
+body[data-aparelho="celular"] .aparelho::after { right: -3px; top: 220px; width: 3px; height: 96px; border-radius: 0 2px 2px 0; opacity: 1; }
+body.deitado[data-aparelho="celular"] .aparelho::before { left: 170px; top: -3px; width: 64px; height: 3px; border-radius: 2px 2px 0 0; box-shadow: 84px 0 0 #232329; }
+body.deitado[data-aparelho="celular"] .aparelho::after { right: auto; left: 220px; top: auto; bottom: -3px; width: 96px; height: 3px; border-radius: 0 0 2px 2px; }
+/* câmera do tablet */
+body[data-aparelho="tablet"] .aparelho::after { left: 50%; top: 8px; width: 7px; height: 7px; margin-left: -3.5px; border-radius: 50%; background: #1C1C24; box-shadow: inset 0 0 0 1.5px #2C2C36; opacity: 1; }
+body.deitado[data-aparelho="tablet"] .aparelho::after { left: 8px; top: 50%; margin: -3.5px 0 0; }
+
+.janela-topo {
+  display: flex; align-items: center; justify-content: center;
+  height: 0; overflow: hidden;
+  background: #1E1E23;
+  border-radius: 12px 12px 0 0;
+  transition: height var(--tempo) var(--mola);
+}
+body[data-aparelho="computador"] .janela-topo { height: var(--topo); }
+.endereco {
+  width: min(560px, 60%); height: 26px; padding: 0 14px;
+  border-radius: 8px;
+  background: #2A2A31;
+  color: #A9A59F; font-size: 13px; line-height: 26px; text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* Carregamento do site */
+.carregando {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background: #F3F1EC;
+  opacity: 0; pointer-events: none;
+  transition: opacity .35s;
+}
+.carregando span { width: 34px; height: 34px; border: 3px solid #D8D3CA; border-top-color: #8A6A2E; border-radius: 50%; animation: gira .8s linear infinite; }
+body.carregando-site .carregando { opacity: 1; pointer-events: auto; }
+
+/* Trocar de aparelho: o casco dá um leve respiro */
+body.trocando .aparelho { box-shadow: inset 0 0 0 1px var(--acento), 0 0 0 1px #000, 0 50px 90px -30px rgba(0, 0, 0, .85), 0 0 0 6px rgba(217, 178, 106, .12); }
+
+/* Redimensionar a janela não anima */
+body.sem-anim .encaixe, body.sem-anim .aparelho, body.sem-anim .tela, body.sem-anim .janela-topo { transition: none; }
+
+/* Tela cheia: a barra fica mais discreta */
+body.cheia .barra { background: rgba(23, 23, 27, .92); }
+
+@media (max-width: 1100px) {
+  .medida { display: none; }
+}
+@media (max-width: 860px) {
+  .barra { grid-template-columns: 1fr auto; grid-template-areas: "esq dir" "ap ap"; row-gap: 10px; }
+  .barra-esq { grid-area: esq; }
+  .barra-dir { grid-area: dir; }
+  .aparelhos { grid-area: ap; width: 100%; }
+  .palco { padding: 16px; }
+}
+@media (max-width: 520px) {
+  .voltar span { display: none; }
+  .modelo select { max-width: 46vw; }
+  .aparelhos button { padding: 0 8px; }
+  #novaaba { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --tempo: 0s; }
+  .carregando span { animation-duration: 2.4s; }
+}

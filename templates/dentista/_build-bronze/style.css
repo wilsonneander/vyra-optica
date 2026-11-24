@@ -363,11 +363,10 @@ h1 em, h2 em { font-style: italic; color: var(--argila); }
 :root[data-tema="escuro"] .map-box img { filter: invert(.9) hue-rotate(180deg) brightness(.82) saturate(.7); }
 
 /* ---------- WhatsApp fixo ---------- */
-.wa-fixo { position: fixed; z-index: 55; right: 20px; bottom: 20px; opacity: 0; visibility: hidden; translate: 0 16px; display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 20px 0 16px; border-radius: 16px; background: var(--tinta); color: var(--fundo); text-decoration: none; font-size: 14.5px; font-weight: 500; box-shadow: 0 16px 34px -14px rgba(24, 16, 11, .6); transition: background-color .3s, color .3s, transform .4s var(--ease), opacity .5s, translate .5s var(--ease), visibility .5s; }
+.wa-fixo { position: fixed; z-index: 55; right: 20px; bottom: 20px; opacity: 0; visibility: hidden; translate: 0 16px; display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 20px 0 16px; border-radius: 16px; background: #1E9E52; color: #FFFFFF; text-decoration: none; font-size: 14.5px; font-weight: 500; box-shadow: 0 16px 34px -14px rgba(20, 90, 50, .55); transition: background-color .3s, color .3s, transform .4s var(--ease), opacity .5s, translate .5s var(--ease), visibility .5s; }
 .wa-fixo.ve { opacity: 1; visibility: visible; translate: 0 0; }
-.wa-fixo .ic { width: 24px; height: 24px; color: var(--argila-clara); }
-:root[data-tema="escuro"] .wa-fixo .ic { color: var(--argila); }
-.wa-fixo:hover { background: var(--argila); color: var(--argila-txt); transform: translateY(-3px); }
+.wa-fixo .ic { width: 24px; height: 24px; color: #FFFFFF; }
+.wa-fixo:hover { background: #17833F; transform: translateY(-3px); }
 .wa-fixo:hover .ic { color: currentColor; }
 
 /* ---------- aparecer na rolagem (leve, uma vez) ---------- */

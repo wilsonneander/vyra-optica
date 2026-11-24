@@ -33,16 +33,12 @@
     /* seletor: três botões do mesmo tamanho e um marcador que desliza */
     '.sel{position:relative;display:inline-grid;grid-auto-flow:column;grid-auto-columns:1fr;padding:4px;border-radius:12px;background:rgba(16,16,18,.9);border:1px solid rgba(255,255,255,.1);box-shadow:0 14px 34px -14px rgba(0,0,0,.6);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}',
     '.sel button{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:36px;padding:0 12px;border:0;border-radius:9px;background:none;color:#9C978F;font:inherit;cursor:pointer;transition:color .3s}',
-    '.sel button:hover{color:#fff}',
     '.sel button[aria-checked="true"]{color:#1A1408}',
     '.sel button:focus-visible,.acao:focus-visible{outline:2px solid #D9B26A;outline-offset:2px}',
     '.sel .nome{display:none}',
     '.ind{position:absolute;top:4px;bottom:4px;left:0;width:0;border-radius:9px;background:#D9B26A;transition:transform .55s cubic-bezier(.22,.8,.24,1),width .55s cubic-bezier(.22,.8,.24,1)}',
     /* controle no canto do site */
     '.dock{position:fixed;left:16px;bottom:16px;z-index:2147483646;transition:opacity .3s,transform .3s,left .45s cubic-bezier(.22,.8,.24,1),bottom .45s cubic-bezier(.22,.8,.24,1)}',
-    '.dock .sel{opacity:.82;transition:opacity .25s}',
-    '.dock:hover .sel,.dock:focus-within .sel{opacity:1}',
-    '.dock:hover .nome,.dock:focus-within .nome{display:inline}',
     '.aberto .dock{opacity:0;pointer-events:none;transform:translateY(10px)}',
     /* camada com o aparelho */
     '.cena{position:fixed;inset:0;z-index:2147483647;display:grid;grid-template-rows:auto 1fr;background:radial-gradient(120% 90% at 50% 40%,#1B1B20,#0C0C0E);opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}',
@@ -53,7 +49,6 @@
     '.medida{position:absolute;left:18px;color:#8F8B85;font-weight:500;font-variant-numeric:tabular-nums}',
     '.medida b{color:#EEEBE6;font-weight:600;margin-right:8px}',
     '.acao{display:inline-grid;place-items:center;width:40px;height:40px;border:1px solid #2A2A31;border-radius:10px;background:#202026;color:#8F8B85;cursor:pointer;transition:color .2s,border-color .2s}',
-    '.acao:hover{color:#fff;border-color:#D9B26A}',
     '.fechar{position:absolute;right:16px}',
     '.girar svg{transition:transform .6s cubic-bezier(.22,.8,.24,1)}',
     '.deitado .girar svg{transform:rotate(-90deg)}',

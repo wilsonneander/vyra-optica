@@ -26,7 +26,7 @@ O nome segue a ordem **marca, nível, título**: `vyra-standard`, `vyra-standard
 
 | Nicho | Standard | Premium | Gerar |
 |---|---|---|---|
-| [provedor-internet/](provedor-internet/) | `vyra-standard`, `vyra-standard-planos` | `vyra-premium` (+ Área do Cliente) | `node templates/provedor-internet/_build/build.js` (gera os três) |
+| [provedor-internet/](provedor-internet/) | `vyra-standard`, `vyra-standard-planos`, `vyra-standard-roxo` | `vyra-premium` (+ Área do Cliente) | `node templates/provedor-internet/_build/build.js` (gera os três primeiros), `node templates/provedor-internet/_build-vyra-standard-roxo/build.js` |
 | [assessoria-provedor/](assessoria-provedor/) | | `thd-premium-blocos`, `thd-premium-orbita`, `thd-premium-fibra` (+ Área do Cliente) | `node templates/assessoria-provedor/_build/build.js` (blocos), `_build-orbita/`, `_build-fibra/` |
 | [restaurante/](restaurante/) | `siri-standard`, `siri-standard-postal` | `siri-premium` | `node templates/restaurante/_build-<pasta do modelo>/build.js` (comum em `_build/`) |
 | [lanches/](lanches/) | `braseiro-standard` | `fornalha-premium`, `monta-premium` (+ Área do Cliente) | `node templates/lanches/_build-fornalha-premium/build.js` / `_build-monta-premium/build.js` (o Braseiro não tem gerador; `_build-braseiro-standard/` só prepara imagens, vídeos e mapa) |
@@ -44,7 +44,7 @@ O nome segue a ordem **marca, nível, título**: `vyra-standard`, `vyra-standard
 
 O padrão obrigatório está em [DIRETRIZES-SITES.md](../DIRETRIZES-SITES.md): no mínimo 4 templates por categoria, tema claro e escuro e visualização por aparelho em todos.
 
-**Mínimo de 4 templates por categoria.** Só bebidas (4), estética (4) e marcas próprias (5) cumprem. Faltam:
+**Mínimo de 4 templates por categoria.** Só provedor de internet (4), bebidas (4), estética (4) e marcas próprias (5) cumprem. Faltam:
 
 | Nicho | Tem | Faltam |
 |---|---|---|

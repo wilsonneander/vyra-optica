@@ -34,6 +34,9 @@ templates/<nicho>/
 - **Tema claro e escuro**, com as duas versões bem acabadas: contraste legível, imagens, fotos com sobreposição, mapa, formulários e logo funcionando nos dois temas (detalhes em "Botão de tema claro e escuro", abaixo).
 - **Visualização por aparelho**: o resultado pode ser visto no celular, no tablet e no computador (a Prévia nos aparelhos da vitrine), e o layout é responsivo nos três tamanhos (detalhes em "Adaptador de aparelhos" e "Proporção e responsividade").
 - **Aviso de cookies** (detalhes abaixo).
+- **Mapa no footer**, sempre o componente padrão do OpenStreetMap igual aos que já existem (detalhes em "Componente de mapa no footer").
+- **Botão de WhatsApp** fixo na tela (detalhes em "Botão de WhatsApp", abaixo).
+- **CNPJ fictício no footer** (detalhes em "CNPJ fictício no footer", abaixo).
 
 ### Cartão do modelo na vitrine
 - Todo cartão mostra no topo o selo do nível: **Standard** ou **Premium**.
@@ -88,6 +91,7 @@ Escolha da fonte:
 - Se a marca tem fonte definida em [brand/](brand/), ela tem prioridade.
 
 ## Componente de mapa no footer
+- **Obrigatório em todo template, Standard e Premium.** Nenhum modelo sai sem o mapa no footer, nem quando a empresa atende só online (nesse caso o mapa mostra a cidade-sede).
 - Todo site tem o mapa no footer, e ele é sempre o mesmo componente padrão usado nos modelos (veja o footer de [templates/provedor-internet/standard/vyra-standard-planos/index.html](templates/provedor-internet/standard/vyra-standard-planos/index.html) e [templates/provedor-internet/premium/vyra-premium/index.html](templates/provedor-internet/premium/vyra-premium/index.html)).
 - O mapa é do **OpenStreetMap**. Proibido usar o componente do Google Maps: nada de `<iframe>` do Google (`google.com/maps/embed`, `google.com/maps?q=...&output=embed`), nem API JavaScript do Google Maps.
 - Estrutura padrão do componente (`.map-box`):
@@ -98,6 +102,21 @@ Escolha da fonte:
   - crédito obrigatório: `© OpenStreetMap` com link para `https://www.openstreetmap.org/copyright` (`.attr`).
 - Ao lado do mapa fica o bloco "Onde atendemos" com as cidades atendidas.
 - Muda só o conteúdo (imagem do mapa, endereço, horário, cidades) e as cores da marca. O formato do componente não muda de um site para outro.
+
+## Botão de WhatsApp
+- **Obrigatório em todo template, Standard e Premium.**
+- Botão fixo no **canto inferior direito**, visível em todas as páginas e em toda a rolagem. O canto inferior esquerdo é do aviso de cookies e do controle de aparelhos.
+- Abre `https://wa.me/<número>` em nova aba, com uma mensagem pronta que diz de onde a pessoa veio (ex.: "Olá! Vim pelo site e quero agendar um horário.").
+- Verde do WhatsApp (família `#1F8A4C` / `#25D366`) com texto branco, igual nos dois temas. No computador mostra o ícone e um texto curto ("WhatsApp", "Fale conosco"); no celular vira só o ícone, num quadrado ou círculo de 56px.
+- Ícone do WhatsApp em SVG próprio dentro do build (nada de biblioteca de ícones nem emoji). `aria-label` dizendo o que faz ("Conversar no WhatsApp").
+- Não pode cobrir conteúdo importante nem a pílula de tema. Se o site tiver uma janelinha de atendimento (como o chat do Peakalika), ela fica no mesmo canto e termina no WhatsApp.
+- Exemplo pronto: `.whats-flutua` em [templates/saloes/_build-mecha-premium/style.css](templates/saloes/_build-mecha-premium/style.css).
+
+## CNPJ fictício no footer
+- **Obrigatório em todo template, Standard e Premium.** O footer mostra a razão social e o CNPJ da empresa de demonstração, junto do copyright ou dos dados legais.
+- O CNPJ é **fictício**: no formato `00.000.000/0001-00`, guardado no `content.js` com o comentário `// [EXEMPLO] fictício`. Proibido usar o CNPJ de uma empresa real, inclusive o da empresa que serviu de referência.
+- Use sempre `00.000.000/0001-00`: é o único número que com certeza não pertence a nenhuma empresa. Número inventado com cara de real pode coincidir com uma empresa que existe.
+- Na cópia de cliente em `clientes/`, o CNPJ fictício é o primeiro dado trocado pelo real.
 
 ## Componentes repetidos com fundo têm SEMPRE o mesmo tamanho
 - Todo grupo de componentes com fundo preenchido (botões lado a lado, chips de bairro ou cidade, etiquetas, filtros, opções, botões de mapa etc.) usa **a mesma largura e a mesma altura em todos os itens do grupo**. Proibido cada item ter a largura do próprio texto e o grupo ficar desalinhado.
@@ -113,7 +132,60 @@ Escolha da fonte:
 - Imagens e fotos mantêm a proporção (`object-fit: contain` para produto recortado, `cover` para foto de ambiente) e nunca aparecem esticadas ou achatadas.
 - Conferir o site em pelo menos três larguras antes de entregar: computador (1440px), tablet (768px) e celular (390px e 360px). Em nenhuma delas pode haver rolagem horizontal, texto cortado ou bloco desalinhado.
 
-## Modelos Premium: animação de rolagem com direção (obrigatória)
+## Modelos Standard: padrão obrigatório
+Todo pedido de template **Standard** começa por esta seção: primeiro se monta tudo o que está aqui, depois se acrescenta o que o pedido trouxer a mais. Nada daqui sai do modelo, mesmo que o pedido não mencione.
+
+### Empresa fictícia
+- Cada nicho tem uma empresa fictícia criada para ele (nome, logo, cores, endereço, equipe, CNPJ fictício). Já existindo uma marca no nicho, pode-se escolher ela.
+- O Standard e o Premium do nicho são **da mesma empresa**, para o cliente comparar os dois níveis com a mesma marca.
+
+### Nível do modelo
+- Site mediano, o que antes era o Silver: completo e bem acabado, sem os efeitos pesados do Premium (sem 3D, sem cena guiada pela rolagem).
+
+### Seções e funções obrigatórias
+- **Animações leves** nos botões (hover, foco, clique) e nas transições entre seções e páginas. Com `prefers-reduced-motion: reduce`, tudo parado.
+- **Carrossel de imagens** (com setas, arraste no celular e pausa ao passar o mouse).
+- **Serviços em cards por segmento** (filtro ou abas por segmento do nicho), cada card com: o que inclui, duração, valor ou "a partir de".
+- **Condições de pagamento** e **política de cancelamento e remarcação** junto dos serviços e preços.
+- **Página da equipe** (foto, nome, função e especialidades de cada profissional).
+- **Galeria por categoria** (filtro por categoria, foto ampliada ao clicar).
+- **Depoimentos** de clientes.
+- **Instagram incorporado** (grade de posts do perfil fictício da marca, com link para o perfil).
+- **FAQ** em acordeão.
+- **Formulário de agendamento** com escolha de **serviço**, **profissional** e **data** (e horário), que fecha o pedido no WhatsApp ou mostra a confirmação.
+- **Formulário de contato** para captar leads e pedidos de atendimento.
+- Os dois formulários têm **consentimento conforme a LGPD**: caixa de aceite não marcada, com link para a Política de privacidade, obrigatória para enviar.
+- **Botão flutuante de WhatsApp** visível em todas as páginas (regras em "Botão de WhatsApp").
+- **Política de agendamento, atraso, cancelamento e garantia dos serviços**, com destaque para os serviços sensíveis do nicho (em salão, coloração e químicas; em outros nichos, o equivalente, como clareamento no dentista).
+- **Termos de uso** e **Política de privacidade** (janelas ou páginas, com link no rodapé e no consentimento).
+- Mais os itens de todo template: tema claro e escuro, aviso de cookies, mapa no footer, CNPJ fictício e prévia nos aparelhos.
+
+### Design
+- Design próprio de cada cliente e de cada nicho: paleta, fontes e composição escolhidas para aquela marca, seguindo as proibições deste documento. Dois Standards de nichos diferentes não podem parecer o mesmo site com outra cor.
+
+## Modelos Premium: padrão obrigatório
+Todo pedido de template **Premium** começa por esta seção: primeiro se monta tudo o que está aqui, depois se acrescenta o que o pedido trouxer a mais. Cada item é feito de acordo com o cliente e o nicho, nunca o mesmo efeito copiado de um modelo para outro.
+
+### Base: tudo do Standard
+- O Premium tem **todas as seções e funções de "Modelos Standard: padrão obrigatório"** (carrossel, serviços por segmento com preço e duração, pagamento e cancelamento, equipe, galeria por categoria, depoimentos, Instagram, FAQ, agendamento com serviço/profissional/data, contato com LGPD, WhatsApp flutuante, políticas, termos e privacidade) e é da **mesma empresa fictícia** do Standard do nicho.
+- Em cima dessa base, entra a camada Premium abaixo.
+
+### Cinematográfico
+- O modelo Premium é **cinematográfico**: conta a marca como um filme, com abertura, ritmo de cenas, enquadramentos grandes, luz e movimento pensados para aquele cliente. Não é o Standard com mais animação.
+
+### Itens obrigatórios
+- **Página de carregando estilizada**: tela de abertura com a identidade da marca (logo, objeto do nicho ou contador), que sai com uma transição para o primeiro quadro do site. Curta, e pulada com `prefers-reduced-motion`.
+- **Cursor estilizado**: cursor próprio da marca (ponto e anel, forma ligada ao nicho), que muda sobre links, botões, fotos e áreas de arrastar, podendo mostrar uma palavra ("Ver", "Arrastar", "Agendar"). Só em aparelho com mouse (`pointer: fine`); no toque fica o padrão.
+- **Transições sofisticadas e criativas** entre seções e estados (máscaras, cortinas, cortes, morph), nada de só aparecer e sumir.
+- **Hover fluido e criativo nos botões** (preenchimento que escorre, texto que troca, borda que se desenha), diferente em cada marca.
+- **Interação dos componentes com o mouse**: botões e elementos de destaque **magnéticos**, que se movem na direção do mouse quando ele chega perto e voltam com mola ao sair, igual ao Vyra Premium (`data-magnetic` em [templates/provedor-internet/_build/vyra-premium.js](templates/provedor-internet/_build/vyra-premium.js)). Cards e fotos podem inclinar ou ter brilho seguindo o mouse.
+- **Modelo 3D do nicho** quando fizer sentido para o cliente (pote, cadeira, lata, fachada, objeto do serviço). Não é obrigatório em todos; decidir caso a caso e, quando entrar, ter versão leve no celular e imagem parada no lugar se o 3D não carregar.
+- **Transição criativa entre páginas** quando o site tem mais de uma página: a página que sai e a que entra se ligam por uma animação (cortina, máscara, elemento que viaja de uma para a outra), sem tela branca no meio.
+- **Cards criativos**: fugir da grade, do flex e da lista de sempre quando possível (pilha que se espalha, leque, cartas que viram, faixa horizontal guiada pela rolagem, colagem, órbita). Seguem valendo as regras de tamanho igual e de ocupar a largura no celular.
+- **Rolagem com direção**, obrigatória (detalhes abaixo).
+- Com `prefers-reduced-motion: reduce`, carregando, cursor, magnetismo, transições e 3D ficam parados ou simplificados, e o site continua completo.
+
+### Animação de rolagem com direção (obrigatória)
 Todo modelo **Premium** tem a **Scroll Direction-Based Reveal Animation** (também chamada de scroll reveal com direção, direction-aware scroll animation ou scroll-driven animation): a página se monta conforme a rolagem, como quem conta uma história, e se desfaz e se refaz nos dois sentidos.
 - **Descendo**: cada bloco entra pela borda de baixo (sobe e aparece) e, ao passar da borda de cima, sobe e se apaga.
 - **Subindo**: o mesmo bloco volta descendo pelo topo e, ao passar da borda de baixo, se desfaz. Nada fica "preso" já revelado.
@@ -177,6 +249,8 @@ E conferir visualmente:
 - Nenhum número marcando tópico.
 - Mapa do footer é o componente padrão com OpenStreetMap, igual aos modelos.
 - Premium: a página se monta conforme a rolagem e se desfaz ao voltar (descendo e subindo).
+- Premium: todas as seções do Standard mais carregando estilizado, cursor próprio, botões magnéticos com hover criativo, transições entre seções e entre páginas, cards fora da grade comum e 3D quando couber; clima cinematográfico.
+- Standard: todos os itens de "Modelos Standard: padrão obrigatório" presentes (carrossel, serviços por segmento com preço e duração, equipe, galeria por categoria, depoimentos, Instagram, FAQ, agendamento com serviço/profissional/data, contato com LGPD, políticas, termos e privacidade), e a mesma empresa do Premium do nicho.
 - Nível só Standard ou Premium em pasta, arquivo, vitrine e texto; pasta em `standard/<marca>-standard[-<título>]/` ou `premium/<marca>-premium[-<título>]/` com fonte em `_build-<mesmo nome>/`.
 - Cartão da vitrine com o selo do nível no topo e, se houver Área do Cliente, o selo "+ Área do Cliente" ao lado, sem repetir isso no texto de baixo.
 - O nicho continua com pelo menos 4 templates.
@@ -184,4 +258,5 @@ E conferir visualmente:
 - No celular, grupos e grades ocupam 100% da largura útil, sem espaço vazio sobrando ao lado; cards e componentes proporcionais em 1440px, 768px, 390px e 360px.
 - Botão de tema claro e escuro funcionando, com o tema salvo ao recarregar e as duas versões conferidas por inteiro.
 - Aviso de cookies na primeira visita, os dois botões do mesmo tamanho, e "Preferências de cookies" no rodapé reabrindo.
+- Mapa do OpenStreetMap no footer, botão de WhatsApp fixo no canto inferior direito (só ícone no celular) e CNPJ `00.000.000/0001-00` no footer.
 - `instalar.js` rodado na vitrine: o controle de aparelhos aparece em todas as páginas do modelo e o "Ver nos aparelhos" ao lado do "Abrir".

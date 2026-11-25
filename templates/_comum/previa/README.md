@@ -23,13 +23,17 @@ Medidas: celular 390 × 844, tablet 768 × 1024 (1024 × 768 deitado), computado
 
 ## Dentro de cada site do catálogo
 
-As cópias dos sites que ficam nas vitrines também recebem o adaptador (`adaptador.js`): um controle discreto no canto inferior esquerdo com Celular, Tablet e Computador.
+As cópias dos sites que ficam nas vitrines também recebem o adaptador (`adaptador.js`): um controle discreto, só com ícones, no canto inferior esquerdo com Celular, Tablet e Computador. Ele **fica sempre no mesmo lugar**: com o aparelho aberto o seletor não se mexe, só ganha à direita o botão de girar e a medida.
 
 - **Celular** ou **Tablet** abre o próprio site por cima, na mesma página, dentro do aparelho e com a medida real. Trocar entre os dois não recarrega, e o botão de girar deita o aparelho.
-- **Computador**, o X ou a tecla Esc voltam ao site normal.
+- **Computador** ou a tecla Esc voltam ao site normal.
 - O controle desvia sozinho de elementos fixos pequenos no mesmo canto: sobe acima do aviso de cookies enquanto ele está aberto e vai para o lado de uma barra lateral estreita.
 - Fica isolado num shadow DOM, então o CSS do site não muda o controle e o controle não muda o site. Some em telas com menos de 620 px, onde a pessoa já está num celular.
 - Os modelos originais em `templates/<nicho>/` **não** recebem o adaptador: ele entra só nas cópias das vitrines, então um site copiado para cliente nunca o leva junto.
+
+## Cores de cada nicho
+
+O controle dentro dos sites e a tela "Ver nos aparelhos" usam as cores da vitrine. Elas ficam em `TEMAS`, no `instalar.js`, com a chave no caminho da vitrine (`templates/dentista/_vitrine`). O instalador grava as cores dentro da cópia do `adaptador.js` e gera `previa/tema.css`. Vitrine nova sem entrada em `TEMAS` usa o padrão grafite e dourado, e o instalador avisa.
 
 ## Arquivos
 

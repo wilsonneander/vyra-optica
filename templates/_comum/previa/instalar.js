@@ -28,6 +28,53 @@ const FORA = new Set(['img', 'assets', 'previa', 'node_modules', 'fonts', 'video
 const INICIO = '<!-- previa-nos-aparelhos -->';
 const FIM = '<!-- /previa-nos-aparelhos -->';
 
+/* Cores de cada nicho, tiradas da própria vitrine. Valem para o controle dentro dos sites (adaptador.js)
+   e para a tela "Ver nos aparelhos" (previa/tema.css).
+   fundo: fundo do controle e da barra · texto · apoio: ícone apagado · acento: marcador do aparelho ativo
+   sobre: ícone em cima do acento · claro: true quando o nicho é de fundo claro (o palco fica claro também).
+   Vitrine nova sem entrada aqui usa o PADRAO (grafite e dourado). */
+const PADRAO = { fundo: '#101012', texto: '#EEEBE6', apoio: '#9C978F', acento: '#D9B26A', sobre: '#1A1408' };
+const TEMAS = {
+  'templates/assessoria-provedor/_apresentacao': { fundo: '#021430', texto: '#F3F5F9', apoio: '#8E9AB4', acento: '#FE5710', sobre: '#FFFFFF' },
+  'templates/provedor-internet/_apresentacao': { fundo: '#1E1512', texto: '#FFF8F4', apoio: '#A8968D', acento: '#FF5A1F', sobre: '#FFFFFF' },
+  'templates/barbearia/_vitrine': { fundo: '#121110', texto: '#F4F1EC', apoio: '#A59E96', acento: '#E9A46B', sobre: '#1A1206' },
+  'templates/dentista/_vitrine': { fundo: '#FFFFFF', texto: '#1F1D1A', apoio: '#67615A', acento: '#3E7F78', sobre: '#FFFFFF', cena: '#F6F4F0', claro: true },
+  'templates/saloes/_vitrine': { fundo: '#FFFFFF', texto: '#2A211D', apoio: '#6E645C', acento: '#A9512F', sobre: '#FFFFFF', cena: '#F7F2EB', claro: true },
+  'templates/restaurante/_apresentacao': { fundo: '#1B1714', texto: '#F4EFE1', apoio: '#A99E90', acento: '#CA603C', sobre: '#FFFFFF' },
+  'templates/restaurante/_modelos': { fundo: '#1B1714', texto: '#F4EFE1', apoio: '#A99E90', acento: '#CA603C', sobre: '#FFFFFF' },
+  'templates/_vitrine-aura': { fundo: '#16302A', texto: '#F4F6EE', apoio: '#9DB0A4', acento: '#C4D997', sobre: '#16302A' },
+  'templates/_vitrine-auto': { fundo: '#0F1012', texto: '#F3F2EE', apoio: '#9AA0A8', acento: '#FF3D24', sobre: '#FFFFFF' },
+  'templates/_vitrine-bebidas': { fundo: '#15100D', texto: '#F5EDE0', apoio: '#B3A898', acento: '#C9A46A', sobre: '#15100D' },
+  'templates/_vitrine-estetica': { fundo: '#FFFDFB', texto: '#2E2326', apoio: '#6B5F62', acento: '#6B2234', sobre: '#FFFFFF', cena: '#F8F5F2', claro: true },
+  'templates/_vitrine-food': { fundo: '#1F1410', texto: '#FFF3DC', apoio: '#BFA68C', acento: '#F2A516', sobre: '#1F1410' }
+};
+
+function mistura(a, b, t) {
+  const n = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const x = n(a), y = n(b);
+  return '#' + x.map((v, i) => Math.round(v + (y[i] - v) * t).toString(16).padStart(2, '0')).join('').toUpperCase();
+}
+
+function temaDa(rel) {
+  const t = Object.assign({}, PADRAO, TEMAS[rel] || {});
+  t.linha = mistura(t.fundo, t.texto, t.claro ? 0.14 : 0.16);
+  t.botao = mistura(t.fundo, t.texto, 0.07);
+  const cena = t.cena || t.fundo;
+  t.palcoA = t.claro ? cena : mistura(cena, t.texto, 0.07);
+  t.palcoB = t.claro ? mistura(cena, t.texto, 0.08) : mistura(cena, '#000000', 0.35);
+  return t;
+}
+
+function temaCss(t) {
+  return '/* Gerado por templates/_comum/previa/instalar.js (TEMAS). Não edite: rode o instalador de novo. */\n' +
+    ':root {\n' +
+    `  --fundo: ${t.claro ? t.cena || t.fundo : mistura(t.fundo, '#000000', 0.2)};\n` +
+    `  --barra: ${t.fundo};\n  --linha: ${t.linha};\n  --botao: ${t.botao};\n` +
+    `  --txt: ${t.texto};\n  --apoio: ${t.apoio};\n  --acento: ${t.acento};\n  --acento-txt: ${t.sobre};\n` +
+    `  --palco-a: ${t.palcoA};\n  --palco-b: ${t.palcoB};\n` +
+    '}\n';
+}
+
 const args = process.argv.slice(2);
 const listar = args.includes('--listar');
 const alvos = args.filter((a) => !a.startsWith('--'));
@@ -113,6 +160,14 @@ function instalar(vitrine) {
   const destino = path.join(vitrine, 'previa');
   fs.mkdirSync(destino, { recursive: true });
   for (const f of ARQUIVOS) fs.copyFileSync(path.join(AQUI, f), path.join(destino, f));
+  const tema = temaDa(rel);
+  const temaJs = JSON.stringify(Object.fromEntries(
+    ['fundo', 'texto', 'apoio', 'acento', 'sobre', 'linha', 'botao', 'palcoA', 'palcoB'].map((k) => [k, tema[k]])));
+  const adaptador = fs.readFileSync(path.join(AQUI, 'adaptador.js'), 'utf8');
+  if (!adaptador.includes('/*TEMA*/null')) throw new Error('adaptador.js sem o marcador /*TEMA*/null');
+  fs.writeFileSync(path.join(destino, 'adaptador.js'), adaptador.replace('/*TEMA*/null', temaJs));
+  fs.writeFileSync(path.join(destino, 'tema.css'), temaCss(tema));
+  if (!TEMAS[rel]) console.log('  sem cores próprias em TEMAS (instalar.js), usei o padrão grafite e dourado');
   fs.writeFileSync(
     path.join(destino, 'modelos.js'),
     '/* Gerado por templates/_comum/previa/instalar.js. Não edite: rode o instalador de novo. */\n' +

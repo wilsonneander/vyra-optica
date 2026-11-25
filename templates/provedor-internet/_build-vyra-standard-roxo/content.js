@@ -47,9 +47,9 @@ module.exports = {
   // Carrossel de abertura: sempre gente usando a internet em casa e no trabalho.
   vitrine: [
     { img: 'familia_celular_sofa.jpg', pos: '50% 45%', alt: 'Família sorrindo no sofá enquanto olha o celular junta', tag: 'Plano Família', title: 'A casa toda conectada, <em>todo mundo sorrindo.</em>', text: '800 Mega de fibra, Wi-Fi 6 com ponto mesh e YouTube Premium incluso.', price: '129,90', cta: 'assine.html#familia' },
-    { img: 'amigos_celular_rindo.jpg', pos: '50% 35%', alt: 'Três amigos rindo enquanto olham o celular', tag: 'Casa cheia de telas', title: 'Cada um na sua tela, <em>todo mundo rápido.</em>', text: 'Aula online, jogo e série ao mesmo tempo, sem disputa pelo Wi-Fi.', price: '99,90', cta: 'residencial.html' },
+    { img: 'familia_pipoca_tv.jpg', pos: '50% 40%', alt: 'Família no sofá com pipoca, o pai com o controle da TV na mão', tag: 'Casa cheia de telas', title: 'Cada um na sua tela, <em>todo mundo rápido.</em>', text: 'Aula online, jogo e série ao mesmo tempo, sem disputa pelo Wi-Fi.', price: '99,90', cta: 'residencial.html' },
     { img: 'colegas_soquinho.jpg', pos: '50% 35%', alt: 'Colegas comemorando com um soquinho na frente do notebook no escritório', tag: 'Vyra Empresas', title: 'A equipe comemora. <em>A conexão aguenta.</em>', text: 'IP fixo, SLA em contrato e um consultor que conhece a sua operação.', price: '199,90', cta: 'empresas.html' },
-    { img: 'senhora_tablet.jpg', pos: '50% 30%', alt: 'Senhora sorrindo enquanto usa o tablet no sofá', tag: 'Suporte de perto', title: 'Dúvida no Wi-Fi? <em>Gente da região atende.</em>', text: 'Suporte 24 horas por WhatsApp, telefone ou visita técnica agendada.', price: '99,90', cta: 'contato.html' },
+    { img: 'familia_tv_costas.jpg', pos: '50% 40%', alt: 'Família abraçada no sofá, de costas, assistindo TV', tag: 'Suporte de perto', title: 'Dúvida no Wi-Fi? <em>Gente da região atende.</em>', text: 'Suporte 24 horas por WhatsApp, telefone ou visita técnica agendada.', price: '99,90', cta: 'contato.html' },
   ],
 
   // Serviços por segmento: o que inclui, prazo e valor. [EXEMPLO]

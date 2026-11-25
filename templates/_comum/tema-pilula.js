@@ -1,4 +1,4 @@
-// Botão de tema claro/escuro dos modelos automotivos (Pistão Bronze, Silver e Gold; Garoa Lava Car).
+// Botão de tema claro/escuro dos modelos automotivos (Pistão, Pistão Oficina e Pistão Loja; Garoa Lava Car).
 // Pílula branca com sol e lua; um marcador colorido desliza entre os dois e amassa como uma gota no caminho.
 // Durante a troca, todas as cores da página passam de um tema para o outro em vez de trocar de uma vez.
 //

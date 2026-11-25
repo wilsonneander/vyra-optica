@@ -17,7 +17,7 @@ const TH = require('../_build/theme');
 const js = TH.themeJs + baseJs;
 
 const PREVIEW = process.argv.includes('--preview');
-const OUT = path.join(__dirname, '..', PREVIEW ? '_preview-orbita' : path.join('gold', 'orbita'));
+const OUT = path.join(__dirname, '..', PREVIEW ? '_preview-orbita' : path.join('premium', 'thd-premium-orbita'));
 const ver = (s) => crypto.createHash('md5').update(s).digest('hex').slice(0, 8);
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 

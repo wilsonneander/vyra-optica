@@ -2,37 +2,37 @@
 
 Nicho de clínicas odontológicas.
 
-- **Bronze**: Lume Odontologia (marca de demonstração), inspirado nas referências [Elan Dental](https://elandental.framer.website/) e [Curevanta](https://curevanta.framer.website/). Detalhes em "Bronze" abaixo.
-- **Silver**: Raiz Odontologia (marca de demonstração), no desenho da referência [Aveline](https://aveline-visuvate.framer.website/). Detalhes em "Silver" abaixo.
-- **Gold**: Sorrisus Prime (Odontologia Avançada), a partir da fachada enviada pelo cliente.
+- **Lume Standard**: Lume Odontologia (marca de demonstração), inspirado nas referências [Elan Dental](https://elandental.framer.website/) e [Curevanta](https://curevanta.framer.website/). Detalhes em "Lume Standard" abaixo.
+- **Raiz Standard**: Raiz Odontologia (marca de demonstração), no desenho da referência [Aveline](https://aveline-visuvate.framer.website/). Detalhes em "Raiz Standard" abaixo.
+- **Sorrisus Premium**: Sorrisus Prime (Odontologia Avançada), a partir da fachada enviada pelo cliente.
 
 | Pasta | O que é |
 |---|---|
-| `_build-gold/` | Código-fonte e conteúdo do Gold |
-| `_build-gold/content.js` | Todos os textos e dados: marca, dentista, tratamentos, ambientes, horários e bairros |
-| `_build-gold/img/fotos/` | Fotos em WebP. `fachada.webp` e `dentista.webp` são imagens do cliente; as outras são do Unsplash (licença livre), com crédito em `img/creditos.json`, que também aparece no rodapé |
-| `_build-gold/vendor/` | GSAP 3.12.5 e ScrollTrigger, copiados para o site (abre sem internet e sem CDN) |
-| `gold/` | **Site pronto** (abrir o `index.html` no navegador) |
-| `_build-silver/` | Código-fonte e conteúdo do Silver (`content.js`, `style.css`, `app.js`, `build.js`, `gerar-mapa.js`) |
-| `silver/` | **Silver pronto**, com `404.html` |
-| `_build-bronze/` | Código-fonte e conteúdo do Bronze (`content.js`, `style.css`, `app.js`, `build.js`, `gerar-mapa.js`) |
-| `bronze/` | **Bronze pronto**, com `404.html` |
+| `_build-sorrisus-premium/` | Código-fonte e conteúdo do Sorrisus Premium |
+| `_build-sorrisus-premium/content.js` | Todos os textos e dados: marca, dentista, tratamentos, ambientes, horários e bairros |
+| `_build-sorrisus-premium/img/fotos/` | Fotos em WebP. `fachada.webp` e `dentista.webp` são imagens do cliente; as outras são do Unsplash (licença livre), com crédito em `img/creditos.json`, que também aparece no rodapé |
+| `_build-sorrisus-premium/vendor/` | GSAP 3.12.5 e ScrollTrigger, copiados para o site (abre sem internet e sem CDN) |
+| `premium/sorrisus-premium/` | **Site pronto** (abrir o `index.html` no navegador) |
+| `_build-raiz-standard/` | Código-fonte e conteúdo do Raiz Standard (`content.js`, `style.css`, `app.js`, `build.js`, `gerar-mapa.js`) |
+| `standard/raiz-standard/` | **Raiz Standard pronto**, com `404.html` |
+| `_build-lume-standard/` | Código-fonte e conteúdo do Lume Standard (`content.js`, `style.css`, `app.js`, `build.js`, `gerar-mapa.js`) |
+| `standard/lume-standard/` | **Lume Standard pronto**, com `404.html` |
 
 ## Gerar
 
 ```bash
-node templates/dentista/_build-gold/build.js
-node templates/dentista/_build-silver/build.js
-node templates/dentista/_build-bronze/build.js
+node templates/dentista/_build-sorrisus-premium/build.js
+node templates/dentista/_build-raiz-standard/build.js
+node templates/dentista/_build-lume-standard/build.js
 ```
 
 O mapa só precisa ser gerado de novo se o endereço mudar (sharp instalado fora do projeto; apagar a pasta `tiles/` depois):
 
 ```bash
-NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js champanhe img/mapa_jardins.webp   # dentro de _build-gold/
+NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js champanhe img/mapa_jardins.webp   # dentro de _build-sorrisus-premium/
 ```
 
-## Gold: a entrada pela porta
+## Sorrisus Premium: a entrada pela porta
 
 A página abre na fachada inteira, em tela cheia. A rolagem controla uma câmera que mira a **vidraça da recepção** (não o centro da foto), aproxima, atravessa o vidro e entra na clínica. Subindo, a câmera recua pelo mesmo caminho.
 
@@ -60,9 +60,9 @@ A página abre na fachada inteira, em tela cheia. A rolagem controla uma câmera
 - **Carregando** (uma vez por visita, `sessionStorage` `sorrisus-cg`): o dente da marca se desenha, o nome surge e a barra acompanha o carregamento da fachada, da recepção e das fontes (mínimo de 2,2 s, máximo de 7 s). Depois, o texto some, uma fresta de luz acende bem no meio da tela e as duas folhas de vidro se abrem a partir dela, revelando a fachada; a animação do título só começa nessa hora.
 - **Cursor** (só com mouse): anel dourado com ponto. Sobre links e botões, o anel vira o dente da marca; sobre o antes e depois e o carrossel aparece "Arraste"; sobre a fachada e a galeria, "Role". Fica champanhe nas áreas escuras. O carrossel também pode ser puxado com o mouse.
 - **Tema claro e escuro**: o botão é o pendente cúbico da recepção pendurado no topo. Ao clicar, a cordinha é puxada, a luminária balança e a luz (ou a noite) se espalha a partir dela pela página (View Transitions). Guarda a escolha em `localStorage` (`sorrisus-tema`); sem escolha, segue o sistema. Cores do tema escuro no fim do `style.css`. Textos sobre foto e sobre seções escuras usam `--claro`, que não muda com o tema.
-- **404** (`gold/404.html`, gerada pelo build): página em um arquivo só (funciona em qualquer endereço, inclusive no Firebase). O zero do "404" é o dente da marca, que se desenha e balança dentro de um arco de porta: "Esta porta não abre." Botões para voltar à recepção e para o WhatsApp, e o mesmo tema escolhido no site.
+- **404** (`premium/sorrisus-premium/404.html`, gerada pelo build): página em um arquivo só (funciona em qualquer endereço, inclusive no Firebase). O zero do "404" é o dente da marca, que se desenha e balança dentro de um arco de porta: "Esta porta não abre." Botões para voltar à recepção e para o WhatsApp, e o mesmo tema escolhido no site.
 
-A página se monta conforme a rolagem e se desfaz ao voltar (descendo e subindo), como pedem as diretrizes dos modelos Gold. Com `prefers-reduced-motion`, a fachada fica parada e tudo aparece sem movimento.
+A página se monta conforme a rolagem e se desfaz ao voltar (descendo e subindo), como pedem as diretrizes dos modelos Premium. Com `prefers-reduced-motion`, a fachada fica parada e tudo aparece sem movimento.
 
 ## Dados de demonstração
 
@@ -72,7 +72,7 @@ Dentista (Dra. Marina Albuquerque, CRO-SP 98.765; foto enviada pelo cliente), en
 - **Antes e depois** (`ad-*-antes.webp` / `ad-*-depois.webp`): o "depois" é foto do Unsplash e o "antes" foi escurecido digitalmente só nos dentes. Cada um traz o selo "Simulação ilustrativa". Na clínica, entram só casos reais com termo de autorização assinado (Código de Ética Odontológica).
 - **Avaliações** (`avaliacoes` e `av-*.webp`): nomes e textos são de exemplo; as fotos são retratos do Unsplash de pessoas que não são pacientes. Trocar por depoimentos reais com autorização por escrito e, se a pessoa não quiser foto, usar outra imagem.
 
-## Silver: Raiz Odontologia
+## Raiz Standard: Raiz Odontologia
 
 Desenho da referência Aveline (névoa de sálvia, azul-petróleo e menta), com fontes Geologica, Mona Sans e Azeret Mono. Sem biblioteca: tudo em `app.js`.
 
@@ -88,11 +88,11 @@ Desenho da referência Aveline (névoa de sálvia, azul-petróleo e menta), com 
 - **Formulário** (nome, WhatsApp com máscara, e-mail, tratamento, período, mensagem, LGPD) com validação; ao enviar mostra a confirmação e abre o WhatsApp com tudo preenchido.
 - **Rodapé** com novidades por e-mail (só confirma na tela), colunas, mapa padrão `.map-box` do OpenStreetMap (`mapa_batel.webp`, tema `petroleo` no `gerar-mapa.js`), "Onde atendemos" e a marca gigante.
 - **Tema claro e escuro**: botão com o dente que brilha (claro) e ganha uma lua (escuro); o novo tema se abre em círculo a partir do botão (View Transitions). Guarda em `localStorage` (`raiz-tema`); sem escolha, segue o sistema.
-- **404** (`silver/404.html`, arquivo único): a arcada perdeu um dente, que flutua acima do vão. "Esta página foi extraída."
+- **404** (`standard/raiz-standard/404.html`, arquivo único): a arcada perdeu um dente, que flutua acima do vão. "Esta página foi extraída."
 
-**Dados de demonstração do Silver** (trocar para cliente real): marca, equipe e CROs, endereço (Rua Francisco Rocha, Batel, Curitiba), telefones, CNPJ, números da seção "Sobre", nota 4,9 do Google, exemplo de alinhadores e de orçamento (valores marcados como exemplo), depoimentos (fotos e textos de exemplo, aviso na página) e o antes e depois (simulação ilustrativa, mesmas imagens do Gold). Fotos do Unsplash com crédito em `_build-silver/img/creditos.json`, também no rodapé.
+**Dados de demonstração do Raiz Standard** (trocar para cliente real): marca, equipe e CROs, endereço (Rua Francisco Rocha, Batel, Curitiba), telefones, CNPJ, números da seção "Sobre", nota 4,9 do Google, exemplo de alinhadores e de orçamento (valores marcados como exemplo), depoimentos (fotos e textos de exemplo, aviso na página) e o antes e depois (simulação ilustrativa, mesmas imagens do Sorrisus Premium). Fotos do Unsplash com crédito em `_build-raiz-standard/img/creditos.json`, também no rodapé.
 
-## Bronze: Lume Odontologia
+## Lume Standard: Lume Odontologia
 
 Leve, sofisticado e direto: uma página só, sem biblioteca (HTML de cerca de 44 KB; o site inteiro, com as fotos, 2,4 MB). Linho, argila e pêssego, com seções escuras em café; fontes Petrona (títulos, com itálico na segunda linha) e Libre Franklin. Desenho inspirado na Elan Dental (creme, serifa elegante, mosaico de tratamentos, antes e depois, dúvidas em cartões) e na Curevanta (muitas fotos em cartões, equipe com foto e especialidade, seção escura).
 
@@ -108,6 +108,6 @@ Leve, sofisticado e direto: uma página só, sem biblioteca (HTML de cerca de 44
 - **WhatsApp fixo** no canto, que aparece depois do hero.
 - **Tema claro e escuro**: o dente do botão perde a luz e ganha uma lua; o novo tema se abre em círculo a partir do botão (View Transitions). Guarda em `localStorage` (`lume-tema`); sem escolha, segue o sistema.
 - **Animações leves**: entrada do hero, blocos que sobem uma vez ao aparecer, zoom suave nas fotos e a faixa da clínica. Com `prefers-reduced-motion`, tudo fica parado.
-- **404** (`bronze/404.html`, arquivo único): o zero é o dente da marca com a luz piscando. "A luz não chegou até aqui."
+- **404** (`standard/lume-standard/404.html`, arquivo único): o zero é o dente da marca com a luz piscando. "A luz não chegou até aqui."
 
-**Dados de demonstração do Bronze** (trocar para cliente real): marca, equipe e CROs, endereço (Rua Paraíba, Savassi, Belo Horizonte), telefones, CNPJ e o antes e depois (simulação ilustrativa, mesmas imagens do Silver e do Gold, com aviso na página). Fotos do Unsplash com crédito em `_build-bronze/img/creditos.json`, também no rodapé.
+**Dados de demonstração do Lume Standard** (trocar para cliente real): marca, equipe e CROs, endereço (Rua Paraíba, Savassi, Belo Horizonte), telefones, CNPJ e o antes e depois (simulação ilustrativa, mesmas imagens do Raiz Standard e do Sorrisus Premium, com aviso na página). Fotos do Unsplash com crédito em `_build-lume-standard/img/creditos.json`, também no rodapé.

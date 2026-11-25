@@ -5,13 +5,13 @@ Refatoração do site [thdengenharia.com](https://thdengenharia.com) (antes em W
 | Pasta | O que é |
 |---|---|
 | `_build/` | Gerador: `content.js` (textos), `style.js` (CSS), `script.js` (JS), `icons.js`, `img/` |
-| `gold/blocos/` | **Site pronto para subir na hospedagem** (é o que vai para o domínio) |
+| `premium/thd-premium-blocos/` | **Site pronto para subir na hospedagem** (é o que vai para o domínio) |
 | `_preview/` | Cópia para abrir direto no navegador, sem servidor (não vai para o git) |
 
 ## Gerar
 
 ```bash
-node templates/assessoria-provedor/_build/build.js            # gera gold/blocos/
+node templates/assessoria-provedor/_build/build.js            # gera premium/thd-premium-blocos/
 node templates/assessoria-provedor/_build/build.js --preview  # gera _preview/ (abra _preview/index.html)
 ```
 
@@ -32,7 +32,7 @@ O `.htaccess` redireciona as URLs antigas do WordPress (`/home-bkp`, `/quem-somo
 
 ## Publicar no domínio
 
-Envie **o conteúdo** de `gold/blocos/` (incluindo o `.htaccess`, que é um arquivo oculto) para a raiz pública da hospedagem (`public_html/`).
+Envie **o conteúdo** de `premium/thd-premium-blocos/` (incluindo o `.htaccess`, que é um arquivo oculto) para a raiz pública da hospedagem (`public_html/`).
 Faça backup do WordPress antes de substituir.
 
 ## Formulário de contato
@@ -47,11 +47,11 @@ Mesmo conteúdo (lido de `_build/content.js`) e mesmas cores, design totalmente 
 | Pasta | O que é |
 |---|---|
 | `_build-orbita/` | Gerador do modelo Órbita: `build.js`, `style.js`, `script.js` (usa `content.js`, `icons.js` e `img/` de `_build/`) |
-| `gold/orbita/` | Modelo Órbita pronto para subir na hospedagem |
+| `premium/thd-premium-orbita/` | Modelo Órbita pronto para subir na hospedagem |
 | `_preview-orbita/` | Cópia para abrir direto no navegador (não vai para o git) |
 
 ```bash
-node templates/assessoria-provedor/_build-orbita/build.js            # gera gold/orbita/
+node templates/assessoria-provedor/_build-orbita/build.js            # gera premium/thd-premium-orbita/
 node templates/assessoria-provedor/_build-orbita/build.js --preview  # gera _preview-orbita/ (abra _preview-orbita/index.html)
 ```
 
@@ -70,11 +70,11 @@ Mesmo conteúdo (lido de `_build/content.js`) e mesmas cores, design totalmente 
 | Pasta | O que é |
 |---|---|
 | `_build-fibra/` | Gerador do modelo Fibra: `build.js`, `style.js`, `script.js` (usa `content.js`, `icons.js` e `img/` de `_build/`) |
-| `gold/fibra/` | Modelo Fibra pronto para subir na hospedagem |
+| `premium/thd-premium-fibra/` | Modelo Fibra pronto para subir na hospedagem |
 | `_preview-fibra/` | Cópia para abrir direto no navegador (não vai para o git) |
 
 ```bash
-node templates/assessoria-provedor/_build-fibra/build.js            # gera gold/fibra/
+node templates/assessoria-provedor/_build-fibra/build.js            # gera premium/thd-premium-fibra/
 node templates/assessoria-provedor/_build-fibra/build.js --preview  # gera _preview-fibra/ (abra _preview-fibra/index.html)
 ```
 

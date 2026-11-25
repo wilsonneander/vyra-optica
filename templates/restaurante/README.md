@@ -1,28 +1,28 @@
 # Siri na Lata Bar & Restaurante
 
-Nicho **restaurante e lanchonete**. Primeiro cliente dos três modelos do nicho: **Bronze**, **Silver** e **Gold**.
+Nicho **restaurante e lanchonete**. Primeiro cliente dos três modelos do nicho: **Siri Standard**, **Siri Standard Postal** e **Siri Premium**.
 Instagram do cliente: [@sirinalatafloripa](https://www.instagram.com/sirinalatafloripa/)
 
 | Pasta | O que é |
 |---|---|
 | `marca/` | Logo redesenhado em vetor (`siri-na-lata.svg`), PNGs em alta, favicon e ícone do celular. `logo-original-outubro-rosa.png` é o arquivo enviado pelo cliente |
 | `_build/` | Compartilhado pelos três modelos: `content.js` (todos os textos, cardápio, preços, condições e FAQ), `icons.js` (ilustrações em traço próprias), `img/` (fotos em WebP) |
-| `_build-bronze/` | Gerador do modelo Bronze: `build.js`, `style.js`, `script.js` |
-| `bronze/` | **Modelo Bronze pronto para subir** (abre direto no navegador pelo `index.html`) |
-| `_build-silver/` | Gerador do modelo Silver: `build.js`, `style.js`, `script.js` |
-| `silver/` | **Modelo Silver pronto para subir** |
+| `_build-siri-standard/` | Gerador do modelo Siri Standard: `build.js`, `style.js`, `script.js` |
+| `standard/siri-standard/` | **Modelo Siri Standard pronto para subir** (abre direto no navegador pelo `index.html`) |
+| `_build-siri-standard-postal/` | Gerador do modelo Siri Standard Postal: `build.js`, `style.js`, `script.js` |
+| `standard/siri-standard-postal/` | **Modelo Siri Standard Postal pronto para subir** |
 
 ## Gerar
 
 ```bash
-node templates/restaurante/_build-bronze/build.js   # gera bronze/
-node templates/restaurante/_build-silver/build.js   # gera silver/
+node templates/restaurante/_build-siri-standard/build.js   # gera standard/siri-standard/
+node templates/restaurante/_build-siri-standard-postal/build.js   # gera standard/siri-standard-postal/
 ```
 
 Para trocar textos, preços ou horários, edite `_build/content.js` e gere de novo.
 Tudo marcado com `[CONFIRMAR]` precisa ser validado com o cliente antes de publicar.
 
-## Modelo Bronze
+## Modelo Siri Standard
 
 Site enxuto de uma página, foco no essencial, baixo custo de manutenção.
 
@@ -36,17 +36,17 @@ Site enxuto de uma página, foco no essencial, baixo custo de manutenção.
 - Fontes: Gloock (títulos, conversa com o rótulo da lata) + Figtree (texto). Dupla ainda não usada em outro projeto
 - Cores (tons pastel, inspirados no siri e na lata): creme `#F4EFE1` e branco nos fundos, terracota `#CA603C` nos títulos e botões, pêssego `#E4A785` nos subtítulos (versão mais escura `#B8714F` em fundo claro), preto `#1B1714` no rodapé e textos, grafite `#3F3E3B` no topo
 
-## Modelo Gold: "Maré"
+## Modelo Siri Premium: "Maré"
 
-O dia na praia do Siri na Lata, do almoço ao pôr do sol. Mesmo conteúdo (`_build/content.js`), mesma identidade e as mesmas fotos do Bronze.
+O dia na praia do Siri na Lata, do almoço ao pôr do sol. Mesmo conteúdo (`_build/content.js`), mesma identidade e as mesmas fotos do Siri Standard.
 
 | Pasta | O que é |
 |---|---|
-| `_build-gold/` | Gerador: `build.js` (HTML), `gold.css` e `gold.js` (copiados para `assets/`) |
-| `gold/` | **Modelo Gold pronto para subir** (abre direto no navegador pelo `index.html`) |
+| `_build-siri-premium/` | Gerador: `build.js` (HTML), `mare.css` e `mare.js` (copiados para `assets/`) |
+| `premium/siri-premium/` | **Modelo Siri Premium pronto para subir** (abre direto no navegador pelo `index.html`) |
 
 ```bash
-node templates/restaurante/_build-gold/build.js   # gera gold/
+node templates/restaurante/_build-siri-premium/build.js   # gera premium/siri-premium/
 ```
 
 - Seções empilhadas: cada seção fica presa na tela e a próxima sobe por cima com os cantos se fechando, enquanto a anterior recua e escurece
@@ -60,14 +60,14 @@ node templates/restaurante/_build-gold/build.js   # gera gold/
 - Fontes: Gloock (títulos) e Figtree (texto), as da marca, com Newsreader itálico nas falas suaves
 - Movimento reduzido no sistema: tudo fica parado e legível. Sem JS: livro vira grade de páginas e a galeria rola de lado
 
-## Modelo Silver
+## Modelo Siri Standard Postal
 
-Mesma base e conteúdo do Bronze, com experiência de "cartão-postal do Estreito": mais movimento, carrosséis e ferramentas que poupam conversa no WhatsApp.
+Mesma base e conteúdo do Siri Standard, com experiência de "cartão-postal do Estreito": mais movimento, carrosséis e ferramentas que poupam conversa no WhatsApp.
 
 - **Abertura**: cortina terracota com o mascote que sobe com borda de onda (só na primeira visita da sessão; clique ou tecla pula; desligada para quem pede menos movimento)
-- **Capa**: foto da praia com petisco e drink na mesa (`_build/img/capa-silver.webp`, versão de 1000 px para celular) sob um véu escuro para o texto ficar legível. Ao lado, pilha de cartões-postais com fotos reais de petisco na praia que gira sozinha (setas, clique, pausa ao passar o mouse) e carimbo postal
+- **Capa**: foto da praia com petisco e drink na mesa (`_build/img/capa-postal.webp`, versão de 1000 px para celular) sob um véu escuro para o texto ficar legível. Ao lado, pilha de cartões-postais com fotos reais de petisco na praia que gira sozinha (setas, clique, pausa ao passar o mouse) e carimbo postal
 - **Faixa corrida** inclinada com os destaques da casa
-- **Cardápio em livro** (logo depois da capa, mesmo componente do Gold com as cores do Silver): o livro folheia com a rolagem (desce vira, sobe volta), em pares na tela larga e uma página por vez no celular; capítulos clicáveis e + em cada item para montar o pedido
+- **Cardápio em livro** (logo depois da capa, mesmo componente do Siri Premium com as cores do Siri Standard Postal): o livro folheia com a rolagem (desce vira, sobe volta), em pares na tela larga e uma página por vez no celular; capítulos clicáveis e + em cada item para montar o pedido
 - **Um dia na casa**: seção fixa em que o sol percorre o céu conforme a rolagem e o céu passa de dia para fim de tarde e noite (lua e estrelas), trocando foto (inteira, sem corte) e texto de almoço, fim de tarde e noite, com o nome do prato de cada momento (campo `prato` em `momentos` no content.js)
 - **Mais pedidos**: carrossel com fotos (arrastar, setas, barra de progresso) e + para o pedido
 - **Pedido pelo site**: botão + em cada item, contador, barra de pedido com total e lista; envia tudo pronto pelo WhatsApp para retirada
@@ -76,15 +76,15 @@ Mesma base e conteúdo do Bronze, com experiência de "cartão-postal do Estreit
 - **Rodapé com mapa**: mesmo componente de mapa dos outros templates (OpenStreetMap estático recolorido, pino pulsante, cartão com "Abrir no Maps" e rota). Gerado por `_build/gerar-mapa.js` em `_build/img/mapa-siri.webp`
 - Siri andando de lado na linha de progresso do topo
 - Fontes: Newsreader (títulos) + Epilogue (texto). Dupla ainda não usada em outro projeto
-- Cores: a base do Bronze (creme, terracota, pêssego) mais azuis de mar para dar clima de praia e diferenciar do Bronze: azul `#1F6F94` (faixa, botões secundários, textos de apoio, abas, selo), azul-escuro `#134B66`, turquesa `#3FA7BD`, espuma `#9FD6E2`, céu `#DCEFF3` (céu de dia, fundo das fotos) e azul-noite `#0E2A3D` (capa, noite, reservas, rodapé, pedido). O mar do mapa também é azul-claro
-- SEO do Bronze mais cardápio completo nos dados estruturados (`Menu` com preços) e coordenadas
+- Cores: a base do Siri Standard (creme, terracota, pêssego) mais azuis de mar para dar clima de praia e diferenciar do Siri Standard: azul `#1F6F94` (faixa, botões secundários, textos de apoio, abas, selo), azul-escuro `#134B66`, turquesa `#3FA7BD`, espuma `#9FD6E2`, céu `#DCEFF3` (céu de dia, fundo das fotos) e azul-noite `#0E2A3D` (capa, noite, reservas, rodapé, pedido). O mar do mapa também é azul-claro
+- SEO do Siri Standard mais cardápio completo nos dados estruturados (`Menu` com preços) e coordenadas
 
 ## Tema claro e escuro (os três modelos)
 
 Botão de sol/lua no topo, ao lado do botão de reserva (no celular, ao lado do menu). O site abre sempre no claro; o escuro só entra quando o visitante escolhe, e a escolha fica salva no navegador (`localStorage` `siri-tema`). `?tema=escuro` ou `?tema=claro` no link também vale, bom para mostrar ao cliente.
 
 - Script, botão e estilo do botão: `_build/tema.js`, comum aos três. O tema é aplicado no `<head>` antes da primeira pintura (sem piscar claro)
-- Cores do escuro em cada modelo: Bronze em `_build-bronze/style.js` (tokens `--bg`, `--card`, `--head`...), Silver no fim de `_build-silver/style.js` (noite no mar, azul-noite), Gold no fim de `_build-gold/gold.css` ("a maré de noite"; pôr do sol vira céu depois do sol se pôr)
+- Cores do escuro em cada modelo: Siri Standard em `_build-siri-standard/style.js` (tokens `--bg`, `--card`, `--head`...), Siri Standard Postal no fim de `_build-siri-standard-postal/style.js` (noite no mar, azul-noite), Siri Premium no fim de `_build-siri-premium/gold.css` ("a maré de noite"; pôr do sol vira céu depois do sol se pôr)
 - Seções que já são escuras não mudam. O papel do cardápio em livro, as polaroides, os postais e o mapa continuam claros de propósito
 
 ## Logo
@@ -95,7 +95,7 @@ Para regerar os PNGs: `marca/gerar-logo.js` (precisa de `sharp` e `opentype.js` 
 
 ## Mapa (OpenStreetMap)
 
-Mapa sempre pelo OpenStreetMap, nunca Google (regra de DIRETRIZES-SITES.md). O Gold usa o componente padrão do rodapé (`.map-box`): imagem estática `_build/img/mapa_estreito.webp`, pino, cartão com endereço e horário, botões "Abrir no mapa" e "Como chegar" (links do OpenStreetMap em `content.js`) e crédito © OpenStreetMap.
+Mapa sempre pelo OpenStreetMap, nunca Google (regra de DIRETRIZES-SITES.md). O Siri Premium usa o componente padrão do rodapé (`.map-box`): imagem estática `_build/img/mapa_estreito.webp`, pino, cartão com endereço e horário, botões "Abrir no mapa" e "Como chegar" (links do OpenStreetMap em `content.js`) e crédito © OpenStreetMap.
 
 Para gerar de novo (por exemplo, se o cliente confirmar outra posição em `endereco.coordenadas`), ajuste as coordenadas em `_build/gerar-mapa.js` e rode com `sharp` instalado fora do projeto:
 

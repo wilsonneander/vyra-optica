@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "site-premium",
+    "public": "premium/peakalika-premium",
     "ignore": ["firebase.json", ".firebaserc", "**/.*"],
     "headers": [{ "source": "**", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] }]
   }

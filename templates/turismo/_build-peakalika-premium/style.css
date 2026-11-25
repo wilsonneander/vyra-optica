@@ -634,3 +634,52 @@ a:hover .rola > span, button:hover .rola > span { transform: translateY(-100%); 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* ---------- tema claro e escuro ----------
+   O escuro é o padrão. No claro, as partes de fundo liso viram marfim e areia com texto em tinta;
+   as cenas sobre vídeo ou desenhadas no canvas (capa, montanha-russa, destinos, Disney, roteiro e o céu do final)
+   continuam noturnas, porque o texto delas está escrito sobre a imagem. */
+:root { --tema-cor: #FF674A; --tema-halo: rgba(255, 103, 74, .3); }
+:root[data-tema="claro"] { color-scheme: light; scrollbar-color: var(--coral) #ECE2D2; }
+:root[data-tema="claro"] ::-webkit-scrollbar-track { background: #ECE2D2; }
+:root[data-tema="claro"] ::-webkit-scrollbar-thumb { border-color: #ECE2D2; }
+:root[data-tema="claro"] body { background: var(--marfim); }
+/* topo fixo, menu do celular e logo */
+:root[data-tema="claro"] .topo.solido { background: rgba(246, 240, 230, .86); box-shadow: 0 1px 0 rgba(23, 32, 46, .1); }
+:root[data-tema="claro"] .topo.solido .nav a { color: rgba(23, 32, 46, .68); }
+:root[data-tema="claro"] .topo.solido .nav a:hover, :root[data-tema="claro"] .topo.solido .nav a.ativo { color: var(--tinta); }
+:root[data-tema="claro"] .topo.solido .nav a.ativo .rola > span { color: var(--coral-esc); }
+:root[data-tema="claro"] .topo.solido .logo img, :root[data-tema="claro"] body:has(.menu:not([hidden])) .topo .logo img, :root[data-tema="claro"] .rodape .logo img { filter: brightness(0) opacity(.86); }
+:root[data-tema="claro"] .topo.solido .menu-bt, :root[data-tema="claro"] .menu-bt[aria-expanded="true"] { background: rgba(23, 32, 46, .07); }
+:root[data-tema="claro"] .topo.solido .menu-bt span, :root[data-tema="claro"] .menu-bt[aria-expanded="true"] span { background: var(--tinta); }
+:root[data-tema="claro"] .menu { background: var(--marfim); color: var(--tinta); }
+/* vistos */
+:root[data-tema="claro"] .vistos { --noite-2: #ECE2D2; --claro: rgba(23, 32, 46, .76); background: var(--noite-2); color: var(--tinta); }
+:root[data-tema="claro"] .vistos-fundo { opacity: .22; }
+:root[data-tema="claro"] .vistos-fundo::after { background: linear-gradient(90deg, var(--noite-2) 20%, rgba(236, 226, 210, .5) 70%, var(--noite-2)), linear-gradient(180deg, var(--noite-2), transparent 30%, transparent 70%, var(--noite-2)); }
+:root[data-tema="claro"] .vistos .apoio { color: var(--coral-esc); }
+:root[data-tema="claro"] .etapa h3 { color: #8C6A2C; }
+:root[data-tema="claro"] .jornada-linha .base { stroke: rgba(140, 106, 44, .3); }
+:root[data-tema="claro"] .jornada-linha .traco { stroke: #B8924F; }
+:root[data-tema="claro"] .carimbo { background: rgba(246, 240, 230, .5); }
+:root[data-tema="claro"] .passaporte { box-shadow: 30px 50px 80px -30px rgba(23, 32, 46, .5); }
+/* rodapé */
+:root[data-tema="claro"] .rodape { --claro: rgba(23, 32, 46, .74); background: #ECE2D2; color: var(--claro); }
+:root[data-tema="claro"] .rodape h3 { color: var(--coral-esc); }
+:root[data-tema="claro"] .rodape ul a:hover, :root[data-tema="claro"] .onde h2 { color: var(--tinta); }
+:root[data-tema="claro"] .redes a { background: rgba(23, 32, 46, .07); color: var(--tinta); }
+:root[data-tema="claro"] .redes a:hover { color: #fff; }
+:root[data-tema="claro"] .chips li { background: rgba(184, 146, 79, .16); color: #7A5C24; }
+:root[data-tema="claro"] .rodape-mapa, :root[data-tema="claro"] .rodape-fim { box-shadow: 0 -1px 0 rgba(23, 32, 46, .12); }
+:root[data-tema="claro"] .map-box { background: var(--areia); }
+:root[data-tema="claro"] .map-info { box-shadow: 0 14px 30px -12px rgba(23, 32, 46, .35), 0 0 0 1px rgba(23, 32, 46, .08); }
+/* chat */
+:root[data-tema="claro"] .chat-janela { box-shadow: 0 40px 80px -30px rgba(23, 32, 46, .5); }
+
+/* pílula fixa na lateral; no celular ela vai para o menu */
+.tema-lado { position: fixed; right: 18px; top: 50%; z-index: 205; transform: translateY(-50%); }
+.menu-tema { display: none; }
+@media (max-width: 960px) {
+  .tema-pilula.tema-lado { display: none; }
+  .menu-tema { display: block; }
+}

@@ -7,6 +7,10 @@ const fs = require('fs');
 const path = require('path');
 const C = require(process.env.CONTEUDO || './content');
 const I = require('./icons');
+const T = require('../../_comum/tema-pilula');
+const CHAVE_TEMA = 'mecha-premium-tema';
+const COR_CLARO = '#F6F4EF';
+const COR_ESCURO = '#191512';
 
 const OUT = path.join(__dirname, '..', 'premium', 'mecha-premium');
 const FOTOS = path.join(__dirname, 'img', 'fotos');
@@ -80,7 +84,8 @@ const topo = `<a class="pular" href="#conteudo">Pular para o conteúdo</a>
     <nav class="menu" id="menu" aria-label="Principal">
       ${nav.map(([id, t], k) => `<a href="#${id}" style="--k:${k}">${t}</a>`).join('\n      ')}
       <a class="btn btn-claro menu-agendar" href="#agendar" style="--k:${nav.length}">Agendar horário ${I.seta}</a>
-      <p class="menu-rodape" style="--k:${nav.length + 1}">${M.endereco}, ${M.bairro}<br>WhatsApp ${M.whatsappTexto}</p>
+      <div class="menu-tema" style="--k:${nav.length + 1}">${T.pilula('deitada', 'claro')}</div>
+      <p class="menu-rodape" style="--k:${nav.length + 2}">${M.endereco}, ${M.bairro}<br>WhatsApp ${M.whatsappTexto}</p>
     </nav>
     <div class="topo-acoes">
       <a class="btn btn-claro btn-agendar" href="#agendar">Agendar horário ${I.seta}</a>
@@ -462,7 +467,7 @@ const legal = {
     <h3>Com quem compartilhamos</h3><p>Com ninguém para fins de publicidade. O pedido trafega pelo WhatsApp (Meta) e os pagamentos pelo processador do cartão ou do Pix.</p>
     <h3>Por quanto tempo</h3><p>Pedidos sem atendimento são apagados em 6 meses. Fichas de cliente ficam enquanto houver relação com o salão e pelo prazo legal depois dela.</p>
     <h3>Seus direitos</h3><p>Confirmar, acessar, corrigir, apagar ou levar seus dados, e revogar consentimentos, pelo e-mail ${M.email}. Encarregado de dados: ${M.razao}.</p>
-    <h3>Cookies e armazenamento</h3><p>O site guarda no seu navegador apenas a sua escolha sobre cookies. Não usamos cookies de publicidade. Medição de visitas só com a sua permissão no aviso de cookies.</p>`],
+    <h3>Cookies e armazenamento</h3><p>O site guarda no seu navegador apenas a sua escolha sobre cookies e o tema claro ou escuro que você escolheu. Não usamos cookies de publicidade. Medição de visitas só com a sua permissão no aviso de cookies.</p>`],
 };
 const dialogs = `${Object.entries(legal).map(([id, [t, corpo]]) => `<dialog class="doc" id="doc-${id}" aria-labelledby="doc-${id}-t">
   <div class="doc-cab"><h2 id="doc-${id}-t">${t}</h2><button type="button" class="doc-fecha" data-fecha aria-label="Fechar">${I.fechar}</button></div>
@@ -488,7 +493,7 @@ const titulo = `${M.completo} | ${tipoCasa} na ${M.bairro}, ${M.cidade}`;
 const descricao = `${tipoCasa} na ${M.bairro}: ${lista(C.segmentos.filter((s) => s.ativo && s.id !== 'planos' && s.id !== 'combos').map((s) => s.nome.toLowerCase()))}. Preços claros e agendamento online.`;
 
 const html = `<!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="claro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -496,7 +501,8 @@ const html = `<!doctype html>
 <meta name="description" content="${esc(descricao)}">
 <link rel="canonical" href="${M.dominio}/">
 <meta property="og:type" content="website"><meta property="og:title" content="${esc(titulo)}"><meta property="og:description" content="${esc(descricao)}"><meta property="og:image" content="${M.dominio}/assets/img/capa.webp"><meta property="og:locale" content="pt_BR">
-<meta name="theme-color" content="#1F1B18">
+<meta name="theme-color" content="${COR_CLARO}">
+${T.head(CHAVE_TEMA)}
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 ${fontes}
 <link rel="stylesheet" href="assets/site.css">
@@ -504,6 +510,7 @@ ${fontes}
 </head>
 <body>
 ${topo}
+${T.pilula('tema-lado', 'claro')}
 <main id="conteudo">
 ${capa}
 ${faixa}
@@ -532,8 +539,8 @@ ${dialogs}
 for (const f of usadas) fs.copyFileSync(path.join(FOTOS, `${f}.webp`), path.join(OUT, 'assets', 'img', `${f}.webp`));
 fs.copyFileSync(path.join(__dirname, 'img', 'mapa_vila-madalena.webp'), path.join(OUT, 'assets', 'img', 'mapa_vila-madalena.webp'));
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), I.favicon);
-fs.writeFileSync(path.join(OUT, 'assets', 'site.css'), fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8'));
-fs.writeFileSync(path.join(OUT, 'assets', 'site.js'), fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8'));
+fs.writeFileSync(path.join(OUT, 'assets', 'site.css'), fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8') + T.css);
+fs.writeFileSync(path.join(OUT, 'assets', 'site.js'), fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8') + T.js(CHAVE_TEMA, COR_CLARO, COR_ESCURO));
 fs.writeFileSync(path.join(OUT, 'index.html'), html);
 fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${M.dominio}/sitemap.xml\n`);
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${M.dominio}/</loc></url></urlset>\n`);

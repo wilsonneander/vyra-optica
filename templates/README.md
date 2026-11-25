@@ -59,7 +59,9 @@ O padrão obrigatório está em [DIRETRIZES-SITES.md](../DIRETRIZES-SITES.md): n
 | barbearia | 3 | 1 |
 | dentista | 3 | 1 |
 
-**Tema claro e escuro.** Sem botão de tema: `saloes/premium/mecha-premium` e `turismo/premium/peakalika-premium`.
+**Tema claro e escuro.** Todos os modelos têm os dois temas desde 2026-11-25.
+
+**Aviso de cookies.** O `turismo/premium/peakalika-premium` ainda não tem.
 
 **Visualização por aparelho.** Fora de vitrine (sem a Prévia nos aparelhos): `turismo/premium/peakalika-premium` e `aura-premium-produto` e `aura-premium-guia`.
 

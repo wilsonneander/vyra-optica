@@ -563,3 +563,53 @@ dialog.doc::backdrop { background: rgba(31, 27, 24, .66); backdrop-filter: blur(
   .capa-tit .ln > span { transform: none; }
   .faixa-trilho { animation: none; }
 }
+
+/* ---------- tema claro e escuro ----------
+   No escuro, a página troca a paleta: creme vira o fundo café quase preto e café vira o texto claro.
+   As partes que já eram escuras (topo, capa, faixa, seções .escura, rodapé, plano e regra em destaque)
+   recebem de volta a paleta original, então ficam como foram desenhadas. */
+:root { --tema-cor: #8C6C52; --tema-halo: rgba(140, 108, 82, .26); }
+:root[data-tema="escuro"] {
+  --creme: #191512;
+  --creme-2: #24201C;
+  --areia: #2C2622;
+  --cafe: #F1ECE4;
+  --noite: #0F0D0B;
+  --noite-2: #221D19;
+  --caramelo: #C9A27F;
+  --caramelo-esc: #D6B697;
+  --apoio: rgba(241, 236, 228, .68);
+  --linha: rgba(241, 236, 228, .14);
+  --tema-cor: #C9A27F; --tema-halo: rgba(201, 162, 127, .3);
+  color-scheme: dark;
+}
+:root[data-tema="escuro"] :is(.topo, .capa-quadro, .faixa, .escura, .plano.destaque, .regra.forte, .form-ok, .toast) {
+  --creme: #F6F4EF; --creme-2: #EFE9DF; --areia: #E6DBCC; --cafe: #2E2925; --noite-2: #2A2521;
+  --caramelo: #8C6C52; --caramelo-esc: #765A44; --apoio: #6B625A; --linha: rgba(46, 41, 37, .14);
+}
+:root[data-tema="escuro"] :is(.topo.solido, .escura, .plano.destaque, .regra.forte, .form-ok, .toast) { background: #0F0D0B; }
+:root[data-tema="escuro"] .escura h2 em, :root[data-tema="escuro"] .escura .sobre { color: var(--caramelo-claro); }
+:root[data-tema="escuro"] .faixa { background: #6E5643; }
+:root[data-tema="escuro"] .pinta span { color: rgba(241, 236, 228, .16); }
+:root[data-tema="escuro"] .pinta span.on { color: var(--cafe); }
+:root[data-tema="escuro"] .item:hover { background: rgba(255, 255, 255, .04); }
+:root[data-tema="escuro"] .alca { color: #2E2925; }
+:root[data-tema="escuro"] .campos :is(input, select, textarea):focus { background-color: var(--creme-2); }
+:root[data-tema="escuro"] .campos .erro :is(input, select) { border-color: #E8907C; }
+:root[data-tema="escuro"] .form-erro { color: #F2A99A; }
+:root[data-tema="escuro"] .arco-card { box-shadow: 0 24px 50px -30px rgba(0, 0, 0, .9); }
+:root[data-tema="escuro"] .map-box img { filter: brightness(.82) saturate(.9); }
+:root[data-tema="escuro"] .map-box .pin { border-color: #191512; }
+:root[data-tema="escuro"] .map-box .pin b { color: #F1ECE4; text-shadow: 0 0 4px #191512, 0 0 4px #191512, 0 0 4px #191512; }
+:root[data-tema="escuro"] .attr { background: rgba(25, 21, 18, .82); color: #F1ECE4; }
+:root[data-tema="escuro"] .map-info, :root[data-tema="escuro"] dialog.doc, :root[data-tema="escuro"] .cookies { box-shadow: 0 24px 60px -20px rgba(0, 0, 0, .9), 0 0 0 1px rgba(241, 236, 228, .1); }
+:root[data-tema="escuro"] .escura .cartao { --creme: #24201C; --cafe: #F1ECE4; --areia: #2C2622; --apoio: rgba(241, 236, 228, .68); box-shadow: 0 0 0 1px rgba(241, 236, 228, .08); }
+
+/* pílula fixa na lateral; no celular ela vai para o menu */
+.tema-lado { position: fixed; right: 18px; top: 50%; z-index: 45; transform: translateY(-50%); }
+.menu-tema { display: none; }
+@media (max-width: 1180px) {
+  .tema-pilula.tema-lado { display: none; }
+  .menu-tema { display: block; margin-top: 22px; translate: 0 24px; opacity: 0; transition: translate .6s var(--suave), opacity .6s; transition-delay: calc(var(--k) * 50ms); }
+  .menu.mostra .menu-tema { translate: none; opacity: 1; }
+}

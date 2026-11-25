@@ -175,11 +175,15 @@ p { margin: 0; }
 .painel-aba[hidden] { display: none; }
 .planos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: center; }
 @media (max-width: 420px) { .abas button { padding: 13px 14px; } }
-@media (max-width: 980px) { .planos { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; gap: 30px; } }
+@media (max-width: 980px) { .planos { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; gap: 52px; } }
 .plano { position: relative; display: grid; gap: 16px; padding: 32px 28px; background: var(--surface); border-radius: 26px 26px 26px 6px; box-shadow: 0 0 0 1px var(--linha), 0 30px 50px -40px var(--foto-sombra); transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
 .plano:hover { transform: translateY(-6px); box-shadow: 0 0 0 1px var(--linha), 0 36px 60px -36px var(--foto-sombra); }
 .plano.destaque { background: var(--roxo); color: #fff; padding-block: 58px 40px; box-shadow: 0 40px 70px -36px rgba(106,23,148,.9); }
-.plano .aba-topo { position: absolute; top: 0; left: 28px; right: 28px; height: 38px; display: grid; place-items: center; background: var(--rosa); color: #fff; font: 800 13px/1 var(--f-tit); letter-spacing: .1em; text-transform: uppercase; border-radius: 0 0 14px 14px; }
+.plano .selo-vendido { position: absolute; z-index: 2; top: -19px; left: 50%; transform: translateX(-50%); padding: 11px 24px; border-radius: 40px; background: linear-gradient(135deg, #FDE68A 0%, #FBBF24 45%, #D97706 100%); color: #4A2504; font: 900 15px/1 var(--f-tit); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; box-shadow: 0 0 0 4px var(--bg), 0 14px 28px -12px rgba(180,83,9,.75); }
+.plano .medalha { position: absolute; z-index: 3; top: -30px; left: -16px; width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 30% 25%, #FEF3C7 0%, #FBBF24 40%, #D97706 100%); color: #5B2E05; box-shadow: 0 0 0 4px var(--bg), 0 18px 34px -12px rgba(180,83,9,.8); transform: rotate(-10deg); transition: transform .4s var(--ease); }
+.plano:hover .medalha { transform: rotate(6deg) scale(1.05); }
+.plano .medalha .ico { width: 38px; height: 38px; stroke-width: 2; }
+@media (max-width: 980px) { .plano .medalha { left: -8px; width: 64px; height: 64px; } .plano .medalha .ico { width: 32px; height: 32px; } }
 .plano .nome { font: 800 15px/1 var(--f-tit); letter-spacing: .08em; text-transform: uppercase; color: var(--acc-rosa); }
 .plano.destaque .nome { color: #FFC2DA; }
 .plano .vel { font: 900 70px/.9 var(--f-tit); letter-spacing: -0.05em; color: var(--acc); }
@@ -521,10 +525,10 @@ legend small { display: block; font: 500 14.5px var(--f-txt); color: var(--muted
 .rodape .base { display: grid; gap: 6px; margin-top: 40px; padding: 20px 0 30px; border-top: 1px solid rgba(255,255,255,.12); font-size: 13px; }
 
 /* ---------- WhatsApp fixo ---------- */
-.whats-flutua { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 60; display: inline-flex; align-items: center; gap: 10px; height: 56px; padding: 0 22px 0 18px; border-radius: 16px 16px 4px 16px; background: #1F8A4C; color: #fff; font: 800 15px var(--f-tit); text-decoration: none; box-shadow: 0 14px 30px -12px rgba(31,138,76,.8); transition: transform .25s var(--ease), background-color .2s; }
-.whats-flutua:hover { background: #18733F; transform: translateY(-3px); }
-.whats-flutua .ico { width: 26px; height: 26px; }
-@media (max-width: 760px) { .whats-flutua { width: 56px; padding: 0; justify-content: center; } .whats-flutua span { display: none; } }
+.whats-flutua { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 60; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(135deg, #8A2BC2 0%, var(--roxo) 50%, var(--rosa) 100%); color: #fff; box-shadow: 0 12px 26px -8px rgba(106,23,148,.7); transition: transform .25s var(--ease), box-shadow .25s; }
+.whats-flutua:hover { transform: translateY(-3px) scale(1.06); box-shadow: 0 16px 30px -8px rgba(203,33,102,.7); }
+.whats-flutua .ico { width: 28px; height: 28px; }
+
 
 /* ---------- cookies, janelas legais e aviso ---------- */
 .cookies { position: fixed; left: max(16px, env(safe-area-inset-left)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 70; width: min(420px, calc(100vw - 32px)); padding: 20px; border-radius: 20px 20px 20px 6px; background: var(--surface); color: var(--text); box-shadow: 0 0 0 1px var(--linha), 0 30px 50px -24px rgba(20,16,22,.5); display: grid; gap: 14px; font-size: 14.5px; }
@@ -562,3 +566,22 @@ main { animation: entra .5s ease both; }
 [data-iguais] > * { min-width: var(--larg, auto); max-width: 100%; }
 .depo .av { width: 46px; height: 46px; flex: none; border-radius: 14px 14px 14px 4px; display: grid; place-items: center; background: var(--rosa); color: #fff; font: 900 15px var(--f-tit); }
 .depo blockquote:nth-child(2) .av { background: #fff; color: var(--roxo); }
+
+/* ---------- capas: 70% foto, 30% roxo com o texto (computador) ---------- */
+@media (min-width: 861px) {
+  .vitrine, .pcab { --col: 30%; }
+  .slide .foto { width: calc(100% - var(--col)); }
+  .slide .painel { width: calc(var(--col) + 6%); clip-path: polygon(0 0, 100% 0, calc(100% - 7vw) 100%, 0 100%); }
+  .slide .painel::after { width: 7vw; clip-path: polygon(calc(100% - 1.4vw) 0, 100% 0, 1.4vw 100%, 0 100%); }
+  .slide .container { position: absolute; inset: 0 auto 0 0; width: var(--col); max-width: none; margin: 0; padding-left: clamp(24px, 4vw, 72px); padding-right: 8px; }
+  .slide .copia { max-width: none; gap: 16px; }
+  .slide h1, .slide h2 { font-size: clamp(30px, 3.3vw, 54px); }
+  .slide p { font-size: 17px; }
+  .vit-ctrl .container { max-width: none; padding-left: clamp(24px, 4vw, 72px); padding-right: 32px; }
+  .pcab .foto { width: calc(100% - var(--col)); }
+  .pcab .foto::before { width: 7vw; }
+  .pcab .container { max-width: none; margin: 0; width: calc(var(--col) + 3vw); padding-left: clamp(24px, 4vw, 72px); padding-right: 0; }
+  .pcab h1 { font-size: clamp(30px, 3.3vw, 54px); max-width: none; }
+  .pcab p { font-size: 17px; max-width: none; }
+}
+@media (min-width: 861px) and (max-width: 1180px) { .vitrine, .pcab { --col: 42%; } }

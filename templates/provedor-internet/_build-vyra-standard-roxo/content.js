@@ -46,8 +46,8 @@ module.exports = {
 
   // Carrossel de abertura: sempre gente usando a internet em casa e no trabalho.
   vitrine: [
-    { img: 'familia_tv_sala.jpg', pos: '50% 30%', alt: 'Pai, mãe e filho assistindo TV juntos no sofá da sala', tag: 'Plano Família', title: 'Sessão de filme sem <em>aquela rodinha girando.</em>', text: '800 Mega de fibra, Wi-Fi 6 com ponto mesh e YouTube Premium incluso.', price: '129,90', cta: 'assine.html#familia' },
-    { img: 'jovens_sofa_fones.jpg', pos: '50% 40%', alt: 'Dois jovens de fone no sofá, um no notebook e outra no celular', tag: 'Casa cheia de telas', title: 'Cada um na sua tela, <em>todo mundo rápido.</em>', text: 'Aula online, jogo e série ao mesmo tempo, sem disputa pelo Wi-Fi.', price: '99,90', cta: 'residencial.html' },
+    { img: 'familia_celular_sofa.jpg', pos: '50% 45%', alt: 'Família sorrindo no sofá enquanto olha o celular junta', tag: 'Plano Família', title: 'A casa toda conectada, <em>todo mundo sorrindo.</em>', text: '800 Mega de fibra, Wi-Fi 6 com ponto mesh e YouTube Premium incluso.', price: '129,90', cta: 'assine.html#familia' },
+    { img: 'amigos_celular_rindo.jpg', pos: '50% 35%', alt: 'Três amigos rindo enquanto olham o celular', tag: 'Casa cheia de telas', title: 'Cada um na sua tela, <em>todo mundo rápido.</em>', text: 'Aula online, jogo e série ao mesmo tempo, sem disputa pelo Wi-Fi.', price: '99,90', cta: 'residencial.html' },
     { img: 'colegas_soquinho.jpg', pos: '50% 35%', alt: 'Colegas comemorando com um soquinho na frente do notebook no escritório', tag: 'Vyra Empresas', title: 'A equipe comemora. <em>A conexão aguenta.</em>', text: 'IP fixo, SLA em contrato e um consultor que conhece a sua operação.', price: '199,90', cta: 'empresas.html' },
     { img: 'senhora_tablet.jpg', pos: '50% 30%', alt: 'Senhora sorrindo enquanto usa o tablet no sofá', tag: 'Suporte de perto', title: 'Dúvida no Wi-Fi? <em>Gente da região atende.</em>', text: 'Suporte 24 horas por WhatsApp, telefone ou visita técnica agendada.', price: '99,90', cta: 'contato.html' },
   ],
@@ -60,7 +60,7 @@ module.exports = {
     { id: 'extra', nome: 'Adicionais' },
   ],
   servicos: [
-    { seg: 'casa', nome: 'Instalação residencial', img: 'casal_tv.jpg', inclui: ['Fibra até o roteador', 'Roteador Wi-Fi 6 em comodato', 'Teste de velocidade com você'], prazo: 'Agendada em até 48h, visita de cerca de 1h30', valor: 'Grátis nos planos residenciais' },
+    { seg: 'casa', nome: 'Instalação residencial', img: 'pai_filha_sofa.jpg', inclui: ['Fibra até o roteador', 'Roteador Wi-Fi 6 em comodato', 'Teste de velocidade com você'], prazo: 'Agendada em até 48h, visita de cerca de 1h30', valor: 'Grátis nos planos residenciais' },
     { seg: 'casa', nome: 'Ponto extra Wi-Fi mesh', img: 'mulher_tablet_janela.jpg', inclui: ['Roteador mesh Wi-Fi 6', 'Configuração pelo técnico', 'Sinal no quarto, quintal ou escritório'], prazo: 'Visita de cerca de 40 min', valor: '+ R$ 19,90/mês' },
     { seg: 'casa', nome: 'Mudança de endereço', img: 'familia_cinco.jpg', inclui: ['Retirada e reinstalação', 'Mesmo plano e mesmo contrato', 'Análise de cobertura antes'], prazo: 'Agendada em até 72h', valor: 'a partir de R$ 0 com 7 dias de aviso' },
     { seg: 'empresa', nome: 'Empresa com IP fixo', img: 'dona_negocio.jpg', inclui: ['IP fixo incluso', 'Wi-Fi corporativo', 'Suporte prioritário'], prazo: 'Instalação em até 72h, visita de cerca de 2h', valor: 'a partir de R$ 199,90/mês' },
@@ -99,11 +99,11 @@ module.exports = {
 
   // Galeria por categoria
   galeria: [
-    { cat: 'casa', img: 'familia_tv_sala.jpg', alt: 'Família assistindo TV junta no sofá' },
+    { cat: 'casa', img: 'familia_tv_controle.jpg', alt: 'Família sorrindo enquanto assiste TV no sofá' },
     { cat: 'casa', img: 'mae_filha_tablet.jpg', alt: 'Mãe e filha no sofá com o tablet' },
     { cat: 'casa', img: 'senhora_tablet.jpg', alt: 'Senhora sorrindo com o tablet' },
-    { cat: 'casa', img: 'mulher_celular_sofa.jpg', alt: 'Mulher usando o celular no sofá' },
-    { cat: 'lazer', img: 'jovens_sofa_fones.jpg', alt: 'Dois jovens de fone usando notebook e celular' },
+    { cat: 'casa', img: 'casal_idoso_tablet.jpg', alt: 'Casal de idosos sorrindo com o tablet' },
+    { cat: 'lazer', img: 'amigas_celular_rosa.jpg', alt: 'Amigos rindo com o celular' },
     { cat: 'lazer', img: 'jovem_cama_celular.jpg', alt: 'Jovem deitada na cama mexendo no celular' },
     { cat: 'lazer', img: 'amigos_game.jpg', alt: 'Amigos jogando videogame no sofá' },
     { cat: 'lazer', img: 'jovem_selfie.jpg', alt: 'Jovem de fone fazendo selfie com o celular' },
@@ -121,7 +121,7 @@ module.exports = {
   // Grade do Instagram (perfil fictício)
   insta: [
     { img: 'jovem_fone_joinha.jpg', alt: 'Jovem de fone fazendo joinha', txt: 'Aula online sem travar' },
-    { img: 'familia_tv_sala.jpg', alt: 'Família vendo TV', txt: 'Sexta é dia de filme' },
+    { img: 'familia_torcida.jpg', alt: 'Família comemorando no sofá', txt: 'Domingo é dia de jogo' },
     { img: 'equipe_vibra.jpg', alt: 'Equipe comemorando', txt: 'Bastidores da Vyra' },
     { img: 'mae_filha_tablet.jpg', alt: 'Mãe e filha com tablet', txt: 'Desenho no tablet' },
     { img: 'amigas_cafe.jpg', alt: 'Amigas no café olhando o celular', txt: 'Wi-Fi bom é assim' },

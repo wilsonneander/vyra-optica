@@ -20,3 +20,11 @@ São fotos provisórias: o ideal é trocar por fotos reais da equipe, dos client
 | jovem_cama_celular.jpg | https://www.pexels.com/photo/6593793/ |
 | jovem_selfie.jpg | https://www.pexels.com/photo/6958618/ |
 | jovem_fone_joinha.jpg | https://www.pexels.com/photo/8005028/ |
+| familia_celular_sofa.jpg | https://www.pexels.com/photo/9885415/ |
+| familia_tv_controle.jpg | https://www.pexels.com/photo/4260642/ |
+| familia_torcida.jpg | https://www.pexels.com/photo/8798963/ |
+| casal_idoso_tablet.jpg | https://www.pexels.com/photo/6787953/ |
+| amigos_celular_rindo.jpg | https://www.pexels.com/photo/2837382/ |
+| amigas_celular_rosa.jpg | https://www.pexels.com/photo/5325601/ |
+| pai_filha_sofa.jpg | https://www.pexels.com/photo/7983214/ |
+| amigas_notebook.jpg | https://www.pexels.com/photo/4353618/ |

@@ -73,7 +73,7 @@ function rodape() {
     <div class="base"><span>© <span id="ano">2026</span> ${E.nome}. Todos os direitos reservados.</span><span>${E.razao}, CNPJ ${E.cnpj}. ${E.anatel}. Dados de demonstração.</span></div>
   </div>
 </footer>
-<a class="whats-flutua" href="${C.contact.whatsappLink}?text=${WA_MSG}" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp">${socialIcon('whatsapp')}<span>WhatsApp</span></a>`;
+<a class="whats-flutua" href="${C.contact.whatsappLink}?text=${WA_MSG}" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp">${socialIcon('whatsapp')}</a>`;
 }
 
 function social() {
@@ -153,7 +153,7 @@ function planoCard(p, emp) {
   const valor = p.price ? `<div class="valor"><small>R$</small><b>${p.price}</b><small>/mês</small></div>` : `<div class="valor"><span class="cons">Sob consulta</span></div>`;
   const href = emp ? 'contato.html' : `assine.html#${p.id}`;
   return `<article class="plano rv${p.featured ? ' destaque' : ''}">
-    ${p.featured ? `<span class="aba-topo">${emp ? 'Mais contratado' : 'Mais vendido'}</span>` : ''}
+    ${p.featured ? `<span class="medalha" aria-hidden="true">${icon('trophy')}</span><span class="selo-vendido">${emp ? 'Mais contratado' : 'Mais vendido'}</span>` : ''}
     <span class="nome">${p.name}</span>
     <div class="vel">${p.speed}<small>${p.unit}</small></div>
     <p class="frase">${p.tag}</p>
@@ -213,7 +213,7 @@ function condicoes() {
 
 function streaming() {
   return `<section class="sec"><div class="container lado-a-lado">
-    <div class="midia rv"><div class="principal"><img src="${IMG}casal_tv.jpg" alt="Casal rindo no sofá enquanto assiste TV" loading="lazy"></div>
+    <div class="midia rv"><div class="principal"><img src="${IMG}familia_tv_controle.jpg" alt="Família sorrindo no sofá enquanto assiste TV" loading="lazy"></div>
       <div class="menor"><img src="${IMG}jovem_selfie.jpg" alt="Jovem de fone fazendo selfie com o celular" style="object-position:50% 20%" loading="lazy"></div>
       <div class="selo"><b>4K</b><span>sem travar no<br>horário de pico</span></div></div>
     <div class="texto rv" data-d="1"><span class="apoio">Internet e streaming</span>
@@ -227,8 +227,8 @@ function streaming() {
 
 function momentos() {
   const f = [
-    ['familia_tv_sala.jpg', 'Família assistindo TV junta na sala', 'Noite de filme', 'Todo mundo no sofá, sem a rodinha girando.'],
-    ['jovens_sofa_fones.jpg', 'Dois jovens de fone, um no notebook e outra no celular', 'Cada um na sua tela', 'Aula, jogo e música ao mesmo tempo.'],
+    ['familia_torcida.jpg', 'Família comemorando no sofá enquanto assiste ao jogo', 'Dia de jogo', 'Gol ao vivo, sem atraso e sem travar.'],
+    ['amigas_celular_rosa.jpg', 'Amigos rindo enquanto olham o celular', 'Cada um na sua tela', 'Aula, jogo e música ao mesmo tempo.'],
     ['mae_filha_tablet.jpg', 'Mãe e filha no sofá com o tablet', 'Desenho no tablet', 'Controle dos pais pelo app.'],
     ['equipe_vibra.jpg', 'Equipe comemorando na frente do notebook', 'No trabalho', 'Videochamada estável e upload rápido para a equipe toda.'],
   ];
@@ -416,7 +416,7 @@ const paginas = {
   ${faq(5)}
   ${chamadaCep()}` },
 
-  sobre: { t: `Sobre nós | ${E.nome}`, b: () => `${pcab('familia_cinco.jpg', '50% 60%', 'Pai, mãe e três filhos sorrindo no sofá', 'Feita no interior, <em>para o interior.</em>', C.about.intro, 'Sobre nós')}
+  sobre: { t: `Sobre nós | ${E.nome}`, b: () => `${pcab('pai_filha_sofa.jpg', '50% 40%', 'Pai, filha e amigo sorrindo no sofá de casa', 'Feita no interior, <em>para o interior.</em>', C.about.intro, 'Sobre nós')}
   <section class="sec"><div class="container lado-a-lado">
     <div class="midia rv"><div class="principal"><img src="${IMG}equipe_joinha.jpg" alt="Equipe da Vyra fazendo joinha em volta do notebook" loading="lazy"></div>
       <div class="menor"><img src="${IMG}tecnico_capacete.jpg" alt="Técnico de campo de capacete" style="object-position:50% 20%" loading="lazy"></div>
@@ -431,7 +431,7 @@ const paginas = {
   ${momentos()}
   ${chamadaCep()}` },
 
-  residencial: { t: `Internet residencial | ${E.nome}`, b: () => `${pcab('jovens_sofa_fones.jpg', '50% 40%', 'Dois jovens de fone no sofá, um no notebook e outra no celular', 'Internet para casa <em>cheia de telas.</em>', 'Planos de 500 Mega a 1 Giga com YouTube Premium incluso, Wi-Fi 6 e instalação grátis.', 'Residencial')}
+  residencial: { t: `Internet residencial | ${E.nome}`, b: () => `${pcab('familia_celular_sofa.jpg', '50% 45%', 'Família sorrindo no sofá com o celular', 'Internet para casa <em>cheia de telas.</em>', 'Planos de 500 Mega a 1 Giga com YouTube Premium incluso, Wi-Fi 6 e instalação grátis.', 'Residencial')}
   ${planos('casa')}
   ${servicos(['casa', 'rural', 'extra'])}
   ${streaming()}
@@ -489,7 +489,7 @@ const paginas = {
   </div></section>
   ${instagram()}` },
 
-  assine: { t: `Assine e agende | ${E.nome}`, b: () => `${pcab('familia_tv_sala.jpg', '50% 30%', 'Família assistindo TV junta no sofá', 'Assine <em>e agende.</em>', 'Escolha o plano, o técnico e o melhor dia. A gente confirma a cobertura e chega no horário.', 'Assine já')}
+  assine: { t: `Assine e agende | ${E.nome}`, b: () => `${pcab('familia_tv_controle.jpg', '50% 40%', 'Família sorrindo enquanto assiste TV no sofá', 'Assine <em>e agende.</em>', 'Escolha o plano, o técnico e o melhor dia. A gente confirma a cobertura e chega no horário.', 'Assine já')}
   ${agenda()}
   ${politicaVisivel()}` },
 };

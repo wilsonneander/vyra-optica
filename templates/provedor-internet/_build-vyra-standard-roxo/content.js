@@ -46,10 +46,10 @@ module.exports = {
 
   // Carrossel de abertura: sempre gente usando a internet em casa e no trabalho.
   vitrine: [
-    { img: 'familia_celular_sofa.jpg', pos: '50% 45%', alt: 'Família sorrindo no sofá enquanto olha o celular junta', tag: 'Plano Família', title: 'A casa toda conectada, <em>todo mundo sorrindo.</em>', text: '800 Mega de fibra, Wi-Fi 6 com ponto mesh e YouTube Premium incluso.', price: '129,90', cta: 'assine.html#familia' },
+    { img: 'tv_pai_filho.jpg', pos: '50% 40%', alt: 'Pai e filho rindo no sofá enquanto assistem TV', tag: 'Plano Família', title: 'Sessão de filme sem <em>aquela rodinha girando.</em>', text: '800 Mega de fibra, Wi-Fi 6 com ponto mesh e YouTube Premium incluso.', price: '129,90', cta: 'assine.html#familia' },
     { img: 'familia_rindo_tv.jpg', pos: '50% 35%', alt: 'Família rindo no sofá enquanto assiste TV, o pai com o controle na mão', tag: 'Casa cheia de telas', title: 'Cada um na sua tela, <em>todo mundo rápido.</em>', text: 'Aula online, jogo e série ao mesmo tempo, sem disputa pelo Wi-Fi.', price: '99,90', cta: 'residencial.html' },
     { img: 'colegas_soquinho.jpg', pos: '50% 35%', alt: 'Colegas comemorando com um soquinho na frente do notebook no escritório', tag: 'Vyra Empresas', title: 'A equipe comemora. <em>A conexão aguenta.</em>', text: 'IP fixo, SLA em contrato e um consultor que conhece a sua operação.', price: '199,90', cta: 'empresas.html' },
-    { img: 'familia_sala_tv.jpg', pos: '50% 40%', alt: 'Família rindo no sofá da sala enquanto assiste TV', tag: 'Suporte de perto', title: 'Dúvida no Wi-Fi? <em>Gente da região atende.</em>', text: 'Suporte 24 horas por WhatsApp, telefone ou visita técnica agendada.', price: '99,90', cta: 'contato.html' },
+    { img: 'casal_sofa_notebook.jpg', pos: '50% 30%', alt: 'Casal sorrindo no sofá vendo algo no notebook', tag: 'Suporte de perto', title: 'Dúvida no Wi-Fi? <em>Gente da região atende.</em>', text: 'Suporte 24 horas por WhatsApp, telefone ou visita técnica agendada.', price: '99,90', cta: 'contato.html' },
   ],
 
   // Serviços por segmento: o que inclui, prazo e valor. [EXEMPLO]
@@ -70,7 +70,7 @@ module.exports = {
     { seg: 'rural', nome: 'Wi-Fi para área externa', img: 'amigos_celular.jpg', inclui: ['Ponto externo resistente à chuva', 'Sinal na varanda e na piscina', 'Instalação em poste ou parede'], prazo: 'Visita de cerca de 2h', valor: 'a partir de R$ 29,90/mês' },
     { seg: 'rural', nome: 'Conexão no barracão', img: 'empreendedor_mesa.jpg', inclui: ['Fibra até o escritório da propriedade', 'Wi-Fi para o barracão e a sede', 'Câmeras e sistemas do agro online'], prazo: 'Viabilidade em até 5 dias úteis', valor: 'a partir de R$ 199,90/mês + projeto' },
     { seg: 'extra', nome: 'IP fixo residencial', img: 'gamer_sofa.jpg', inclui: ['Endereço fixo para câmeras e servidor', 'Ideal para jogos e acesso remoto', 'Ativação sem visita'], prazo: 'Ativação em até 24h', valor: '+ R$ 29,90/mês' },
-    { seg: 'extra', nome: 'Streaming na conta', img: 'tv_pai_filho.jpg', inclui: ['Netflix, Max ou Prime Video', 'Cobrança junto com a internet', 'Cancele o adicional quando quiser'], prazo: 'Ativação no mesmo dia', valor: 'a partir de + R$ 19,90/mês' },
+    { seg: 'extra', nome: 'Streaming na conta', img: 'casal_idoso_tablet.jpg', inclui: ['Netflix, Max ou Prime Video', 'Cobrança junto com a internet', 'Cancele o adicional quando quiser'], prazo: 'Ativação no mesmo dia', valor: 'a partir de + R$ 19,90/mês' },
     { seg: 'extra', nome: 'Visita técnica avulsa', img: 'tecnico_capacete.jpg', inclui: ['Revisão de cabos e roteador', 'Ajuste do Wi-Fi da casa', 'Orientação sobre os aparelhos'], prazo: 'Visita de cerca de 1h', valor: 'Grátis quando a falha é da rede Vyra' },
   ],
 

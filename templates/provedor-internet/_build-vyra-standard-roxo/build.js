@@ -241,7 +241,7 @@ function momentos() {
 function porque() {
   const it = [...C.benefits, { title: 'Wi-Fi 6 em todos os planos', text: 'Roteador moderno incluso, com sinal forte na casa toda.' }];
   return `<section class="sec soft"><div class="container lado-a-lado inv">
-    <div class="midia rv"><div class="principal"><img src="${IMG}familia_sala_tv.jpg" alt="Família rindo no sofá da sala enquanto assiste TV" loading="lazy"></div>
+    <div class="midia rv"><div class="principal"><img src="${IMG}meninas_pipoca.jpg" alt="Quatro meninas com pipoca no tapete da sala assistindo a um filme" loading="lazy"></div>
       <div class="menor"><img src="${IMG}jovem_fone_joinha.jpg" alt="Jovem de fone fazendo joinha" loading="lazy"></div>
       <div class="selo"><b>100%</b><span>fibra óptica<br>até a sua casa</span></div></div>
     <div class="texto rv" data-d="1"><span class="apoio">Por que a Vyra</span><h2>Internet boa para <em>todas as idades.</em></h2>

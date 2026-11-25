@@ -30,4 +30,5 @@ São fotos provisórias: o ideal é trocar por fotos reais da equipe, dos client
 | amigas_notebook.jpg | https://www.pexels.com/photo/4353618/ |
 | familia_rindo_tv.jpg | https://www.pexels.com/photo/4260639/ |
 | familia_cama_sorrindo.jpg | https://www.pexels.com/photo/4586634/ |
-| familia_sala_tv.jpg | https://www.pexels.com/photo/14798018/ |
+| casal_sofa_notebook.jpg | https://www.pexels.com/photo/4148897/ |
+| meninas_pipoca.jpg | https://www.pexels.com/photo/8790328/ |

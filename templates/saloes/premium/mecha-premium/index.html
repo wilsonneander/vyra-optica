@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="claro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +7,8 @@
 <meta name="description" content="Salão e barbearia na Vila Madalena: cortes femininos, escova e finalização, coloração e mechas, tratamentos e químicas, corte masculino, barba, sobrancelha masculina e pigmentação. Preços claros e agendamento online.">
 <link rel="canonical" href="https://mechasalao.com.br/">
 <meta property="og:type" content="website"><meta property="og:title" content="Mecha Salão &amp; Barbearia | Salão e barbearia na Vila Madalena, São Paulo"><meta property="og:description" content="Salão e barbearia na Vila Madalena: cortes femininos, escova e finalização, coloração e mechas, tratamentos e químicas, corte masculino, barba, sobrancelha masculina e pigmentação. Preços claros e agendamento online."><meta property="og:image" content="https://mechasalao.com.br/assets/img/capa.webp"><meta property="og:locale" content="pt_BR">
-<meta name="theme-color" content="#1F1B18">
+<meta name="theme-color" content="#F6F4EF">
+<script>try{var t=new URLSearchParams(location.search).get("tema")||localStorage.getItem("mecha-premium-tema");if(t==="claro"||t==="escuro")document.documentElement.dataset.tema=t;}catch(e){}</script>
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Golos+Text:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
@@ -29,7 +30,12 @@
       <a href="#duvidas" style="--k:4">Dúvidas</a>
       <a href="#contato" style="--k:5">Contato</a>
       <a class="btn btn-claro menu-agendar" href="#agendar" style="--k:6">Agendar horário <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4.5 12h14M13.5 6.5 19 12l-5.5 5.5"/></svg></a>
-      <p class="menu-rodape" style="--k:7">Rua Harmonia, 512, Vila Madalena<br>WhatsApp (11) 97315-2640</p>
+      <div class="menu-tema" style="--k:7"><div class="tema-pilula deitada" role="group" aria-label="Tema do site">
+  <i class="tema-marca" aria-hidden="true"></i>
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M14.8 3.4a8.7 8.7 0 1 0 5.8 12.4A7 7 0 0 1 14.8 3.4Z"/></svg></button>
+</div></div>
+      <p class="menu-rodape" style="--k:8">Rua Harmonia, 512, Vila Madalena<br>WhatsApp (11) 97315-2640</p>
     </nav>
     <div class="topo-acoes">
       <a class="btn btn-claro btn-agendar" href="#agendar">Agendar horário <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M4.5 12h14M13.5 6.5 19 12l-5.5 5.5"/></svg></a>
@@ -37,6 +43,11 @@
     </div>
   </div>
 </header>
+<div class="tema-pilula tema-lado" role="group" aria-label="Tema do site">
+  <i class="tema-marca" aria-hidden="true"></i>
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M14.8 3.4a8.7 8.7 0 1 0 5.8 12.4A7 7 0 0 1 14.8 3.4Z"/></svg></button>
+</div>
 <main id="conteudo">
 <section class="capa" id="inicio" aria-label="Apresentação">
   <div class="capa-quadro">
@@ -691,7 +702,7 @@
     <h3>Com quem compartilhamos</h3><p>Com ninguém para fins de publicidade. O pedido trafega pelo WhatsApp (Meta) e os pagamentos pelo processador do cartão ou do Pix.</p>
     <h3>Por quanto tempo</h3><p>Pedidos sem atendimento são apagados em 6 meses. Fichas de cliente ficam enquanto houver relação com o salão e pelo prazo legal depois dela.</p>
     <h3>Seus direitos</h3><p>Confirmar, acessar, corrigir, apagar ou levar seus dados, e revogar consentimentos, pelo e-mail ola@mechasalao.com.br. Encarregado de dados: Mecha Beleza e Barbearia Ltda..</p>
-    <h3>Cookies e armazenamento</h3><p>O site guarda no seu navegador apenas a sua escolha sobre cookies. Não usamos cookies de publicidade. Medição de visitas só com a sua permissão no aviso de cookies.</p><p class="doc-data">Atualizado em novembro de 2026.</p></div>
+    <h3>Cookies e armazenamento</h3><p>O site guarda no seu navegador apenas a sua escolha sobre cookies e o tema claro ou escuro que você escolheu. Não usamos cookies de publicidade. Medição de visitas só com a sua permissão no aviso de cookies.</p><p class="doc-data">Atualizado em novembro de 2026.</p></div>
 </dialog>
 <div class="cookies" id="cookies" role="region" aria-label="Aviso de cookies" hidden>
   <p>Usamos só o armazenamento necessário para o site funcionar. Medição de visitas, apenas se você permitir. <button type="button" class="link" data-doc="privacidade">Política de privacidade</button>.</p>

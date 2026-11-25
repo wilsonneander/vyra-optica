@@ -6,6 +6,10 @@ const fs = require('fs');
 const path = require('path');
 const C = require('./content');
 const I = require('./icons');
+const T = require('../../_comum/tema-pilula');
+const CHAVE_TEMA = 'peakalika-tema';
+const COR_CLARO = '#F6F0E6';
+const COR_ESCURO = '#0A1322';
 
 const OUT = path.join(__dirname, '..', 'premium', 'peakalika-premium');
 const M = C.marca;
@@ -23,9 +27,9 @@ const copia = (de, para) => fs.copyFileSync(path.join(__dirname, de), path.join(
 for (const f of fs.readdirSync(path.join(__dirname, 'img', 'fotos'))) copia(`img/fotos/${f}`, `assets/img/${f}`);
 for (const f of fs.readdirSync(path.join(__dirname, 'img', 'video'))) copia(`img/video/${f}`, `assets/video/${f}`);
 for (const f of fs.readdirSync(path.join(__dirname, 'img')).filter((f) => /\.(png|webp|jpg)$/.test(f))) copia(`img/${f}`, `assets/img/${f}`);
-copia('style.css', 'assets/style.css');
+fs.writeFileSync(path.join(OUT, 'assets', 'style.css'), fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8') + T.css);
 fs.writeFileSync(path.join(OUT, 'assets', 'app.js'), fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8')
-  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura, aviao: I.aviaoPath })));
+  .replace('/*DADOS*/', JSON.stringify({ whatsapp: M.whatsapp, abertura: C.abertura, aviao: I.aviaoPath })) + T.js(CHAVE_TEMA, COR_CLARO, COR_ESCURO));
 fs.writeFileSync(path.join(OUT, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
 const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Gloock&family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">';
@@ -115,13 +119,14 @@ const insta = C.instagram.map((p) => p.video
   : `<a class="post" href="${M.instagram}" target="_blank" rel="noopener" data-post><img src="${img(p.foto)}" alt="${esc(p.alt)}" width="720" height="900" loading="lazy"></a>`).join('');
 
 const html = `<!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-tema="escuro">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${M.completo} | Viagens, Disney e vistos em Curitiba</title>
 <meta name="description" content="Agência de turismo em Curitiba: passagens, hotéis, pacotes, Disney com guiamento virtual exclusivo, cruzeiros e assessoria de visto americano. Recomendada por mais de 5.000 clientes.">
-<meta name="theme-color" content="#0A1322">
+<meta name="theme-color" content="${COR_ESCURO}">
+${T.head(CHAVE_TEMA)}
 <meta property="og:title" content="${M.completo}">
 <meta property="og:description" content="Era uma vez a sua próxima viagem. Passagens, Disney, cruzeiros e vistos com quem cuida de cada detalhe.">
 <meta property="og:image" content="assets/video/capa-fogos.webp">
@@ -133,6 +138,7 @@ ${fontes}
 </head>
 <body class="carregando">
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+${T.pilula('tema-lado', 'escuro')}
 
 <div class="pre" data-pre aria-hidden="true">
   <div class="pre-palco">
@@ -172,6 +178,7 @@ ${fontes}
     <a href="#servicos">Serviços</a><a href="#vistos">Vistos</a><a href="#clientes">Clientes</a>
   </nav>
   <a class="btn btn-coral" href="${wa('Olá! Quero planejar uma viagem com a Peakalika Turismo.')}" target="_blank" rel="noopener">${I.whats}Falar no WhatsApp</a>
+  <div class="menu-tema">${T.pilula('deitada', 'escuro')}</div>
 </div>
 
 <main id="conteudo">

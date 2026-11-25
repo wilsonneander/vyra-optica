@@ -28,13 +28,6 @@ São fotos provisórias: o ideal é trocar por fotos reais da equipe, dos client
 | amigas_celular_rosa.jpg | https://www.pexels.com/photo/5325601/ |
 | pai_filha_sofa.jpg | https://www.pexels.com/photo/7983214/ |
 | amigas_notebook.jpg | https://www.pexels.com/photo/4353618/ |
-
-## Fotos enviadas pelo usuário (2026-11-25)
-
-Recebidas como prévia em 612x408 px. Conferir a licença (parecem de banco pago) e trocar pela versão em alta resolução antes de vender.
-
-| Arquivo | Uso |
-|---|---|
-| familia_pipoca_tv.jpg | 2º slide do carrossel |
-| familia_cama_tv.jpg | capa do Sobre nós |
-| familia_tv_costas.jpg | seção "Internet boa para todas as idades" e 4º slide |
+| familia_rindo_tv.jpg | https://www.pexels.com/photo/4260639/ |
+| familia_cama_sorrindo.jpg | https://www.pexels.com/photo/4586634/ |
+| familia_sala_tv.jpg | https://www.pexels.com/photo/14798018/ |

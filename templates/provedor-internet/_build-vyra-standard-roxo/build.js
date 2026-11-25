@@ -241,7 +241,7 @@ function momentos() {
 function porque() {
   const it = [...C.benefits, { title: 'Wi-Fi 6 em todos os planos', text: 'Roteador moderno incluso, com sinal forte na casa toda.' }];
   return `<section class="sec soft"><div class="container lado-a-lado inv">
-    <div class="midia rv"><div class="principal"><img src="${IMG}familia_tv_costas.jpg" alt="Família abraçada no sofá, de costas, assistindo TV" loading="lazy"></div>
+    <div class="midia rv"><div class="principal"><img src="${IMG}familia_sala_tv.jpg" alt="Família rindo no sofá da sala enquanto assiste TV" loading="lazy"></div>
       <div class="menor"><img src="${IMG}jovem_fone_joinha.jpg" alt="Jovem de fone fazendo joinha" loading="lazy"></div>
       <div class="selo"><b>100%</b><span>fibra óptica<br>até a sua casa</span></div></div>
     <div class="texto rv" data-d="1"><span class="apoio">Por que a Vyra</span><h2>Internet boa para <em>todas as idades.</em></h2>
@@ -416,7 +416,7 @@ const paginas = {
   ${faq(5)}
   ${chamadaCep()}` },
 
-  sobre: { t: `Sobre nós | ${E.nome}`, b: () => `${pcab('familia_cama_tv.jpg', '50% 45%', 'Família deitada na cama sorrindo, o pai com o controle da TV', 'Feita no interior, <em>para o interior.</em>', C.about.intro, 'Sobre nós')}
+  sobre: { t: `Sobre nós | ${E.nome}`, b: () => `${pcab('familia_cama_sorrindo.jpg', '50% 38%', 'Pai e mãe deitados na cama com o filho sorridente', 'Feita no interior, <em>para o interior.</em>', C.about.intro, 'Sobre nós')}
   <section class="sec"><div class="container lado-a-lado">
     <div class="midia rv"><div class="principal"><img src="${IMG}equipe_joinha.jpg" alt="Equipe da Vyra fazendo joinha em volta do notebook" loading="lazy"></div>
       <div class="menor"><img src="${IMG}tecnico_capacete.jpg" alt="Técnico de campo de capacete" style="object-position:50% 20%" loading="lazy"></div>

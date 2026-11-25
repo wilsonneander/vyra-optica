@@ -9,7 +9,7 @@ const { THEME_JS } = require('./helpers');
 
 const ROOT = path.join(__dirname, '..');
 const FAVICON = path.join(__dirname, '..', '..', '..', 'brand', 'logo', 'favicon.svg');
-const tiers = ['basico', 'intermediario', 'premium'];
+const modelos = ['vyra-standard', 'vyra-standard-planos', 'vyra-premium'];
 
 // Comum aos 3 modelos: toda página abre no topo (o navegador ou o visualizador às vezes restaura
 // a rolagem da página anterior, abrindo no rodapé). Só mantém a posição se o link apontar para uma
@@ -35,11 +35,11 @@ const COMMON_JS = `// Vyra · comportamento comum
 })();
 `;
 
-for (const tier of tiers) {
+for (const tier of modelos) {
   const mod = path.join(__dirname, tier + '.js');
   if (!fs.existsSync(mod)) continue;
   const { pages, css, js } = require(mod).build(content);
-  const dir = path.join(ROOT, { basico: 'bronze', intermediario: 'silver', premium: 'gold' }[tier]);
+  const dir = path.join(ROOT, path.join(tier.endsWith('premium') ? 'premium' : 'standard', tier));
   fs.mkdirSync(path.join(dir, 'assets'), { recursive: true });
   // remove páginas que não fazem mais parte do modelo
   for (const old of fs.readdirSync(dir).filter(f => f.endsWith('.html') && !(f in pages))) fs.unlinkSync(path.join(dir, old));
@@ -51,7 +51,7 @@ for (const tier of tiers) {
   fs.writeFileSync(path.join(dir, 'assets', 'main.js'), mainJs);
   // favicon: o Básico usa a paleta azul e verde
   let fav = fs.readFileSync(FAVICON, 'utf8');
-  if (tier === 'basico') fav = fav.replace(/#FF7A3D/gi, '#3B82F6').replace(/#FF5A1F/gi, '#2563EB').replace(/#E11D2E/gi, '#16A34A');
+  if (tier === 'vyra-standard') fav = fav.replace(/#FF7A3D/gi, '#3B82F6').replace(/#FF5A1F/gi, '#2563EB').replace(/#E11D2E/gi, '#16A34A');
   fs.writeFileSync(path.join(dir, 'assets', 'favicon.svg'), fav);
   // fotos compartilhadas (templates/provedor-internet/_build/img) para os modelos que usam imagens
   {

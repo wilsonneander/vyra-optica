@@ -1,22 +1,22 @@
-# Autosserviços: modelo Bronze "Pistão Auto Center"
+# Autosserviços: modelo Pistão Standard "Pistão Auto Center"
 
 Nicho **autosserviços** (centro automotivo, oficina mecânica, pneus). Landing page de vitrine, objetiva, com empresa fictícia (Pistão Auto Center, Carlos Prates, Belo Horizonte).
 Referências enviadas: automec-react.netlify.app/home-2 e pscarcentroautomotivo.com.br, mais o print da nav escura com botão vermelho "Orçamento grátis".
 
 | Pasta | O que é |
 |---|---|
-| `_build-bronze/content.js` | Todo o conteúdo: marca, contatos, horários, nav, serviços, números, diferenciais, avaliações e bairros. `[EXEMPLO]` = trocar por cliente |
-| `_build-bronze/build.js` | Gera `bronze/index.html` com CSS e JS embutidos (padrão Bronze) |
-| `_build-bronze/style.css`, `_build-bronze/app.js` | Design e interação |
-| `_build-bronze/icons.js` | Logo (porca sextavada com "T" de banda de rodagem), pneu da capa, marca de pneu, ferramentas do fundo e ícones próprios |
-| `_build-bronze/gerar-mapa.js` | Mapa estático do OpenStreetMap na paleta asfalto |
-| `_build-bronze/img/fotos/` | Fotos do Unsplash (licença livre) em WebP |
-| `bronze/` | **Site pronto** (abre direto pelo `index.html`) |
+| `_build-pistao-standard/content.js` | Todo o conteúdo: marca, contatos, horários, nav, serviços, números, diferenciais, avaliações e bairros. `[EXEMPLO]` = trocar por cliente |
+| `_build-pistao-standard/build.js` | Gera `standard/pistao-standard/index.html` com CSS e JS embutidos (padrão Pistão Standard) |
+| `_build-pistao-standard/style.css`, `_build-pistao-standard/app.js` | Design e interação |
+| `_build-pistao-standard/icons.js` | Logo (porca sextavada com "T" de banda de rodagem), pneu da capa, marca de pneu, ferramentas do fundo e ícones próprios |
+| `_build-pistao-standard/gerar-mapa.js` | Mapa estático do OpenStreetMap na paleta asfalto |
+| `_build-pistao-standard/img/fotos/` | Fotos do Unsplash (licença livre) em WebP |
+| `standard/pistao-standard/` | **Site pronto** (abre direto pelo `index.html`) |
 
 ## Gerar
 
 ```bash
-node "templates/autosservicos/_build-bronze/build.js"
+node "templates/autosservicos/_build-pistao-standard/build.js"
 ```
 
 O mapa só precisa ser gerado de novo se o endereço mudar (precisa do `sharp` instalado fora do projeto):

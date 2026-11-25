@@ -1,4 +1,4 @@
-# Lava car: modelo Silver "Garoa Lava Car"
+# Lava car: modelo Garoa Standard "Garoa Lava Car"
 
 Nicho **lava car** (lavagem técnica e estética automotiva). Template de demonstração com empresa fictícia (Garoa Lava Car, Buritis, Belo Horizonte).
 Identidade: marinho quase preto `#0A1322`, azul Garoa `#1F5EFF`, amarelo `#FFC93C`, espuma `#EEF3FA`. Fontes Red Hat Display (títulos) e Familjen Grotesk (texto). Logo: gota com um carro vazado dentro.
@@ -7,25 +7,25 @@ Uma página só: Início, Serviços (lavagem técnica e acabamentos), Planos, An
 
 | Pasta | O que é |
 |---|---|
-| `_build-silver/content.js` | Todo o conteúdo: marca, contatos, horários, níveis de lavagem, acabamentos, planos, preços, vídeos, avaliações, FAQ, bairros, Instagram. `[EXEMPLO]` = trocar pelo cliente |
-| `_build-silver/build.js` | Gera o `index.html` e copia CSS, JS, fotos e vídeos |
-| `_build-silver/style.css`, `_build-silver/app.js` | Design e interação (copiados para `silver/assets/`) |
-| `_build-silver/icons.js` | Logo e ícones desenhados para a marca (sem biblioteca de ícones) |
-| `_build-silver/imagens.js` | Baixa as fotos do Unsplash e gera as versões "antes" (sujeira aplicada sobre a foto limpa) |
-| `_build-silver/gerar-mapa.js` | Mapa do OpenStreetMap recolorido no tema `marinho` |
-| `_build-silver/video/` | Vídeos do Mixkit (licença livre), 720p |
-| `silver/` | **Site pronto** (abre direto pelo `index.html`) |
+| `_build-garoa-standard/content.js` | Todo o conteúdo: marca, contatos, horários, níveis de lavagem, acabamentos, planos, preços, vídeos, avaliações, FAQ, bairros, Instagram. `[EXEMPLO]` = trocar pelo cliente |
+| `_build-garoa-standard/build.js` | Gera o `index.html` e copia CSS, JS, fotos e vídeos |
+| `_build-garoa-standard/style.css`, `_build-garoa-standard/app.js` | Design e interação (copiados para `standard/garoa-standard/assets/`) |
+| `_build-garoa-standard/icons.js` | Logo e ícones desenhados para a marca (sem biblioteca de ícones) |
+| `_build-garoa-standard/imagens.js` | Baixa as fotos do Unsplash e gera as versões "antes" (sujeira aplicada sobre a foto limpa) |
+| `_build-garoa-standard/gerar-mapa.js` | Mapa do OpenStreetMap recolorido no tema `marinho` |
+| `_build-garoa-standard/video/` | Vídeos do Mixkit (licença livre), 720p |
+| `standard/garoa-standard/` | **Site pronto** (abre direto pelo `index.html`) |
 
 ## Gerar
 
 ```bash
-node "templates/lava-car/_build-silver/build.js"
+node "templates/lava-car/_build-garoa-standard/build.js"
 ```
 
 Fotos e mapa só precisam ser gerados de novo se mudarem (precisam do `sharp` instalado fora do projeto):
 
 ```bash
-NODE_PATH=<pasta com node_modules/sharp> MOTOR=<caminho de um motor.webp> node "templates/lava-car/_build-silver/imagens.js"
+NODE_PATH=<pasta com node_modules/sharp> MOTOR=<caminho de um motor.webp> node "templates/lava-car/_build-garoa-standard/imagens.js"
 NODE_PATH=<pasta com node_modules/sharp> node gerar-mapa.js marinho img/mapa_buritis.webp   # dentro de _build/
 ```
 

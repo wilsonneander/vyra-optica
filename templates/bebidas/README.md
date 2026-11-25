@@ -1,24 +1,24 @@
-# Bebidas & Conveniências: modelo Bronze "Tampinha"
+# Bebidas & Conveniências: modelo Tampinha Standard "Tampinha"
 
 Nicho **distribuidora de bebidas, adega e conveniência**. Landing page de uma página só, com empresa fictícia (Tampinha Bebidas & Conveniência, Floresta, Belo Horizonte). O cliente monta o carrinho no site e o pedido sai pronto no WhatsApp.
 Referência de conteúdo: bebidastissot.com.br (categorias, marcas, faixa de avisos, "Comprar pelo Whats", modal +18). Sem referência de design. Estilo pedido: real e humano, com fotos e logos das marcas.
 
 | Pasta | O que é |
 |---|---|
-| `_build-bronze/content.js` | Todo o conteúdo: marca, atendente, contatos, entrega, horários, categorias, produtos com preço e foto, kits, logos, números, FAQ e bairros. `[EXEMPLO]` = trocar por cliente |
-| `_build-bronze/img/fotos/` | Fotos em WebP: produtos (quadradas 640px) e fotos de pessoas e ambiente |
-| `_build-bronze/img/logos/` | Logos oficiais das marcas (Wikimedia Commons) |
-| `_build-bronze/img/creditos.json` | Origem, autor e licença de cada imagem; vira a lista "Créditos das imagens" do rodapé |
-| `_build-bronze/icons.js` | Logo da Tampinha (tampinha coroa com "t"), favicon e ícones próprios |
-| `_build-bronze/style.css`, `_build-bronze/app.js` | Design e interação |
-| `_build-bronze/build.js` | Gera `bronze/index.html` com CSS e JS embutidos (padrão Bronze) |
-| `_build-bronze/gerar-mapa.js` | Mapa estático do OpenStreetMap na paleta café |
-| `bronze/` | **Site pronto** (abrir o `index.html` no navegador) |
+| `_build-tampinha-standard/content.js` | Todo o conteúdo: marca, atendente, contatos, entrega, horários, categorias, produtos com preço e foto, kits, logos, números, FAQ e bairros. `[EXEMPLO]` = trocar por cliente |
+| `_build-tampinha-standard/img/fotos/` | Fotos em WebP: produtos (quadradas 640px) e fotos de pessoas e ambiente |
+| `_build-tampinha-standard/img/logos/` | Logos oficiais das marcas (Wikimedia Commons) |
+| `_build-tampinha-standard/img/creditos.json` | Origem, autor e licença de cada imagem; vira a lista "Créditos das imagens" do rodapé |
+| `_build-tampinha-standard/icons.js` | Logo da Tampinha (tampinha coroa com "t"), favicon e ícones próprios |
+| `_build-tampinha-standard/style.css`, `_build-tampinha-standard/app.js` | Design e interação |
+| `_build-tampinha-standard/build.js` | Gera `standard/tampinha-standard/index.html` com CSS e JS embutidos (padrão Tampinha Standard) |
+| `_build-tampinha-standard/gerar-mapa.js` | Mapa estático do OpenStreetMap na paleta café |
+| `standard/tampinha-standard/` | **Site pronto** (abrir o `index.html` no navegador) |
 
 ## Gerar
 
 ```bash
-node "templates/bebidas/_build-bronze/build.js"
+node "templates/bebidas/_build-tampinha-standard/build.js"
 ```
 
 O mapa só precisa ser gerado de novo se o endereço mudar (precisa do `sharp` instalado fora do projeto):
@@ -66,4 +66,4 @@ Copiar para `clientes/<cliente>/` (nunca editar aqui). Trocar `content.js` (marc
 
 Pílula com sol e lua na lateral direita (no celular, deitada dentro do menu). O marcador é uma tampinha coroa que rola de um ícone ao outro, dá um pulinho e solta bolhas de gás; a página troca de tema num círculo que se espalha a partir da tampinha (sem View Transitions, as cores passam suavemente). Peça comum em `templates/_comum/tema-tampinha.js`. A escolha fica salva no navegador e `?tema=claro` ou `?tema=escuro` no link também vale.
 
-- Bronze abre no **claro**; o escuro é noite de adega (café quase preto, papel tostado, vermelho da tampinha). Chave `tampinha-bronze-tema`. Cores em `_build-bronze/style.css`, bloco "tema escuro".
+- Tampinha Standard abre no **claro**; o escuro é noite de adega (café quase preto, papel tostado, vermelho da tampinha). Chave `tampinha-bronze-tema`. Cores em `_build-tampinha-standard/style.css`, bloco "tema escuro".

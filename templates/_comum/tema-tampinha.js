@@ -1,4 +1,4 @@
-// Botão de tema claro/escuro dos modelos de bebidas (Tampinha Bronze, Silver e Gold; N3 Drinks).
+// Botão de tema claro/escuro dos modelos de bebidas (Tampinha, Tampinha Palco e Tampinha Lata; N3 Drinks).
 // Pílula com sol e lua; o marcador é uma tampinha coroa que ROLA de um ícone ao outro (gira enquanto anda),
 // dá um pulinho ao chegar e solta bolhas de gás. A página troca de tema num círculo que se espalha
 // a partir da tampinha (View Transitions); sem esse recurso, as cores passam suavemente de um tema ao outro.

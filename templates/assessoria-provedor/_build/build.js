@@ -16,7 +16,7 @@ const { globeJs } = require('./globe');
 const I = require('./icons');
 
 const PREVIEW = process.argv.includes('--preview');
-const OUT = path.join(__dirname, '..', PREVIEW ? '_preview' : path.join('gold', 'blocos'));
+const OUT = path.join(__dirname, '..', PREVIEW ? '_preview' : path.join('premium', 'thd-premium-blocos'));
 const ver = (s) => crypto.createHash('md5').update(s).digest('hex').slice(0, 8);
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 

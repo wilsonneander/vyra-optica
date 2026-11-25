@@ -17,7 +17,7 @@ Na vitrine do nicho, cada modelo ganha o botão **Ver nos aparelhos** ao lado do
 | Tela cheia | esconde o resto do navegador para apresentar | F |
 | Seletor de modelo | troca de modelo sem voltar para a vitrine | |
 
-O endereço guarda o modelo e o aparelho (`?m=gold&d=tablet&o=deitado`), então dá para mandar o link já no aparelho certo.
+O endereço guarda o modelo e o aparelho (`?m=sorrisus&d=tablet&o=deitado`), então dá para mandar o link já no aparelho certo.
 
 Medidas: celular 390 × 844, tablet 768 × 1024 (1024 × 768 deitado), computador 1440 de largura com a altura do palco (em monitor maior que 1440, usa a largura toda). Quando o aparelho não cabe na tela, ele é reduzido por inteiro (o zoom aparece na barra), sem mudar o layout que o site recebe.
 

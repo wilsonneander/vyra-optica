@@ -4,9 +4,9 @@ Três modelos de site com as mesmas 6 páginas (Início, Sobre nós, Serviços, 
 
 | Pasta | Modelo | Destaques |
 |---|---|---|
-| `bronze/` | Bronze (básico) | Simples, objetivo, formulários, redes sociais, sem animação |
-| `silver/` | Silver (intermediário) | Hover com elevação, entrada ao rolar, contadores, abas, acordeão |
-| `gold/` | Gold (premium) | Cursor próprio, rede de fibra animada, transições entre páginas, botões magnéticos, simulador, assinatura em etapas |
+| `standard/vyra-standard/` | Vyra Standard | Simples, objetivo, formulários, redes sociais, sem animação |
+| `standard/vyra-standard-planos/` | Vyra Standard Planos | Hover com elevação, entrada ao rolar, contadores, abas, acordeão |
+| `premium/vyra-premium/` | Vyra Premium | Cursor próprio, rede de fibra animada, transições entre páginas, botões magnéticos, simulador, assinatura em etapas |
 
 Abra `index.html` de qualquer pasta no navegador. Não precisa de servidor.
 
@@ -19,7 +19,7 @@ Depois de editar, gere os sites de novo:
 node templates/provedor-internet/_build/build.js
 ```
 
-O design de cada modelo está em `_build/basico.js`, `_build/intermediario.js` e `_build/premium.js`.
+O design de cada modelo está em `_build/vyra-standard.js`, `_build/vyra-standard-planos.js` e `_build/vyra-premium.js`.
 
 ## Formulários
 

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR" data-tema="claro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página não encontrada | Cobre Barbearia</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F2ECE2">
+<script>try{var t=new URLSearchParams(location.search).get("tema")||localStorage.getItem("cobre-premium-tema");if(t==="claro"||t==="escuro")document.documentElement.dataset.tema=t;}catch(e){}</script>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Martian+Mono:wght@400;500&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Yellowtail&display=swap" rel="stylesheet">
+<style>
+:root { --fundo: #F2ECE2; --tinta: #15161A; --txt-2: rgba(21, 22, 26, .74); --cobre: #C2703A; --cobre-txt: #9A4F1F; --no-cobre: #15161A; --linha: rgba(21, 22, 26, .16); color-scheme: light; }
+[data-tema="escuro"] { --fundo: #121214; --tinta: #F2ECE2; --txt-2: rgba(242, 236, 226, .76); --cobre: #F0AD73; --cobre-txt: #F0AD73; --no-cobre: #121214; --linha: rgba(242, 236, 226, .18); color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 32px 16px; background: var(--fundo); color: var(--tinta); font: 400 17px/1.6 'Schibsted Grotesk', 'Segoe UI', sans-serif; text-align: center; }
+main { max-width: 640px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font: 900 26px/1 'Big Shoulders Display', 'Arial Narrow', sans-serif; text-transform: uppercase; }
+.logo svg { width: 34px; height: 34px; }
+.logo em { font: 400 20px/1 'Yellowtail', cursive; text-transform: none; color: var(--cobre-txt); }
+.num { display: flex; align-items: center; justify-content: center; gap: 2vw; margin: 28px 0 8px; font: 900 clamp(120px, 26vw, 220px)/.9 'Big Shoulders Display', 'Arial Narrow', sans-serif; }
+.espelho { width: clamp(70px, 15vw, 128px); height: auto; transform-origin: 50% 90%; animation: balanca 3.2s ease-in-out infinite; }
+@keyframes balanca { 0%, 100% { rotate: -8deg; } 50% { rotate: 8deg; } }
+h1 { margin: 0 0 10px; font: 900 clamp(34px, 6vw, 56px)/1 'Big Shoulders Display', 'Arial Narrow', sans-serif; text-transform: uppercase; }
+h1 em { font: 400 .8em/1 'Yellowtail', cursive; text-transform: none; color: var(--cobre-txt); }
+p { margin: 0 auto 26px; color: var(--txt-2); max-width: 46ch; }
+.btns { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px; }
+.btns a { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 22px; border: 1px solid var(--linha); border-radius: 10px; color: inherit; font-weight: 600; text-decoration: none; transition: background-color .3s, color .3s, border-color .3s; }
+.btns a:first-child { background: var(--cobre); border-color: var(--cobre); color: var(--no-cobre); }
+.btns a:hover { border-color: var(--cobre); }
+.atalhos { display: flex; justify-content: center; gap: 22px; margin-top: 26px; font-size: 15px; }
+.atalhos a { color: var(--cobre-txt); }
+@media (max-width: 520px) { .btns { grid-auto-flow: row; width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .espelho { animation: none; } }
+</style>
+</head>
+<body>
+<main>
+  <a class="logo" href="/"><svg class="simbolo" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 2 38 20 20 38 2 20Z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M26.5 14.2a8.6 8.6 0 1 0 0 11.6" fill="none" stroke="var(--cobre, #F0AD73)" stroke-width="3.4"/><path d="M25.6 20h7" stroke="var(--cobre, #F0AD73)" stroke-width="2.2"/></svg><span>Cobre</span><em>barbearia</em></a>
+  <div class="num" aria-hidden="true"><span>4</span><svg class="espelho" viewBox="0 0 120 200" aria-hidden="true"><ellipse cx="60" cy="66" rx="52" ry="60" fill="var(--cobre)"/><ellipse cx="60" cy="66" rx="42" ry="50" fill="var(--fundo)"/><path class="espelho-brilho" d="M34 44c6-14 18-22 32-24" fill="none" stroke="var(--cobre)" stroke-width="5" stroke-linecap="round" opacity=".55"/><path d="M50 124h20l-3 70H53Z" fill="var(--tinta)"/><path d="M47 124h26" stroke="var(--cobre)" stroke-width="6"/></svg><span>4</span></div>
+  <h1>Essa página <em>não está aqui.</em></h1>
+  <p>Olhamos em todas as cadeiras e no espelho de mão. O endereço pode ter mudado ou foi digitado com uma letra a mais.</p>
+  <div class="btns"><a href="/">Voltar ao início</a><a href="/#agendar">Agendar horário</a></div>
+  <nav class="atalhos" aria-label="Atalhos"><a href="/equipe.html">Equipe</a><a href="/#servicos">Serviços</a><a href="https://wa.me/5541998127740?text=Ol%C3%A1%2C%20Cobre%20Barbearia!%20Vim%20pelo%20site." target="_blank" rel="noopener">WhatsApp</a></nav>
+</main>
+</body>
+</html>

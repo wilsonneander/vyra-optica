@@ -135,6 +135,8 @@ main, .rodape { overflow-x: clip; }
 .gaveta-nav a { padding: 11px 0; border-bottom: 1px solid var(--linha); font: 900 34px/1 var(--f-t); text-transform: uppercase; text-decoration: none; }
 .gaveta-nav a:hover { color: var(--cobre-txt); }
 .gaveta-info { display: grid; gap: 12px; margin: 0; }
+/* a gaveta é uma coluna flex: sem isso a pílula de tema estica na largura toda e o marcador sai do lugar */
+.gaveta-caixa .tema-pilula { align-self: flex-start; --tb: 38px; }
 .gaveta-info dt { font: 500 11.5px var(--f-m); text-transform: uppercase; color: var(--apaga); }
 .gaveta-info dd { margin: 0; }
 .redes { display: flex; gap: 8px; }

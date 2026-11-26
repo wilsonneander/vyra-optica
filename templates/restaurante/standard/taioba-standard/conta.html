@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minha conta | Taioba Bar e Cozinha Mineira</title>
+<meta name="description" content="Reservas, Caderno de visitas, encomendas, preferências e dados pessoais.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#141312">
+<meta property="og:title" content="Minha conta | Taioba Bar e Cozinha Mineira">
+<meta property="og:description" content="Reservas, Caderno de visitas, encomendas, preferências e dados pessoais.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/capa-salao-noite.webp">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<script>try{var t=new URLSearchParams(location.search).get("tema")||localStorage.getItem("taioba-tema");if(t==="claro"||t==="escuro")document.documentElement.dataset.tema=t;}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Literata:ital,opsz,wght@1,7..72,400;1,7..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+
+</head>
+<body data-pg="conta" class="tipo-conta">
+
+<div class="conta" id="conteudo">
+  <aside class="conta-lado">
+    <a class="logo" href="index.html" aria-label="Taioba Bar e Cozinha Mineira, início"><span class="logo-marca"><svg class="folha" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 44c-1-4-1.2-7.4-.6-10.4C14 33 6 27.4 5 17.6 4.6 13.4 6 9.6 8.4 7.2c3.4 3.2 8.4 5.4 15.6 5.6 7.2-.2 12.2-2.4 15.6-5.6 2.4 2.4 3.8 6.2 3.4 10.4-1 9.8-9 15.4-18.4 16-.6 3-.4 6.4.6 10.4" fill="var(--folha-logo)"/><path d="M24 33.6V13M24 20.4l-8.6-6.2M24 20.4l8.6-6.2M24 26.6l-11-4.4M24 26.6l11-4.4" stroke="var(--fundo-logo)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg><span class="logo-txt"><b>Taioba</b><small>bar e cozinha mineira</small></span></span></a>
+    <p class="conta-ola" data-ola>Olá</p>
+    <nav class="conta-nav" role="tablist" aria-label="Seções da conta">
+      <button type="button" role="tab" id="ab-inicio" aria-controls="cx-inicio" aria-selected="true" data-conta-aba="inicio"><svg class="folha" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 44c-1-4-1.2-7.4-.6-10.4C14 33 6 27.4 5 17.6 4.6 13.4 6 9.6 8.4 7.2c3.4 3.2 8.4 5.4 15.6 5.6 7.2-.2 12.2-2.4 15.6-5.6 2.4 2.4 3.8 6.2 3.4 10.4-1 9.8-9 15.4-18.4 16-.6 3-.4 6.4.6 10.4" fill="currentColor"/><path d="M24 33.6V13M24 20.4l-8.6-6.2M24 20.4l8.6-6.2M24 26.6l-11-4.4M24 26.6l11-4.4" stroke="var(--papel, #F4EEE1)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg><span>Início</span></button>
+      <button type="button" role="tab" id="ab-reservas" aria-controls="cx-reservas" aria-selected="false" data-conta-aba="reservas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5.6" width="16" height="14.4" rx="1.6"/><path d="M4 10h16M8.4 3.6v4M15.6 3.6v4"/></svg><span>Reservas</span></button>
+      <button type="button" role="tab" id="ab-encomendas" aria-controls="cx-encomendas" aria-selected="false" data-conta-aba="encomendas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.4 8.2h13.2l-1 11.4H6.4Z"/><path d="M9 10.4V7a3 3 0 0 1 6 0v3.4"/></svg><span>Para levar</span></button>
+      <button type="button" role="tab" id="ab-preferencias" aria-controls="cx-preferencias" aria-selected="false" data-conta-aba="preferencias"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.4v-8.6"/><path d="M12 12.4C12 8.2 9 5.6 4.8 5.6c0 4.2 3 6.8 7.2 6.8ZM12 14.6c0-3.6 2.6-6 6.4-6 0 3.6-2.6 6-6.4 6Z"/></svg><span>Preferências</span></button>
+      <button type="button" role="tab" id="ab-dados" aria-controls="cx-dados" aria-selected="false" data-conta-aba="dados"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.4" r="3.6"/><path d="M5 20c.8-3.8 3.6-6 7-6s6.2 2.2 7 6"/></svg><span>Meus dados</span></button>
+    </nav>
+    <div class="conta-lado-pe">
+      <div class="tema-pilula deitada" role="group" aria-label="Tema do site">
+  <i class="tema-marca" aria-hidden="true"></i>
+  <button type="button" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg></button>
+  <button type="button" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M14.8 3.4a8.7 8.7 0 1 0 5.8 12.4A7 7 0 0 1 14.8 3.4Z"/></svg></button>
+</div>
+      <a class="conta-link" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5.5 8.5 12l6.5 6.5"/></svg><span>Voltar ao site</span></a>
+      <button type="button" class="conta-link" data-sair><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.4 4.4H18a1.6 1.6 0 0 1 1.6 1.6v12a1.6 1.6 0 0 1-1.6 1.6h-3.6M10 16.4 5.6 12 10 7.6M5.6 12h10"/></svg><span>Sair</span></button>
+    </div>
+  </aside>
+  <main class="conta-corpo">
+    <p class="conta-aviso">Demonstração: o que você faz aqui fica salvo só neste navegador. No site publicado, a conta grava num servidor e a equipe vê as reservas no sistema da casa.</p>
+    <section class="conta-aba" role="tabpanel" id="cx-inicio" aria-labelledby="ab-inicio" data-cx="inicio"></section>
+    <section class="conta-aba" role="tabpanel" id="cx-reservas" aria-labelledby="ab-reservas" data-cx="reservas" hidden></section>
+    <section class="conta-aba" role="tabpanel" id="cx-encomendas" aria-labelledby="ab-encomendas" data-cx="encomendas" hidden></section>
+    <section class="conta-aba" role="tabpanel" id="cx-preferencias" aria-labelledby="ab-preferencias" data-cx="preferencias" hidden></section>
+    <section class="conta-aba" role="tabpanel" id="cx-dados" aria-labelledby="ab-dados" data-cx="dados" hidden></section>
+  </main>
+</div>
+<dialog class="doc" id="doc-uso" aria-labelledby="doc-uso-t">
+  <div class="doc-in">
+    <header><h2 id="doc-uso-t">Termos de uso</h2><button type="button" class="doc-x" data-fecha aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></header>
+    <div class="doc-corpo">
+    <p>Estes termos valem para o site do Taioba Bar e Cozinha Mineira e para a Área do cliente.</p>
+    <h3>Reservas e pedidos</h3><p>Reservas e encomendas feitas pelo site são pedidos que a equipe confirma pelo WhatsApp, telefone ou e-mail. Valem as políticas de reserva, atraso, cancelamento e garantia publicadas na página inicial.</p>
+    <h3>Preços</h3><p>Os valores do site são de referência e podem mudar. O preço que vale é o do cardápio do dia ou o da proposta enviada.</p>
+    <h3>Bebidas alcoólicas</h3><p>A venda é proibida para menores de 18 anos. A equipe pode pedir documento e encerrar o serviço de bebida a qualquer momento.</p>
+    <h3>Área do cliente</h3><p>A conta é pessoal. Você responde pelas informações que cadastra e pelo sigilo da senha. Contas usadas para reservas falsas podem ser suspensas.</p>
+    <h3>Conteúdo</h3><p>Textos, marca e fotos pertencem ao Taioba ou aos autores indicados nos créditos. Não é permitido copiar para uso comercial.</p>
+    <h3>Contato</h3><p>Dúvidas sobre estes termos: reservas@taiobabar.com.br.</p></div>
+    <p class="doc-pe">Atualizado em novembro de 2026.</p>
+  </div>
+</dialog>
+<dialog class="doc" id="doc-privacidade" aria-labelledby="doc-privacidade-t">
+  <div class="doc-in">
+    <header><h2 id="doc-privacidade-t">Política de privacidade</h2><button type="button" class="doc-x" data-fecha aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></header>
+    <div class="doc-corpo">
+    <p>O Taioba Bar e Cozinha Mineira (Taioba Bar e Cozinha Mineira Ltda., CNPJ 00.000.000/0001-00) trata dados pessoais conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018).</p>
+    <h3>O que coletamos</h3><p>Nome, telefone, e-mail, data e detalhes da reserva, restrições alimentares que você informar, data de aniversário (opcional) e o histórico de reservas e encomendas da Área do cliente.</p>
+    <h3>Para que usamos</h3><p>Para confirmar e organizar reservas, preparar porções seguras para quem tem alergia, responder contatos, registrar as visitas do Caderno de visitas e, só se você autorizar, avisar sobre a programação da semana.</p>
+    <h3>Dados de saúde</h3><p>Alergias e restrições são dados sensíveis. Só são usados para preparar sua refeição e ficam visíveis apenas para a cozinha e o salão no dia da reserva.</p>
+    <h3>Com quem compartilhamos</h3><p>Com ninguém para fins de publicidade. Os dados passam apenas pelos serviços de mensagem (WhatsApp) e pelo provedor do site.</p>
+    <h3>Cookies e armazenamento</h3><p>O site guarda no seu navegador a escolha sobre cookies, o tema claro ou escuro, a sessão da Área do cliente e, nesta demonstração, as reservas, encomendas e preferências da conta. A medição de visitas só liga com "Aceitar todos". Não usamos cookies de publicidade.</p>
+    <h3>Seus direitos</h3><p>Você pode ver, corrigir, baixar ou apagar seus dados a qualquer momento na Área do cliente, em Meus dados, ou pedir por reservas@taiobabar.com.br.</p>
+    <h3>Por quanto tempo</h3><p>Dados de reserva ficam por 12 meses depois da última visita. Contas sem uso por 2 anos são apagadas.</p></div>
+    <p class="doc-pe">Atualizado em novembro de 2026.</p>
+  </div>
+</dialog>
+<div class="cookies" id="cookies" role="region" aria-label="Aviso de cookies" hidden>
+  <p>Usamos armazenamento do navegador para lembrar o tema, a sessão e suas escolhas. A medição de visitas só liga se você aceitar. <button type="button" class="link" data-doc="privacidade">Saiba mais</button></p>
+  <div class="ck-btns" data-iguais><button type="button" class="btn btn-verde btn-p" data-ck="todos">Aceitar todos</button><button type="button" class="btn btn-vidro btn-p" data-ck="essenciais">Só os essenciais</button></div>
+</div>
+<div class="visor" data-visor hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button type="button" class="visor-x" data-visor-fecha aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+  <button type="button" class="visor-seta" data-visor-ir="-1" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5.5 8.5 12l6.5 6.5"/></svg></button>
+  <figure><img alt="" data-visor-img><figcaption data-visor-leg></figcaption></figure>
+  <button type="button" class="visor-seta" data-visor-ir="1" aria-label="Próxima foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5.5 6.5 6.5L9 18.5"/></svg></button>
+</div>
+<p class="toast" data-toast role="status" aria-live="polite"></p>
+<script>window.TAIOBA={"marca":{"nome":"Taioba","completo":"Taioba Bar e Cozinha Mineira","whatsapp":"(31) 99999-9999","email":"reservas@taiobabar.com.br","coordenadas":[-19.91575,-43.9164]},"horario":[{"turnos":[[11.5,18]]},{"turnos":[]},{"turnos":[[11.5,15],[18,24]]},{"turnos":[[11.5,15],[18,24]]},{"turnos":[[11.5,15],[18,24]]},{"turnos":[[11.5,15],[18,25]]},{"turnos":[[11.5,25]]}],"experiencias":[{"id":"mesa","nome":"Mesa no salão ou na varanda","min":120,"preco":0,"anf":["rafael"],"ambientes":["salao","varanda"],"turnos":"todos"},{"id":"mesa-mineira","nome":"Mesa mineira completa","min":120,"preco":109,"anf":["caio","iara"],"ambientes":["salao","varanda"],"sensivel":true,"turnos":"todos"},{"id":"happy","nome":"Happy hour de caipirinha","min":120,"preco":79,"anf":["jessica"],"ambientes":["varanda","bar"],"turnos":"happy"},{"id":"aniversario","nome":"Aniversário na varanda","min":180,"preco":0,"anf":["rafael","livia"],"ambientes":["varanda"],"turnos":"todos"},{"id":"evento","nome":"Evento privativo","min":240,"preco":129,"de":true,"anf":["rafael","iara"],"ambientes":["salao","varanda"],"sinal":true,"sensivel":true,"turnos":"evento"}],"equipe":[{"id":"iara","nome":"Iara Mendes","cargo":"Chef e sócia"},{"id":"caio","nome":"Caio Toledo","cargo":"Mestre da brasa"},{"id":"livia","nome":"Lívia Prado","cargo":"Chef de porções"},{"id":"jessica","nome":"Jéssica Amaral","cargo":"Chefe de bar"},{"id":"rafael","nome":"Rafael Nunes","cargo":"Maître e eventos"}],"ambientes":{"salao":"Salão interno","varanda":"Varanda da horta","bar":"Balcão do bar"},"encomendas":[{"id":"tropeiro-kg","nome":"Feijão tropeiro congelado","det":"Pote de 1 kg, serve 4 pessoas","preco":69},{"id":"linguica-kg","nome":"Linguiça artesanal crua","det":"Pacote de 1 kg para a sua churrasqueira","preco":64},{"id":"farofa-pote","nome":"Farofa da casa","det":"Pote de 500 g, de torresmo ou de banana","preco":28},{"id":"mandioca-kg","nome":"Mandioca pré-cozida","det":"Pacote de 1 kg, pronta para fritar","preco":32},{"id":"kit-caipi","nome":"Kit caipirinha","det":"Cachaça de 700 ml, limões-cravo e rapadura para 10 doses","preco":89},{"id":"cachaca-casa","nome":"Cachaça da casa em amburana","det":"Garrafa de 700 ml","preco":96}],"restricoes":[["sem-lactose","Sem lactose"],["sem-gluten","Sem glúten"],["vegetariana","Vegetariana"],["vegana","Vegana"],["sem-porco","Sem carne de porco"],["castanhas","Alergia a castanhas"]],"demo":{"email":"helena@exemplo.com","senha":"taioba2026","nome":"Helena Duarte","telefone":"(31) 98888-0000","nascimento":"1990-03-14","visitas":7,"prefs":{"restricoes":["sem-lactose"],"obs":"Prefere mesa na varanda, perto das plantas.","ambiente":"varanda","avisos":true},"reservas":[{"id":"r-demo-1","exp":"mesa-mineira","anf":"caio","amb":"varanda","pessoas":4,"dias":9,"hora":"20:00","status":"confirmada","obs":"Aniversário de namoro"},{"id":"r-demo-2","exp":"happy","anf":"jessica","amb":"varanda","pessoas":6,"dias":-24,"hora":"18:00","status":"concluida"},{"id":"r-demo-3","exp":"mesa","anf":"rafael","amb":"salao","pessoas":2,"dias":-52,"hora":"12:30","status":"concluida"}],"pedidos":[{"id":"p-demo-1","itens":[["tropeiro-kg",1],["farofa-pote",2]],"dias":-12,"status":"retirado"}]}};</script>
+<script src="assets/app.js" defer></script>
+</body>
+</html>

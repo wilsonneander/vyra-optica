@@ -118,3 +118,27 @@ Topo, faixa "Cardápio" e faixa de reservas ainda usam fotos do Unsplash (lista 
 - Delivery ou apps de entrega, dias de música ao vivo, petisco do Comida di Buteco 2026
 - Posição exata do número 610 no mapa (o pino está na ponta da Rua São José, na areia)
 - Domínio e hospedagem
+
+## Modelo Taioba Standard (+ Área do Cliente)
+
+Marca fictícia criada para o catálogo: **Taioba Bar e Cozinha Mineira**, em Santa Tereza, Belo Horizonte (Rua Mármore, número fictício). Carnes servidas à parte, porções de arroz, feijão, farofa, mandioca e batata para a mesa dividir, e drinks com cachaça. Não usa os dados do Siri na Lata: tem conteúdo, fotos e gerador próprios.
+
+Desenho inspirado na referência enviada pelo usuário (restaurantemaisbonito.com.br), sem copiar marca, textos, fotos nem fontes: fundo grafite quente, folhas desfocadas flutuando (aqui, folhas de taioba com parallax), cartões arredondados com moldura, botões verdes com brilho, capa centralizada sobre foto escura, programação da semana em cartões altos, eventos com letra grande e mini carrossel, banner do cardápio com celular e cartões flutuando, bloco do Instagram e avaliações em carrossel, rodapé em cinza ameixa.
+
+| Pasta | O que é |
+|---|---|
+| `_build-taioba-standard/` | Gerador: `build.js` (HTML de todas as páginas), `content.js` (marca, semana, cardápio, experiências, equipe, políticas, conta de exemplo), `style.css`, `app.js` (site e Área do cliente), `icons.js` (folha de taioba e ícones próprios em traço), `img/` (fotos em WebP e `creditos.json`) |
+| `standard/taioba-standard/` | **Modelo pronto para subir** (abre pelo `index.html`) |
+
+```bash
+node templates/restaurante/_build-taioba-standard/build.js   # gera standard/taioba-standard/
+```
+
+- Páginas: início, `equipe.html`, `galeria.html` e a Área do cliente (`cliente.html` para entrar, `cadastro.html` para criar conta, `conta.html` com a conta)
+- Início: capa com "aberto agora" no horário de Brasília (inclusive depois da meia-noite), Semana no Taioba (carrossel com setas, arraste, avanço sozinho que pausa com o mouse e começa no dia de hoje), eventos, a casa com números, banner do cardápio, cardápio completo em abas (Carnes à parte, Porções, Para a mesa, Drinks, Sem álcool; cada item com peso, o que leva, quantas pessoas serve, tempo de preparo, preço e marcas sem glúten, vegetariano, vegano e +18), formatos para reservar com duração, anfitrião, ambiente e preço por pessoa, condições de pagamento e cancelamento, equipe, galeria, Instagram, avaliações, para levar, reserva, políticas, dúvidas e contato
+- Reserva: formato (mesa, Mesa mineira completa, happy hour de caipirinha, aniversário, evento privativo) + quem recebe + ambiente + pessoas (limites por formato) + data + horário (muda com o formato e o dia; segunda fechado) + nome, WhatsApp, restrições e aceite LGPD. Resumo ao lado com estimativa e sinal de 30% nos eventos; fecha no WhatsApp com a mensagem pronta
+- Políticas: reserva, atraso, cancelamento e remarcação, não comparecimento, garantia da porção e bebida alcoólica (+18), com o bloco em destaque de **alergias, intolerâncias e restrições** (fritadeira compartilhada, bacon nas porções, lactose)
+- Área do cliente (demonstração no `localStorage`, chave `taioba-contas-v2`): conta de exemplo `helena@exemplo.com` / `taioba2026`. Abas Início (próxima reserva e Caderno de visitas: na décima visita a porção de mandioca é da casa), Reservas, Para levar (sacola com quantidades e pedido no WhatsApp), Preferências e Meus dados (editar, baixar em JSON e apagar a conta)
+- Tema escuro como padrão e claro completo, pela pílula de `_comum/tema-pilula.js` (chave `taioba-tema`, `?tema=claro`), aviso de cookies (`taioba-cookies`), WhatsApp verde fixo, mapa do OpenStreetMap no rodapé e CNPJ `00.000.000/0001-00`
+- Fontes Rethink Sans (títulos e texto) + Literata itálica nos destaques. Cores: grafite `#141312`, cartão `#222020`, verde `#4E9C72` com brilho, verde claro `#8BD1A6`, ouro `#E2B45A`, rodapé `#4A4245`; no claro, papel `#F2EEE6`
+- Fotos do Pexels (licença Pexels), lista em `img/creditos.json` e nos créditos do rodapé. `preparar-imagens.js` baixa e recorta de novo; `gerar-mapa.js` gera `img/mapa_santa-tereza.webp` (ambos precisam de `sharp` instalado fora do projeto, via `NODE_PATH`)

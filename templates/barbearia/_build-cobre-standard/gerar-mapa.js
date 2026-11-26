@@ -20,9 +20,14 @@ const TEMAS = {
     ramp: [[0, [240, 173, 115]], [0.45, [118, 96, 80]], [0.8, [36, 33, 31]], [0.9, [27, 26, 25]], [0.97, [44, 41, 38]], [1, [62, 57, 52]]],
     agua: [28, 34, 40],
   },
+  // claro (tema claro do Cobre Premium): rótulos em cobre escuro, quadras em creme, ruas quase brancas
+  creme: {
+    ramp: [[0, [122, 64, 30]], [0.45, [176, 138, 106]], [0.8, [226, 216, 200]], [0.9, [233, 224, 209]], [0.97, [245, 240, 232]], [1, [252, 249, 243]]],
+    agua: [196, 208, 212],
+  },
 };
 const T = TEMAS[TEMA];
-if (!T || !OUT) { console.error('uso: node gerar-mapa.js <cobre> <saida.webp>'); process.exit(1); }
+if (!T || !OUT) { console.error('uso: node gerar-mapa.js <cobre|creme> <saida.webp>'); process.exit(1); }
 
 const n = 2 ** Z;
 const px = (lon + 180) / 360 * n * 256;

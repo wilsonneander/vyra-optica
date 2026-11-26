@@ -32,7 +32,7 @@ O nome segue a ordem **marca, nível, título**: `vyra-standard`, `vyra-standard
 | [lanches/](lanches/) | `braseiro-standard`, `amassa-standard` | `fornalha-premium`, `monta-premium` (+ Área do Cliente) | `node templates/lanches/_build-fornalha-premium/build.js` / `_build-monta-premium/build.js` / `_build-amassa-standard/build.js` (o Braseiro não tem gerador; `_build-braseiro-standard/` só prepara imagens, vídeos e mapa) |
 | [autosservicos/](autosservicos/) | `pistao-standard`, `pistao-standard-oficina` | `pistao-premium` (+ Área do Cliente) | `node templates/autosservicos/_build-<pasta do modelo>/build.js` |
 | [lava-car/](lava-car/) | `garoa-standard` | | `node templates/lava-car/_build-garoa-standard/build.js` |
-| [bebidas/](bebidas/) | `tampinha-standard`, `tampinha-standard-palco` | `tampinha-premium` (+ Área do Cliente), `n3-premium` | `node templates/bebidas/_build-<pasta do modelo>/build.js`; o N3 não tem gerador (`node templates/bebidas/premium/n3-premium/tema-n3.js` aplica o tema) |
+| [bebidas/](bebidas/) | `tampinha-standard`, `tampinha-standard-palco`, `tampinha-standard-emporio` | `tampinha-premium` (+ Área do Cliente), `n3-premium` | `node templates/bebidas/_build-<pasta do modelo>/build.js`; o N3 não tem gerador (`node templates/bebidas/premium/n3-premium/tema-n3.js` aplica o tema) |
 | [marcas-proprias/](marcas-proprias/) | | `aura-premium-produto`, `aura-premium-guia`, `aura-premium-clube` (+ Área do Cliente), `aura-premium-nascente`, `aura-premium-mare` | `node templates/marcas-proprias/premium/_build/build.js` (gera os cinco; o gerador e o `_kit/` ficam dentro de `premium/`) |
 | [turismo/](turismo/) | | `peakalika-premium` | `node templates/turismo/_build-peakalika-premium/build.js` |
 | [estetica/](estetica/) | `camelia-standard`, `camelia-standard-corporal` | `camelia-premium` (visita de drone em 3D), `iris-premium` | `node templates/estetica/_build-<pasta do modelo>/build.js` |
@@ -44,7 +44,7 @@ O nome segue a ordem **marca, nível, título**: `vyra-standard`, `vyra-standard
 
 O padrão obrigatório está em [DIRETRIZES-SITES.md](../DIRETRIZES-SITES.md): no mínimo 4 templates por categoria, tema claro e escuro e visualização por aparelho em todos.
 
-**Mínimo de 4 templates por categoria.** Só provedor de internet (4), restaurante (4), lanches (4), bebidas (4), estética (4), barbearia (4) e marcas próprias (5) cumprem. Faltam:
+**Mínimo de 4 templates por categoria.** Só provedor de internet (4), restaurante (4), lanches (4), bebidas (5), estética (4), barbearia (4) e marcas próprias (5) cumprem. Faltam:
 
 | Nicho | Tem | Faltam |
 |---|---|---|

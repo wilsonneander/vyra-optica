@@ -276,6 +276,21 @@ h4 { font-size: 1.35rem; font-stretch: 80%; }
 .cp-3::before { width: 140px; height: 26px; border-radius: 50%; background: #5E2F1A; box-shadow: 0 -12px 0 -2px var(--mostarda); }
 .chapa-passos li:not(:last-child)::after { content: ""; position: absolute; right: -16px; top: 52px; width: 18px; height: 18px; border-top: 4px solid var(--mostarda); border-right: 4px solid var(--mostarda); rotate: 45deg; }
 
+/* trilho com rolagem lateral: setas nas bordas e arraste com o mouse */
+.rola { position: relative; }
+.rola [data-rola-trilho] { scrollbar-width: none; }
+.rola [data-rola-trilho]::-webkit-scrollbar { display: none; }
+.rola.arrasta [data-rola-trilho] { cursor: grab; }
+.rola.arrastando [data-rola-trilho] { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.rola-seta { position: absolute; top: 50%; z-index: 4; display: grid; place-items: center; width: 42px; height: 42px; translate: 0 -50%; border: 2px solid var(--tinta); border-radius: 50%; background: var(--verm); color: #fff; box-shadow: 0 3px 0 var(--tinta); cursor: pointer; transition: scale .2s var(--suave-ease); }
+.rola-seta[hidden] { display: none; }
+.rola-seta:active { scale: .92; }
+.rola-seta svg { width: 20px; height: 20px; }
+.rola-antes { left: -8px; }
+.rola-depois { right: -8px; }
+.rola-abas .rola-seta { top: calc(50% - 15px); }
+.rola-eq .rola-seta { top: 42%; }
+
 /* ---------- festas e serviços ---------- */
 .festas { padding: clamp(60px, 8vw, 120px) 0; }
 .serv-grade { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
@@ -494,7 +509,8 @@ h4 { font-size: 1.35rem; font-stretch: 80%; }
 .rod-cols a:hover { color: var(--verm-txt); }
 .rod-contato li { font-size: .92rem; overflow-wrap: anywhere; }
 .rod-logo { display: block; margin: 50px 0 20px; text-decoration: none; overflow: hidden; }
-.rod-logo .logo-txt { display: flex; justify-content: space-between; width: 100%; font-size: clamp(52px, 11.6vw, 176px); font-stretch: 150%; line-height: .8; padding-top: .1em; }
+.rod-logo .lp { margin: 0; }
+.rod-logo .logo-txt { display: flex; justify-content: space-between; width: 100%; padding-inline: .06em; font-size: clamp(40px, 10.4vw, 160px); font-stretch: 150%; line-height: .8; padding-top: .1em; }
 .rod-logo:hover .logo-txt i { transform: scale(1.04, .78); }
 .rod-logo:hover .logo-txt .lp { transform: scale(1.1, .5); }
 .legal { display: grid; gap: 12px; padding-top: 20px; border-top: 2px solid var(--tinta); font-size: .88rem; }

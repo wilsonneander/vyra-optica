@@ -253,6 +253,28 @@
     if (!reduz) setInterval(() => { const r = tr.getBoundingClientRect(); if (!pausa && !document.hidden && r.top < innerHeight && r.bottom > 0) vai(1); }, 5200);
   });
 
+  // ---------- trilhos com rolagem lateral (abas e equipe no celular): setas e arraste com o mouse ----------
+  $$('[data-rola]').forEach((box) => {
+    const tr = $('[data-rola-trilho]', box), antes = $('.rola-antes', box), depois = $('.rola-depois', box);
+    const marca = () => {
+      const sobra = tr.scrollWidth - tr.clientWidth > 24;
+      box.classList.toggle('arrasta', sobra);
+      antes.hidden = !sobra || tr.scrollLeft < 6;
+      depois.hidden = !sobra || tr.scrollLeft > tr.scrollWidth - tr.clientWidth - 6;
+    };
+    $$('[data-rola-ir]', box).forEach((b) => b.addEventListener('click', () => tr.scrollBy({ left: Number(b.dataset.rolaIr) * tr.clientWidth * 0.75, behavior: reduz ? 'auto' : 'smooth' })));
+    let x0 = null, s0 = 0, moveu = false;
+    tr.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse' || !box.classList.contains('arrasta')) return; x0 = e.clientX; s0 = tr.scrollLeft; moveu = false; });
+    addEventListener('pointermove', (e) => { if (x0 === null) return; const dx = e.clientX - x0; if (Math.abs(dx) > 5) { moveu = true; box.classList.add('arrastando'); } tr.scrollLeft = s0 - dx; });
+    addEventListener('pointerup', () => { if (x0 === null) return; x0 = null; box.classList.remove('arrastando'); });
+    tr.addEventListener('click', (e) => { if (moveu) { e.preventDefault(); e.stopPropagation(); moveu = false; } }, true);
+    tr.addEventListener('dragstart', (e) => e.preventDefault());
+    tr.addEventListener('scroll', marca, { passive: true });
+    addEventListener('resize', marca);
+    if (document.fonts) document.fonts.ready.then(marca);
+    marca();
+  });
+
   // ---------- abas do cardápio (com setas do teclado) ----------
   const abas = $$('[data-aba]');
   const abre = (id, foco) => {

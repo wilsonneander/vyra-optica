@@ -171,12 +171,15 @@
       <h2 class="h-grande">O cardápio</h2>
       <p>Cinco frentes, uma chapa só. O tempo de cada lanche é o de preparo depois do pedido; no salão de sexta à noite, conte uns minutos de fila.</p>
     </div>
-    <div class="abas" role="tablist" aria-label="Segmentos do cardápio" data-abas>
+    <div class="rola rola-abas" data-rola>
+    <div class="abas" role="tablist" aria-label="Segmentos do cardápio" data-abas data-rola-trilho>
       <button type="button" role="tab" id="aba-smash" aria-controls="seg-smash" aria-selected="true" data-aba="smash">Smash</button>
       <button type="button" role="tab" id="aba-frango" aria-controls="seg-frango" aria-selected="false" data-aba="frango">Frango crocante</button>
       <button type="button" role="tab" id="aba-fritas" aria-controls="seg-fritas" aria-selected="false" data-aba="fritas">Fritas e porções</button>
       <button type="button" role="tab" id="aba-shakes" aria-controls="seg-shakes" aria-selected="false" data-aba="shakes">Shakes</button>
       <button type="button" role="tab" id="aba-combos" aria-controls="seg-combos" aria-selected="false" data-aba="combos">Combos</button>
+    </div>
+    <button type="button" class="rola-seta rola-antes" data-rola-ir="-1" aria-label="Voltar segmentos" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg></button><button type="button" class="rola-seta rola-depois" data-rola-ir="1" aria-label="Ver mais segmentos" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
     </div>
     <div class="seg" role="tabpanel" id="seg-smash" aria-labelledby="aba-smash" tabindex="0">
       <header class="seg-cab">
@@ -707,7 +710,8 @@
 <section class="equipe-ini" id="equipe">
   <div class="largo">
     <div class="sec-topo rev"><h2 class="h-media">Quem prensa, frita e bate</h2><a class="btn btn-contorno" href="equipe.html"><span>Conhecer a equipe</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
-    <div class="eq-grade">
+    <div class="rola rola-eq" data-rola>
+    <div class="eq-grade" data-rola-trilho>
       <a class="eq rev" href="equipe.html#p-carol" style="--giro:-3deg">
         <figure><img src="assets/img/carol.webp" alt="Carolina Brum, chef, de avental de couro na cozinha" loading="lazy" decoding="async"></figure>
         <div class="eq-txt"><h3>Carolina Brum</h3><p class="eq-cargo">Chef e sócia</p></div>
@@ -728,6 +732,8 @@
         <figure><img src="assets/img/bia.webp" alt="Beatriz Nascimento, de camiseta branca e avental, sorrindo na porta do salão" loading="lazy" decoding="async"></figure>
         <div class="eq-txt"><h3>Beatriz Nascimento</h3><p class="eq-cargo">Festas e eventos</p></div>
       </a>
+    </div>
+    <button type="button" class="rola-seta rola-antes" data-rola-ir="-1" aria-label="Voltar pessoas da equipe" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg></button><button type="button" class="rola-seta rola-depois" data-rola-ir="1" aria-label="Ver mais pessoas da equipe" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
     </div>
   </div>
 </section>

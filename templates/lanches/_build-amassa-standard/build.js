@@ -73,6 +73,9 @@ const AD = {
   crosta: I.adesivo('oval', '#14130F', '#FFF6E2', ['crosta', 'renda']),
 };
 
+// setas de rolagem lateral: aparecem só quando o trilho passa da tela (abas e equipe no celular)
+const setasRola = (rotulo) => `<button type="button" class="rola-seta rola-antes" data-rola-ir="-1" aria-label="Voltar ${rotulo}" hidden>${I.esquerda}</button><button type="button" class="rola-seta rola-depois" data-rola-ir="1" aria-label="Ver mais ${rotulo}" hidden>${I.direita}</button>`;
+
 // ---------- topo ----------
 const nav = (pg) => {
   const b = pg === 'inicio' ? '' : 'index.html';
@@ -222,8 +225,11 @@ const cardapio = `<section class="cardapio" id="cardapio">
       <h2 class="h-grande">O cardápio</h2>
       <p>Cinco frentes, uma chapa só. O tempo de cada lanche é o de preparo depois do pedido; no salão de sexta à noite, conte uns minutos de fila.</p>
     </div>
-    <div class="abas" role="tablist" aria-label="Segmentos do cardápio" data-abas>
+    <div class="rola rola-abas" data-rola>
+    <div class="abas" role="tablist" aria-label="Segmentos do cardápio" data-abas data-rola-trilho>
       ${C.segmentos.map((g, k) => `<button type="button" role="tab" id="aba-${g.id}" aria-controls="seg-${g.id}" aria-selected="${k === 0}" data-aba="${g.id}">${esc(g.nome)}</button>`).join('\n      ')}
+    </div>
+    ${setasRola('segmentos')}
     </div>
     ${C.segmentos.map((g, k) => { const lista = C.pratos.filter((p) => p.seg === g.id); return `<div class="seg" role="tabpanel" id="seg-${g.id}" aria-labelledby="aba-${g.id}" tabindex="0"${k ? ' hidden' : ''}>
       <header class="seg-cab">
@@ -291,11 +297,14 @@ const festas = `<section class="festas" id="festas">
 const equipeInicio = `<section class="equipe-ini" id="equipe">
   <div class="largo">
     <div class="sec-topo rev"><h2 class="h-media">Quem prensa, frita e bate</h2><a class="btn btn-contorno" href="equipe.html"><span>Conhecer a equipe</span>${I.seta}</a></div>
-    <div class="eq-grade">
+    <div class="rola rola-eq" data-rola>
+    <div class="eq-grade" data-rola-trilho>
       ${C.equipe.map((m, k) => `<a class="eq rev" href="equipe.html#p-${m.id}" style="--giro:${[-3, 2, -1.5, 3, -2][k]}deg">
         <figure>${foto(m.foto)}</figure>
         <div class="eq-txt"><h3>${esc(m.nome)}</h3><p class="eq-cargo">${esc(m.cargo)}</p></div>
       </a>`).join('\n      ')}
+    </div>
+    ${setasRola('pessoas da equipe')}
     </div>
   </div>
 </section>`;

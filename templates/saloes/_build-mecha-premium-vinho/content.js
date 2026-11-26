@@ -123,7 +123,7 @@ const solucoes = [
 
 // "por que a Mecha" em blocos de tamanhos diferentes
 const porque = {
-  paixao: { foto: 'sorriso-ondas', titulo: 'Feito com calma', texto: 'Agenda com folga entre um horário e outro, para ninguém ser atendida correndo.' },
+  paixao: { foto: 'ondas-loiras', titulo: 'Feito com calma', texto: 'Agenda com folga entre um horário e outro, para ninguém ser atendida correndo.' },
   produtos: { foto: 'produtos2', titulo: 'Produtos de verdade', texto: 'Linhas profissionais com registro na Anvisa, escolhidas para cada tipo de fio.', etiquetas: ['Hidratação', 'Uso profissional', 'Sem formol'] },
   leque: ['coque-classico', 'ruiva', 'chanel-mechas'],
   atendimentos: 1200,
@@ -250,6 +250,27 @@ const numeros = [
 // textos para as janelas legais e o carregando
 const abertura = ['Cabelo', 'Cor', 'Cachos', 'Mecha'];
 
+// ponto de interesse de cada foto ("x% y%", o rosto ou o penteado): todo recorte parte dele em vez do centro,
+// para a pessoa não sair cortada quando a foto deitada vira cartão em pé (e vice-versa)
+const foco = {
+  'afro-oculos': '47% 35%', atendimento: '55% 30%', 'babyliss-ondas': '45% 40%', beatriz: '35% 30%', 'cacho-curto': '55% 35%',
+  'cachos-alegria': '50% 30%', 'cachos-ferro': '50% 40%', 'cachos-secador': '45% 30%', 'cachos-sorriso': '52% 30%', 'cadeira-rosa': '50% 60%',
+  carla: '58% 28%', 'castanho-longo': '50% 35%', 'chanel-mechas': '50% 40%', 'chanel-reto': '50% 35%', 'cliente-pincel': '45% 35%',
+  'cliente-sorri': '40% 35%', 'coque-classico': '72% 50%', 'coque-perolas': '55% 45%', 'coque-ruivo': '48% 38%', 'coque-solto': '60% 35%',
+  'corte-longo': '50% 40%', 'difusor-sorriso': '48% 28%', 'equipe-risos': '50% 35%', 'escova-janela': '72% 28%', 'escova-redonda': '55% 35%',
+  'espelho-conversa': '65% 35%', 'espelho-conversa2': '70% 30%', 'espelho-escova': '30% 30%', 'espelho-mao': '55% 30%', 'espelho-redondo': '50% 50%',
+  larissa: '50% 35%', 'lavagem-salao': '60% 45%', 'lavatorio-espuma': '50% 35%', 'loira-cadeira': '58% 32%', 'loira-longa': '45% 28%',
+  'loira-vento': '28% 42%', 'morena-longa': '50% 30%', 'noiva-buque': '50% 30%', 'noiva-flores': '50% 50%', 'noiva-ondas': '50% 35%',
+  'noiva-perfil': '50% 25%', 'noiva-tranca': '45% 30%', 'noiva-veu': '50% 30%', oleo: '50% 60%', 'ondas-escuras': '45% 40%',
+  'ondas-loiras': '50% 30%', 'papel-luvas': '50% 40%', 'pontas-retas': '55% 40%', produtos2: '50% 60%', 'rabo-cavalo': '40% 40%',
+  'recepcao-tablet': '50% 40%', renata: '50% 30%', 'retrato-blazer': '50% 25%', 'retrato-laranja': '50% 50%', 'retrato-sorriso': '50% 35%',
+  'risada-cadeira': '40% 45%', 'rolos-mao': '55% 40%', 'ruiva-escuro': '50% 30%', ruiva: '50% 30%', 'salao-branco': '60% 50%',
+  'salao-claro': '60% 45%', 'salao-rosa': '40% 50%', 'salao-rosa2': '50% 60%', sardas: '45% 35%', 'secando-liso': '40% 30%',
+  semipreso: '50% 40%', 'sorriso-ondas': '51% 35%', 'spray-finaliza': '40% 40%', 'tranca-costas': '35% 45%', 'trancado-loiro': '50% 40%',
+  'trancas-amarelo': '50% 30%', 'trancas-box': '50% 30%', 'trancas-cobre': '40% 30%', 'trancas-mar': '55% 40%', 'trancas-sorriso': '50% 25%',
+  'trancas-tijolo': '50% 40%', trancista: '50% 25%', 'trio-cachos': '55% 35%',
+};
+
 // descrição das fotos (alt)
 const fotos = {
   atendimento: 'Cabeleireira de roupa preta atendendo uma cliente sentada na cadeira do salão',
@@ -334,5 +355,5 @@ const fotos = {
 
 module.exports = {
   marca, horario, segmentos, servicos, equipe, pagamento, aPartir, capaFotos, manifesto, solucoes, porque, cinema,
-  depoimentos, processo, looks, galeria, instagram, politicas, higiene, faq, bairros, numeros, abertura, fotos,
+  depoimentos, processo, looks, galeria, instagram, politicas, higiene, faq, bairros, numeros, abertura, foco, fotos,
 };

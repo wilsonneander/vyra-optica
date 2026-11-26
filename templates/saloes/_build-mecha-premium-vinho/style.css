@@ -849,11 +849,12 @@ dialog.doc::backdrop { background: rgba(30, 10, 8, .7); backdrop-filter: blur(3p
   .sv-preco { grid-column: 2; grid-row: 1 / 3; }
   .sv-ag { grid-column: 3; grid-row: 1 / 3; }
   .sv:hover { padding-inline: 0; }
-  .bento { grid-template-columns: 1fr; }
+  .bento { grid-template-columns: 1fr; grid-auto-rows: auto; }
+  .bt-leque, .bt-voltam { min-height: 300px; }
   .bt { grid-column: 1 / -1 !important; grid-row: auto !important; }
   .bt-paixao { aspect-ratio: 4 / 5; }
-  .bt-produtos, .bt-casa { grid-template-columns: 1fr; }
-  .bt-produtos > img, .bt-casa > img { min-height: 220px; max-height: 260px; }
+  .bt-produtos, .bt-casa { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .bt-produtos > img, .bt-casa > img { height: 240px; }
   .bt-marca { aspect-ratio: 4 / 3; }
   .tend-cab { align-items: flex-start; flex-direction: column; }
   .tend-pe { flex-direction: column; align-items: flex-start; }

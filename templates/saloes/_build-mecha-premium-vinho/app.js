@@ -628,7 +628,7 @@
     };
     const desenhaPros = () => {
       const s = servAtual(), atual = proAtual(), lista = fazem(s);
-      caixaPros.innerHTML = `<label class="pe"><input type="radio" name="pro" value=""${!atual || !lista.some((m) => m.id === atual) ? ' checked' : ''}><span class="pe-foto">${D.simbolo}</span><span class="pe-txt"><b>Sem preferência</b><small>Primeira livre</small></span></label>${lista.map((m) => `<label class="pe"><input type="radio" name="pro" value="${m.id}"${m.id === atual ? ' checked' : ''}><span class="pe-foto"><img src="assets/img/${m.foto}.webp" alt=""></span><span class="pe-txt"><b>${P.esc(m.nome)}</b><small>${P.esc(m.cargo)}</small></span></label>`).join('')}`;
+      caixaPros.innerHTML = `<label class="pe"><input type="radio" name="pro" value=""${!atual || !lista.some((m) => m.id === atual) ? ' checked' : ''}><span class="pe-foto">${D.simbolo}</span><span class="pe-txt"><b>Sem preferência</b><small>Primeira livre</small></span></label>${lista.map((m) => `<label class="pe"><input type="radio" name="pro" value="${m.id}"${m.id === atual ? ' checked' : ''}><span class="pe-foto"><img src="assets/img/${m.foto}.webp" alt=""${D.foco[m.foto] ? ` style="object-position:${D.foco[m.foto]}"` : ''}></span><span class="pe-txt"><b>${P.esc(m.nome)}</b><small>${P.esc(m.cargo)}</small></span></label>`).join('')}`;
     };
     const turno = (h) => (h < 12 ? 'Manhã' : h < 18 ? 'Tarde' : 'Noite');
     const desenhaHoras = () => {

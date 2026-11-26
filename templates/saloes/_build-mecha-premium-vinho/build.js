@@ -36,7 +36,9 @@ const alt = (n) => C.fotos[n] ?? '';
 const wa = (msg) => `https://wa.me/55${String(M.whatsapp).replace(/\D/g, '')}?text=${encodeURIComponent(msg)}`;
 const P = fabricaPartes({ I, fotoSrc, wa });
 const { esc, reais, minutos } = P;
-const foto = (nome, o = {}) => P.img(nome, o.alt ?? alt(nome), o);
+// o recorte parte do ponto de interesse da foto (C.foco); o style inline vale mais que o object-position do CSS
+const foco = (nome) => (C.foco[nome] ? ` style="object-position:${C.foco[nome]}"` : '');
+const foto = (nome, o = {}) => P.img(nome, o.alt ?? alt(nome), { ...o, attrs: `${o.attrs || ''}${foco(nome)}` });
 
 const instaUrl = `https://instagram.com/${C.instagram.usuario}`;
 const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(`${M.completo} ${M.bairro}`)}`;
@@ -580,6 +582,7 @@ const dados = {
   servicos: C.servicos,
   equipe: C.equipe.map(({ id, nome, cargo, foto: f, faz, dias }) => ({ id, nome, cargo, foto: f, faz, dias })),
   abertura: C.abertura,
+  foco: C.foco,
   simbolo: I.simbolo(),
 };
 // carregando só na primeira página da visita; cortina de chegada quando se vem de outra página do site

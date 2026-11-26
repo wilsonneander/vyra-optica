@@ -16,7 +16,7 @@ Identidade: creme `#F6EEDD`, vermelho ketchup `#D3261A`, mostarda `#FFC21A`; tem
 
 ## Seções do início
 - **Capa**: "Na chapa, sem dó." com a palavra prensada ao abrir, foto numa bandeja de inox e adesivos que o visitante arrasta (posição salva no navegador; duplo clique volta ao lugar).
-- **Faixas** correndo (azul inclinada e letreiro grande).
+- **Faixas** correndo (vermelha inclinada e letreiro grande).
 - **Manifesto**: cada palavra é prensada conforme a rolagem, com os números da casa.
 - **Feito pra dividir**: carrossel de polaroides em pilha (setas, toque, arraste e avanço que pausa com o mouse) e a comanda que sai impressa, com carimbo "PAGO" e "Imprimir de novo".
 - **Os que mais saem** e **Cardápio** em abas (Smash, Frango crocante, Fritas e porções, Shakes, Combos), com o que inclui, tempo de preparo, preço ou "a partir de", pagamento e cancelamento.

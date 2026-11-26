@@ -135,6 +135,9 @@
       if (palavra && txt.textContent !== palavra) txt.textContent = palavra;
     }, { passive: true });
     document.addEventListener('pointerleave', () => cursor.classList.add('fora'));
+    // janela aberta (foto ampliada, termos) fica numa camada acima de toda a página: o cursor vai junto para dentro dela
+    const acompanhaJanela = () => { const aberta = $$('dialog[open]').pop(); const casa = aberta || document.body; if (cursor.parentElement !== casa) casa.appendChild(cursor); };
+    new MutationObserver(acompanhaJanela).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['open'] });
     addEventListener('pointerdown', () => cursor.classList.add('clica'));
     addEventListener('pointerup', () => cursor.classList.remove('clica'));
     const segue = () => {

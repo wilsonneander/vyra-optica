@@ -1,8 +1,8 @@
-// Gera o mapa estático do Amassa (Cidade Baixa, Porto Alegre) a partir de tiles do OpenStreetMap, recolorido na paleta do modelo.
+// Gera o mapa estático do Amassa (Cidade Baixa, Porto Alegre) a partir de tiles do OpenStreetMap, recolorido em vermelho e creme do modelo.
 // Mesmo método do THD (templates/assessoria-provedor/_build/gerar-mapa.js). Nunca usar mapa do Google.
 //
 // Uso (sharp instalado fora do projeto):
-//   node gerar-mapa.js azulejo img/mapa_cidade-baixa.webp
+//   node gerar-mapa.js ketchup img/mapa_cidade-baixa.webp
 //
 // Ponto: Rua da República, Cidade Baixa, Porto Alegre (endereço fictício na rua real).
 const sharp = require('sharp');
@@ -16,13 +16,13 @@ const [TEMA, OUT] = process.argv.slice(2);
 
 // rampas de cor (do escuro dos rótulos ao claro das ruas) e cor da água, por modelo
 const TEMAS = {
-  azulejo: {
-    ramp: [[0, [20, 36, 120]], [0.55, [112, 126, 196]], [0.82, [236, 226, 204]], [0.92, [246, 238, 221]], [1, [253, 249, 240]]],
-    agua: [150, 170, 232],
+  ketchup: {
+    ramp: [[0, [120, 22, 14]], [0.55, [200, 122, 108]], [0.82, [236, 226, 204]], [0.92, [246, 238, 221]], [1, [253, 249, 240]]],
+    agua: [176, 204, 214],
   },
 };
 const T = TEMAS[TEMA];
-if (!T || !OUT) { console.error('uso: node gerar-mapa.js <azulejo> <saida.webp>'); process.exit(1); }
+if (!T || !OUT) { console.error('uso: node gerar-mapa.js <ketchup> <saida.webp>'); process.exit(1); }
 
 const n = 2 ** Z;
 const px = (lon + 180) / 360 * n * 256;

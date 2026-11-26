@@ -10,9 +10,9 @@ Referência de clima: gribble.framer.website (lanchonete de papel, títulos cond
 | `_build-amassa-standard/content.js` | Marca, horário, cardápio, serviços agendáveis, equipe, galeria, políticas e dúvidas. `[EXEMPLO]` = dado fictício |
 | `_build-amassa-standard/style.css`, `app.js`, `icons.js` | Desenho, comportamento e ícones e adesivos próprios (sem biblioteca) |
 | `_build-amassa-standard/preparar-imagens.js` | Baixa as fotos do Pexels e grava `img/creditos.json` (precisa do `sharp` fora do projeto) |
-| `_build-amassa-standard/gerar-mapa.js` | Mapa do OpenStreetMap recolorido em azul e creme: `node gerar-mapa.js azulejo img/mapa_cidade-baixa.webp` |
+| `_build-amassa-standard/gerar-mapa.js` | Mapa do OpenStreetMap recolorido em vermelho e creme: `node gerar-mapa.js ketchup img/mapa_cidade-baixa.webp` |
 
-Identidade: creme `#F6EEDD`, azul de azulejo `#1D3BC9`, mostarda `#FFC21A`; tema escuro azul-noite `#0B0F2E`. Fontes Anybody (títulos, com eixo de largura), Familjen Grotesk (texto), Gochi Hand (escrita à mão) e Courier Prime (comanda).
+Identidade: creme `#F6EEDD`, vermelho ketchup `#D3261A`, mostarda `#FFC21A`; tema escuro quase preto `#140D0B`. Fontes Anybody (títulos, com eixo de largura), Familjen Grotesk (texto), Gochi Hand (escrita à mão) e Courier Prime (comanda).
 
 ## Seções do início
 - **Capa**: "Na chapa, sem dó." com a palavra prensada ao abrir, foto numa bandeja de inox e adesivos que o visitante arrasta (posição salva no navegador; duplo clique volta ao lugar).

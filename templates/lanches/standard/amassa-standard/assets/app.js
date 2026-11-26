@@ -440,7 +440,7 @@
   let fim;
   const marca = () => {
     document.querySelectorAll('[data-tema-ir]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.temaIr === raiz.dataset.tema)));
-    if (meta) meta.content = raiz.dataset.tema === 'claro' ? '#F6EEDD' : '#0B0F2E';
+    if (meta) meta.content = raiz.dataset.tema === 'claro' ? '#F6EEDD' : '#140D0B';
   };
   document.addEventListener('click', (e) => {
     const b = e.target.closest('[data-tema-ir]');

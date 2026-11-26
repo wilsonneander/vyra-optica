@@ -1,5 +1,5 @@
 // Gera o Amassa Standard (smash burger fictício na Cidade Baixa, Porto Alegre) em templates/lanches/standard/amassa-standard/.
-// Desenho de lanchonete de papel: creme, azul de azulejo e mostarda, títulos condensados enormes, adesivos que dá para
+// Desenho de lanchonete de papel: creme, vermelho ketchup e mostarda, títulos condensados enormes, adesivos que dá para
 // arrastar, polaroides, comanda que sai impressa e a janela "Como você quer?" para pedir pelo app, WhatsApp ou balcão.
 // Início: capa, faixas, manifesto que se prensa, feito pra dividir (polaroides + comanda), mais pedidos, cardápio por
 // segmento, como a chapa funciona, festas e oficina, equipe, galeria, avaliações, Instagram, delivery, agendar,
@@ -12,7 +12,7 @@ const I = require('./icons');
 const T = require('../../_comum/tema-pilula');
 
 const CHAVE_TEMA = 'amassa-tema';
-const COR_CLARO = '#F6EEDD', COR_ESCURO = '#0B0F2E';
+const COR_CLARO = '#F6EEDD', COR_ESCURO = '#140D0B';
 const OUT = path.join(__dirname, '..', 'standard', 'amassa-standard');
 const IMG = path.join(__dirname, 'img');
 const M = C.marca;
@@ -64,12 +64,12 @@ const fontes = '<link rel="preconnect" href="https://fonts.googleapis.com"><link
 // adesivos prontos da marca
 const AD = {
   maisPedido: I.adesivo('estrela', '#FFC21A', '#14130F', ['o mais', 'pedido'], I.risco('#14130F')),
-  novo: I.adesivo('oval', '#1D3BC9', '#FFF6E2', ['novo!']),
+  novo: I.adesivo('oval', '#D3261A', '#FFF6E2', ['novo!']),
   ardido: I.adesivo('redondo', '#14130F', '#FFC21A', ['ardido'], I.risco('#FFC21A')),
   chapa: I.adesivo('oval', '#FFC21A', '#14130F', ['chapa', 'quente']),
-  smash: I.adesivo('redondo', '#1D3BC9', '#FFF6E2', ['amassa!']),
-  fritas: I.adesivo('oval', '#FFF6E2', '#1D3BC9', ['fritas']),
-  shake: I.adesivo('estrela', '#1D3BC9', '#FFC21A', ['shake']),
+  smash: I.adesivo('redondo', '#D3261A', '#FFF6E2', ['amassa!']),
+  fritas: I.adesivo('oval', '#FFF6E2', '#D3261A', ['fritas']),
+  shake: I.adesivo('estrela', '#D3261A', '#FFC21A', ['shake']),
   crosta: I.adesivo('oval', '#14130F', '#FFF6E2', ['crosta', 'renda']),
 };
 
@@ -88,7 +88,7 @@ const topo = (pg) => `<a class="pular" href="#conteudo">Pular para o conteúdo</
     <a class="logo" href="index.html" aria-label="${M.completo}, início">${I.logo}</a>
     <div class="topo-acoes">
       <a class="topo-agendar" href="${pg === 'inicio' ? '' : 'index.html'}#agendar">Agendar</a>
-      <button type="button" class="btn btn-azul btn-p" data-pedir><span>Pedir agora</span>${I.seta}</button>
+      <button type="button" class="btn btn-verm btn-p" data-pedir><span>Pedir agora</span>${I.seta}</button>
       <button class="menu-btn" type="button" aria-controls="menu" aria-expanded="false" aria-label="Abrir o menu">${I.menu}</button>
     </div>
   </div>
@@ -98,13 +98,13 @@ ${T.pilula('tema-lado', 'claro')}`;
 // ---------- capa ----------
 const capa = `<section class="capa" id="inicio">
   <div class="capa-titulo">
-    <h1 class="h-gigante"><span class="lin">Na chapa,</span> <span class="lin azul" data-prensa>sem dó.</span></h1>
+    <h1 class="h-gigante"><span class="lin">Na chapa,</span> <span class="lin verm" data-prensa>sem dó.</span></h1>
   </div>
   <div class="capa-in">
     <div class="capa-txt">
       <p class="capa-status" data-status>${esc(horarioCurto())}</p>
       <p class="capa-lead">Smash burger da Cidade Baixa: bolinha de carne prensada com força na chapa quente, borda crocante de renda e queijo escorrendo no pão de batata.</p>
-      <div class="capa-btns" data-iguais><button type="button" class="btn btn-azul" data-pedir><span>Pedir agora</span>${I.seta}</button><a class="btn btn-contorno" href="#cardapio"><span>Ver cardápio</span></a></div>
+      <div class="capa-btns" data-iguais><button type="button" class="btn btn-verm" data-pedir><span>Pedir agora</span>${I.seta}</button><a class="btn btn-contorno" href="#cardapio"><span>Ver cardápio</span></a></div>
       <a class="capa-nota" href="#avaliacoes">${estrelas}<b>${nota}</b><span>${M.avaliacoes.toLocaleString('pt-BR')} avaliações no Google</span></a>
     </div>
     <div class="capa-bandeja">
@@ -120,7 +120,7 @@ const capa = `<section class="capa" id="inicio">
 // ---------- faixas ----------
 const faixaItens = ['Smash', 'Frango crocante', 'Fritas com cheddar', 'Shakes', 'Combos', 'Oficina de smash'];
 const faixas = `<div class="faixas" aria-hidden="true">
-  <div class="faixa faixa-azul"><div class="faixa-trilho">${[0, 1].map(() => `<span>${faixaItens.map((t) => `<b>${t}</b>${I.azulejo}`).join('')}</span>`).join('')}</div></div>
+  <div class="faixa faixa-verm"><div class="faixa-trilho">${[0, 1].map(() => `<span>${faixaItens.map((t) => `<b>${t}</b>${I.azulejo}`).join('')}</span>`).join('')}</div></div>
   <div class="faixa faixa-grande"><div class="faixa-trilho">${[0, 1].map(() => `<span>${['Crosta de renda', 'Queijo escorrendo', 'Pão de batata'].map((t) => `<b>${t}</b>${I.espatula}`).join('')}</span>`).join('')}</div></div>
 </div>`;
 
@@ -154,7 +154,7 @@ const dividir = `<section class="dividir" aria-labelledby="t-dividir">
       </div>
     </div>
     <div class="dividir-txt">
-      <h2 id="t-dividir" class="h-grande rev">Feito pra <span class="azul">dividir</span></h2>
+      <h2 id="t-dividir" class="h-grande rev">Feito pra <span class="verm">dividir</span></h2>
       <div class="impressora rev" data-impressora>
         <span class="impressora-boca" aria-hidden="true"></span>
         <div class="comanda" data-comanda>
@@ -270,7 +270,7 @@ const servCard = (e) => `<article class="serv${e.destaque ? ' serv-destaque' : '
           ${e.sensivel ? '<p class="serv-aviso">Restrições alimentares com 72 horas de antecedência</p>' : ''}
           <div class="serv-pe">
             <b class="serv-preco">${e.preco ? `${e.de ? '<small>a partir de</small>' : ''}${reais(e.preco)}<small>por pessoa</small>` : 'Sem custo<small>para agendar</small>'}</b>
-            <a class="btn btn-azul btn-p" href="#agendar" data-agendar="${e.id}"><span>Agendar</span>${I.seta}</a>
+            <a class="btn btn-verm btn-p" href="#agendar" data-agendar="${e.id}"><span>Agendar</span>${I.seta}</a>
           </div>
           ${e.sinal ? '<p class="serv-sinal">Sinal de 30% por Pix para confirmar</p>' : ''}
         </div>
@@ -278,7 +278,7 @@ const servCard = (e) => `<article class="serv${e.destaque ? ' serv-destaque' : '
 const festas = `<section class="festas" id="festas">
   <div class="largo">
     <div class="sec-cab rev">
-      <h2 class="h-grande">Festas, oficina e <span class="azul">chapa no seu evento</span></h2>
+      <h2 class="h-grande">Festas, oficina e <span class="verm">chapa no seu evento</span></h2>
       <p>Tudo com duração, preço e quem cuida de você. Agende pelo site e a confirmação chega no WhatsApp.</p>
     </div>
     <div class="serv-grade">
@@ -336,7 +336,7 @@ const instagram = `<section class="insta" id="instagram">
       <span class="insta-ic" aria-hidden="true">${I.insta}</span>
       <h2 class="h-media">@${G.usuario}</h2>
       <p>${G.publicacoes} publicações e ${G.seguidores} seguidores vendo a chapa ao vivo, o shake do mês e quando o Afogado volta.</p>
-      <a class="btn btn-azul" href="${instaUrl}" target="_blank" rel="noopener"><span>Seguir no Instagram</span>${I.diag}</a>
+      <a class="btn btn-verm" href="${instaUrl}" target="_blank" rel="noopener"><span>Seguir no Instagram</span>${I.diag}</a>
     </div>
     <ul class="insta-grade" aria-label="Últimas publicações do Instagram">
       ${G.posts.map((p) => `<li class="rev"><a href="${instaUrl}" target="_blank" rel="noopener" aria-label="Publicação: ${esc(p.texto)}">${foto(p.foto)}<span class="insta-sobre"><span>${esc(p.texto)}</span><b>${I.coracao}${p.curtidas.toLocaleString('pt-BR')}</b></span></a></li>`).join('\n      ')}
@@ -390,7 +390,7 @@ const agendar = `<section class="agendar" id="agendar">
       <label class="campo"><span>Ocasião, endereço do evento ou restrições</span><textarea name="obs" rows="2" placeholder="Aniversário de 9 anos, 3 vegetarianos, sem lactose..."></textarea></label>
       <label class="aceite"><input type="checkbox" name="lgpd" required><span>Concordo com o uso dos meus dados para o agendamento, conforme a <button type="button" class="link" data-doc="privacidade">Política de privacidade</button>.</span></label>
       <p class="form-erro" data-erro role="alert"></p>
-      <button class="btn btn-azul btn-g" type="submit"><span>Confirmar agendamento</span>${I.seta}</button>
+      <button class="btn btn-verm btn-g" type="submit"><span>Confirmar agendamento</span>${I.seta}</button>
     </form>
     <aside class="ag-resumo rev" aria-live="polite" data-resumo>
       <p class="ag-resumo-t">Seu pedido de agendamento</p>
@@ -416,7 +416,7 @@ const agendar = `<section class="agendar" id="agendar">
 const politicas = `<section class="politicas" id="politicas">
   <div class="largo">
     <div class="sec-cab rev">
-      <h2 class="h-grande">Combinado <span class="azul">não sai caro</span></h2>
+      <h2 class="h-grande">Combinado <span class="verm">não sai caro</span></h2>
       <p>Agendamento, atraso, cancelamento e garantia, em regras curtas para todo mundo comer o que pediu, na hora que marcou.</p>
     </div>
     <div class="pol-in">
@@ -451,7 +451,7 @@ const duvidas = `<section class="duvidas" id="duvidas">
 const contato = `<section class="contato" id="contato">
   <div class="largo contato-in">
     <div class="rev">
-      <h2 class="h-grande">Fala com a <span class="azul">chapa</span></h2>
+      <h2 class="h-grande">Fala com a <span class="verm">chapa</span></h2>
       <p>Orçamento de festa, evento de empresa, pedido grande, parceria ou só uma pergunta. A gente responde em até um dia útil.</p>
       <ul class="canais">
         <li><span>WhatsApp</span><a href="${wa('Olá! Vim pelo site da Amassa.')}" target="_blank" rel="noopener">${M.whatsapp}</a></li>
@@ -470,7 +470,7 @@ const contato = `<section class="contato" id="contato">
       <label class="campo"><span>Mensagem</span><textarea name="msg" rows="4" required></textarea></label>
       <label class="aceite"><input type="checkbox" name="lgpd" required><span>Concordo com o uso dos meus dados para responder ao contato, conforme a <button type="button" class="link" data-doc="privacidade">Política de privacidade</button>.</span></label>
       <p class="form-erro" data-erro role="alert"></p>
-      <button class="btn btn-azul" type="submit"><span>Enviar mensagem</span>${I.seta}</button>
+      <button class="btn btn-verm" type="submit"><span>Enviar mensagem</span>${I.seta}</button>
       <p class="form-ok" data-ok hidden>Recebemos sua mensagem. Para agilizar, abrimos também a conversa no WhatsApp.</p>
     </form>
   </div>
@@ -563,7 +563,7 @@ const dialogs = `${Object.entries(legal).map(([id, [t, corpo]]) => `<dialog clas
 ${pedir}
 <div class="cookies" id="cookies" role="region" aria-label="Aviso de cookies" hidden>
   <p>Guardamos no navegador o tema, os adesivos e suas escolhas. A medição de visitas só liga se você aceitar. <button type="button" class="link" data-doc="privacidade">Saiba mais</button></p>
-  <div class="ck-btns" data-iguais><button type="button" class="btn btn-azul btn-p" data-ck="todos">Aceitar todos</button><button type="button" class="btn btn-contorno btn-p" data-ck="essenciais">Só os essenciais</button></div>
+  <div class="ck-btns" data-iguais><button type="button" class="btn btn-verm btn-p" data-ck="todos">Aceitar todos</button><button type="button" class="btn btn-contorno btn-p" data-ck="essenciais">Só os essenciais</button></div>
 </div>
 <div class="visor" data-visor hidden role="dialog" aria-modal="true" aria-label="Foto ampliada">
   <button type="button" class="visor-x" data-visor-fecha aria-label="Fechar">${I.fechar}</button>
@@ -580,7 +580,7 @@ const pgCab = (titulo, texto) => `<section class="pg-cab">
     <p>${texto}</p>
   </div>
 </section>`;
-const pgEquipe = `${pgCab('A <span class="azul">equipe</span>', 'Cinco pessoas na chapa, na fritadeira, no balcão e nas festas. Veja a escala da semana e agende com quem você prefere.')}
+const pgEquipe = `${pgCab('A <span class="verm">equipe</span>', 'Cinco pessoas na chapa, na fritadeira, no balcão e nas festas. Veja a escala da semana e agende com quem você prefere.')}
 <section class="membros">
   <div class="largo">
     ${C.equipe.map((m, k) => `<article class="membro${k % 2 ? ' inverte' : ''}" id="p-${m.id}">
@@ -596,7 +596,7 @@ const pgEquipe = `${pgCab('A <span class="azul">equipe</span>', 'Cinco pessoas n
           <div><dt>Cuida de</dt><dd>${m.faz.map((id) => esc(C.servicos.find((e) => e.id === id).nome)).join(', ')}</dd></div>
         </dl>
         <table class="escala"><caption>Escala da semana</caption><tr>${[2, 3, 4, 5, 6, 0].map((d) => `<th scope="col">${DIAS_C[d]}</th>`).join('')}</tr><tr>${[2, 3, 4, 5, 6, 0].map((d) => (m.dias[d] ? `<td>${esc(m.dias[d])}</td>` : '<td class="folga">folga</td>')).join('')}</tr></table>
-        <a class="btn btn-azul" href="index.html?serv=${m.faz[0]}&prof=${m.id}#agendar"><span>Agendar com ${esc(primeiro(m.nome))}</span>${I.seta}</a>
+        <a class="btn btn-verm" href="index.html?serv=${m.faz[0]}&prof=${m.id}#agendar"><span>Agendar com ${esc(primeiro(m.nome))}</span>${I.seta}</a>
       </div>
     </article>`).join('\n    ')}
   </div>
@@ -609,7 +609,7 @@ const pgEquipe = `${pgCab('A <span class="azul">equipe</span>', 'Cinco pessoas n
 </section>`;
 
 // ---------- página da galeria ----------
-const pgGaleria = `${pgCab('A <span class="azul">galeria</span>', 'Burgers saindo da chapa, a prensa trabalhando, shakes, o salão xadrez e as festas. Toque numa foto para ampliar.')}
+const pgGaleria = `${pgCab('A <span class="verm">galeria</span>', 'Burgers saindo da chapa, a prensa trabalhando, shakes, o salão xadrez e as festas. Toque numa foto para ampliar.')}
 <section class="galeria">
   <div class="largo">
     <div class="filtros" role="group" aria-label="Filtrar por categoria" data-filtros data-iguais>
@@ -684,10 +684,10 @@ pagina({ arquivo: 'galeria.html', pg: 'galeria', titulo: `Galeria | ${M.completo
 const zero = `<svg class="z" viewBox="0 0 200 200" aria-hidden="true">
   <rect x="10" y="150" width="180" height="16" rx="4" fill="var(--chapa)"/>
   <g class="z-carne"><ellipse cx="100" cy="112" rx="44" ry="40" fill="#6B3A22"/><ellipse cx="88" cy="98" rx="14" ry="9" fill="#8E5232" opacity=".8"/><circle cx="114" cy="120" r="4" fill="#4A2616"/><circle cx="82" cy="126" r="3" fill="#4A2616"/></g>
-  <g class="z-esp"><path d="M46 30h84l6 14H40Z" fill="var(--azul)"/><path d="M128 32 162 -20" stroke="var(--tinta)" stroke-width="10" stroke-linecap="round"/></g>
+  <g class="z-esp"><path d="M46 30h84l6 14H40Z" fill="var(--verm)"/><path d="M128 32 162 -20" stroke="var(--tinta)" stroke-width="10" stroke-linecap="round"/></g>
 </svg>`;
-const css404 = `:root{--papel:#F6EEDD;--tinta:#16130F;--texto:#4A4237;--azul:#1D3BC9;--azul-txt:#1D3BC9;--mostarda:#FFC21A;--chapa:#3B3B40;--borda:rgba(22,19,15,.2);color-scheme:light}
-:root[data-tema="escuro"]{--papel:#0B0F2E;--tinta:#F6EEDD;--texto:#C7C2B6;--azul:#3654E6;--azul-txt:#8EA0FF;--chapa:#555863;--borda:rgba(246,238,221,.2);color-scheme:dark}
+const css404 = `:root{--papel:#F6EEDD;--tinta:#16130F;--texto:#4A4237;--verm:#D3261A;--verm-txt:#D3261A;--mostarda:#FFC21A;--chapa:#3B3B40;--borda:rgba(22,19,15,.2);color-scheme:light}
+:root[data-tema="escuro"]{--papel:#140D0B;--tinta:#F6EEDD;--texto:#C7C2B6;--verm:#E8392B;--verm-txt:#FF8F7E;--chapa:#555863;--borda:rgba(246,238,221,.2);color-scheme:dark}
 *{box-sizing:border-box;margin:0}
 body{min-height:100vh;min-height:100svh;display:grid;place-items:center;padding:32px 16px;background:var(--papel);color:var(--texto);font:400 17px/1.6 'Familjen Grotesk','Helvetica Neue',Arial,sans-serif;overflow-x:hidden}
 .c404{width:min(720px,100%);display:grid;justify-items:center;gap:16px;text-align:center}
@@ -700,16 +700,16 @@ body{min-height:100vh;min-height:100svh;display:grid;place-items:center;padding:
 @keyframes prensa{0%,25%{transform:scale(1,1)}40%,85%{transform:scale(1.7,.28)}100%{transform:scale(1,1)}}
 @keyframes desce{0%,15%{transform:translateY(-10px)}40%,80%{transform:translateY(98px)}100%{transform:translateY(-10px)}}
 h1{font:900 clamp(2rem,6vw,3.4rem)/.95 'Anybody',Impact,sans-serif;font-stretch:70%;text-transform:uppercase;color:var(--tinta);text-wrap:balance}
-h1 span{color:var(--azul-txt)}
-.mao{font:400 1.3rem/1.2 'Gochi Hand',cursive;color:var(--azul-txt);rotate:-3deg}
+h1 span{color:var(--verm-txt)}
+.mao{font:400 1.3rem/1.2 'Gochi Hand',cursive;color:var(--verm-txt);rotate:-3deg}
 .txt{max-width:44ch;text-wrap:pretty}
 .btns{display:inline-grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:10px;margin-top:8px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:14px;font:800 15px/1 'Anybody',Impact,sans-serif;font-stretch:80%;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:transform .25s,box-shadow .25s}
-.b1{color:#fff;background:var(--azul);box-shadow:0 4px 0 var(--tinta)}
+.b1{color:#fff;background:var(--verm);box-shadow:0 4px 0 var(--tinta)}
 .b2{color:var(--tinta);border:2px solid var(--tinta)}
 .btn:hover{transform:translateY(-2px)}.b1:hover{box-shadow:0 6px 0 var(--tinta)}
 .rodape{margin-top:14px;font-size:.92rem}
-.rodape a{color:var(--azul-txt);font-weight:600;text-underline-offset:3px}
+.rodape a{color:var(--verm-txt);font-weight:600;text-underline-offset:3px}
 :focus-visible{outline:3px solid var(--mostarda);outline-offset:3px}
 @media (max-width:520px){.btns{grid-auto-flow:row;width:100%}}
 @media (prefers-reduced-motion:reduce){.z-carne,.z-esp{animation:none}.z-carne{transform:scale(1.7,.28)}.z-esp{transform:translateY(98px)}}`;
@@ -744,7 +744,7 @@ fs.writeFileSync(path.join(OUT, '404.html'), html404);
 fs.mkdirSync(path.join(OUT, 'assets', 'img', 'logos'), { recursive: true });
 for (const l of ['ifood.svg', '99.svg']) fs.copyFileSync(path.join(IMG, 'logos', l), path.join(OUT, 'assets', 'img', 'logos', l));
 for (const n of usadas) fs.copyFileSync(path.join(IMG, `${n}.webp`), path.join(OUT, 'assets', 'img', `${n}.webp`));
-fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#1D3BC9"/><ellipse cx="24" cy="30" rx="15" ry="6" fill="#FFC21A"/><path d="M10 14h22l2 5H8Z" fill="#F6EEDD"/><path d="M31 15l7-10" stroke="#F6EEDD" stroke-width="4" stroke-linecap="round"/></svg>');
+fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#D3261A"/><ellipse cx="24" cy="30" rx="15" ry="6" fill="#FFC21A"/><path d="M10 14h22l2 5H8Z" fill="#F6EEDD"/><path d="M31 15l7-10" stroke="#F6EEDD" stroke-width="4" stroke-linecap="round"/></svg>');
 fs.writeFileSync(path.join(OUT, 'assets', 'style.css'), fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8') + T.css);
 fs.writeFileSync(path.join(OUT, 'assets', 'app.js'), fs.readFileSync(path.join(__dirname, 'app.js'), 'utf8') + T.js(CHAVE_TEMA, COR_CLARO, COR_ESCURO));
 fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${M.dominio}/sitemap.xml\n`);

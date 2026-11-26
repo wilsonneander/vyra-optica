@@ -158,6 +158,10 @@ main, .rodape { overflow-x: clip; }
 .capa-veu { position: absolute; inset: 0; z-index: 3; background: linear-gradient(180deg, rgba(10, 10, 12, .6), rgba(10, 10, 12, .1) 34%, rgba(10, 10, 12, .2) 55%, rgba(10, 10, 12, .82)); }
 .capa-in { position: relative; z-index: 4; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto 1fr auto auto; grid-template-areas: "cantos" "meio" "tit" "base"; height: 100%; padding: 34px 44px 92px; opacity: calc(1 - var(--cp, 0) * 1.4); translate: 0 calc(var(--cp, 0) * -80px); pointer-events: none; }
 .capa-in a, .capa-in button { pointer-events: auto; }
+/* sombra atrás das letras: o texto continua legível sobre as partes claras das fotos */
+.capa-cantos, .capa-lead, .capa-nota, .capa-pontos button { text-shadow: 0 1px 2px rgba(0, 0, 0, .7), 0 2px 14px rgba(0, 0, 0, .55); }
+.capa-tit { text-shadow: 0 2px 6px rgba(0, 0, 0, .35), 0 10px 40px rgba(0, 0, 0, .55); }
+.capa-tit .cursiva { text-shadow: 0 1px 3px rgba(0, 0, 0, .8), 0 4px 18px rgba(0, 0, 0, .6); }
 .capa-cantos { grid-area: cantos; }
 .capa-meio { grid-area: meio; }
 .capa-tit { grid-area: tit; }
@@ -880,6 +884,7 @@ html.js:not(.carregou) .eqp-retratos a { animation-play-state: paused; }
   .capa-moldura { height: auto; min-height: calc(100svh - 80px); }
   .capa-in { grid-template-rows: auto 1fr auto auto auto; grid-template-areas: "cantos" "." "tit" "meio" "base"; gap: 16px; padding: 20px 22px 88px; }
   .capa-cantos { flex-direction: column; gap: 8px; font-size: 10.5px; }
+  .capa-veu { background: linear-gradient(180deg, rgba(10, 10, 12, .7), rgba(10, 10, 12, .35) 30%, rgba(10, 10, 12, .45) 55%, rgba(10, 10, 12, .88)); }
   .capa-agora { text-align: left; }
   .capa-meio { flex-direction: column; align-items: stretch; gap: 16px; }
   .capa-lead { font-size: 16px; }

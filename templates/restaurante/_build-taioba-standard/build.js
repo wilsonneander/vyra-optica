@@ -326,8 +326,47 @@ const avaliacoes = `<section class="avaliacoes" id="avaliacoes">
   </div>
 </section>`;
 
+// ---------- delivery pelos apps, com o prato no meio e a comanda do pedido direto ----------
+const apps = `<section class="apps" id="delivery" aria-labelledby="t-apps">
+  ${folhas([[2, 18, 90, -30, 5, 0.25], [94, 70, 110, 40, 3, 0.3]])}
+  <div class="largo">
+    <div class="apps-cab rev">
+      <p class="apoio">Delivery</p>
+      <h2 id="t-apps">Peça pelo app que <i>você já usa</i></h2>
+      <p>A mesma cozinha e a mesma brasa. Escolha o seu app, ou peça direto com a gente pelo WhatsApp e não pague taxa de app.</p>
+    </div>
+    <div class="duelo rev" data-duelo>
+      <a class="lado lado-ifood" href="${M.ifood}" target="_blank" rel="noopener" aria-label="Pedir no iFood">
+        <img class="lado-logo" src="assets/img/logos/ifood.svg" alt="iFood" width="170" height="90" loading="lazy">
+        <p class="lado-frase">Acompanhe a entrega no mapa e pague pelo app.</p>
+        <div class="lado-info"><span><small>entrega</small><b>40 a 60 min</b></span><span><small>taxa a partir de</small><b>R$ 5,99</b></span></div>
+        <span class="lado-cta">Pedir no iFood${I.seta}</span>
+      </a>
+      <div class="duelo-meio" aria-hidden="true">
+        <span class="duelo-prato">${foto('tropeiro', { alt: '' })}</span>
+        <span class="duelo-ou">ou</span>
+      </div>
+      <a class="lado lado-99" href="${M.food99}" target="_blank" rel="noopener" aria-label="Pedir no 99Food">
+        <span class="logo-99"><img src="assets/img/logos/99.svg" alt="" width="64" height="64" loading="lazy"><b>Food</b></span>
+        <p class="lado-frase">Cupons da semana no app. Busque por Taioba.</p>
+        <div class="lado-info"><span><small>entrega</small><b>40 a 65 min</b></span><span><small>taxa a partir de</small><b>R$ 4,99</b></span></div>
+        <span class="lado-cta">Pedir no 99Food${I.seta}</span>
+      </a>
+    </div>
+    <div class="comanda rev">
+      <div class="comanda-papel">
+        <p class="comanda-topo"><b>Pedido direto</b><span>pelo WhatsApp, sai da nossa cozinha</span></p>
+        <div class="comanda-linha"><span>Taxa de app</span><b>R$ 0,00</b></div>
+        <div class="comanda-linha"><span>Retirada no bar</span><b>sem taxa</b></div>
+        <div class="comanda-linha"><span>Entrega nos bairros perto</span><b>R$ 12</b></div>
+        <a class="btn btn-verde" href="${wa('Olá! Vim pelo site e quero fazer um pedido para entrega.')}" target="_blank" rel="noopener">${I.whats}<span>Pedir no WhatsApp</span></a>
+      </div>
+    </div>
+  </div>
+</section>`;
+
 // ---------- encomendas ----------
-const encomendas = `<section class="encom" id="encomendas">
+const encomendas =`<section class="encom" id="encomendas">
   <div class="largo encom-in rev">
     <figure>${foto('mandioca-fogo', { alt: 'Mandioca frita e farofa da casa' })}</figure>
     <div>
@@ -412,6 +451,11 @@ const politicas = `<section class="politicas" id="politicas">
         <p>${esc(C.sensivel.texto)}</p>
         <ul>${C.sensivel.itens.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
       </aside>
+      <aside class="pol-entrega rev" id="entrega">
+        <h3>Entrega e retirada</h3>
+        <p>À mesa, só no endereço de ${M.bairro}. Para levar, retire no bar sem taxa ou receba por <b>R$ 12</b> nestes bairros. Fora deles, peça pelo <a href="#delivery">iFood ou 99Food</a>.</p>
+        <ul class="bairros">${C.bairros.map((x) => `<li>${x}</li>`).join('')}</ul>
+      </aside>
     </div>
   </div>
 </section>`;
@@ -472,9 +516,6 @@ const rodape = (pg) => {
         <span class="attr">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
       </div>
       <div class="onde">
-        <h2>Onde atendemos</h2>
-        <p>À mesa, só no endereço de ${M.bairro}. As encomendas para levar são entregues nestes bairros:</p>
-        <ul class="bairros">${C.bairros.map((x) => `<li>${x}</li>`).join('')}</ul>
         <table class="horas"><caption>Horário de funcionamento</caption><tbody>${[1, 2, 3, 4, 5, 6, 0].map((i) => `<tr data-dia="${i}"><th scope="row">${DIAS[i]}</th><td>${textoDia(C.horario[i])}</td></tr>`).join('')}</tbody></table>
       </div>
     </div>
@@ -707,7 +748,7 @@ ${dialogs}
   fs.writeFileSync(path.join(OUT, arquivo), html);
 };
 
-const corpoInicio = [capa, semana, eventos, casa, bannerCardapio, cardapio, experiencias, equipeInicio, galeriaInicio, instagram, avaliacoes, encomendas, reservar, politicas, duvidas, contato].join('\n');
+const corpoInicio = [capa, semana, eventos, casa, bannerCardapio, cardapio, experiencias, equipeInicio, galeriaInicio, instagram, avaliacoes, apps, encomendas, reservar, politicas, duvidas, contato].join('\n');
 pagina({ arquivo: 'index.html', pg: 'inicio', titulo: `${M.completo} | Porções, carnes e drinks em ${M.bairro}, BH`, descricao: `Bar e cozinha mineira em ${M.bairro}, Belo Horizonte: carnes à parte, porções de arroz, feijão, farofa, mandioca e batata, e drinks com cachaça. Reservas online.`, corpo: corpoInicio, comLd: true });
 pagina({ arquivo: 'equipe.html', pg: 'equipe', titulo: `Equipe | ${M.completo}`, descricao: 'Conheça a chef, o mestre da brasa, a chef de porções, a chefe de bar e o maître do Taioba.', corpo: pgEquipe });
 pagina({ arquivo: 'galeria.html', pg: 'galeria', titulo: `Galeria | ${M.completo}`, descricao: 'Fotos das porções, carnes, drinks, da varanda e dos eventos do Taioba.', corpo: pgGaleria });
@@ -716,6 +757,8 @@ pagina({ arquivo: 'cadastro.html', pg: 'cadastro', titulo: `Criar conta | ${M.co
 pagina({ arquivo: 'conta.html', pg: 'conta', titulo: `Minha conta | ${M.completo}`, descricao: 'Reservas, Caderno de visitas, encomendas, preferências e dados pessoais.', corpo: pgConta, tipo: 'conta', noindex: true });
 
 // ---------- arquivos de apoio ----------
+fs.mkdirSync(path.join(OUT, 'assets', 'img', 'logos'), { recursive: true });
+for (const l of ['ifood.svg', '99.svg']) fs.copyFileSync(path.join(IMG, 'logos', l), path.join(OUT, 'assets', 'img', 'logos', l));
 for (const n of usadas) fs.copyFileSync(path.join(IMG, `${n}.webp`), path.join(OUT, 'assets', 'img', `${n}.webp`));
 fs.writeFileSync(path.join(OUT, 'assets', 'favicon.svg'), `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#141312"/>${I.folha('#5FB585', '#141312').replace(/<svg[^>]*>|<\/svg>/g, '')}</svg>`);
 fs.writeFileSync(path.join(OUT, 'assets', 'style.css'), fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8') + T.css);

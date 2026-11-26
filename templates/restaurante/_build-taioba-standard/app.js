@@ -184,6 +184,13 @@
     if (!reduz) setInterval(() => { if (!pausa && !document.hidden) vai(i + 1); }, 3800);
   });
 
+  // delivery: o brilho do cartão do app segue o mouse
+  $$('.lado').forEach((l) => l.addEventListener('pointermove', (e) => {
+    const r = l.getBoundingClientRect();
+    l.style.setProperty('--mx', `${((e.clientX - r.left) / r.width * 100).toFixed(1)}%`);
+    l.style.setProperty('--my', `${((e.clientY - r.top) / r.height * 100).toFixed(1)}%`);
+  }));
+
   // folhas de taioba: cada uma anda numa velocidade diferente com a rolagem
   const fls = $$('.fl');
   if (fls.length && !reduz) {

@@ -23,6 +23,8 @@ const marca = {
   dominio: 'https://taiobabar.com.br', // [EXEMPLO]
   nota: 4.8, // [EXEMPLO]
   avaliacoes: 2340, // [EXEMPLO]
+  ifood: 'https://www.ifood.com.br/', // [EXEMPLO] link da loja no iFood
+  food99: 'https://food.99app.com/', // [EXEMPLO] link da loja no 99Food
   coordenadas: [-19.91575, -43.9164],
 };
 
@@ -65,7 +67,6 @@ const pratos = [
   { id: 'espetinho', seg: 'carnes', nome: 'Espetinhos de alcatra', peso: '4 unidades', inclui: 'Cubos de alcatra temperados com alho e sal grosso, assados na grelha.', serve: '2', min: 20, preco: 72, foto: 'espetinhos', tags: ['semgluten'] },
   { id: 'carne-sol', seg: 'carnes', nome: 'Carne de sol acebolada', peso: '400 g', inclui: 'Carne de sol dessalgada na casa, salteada com cebola roxa e manteiga de garrafa.', serve: '2', min: 25, preco: 84, foto: 'carne-acebolada', tags: ['semgluten'] },
   { id: 'torresmo', seg: 'carnes', nome: 'Torresmo de barriga', peso: '300 g', inclui: 'Barriga cozida devagar e pururucada, com limão-cravo para espremer.', serve: '2 a 3', min: 20, preco: 46, foto: 'torresmo-couve', tags: ['semgluten'] },
-  { id: 'frango', seg: 'carnes', nome: 'Frango a passarinho', peso: '600 g', inclui: 'Frango de quintal frito com alho dourado e cheiro-verde.', serve: '2', min: 25, preco: 62, tags: ['semgluten'] },
 
   { id: 'arroz', seg: 'porcoes', nome: 'Arroz branco soltinho', peso: 'panelinha', inclui: 'Arroz agulhinha refogado no alho, soltinho como o de casa.', serve: '2', min: 5, preco: 18, foto: 'arroz-panela', tags: ['vegano', 'semgluten'] },
   { id: 'feijao', seg: 'porcoes', nome: 'Feijão caldo com bacon', peso: 'panelinha', inclui: 'Feijão carioca cozido na panela de pressão, com bacon, louro e cheiro-verde.', serve: '2', min: 5, preco: 22, foto: 'feijao-caldo', tags: ['semgluten'] },
@@ -199,7 +200,7 @@ const sensivel = {
   titulo: 'Alergias, intolerâncias e restrições',
   texto: 'A cozinha trabalha com leite, ovos, glúten, carne de porco, amendoim e castanhas. Avise na reserva e de novo ao chegar: cada porção tem ficha com os ingredientes.',
   itens: [
-    'Mandioca, batata, torresmo e frango passam pela mesma fritadeira. Para alergia grave, a equipe frita a sua porção em óleo separado.',
+    'Mandioca, batata e torresmo passam pela mesma fritadeira. Para alergia grave, a equipe frita a sua porção em óleo separado.',
     'Farofa, tropeiro e feijão caldo podem levar bacon ou torresmo. Para vegetarianos, peça a Mesa da horta ou as versões sem carne.',
     'Manteiga de garrafa e leite condensado aparecem na mandioca e na limonada suíça. Para intolerância à lactose, a cozinha troca por azeite.',
     'Na Mesa mineira completa e nos eventos, restrições precisam ser informadas com 48 horas de antecedência.',

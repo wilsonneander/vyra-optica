@@ -166,7 +166,7 @@ main, .rodape { overflow-x: clip; }
 .capa-cobre { color: #F0AD73; }
 .capa-meio { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
 .capa-lead { max-width: 34ch; font-size: clamp(17px, 1.5vw, 21px); line-height: 1.5; color: rgba(242, 236, 226, .92); }
-.capa-btns { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px; }
+.capa-btns { justify-self: end; display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px; }
 .capa-tit { margin: 0 0 18px; font-size: clamp(92px, 16vw, 260px); line-height: .8; color: #F2ECE2; }
 .capa-tit .cursiva { color: #F0AD73; font-size: .3em; translate: -.2em -.15em; }
 html.js .capa-tit > * { opacity: 0; translate: 0 40%; transition: opacity 1s var(--suave), translate 1.2s var(--corte); }
@@ -194,15 +194,6 @@ html.carregou .capa-tit .cursiva { opacity: 1; translate: -.2em -.15em; }
 .capa-pontos [aria-pressed="true"] i::after { animation: capaProg var(--dur, 6s) linear forwards; }
 .capa-moldura.parado .capa-pontos [aria-pressed="true"] i::after { animation-play-state: paused; }
 @keyframes capaProg { to { scale: 1 1; } }
-.letreiro { justify-self: end; display: flex; align-items: center; gap: 12px; padding: 7px 7px 7px 14px; border-radius: 14px; background: #F2ECE2; color: #15161A; }
-.letreiro-luzes { display: flex; gap: 4px; }
-.letreiro-luzes i { width: 7px; height: 20px; border-radius: 2px; background: #CFC6B6; transition: background-color .4s; }
-.letreiro-luzes i.livre { background: #C2703A; }
-.letreiro-txt { display: flex; flex-wrap: nowrap; gap: 1px; font: 500 12px/1 var(--f-m); text-transform: uppercase; white-space: nowrap; }
-.letreiro-txt .flap { display: inline-grid; place-items: center; min-width: .95em; padding: 4px 0; border-radius: 2px; background: #15161A; color: #F2ECE2; perspective: 200px; }
-.letreiro-txt .flap.vazio { background: transparent; min-width: .4em; }
-.letreiro-txt .flap.gira { animation: flap .32s var(--corte); }
-@keyframes flap { 0% { transform: rotateX(0); } 50% { transform: rotateX(90deg); } 100% { transform: rotateX(0); } }
 
 /* faixas cruzadas com a borda listrada de poste */
 .faixas { position: relative; height: clamp(160px, 17vw, 250px); overflow: hidden; margin-top: -8px; }
@@ -838,7 +829,7 @@ html.js:not(.carregou) .eqp-retratos a { animation-play-state: paused; }
   .tema-pilula.tema-lado { display: none; }
   .capa-base { grid-template-columns: auto minmax(0, 1fr); }
   .capa-ctrl { justify-self: end; }
-  .letreiro { grid-column: 1 / -1; justify-self: stretch; justify-content: space-between; }
+  .capa-btns { grid-column: 1 / -1; }
   .capa-nota small { white-space: nowrap; }
 }
 @media (max-width: 1000px) {
@@ -895,10 +886,6 @@ html.js:not(.carregou) .eqp-retratos a { animation-play-state: paused; }
   .capa-tit { margin: 0; font-size: clamp(84px, 27vw, 130px); }
   .capa-tit .cursiva { display: block; width: max-content; margin-top: .06em; font-size: .4em; }
   .capa-base { grid-template-columns: minmax(0, 1fr); gap: 14px; }
-  .letreiro { gap: 8px; padding-left: 12px; }
-  .letreiro-luzes { display: none; }
-  .letreiro-txt { min-width: 0; overflow: hidden; font-size: 11px; }
-  .letreiro .btn { padding: 0 14px; }
   .capa-ctrl { justify-content: space-between; }
   .capa-ctrl { justify-self: stretch; gap: 8px; }
   .capa-seta { flex: none; }
@@ -987,7 +974,6 @@ html.js:not(.carregou) .eqp-retratos a { animation-play-state: paused; }
   .corte-passos { height: 160px; }
 }
 @media (max-width: 380px) {
-  .letreiro .btn { padding: 0 12px; }
   .abas { grid-template-columns: 1fr; }
 }
 

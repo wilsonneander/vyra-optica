@@ -1,6 +1,6 @@
 // Cobre Premium: tela de carregando com o relógio do corte, transição entre páginas, cursor com listras de poste,
-// botões magnéticos, história na rolagem (monta descendo, desfaz e refaz subindo), carrossel da capa, letreiro de
-// cadeiras livres, cardápio com foto, linha do tempo de 45 minutos, guia do degradê, equipe em leque, galeria em carrossel,
+// botões magnéticos, história na rolagem (monta descendo, desfaz e refaz subindo), carrossel da capa,
+// cardápio com foto, linha do tempo de 45 minutos, guia do degradê, equipe em leque, galeria em carrossel,
 // cupom de avaliações, cartão do clube, agendamento (serviço, barbeiro, data e horário), contato, dúvidas, janelas legais e cookies.
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
@@ -110,33 +110,6 @@
   };
   $$('[data-proximo]').forEach((el) => { const b = D.equipe.find((x) => x.id === el.dataset.proximo); if (b) el.textContent = proximoLivre(b); });
 
-  // letreiro: cadeiras livres agora, letra por letra como um painel de aeroporto
-  const flapEl = $('[data-flap]'), luzes = $$('.letreiro-luzes i');
-  const escreveFlap = (txt) => {
-    if (!flapEl) return;
-    const atuais = $$('.flap', flapEl);
-    const chars = [...txt.toUpperCase()];
-    if (atuais.length !== chars.length) {
-      flapEl.innerHTML = chars.map((c) => `<span class="flap${c === ' ' ? ' vazio' : ''}">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
-      if (!reduz) $$('.flap', flapEl).forEach((f, i) => setTimeout(() => f.classList.add('gira'), i * 35));
-      flapEl.setAttribute('aria-label', txt);
-      return;
-    }
-    chars.forEach((c, i) => {
-      const f = atuais[i];
-      if (f.textContent === c || (c === ' ' && f.classList.contains('vazio'))) return;
-      f.classList.remove('gira'); void f.offsetWidth; f.classList.add('gira');
-      setTimeout(() => { f.textContent = c === ' ' ? ' ' : c; f.classList.toggle('vazio', c === ' '); }, 160);
-    });
-    flapEl.setAttribute('aria-label', txt);
-  };
-  const letreiro = () => {
-    const a = agoraLocal(), st = status(), hojeIso = iso(new Date()), slot = Math.floor(a.dec * 2) / 2;
-    const livres = D.equipe.map((b) => st.aberto && b.agenda[a.dia] && a.dec >= b.agenda[a.dia][0] && a.dec < b.agenda[a.dia][1] && !ocupado(b.id, hojeIso, slot));
-    luzes.forEach((l, i) => l.classList.toggle('livre', !!livres[i]));
-    const n = livres.filter(Boolean).length;
-    escreveFlap(!st.aberto ? st.curto : n > 1 ? `${n} cadeiras livres` : n === 1 ? '1 cadeira livre' : 'Casa cheia agora');
-  };
   const relogio = $('[data-relogio]'), abertoEl = $('[data-aberto]');
   const pinta = () => {
     const a = agoraLocal(), st = status();
@@ -145,8 +118,6 @@
   };
   pinta();
   setInterval(pinta, 15000);
-  letreiro();
-  setInterval(letreiro, 60000);
   $$(`.horas tr[data-dia="${agoraLocal().dia}"]`).forEach((tr) => tr.classList.add('hoje'));
 
   // ---------- revelações nos dois sentidos: títulos, fotos e contadores ligam ao entrar e desligam ao sair ----------

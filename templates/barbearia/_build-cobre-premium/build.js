@@ -1,6 +1,6 @@
 // Gera o Cobre Premium (barbearia, marca fictícia Cobre Barbearia) em "templates/barbearia/premium/cobre-premium/".
 // Referência de desenho: https://taper-barbers.framer.website/ (Framer): creme e tinta, títulos condensados com uma palavra
-// em letra cursiva, rótulos em fonte mono, letreiro de cadeiras livres, cardápio com foto ao lado, a linha do tempo de um corte,
+// em letra cursiva, rótulos em fonte mono, cardápio com foto ao lado, a linha do tempo de um corte,
 // guia do degradê, cupom de avaliações e clube. As cores de destaque são as da Cobre (cobre no lugar do vermelho da referência).
 // Mesma empresa do Cobre Standard: conteúdo, fotos e ícones vêm de ../_build-cobre-standard/.
 // Páginas: index.html, equipe.html e 404.html.
@@ -94,7 +94,7 @@ const topo = (base, atual) => `<a class="pular" href="#conteudo">Pular para o co
   </aside>
 </div>`;
 
-// ---------- capa: carrossel emoldurado, letreiro de cadeiras livres ----------
+// ---------- capa: carrossel emoldurado, nota, setas e os botões na barra de baixo ----------
 const capa = `<section class="capa" id="inicio">
   <div class="capa-moldura" data-capa>
     <div class="capa-slides" data-carrossel role="region" aria-roledescription="carrossel" aria-label="Fotos da casa" data-cursor="Arrastar">
@@ -108,7 +108,6 @@ const capa = `<section class="capa" id="inicio">
       </div>
       <div class="capa-meio">
         <p class="capa-lead">Degradê, corte na tesoura e barba com toalha quente, feitos por quatro barbeiros que não têm pressa. Agende em menos de um minuto ou chegue sem horário.</p>
-        <div class="capa-btns">${btn('#agendar', 'Agendar horário', { cursor: 'Agendar' })}${btn('#servicos', 'Ver os preços', { cls: 'btn-vidro' })}</div>
       </div>
       <h1 class="capa-tit"><span class="capa-tit-forte">Afiado</span> <em class="cursiva">sem pressa</em></h1>
       <div class="capa-base">
@@ -121,11 +120,7 @@ const capa = `<section class="capa" id="inicio">
           <ol class="capa-pontos">${C.capaSlides.map((sl, i) => `<li><button type="button" data-capa-slide="${i}" aria-pressed="${i === 0}"><span>${sl.rotulo}</span><i aria-hidden="true"></i></button></li>`).join('')}</ol>
           <button type="button" class="capa-seta" data-capa-ir="1" aria-label="Próxima foto" data-magnetic>${I.setaDir}</button>
         </div>
-        <div class="letreiro" data-letreiro>
-          <span class="letreiro-luzes" aria-hidden="true">${C.equipe.map(() => '<i></i>').join('')}</span>
-          <span class="letreiro-txt" data-flap aria-live="polite">Cadeiras livres</span>
-          ${btn('#agendar', 'Agendar', { cls: 'btn-tinta btn-p', cursor: 'Agendar' })}
-        </div>
+        <div class="capa-btns">${btn('#agendar', 'Agendar horário', { cursor: 'Agendar' })}${btn('#servicos', 'Ver os preços', { cls: 'btn-vidro' })}</div>
       </div>
     </div>
   </div>

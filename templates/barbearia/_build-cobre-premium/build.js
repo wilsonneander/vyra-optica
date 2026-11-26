@@ -229,21 +229,43 @@ const umCorte = `<section class="corte" id="um-corte" style="--n:${C.etapas.leng
 </section>`;
 
 // ---------- guia do degradê: cabeça em SVG, o degradê sobe conforme a escolha ----------
-const cabeca = `<svg class="cabeca" viewBox="0 0 300 340" role="img" aria-labelledby="cabeca-t">
-  <title id="cabeca-t">Desenho de uma cabeça de perfil mostrando até onde o degradê sobe na lateral</title>
+// Retrato de perfil: o cabelo é uma forma só, e duas máscaras em gradiente fazem o degradê. A máscara do cabelo some
+// de cima para baixo; a da barba por fazer (pontinhos) aparece onde o cabelo some e termina na pele.
+// O app.js move os "offset" dos <stop data-stop> e a linha tracejada conforme o degradê escolhido.
+const pararFade = (opacs) => ['cabelo', 'meio', 'pele'].map((k, i) => `<stop data-stop="${k}" offset="${[.55, .7, .85][i]}" stop-color="#fff" stop-opacity="${opacs[i]}"/>`).join('');
+const PERFIL = 'M205 58C262 56 304 96 308 150C311 190 302 222 290 246C282 262 280 276 284 300L294 440H164L170 330C150 326 132 322 124 316C115 310 110 304 110 296C111 290 112 285 107 281C102 278 103 272 108 268C104 265 102 262 104 258C106 254 107 250 105 247L98 245C90 243 88 236 92 230L108 197C106 191 110 185 112 178C114 168 112 158 114 146C118 96 150 58 205 58Z';
+const cabeca = `<svg class="cabeca" viewBox="0 0 400 440" role="img" aria-labelledby="cabeca-t">
+  <title id="cabeca-t">Retrato de perfil de um cliente na cadeira, mostrando até onde o degradê sobe na lateral da cabeça</title>
   <defs>
-    <linearGradient id="grad-cabelo" x1="0" y1="40" x2="0" y2="250" gradientUnits="userSpaceOnUse">
-      <stop data-stop="cabelo" offset=".5" stop-color="var(--cabelo)"/>
-      <stop data-stop="meio" offset=".7" stop-color="var(--cabelo-meio)"/>
-      <stop data-stop="pele" offset=".9" stop-color="var(--pele)"/>
-    </linearGradient>
-    <clipPath id="clip-cabelo"><path d="M70 150C64 92 104 44 162 44c58 0 96 42 98 98 1 34-4 64-12 92l-30 6c-4-30-14-56-34-66-28-14-48-30-60-46-22 8-40 16-54 22Z"/></clipPath>
+    <path id="forma-cabelo" d="M116 142C110 104 128 64 168 44C196 30 238 30 266 44C300 62 318 100 318 148C318 192 306 226 292 252C287 262 281 264 276 258C266 244 256 228 248 214L226 218L214 218C210 200 206 182 200 168C180 156 150 152 128 150C122 148 118 146 116 142Z"/>
+    <clipPath id="c-cabelo"><use href="#forma-cabelo"/></clipPath>
+    <linearGradient id="g-pele" x1="90" y1="0" x2="320" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0" style="stop-color:var(--pele)"/><stop offset="1" style="stop-color:var(--pele-sombra)"/></linearGradient>
+    <linearGradient id="g-fade" x1="0" y1="30" x2="0" y2="268" gradientUnits="userSpaceOnUse">${pararFade([1, .35, 0])}</linearGradient>
+    <linearGradient id="g-barba" x1="0" y1="30" x2="0" y2="268" gradientUnits="userSpaceOnUse">${pararFade([1, 1, 0])}</linearGradient>
+    <mask id="m-fade" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="440"><rect width="400" height="440" fill="url(#g-fade)"/></mask>
+    <mask id="m-barba" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="440"><rect width="400" height="440" fill="url(#g-barba)"/></mask>
+    <pattern id="p-barba" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.05" style="fill:var(--cabelo)"/><circle cx="4.6" cy="4.2" r=".95" style="fill:var(--cabelo)"/></pattern>
+    <pattern id="p-capa" width="22" height="22" patternUnits="userSpaceOnUse"><rect width="22" height="22" fill="#1D1E23"/><rect width="2" height="22" fill="#C2703A"/></pattern>
   </defs>
-  <path class="cabeca-pele" d="M150 40C92 40 60 86 60 140c0 28 6 48 0 64l-12 26c-3 6 2 10 8 11h6c-2 12 0 22 8 26-4 8-2 15 6 17-2 12 4 22 20 22l24-2c8 0 12 6 12 16v20h118l-2-40c14-20 20-50 14-86 8-26 0-74-12-104-15-45-50-70-100-70Z"/>
-  <rect class="cabeca-cabelo" x="40" y="30" width="240" height="230" fill="url(#grad-cabelo)" clip-path="url(#clip-cabelo)"/>
-  <path class="cabeca-linha" data-linha-degrade d="M150 200H262"/>
-  <ellipse class="cabeca-orelha" cx="200" cy="188" rx="15" ry="24"/>
-  <path class="cabeca-contorno" d="M150 40C92 40 60 86 60 140c0 28 6 48 0 64l-12 26c-3 6 2 10 8 11h6c-2 12 0 22 8 26-4 8-2 15 6 17-2 12 4 22 20 22l24-2c8 0 12 6 12 16v20M250 340l-2-40c14-20 20-50 14-86 8-26 0-74-12-104-15-45-50-70-100-70"/>
+  <circle class="cabeca-fundo" cx="205" cy="205" r="162"/>
+  <circle class="cabeca-aro" cx="205" cy="205" r="176"/>
+  <path class="cabeca-pele" d="${PERFIL}"/>
+  <path class="cabeca-sombra" d="M170 330C204 320 238 298 262 268L284 300L288 344C248 346 208 342 170 330Z"/>
+  <use href="#forma-cabelo" fill="url(#p-barba)" mask="url(#m-barba)"/>
+  <g mask="url(#m-fade)">
+    <use class="cabeca-cabelo" href="#forma-cabelo"/>
+    <g class="cabeca-mechas" clip-path="url(#c-cabelo)"><path d="M126 122C150 80 190 52 240 50"/><path d="M138 136C166 96 204 72 262 70"/><path d="M158 150C190 116 236 98 290 104"/><path d="M178 162C212 138 256 128 304 138"/><path d="M210 176C240 162 276 164 310 178"/></g>
+  </g>
+  <path class="cabeca-linha" data-linha-degrade d="M186 200H330"/>
+  <path class="cabeca-orelha" d="M228 172C250 164 266 182 264 202C262 222 250 234 236 234C228 234 224 226 228 220C232 214 226 208 224 200C222 188 222 176 228 172Z"/>
+  <path class="cabeca-traco" d="M238 184C250 186 254 200 250 212C247 220 240 218 240 210"/>
+  <path class="cabeca-sobrancelha" d="M118 175C128 168 142 168 154 173"/>
+  <path class="cabeca-olho" d="M124 190C129 186 137 187 141 191C135 194 129 194 124 190Z"/>
+  <path class="cabeca-traco" d="M121 185C130 180 140 181 145 188M104 238C110 236 114 240 112 245M106 268C111 268 114 267 119 265"/>
+  <path class="cabeca-traco cabeca-mandibula" d="M130 318C168 316 210 298 238 270"/>
+  <path class="cabeca-contorno" d="${PERFIL}"/>
+  <path class="cabeca-gola" d="M160 350C200 366 260 364 298 348L300 368C260 384 200 384 158 370Z"/>
+  <path class="cabeca-capa" d="M84 440C96 394 134 370 160 364C200 380 262 380 300 364C332 374 362 402 376 440Z" fill="url(#p-capa)"/>
 </svg>`;
 const d0 = C.degrades[2];
 const guia = `<section class="guia" id="guia">
@@ -303,20 +325,21 @@ const equipePrevia = `<section class="equipe" id="equipe">
   </div>
 </section>`;
 
-// ---------- galeria: faixa horizontal guiada pela rolagem, com filtro ----------
-const galeria = `<section class="galeria" id="galeria" data-galeria>
-  <div class="galeria-fixo">
-    <div class="largo galeria-cab">
-      <div>${rotulo('A casa por dentro', 'Toque numa foto para ampliar')}${titulo('h2', 'Quatro cadeiras,', 'uma playlist.')}</div>
+// ---------- galeria: carrossel com filtro (setas, arraste, passagem automática e pausa no mouse) ----------
+const galeria = `<section class="galeria" id="galeria">
+  <div class="largo galeria-cab">
+    <div>${rotulo('A casa por dentro', 'Toque numa foto para ampliar')}${titulo('h2', 'Quatro cadeiras,', 'uma playlist.')}</div>
+    <div class="galeria-ctrl">
       <div class="filtros" role="group" aria-label="Filtrar a galeria" data-iguais>
         <button type="button" data-filtro="todos" aria-pressed="true">Todas</button>
         ${C.galeriaCats.map((c) => `<button type="button" data-filtro="${c.id}" aria-pressed="false">${c.nome}</button>`).join('\n        ')}
       </div>
+      <div class="gal-setas"><button type="button" class="gal-seta" data-gal-ir="-1" aria-label="Fotos anteriores" data-magnetic>${I.setaEsq}</button><button type="button" class="gal-seta" data-gal-ir="1" aria-label="Próximas fotos" data-magnetic>${I.setaDir}</button></div>
     </div>
-    <ul class="gal-pista" data-pista>
-      ${C.galeria.map(([f, cat], i) => `<li class="gal" data-cat="${cat}" style="--i:${i}"><button type="button" data-foto="${f}" data-cursor="Ver" aria-label="Ampliar: ${esc(C.fotos[f])}">${foto(f)}<span class="gal-cat">${C.galeriaCats.find((c) => c.id === cat).nome}</span></button></li>`).join('\n      ')}
-    </ul>
   </div>
+  <ul class="gal-pista" data-pista tabindex="0" aria-label="Fotos da casa, role para o lado" data-cursor="Arrastar">
+    ${C.galeria.map(([f, cat], i) => `<li class="gal" data-cat="${cat}" style="--i:${i}"><button type="button" data-foto="${f}" data-cursor="Ver" aria-label="Ampliar: ${esc(C.fotos[f])}">${foto(f)}<span class="gal-cat">${C.galeriaCats.find((c) => c.id === cat).nome}</span></button></li>`).join('\n    ')}
+  </ul>
 </section>
 <dialog class="caixa-foto" id="caixa-foto" aria-label="Foto ampliada">
   <figure><img src="" alt=""><figcaption></figcaption></figure>

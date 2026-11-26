@@ -14,8 +14,10 @@
   --cobre-txt: #94491A;
   --no-cobre: #15161A;
   --cabelo: #2A211C;
-  --cabelo-meio: #7D5F4C;
-  --pele: #E3C4A6;
+  --cabelo-luz: #6B5242;
+  --pele: #E6C6A6;
+  --pele-sombra: #C99F7C;
+  --traco: #2A211C;
   --sombra: 0 30px 60px -34px rgba(70, 40, 15, .5);
   --f-t: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
   --f-c: 'Schibsted Grotesk', 'Segoe UI', sans-serif;
@@ -41,9 +43,8 @@
   --cobre: #F0AD73;
   --cobre-txt: #F0AD73;
   --no-cobre: #121214;
-  --cabelo: #0C0C0D;
-  --cabelo-meio: #5E4A3D;
-  --pele: #C9A486;
+  --pele: #D9B392;
+  --pele-sombra: #B08667;
   --sombra: 0 30px 60px -30px rgba(0, 0, 0, .85);
   --tema-halo: rgba(240, 173, 115, .2);
   color-scheme: dark;
@@ -332,11 +333,22 @@ html.carregou .capa-tit .cursiva { opacity: 1; translate: -.2em -.15em; }
 /* ---------- guia do degradê ---------- */
 .guia { padding: 130px 0; }
 .guia-grade { display: grid; grid-template-columns: .9fr 1.1fr; gap: 70px; align-items: center; }
-.guia-palco { position: relative; display: grid; place-items: center; aspect-ratio: 1; border-radius: 24px; background: var(--sup); box-shadow: var(--sombra); }
-.cabeca { width: 76%; height: auto; overflow: visible; }
-.cabeca-pele { fill: var(--pele); }
-.cabeca-contorno { fill: none; stroke: var(--txt); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-.cabeca-orelha { fill: var(--pele); stroke: var(--txt); stroke-width: 3; }
+.guia-palco { position: relative; display: grid; place-items: end center; aspect-ratio: 1; overflow: hidden; padding-top: 40px; border-radius: 24px; background: var(--sup); box-shadow: var(--sombra); }
+.cabeca { display: block; width: 90%; height: auto; }
+.cabeca-fundo { fill: var(--sup-2); }
+.cabeca-aro { fill: none; stroke: var(--cobre); stroke-width: 2; stroke-dasharray: 2 9; stroke-linecap: round; opacity: .7; }
+.cabeca-pele { fill: url(#g-pele); }
+.cabeca-sombra { fill: var(--pele-sombra); opacity: .7; }
+.cabeca-cabelo { fill: var(--cabelo); }
+.cabeca-mechas path { fill: none; stroke: var(--cabelo-luz); stroke-width: 3; stroke-linecap: round; opacity: .55; }
+.cabeca-contorno { fill: none; stroke: var(--traco); stroke-width: 2.5; stroke-linejoin: round; }
+.cabeca-orelha { fill: var(--pele); stroke: var(--traco); stroke-width: 2.5; stroke-linejoin: round; }
+.cabeca-traco { fill: none; stroke: var(--traco); stroke-width: 2.2; stroke-linecap: round; }
+.cabeca-mandibula { opacity: .3; }
+.cabeca-sobrancelha { fill: none; stroke: var(--cabelo); stroke-width: 5; stroke-linecap: round; }
+.cabeca-olho { fill: var(--traco); }
+.cabeca-gola { fill: #F6F1E8; stroke: var(--traco); stroke-width: 2; }
+.cabeca-capa { stroke: var(--traco); stroke-width: 2; }
 .cabeca-linha { stroke: var(--cobre); stroke-width: 3; stroke-dasharray: 7 7; transition: translate .8s var(--corte); animation: linhaAnda 1s linear infinite; }
 @keyframes linhaAnda { to { stroke-dashoffset: -14; } }
 .cabeca stop { transition: offset .8s var(--corte); }
@@ -394,20 +406,28 @@ html.carregou .capa-tit .cursiva { opacity: 1; translate: -.2em -.15em; }
 .carta-info .carta-prox { margin-top: 6px; font: 500 11.5px/1.5 var(--f-m); text-transform: uppercase; color: var(--apaga); }
 .carta-prox b { display: block; color: var(--cobre-txt); font-weight: 500; }
 
-/* ---------- galeria: faixa horizontal presa ---------- */
-.galeria { background: var(--sup); }
-.galeria-fixo { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: 34px; padding-top: 70px; overflow: hidden; }
-.galeria-cab { display: grid; gap: 22px; }
+/* ---------- galeria: carrossel ---------- */
+.galeria { padding: 120px 0; background: var(--sup); }
+.galeria-cab { display: grid; gap: 22px; margin-bottom: 36px; }
+.galeria-ctrl { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.gal-setas { display: inline-grid; grid-auto-flow: column; gap: 8px; }
+.gal-seta { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--linha); border-radius: 10px; background: transparent; color: var(--txt); cursor: pointer; transition: background-color .3s, color .3s, border-color .3s, translate .6s cubic-bezier(.2, .7, .2, 1); }
+.gal-seta:hover { background: var(--cobre); border-color: var(--cobre); color: var(--no-cobre); }
+.gal-seta svg { width: 20px; height: 20px; }
 .filtros { display: flex; flex-wrap: wrap; gap: 8px; }
 .filtros button { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--linha); border-radius: 10px; background: transparent; font-weight: 600; font-size: 14px; cursor: pointer; transition: background-color .35s, color .35s, border-color .35s; }
 .filtros button:hover { border-color: var(--txt); }
 .filtros button[aria-pressed="true"] { background: var(--txt); color: var(--fundo); border-color: var(--txt); }
-.gal-pista { display: flex; align-items: center; gap: 18px; width: max-content; margin: 0; padding: 0 32px; list-style: none; translate: var(--gx, 0) 0; }
-.gal { transition: opacity .4s, scale .4s var(--suave); }
+/* a faixa começa alinhada ao conteúdo e vai até a borda da tela */
+.gal-pista { display: flex; align-items: center; gap: 18px; margin: 0; padding: 0 max(32px, calc((100vw - 1360px) / 2 + 32px)); list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 max(32px, calc((100vw - 1360px) / 2 + 32px)); scrollbar-width: none; overscroll-behavior-x: contain; }
+.gal-pista::-webkit-scrollbar { display: none; }
+.gal-pista.arrasta { scroll-snap-type: none; cursor: grabbing; }
+.gal-pista.arrasta button { pointer-events: none; }
+.gal { flex: none; scroll-snap-align: start; transition: opacity .4s, scale .4s var(--suave); }
 .gal.sai { opacity: 0; scale: .92; }
-.gal button { position: relative; display: block; height: 54svh; aspect-ratio: 3 / 4; padding: 0; border: 0; overflow: hidden; border-radius: 14px; background: var(--sup-2); cursor: pointer; }
-.gal:nth-child(3n + 2) button { aspect-ratio: 4 / 3; height: 44svh; }
-.gal:nth-child(3n) button { aspect-ratio: 1; height: 50svh; }
+.gal button { position: relative; display: block; height: 440px; aspect-ratio: 3 / 4; padding: 0; border: 0; overflow: hidden; border-radius: 14px; background: var(--sup-2); cursor: pointer; }
+.gal:nth-child(3n + 2) button { aspect-ratio: 4 / 3; height: 360px; }
+.gal:nth-child(3n) button { aspect-ratio: 1; height: 400px; }
 .gal img { width: 100%; height: 100%; object-fit: cover; transition: scale 1s var(--suave); }
 .gal button:hover img { scale: 1.07; }
 .gal-cat { position: absolute; left: 10px; bottom: 10px; padding: 6px 10px; border-radius: 6px; background: var(--fundo); color: var(--txt); font: 500 11px var(--f-m); text-transform: uppercase; }
@@ -850,14 +870,9 @@ html.js:not(.carregou) .eqp-retratos a { animation-play-state: paused; }
   .jeito-lista { grid-template-columns: 1fr 1fr; }
   .jeito-lista li:nth-child(even) { margin-top: 0; }
 }
-/* galeria: no toque e em telas menores vira faixa com rolagem lateral nativa */
-@media (max-width: 1000px), (pointer: coarse) {
-  .galeria { height: auto !important; padding: 110px 0; }
-  .galeria-fixo { position: static; height: auto; padding-top: 0; overflow: visible; }
-  .galeria-cab { flex-direction: column; align-items: flex-start; }
-  .filtros { justify-content: flex-start; }
-  .gal-pista { width: auto; overflow-x: auto; scroll-snap-type: x mandatory; translate: none !important; padding-bottom: 12px; scrollbar-width: thin; }
-  .gal { scroll-snap-align: start; flex: none; }
+@media (max-width: 1000px) {
+  .galeria-ctrl { flex-direction: column; align-items: stretch; }
+  .gal-setas { justify-self: end; margin-left: auto; }
   .gal button, .gal:nth-child(3n + 2) button, .gal:nth-child(3n) button { height: 62vw; max-height: 420px; }
 }
 @media (max-width: 720px) {
@@ -993,7 +1008,4 @@ html.js:not(.carregou) .eqp-retratos a { animation-play-state: paused; }
   .corte-passo { position: static; opacity: 1; translate: none; }
   .cupom-papel { clip-path: none; translate: none; }
   .carta { translate: none; rotate: none; }
-  .galeria { height: auto !important; }
-  .galeria-fixo { position: static; height: auto; padding: 110px 0; }
-  .gal-pista { width: auto; overflow-x: auto; translate: none !important; }
 }

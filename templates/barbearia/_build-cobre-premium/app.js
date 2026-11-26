@@ -1,6 +1,6 @@
 // Cobre Premium: tela de carregando com o relógio do corte, transição entre páginas, cursor com listras de poste,
 // botões magnéticos, história na rolagem (monta descendo, desfaz e refaz subindo), carrossel da capa, letreiro de
-// cadeiras livres, cardápio com foto, linha do tempo de 45 minutos, guia do degradê, equipe em leque, galeria horizontal,
+// cadeiras livres, cardápio com foto, linha do tempo de 45 minutos, guia do degradê, equipe em leque, galeria em carrossel,
 // cupom de avaliações, cartão do clube, agendamento (serviço, barbeiro, data e horário), contato, dúvidas, janelas legais e cookies.
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
@@ -386,16 +386,17 @@
   const guia = $('#guia');
   let degradeAtual = 2;
   if (guia && D.degrades) {
-    const stops = Object.fromEntries($$('[data-stop]', guia).map((s) => [s.dataset.stop, s]));
+    // as duas máscaras (cabelo e barba por fazer) usam os mesmos pontos: onde o cabelo começa a sumir, o meio e a pele
+    const stops = $$('[data-stop]', guia);
     const linha = $('[data-linha-degrade]', guia), regua = $('[data-guia-regua]', guia);
     const campos = $$('[data-guia]', guia);
-    const Y0 = 40, ALT = 210, BASE = 236;
+    const Y0 = 30, FIM = 268, ALT = FIM - Y0, BASE = 256; // medidas do desenho (viewBox 400 x 440)
     const alvoDe = (d) => {
-      const topo = BASE - d.alto * 150, pele = topo + (250 - topo) * (1 - d.pele);
+      const topo = BASE - d.alto * 150, pele = topo + (FIM - topo) * (1 - d.pele);
       return { topo, cabelo: (topo - Y0) / ALT, meio: ((topo + pele) / 2 - Y0) / ALT, pele: Math.min(1, (pele - Y0) / ALT) };
     };
     let cur = alvoDe(D.degrades[degradeAtual]);
-    const pintaStops = (v) => { stops.cabelo.setAttribute('offset', v.cabelo.toFixed(3)); stops.meio.setAttribute('offset', v.meio.toFixed(3)); stops.pele.setAttribute('offset', v.pele.toFixed(3)); };
+    const pintaStops = (v) => stops.forEach((s) => s.setAttribute('offset', v[s.dataset.stop].toFixed(3)));
     pintaStops(cur);
     linha.style.translate = `0 ${cur.topo - 200}px`;
     const aplica = (i) => {
@@ -420,24 +421,44 @@
     $$('[data-guia-ir]', guia).forEach((b) => b.addEventListener('click', () => aplica(+b.dataset.guiaIr)));
   }
 
-  // ---------- galeria: filtro por categoria, faixa horizontal presa e ampliação ----------
-  const galeriaSec = $('[data-galeria]'), pista = $('[data-pista]');
-  const presa = () => galeriaSec && pista && !reduz && matchMedia('(min-width: 1001px) and (pointer: fine)').matches;
-  const medeGaleria = () => {
-    if (!galeriaSec) return;
-    if (!presa()) { galeriaSec.style.height = ''; return; }
-    const extra = Math.max(0, pista.scrollWidth - innerWidth);
-    galeriaSec.style.height = `${extra + innerHeight}px`;
-  };
+  // ---------- galeria: carrossel com filtro, setas, arraste, passagem automática e ampliação ----------
+  const pista = $('[data-pista]');
   const gals = $$('.gal');
+  if (pista) {
+    const passo = () => { const g = gals.find((x) => !x.hidden); return (g ? g.offsetWidth : 300) + 18; };
+    const anda = (k) => {
+      const max = pista.scrollWidth - pista.clientWidth - 4;
+      if (k > 0 && pista.scrollLeft >= max) pista.scrollTo({ left: 0, behavior: reduz ? 'auto' : 'smooth' });
+      else if (k < 0 && pista.scrollLeft <= 4) pista.scrollTo({ left: max + 4, behavior: reduz ? 'auto' : 'smooth' });
+      else pista.scrollBy({ left: k * passo(), behavior: reduz ? 'auto' : 'smooth' });
+    };
+    $$('[data-gal-ir]').forEach((b) => b.addEventListener('click', () => anda(+b.dataset.galIr)));
+    // passa sozinho a cada 4,5 s enquanto está na tela; para com o mouse em cima, com o foco ou durante o arraste
+    let parado = false;
+    const sec = pista.closest('section');
+    [pista, $('.gal-setas')].forEach((el) => { el?.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') parado = true; }); el?.addEventListener('pointerleave', () => { parado = false; }); });
+    pista.addEventListener('focusin', () => { parado = true; });
+    pista.addEventListener('focusout', () => { parado = false; });
+    if (!reduz) setInterval(() => { if (parado || document.hidden) return; const r = sec.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) anda(1); }, 4500);
+    // arraste com o mouse (no toque, a rolagem lateral nativa já resolve)
+    let x0 = 0, s0 = 0, movido = 0, arrastando = false;
+    pista.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') return; arrastando = true; movido = 0; x0 = e.clientX; s0 = pista.scrollLeft; });
+    addEventListener('pointermove', (e) => {
+      if (!arrastando) return;
+      movido = Math.abs(e.clientX - x0);
+      if (movido > 6) pista.classList.add('arrasta');
+      pista.scrollLeft = s0 - (e.clientX - x0);
+    });
+    addEventListener('pointerup', () => { if (!arrastando) return; arrastando = false; requestAnimationFrame(() => pista.classList.remove('arrasta')); });
+  }
   $$('[data-filtro]').forEach((b) => b.addEventListener('click', () => {
     const f = b.dataset.filtro;
     $$('[data-filtro]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
     gals.forEach((g) => g.classList.add('sai'));
     setTimeout(() => {
       gals.forEach((g) => { g.hidden = f !== 'todos' && g.dataset.cat !== f; });
-      medeGaleria();
-      requestAnimationFrame(() => { gals.forEach((g) => g.classList.remove('sai')); rola(); });
+      pista?.scrollTo({ left: 0 });
+      requestAnimationFrame(() => gals.forEach((g) => g.classList.remove('sai')));
     }, reduz ? 0 : 340);
   }));
   const cf = $('#caixa-foto');
@@ -485,7 +506,7 @@
     const leituras = cenas.map(({ el, atraso }) => { const r = el.getBoundingClientRect(); return [el, r.top, r.bottom, atraso, r.width === 0 && r.height === 0]; });
     const par = paralaxe.map(([el, sec]) => [el, sec.getBoundingClientRect()]);
     const rMold = moldura?.getBoundingClientRect(), rMan = manifestoEl?.getBoundingClientRect(), rCorte = corte?.getBoundingClientRect();
-    const rLeque = leque?.getBoundingClientRect(), rCupom = cupom?.getBoundingClientRect(), rCartao = cartao?.getBoundingClientRect(), rGal = presa() ? galeriaSec.getBoundingClientRect() : null;
+    const rLeque = leque?.getBoundingClientRect(), rCupom = cupom?.getBoundingClientRect(), rCartao = cartao?.getBoundingClientRect();
 
     for (const [el, top, bottom, atraso, oculto] of leituras) {
       if (oculto) { el.style.setProperty('--p', 1); el.style.setProperty('--q', 1); continue; }
@@ -524,11 +545,6 @@
       cartao.style.setProperty('--ry', `${(-16 + c * 26).toFixed(2)}deg`);
       cartao.style.setProperty('--rx', `${(8 - c * 10).toFixed(2)}deg`);
     }
-    if (rGal) {
-      const extra = Math.max(0, pista.scrollWidth - innerWidth);
-      const k = limita(-rGal.top / Math.max(1, rGal.height - vh));
-      pista.style.setProperty('--gx', `${(-k * extra).toFixed(1)}px`);
-    }
   }
   // velocidade da rolagem acelera as faixas e as listras do poste, depois volta ao normal
   let velocidade = 0, laco = false;
@@ -544,10 +560,9 @@
     if (!pedido) { pedido = true; requestAnimationFrame(rola); }
     if (!reduz && !laco) { laco = true; if (!anims.length) anims = animsVel(); requestAnimationFrame(acelera); }
   }, { passive: true });
-  addEventListener('resize', () => { medeGaleria(); rola(); });
-  addEventListener('load', () => { medeGaleria(); rola(); });
+  addEventListener('resize', rola);
+  addEventListener('load', rola);
   if ('ResizeObserver' in window) { let ro = false; new ResizeObserver(() => { if (!ro) { ro = true; requestAnimationFrame(() => { ro = false; rola(); }); } }).observe($('main') || document.body); }
-  medeGaleria();
   rola();
 
   // cartão do clube: inclina e brilha seguindo o mouse

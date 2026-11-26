@@ -756,6 +756,78 @@ pagina({ arquivo: 'cliente.html', pg: 'cliente', titulo: `Área do cliente | ${M
 pagina({ arquivo: 'cadastro.html', pg: 'cadastro', titulo: `Criar conta | ${M.completo}`, descricao: 'Crie sua conta na Área do cliente do Taioba.', corpo: pgCadastro, tipo: 'acesso', noindex: true });
 pagina({ arquivo: 'conta.html', pg: 'conta', titulo: `Minha conta | ${M.completo}`, descricao: 'Reservas, Caderno de visitas, encomendas, preferências e dados pessoais.', corpo: pgConta, tipo: 'conta', noindex: true });
 
+// ---------- 404: arquivo único com o CSS dentro, funciona em qualquer endereço ----------
+// O zero do "404" é uma panelinha de barro vista de cima, já raspada, com uma folha de taioba caindo dentro.
+const panelinha = `<svg class="pan" viewBox="0 0 200 200" aria-hidden="true">
+  <circle cx="100" cy="100" r="92" fill="#8E4A2C"/><circle cx="100" cy="100" r="92" fill="url(#pan-luz)"/>
+  <circle cx="100" cy="100" r="74" fill="#3A2418"/><circle cx="100" cy="100" r="74" fill="url(#pan-fundo)"/>
+  <path d="M100 17a83 83 0 0 1 0 166" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="18"/>
+  <g fill="#D9A94E"><circle cx="76" cy="122" r="2.2"/><circle cx="84" cy="128" r="1.6"/><circle cx="122" cy="74" r="1.8"/><circle cx="70" cy="80" r="1.4"/><circle cx="128" cy="118" r="2"/><circle cx="118" cy="132" r="1.3"/></g>
+  <defs><radialGradient id="pan-luz" cx="32%" cy="28%" r="80%"><stop offset="0" stop-color="#E08A5C" stop-opacity=".55"/><stop offset=".6" stop-color="#8E4A2C" stop-opacity="0"/></radialGradient>
+  <radialGradient id="pan-fundo" cx="60%" cy="62%" r="70%"><stop offset="0" stop-color="#4A2E1F"/><stop offset="1" stop-color="#20140D"/></radialGradient></defs>
+</svg>`;
+const css404 = `:root{--fundo:#141312;--sup:#222020;--tinta:#F1ECE4;--texto:#A9A39A;--suave:#7E786F;--verde-claro:#8BD1A6;--borda:rgba(255,255,255,.12);--folha-cor:#356B49;--folha-nerv:#1E3B2A;--fundo-logo:#141312;--folha-logo:#6DBB8E;color-scheme:dark}
+:root[data-tema="claro"]{--fundo:#F2EEE6;--sup:#fff;--tinta:#1E1B18;--texto:#5B554D;--suave:#7E786F;--verde-claro:#2F6B4C;--borda:rgba(30,27,24,.14);--folha-cor:#9CC9AC;--folha-nerv:#5E8F70;--fundo-logo:#F2EEE6;--folha-logo:#2F6B4C;color-scheme:light}
+*{box-sizing:border-box;margin:0}
+body{min-height:100vh;min-height:100svh;display:grid;place-items:center;padding:32px 16px;background:var(--fundo);color:var(--texto);font:400 17px/1.6 'Rethink Sans','Helvetica Neue',Arial,sans-serif;overflow-x:hidden}
+.fundo{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.fundo span{position:absolute;opacity:.7}.fundo .folha{display:block;width:100%;height:auto;animation:balanca 9s ease-in-out infinite alternate}
+@keyframes balanca{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+.c404{position:relative;width:min(680px,100%);display:grid;justify-items:center;gap:18px;text-align:center}
+.logo{display:inline-flex;align-items:center;gap:10px;color:var(--tinta);text-decoration:none}
+.logo .folha{width:38px;height:38px}
+.logo b{display:block;font-weight:600;font-size:1.3rem;line-height:1;letter-spacing:-.02em;text-align:left}
+.logo small{display:block;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--suave)}
+.num{display:flex;align-items:center;gap:clamp(6px,2vw,16px);margin-top:clamp(24px,5vw,40px);font:500 clamp(96px,22vw,190px)/.9 'Rethink Sans',sans-serif;letter-spacing:-.06em;color:var(--tinta)}
+.zero{position:relative;display:block;width:.86em;aspect-ratio:1}
+.pan{width:100%;height:100%;filter:drop-shadow(0 24px 30px rgba(0,0,0,.45))}
+.cai{position:absolute;left:32%;top:30%;width:36%;animation:cai 5.5s ease-in-out infinite}
+.cai .folha{width:100%;height:auto;filter:drop-shadow(0 10px 10px rgba(0,0,0,.35))}
+@keyframes cai{0%{transform:translate(-70%,-260%) rotate(-40deg);opacity:0}12%{opacity:1}45%{transform:translate(50%,-130%) rotate(18deg)}75%,92%{transform:translate(0,0) rotate(-8deg);opacity:1}100%{transform:translate(0,0) rotate(-8deg);opacity:0}}
+.apoio{font-weight:600;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--verde-claro)}
+h1{font:500 clamp(2rem,5vw,3rem)/1.08 'Rethink Sans',sans-serif;letter-spacing:-.02em;color:var(--tinta);text-wrap:balance}
+h1 i{font-family:'Literata',Georgia,serif;font-weight:400;color:var(--verde-claro)}
+.txt{max-width:44ch;text-wrap:pretty}
+.btns{display:inline-grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:10px;margin-top:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:16px;font-weight:600;font-size:.84rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:filter .3s,transform .3s}
+.btn:hover{transform:translateY(-2px)}
+.btn svg{width:18px;height:18px}
+.b1{color:#fff;background:linear-gradient(180deg,#62B288,#2F6B4C);box-shadow:inset 0 1px 0 rgba(255,255,255,.25),0 0 0 1px rgba(140,210,166,.25),0 10px 30px -10px rgba(86,170,122,.5),0 0 26px -6px rgba(86,170,122,.5)}
+.b1:hover{filter:brightness(1.08)}
+.b2{color:var(--tinta);background:var(--sup);border:1px solid var(--borda)}
+.rodape{margin-top:18px;font-size:.88rem;color:var(--suave)}
+.rodape a{color:var(--verde-claro);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--verde-claro);outline-offset:3px}
+@media (max-width:520px){.btns{grid-auto-flow:row;width:100%}}
+@media (prefers-reduced-motion:reduce){.cai,.fundo .folha{animation:none}.cai{transform:rotate(-8deg)}}`;
+const html404 = `<!doctype html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página não encontrada | ${M.completo}</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="${COR_ESCURO}">
+${T.head(CHAVE_TEMA)}
+${fontes}
+<style>${css404}</style>
+</head>
+<body>
+<div class="fundo" aria-hidden="true">${[['left:-40px;top:8%', 150, 6, -30], ['right:-30px;top:58%', 190, 8, 40], ['left:12%;bottom:-50px', 110, 3, 15], ['right:16%;top:-30px', 90, 4, -60]].map(([p, t, bl, r]) => `<span style="${p};width:${t}px;filter:blur(${bl}px);rotate:${r}deg">${I.folha('var(--folha-cor)', 'var(--folha-nerv)')}</span>`).join('')}</div>
+<main class="c404">
+  <a class="logo" href="/">${I.folha('var(--folha-logo)', 'var(--fundo-logo)')}<span><b>Taioba</b><small>bar e cozinha mineira</small></span></a>
+  <p class="num" aria-label="404"><span>4</span><span class="zero">${panelinha}<span class="cai">${I.folha('#4E9C72', '#1E3B2A')}</span></span><span>4</span></p>
+  <p class="apoio">Erro 404</p>
+  <h1>Essa panelinha <i>já raspou</i></h1>
+  <p class="txt">A página que você procurou saiu do cardápio ou mudou de endereço. A cozinha continua aberta: volte ao início ou veja o que está saindo hoje.</p>
+  <div class="btns"><a class="btn b1" href="/">Voltar ao início</a><a class="btn b2" href="/#cardapio-completo">Ver o cardápio</a></div>
+  <p class="rodape">Quer reservar? <a href="https://wa.me/55${M.whatsapp.replace(/\D/g, '')}" target="_blank" rel="noopener">Fale com a gente no WhatsApp</a>.</p>
+</main>
+</body>
+</html>
+`;
+fs.writeFileSync(path.join(OUT, '404.html'), html404);
+
 // ---------- arquivos de apoio ----------
 fs.mkdirSync(path.join(OUT, 'assets', 'img', 'logos'), { recursive: true });
 for (const l of ['ifood.svg', '99.svg']) fs.copyFileSync(path.join(IMG, 'logos', l), path.join(OUT, 'assets', 'img', 'logos', l));

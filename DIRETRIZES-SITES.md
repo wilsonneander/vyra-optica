@@ -4,6 +4,33 @@ Leia este documento inteiro antes de criar ou alterar qualquer site deste projet
 Estas regras valem para todos os modelos do catálogo (Standard e Premium) e para sites de clientes.
 O objetivo é que nenhum site tenha cara de "feito por IA": nada de componentes, ícones ou fontes que o Claude usa por padrão.
 
+## Como trabalhar: boas práticas e git
+Vale para toda criação, edição ou alteração, por menor que seja (site, template, vitrine, script ou documento).
+
+### Nunca trabalhar na main
+- Antes de mexer em qualquer arquivo, criar uma branch nova a partir da `main` atualizada, com nome curto que diga o que vai ser feito (ex.: `lanches-standard`, `dentista-tema`, `fix-mapa-footer`).
+- Se já estiver numa branch do mesmo assunto, continuar nela; se o assunto for outro, criar outra branch.
+- Nada de commit, merge ou push direto na `main`. Ela só recebe trabalho pronto, vindo de uma branch.
+
+### Procedimentos do git
+1. `git switch main` e `git pull` para partir da versão mais recente.
+2. `git switch -c <nome-da-branch>`.
+3. Fazer a alteração e conferir (checklist do fim deste documento, páginas abertas no navegador, build rodado).
+4. `git status` e `git diff` para revisar exatamente o que mudou; adicionar só os arquivos da tarefa (nada de `.env`, credenciais ou arquivos temporários).
+5. Commits pequenos e com mensagem clara no padrão `tipo(escopo): descrição` (`feat`, `fix`, `docs`, `refactor`, `style`, `chore`), em português.
+6. `git push -u origin <nome-da-branch>` e, quando for para a `main`, abrir pull request ou fazer o merge só depois de aprovado.
+
+### Boas práticas de programação
+- Código legível: nomes claros em variáveis, funções, classes CSS e arquivos; indentação consistente; sem código morto, comentado ou duplicado.
+- Reaproveitar antes de criar: usar os componentes, scripts e estilos que já existem no projeto em vez de copiar e colar versões novas.
+- Uma responsabilidade por arquivo e por função; separar HTML, CSS e JS; variáveis CSS (`:root`) para cores, fontes e espaçamentos em vez de valores soltos repetidos.
+- HTML semântico e acessível: tags certas (`header`, `nav`, `main`, `section`, `footer`, `button`), `alt` em toda imagem, `label` em todo campo, contraste suficiente e navegação por teclado.
+- Desempenho: imagens otimizadas e com tamanho definido, `loading="lazy"` fora da primeira dobra, scripts com `defer`, nada de biblioteca pesada para algo simples.
+- Segurança: nunca colocar chave, senha ou token no código; validar e tratar entradas de formulário; links externos com `rel="noopener"`.
+- Sem erros no console do navegador e sem avisos ignorados no build.
+- Mudanças pequenas e focadas: alterar só o que a tarefa pede, sem refatorar o que não foi pedido no mesmo commit.
+- Documentar o que não é óbvio (README do modelo, comentário curto explicando o porquê, não o quê).
+
 ## Padrão do catálogo de templates
 Toda a linha de templates do catálogo segue a mesma estrutura mínima, as mesmas funções de visualização e a mesma nomenclatura de níveis, em todos os nichos.
 

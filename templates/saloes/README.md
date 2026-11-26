@@ -5,6 +5,7 @@ Nicho de salão de beleza (com barbearia no mesmo endereço). Barbearia sozinha 
 | Modelo | Pasta | Gerar |
 |---|---|---|
 | Mecha Premium: salão de beleza com barbearia masculina no mesmo endereço | [premium/mecha-premium/](premium/mecha-premium/) | `node templates/saloes/_build-mecha-premium/build.js` |
+| Mecha Premium Vinho: salão feminino cinematográfico em creme, vinho e vermelho, com páginas de serviços, sobre e equipe e contato | [premium/mecha-premium-vinho/](premium/mecha-premium-vinho/) | `node templates/saloes/_build-mecha-premium-vinho/build.js` |
 | Mecha Standard Terracota: site do salão (Mecha Salão) com páginas de equipe e galeria e Área do cliente, paleta terracota | [standard/mecha-standard-terracota/](standard/mecha-standard-terracota/) | `node templates/saloes/_build-mecha-standard-terracota/build.js` |
 | Mecha Standard: página única enxuta só do salão (Mecha Salão), paleta ameixa | [standard/mecha-standard/](standard/mecha-standard/) | `node templates/saloes/_build-mecha-standard/build.js` |
 
@@ -36,6 +37,22 @@ Formulário com consentimento LGPD, WhatsApp flutuante, serviços com o que incl
 ### Imagens
 
 Fotos em `_build-mecha-premium/img/fotos/` (Unsplash, com autor e link em `img/creditos.json`, listados no rodapé), com leve tom quente para combinar com a paleta. As três fotos do salão com espelhos em arco (`capa`, `escova`, `espaco-equipe`) são as imagens de referência enviadas para o projeto. As fotos de antes e depois são ilustrativas, de pessoas diferentes; no site do cliente entram fotos reais com autorização de imagem. O mapa é gerado por `_build-mecha-premium/gerar-mapa.js` a partir do OpenStreetMap.
+
+## Mecha Premium Vinho
+
+Estrutura da referência pedida (Salonix, feita no Framer): creme, vinho e vermelho, cantos retos, títulos enormes em caixa alta e texto de apoio entre colchetes. Só o lado salão da marca (**Mecha Salão**), com a mesma equipe dos Standards mais duas profissionais (Júlia, trancista, e Paula, penteados e noivas). As fontes parecidas com as da referência estão na lista proibida, então os títulos usam Schibsted Grotesk e o texto usa Familjen Grotesk. Os números da referência ("01", "#01") saíram por causa das diretrizes. CNPJ fictício 00.000.000/0001-00.
+
+Páginas:
+
+- `index.html`: capa escura com três fotos que se alternam e o nome MECHA subindo letra por letra; manifesto com nota e quatro fotos (cuidado, corte, textura, acabamento); problema e solução em cartas que viram; serviços em sanfona por segmento (etapas, o que inclui, duração, preço, agendar); "por que nós" em blocos de tamanhos diferentes (leque de fotos, contadores, rostos de clientes); faixa de cinema em que uma foto corta a outra com a rolagem; avaliações espalhadas em volta da frase central (o cartão clicado vai para o centro); o atendimento em três momentos (troca sozinho, pausa no mouse); lookbook em carrossel (setas, arraste, anda sozinho e pausa no mouse); galeria em mosaico com filtros e foto ampliada; Instagram incorporado; dúvidas com foto; políticas e higiene; agendamento com serviço, profissional, dia e horário (mesma lógica do Standard Terracota, aceita `?servico=` e `?prof=`); rodapé vinho com mapa OpenStreetMap e a marca gigante.
+- `servicos.html`: todos os serviços por segmento, com filtro e foto presa ao lado.
+- `sobre.html`: história, contadores e a equipe completa com agenda da semana e "Agendar com".
+- `contato.html`: horário, endereço, canais e formulário de contato com aceite LGPD (fecha a mensagem no WhatsApp).
+- `404.html`: o zero é uma xuxinha (elástico de cabelo) girando, com uma mecha solta.
+
+Camada Premium: carregando com a mecha do símbolo se desenhando e contador até 100 (só na primeira página da visita), cortina vinho entre páginas, cursor de ponto e anel que mostra "Ver", "Virar", "Arrastar" e "Ler", botões magnéticos com preenchimento que nasce do ponto do mouse e texto que rola, blocos que inclinam com o mouse e a rolagem com direção (blocos com `--p`/`--q`, títulos palavra por palavra, fotos por máscara do lado de onde a rolagem vem, contadores que contam de novo). Sem 3D: no salão feminino a foto faz o papel do objeto. Tudo parado com `prefers-reduced-motion`.
+
+Fotos: 77 novas do Unsplash em `_build-mecha-premium-vinho/img/fotos/` (mulheres no salão, retratos de cabelo, tranças e noivas, com leve tom quente; créditos em `img/creditos.json` e no rodapé). As fotos da Carla, Beatriz, Larissa e Renata, os produtos e o mapa vêm dos outros modelos do nicho. As peças de horário e agenda vêm de `_build-mecha-standard-terracota/partes.js`. Avaliações, preços e pessoas fictícios; políticas e termos a validar na revisão jurídica.
 
 ## Mecha Standard
 

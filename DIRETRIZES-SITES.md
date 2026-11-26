@@ -37,6 +37,7 @@ templates/<nicho>/
 - **Mapa no footer**, sempre o componente padrão do OpenStreetMap igual aos que já existem (detalhes em "Componente de mapa no footer").
 - **Botão de WhatsApp** fixo na tela (detalhes em "Botão de WhatsApp", abaixo).
 - **CNPJ fictício no footer** (detalhes em "CNPJ fictício no footer", abaixo).
+- **Página 404** própria, em todo site de qualquer categoria (detalhes em "Página 404", abaixo).
 
 ### Cartão do modelo na vitrine
 - Todo cartão mostra no topo o selo do nível: **Standard** ou **Premium**.
@@ -197,7 +198,7 @@ Todo modelo **Premium** tem a **Scroll Direction-Based Reveal Animation** (tamb�
 - Exemplo pronto: [templates/estetica/_build-iris-premium/app.js](templates/estetica/_build-iris-premium/app.js) (bloco "a história na rolagem") e o fim de [style.css](templates/estetica/_build-iris-premium/style.css).
 
 ## Itens padrão em todo modelo (Standard e Premium)
-Todo modelo novo do catálogo sai com os três itens abaixo. Não é opcional por faixa de preço.
+Todo modelo novo do catálogo sai com os quatro itens abaixo. Não é opcional por faixa de preço.
 
 ### Adaptador de aparelhos (Celular, Tablet, Computador)
 - Todo modelo entra numa vitrine e recebe a **Prévia nos aparelhos**: o botão "Ver nos aparelhos" na vitrine e o controle só com ícones no canto inferior esquerdo de cada página do modelo.
@@ -219,6 +220,15 @@ Todo modelo novo do catálogo sai com os três itens abaixo. Não é opcional po
 - Medição de visitas só depois de "Aceitar todos". Nenhum cookie de publicidade.
 - A Política de privacidade tem a parte "Cookies e armazenamento" dizendo o que o site guarda (escolha de cookies, tema, sacola, agendamentos etc.).
 - Exemplo pronto: [templates/barbearia/_build-mecha-standard/build.js](templates/barbearia/_build-mecha-standard/build.js) (bloco "janelas legais e cookies") e o mesmo bloco no [app.js](templates/barbearia/_build-mecha-standard/app.js).
+
+### Página 404
+- Todo site, de qualquer categoria e nível (Standard, Premium e cópias de cliente em `clientes/`), tem um `404.html` na raiz da pasta publicada. O Firebase Hosting serve esse arquivo sozinho quando o endereço não existe.
+- A página é da marca, não a genérica: mesmas fontes, cores e logo do site, com um desenho ou ilustração ligado ao nicho (no Taioba, o zero é uma panelinha de barro com uma folha de taioba caindo dentro).
+- Segue o tema claro ou escuro salvo pelo visitante (mesmo script no `<head>` antes de pintar) e funciona no celular, no tablet e no computador.
+- Texto curto dizendo que a página não foi encontrada e botão para voltar ao início; pode ter atalhos para as páginas principais e o WhatsApp.
+- Arquivo leve, com o CSS dentro, sem depender de nada que possa faltar. Links com caminho a partir da raiz (`/`), porque a 404 aparece em qualquer endereço.
+- Gerada pelo `build.js` do modelo, junto das outras páginas.
+- Exemplo pronto: [templates/restaurante/standard/taioba-standard/404.html](templates/restaurante/standard/taioba-standard/404.html), gerada em [templates/restaurante/_build-taioba-standard/build.js](templates/restaurante/_build-taioba-standard/build.js).
 
 ## Outros vícios de IA a evitar
 - Gradiente roxo/azul com brilho ("glow") atrás do título.
@@ -259,4 +269,5 @@ E conferir visualmente:
 - Botão de tema claro e escuro funcionando, com o tema salvo ao recarregar e as duas versões conferidas por inteiro.
 - Aviso de cookies na primeira visita, os dois botões do mesmo tamanho, e "Preferências de cookies" no rodapé reabrindo.
 - Mapa do OpenStreetMap no footer, botão de WhatsApp fixo no canto inferior direito (só ícone no celular) e CNPJ `00.000.000/0001-00` no footer.
+- `404.html` da marca na raiz do site, nos dois temas, abrindo ao acessar um endereço que não existe.
 - `instalar.js` rodado na vitrine: o controle de aparelhos aparece em todas as páginas do modelo e o "Ver nos aparelhos" ao lado do "Abrir".

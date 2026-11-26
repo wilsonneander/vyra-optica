@@ -36,7 +36,7 @@ O nome segue a ordem **marca, nível, título**: `vyra-standard`, `vyra-standard
 | [marcas-proprias/](marcas-proprias/) | | `aura-premium-produto`, `aura-premium-guia`, `aura-premium-clube` (+ Área do Cliente), `aura-premium-nascente`, `aura-premium-mare` | `node templates/marcas-proprias/premium/_build/build.js` (gera os cinco; o gerador e o `_kit/` ficam dentro de `premium/`) |
 | [turismo/](turismo/) | | `peakalika-premium` | `node templates/turismo/_build-peakalika-premium/build.js` |
 | [estetica/](estetica/) | `camelia-standard`, `camelia-standard-corporal` | `camelia-premium` (visita de drone em 3D), `iris-premium` | `node templates/estetica/_build-<pasta do modelo>/build.js` |
-| [saloes/](saloes/) | `mecha-standard`, `mecha-standard-terracota` (+ Área do Cliente) | `mecha-premium` | `node "templates/saloes/_build-<pasta do modelo>/build.js"` |
+| [saloes/](saloes/) | `mecha-standard`, `mecha-standard-terracota` (+ Área do Cliente) | `mecha-premium`, `mecha-premium-vinho` | `node "templates/saloes/_build-<pasta do modelo>/build.js"` |
 | [barbearia/](barbearia/) | `mecha-standard`, `cobre-standard` | `pente-fino-premium` (+ Área do Cliente), `cobre-premium` | `node templates/barbearia/_build-<pasta do modelo>/build.js`; o Pente Fino é Vite: `npm install` e `npm run catalogo` em `_build-pente-fino-premium/` |
 | [dentista/](dentista/) | `lume-standard`, `raiz-standard` | `sorrisus-premium` | `node templates/dentista/_build-<pasta do modelo>/build.js` |
 
@@ -44,7 +44,7 @@ O nome segue a ordem **marca, nível, título**: `vyra-standard`, `vyra-standard
 
 O padrão obrigatório está em [DIRETRIZES-SITES.md](../DIRETRIZES-SITES.md): no mínimo 4 templates por categoria, tema claro e escuro e visualização por aparelho em todos.
 
-**Mínimo de 4 templates por categoria.** Só provedor de internet (4), restaurante (4), lanches (4), bebidas (5), estética (4), barbearia (4) e marcas próprias (5) cumprem. Faltam:
+**Mínimo de 4 templates por categoria.** Só provedor de internet (4), restaurante (4), lanches (4), bebidas (5), estética (4), barbearia (4), salões (4) e marcas próprias (5) cumprem. Faltam:
 
 | Nicho | Tem | Faltam |
 |---|---|---|
@@ -53,7 +53,6 @@ O padrão obrigatório está em [DIRETRIZES-SITES.md](../DIRETRIZES-SITES.md): n
 | autosservicos | 3 | 1 |
 | lava-car | 1 | 3 |
 | turismo | 1 | 3 |
-| saloes | 3 | 1 |
 | dentista | 3 | 1 |
 
 **Tema claro e escuro.** Todos os modelos têm os dois temas desde 2026-11-25.

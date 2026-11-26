@@ -10,6 +10,8 @@ No nicho [Barbearia](../barbearia/) (Mecha Standard), só a barbearia aparece, c
 
 No Mecha Standard do salão, só o salão aparece, como **Mecha Salão** ("salão" embaixo do nome, e-mail salao@mechasalao.com.br), com a paleta ameixa pedida para esse modelo: ameixa #42293C, uva #785B77, rosa-antigo #BC7895, rosa-claro #EBC3D6, névoa #EFDCE5; títulos em Prata e texto em Albert Sans.
 
+No Mecha Premium Vinho, a **Mecha Salão** usa creme #F5EEE6, papel #FBF8F4, vinho #4A1512 (títulos e rodapé), vermelho #A8231C (botões) e rosado #E8B4A4 (mecha do símbolo sobre fundo escuro); títulos em Schibsted Grotesk e texto em Familjen Grotesk, cantos retos. No escuro, o fundo vira #170D0B e o vermelho clareia para #D04A3C.
+
 No Mecha Standard Terracota do salão, a mesma **Mecha Salão** aparece com a paleta terracota da referência pedida para esse modelo: creme #FFF9F2, café #211B18, terracota #E58A68, telha #B4532F (botões), tijolo #7D3827, oliva #66705A (bloco de higiene) e areia #D7CEC3; títulos em Newsreader e texto em Hanken Grotesk. O símbolo usa lâmina creme e mecha terracota sobre o topo café.
 
 ## Logo

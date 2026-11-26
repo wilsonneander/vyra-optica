@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /cliente.html
+Disallow: /cadastro.html
+Disallow: /conta.html
+Sitemap: https://taiobabar.com.br/sitemap.xml

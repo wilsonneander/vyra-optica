@@ -559,6 +559,7 @@ const equipeArea = {
 // textos alternativos das fotos
 const fotos = {
   'bruna-rosto': 'Rosto de Bruna Salvi, nutricionista',
+  'bruna-capa': 'Bruna Salvi, nutricionista, de jaleco no consultório segurando um brócolis, com uma fruteira na mesa',
   'bruna-retrato': 'Bruna Salvi, nutricionista, de jaleco no consultório segurando um brócolis',
   'bruna-mesa': 'Bruna Salvi na mesa do consultório, com frutas ao lado do computador',
   'bruna-consulta': 'Bruna Salvi mostrando uma maçã a um paciente durante a consulta',

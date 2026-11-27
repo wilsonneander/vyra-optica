@@ -167,7 +167,6 @@ const rodape = () => `<footer class="rodape" id="contato-rodape">
       <div class="onde">
         <h2>Onde atendemos</h2>
         <p>Consultas presenciais na ${M.bairro}, perto da UFSC, com estacionamento conveniado. Online para todo o Brasil, por vídeo.</p>
-        <ul class="bairros" data-iguais>${C.bairros.map((b) => `<li>${b}</li>`).join('')}</ul>
         <table class="horas"><caption>Horário de atendimento</caption><tbody>${horasLinhas()}</tbody></table>
       </div>
     </div>
@@ -238,7 +237,7 @@ const capa = () => `<section class="capa" id="inicio">
       <svg class="capa-disco" viewBox="0 0 400 400" aria-hidden="true"><defs><path id="circ" d="M200 200m-172 0a172 172 0 1 1 344 0a172 172 0 1 1-344 0"/></defs>
         <circle cx="200" cy="200" r="150" class="disco-fundo"/>
         <text><textPath href="#circ" textLength="1075">comida de verdade <tspan class="t2">conversa sem julgamento</tspan> plano que cabe na rotina <tspan class="t2">nutrição em Florianópolis</tspan></textPath></text></svg>
-      <figure class="capa-retrato">${foto('bruna-retrato', { lazy: false })}</figure>
+      <figure class="capa-retrato">${foto('bruna-capa', { lazy: false })}</figure>
       <div class="capa-cartao">
         <b>${EQ.bruna.nome}</b><span>${EQ.bruna.crn}</span>
         <p>Próximo horário livre<strong data-proximo="bruna">consultando a agenda</strong></p>

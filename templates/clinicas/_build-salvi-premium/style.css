@@ -130,7 +130,10 @@ h3 { color: var(--tinta); }
 .menu-cel { position: fixed; inset: 0; z-index: 58; display: grid; align-content: space-between; padding: 100px 24px 32px; background: var(--fundo); overflow-y: auto; clip-path: circle(0 at calc(100% - 48px) 40px); transition: clip-path .7s var(--suave); }
 .menu-cel.aberto { clip-path: circle(150% at calc(100% - 48px) 40px); }
 .menu-cel ul { display: grid; gap: 4px; }
-.menu-cel a { display: block; padding: 8px 0; color: var(--tinta); font: 400 30px/1.2 var(--f-t); text-decoration: none; }
+.menu-cel ul a { display: block; padding: 7px 0; color: var(--tinta); font: 400 22px/1.25 var(--f-t); text-decoration: none; }
+/* botão do menu do celular: texto branco e borda branca de 1px sobre a papaia */
+.menu-cel .btn { min-height: 50px; padding-inline: 22px; color: #fff; box-shadow: inset 0 0 0 1px #fff; font: 600 15.5px/1 var(--f-c); }
+.menu-cel .btn:hover { color: #fff; }
 .menu-cel-pe { display: grid; gap: 18px; justify-items: start; margin-top: 32px; }
 
 /* ---------- abertura: a folha se desenha, o prato se fecha e depois se abre como uma íris ---------- */
@@ -201,7 +204,7 @@ h3 { color: var(--tinta); }
 
 /* ---------- capa ---------- */
 .capa { min-height: 100svh; display: grid; align-items: center; padding-block: 130px 90px; overflow: hidden; }
-.capa-in { display: grid; grid-template-columns: 1.05fr .95fr; gap: 40px; align-items: center; }
+.capa-in { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
 .capa-txt { translate: 0 calc(var(--h, 0) * -120px); opacity: calc(1 - var(--h, 0) * 1.2); }
 .capa-tit { font-size: clamp(48px, 7.2vw, 112px); line-height: .98; }
 .capa-tit em { font-style: normal; color: var(--papaia); }
@@ -218,7 +221,7 @@ h3 { color: var(--tinta); }
 .disco-fundo { fill: var(--salvia-clara); }
 .capa-disco text { fill: var(--tinta); font: 500 17px var(--f-c); letter-spacing: .12em; text-transform: uppercase; }
 .capa-disco .t2 { fill: var(--papaia); }
-.capa-retrato { position: relative; width: 56%; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 48% 48% 26px 26px / 36% 36% 26px 26px; box-shadow: var(--sombra); }
+.capa-retrato { position: relative; width: 68%; aspect-ratio: 3 / 4; overflow: hidden; border-radius: 48% 48% 26px 26px / 36% 36% 26px 26px; box-shadow: var(--sombra); }
 .capa-retrato img { width: 100%; height: 100%; object-fit: cover; scale: calc(1.04 + var(--h, 0) * .12); }
 .capa-cartao { position: absolute; left: -2%; bottom: 8%; display: grid; gap: 2px; width: min(270px, 64%); padding: 18px 20px; border-radius: 18px; background: var(--papel); box-shadow: var(--sombra); }
 .capa-cartao b { color: var(--tinta); font: 400 20px var(--f-t); }
@@ -825,8 +828,6 @@ h3 { color: var(--tinta); }
 .onde { display: grid; align-content: start; gap: 14px; padding: 26px; border-radius: 26px; background: var(--mata-2); }
 .onde h2 { color: var(--claro); font: 400 28px var(--f-t); }
 .onde p { font-size: 15px; }
-.bairros { display: flex; flex-wrap: wrap; gap: 6px; }
-.bairros li { width: var(--larg, auto); max-width: 100%; text-align: center; padding: 6px 12px; border-radius: 10px; background: rgba(242, 235, 221, .08); color: var(--claro); font-size: 13.5px; }
 .horas { width: 100%; border-collapse: collapse; font-size: 14.5px; }
 .horas caption { margin-bottom: 6px; color: var(--claro); font-weight: 600; text-align: left; }
 .horas th, .horas td { padding: 7px 0; border-top: 1px solid rgba(242, 235, 221, .12); text-align: left; font-weight: 400; }
@@ -948,7 +949,7 @@ h3 { color: var(--tinta); }
   .g-nota b { font-size: 56px; }
   .revista, .revista-toda { grid-template-columns: 1fr; }
   .post-grande, .revista-toda .post-item:first-child { grid-column: auto; grid-row: auto; }
-  .chips, .filtros, .bairros { display: grid; grid-template-columns: 1fr 1fr; }
+  .chips, .filtros { display: grid; grid-template-columns: 1fr 1fr; }
   .chips button, .filtros button { width: 100%; }
   .gal-grade { columns: 2; column-gap: 10px; }
   .gal-grade li { margin-bottom: 10px; }
@@ -971,6 +972,7 @@ h3 { color: var(--tinta); }
   .cookies { left: 12px; bottom: 12px; width: calc(100% - 92px); }
   .cookies-btns { grid-template-columns: 1fr; }
   .blog-busca { width: 100%; }
+  .blog-ferr .filtros { width: 100%; }
 }
 @media (max-width: 380px) {
   .seg-abas, .chips, .filtros, .tour-salas, .painel-abas { grid-template-columns: 1fr; }

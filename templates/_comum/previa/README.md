@@ -33,7 +33,7 @@ As cópias dos sites que ficam nas vitrines também recebem o adaptador (`adapta
 
 ## Cores de cada nicho
 
-O controle dentro dos sites e a tela "Ver nos aparelhos" usam as cores da vitrine. Elas ficam em `TEMAS`, no `instalar.js`, com a chave no caminho da vitrine (`templates/dentista/_vitrine`). O instalador grava as cores dentro da cópia do `adaptador.js` e gera `previa/tema.css`. Vitrine nova sem entrada em `TEMAS` usa o padrão grafite e dourado, e o instalador avisa.
+O controle dentro dos sites e a tela "Ver nos aparelhos" usam as cores da vitrine. Elas ficam em `TEMAS`, no `instalar.js`, com a chave no caminho da vitrine (`templates/clinicas/_vitrine`). O instalador grava as cores dentro da cópia do `adaptador.js` e gera `previa/tema.css`. Vitrine nova sem entrada em `TEMAS` usa o padrão grafite e dourado, e o instalador avisa.
 
 ## Arquivos
 
@@ -52,7 +52,7 @@ Esta pasta é a única fonte. As cópias em `<vitrine>/previa/` são geradas: n�
 ```bash
 node templates/_comum/previa/instalar.js            # todas as vitrines de templates/
 node templates/_comum/previa/instalar.js --listar   # só mostra o que acharia
-node templates/_comum/previa/instalar.js templates/dentista/_vitrine
+node templates/_comum/previa/instalar.js templates/clinicas/_vitrine
 ```
 
 Rode **depois de montar ou atualizar uma vitrine e antes do `firebase deploy`**. O instalador:

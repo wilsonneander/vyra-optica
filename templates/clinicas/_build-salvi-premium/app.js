@@ -149,7 +149,8 @@
         if (e.pointerType !== 'mouse') return;
         mx = e.clientX; my = e.clientY;
         cur.classList.remove('fora');
-        ponto.style.transform = `translate(${mx}px, ${my}px)`;
+        // posição pela propriedade translate: ela vem antes de rotate e scale, que mudam o anel sem tirá-lo do lugar
+        ponto.style.translate = `${mx}px ${my}px`;
         const alvo = e.target.closest('[data-cursor], a, button, label, summary, select, .planta-sala');
         const palavra = alvo?.closest('[data-cursor]')?.dataset.cursor;
         cur.dataset.estado = palavra ? 'texto' : alvo ? 'link' : '';
@@ -160,7 +161,7 @@
       addEventListener('pointerup', () => cur.classList.remove('aperta'));
       const segue = () => {
         ax += (mx - ax) * 0.18; ay += (my - ay) * 0.18;
-        anel.style.transform = `translate(${ax.toFixed(1)}px, ${ay.toFixed(1)}px)`;
+        anel.style.translate = `${ax.toFixed(1)}px ${ay.toFixed(1)}px`;
         requestAnimationFrame(segue);
       };
       segue();
@@ -728,7 +729,11 @@
   if (area && D.area) {
     const A = D.area, login = $('[data-area-login]'), painel = $('[data-painel]'), fl = $('[data-login]');
     const entra = () => { login.hidden = true; painel.hidden = false; montaPainel(); scrollTo(0, 0); requestAnimationFrame(rola); };
-    $('[data-preenche]', fl).addEventListener('click', () => { $('#ar-cpf').value = A.login.cpf; $('#ar-senha').value = A.login.senha; });
+    // máscara do CPF: 000.000.000-00 enquanto digita
+    $('#ar-cpf').addEventListener('input', (e) => {
+      const d = e.target.value.replace(/\D/g, '').slice(0, 11);
+      e.target.value = d.replace(/^(\d{3})(\d)/, '$1.$2').replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3').replace(/\.(\d{3})(\d{1,2})$/, '.$1-$2');
+    });
     fl.addEventListener('submit', (e) => {
       e.preventDefault();
       const ok = $('#ar-cpf').value.replace(/\D/g, '') === A.login.cpf.replace(/\D/g, '') && $('#ar-senha').value === A.login.senha;

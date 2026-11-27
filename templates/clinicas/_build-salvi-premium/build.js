@@ -634,11 +634,11 @@ const pgArea = () => `<section class="area" data-area>
       ${migalhas([[`${B}index.html`, 'Início'], ['', 'Área do cliente']])}
       <p class="apoio">Área do cliente</p>
       ${titulo('Seu plano, suas consultas e seus recibos num lugar só.', 'h1')}
-      <label class="campo" for="ar-cpf"><span>CPF</span><input id="ar-cpf" name="cpf" inputmode="numeric" autocomplete="username" required placeholder="000.000.000-00"></label>
-      <label class="campo" for="ar-senha"><span>Senha</span><input id="ar-senha" name="senha" type="password" autocomplete="current-password" required></label>
+      <label class="campo" for="ar-cpf"><span>CPF</span><input id="ar-cpf" name="cpf" inputmode="numeric" autocomplete="username" required maxlength="14" placeholder="000.000.000-00" value="${C.area.login.cpf}"></label>
+      <label class="campo" for="ar-senha"><span>Senha</span><input id="ar-senha" name="senha" type="password" autocomplete="current-password" required value="${C.area.login.senha}"></label>
       <p class="form-erro" data-erro role="alert"></p>
       ${btnBotao('Entrar', { attrs: ' type="submit"' })}
-      <p class="area-demo">Demonstração: CPF <b>${C.area.login.cpf}</b> e senha <b>${C.area.login.senha}</b>. <button type="button" class="link" data-preenche>Preencher para mim</button></p>
+      <p class="area-demo">Demonstração: o CPF e a senha da paciente de exemplo já estão preenchidos. É só entrar.</p>
     </form>
   </div>
   <div class="painel" data-painel hidden>

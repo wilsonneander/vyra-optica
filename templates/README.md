@@ -39,7 +39,7 @@ O nome segue a ordem **marca, nível, título**: `vyra-standard`, `vyra-standard
 | [saloes/](saloes/) | `mecha-standard`, `mecha-standard-terracota` (+ Área do Cliente) | `mecha-premium`, `mecha-premium-vinho` | `node "templates/saloes/_build-<pasta do modelo>/build.js"` |
 | [barbearia/](barbearia/) | `mecha-standard`, `cobre-standard` | `pente-fino-premium` (+ Área do Cliente), `cobre-premium` | `node templates/barbearia/_build-<pasta do modelo>/build.js`; o Pente Fino é Vite: `npm install` e `npm run catalogo` em `_build-pente-fino-premium/` |
 | [clinicas/](clinicas/) | `lume-standard`, `raiz-standard` (dentista) | `sorrisus-premium` (dentista), `salvi-premium` (nutrição, + Área do Cliente) | `node templates/clinicas/_build-<pasta do modelo>/build.js` |
-| [escritorios/](escritorios/) | `vilela-standard` (advocacia) | | `node templates/escritorios/_build-vilela-standard/build.js` |
+| [escritorios/](escritorios/) | `vilela-standard` (advocacia) | `prumo-premium` (contabilidade) | `node templates/escritorios/_build-<pasta do modelo>/build.js` |
 
 ## O que falta para o padrão (situação em 2026-11-25)
 
@@ -54,7 +54,7 @@ O padrão obrigatório está em [DIRETRIZES-SITES.md](../DIRETRIZES-SITES.md): n
 | autosservicos | 3 | 1 |
 | lava-car | 1 | 3 |
 | turismo | 1 | 3 |
-| escritorios | 1 | 3 (nicho aberto em 2026-11-27: faltam o Standard de página única, o Premium da Vilela Rocha e os de contabilidade) |
+| escritorios | 2 | 2 (nicho aberto em 2026-11-27: faltam o Standard de página única e o Premium da Vilela Rocha; a contabilidade Prumo ainda não tem Standard) |
 
 **Tema claro e escuro.** Todos os modelos têm os dois temas desde 2026-11-25.
 

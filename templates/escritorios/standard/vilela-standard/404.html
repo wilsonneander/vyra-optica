@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR" data-tema="claro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Página não encontrada | Vilela Rocha Advocacia</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/assets/img/emblema.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Public+Sans:wght@400;500&display=swap" rel="stylesheet">
+<script>try{var t=new URLSearchParams(location.search).get("tema")||localStorage.getItem("vilela-tema");if(t==="claro"||t==="escuro")document.documentElement.dataset.tema=t;}catch(e){}</script>
+<style>
+:root { --fundo: #EEF1F2; --tinta: #13212C; --texto: #3B4954; --lima: #D6EBB6; --linha: rgba(19,33,44,.14); color-scheme: light; }
+[data-tema="escuro"] { --fundo: #0D171F; --tinta: #EAF0F0; --texto: #B8C4CA; --linha: rgba(234,240,240,.14); color-scheme: dark; }
+* { box-sizing: border-box; margin: 0; }
+body { min-height: 100dvh; display: grid; place-items: center; padding: 32px 16px; background: var(--fundo); color: var(--texto); font: 400 17px/1.6 "Public Sans", Arial, sans-serif; text-align: center; }
+main { max-width: 560px; }
+.num { display: flex; align-items: center; justify-content: center; gap: 6px; font: 500 clamp(110px, 26vw, 190px)/1 "Cormorant Garamond", Georgia, serif; color: var(--tinta); }
+.num svg { width: .62em; height: .7em; color: var(--tinta); overflow: visible; }
+.trav { transform-origin: 32px 28px; animation: pende 3.2s ease-in-out infinite; }
+.prato-e, .prato-d { animation: contra 3.2s ease-in-out infinite; }
+.prato-e { transform-origin: 16px 28px; } .prato-d { transform-origin: 48px 28px; }
+@keyframes pende { 0%, 100% { transform: rotate(-16deg); } 50% { transform: rotate(16deg); } }
+@keyframes contra { 0%, 100% { transform: rotate(16deg); } 50% { transform: rotate(-16deg); } }
+h1 { font: 500 clamp(30px, 5vw, 42px)/1.15 "Cormorant Garamond", Georgia, serif; color: var(--tinta); margin: 18px 0 10px; }
+p { margin: 0 auto 28px; max-width: 44ch; }
+.btns { display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 10px; }
+a { display: inline-flex; align-items: center; justify-content: center; height: 50px; padding: 0 22px; border-radius: 12px; text-decoration: none; font-weight: 500; }
+.a1 { background: var(--tinta); color: var(--fundo); } .a2 { border: 1px solid var(--linha); color: var(--tinta); }
+a:hover { background: var(--lima); color: #13212C; border-color: var(--lima); }
+@media (max-width: 480px) { .btns { grid-auto-flow: row; width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .trav, .prato-e, .prato-d { animation: none; } }
+</style>
+</head>
+<body>
+<main>
+  <p class="num" aria-label="404"><span>4</span><svg viewBox="0 0 64 72" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 70V30a26 26 0 0 1 52 0v40"/><path d="M22 62h20M32 24v38"/><g class="trav"><path d="M16 28h32"/><g class="prato-e"><path d="M16 28l-6 14M16 28l6 14M8.5 42a7.5 4 0 0 0 15 0Z"/></g><g class="prato-d"><path d="M48 28l-6 14M48 28l6 14M40.5 42a7.5 4 0 0 0 15 0Z"/></g></g><circle cx="32" cy="22" r="2.6" fill="currentColor" stroke="none"/></svg><span>4</span></p>
+  <h1>Esta página saiu da pauta.</h1>
+  <p>O endereço não existe ou mudou de lugar. A balança ainda procura o equilíbrio, mas você pode voltar ao início ou falar com a equipe.</p>
+  <div class="btns"><a class="a1" href="/">Voltar ao início</a><a class="a2" href="https://wa.me/5571900000000?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vilela%20Rocha%20Advocacia." target="_blank" rel="noopener">Falar no WhatsApp</a></div>
+</main>
+</body>
+</html>

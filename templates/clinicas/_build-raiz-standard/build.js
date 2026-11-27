@@ -1,8 +1,8 @@
-// Gera o Silver de odontologia (Raiz Odontologia) em "templates/dentista/standard/raiz-standard/", no desenho da referência Aveline:
+// Gera o Silver de odontologia (Raiz Odontologia) em "templates/clinicas/standard/raiz-standard/", no desenho da referência Aveline:
 // hero emoldurado com carrossel de fotos e profissional da vez, jornada, frase que se escreve na rolagem, números,
 // tratamentos em trilho, painel de cuidado (agendamento, alinhadores, orçamento), equipe, antes e depois arrastável,
 // estrutura com galeria, avaliações, artigos, dúvidas, formulário, rodapé com mapa OSM e página 404.
-// Uso: node templates/dentista/_build-raiz-standard/build.js
+// Uso: node templates/clinicas/_build-raiz-standard/build.js
 const fs = require('fs');
 const path = require('path');
 const C = require('./content');

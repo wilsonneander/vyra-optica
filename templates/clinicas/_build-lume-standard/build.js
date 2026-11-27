@@ -1,8 +1,8 @@
-// Gera o Bronze de odontologia (Lume Odontologia) em "templates/dentista/standard/lume-standard/", inspirado nas referências
+// Gera o Bronze de odontologia (Lume Odontologia) em "templates/clinicas/standard/lume-standard/", inspirado nas referências
 // Elan Dental (creme, argila e serifa com itálico) e Curevanta (muitas fotos em cartões e seções escuras):
 // hero com foto, tratamentos em mosaico, antes e depois arrastável, procedimentos com foto que troca, equipe,
 // a clínica com faixa de fotos, dúvidas, agendamento pelo WhatsApp, rodapé com mapa OSM e página 404.
-// Uso: node templates/dentista/_build-lume-standard/build.js
+// Uso: node templates/clinicas/_build-lume-standard/build.js
 const fs = require('fs');
 const path = require('path');
 const C = require('./content');

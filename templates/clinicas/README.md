@@ -21,9 +21,9 @@ Nicho de clínicas odontológicas.
 ## Gerar
 
 ```bash
-node templates/dentista/_build-sorrisus-premium/build.js
-node templates/dentista/_build-raiz-standard/build.js
-node templates/dentista/_build-lume-standard/build.js
+node templates/clinicas/_build-sorrisus-premium/build.js
+node templates/clinicas/_build-raiz-standard/build.js
+node templates/clinicas/_build-lume-standard/build.js
 ```
 
 O mapa só precisa ser gerado de novo se o endereço mudar (sharp instalado fora do projeto; apagar a pasta `tiles/` depois):

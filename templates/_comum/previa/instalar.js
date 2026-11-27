@@ -4,7 +4,7 @@
    Uso:
      node templates/_comum/previa/instalar.js                 todas as vitrines achadas
      node templates/_comum/previa/instalar.js --listar        só mostra o que acharia, sem gravar
-     node templates/_comum/previa/instalar.js templates/dentista/_vitrine
+     node templates/_comum/previa/instalar.js templates/clinicas/_vitrine
 
    Vitrine é qualquer pasta dentro de templates/ com firebase.json e index.html.
    Vitrine de cliente (em clientes/) entra só quando o caminho dela é passado no comando.
@@ -38,7 +38,7 @@ const TEMAS = {
   'templates/assessoria-provedor/_apresentacao': { fundo: '#021430', texto: '#F3F5F9', apoio: '#8E9AB4', acento: '#FE5710', sobre: '#FFFFFF' },
   'templates/provedor-internet/_apresentacao': { fundo: '#1E1512', texto: '#FFF8F4', apoio: '#A8968D', acento: '#FF5A1F', sobre: '#FFFFFF' },
   'templates/barbearia/_vitrine': { fundo: '#121110', texto: '#F4F1EC', apoio: '#A59E96', acento: '#E9A46B', sobre: '#1A1206' },
-  'templates/dentista/_vitrine': { fundo: '#FFFFFF', texto: '#1F1D1A', apoio: '#67615A', acento: '#3E7F78', sobre: '#FFFFFF', cena: '#F6F4F0', claro: true },
+  'templates/clinicas/_vitrine': { fundo: '#FFFFFF', texto: '#1F1D1A', apoio: '#67615A', acento: '#3E7F78', sobre: '#FFFFFF', cena: '#F6F4F0', claro: true },
   'templates/saloes/_vitrine': { fundo: '#FFFFFF', texto: '#2A211D', apoio: '#6E645C', acento: '#A9512F', sobre: '#FFFFFF', cena: '#F7F2EB', claro: true },
   'templates/restaurante/_apresentacao': { fundo: '#1B1714', texto: '#F4EFE1', apoio: '#A99E90', acento: '#CA603C', sobre: '#FFFFFF' },
   'templates/restaurante/_modelos': { fundo: '#1B1714', texto: '#F4EFE1', apoio: '#A99E90', acento: '#CA603C', sobre: '#FFFFFF' },

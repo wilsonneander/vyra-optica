@@ -1,8 +1,8 @@
-// Gera o Gold de odontologia (Sorrisus Prime) em "templates/dentista/premium/sorrisus-premium/".
+// Gera o Gold de odontologia (Sorrisus Prime) em "templates/clinicas/premium/sorrisus-premium/".
 // A página abre na fachada enviada pelo cliente; a rolagem aproxima a câmera da vidraça da recepção,
 // atravessa o vidro e entra na clínica (GSAP + ScrollTrigger, sem cortes). Depois: dentista, tratamentos,
 // estrutura em galeria horizontal, primeira visita, depoimentos autorizados, agendamento e rodapé com mapa.
-// Uso: node templates/dentista/_build-sorrisus-premium/build.js
+// Uso: node templates/clinicas/_build-sorrisus-premium/build.js
 const fs = require('fs');
 const path = require('path');
 const C = require('./content');

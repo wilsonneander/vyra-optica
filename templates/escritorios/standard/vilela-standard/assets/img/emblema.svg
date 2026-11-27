@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72" fill="none" stroke="#13212C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path pathLength="1" class="em-arco" d="M6 70V30a26 26 0 0 1 52 0v40"/>
+  <path pathLength="1" class="em-base" d="M22 62h20M32 24v38"/>
+  <g class="em-travessao"><path pathLength="1" d="M16 28h32"/>
+    <g class="em-prato em-prato-e"><path pathLength="1" d="M16 28l-6 14M16 28l6 14"/><path pathLength="1" d="M8.5 42a7.5 4 0 0 0 15 0Z"/></g>
+    <g class="em-prato em-prato-d"><path pathLength="1" d="M48 28l-6 14M48 28l6 14"/><path pathLength="1" d="M40.5 42a7.5 4 0 0 0 15 0Z"/></g>
+  </g>
+  <circle cx="32" cy="22" r="2.4" fill="#13212C" stroke="none"/>
+</svg>

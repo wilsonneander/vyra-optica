@@ -39,6 +39,7 @@ O nome segue a ordem **marca, nível, título**: `vyra-standard`, `vyra-standard
 | [saloes/](saloes/) | `mecha-standard`, `mecha-standard-terracota` (+ Área do Cliente) | `mecha-premium`, `mecha-premium-vinho` | `node "templates/saloes/_build-<pasta do modelo>/build.js"` |
 | [barbearia/](barbearia/) | `mecha-standard`, `cobre-standard` | `pente-fino-premium` (+ Área do Cliente), `cobre-premium` | `node templates/barbearia/_build-<pasta do modelo>/build.js`; o Pente Fino é Vite: `npm install` e `npm run catalogo` em `_build-pente-fino-premium/` |
 | [clinicas/](clinicas/) | `lume-standard`, `raiz-standard` (dentista) | `sorrisus-premium` (dentista), `salvi-premium` (nutrição, + Área do Cliente) | `node templates/clinicas/_build-<pasta do modelo>/build.js` |
+| [escritorios/](escritorios/) | `vilela-standard` (advocacia) | | `node templates/escritorios/_build-vilela-standard/build.js` |
 
 ## O que falta para o padrão (situação em 2026-11-25)
 
@@ -53,6 +54,7 @@ O padrão obrigatório está em [DIRETRIZES-SITES.md](../DIRETRIZES-SITES.md): n
 | autosservicos | 3 | 1 |
 | lava-car | 1 | 3 |
 | turismo | 1 | 3 |
+| escritorios | 1 | 3 (nicho aberto em 2026-11-27: faltam o Standard de página única, o Premium da Vilela Rocha e os de contabilidade) |
 
 **Tema claro e escuro.** Todos os modelos têm os dois temas desde 2026-11-25.
 
@@ -62,7 +64,7 @@ O padrão obrigatório está em [DIRETRIZES-SITES.md](../DIRETRIZES-SITES.md): n
 
 ## Pastas auxiliares (começam com `_`)
 
-- `_comum/`: código usado por vários nichos (botões de tema `tema-pilula.js`, `tema-tampinha.js`, `tema-lanches.js`).
+- `_comum/`: código usado por vários nichos (botões de tema `tema-pilula.js`, `tema-tampinha.js`, `tema-lanches.js`, `tema-balanca.js`).
 - `_comum/previa/`: **Prévia nos aparelhos**, o visualizador comum que mostra qualquer modelo no celular, no tablet e no computador. Depois de montar ou atualizar uma vitrine, e antes do deploy, rode `node templates/_comum/previa/instalar.js` (veja o [README](_comum/previa/README.md)).
 - `_vitrine-auto/`, `_vitrine-bebidas/`, `_vitrine-food/`, `_vitrine-aura/`, `_vitrine-estetica/`, `<nicho>/_vitrine/`, `provedor-internet/_apresentacao/`, `assessoria-provedor/_apresentacao/`, `restaurante/_modelos/`: vitrines publicadas no Firebase para mostrar os modelos. Ficam fora do git. Cada modelo fica numa subpasta com o mesmo nome da pasta do catálogo, e o `firebase.json` redireciona os endereços antigos (`/bronze/`, `/silver/`, `/gold/`, `/lume/`...) para os novos. Cada uma recebe a pasta `previa/` e o botão "Ver nos aparelhos" pelo instalador.
 - `_preview*/`: prévias que abrem sem servidor (fora do git).

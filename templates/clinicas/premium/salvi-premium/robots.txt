@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /area-cliente.html
+Sitemap: https://salvinutricao.com.br/sitemap.xml

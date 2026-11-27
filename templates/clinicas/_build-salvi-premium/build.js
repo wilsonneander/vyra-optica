@@ -206,7 +206,7 @@ const legal = {
     <h3>Com quem compartilhamos</h3><p>Com ninguém para fins de publicidade. Com o seu médico, apenas com a sua autorização. O pedido trafega pelo WhatsApp (Meta) e o prontuário fica em sistema com acesso restrito à equipe.</p>
     <h3>Por quanto tempo</h3><p>Pedidos sem consulta são apagados em 6 meses. O prontuário é guardado pelo prazo exigido pelo conselho profissional.</p>
     <h3>Seus direitos</h3><p>Confirmar, acessar, corrigir, apagar ou levar seus dados e revogar consentimentos pelo e-mail ${M.email}.</p>
-    <h3>Cookies e armazenamento</h3><p>O site guarda no seu navegador a sua escolha sobre cookies, o tema claro ou escuro, se a abertura já foi vista nesta visita, os pedidos de agendamento feitos neste aparelho e, na Área do cliente de demonstração, o diário e a lista de compras. Não usamos cookies de publicidade. Medição de visitas só com a sua permissão no aviso de cookies.</p>`],
+    <h3>Cookies e armazenamento</h3><p>O site guarda no seu navegador a sua escolha sobre cookies, o tema claro ou escuro, se a abertura já foi vista nesta visita, os pedidos de agendamento feitos neste aparelho e, na Área do cliente de demonstração, o diário e a lista de compras e, na área da equipe, as triagens e os planos editados neste aparelho. Na versão do cliente, esses dados de saúde ficam no sistema da clínica, com acesso restrito à equipe. Não usamos cookies de publicidade. Medição de visitas só com a sua permissão no aviso de cookies.</p>`],
 };
 const janelas = () => `${Object.entries(legal).map(([id, [t, corpo]]) => `<dialog class="doc" id="doc-${id}" aria-labelledby="doc-${id}-t">
   <div class="doc-cab"><h2 id="doc-${id}-t">${t}</h2><button type="button" class="doc-fecha" data-fecha aria-label="Fechar">${I.fechar}</button></div>
@@ -634,12 +634,45 @@ const pgArea = () => `<section class="area" data-area>
       ${migalhas([[`${B}index.html`, 'Início'], ['', 'Área do cliente']])}
       <p class="apoio">Área do cliente</p>
       ${titulo('Seu plano, suas consultas e seus recibos num lugar só.', 'h1')}
+      <div class="papel-abas" role="group" aria-label="Quem está entrando" data-iguais><button type="button" data-papel="paciente" aria-pressed="true">Sou paciente</button><button type="button" data-papel="equipe" aria-pressed="false">Sou da equipe</button></div>
       <label class="campo" for="ar-cpf"><span>CPF</span><input id="ar-cpf" name="cpf" inputmode="numeric" autocomplete="username" required maxlength="14" placeholder="000.000.000-00" value="${C.area.login.cpf}"></label>
       <label class="campo" for="ar-senha"><span>Senha</span><input id="ar-senha" name="senha" type="password" autocomplete="current-password" required value="${C.area.login.senha}"></label>
       <p class="form-erro" data-erro role="alert"></p>
       ${btnBotao('Entrar', { attrs: ' type="submit"' })}
       <p class="area-demo">Demonstração: o CPF e a senha da paciente de exemplo já estão preenchidos. É só entrar.</p>
     </form>
+    <form class="area-form" data-login-pro novalidate hidden>
+      ${migalhas([[`${B}index.html`, 'Início'], ['', 'Área da equipe']])}
+      <p class="apoio">Área da equipe</p>
+      ${titulo('Seus pacientes, as triagens e os planos alimentares.', 'h1')}
+      <div class="papel-abas" role="group" aria-label="Quem está entrando" data-iguais><button type="button" data-papel="paciente" aria-pressed="false">Sou paciente</button><button type="button" data-papel="equipe" aria-pressed="true">Sou da equipe</button></div>
+      <label class="campo" for="pro-quem"><span>Nutricionista</span><select id="pro-quem" name="prof">${C.equipe.map((p) => `<option value="${p.id}">${p.nome}, ${p.crn}</option>`).join('')}</select></label>
+      <label class="campo" for="pro-senha"><span>Senha</span><input id="pro-senha" name="senha" type="password" autocomplete="current-password" required value="${C.equipeArea.senha}"></label>
+      <p class="form-erro" data-erro role="alert"></p>
+      ${btnBotao('Entrar na área da equipe', { attrs: ' type="submit"' })}
+      <p class="area-demo">Demonstração: a senha já está preenchida. Cada nutricionista vê só os próprios pacientes.</p>
+    </form>
+  </div>
+  <div class="painel painel-pro" data-painel-pro hidden>
+    <div class="largo">
+      <div class="painel-cab">
+        <div><p class="apoio" data-pro-ola>Olá</p><h1 class="tit-painel">Seus pacientes</h1><p data-pro-sub></p></div>
+        <button type="button" class="link painel-sair" data-sair-pro>${I.sair}Sair</button>
+      </div>
+      <div class="pro-grade">
+        <aside class="pro-lista" aria-label="Lista de pacientes">
+          <label class="blog-busca" for="pro-busca">${I.lupa}<span class="sr">Buscar paciente</span><input id="pro-busca" type="search" placeholder="Buscar paciente" autocomplete="off"></label>
+          <ul class="pro-pacientes" data-pro-pacientes></ul>
+          <button type="button" class="link-seta" data-pro-novo aria-expanded="false" aria-controls="pro-novo-form">${I.mais}Novo paciente</button>
+          <form class="pro-novo" id="pro-novo-form" data-pro-novo-form hidden novalidate>
+            <label class="campo" for="pn-nome"><span>Nome completo</span><input id="pn-nome" name="nome" required minlength="3" autocomplete="off"></label>
+            <label class="campo" for="pn-cat"><span>Categoria do plano</span><select id="pn-cat" name="categoria">${C.equipeArea.categorias.map((c) => `<option value="${c.id}">${c.nome}</option>`).join('')}</select></label>
+            ${btnBotao('Criar com o modelo da categoria', { ic: I.mais, attrs: ' type="submit"' })}
+          </form>
+        </aside>
+        <section class="pro-ficha" data-pro-ficha aria-live="polite"></section>
+      </div>
+    </div>
   </div>
   <div class="painel" data-painel hidden>
     <div class="largo">
@@ -657,8 +690,9 @@ const pgArea = () => `<section class="area" data-area>
           </div>
         </section>
         <section class="pp" id="pp-plano" role="tabpanel" aria-labelledby="pa-plano" hidden>
-          <p class="pp-intro">Escolha uma opção em cada refeição. As quantidades estão no app e mudam conforme a fome do dia.</p>
-          <ol class="refeicoes">${C.area.plano.map((r) => `<li><div class="ref-hora"><b>${r.refeicao}</b><span>${r.hora}</span></div><ul>${r.opcoes.map((o) => `<li>${esc(o)}</li>`).join('')}</ul></li>`).join('')}</ol>
+          <div class="pp-plano-cab"><p class="pp-intro">Escolha uma opção em cada refeição. As quantidades estão no app e mudam conforme a fome do dia.</p>${btnBotao('Baixar meu plano em PDF', { ic: I.baixar, attrs: ' type="button" data-pdf-paciente' })}</div>
+          <ol class="refeicoes" data-plano-paciente></ol>
+          <div class="pp-orient" data-orient-paciente></div>
         </section>
         <section class="pp" id="pp-evolucao" role="tabpanel" aria-labelledby="pa-evolucao" hidden>
           <div class="evo-filtros" role="group" aria-label="Medida no gráfico" data-iguais><button type="button" data-evo="cintura" aria-pressed="true">Cintura (cm)</button><button type="button" data-evo="musculo" aria-pressed="false">Massa muscular (kg)</button><button type="button" data-evo="energia" aria-pressed="false">Energia (1 a 5)</button></div>
@@ -691,7 +725,7 @@ const pgArea = () => `<section class="area" data-area>
 const dadosBase = () => ({
   whats: M.whatsapp.replace(/\D/g, ''),
   marca: M.completo,
-  equipe: C.equipe.map(({ id, nome, curto, agenda }) => ({ id, nome, curto, agenda })),
+  equipe: C.equipe.map(({ id, nome, curto, papel, crn, agenda }) => ({ id, nome, curto, papel, crn, agenda })),
   servicos: C.servicos.map(({ id, nome, seg, dur, preco, aPartir, profs, online }) => ({ id, nome, seg, dur, preco, aPartir: !!aPartir, profs, online })),
 });
 
@@ -832,10 +866,11 @@ for (const p of C.blog) {
 
 pagina({
   arquivo: 'area-cliente.html', pg: 'area', indexar: false,
-  titulo: `Área do cliente | ${M.completo}`,
+  titulo: `Área do cliente e da equipe | ${M.completo}`,
   descricao: 'Plano alimentar, consultas, evolução, diário e recibos dos pacientes da Salvi Nutrição.',
   corpo: pgArea,
-  dados: { area: C.area },
+  // a área da equipe precisa dos modelos, dos pacientes e dos dados legais que vão no rodapé do PDF
+  dados: { area: C.area, equipeArea: C.equipeArea, legal: { razao: M.razao, cnpj: M.cnpj, endereco, telefone: M.telefone, whatsapp: M.whatsapp } },
 });
 
 // ---------- 404: arquivo único com o CSS dentro, funciona em qualquer endereço ----------

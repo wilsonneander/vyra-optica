@@ -724,11 +724,137 @@
     toast('Mensagem recebida. Respondemos em até um dia útil, pelo e-mail ou pelo WhatsApp.');
   });
 
+  // ===================== PLANOS ALIMENTARES (comuns à equipe e ao paciente) =====================
+  const EA = D.equipeArea;
+  const CAT = Object.fromEntries((EA?.categorias || []).map((c) => [c.id, c]));
+  const copia = (o) => JSON.parse(JSON.stringify(o));
+  const escHtml = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const pacientesTodos = () => [...(EA?.pacientes || []), ...le('salvi-pacientes-novos', [])];
+  // o plano salvo pela nutricionista vale mais que o modelo da categoria
+  const planoDe = (pac) => le('salvi-planos', {})[pac.id] || { categoria: pac.categoria, ...copia(CAT[pac.categoria].plano) };
+  const triagemDe = (pac) => ({ ...(pac.triagem || {}), ...(le('salvi-triagens', {})[pac.id] || {}) });
+  const guardaEm = (chave, id, valor) => { const t = le(chave, {}); t[id] = valor; grava(chave, t); };
+  const dataNum = (k) => { const d = deChave(k); return `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`; };
+  const hojeChave = () => chaveDia(new Date());
+  const slug = (s) => normal(s).replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+  // ---------- PDF do plano alimentar, gerado no navegador, sem biblioteca ----------
+  // PDF 1.4 com as fontes padrão do leitor (Helvetica e Times) em WinAnsi, que tem os acentos do português.
+  const baixaPlanoPdf = ({ pac, plano, triagem, prof }) => {
+    const L = 595.28, A = 841.89, M = 50;
+    const limpa = (s) => String(s ?? '').replace(/[‘’]/g, "'").replace(/[“”]/g, '"').replace(/[–—]/g, '-').replace(/[^\x20-\xFF]/g, '');
+    const txt = (s) => limpa(s).replace(/[\\()]/g, '\\$&');
+    // largura aproximada da Helvetica, só para quebrar as linhas sem passar da margem
+    const larg = (s, t) => [...limpa(s)].reduce((a, c) => a + (/[il.,:;'!|\s]/.test(c) ? 280 : /[fjrtI]/.test(c) ? 340 : /[mwMW]/.test(c) ? 860 : /[A-Z0-9]/.test(c) ? 680 : 570), 0) * t / 1000;
+    const quebra = (s, t, max) => {
+      const linhas = []; let atual = '';
+      for (const p of limpa(s).split(/\s+/).filter(Boolean)) { const tenta = atual ? `${atual} ${p}` : p; if (larg(tenta, t) > max && atual) { linhas.push(atual); atual = p; } else atual = tenta; }
+      if (atual) linhas.push(atual);
+      return linhas;
+    };
+    const cor = (h) => h.match(/\w\w/g).map((x) => (parseInt(x, 16) / 255).toFixed(3)).join(' ');
+    const paginas = [];
+    let ops, y;
+    const texto = (s, x, yy, t, fonte = 'F1', c = '22301F') => ops.push(`BT /${fonte} ${t} Tf ${cor(c)} rg ${x.toFixed(1)} ${yy.toFixed(1)} Td (${txt(s)}) Tj ET`);
+    const caixa = (x, yy, w, h, c) => ops.push(`${cor(c)} rg ${x.toFixed(1)} ${yy.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)} re f`);
+    const novaPagina = () => { ops = []; paginas.push(ops); caixa(0, A - 8, L, 8, '2E4430'); y = A - 56; };
+    const cabe = (h) => { if (y - h < 80) novaPagina(); };
+    const paragrafo = (s, t = 10.5, x = M, c = '4F5848') => quebra(s, t, L - x - M).forEach((l) => { cabe(t * 1.5); texto(l, x, y, t, 'F1', c); y -= t * 1.5; });
+    const titulo = (s) => { cabe(44); y -= 10; texto(s.toUpperCase(), M, y, 8.5, 'F2', 'C4582F'); y -= 18; };
+    const marcador = (s) => quebra(s, 10.5, L - M * 2 - 16).forEach((l, i) => { cabe(16); if (!i) caixa(M + 2, y + 2.5, 5, 5, '6F8A65'); texto(l, M + 16, y, 10.5); y -= 15.5; });
+
+    // capa: faixa da marca com o nome do paciente
+    novaPagina();
+    caixa(0, A - 140, L, 140, '1D2A1F');
+    texto('Salvi', M, A - 64, 28, 'F3', 'F2EBDD');
+    texto('NUTRIÇÃO', M + 2, A - 80, 8, 'F2', 'B9C2AE');
+    texto('Plano alimentar', L - M - larg('Plano alimentar', 19) * 0.92, A - 62, 19, 'F3', 'EE7B4C');
+    texto(pac.nome, M, A - 116, 17, 'F2', 'F2EBDD');
+    const nomeCat = CAT[plano.categoria || pac.categoria]?.nome || '';
+    texto(nomeCat, L - M - larg(nomeCat, 10.5), A - 114, 10.5, 'F1', 'B9C2AE');
+    y = A - 176;
+    const dados = [['Nutricionista', `${prof.nome}, ${prof.crn}`], ['Emitido em', dataNum(hojeChave())], ['Próxima consulta', pac.proxima ? dataNum(pac.proxima) : 'a combinar']];
+    dados.forEach(([r, v], i) => { const x = M + i * ((L - 2 * M) / 3); texto(r.toUpperCase(), x, y, 7.5, 'F2', '737A6B'); texto(v, x, y - 15, 10.5, 'F2'); });
+    y -= 38;
+    caixa(M, y, L - 2 * M, 0.8, 'DCE4D2');
+    y -= 8;
+    if (triagem.objetivo) { titulo('Objetivo'); paragrafo(triagem.objetivo, 11.5, M, '22301F'); }
+    const cuidados = [['Alergias e restrições', triagem.restricoes], ['Medicações e suplementos', triagem.medicacoes]].filter(([, v]) => v);
+    if (cuidados.length) { titulo('Cuidados'); cuidados.forEach(([r, v]) => paragrafo(`${r}: ${v}`)); }
+
+    titulo('Refeições');
+    plano.refeicoes.forEach((r) => {
+      cabe(30 + Math.min(r.opcoes.length, 3) * 16);
+      caixa(M, y - 6, L - 2 * M, 24, 'F4EEE4');
+      texto(r.nome, M + 10, y + 1, 12, 'F2');
+      if (r.hora) texto(r.hora, L - M - 10 - larg(r.hora, 10), y + 1, 10, 'F2', 'C4582F');
+      y -= 26;
+      r.opcoes.filter((o) => o.trim()).forEach(marcador);
+      y -= 8;
+    });
+    if (plano.orientacoes?.trim()) { titulo('Orientações'); paragrafo(plano.orientacoes); }
+    const metas = (plano.metas || []).filter((m) => m.trim());
+    if (metas.length) { titulo('Metas até a próxima consulta'); metas.forEach(marcador); }
+    // assinatura
+    cabe(70);
+    y -= 40;
+    caixa(M, y + 14, 200, 0.8, '22301F');
+    texto(prof.nome, M, y, 10.5, 'F2');
+    texto(`Nutricionista, ${prof.crn}`, M, y - 14, 9, 'F1', '737A6B');
+
+    // rodapé com a numeração, agora que o total de páginas é conhecido
+    const lg = D.legal || {};
+    paginas.forEach((p, i) => {
+      ops = p;
+      caixa(M, 52, L - 2 * M, 0.6, 'DCE4D2');
+      texto(`${lg.razao || ''}, CNPJ ${lg.cnpj || ''}. ${lg.whatsapp ? `WhatsApp ${lg.whatsapp}.` : ''}`, M, 38, 7.5, 'F1', '737A6B');
+      texto(`Plano individual de ${pac.nome}. Não substitui a orientação da consulta.`, M, 27, 7.5, 'F1', '737A6B');
+      const pg = `Página ${i + 1} de ${paginas.length}`;
+      texto(pg, L - M - larg(pg, 7.5), 38, 7.5, 'F2', '737A6B');
+    });
+
+    // montagem do arquivo: objetos, tabela de posições e trailer
+    const objs = [];
+    const poe = (s) => objs.push(s);
+    poe(''); poe(''); // catálogo e árvore de páginas, preenchidos no fim
+    poe('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>');
+    poe('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>');
+    poe('<< /Type /Font /Subtype /Type1 /BaseFont /Times-Bold /Encoding /WinAnsiEncoding >>');
+    const kids = paginas.map((p) => {
+      const corpo = p.join('\n');
+      const c = poe(`<< /Length ${corpo.length} >>\nstream\n${corpo}\nendstream`);
+      return poe(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${L} ${A}] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents ${c} 0 R >>`);
+    });
+    objs[0] = '<< /Type /Catalog /Pages 2 0 R >>';
+    objs[1] = `<< /Type /Pages /Kids [${kids.map((k) => `${k} 0 R`).join(' ')}] /Count ${kids.length} >>`;
+    const info = poe(`<< /Title (${txt(`Plano alimentar de ${pac.nome}`)}) /Author (${txt(`${prof.nome}, ${D.marca}`)}) /Producer (${txt(D.marca)}) >>`);
+    let out = '%PDF-1.4\n%\xE2\xE3\xCF\xD3\n';
+    const pos = objs.map((o, i) => { const p = out.length; out += `${i + 1} 0 obj\n${o}\nendobj\n`; return p; });
+    const xref = out.length;
+    out += `xref\n0 ${objs.length + 1}\n0000000000 65535 f \n${pos.map((p) => `${String(p).padStart(10, '0')} 00000 n \n`).join('')}trailer\n<< /Size ${objs.length + 1} /Root 1 0 R /Info ${info} 0 R >>\nstartxref\n${xref}\n%%EOF\n`;
+    const bytes = Uint8Array.from(out, (c) => c.charCodeAt(0) & 255);
+    const url = URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' }));
+    const a = Object.assign(document.createElement('a'), { href: url, download: `plano-alimentar-${slug(pac.nome)}.pdf` });
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    toast(`PDF baixado: plano alimentar de ${pac.nome}.`);
+  };
+
   // ===================== ÁREA DO CLIENTE (demonstração) =====================
   const area = $('[data-area]');
   if (area && D.area) {
     const A = D.area, login = $('[data-area-login]'), painel = $('[data-painel]'), fl = $('[data-login]');
-    const entra = () => { login.hidden = true; painel.hidden = false; montaPainel(); scrollTo(0, 0); requestAnimationFrame(rola); };
+    // o plano da paciente é o que a nutricionista salvou na área da equipe (ou o modelo da categoria)
+    const pacLogin = () => pacientesTodos().find((p) => p.id === EA?.pacienteDoLogin);
+    const pintaPlanoPaciente = () => {
+      const pac = pacLogin();
+      if (!pac) return;
+      const plano = planoDe(pac);
+      $('[data-plano-paciente]').innerHTML = plano.refeicoes.map((r) => `<li><div class="ref-hora"><b>${escHtml(r.nome)}</b><span>${escHtml(r.hora)}</span></div><ul>${r.opcoes.filter((o) => o.trim()).map((o) => `<li>${escHtml(o)}</li>`).join('')}</ul></li>`).join('');
+      $('[data-orient-paciente]').innerHTML = plano.orientacoes ? `<h2>Orientações</h2><p>${escHtml(plano.orientacoes)}</p>` : '';
+    };
+    $('[data-pdf-paciente]')?.addEventListener('click', () => { const pac = pacLogin(); baixaPlanoPdf({ pac, plano: planoDe(pac), triagem: triagemDe(pac), prof: EQ[pac.prof] }); });
+    const entra = () => { login.hidden = true; painel.hidden = false; montaPainel(); pintaPlanoPaciente(); scrollTo(0, 0); requestAnimationFrame(rola); };
     // máscara do CPF: 000.000.000-00 enquanto digita
     $('#ar-cpf').addEventListener('input', (e) => {
       const d = e.target.value.replace(/\D/g, '').slice(0, 11);
@@ -815,6 +941,191 @@
     };
     // quem já entrou nesta visita volta direto ao painel (depois de montaPainel existir)
     if (le('salvi-cliente', false, sessionStorage)) entra();
+  }
+
+  // ===================== ÁREA DA EQUIPE: pacientes, triagem e plano alimentar =====================
+  const formPro = $('[data-login-pro]');
+  if (area && EA && formPro) {
+    const loginBox = $('[data-area-login]'), formPac = $('[data-login]'), painelPro = $('[data-painel-pro]');
+    const lista = $('[data-pro-pacientes]'), ficha = $('[data-pro-ficha]'), busca = $('#pro-busca');
+    const novoBtn = $('[data-pro-novo]'), novoForm = $('[data-pro-novo-form]');
+    let prof = null, pac = null, aba = 'triagem', rascunho = null;
+    const categoriaDe = (p) => le('salvi-planos', {})[p.id]?.categoria || p.categoria;
+    const ICX = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+
+    // paciente ou equipe: troca o formulário de entrada
+    loginBox.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-papel]');
+      if (!b) return;
+      const equipe = b.dataset.papel === 'equipe';
+      formPac.hidden = equipe; formPro.hidden = !equipe;
+      $$('[data-papel]', loginBox).forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.papel === b.dataset.papel)));
+      $$(`[data-papel="${b.dataset.papel}"]`, equipe ? formPro : formPac)[0]?.focus();
+      $$('.mascara', loginBox).forEach((m) => m.classList.add('vis'));
+      $$('.tit', equipe ? formPro : formPac).forEach((t) => t.classList.add('vis'));
+      iguala();
+    });
+
+    const entraPro = (id) => {
+      prof = EQ[id];
+      if (!prof) return;
+      grava('salvi-pro', id, sessionStorage);
+      loginBox.hidden = true; painelPro.hidden = false;
+      $('[data-pro-ola]').textContent = `Olá, ${prof.curto}`;
+      pintaLista();
+      const primeiro = pacientesTodos().find((p) => p.prof === prof.id);
+      if (primeiro) escolhe(primeiro.id, false); else ficha.innerHTML = '<p class="pro-vazio">Nenhum paciente ainda. Crie o primeiro em "Novo paciente".</p>';
+      scrollTo(0, 0);
+      requestAnimationFrame(rola);
+    };
+    formPro.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const ok = $('#pro-senha').value === EA.senha;
+      $('[data-erro]', formPro).textContent = ok ? '' : 'Senha incorreta. Na demonstração, a senha já vem preenchida.';
+      if (ok) entraPro($('#pro-quem').value);
+    });
+    $('[data-sair-pro]').addEventListener('click', () => { grava('salvi-pro', '', sessionStorage); painelPro.hidden = true; loginBox.hidden = false; });
+
+    // lista de pacientes da profissional, com busca
+    const meus = () => pacientesTodos().filter((p) => p.prof === prof.id);
+    const pintaLista = () => {
+      const t = normal(busca.value);
+      const ps = meus().filter((p) => !t || normal(p.nome).includes(t));
+      $('[data-pro-sub]').textContent = `${meus().length} pacientes em acompanhamento. Toque num nome para abrir a triagem e o plano.`;
+      lista.innerHTML = ps.map((p) => `<li><button type="button" class="pro-pac" data-pac="${p.id}"${pac?.id === p.id ? ' aria-current="true"' : ''}><b>${escHtml(p.nome)}</b><span>${escHtml(CAT[categoriaDe(p)]?.nome || '')}</span><small>${p.proxima ? `Próxima consulta: ${dataNum(p.proxima)}` : 'Sem consulta marcada'}</small></button></li>`).join('') || '<li class="pro-vazio">Nenhum paciente com esse nome.</li>';
+    };
+    busca.addEventListener('input', pintaLista);
+    lista.addEventListener('click', (e) => { const b = e.target.closest('[data-pac]'); if (b) escolhe(b.dataset.pac, true); });
+
+    // novo paciente já nasce com o modelo da categoria escolhida
+    novoBtn.addEventListener('click', () => { novoForm.hidden = !novoForm.hidden; novoBtn.setAttribute('aria-expanded', String(!novoForm.hidden)); if (!novoForm.hidden) $('#pn-nome').focus(); });
+    novoForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nome = $('#pn-nome').value.trim().replace(/\s+/g, ' ');
+      if (nome.length < 3) { $('#pn-nome').setAttribute('aria-invalid', 'true'); $('#pn-nome').focus(); return; }
+      $('#pn-nome').removeAttribute('aria-invalid');
+      const novo = { id: `${slug(nome)}-${Date.now().toString(36)}`, nome, prof: prof.id, categoria: $('#pn-cat').value, desde: hojeChave(), proxima: '', triagem: {} };
+      grava('salvi-pacientes-novos', [...le('salvi-pacientes-novos', []), novo]);
+      novoForm.reset(); novoForm.hidden = true; novoBtn.setAttribute('aria-expanded', 'false');
+      aba = 'triagem';
+      escolhe(novo.id, true);
+      toast(`${nome} entrou na sua lista com o modelo de ${CAT[novo.categoria].nome}.`);
+    });
+
+    // ficha do paciente: cabeçalho, triagem e editor do plano
+    const primeiroNome = (n) => n.split(' ')[0];
+    const escolhe = (id, rolar) => {
+      pac = pacientesTodos().find((p) => p.id === id);
+      if (!pac) return;
+      rascunho = planoDe(pac);
+      pintaLista();
+      pintaFicha();
+      if (rolar && innerWidth < 980) ficha.scrollIntoView({ behavior: reduz ? 'auto' : 'smooth', block: 'start' });
+    };
+    const campoTriagem = ([k, rot]) => `<label class="campo${['objetivo', 'observacoes', 'rotina'].includes(k) ? ' campo-largo' : ''}" for="tg-${k}"><span>${rot}</span><textarea id="tg-${k}" data-tg="${k}" rows="2">${escHtml(triagemDe(pac)[k] || '')}</textarea></label>`;
+    const editor = () => `
+      <div class="ed-topo">
+        <label class="campo" for="ed-cat"><span>Categoria do plano</span><select id="ed-cat" data-ed-cat>${EA.categorias.map((c) => `<option value="${c.id}"${c.id === rascunho.categoria ? ' selected' : ''}>${c.nome}</option>`).join('')}</select></label>
+        <button type="button" class="btn btn-linha" data-ed-modelo><span class="btn-onda" aria-hidden="true"></span><span class="btn-txt">Usar o modelo desta categoria</span></button>
+      </div>
+      <p class="ed-dica">O modelo é o ponto de partida. Ajuste refeições, horários e opções ao que ${escHtml(primeiroNome(pac.nome))} precisa.</p>
+      <ol class="ed-refeicoes">${rascunho.refeicoes.map((r, i) => `<li class="ed-ref" data-r="${i}">
+        <div class="ed-ref-cab">
+          <label class="campo" for="er-${i}-n"><span>Refeição</span><input id="er-${i}-n" data-campo="nome" value="${escHtml(r.nome)}"></label>
+          <label class="campo" for="er-${i}-h"><span>Horário</span><input id="er-${i}-h" data-campo="hora" value="${escHtml(r.hora)}"></label>
+          <button type="button" class="ed-tira" data-tira-ref aria-label="Remover a refeição ${escHtml(r.nome)}">${ICX}</button>
+        </div>
+        <ul class="ed-opcoes">${r.opcoes.map((o, j) => `<li><label class="sr" for="er-${i}-${j}">Opção ${j + 1} de ${escHtml(r.nome)}</label><input id="er-${i}-${j}" data-op="${j}" value="${escHtml(o)}" placeholder="Escreva a opção"><button type="button" class="ed-tira" data-tira-op="${j}" aria-label="Remover esta opção">${ICX}</button></li>`).join('')}</ul>
+        <button type="button" class="link-seta ed-poe" data-poe-op>+ Opção</button>
+      </li>`).join('')}</ol>
+      <button type="button" class="link-seta ed-poe" data-poe-ref>+ Refeição</button>
+      <div class="ed-textos">
+        <label class="campo" for="ed-orient"><span>Orientações</span><textarea id="ed-orient" data-ed-orient rows="4">${escHtml(rascunho.orientacoes || '')}</textarea></label>
+        <label class="campo" for="ed-metas"><span>Metas (uma por linha)</span><textarea id="ed-metas" data-ed-metas rows="4">${escHtml((rascunho.metas || []).join('\n'))}</textarea></label>
+      </div>
+      <div class="ed-pe"><button type="button" class="btn btn-cheio" data-ed-salva><span class="btn-onda" aria-hidden="true"></span><span class="btn-txt">Salvar plano</span></button><p class="ed-status" data-ed-status></p></div>`;
+    const pintaFicha = () => {
+      const cat = CAT[rascunho.categoria]?.nome || '';
+      ficha.innerHTML = `
+        <header class="ficha-cab">
+          <div><p class="apoio">${escHtml(cat)}</p><h2>${escHtml(pac.nome)}</h2><p>Paciente desde ${dataNum(pac.desde)}. ${pac.proxima ? `Próxima consulta em ${dataNum(pac.proxima)}.` : 'Sem consulta marcada.'}</p></div>
+          <button type="button" class="btn btn-cheio" data-pdf data-cursor="PDF"><span class="btn-onda" aria-hidden="true"></span><span class="btn-txt">Baixar plano de ${escHtml(primeiroNome(pac.nome))}</span><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14"/></svg></button>
+        </header>
+        <div class="painel-abas ficha-abas" role="tablist" aria-label="Ficha de ${escHtml(pac.nome)}">
+          <button type="button" role="tab" id="fa-b-triagem" aria-controls="fa-triagem" aria-selected="${aba === 'triagem'}" tabindex="${aba === 'triagem' ? 0 : -1}">Triagem</button>
+          <button type="button" role="tab" id="fa-b-plano" aria-controls="fa-plano" aria-selected="${aba === 'plano'}" tabindex="${aba === 'plano' ? 0 : -1}">Plano alimentar</button>
+        </div>
+        <section class="ficha-painel" id="fa-triagem" role="tabpanel" aria-labelledby="fa-b-triagem"${aba === 'triagem' ? '' : ' hidden'}>
+          <form class="triagem" data-triagem novalidate>${EA.triagemCampos.map(campoTriagem).join('')}
+            <div class="ed-pe campo-largo"><button type="submit" class="btn btn-cheio"><span class="btn-onda" aria-hidden="true"></span><span class="btn-txt">Salvar triagem</span></button><p class="ed-status" data-tg-status></p></div>
+          </form>
+        </section>
+        <section class="ficha-painel" id="fa-plano" role="tabpanel" aria-labelledby="fa-b-plano"${aba === 'plano' ? '' : ' hidden'}><div data-editor>${editor()}</div></section>`;
+    };
+    const pintaEditor = () => { const ed = $('[data-editor]', ficha); if (ed) ed.innerHTML = editor(); };
+    const pintaCategoria = () => { const ap = $('.ficha-cab .apoio', ficha); if (ap) ap.textContent = CAT[rascunho.categoria]?.nome || ''; };
+    const triagemAtual = () => Object.fromEntries($$('[data-tg]', ficha).map((t) => [t.dataset.tg, t.value.trim()]));
+    const marcaStatus = (sel, msg) => { const s = $(sel, ficha); if (s) s.textContent = msg; };
+
+    // tudo o que a profissional digita vai para o rascunho; nada se perde ao trocar de aba
+    ficha.addEventListener('input', (e) => {
+      const t = e.target, li = t.closest('[data-r]');
+      if (li && t.dataset.campo) rascunho.refeicoes[+li.dataset.r][t.dataset.campo] = t.value;
+      else if (li && t.dataset.op !== undefined) rascunho.refeicoes[+li.dataset.r].opcoes[+t.dataset.op] = t.value;
+      else if (t.matches('[data-ed-orient]')) rascunho.orientacoes = t.value;
+      else if (t.matches('[data-ed-metas]')) rascunho.metas = t.value.split('\n');
+      if (t.closest('#fa-plano')) marcaStatus('[data-ed-status]', 'Alterações ainda não salvas.');
+      if (t.matches('[data-tg]')) marcaStatus('[data-tg-status]', 'Alterações ainda não salvas.');
+    });
+    ficha.addEventListener('click', (e) => {
+      const t = e.target;
+      const tab = t.closest('[role="tab"]');
+      if (tab) {
+        aba = tab.id === 'fa-b-triagem' ? 'triagem' : 'plano';
+        $$('[role="tab"]', ficha).forEach((b) => { const sim = b === tab; b.setAttribute('aria-selected', String(sim)); b.tabIndex = sim ? 0 : -1; });
+        $('#fa-triagem', ficha).hidden = aba !== 'triagem';
+        $('#fa-plano', ficha).hidden = aba !== 'plano';
+        return;
+      }
+      const li = t.closest('[data-r]'), i = li ? +li.dataset.r : -1;
+      if (t.closest('[data-tira-op]')) { rascunho.refeicoes[i].opcoes.splice(+t.closest('[data-tira-op]').dataset.tiraOp, 1); pintaEditor(); marcaStatus('[data-ed-status]', 'Alterações ainda não salvas.'); return; }
+      if (t.closest('[data-tira-ref]')) { rascunho.refeicoes.splice(i, 1); pintaEditor(); marcaStatus('[data-ed-status]', 'Alterações ainda não salvas.'); return; }
+      if (t.closest('[data-poe-op]')) { rascunho.refeicoes[i].opcoes.push(''); pintaEditor(); $(`#er-${i}-${rascunho.refeicoes[i].opcoes.length - 1}`, ficha)?.focus(); return; }
+      if (t.closest('[data-poe-ref]')) { rascunho.refeicoes.push({ nome: 'Nova refeição', hora: '', opcoes: [''] }); pintaEditor(); $(`#er-${rascunho.refeicoes.length - 1}-n`, ficha)?.select(); return; }
+      if (t.closest('[data-ed-modelo]')) {
+        const id = $('[data-ed-cat]', ficha).value;
+        rascunho = { categoria: id, ...copia(CAT[id].plano) };
+        pintaEditor();
+        marcaStatus('[data-ed-status]', `Modelo de ${CAT[id].nome} aplicado. Ajuste e salve.`);
+        return;
+      }
+      if (t.closest('[data-ed-salva]')) {
+        rascunho.refeicoes = rascunho.refeicoes.map((r) => ({ ...r, opcoes: r.opcoes.map((o) => o.trim()).filter(Boolean) })).filter((r) => r.nome.trim());
+        rascunho.metas = (rascunho.metas || []).map((m) => m.trim()).filter(Boolean);
+        guardaEm('salvi-planos', pac.id, rascunho);
+        rascunho = copia(rascunho);
+        pintaLista();
+        pintaEditor();
+        pintaCategoria();
+        const agora = new Date();
+        marcaStatus('[data-ed-status]', `Plano salvo às ${agora.getHours()}h${String(agora.getMinutes()).padStart(2, '0')}. ${primeiroNome(pac.nome)} já vê esta versão na Área do cliente.`);
+        return;
+      }
+      if (t.closest('[data-pdf]')) {
+        baixaPlanoPdf({ pac, plano: rascunho, triagem: { ...triagemDe(pac), ...($$('[data-tg]', ficha).length ? triagemAtual() : {}) }, prof });
+      }
+    });
+    ficha.addEventListener('change', (e) => { if (e.target.matches('[data-ed-cat]')) marcaStatus('[data-ed-status]', `Toque em "Usar o modelo desta categoria" para trocar para ${CAT[e.target.value].nome}.`); });
+    ficha.addEventListener('submit', (e) => {
+      if (!e.target.matches('[data-triagem]')) return;
+      e.preventDefault();
+      guardaEm('salvi-triagens', pac.id, triagemAtual());
+      marcaStatus('[data-tg-status]', 'Triagem salva.');
+      toast(`Triagem de ${pac.nome} salva.`);
+    });
+
+    const salvo = le('salvi-pro', '', sessionStorage);
+    if (salvo) entraPro(salvo);
   }
 })();
 

@@ -437,6 +437,125 @@ const area = {
   ],
 };
 
+// ---------- Área da equipe: cada nutricionista vê os próprios pacientes ---------- [EXEMPLO] dados fictícios
+// Os modelos por categoria são o ponto de partida; a nutricionista ajusta o plano de cada paciente e baixa o PDF.
+const refeicao = (nome, hora, opcoes) => ({ nome, hora, opcoes });
+const equipeArea = {
+  senha: 'salvi2026',
+  categorias: [
+    {
+      id: 'esportiva', nome: 'Nutrição esportiva',
+      plano: {
+        refeicoes: [
+          refeicao('Café da manhã', '6h30', ['Pão integral com ovos mexidos e banana', 'Tapioca com queijo branco e mamão', 'Iogurte natural com aveia, mel e fruta']),
+          refeicao('Pré-treino', '30 a 60 min antes', ['Banana com um fio de mel', 'Pão com geleia', 'Torrada com requeijão e suco de laranja']),
+          refeicao('Almoço', '12h30', ['Arroz, feijão, carne magra ou frango, legumes e salada', 'Macarrão com carne moída e salada nos dias de treino longo']),
+          refeicao('Pós-treino', 'até 2h depois', ['Iogurte com granola e fruta', 'Vitamina de banana com aveia', 'Sanduíche de frango com salada']),
+          refeicao('Jantar', '20h', ['Omelete com legumes e batata', 'Peixe com arroz e legumes']),
+          refeicao('Ceia', '22h', ['Iogurte natural', 'Leite com cacau']),
+        ],
+        orientacoes: 'Beba água ao longo do dia e leve garrafa para o treino. Em treinos acima de uma hora, teste no treino o que vai usar na prova. Nos dias de descanso, mantenha a proteína e reduza um pouco as massas.',
+        metas: ['Carboidrato antes de todo treino longo', 'Proteína em todas as refeições', 'Água: urina clara ao longo do dia'],
+      },
+    },
+    {
+      id: 'comportamento', nome: 'Emagrecimento e comportamento',
+      plano: {
+        refeicoes: [
+          refeicao('Café da manhã', '7h', ['Pão integral com ovos mexidos e mamão', 'Iogurte natural com aveia e banana', 'Tapioca com queijo e uma fruta']),
+          refeicao('Lanche', '10h', ['Uma fruta e um punhado de castanhas', 'Iogurte com chia']),
+          refeicao('Almoço', '12h30', ['Metade do prato com salada e legumes, arroz e feijão, peixe ou frango', 'Marmita da semana (receita da oficina)']),
+          refeicao('Lanche da tarde', '16h', ['Pão com requeijão e café com leite', 'Vitamina de fruta com aveia']),
+          refeicao('Jantar', '20h', ['Omelete com legumes e salada', 'Sopa de legumes com frango desfiado', 'Livre no sábado']),
+        ],
+        orientacoes: 'Coma sentada, sem tela e com calma. Antes de beliscar, pergunte se é fome. Nenhum alimento é proibido: o plano tem espaço para o restaurante e a festa.',
+        metas: ['Proteína no café da manhã em 5 dias', 'Duas frutas por dia', 'Jantar sentada e sem tela'],
+      },
+    },
+    {
+      id: 'gestacao', nome: 'Gestação',
+      plano: {
+        refeicoes: [
+          refeicao('Café da manhã', '7h', ['Pão integral com ovos e fruta', 'Iogurte com aveia e frutas']),
+          refeicao('Lanche', '10h', ['Fruta com castanhas', 'Queijo branco com torradas']),
+          refeicao('Almoço', '12h30', ['Arroz, feijão, carne bem passada, legumes e salada bem lavada']),
+          refeicao('Lanche da tarde', '16h', ['Vitamina de fruta com leite', 'Pão com requeijão']),
+          refeicao('Jantar', '19h30', ['Sopa de legumes com carne', 'Arroz, feijão, frango e legumes']),
+        ],
+        orientacoes: 'Refeições menores e mais vezes ajudam no enjoo e na azia. Carnes e ovos sempre bem cozidos. Folhas e frutas bem higienizadas. Suplementos só com a indicação do obstetra.',
+        metas: ['Seis refeições por dia', 'Água ao longo do dia', 'Ferro com fonte de vitamina C no almoço'],
+      },
+    },
+    {
+      id: 'infantil', nome: 'Infantil',
+      plano: {
+        refeicoes: [
+          refeicao('Café da manhã', '7h', ['Leite com fruta e pão', 'Mingau de aveia com banana']),
+          refeicao('Lanche da escola', '9h30', ['Fruta em palitos e queijo', 'Bolinho de banana com aveia']),
+          refeicao('Almoço', '12h', ['Arroz, feijão, carne, legume novo para provar e um conhecido']),
+          refeicao('Lanche da tarde', '15h30', ['Iogurte com fruta', 'Pão com requeijão']),
+          refeicao('Jantar', '19h', ['Comida da família, no prato da criança']),
+        ],
+        orientacoes: 'A família come junto e o adulto decide o que oferece; a criança decide quanto come. Ofereça o alimento novo várias vezes, sem pressão e sem prêmio.',
+        metas: ['Um alimento novo por semana', 'Refeições sem tela', 'Criança ajudando na cozinha'],
+      },
+    },
+    {
+      id: 'intestino', nome: 'Saúde intestinal',
+      plano: {
+        refeicoes: [
+          refeicao('Café da manhã', '7h', ['Mamão com aveia e iogurte', 'Pão integral com ovos e kiwi']),
+          refeicao('Lanche', '10h', ['Ameixa seca e castanhas', 'Fruta com casca']),
+          refeicao('Almoço', '12h30', ['Arroz, feijão, legumes cozidos, salada e proteína']),
+          refeicao('Lanche da tarde', '16h', ['Iogurte natural com chia', 'Fruta da estação']),
+          refeicao('Jantar', '20h', ['Sopa de legumes com frango', 'Omelete com legumes cozidos']),
+        ],
+        orientacoes: 'Aumente as fibras aos poucos e a água junto. Anote no diário os sintomas e o que comeu. Qualquer exclusão é temporária e tem reintrodução combinada.',
+        metas: ['Diário de sintomas todos os dias', 'Fibras em todas as refeições', 'Horário regular para as refeições'],
+      },
+    },
+    {
+      id: 'mulher', nome: 'Saúde da mulher',
+      plano: {
+        refeicoes: [
+          refeicao('Café da manhã', '7h', ['Iogurte com aveia, linhaça e frutas vermelhas', 'Pão integral com ovos e abacate']),
+          refeicao('Lanche', '10h', ['Fruta com castanhas']),
+          refeicao('Almoço', '12h30', ['Peixe ou frango, arroz integral, feijão, legumes e folhas verde-escuras']),
+          refeicao('Lanche da tarde', '16h', ['Iogurte com chia', 'Hummus com palitos de legumes']),
+          refeicao('Jantar', '20h', ['Legumes assados com grão-de-bico', 'Omelete com espinafre']),
+        ],
+        orientacoes: 'Priorize alimentos frescos, peixe duas vezes por semana e cálcio todos os dias. Treino de força ajuda o metabolismo e os ossos.',
+        metas: ['Peixe duas vezes por semana', 'Cálcio todos os dias', 'Treino de força orientado'],
+      },
+    },
+  ],
+  // campos da triagem (anamnese resumida), na ordem do formulário
+  triagemCampos: [
+    ['objetivo', 'Objetivo'], ['rotina', 'Rotina e horários'], ['atividade', 'Atividade física'], ['restricoes', 'Alergias, intolerâncias e restrições'],
+    ['medicacoes', 'Medicações e suplementos'], ['exames', 'Exames recentes'], ['sono', 'Sono'], ['agua', 'Água'], ['preferencias', 'Preferências e aversões'], ['observacoes', 'Observações'],
+  ],
+  pacientes: [
+    {
+      id: 'wilson-neander', nome: 'Wilson Neander', prof: 'bruna', categoria: 'esportiva', desde: '2026-10-14', proxima: '2026-12-09',
+      triagem: { objetivo: 'Melhorar o rendimento na corrida e ganhar massa magra.', rotina: 'Trabalha em casa, das 9h às 18h. Almoça em casa.', atividade: 'Corrida 4 vezes por semana e musculação 2 vezes.', restricoes: 'Nenhuma relatada.', medicacoes: 'Nenhuma.', exames: 'Exames de rotina de outubro, sem alterações.', sono: '7 horas por noite.', agua: 'Cerca de 2 litros por dia.', preferencias: 'Gosta de ovos, frutas e massas. Não gosta de peixe.', observacoes: 'Prova de 21 km em março.' },
+    },
+    {
+      id: 'marina-teixeira', nome: 'Marina Teixeira', prof: 'bruna', categoria: 'comportamento', desde: '2026-09-02', proxima: '2026-12-16',
+      triagem: { objetivo: 'Parar de comer por ansiedade à noite e reduzir a cintura.', rotina: 'Escritório das 8h às 17h, almoça no restaurante.', atividade: 'Caminhada 2 vezes por semana.', restricoes: 'Nenhuma.', medicacoes: 'Nenhuma.', exames: 'Colesterol um pouco alto.', sono: '6 horas, acorda cansada.', agua: '1 litro por dia.', preferencias: 'Ama pão e doce. Não gosta de abobrinha.', observacoes: 'Programa Comer em Paz.' },
+    },
+    { id: 'paulo-mendes', nome: 'Paulo Mendes', prof: 'bruna', categoria: 'comportamento', desde: '2026-11-04', proxima: '2026-12-02', triagem: { objetivo: 'Emagrecer com acompanhamento enquanto usa medicação prescrita pelo médico.' } },
+    { id: 'renata-alves', nome: 'Renata Alves', prof: 'bruna', categoria: 'mulher', desde: '2026-08-19', proxima: '2026-12-11', triagem: { objetivo: 'Cuidar da alimentação no climatério.' } },
+    { id: 'rafael-menezes', nome: 'Rafael Menezes', prof: 'diego', categoria: 'esportiva', desde: '2026-07-01', proxima: '2026-12-03', triagem: { objetivo: 'Plano de prova para a maratona.' } },
+    { id: 'thiago-rocha', nome: 'Thiago Rocha', prof: 'diego', categoria: 'esportiva', desde: '2026-06-10', proxima: '2026-12-10', triagem: { objetivo: 'Ganho de massa muscular.' } },
+    { id: 'juliana-pacheco', nome: 'Juliana Pacheco', prof: 'taina', categoria: 'gestacao', desde: '2026-09-15', proxima: '2026-12-04', triagem: { objetivo: 'Acompanhamento do segundo trimestre.' } },
+    { id: 'lucas-nunes', nome: 'Lucas Nunes', prof: 'taina', categoria: 'infantil', desde: '2026-10-01', proxima: '2026-12-08', triagem: { objetivo: 'Seletividade alimentar, 5 anos.' } },
+    { id: 'fernanda-lopes', nome: 'Fernanda Lopes', prof: 'luana', categoria: 'intestino', desde: '2026-08-05', proxima: '2026-12-05', triagem: { objetivo: 'Reduzir o estufamento e entender o que piora.' } },
+    { id: 'aline-martins', nome: 'Aline Martins', prof: 'luana', categoria: 'mulher', desde: '2026-07-22', proxima: '2026-12-12', triagem: { objetivo: 'Alimentação na menopausa.' } },
+  ],
+  // Marina é a paciente que entra pelo lado do cliente: o plano dela é o mesmo que a Bruna edita aqui
+  pacienteDoLogin: 'marina-teixeira',
+};
+
 // textos alternativos das fotos
 const fotos = {
   'bruna-rosto': 'Rosto de Bruna Salvi, nutricionista',
@@ -495,5 +614,5 @@ const foco = {
 
 module.exports = {
   marca, horario, horarioLd, bairros, equipe, segmentos, servicos, pagamento, cancelamento, metodo, numeros, bastidores,
-  tour, convenios, reembolso, google, avaliacoes, faq, politicas, sensiveis, blog, instagram, galeria, area, fotos, foco,
+  tour, convenios, reembolso, google, avaliacoes, faq, politicas, sensiveis, blog, instagram, galeria, area, equipeArea, fotos, foco,
 };

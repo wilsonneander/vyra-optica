@@ -735,6 +735,57 @@ h3 { color: var(--tinta); }
 .docs b { color: var(--tinta); }
 .docs small { color: var(--apagado); }
 .docs .link { display: inline-flex; align-items: center; gap: 6px; }
+.pp-plano-cab { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+.pp-plano-cab .pp-intro { margin: 0; max-width: 60ch; }
+.pp-orient { margin-top: 18px; padding: 22px; border-radius: 20px; background: var(--salvia-clara); }
+.pp-orient:empty { display: none; }
+.pp-orient h2 { margin-bottom: 6px; color: var(--tinta); font: 400 22px var(--f-t); }
+
+/* ---------- área da equipe: paciente ou equipe no login, lista de pacientes e ficha ---------- */
+.papel-abas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 6px; border-radius: 18px; background: var(--creme); }
+.papel-abas button { min-height: 46px; border: 0; border-radius: 13px; background: none; color: var(--tinta); font-weight: 600; transition: background-color .3s, color .3s; }
+.papel-abas button[aria-pressed="true"] { background: var(--tinta); color: var(--fundo); }
+.pro-grade { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 28px; align-items: start; }
+.pro-lista { position: sticky; top: 100px; display: grid; gap: 12px; padding: 18px; border-radius: 24px; background: var(--papel); box-shadow: 0 0 0 1px var(--linha); }
+.pro-lista .blog-busca { min-width: 0; }
+.pro-pacientes { display: grid; gap: 6px; max-height: 52vh; overflow-y: auto; }
+.pro-pac { display: grid; gap: 1px; width: 100%; padding: 12px 14px; border: 0; border-radius: 14px; background: var(--fundo); color: var(--texto); text-align: left; transition: background-color .3s, box-shadow .3s; }
+.pro-pac:hover { background: var(--creme); }
+.pro-pac[aria-current="true"] { background: var(--salvia-clara); box-shadow: inset 3px 0 0 var(--salvia); }
+.pro-pac b { color: var(--tinta); font: 400 18px var(--f-t); }
+.pro-pac span { color: var(--papaia); font-size: 13.5px; font-weight: 600; }
+.pro-pac small { color: var(--apagado); font-size: 12.5px; }
+.pro-vazio { padding: 14px; color: var(--apagado); font-size: 14.5px; }
+.pro-lista .link-seta { justify-self: start; padding: 6px 0; border: 0; background: none; }
+.pro-novo { display: grid; gap: 10px; padding-top: 10px; border-top: 1px solid var(--linha); }
+.pro-novo .btn { width: 100%; white-space: normal; }
+.pro-ficha { display: grid; gap: 20px; padding: clamp(20px, 3vw, 32px); border-radius: 28px; background: var(--papel); box-shadow: 0 0 0 1px var(--linha); scroll-margin-top: 90px; }
+.ficha-cab { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; }
+.ficha-cab .apoio { margin-bottom: 6px; }
+.ficha-cab h2 { color: var(--tinta); font: 400 clamp(28px, 3vw, 40px)/1.1 var(--f-t); }
+.ficha-cab p:last-child { margin-top: 4px; font-size: 14.5px; }
+.painel-abas.ficha-abas { grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; }
+.ficha-painel:not([hidden]) { animation: cartaEntra .5s var(--suave); }
+/* painéis de aba são <section>, mas não levam o respiro das seções da página */
+.pp, .ficha-painel { padding-block: 0; }
+.triagem { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.triagem textarea, .ed-textos textarea { min-height: 64px; }
+.ed-topo { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; }
+.ed-topo .campo { flex: 1 1 260px; }
+.ed-dica { margin-top: 8px; color: var(--apagado); font-size: 14.5px; }
+.ed-refeicoes { display: grid; gap: 12px; margin-top: 16px; }
+.ed-ref { padding: 16px; border-radius: 18px; background: var(--fundo); box-shadow: 0 0 0 1px var(--linha); }
+.ed-ref-cab { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 44px; gap: 10px; align-items: end; }
+.ed-opcoes { display: grid; gap: 6px; margin-top: 12px; }
+.ed-opcoes li { display: grid; grid-template-columns: minmax(0, 1fr) 44px; gap: 8px; }
+.ed-opcoes input { width: 100%; min-height: 46px; padding: 10px 14px; border: 1.5px solid var(--linha); border-radius: 12px; background: var(--papel); color: var(--tinta); }
+.ed-opcoes input:focus { outline: none; border-color: var(--papaia); box-shadow: 0 0 0 4px var(--tema-halo); }
+.ed-tira { display: grid; place-items: center; width: 44px; height: 46px; border: 0; border-radius: 12px; background: var(--creme); color: var(--tinta); transition: background-color .3s, color .3s; }
+.ed-tira:hover { background: var(--papaia); color: var(--papaia-txt); }
+.ed-poe { margin-top: 10px; padding: 0; border: 0; background: none; font-size: 14.5px; }
+.ed-textos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+.ed-pe { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 18px; }
+.ed-status { color: var(--salvia); font-size: 14.5px; font-weight: 500; }
 
 /* ---------- rodapé com o mapa ---------- */
 .rodape { position: relative; overflow: hidden; padding-top: clamp(80px, 9vw, 120px); background: var(--mata); color: var(--claro-2); }
@@ -849,6 +900,16 @@ h3 { color: var(--tinta); }
   .pp-grade { grid-template-columns: 1fr 1fr; }
   .pp-consulta { grid-column: 1 / -1; }
   .painel-abas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pro-grade { grid-template-columns: minmax(0, 1fr); }
+  .pro-lista { position: static; }
+  .pro-pacientes { max-height: none; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+}
+@media (max-width: 680px) {
+  .triagem, .ed-textos { grid-template-columns: 1fr; }
+  .ed-ref-cab { grid-template-columns: minmax(0, 1fr) 44px; }
+  .ed-ref-cab .campo:nth-child(2) { grid-row: 2; }
+  .ficha-cab .btn, .pp-plano-cab .btn, .ed-topo .btn, .ed-pe .btn { width: 100%; }
+  .pro-pacientes { grid-template-columns: 1fr; }
 }
 @media (max-width: 680px) {
   body { font-size: 16px; }

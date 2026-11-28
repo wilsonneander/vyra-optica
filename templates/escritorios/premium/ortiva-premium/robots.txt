@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ortivacontabilidade.com.br/sitemap.xml

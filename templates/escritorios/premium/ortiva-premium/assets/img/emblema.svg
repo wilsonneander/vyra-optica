@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 44" fill="none" aria-hidden="true">
+  <path class="em-barra" d="M6 3h20" stroke="#0B1C1F" stroke-width="3"/>
+  <g class="em-pendulo"><path class="em-fio" d="M16 3v22" stroke="#0B1C1F" stroke-width="2"/>
+    <path class="em-peso" d="M16 24l7 8-7 11-7-11Z" fill="#CBF24B"/></g>
+</svg>

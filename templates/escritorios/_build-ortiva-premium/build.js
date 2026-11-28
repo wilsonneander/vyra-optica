@@ -85,9 +85,9 @@ const topo = (pagina) => {
     ${logo()}
     <nav class="nav" aria-label="Principal">${links}</nav>
     ${btn('servicos.html#agendar', 'Agendar conversa', 'btn-lima topo-cta')}
-    <button type="button" class="menu-btn" data-menu aria-expanded="false" aria-controls="menu-cel" aria-label="Abrir menu">${I.menu}</button>
+    <button type="button" class="menu-btn" data-menu aria-expanded="false" aria-controls="menu-cel" aria-label="Abrir menu"><span class="mb-linhas" aria-hidden="true"><i></i><i></i></span></button>
   </div>
-  <div class="menu-cel" id="menu-cel" hidden>
+  <div class="menu-cel" id="menu-cel" inert>
     <nav aria-label="Menu do celular">${links}</nav>
     ${btn('servicos.html#agendar', 'Agendar conversa')}
     <div class="menu-tema"><span>Tema</span>${T.compacto('claro')}</div>

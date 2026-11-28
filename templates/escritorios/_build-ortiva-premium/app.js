@@ -73,15 +73,20 @@
   const topo = $('[data-topo]');
   const menuBtn = $('[data-menu]');
   const menu = $('#menu-cel');
+  let menuAberto = false;
+  // o menu fica sempre no HTML: a classe abre a cortina e o inert tira o conteúdo do teclado e do leitor de tela quando fechado
   const abreMenu = (abrir) => {
+    menuAberto = abrir;
     menuBtn.setAttribute('aria-expanded', String(abrir));
     menuBtn.setAttribute('aria-label', abrir ? 'Fechar menu' : 'Abrir menu');
-    menu.hidden = !abrir;
+    menu.classList.toggle('aberto', abrir);
+    menu.inert = !abrir;
+    raiz.classList.toggle('menu-aberto', abrir);
     topo.classList.toggle('rolou', abrir || scrollY > 10);
   };
-  menuBtn.addEventListener('click', () => abreMenu(menu.hidden));
+  menuBtn.addEventListener('click', () => abreMenu(!menuAberto));
   menu.addEventListener('click', (e) => { if (e.target.closest('a')) abreMenu(false); });
-  addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) { abreMenu(false); menuBtn.focus(); } });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && menuAberto) { abreMenu(false); menuBtn.focus(); } });
 
   // ---------- aberto agora ----------
   const hm = (t) => { const [h, m] = t.split(':').map(Number); return h * 60 + m; };
@@ -217,10 +222,10 @@
     if (Math.abs(y - ultimoY) > 2) {
       const desce = y > ultimoY;
       raiz.dataset.rolagem = desce ? 'desce' : 'sobe';
-      if (menu.hidden) topo.classList.toggle('some', desce && y > 300);
+      if (!menuAberto) topo.classList.toggle('some', desce && y > 300);
       ultimoY = y;
     }
-    topo.classList.toggle('rolou', y > 10 || !menu.hidden);
+    topo.classList.toggle('rolou', y > 10 || menuAberto);
     // primeiro lê tudo, depois escreve, para não forçar o layout a cada elemento
     const leituras = cenas.map(({ el, atraso }) => { const r = el.getBoundingClientRect(); return [el, r, atraso]; });
     for (const [el, r, atraso] of leituras) {

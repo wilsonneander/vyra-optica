@@ -169,15 +169,15 @@ html.chegou .cortina { visibility: visible; translate: 0 -100%; transition: tran
 .menu-cel nav { display: grid; }
 /* menu do celular: a cortina desce do topo, os links sobem um a um e o ícone vira X */
 .menu-cel { visibility: hidden; clip-path: inset(0 0 100% 0); transition: clip-path .55s var(--corte), visibility 0s linear .55s; }
-.menu-cel.aberto { visibility: visible; clip-path: inset(0 0 0 0); transition: clip-path .7s var(--corte); }
+.menu-cel.visivel { visibility: visible; clip-path: inset(0 0 0 0); transition: clip-path .7s var(--corte); }
 .menu-cel > * { opacity: 0; translate: 0 26px; transition: opacity .3s ease, translate .3s ease; }
 .menu-cel nav a { opacity: 0; translate: 0 34px; transition: opacity .3s ease, translate .3s ease, color .3s; }
-.menu-cel.aberto > *, .menu-cel.aberto nav a { opacity: 1; translate: 0 0; transition: opacity .6s var(--suave-in), translate .7s var(--suave-in), color .3s; }
-.menu-cel.aberto nav a:nth-child(1) { transition-delay: .18s; } .menu-cel.aberto nav a:nth-child(2) { transition-delay: .23s; }
-.menu-cel.aberto nav a:nth-child(3) { transition-delay: .28s; } .menu-cel.aberto nav a:nth-child(4) { transition-delay: .33s; }
-.menu-cel.aberto nav a:nth-child(5) { transition-delay: .38s; }
-.menu-cel.aberto > .btn { transition-delay: .44s; } .menu-cel.aberto > .menu-tema { transition-delay: .5s; } .menu-cel.aberto > .menu-info { transition-delay: .55s; }
-.menu-cel.aberto > nav { opacity: 1; translate: 0 0; }
+.menu-cel.visivel > *, .menu-cel.visivel nav a { opacity: 1; translate: 0 0; transition: opacity .6s var(--suave-in), translate .7s var(--suave-in), color .3s; }
+.menu-cel.visivel nav a:nth-child(1) { transition-delay: .18s; } .menu-cel.visivel nav a:nth-child(2) { transition-delay: .23s; }
+.menu-cel.visivel nav a:nth-child(3) { transition-delay: .28s; } .menu-cel.visivel nav a:nth-child(4) { transition-delay: .33s; }
+.menu-cel.visivel nav a:nth-child(5) { transition-delay: .38s; }
+.menu-cel.visivel > .btn { transition-delay: .44s; } .menu-cel.visivel > .menu-tema { transition-delay: .5s; } .menu-cel.visivel > .menu-info { transition-delay: .55s; }
+.menu-cel.visivel > nav { opacity: 1; translate: 0 0; }
 .mb-linhas { position: relative; display: block; width: 18px; height: 12px; }
 .mb-linhas i { position: absolute; left: 0; height: 1.6px; border-radius: 1px; background: currentColor; transition: top .35s var(--suave-in), width .35s var(--suave-in), rotate .45s var(--mola) .1s; }
 .mb-linhas i:first-child { top: 2px; width: 18px; }

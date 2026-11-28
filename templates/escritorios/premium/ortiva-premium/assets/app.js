@@ -79,7 +79,7 @@
     menuAberto = abrir;
     menuBtn.setAttribute('aria-expanded', String(abrir));
     menuBtn.setAttribute('aria-label', abrir ? 'Fechar menu' : 'Abrir menu');
-    menu.classList.toggle('aberto', abrir);
+    menu.classList.toggle('visivel', abrir);
     menu.inert = !abrir;
     raiz.classList.toggle('menu-aberto', abrir);
     topo.classList.toggle('rolou', abrir || scrollY > 10);

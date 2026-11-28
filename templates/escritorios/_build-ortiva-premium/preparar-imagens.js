@@ -1,4 +1,4 @@
-// Prepara as fotos do Prumo Premium: lê os JPGs originais do Unsplash (pasta passada no argumento,
+// Prepara as fotos do Ortiva Premium: lê os JPGs originais do Unsplash (pasta passada no argumento,
 // um arquivo <id>.jpg por foto), recorta, converte para WebP e grava img/fotos/ e img/creditos.json.
 //
 // Uso (sharp instalado fora do projeto):

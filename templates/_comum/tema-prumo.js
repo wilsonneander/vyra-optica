@@ -5,7 +5,8 @@
 //
 // Uso no build:
 //   const T = require('../../_comum/tema-prumo');
-//   T.prumo('tema-lado', 'claro')            → markup (classe extra de posição e tema padrão do modelo)
+//   T.prumo('tema-lado', 'claro')            → markup do prumo (computador e telas grandes)
+//   T.compacto('claro')                      → dois botões compactos (menu do celular e do tablet)
 //   T.head('chave-do-localStorage')          → <script> do <head>, aplica o tema salvo antes de pintar
 //   T.js('chave', '#corClaro', '#corEscuro')  → script da troca (vai no fim do app.js)
 //   T.css                                     → estilos (vão no fim do style.css); cores de --tema-cor, --tema-fundo e --tema-peso
@@ -16,6 +17,12 @@ const prumo = (onde, padrao) => `<div class="tema-prumo ${onde}" role="group" ar
   <span class="tp-pendulo" aria-hidden="true"><i class="tp-peso"></i></span>
   <button type="button" class="tp-lado tp-claro" data-tema-ir="claro" aria-label="Tema claro" aria-pressed="${padrao === 'claro'}">${SOL}</button>
   <button type="button" class="tp-lado tp-escuro" data-tema-ir="escuro" aria-label="Tema escuro" aria-pressed="${padrao === 'escuro'}">${LUA}</button>
+</div>`;
+
+// versão compacta para o menu do celular e do tablet: dois botões iguais, sol e lua, sem o pêndulo
+const compacto = (padrao) => `<div class="tema-compacto" role="group" aria-label="Tema do site">
+  <button type="button" data-tema-ir="claro" aria-pressed="${padrao === 'claro'}">${SOL}<span>Claro</span></button>
+  <button type="button" data-tema-ir="escuro" aria-pressed="${padrao === 'escuro'}">${LUA}<span>Escuro</span></button>
 </div>`;
 
 const js = (chave, corClaro, corEscuro) => `
@@ -34,7 +41,7 @@ const js = (chave, corClaro, corEscuro) => `
     // tocar no lado que já está escolhido só faz o prumo balançar
     if (b.dataset.temaIr === raiz.dataset.tema) {
       const p = b.closest('.tema-prumo');
-      p.classList.remove('tp-balanca'); void p.offsetWidth; p.classList.add('tp-balanca');
+      if (p) { p.classList.remove('tp-balanca'); void p.offsetWidth; p.classList.add('tp-balanca'); }
       return;
     }
     raiz.classList.add('tema-anim');
@@ -64,6 +71,12 @@ const css = `
 .tp-lado:focus-visible { outline: 2px solid var(--tema-cor); outline-offset: 1px; }
 @keyframes tpBalanca { 0%, 100% { rotate: var(--tp-ang); } 25% { rotate: calc(var(--tp-ang) * -.5); } 55% { rotate: calc(var(--tp-ang) * 1.25); } 80% { rotate: calc(var(--tp-ang) * .9); } }
 .tp-balanca .tp-pendulo { animation: tpBalanca 1s ease; }
+/* versão compacta (menu do celular): dois botões do mesmo tamanho */
+.tema-compacto { display: inline-grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--tema-cor) 18%, transparent); }
+.tema-compacto button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 36px; padding: 0 12px; border: 0; border-radius: 8px; background: none; color: var(--tema-cor); font-size: 13.5px; font-weight: 500; opacity: .6; transition: background-color .3s, color .3s, opacity .3s; }
+.tema-compacto svg { width: 17px; height: 17px; }
+.tema-compacto button[aria-pressed="true"] { background: var(--tema-cor); color: var(--tema-fundo); opacity: 1; }
+.tema-compacto button:focus-visible { outline: 2px solid var(--tema-cor); outline-offset: 2px; }
 /* a página inteira troca de cor junto, sem piscar */
 html.tema-anim *:not(.tema-prumo, .tema-prumo *),
 html.tema-anim *:not(.tema-prumo, .tema-prumo *)::before,
@@ -74,4 +87,4 @@ html.tema-anim body { transition: background-color .6s ease, color .6s ease !imp
 }
 `;
 
-module.exports = { prumo, head, js, css };
+module.exports = { prumo, compacto, head, js, css };

@@ -1,8 +1,13 @@
-/* Prumo Premium: contabilidade. Verde-petróleo de tinta, papel e lima elétrica; Host Grotesk nos títulos e no texto,
+/* Ortiva Premium: contabilidade. Verde-petróleo de tinta, papel e lima elétrica; Host Grotesk nos títulos e no texto,
    Azeret Mono nos números e nos textos de apoio. O prumo (fio com peso) é o desenho da marca. */
 
 /* ---------- tokens ---------- */
 @property --cresce { syntax: "<number>"; inherits: true; initial-value: 1; }
+/* registradas para poderem ser animadas: onda das barras, balanço do gráfico e inclinação pelo mouse */
+@property --onda { syntax: "<number>"; inherits: false; initial-value: 0; }
+@property --balanco { syntax: "<angle>"; inherits: true; initial-value: 0deg; }
+@property --rx { syntax: "<angle>"; inherits: true; initial-value: 58deg; }
+@property --rz { syntax: "<angle>"; inherits: true; initial-value: -38deg; }
 :root {
   --f: "Host Grotesk", "Segoe UI", Arial, sans-serif;
   --f-mono: "Azeret Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
@@ -157,7 +162,6 @@ html.chegou .cortina { visibility: visible; translate: 0 -100%; transition: tran
 .nav a:hover { background: color-mix(in srgb, var(--tinta) 8%, transparent); }
 .nav a[aria-current="page"] { color: var(--enfase); }
 .topo .btn { height: 46px; padding: 0 20px; font-size: 14.5px; }
-.tema-topo { display: none; }
 .tema-prumo.tema-lado { position: fixed; right: 16px; top: 50%; z-index: 90; translate: 0 -50%; }
 .menu-btn { display: none; place-items: center; width: 46px; height: 46px; border: 1.5px solid var(--linha); border-radius: 12px; background: none; color: var(--tinta); }
 .menu-cel { position: absolute; inset: 80px 0 auto; min-height: calc(100dvh - 80px); padding: 24px var(--lado) 40px; background: var(--fundo); --tinta: #0B1C1F; display: grid; align-content: start; gap: 20px; }
@@ -166,6 +170,8 @@ html.chegou .cortina { visibility: visible; translate: 0 -100%; transition: tran
 .menu-cel nav a { padding: 14px 0; border-bottom: 1px solid var(--linha); color: var(--tinta); font-size: 30px; font-weight: 500; letter-spacing: -.04em; text-decoration: none; }
 .menu-cel nav a[aria-current="page"] { color: var(--enfase); }
 .menu-cel .btn { width: 100%; }
+.menu-tema { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 4px 0; color: var(--suave); font: 500 12px var(--f-mono); letter-spacing: .12em; text-transform: uppercase; }
+.menu-tema .tema-compacto { font: 500 13.5px var(--f); letter-spacing: normal; text-transform: none; }
 .menu-info { display: flex; align-items: center; gap: 10px; color: var(--texto); }
 
 /* ---------- capa do início ---------- */
@@ -259,12 +265,12 @@ html.pronto .ln > span, html.pronto .ln > em { transform: none; }
 
 /* ---------- painel com o gráfico em 3D ---------- */
 .painel { padding: clamp(90px, 12vw, 160px) 0; background: var(--fundo2); }
-.painel-palco { --rx: 58deg; --rz: -38deg; --b: 30px; --passo: 46px; --alto: 230px; position: relative; height: 640px; border-radius: 30px; background: #0B1C1F; overflow: hidden; color: var(--texto);
+.painel-palco { --rx: 58deg; --rz: -38deg; --b: 30px; --passo: 46px; --alto: 230px; position: relative; height: 640px; border-radius: 30px; transition: --rx .9s var(--suave-in), --rz .9s var(--suave-in); background: #0B1C1F; overflow: hidden; color: var(--texto);
   background-image: radial-gradient(circle at 50% 120%, rgba(203, 242, 75, .12), transparent 60%); }
 .p3d-cena { position: absolute; inset: 0; display: grid; place-items: center; perspective: 1500px; perspective-origin: 50% 30%; }
-.p3d-plano { position: relative; width: calc(var(--passo) * 12); height: 150px; transform-style: preserve-3d; transform: translateY(80px) rotateX(var(--rx)) rotateZ(var(--rz)); transition: transform .9s var(--suave-in);
+.p3d-plano { position: relative; width: calc(var(--passo) * 12); height: 150px; transform-style: preserve-3d; transform: translateY(80px) rotateX(var(--rx)) rotateZ(calc(var(--rz) + var(--balanco))); animation: balancaGrafico 9s ease-in-out infinite alternate;
   background-image: linear-gradient(rgba(238, 242, 234, .1) 1px, transparent 1px), linear-gradient(90deg, rgba(238, 242, 234, .1) 1px, transparent 1px); background-size: var(--passo) 50px; outline: 1px solid rgba(238, 242, 234, .14); }
-.b3d { --h: calc(var(--v) * var(--alto) * var(--cresce)); position: absolute; left: calc(var(--i) * var(--passo) + (var(--passo) - var(--b)) / 2); top: 60px; width: var(--b); height: var(--b); transform-style: preserve-3d; }
+.b3d { --h: calc((var(--v) + var(--onda) * .12) * var(--alto) * var(--cresce)); animation: onda 2.6s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -.33s); position: absolute; left: calc(var(--i) * var(--passo) + (var(--passo) - var(--b)) / 2); top: 60px; width: var(--b); height: var(--b); transform-style: preserve-3d; }
 .b3d i { position: absolute; display: block; }
 .f-topo { inset: 0; background: #E3FF7E; transform: translateZ(var(--h)); }
 .f-frente { left: 0; top: 100%; width: 100%; height: var(--h); transform-origin: 50% 0; transform: rotateX(90deg); background: linear-gradient(0deg, #6E8E1D, var(--lima)); }
@@ -294,7 +300,9 @@ html.pronto .ln > span, html.pronto .ln > em { transform: none; }
 .simc-txt > p:not(.apoio) { max-width: 46ch; }
 .simc-barras { display: grid; grid-template-columns: repeat(3, 1fr); align-items: end; gap: 18px; height: 340px; padding-bottom: 36px; border-bottom: 1px solid var(--linha); }
 .simc-barras div { position: relative; display: flex; align-items: flex-end; height: 100%; }
-.simc-barras i { display: block; width: 100%; height: calc(var(--a) * 100% * var(--cresce)); border-radius: 10px 10px 0 0; background: rgba(238, 242, 234, .16); }
+.simc-barras div { animation: onda 3.2s ease-in-out infinite alternate; }
+.simc-barras div:nth-child(2) { animation-delay: -1.1s; } .simc-barras div:nth-child(3) { animation-delay: -2.2s; }
+.simc-barras i { display: block; width: 100%; height: calc((var(--a) - .08 + var(--onda) * .16) * 100% * var(--cresce)); border-radius: 10px 10px 0 0; background: rgba(238, 242, 234, .16); }
 .simc-barras div:nth-child(3) i { background: var(--lima); }
 .simc-barras span { position: absolute; left: 0; bottom: -30px; font: 500 12px var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--suave); }
 
@@ -483,7 +491,7 @@ fieldset { border: 0; padding: 0; min-width: 0; display: grid; gap: 10px; }
 .ck-btns .btn { height: 46px; padding: 0 16px; font-size: 14px; }
 
 /* ---------- janelas ---------- */
-.janela { width: min(780px, calc(100% - 32px)); max-height: calc(100dvh - 48px); padding: 0; border: 0; border-radius: 26px; background: var(--sup); color: var(--texto); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .65); }
+.janela { margin: auto; width: min(780px, calc(100% - 32px)); max-height: calc(100dvh - 48px); padding: 0; border: 0; border-radius: 26px; background: var(--sup); color: var(--texto); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .65); }
 .janela::backdrop { background: rgba(7, 19, 21, .7); backdrop-filter: blur(5px); }
 .janela[open] { animation: janelaAbre .55s var(--suave-in); }
 @keyframes janelaAbre { from { opacity: 0; translate: 0 40px; clip-path: inset(10% 0 0 0 round 26px); } to { clip-path: inset(0 0 0 0 round 26px); } }
@@ -773,6 +781,10 @@ html.pronto .ci-foto { clip-path: inset(0 0 0 0); }
 .cursor.texto .cur-anel i { width: 4px; height: 30px; margin: -15px 0 0 -2px; border-radius: 2px; }
 .cursor.aperta .cur-anel i { scale: .82; }
 html.cursor-on, html.cursor-on body, html.cursor-on a, html.cursor-on button, html.cursor-on label, html.cursor-on summary, html.cursor-on [data-cursor] { cursor: none; }
+/* janela aberta fica na camada de cima da página, acima do cursor próprio: volta o cursor do sistema */
+html:has(dialog[open]) .cursor { opacity: 0; }
+html.cursor-on:has(dialog[open]), html.cursor-on:has(dialog[open]) body { cursor: auto; }
+html.cursor-on:has(dialog[open]) :is(a, button, label, summary, [data-cursor]) { cursor: pointer; }
 
 /* títulos: as palavras sobem uma a uma; ao voltar subindo, descem do topo */
 .palavras .pal { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; margin-bottom: -.1em; }
@@ -791,6 +803,16 @@ html.cursor-on, html.cursor-on body, html.cursor-on a, html.cursor-on button, ht
 .cena-lado { opacity: min(var(--p, 1), var(--q, 1)); translate: calc((1 - var(--p, 1)) * var(--lado-x, -110px)) calc((1 - var(--q, 1)) * -60px); }
 .cena-zoom { opacity: min(var(--p, 1), var(--q, 1)); scale: calc(.86 + min(var(--p, 1), var(--q, 1)) * .14); translate: 0 calc((1 - var(--q, 1)) * -50px); }
 
+/* gráficos vivos: as barras sobem e descem devagar e o gráfico 3D balança */
+@keyframes onda { from { --onda: 0; } to { --onda: 1; } }
+@keyframes balancaGrafico { from { --balanco: -7deg; } to { --balanco: 7deg; } }
+
+/* setas das faixas laterais: só aparecem quando a faixa vira rolagem de lado */
+.lado-ctrl { display: none; justify-content: flex-end; gap: 8px; width: min(var(--larg), 100% - var(--lado) * 2); margin: 0 auto; }
+.lado-ctrl button { display: grid; place-items: center; width: 48px; height: 48px; border: 1.5px solid var(--linha); border-radius: 50%; background: none; color: var(--tinta); transition: background-color .3s, color .3s, border-color .3s; }
+.lado-ctrl button:hover { background: var(--lima); border-color: var(--lima); color: #0B1C1F; }
+.arrastando-lado { scroll-snap-type: none !important; cursor: grabbing; user-select: none; }
+
 /* ---------- responsivo ---------- */
 @media (max-width: 1180px) {
   .nav a { padding: 8px 8px; font-size: 14.5px; }
@@ -801,7 +823,6 @@ html.cursor-on, html.cursor-on body, html.cursor-on a, html.cursor-on button, ht
 @media (max-width: 1024px) {
   .nav, .topo-cta { display: none; }
   .menu-btn { display: grid; margin-left: auto; }
-  .tema-topo { display: block; }
   .tema-lado { display: none; }
   .sec-cab-lado, .frentes-cab { grid-template-columns: 1fr; }
   .sec-cab-lado > p, .frentes-cab p:not(.apoio) { justify-self: start; }
@@ -826,11 +847,13 @@ html.cursor-on, html.cursor-on body, html.cursor-on a, html.cursor-on button, ht
 /* tablet e celular: a faixa das frentes vira rolagem lateral com encaixe */
 @media (max-width: 900px) {
   .frentes-pin { position: static; height: auto; min-height: 0; padding: 90px 0 70px; }
-  .frentes-janela { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .frentes-janela { min-width: 0; width: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .frentes-janela::-webkit-scrollbar { display: none; }
   .frentes-trilho { translate: none !important; padding: 10px var(--lado) 40px; }
   .frente { scroll-snap-align: center; width: min(82vw, 380px); }
   .frentes-prog { display: none; }
+  .lado-ctrl { display: flex; }
+  .equipe-home .lado-ctrl { width: 100%; margin-top: 4px; }
   .leque { height: auto; display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 0 20px; scrollbar-width: none; }
   .leque li { position: static; flex: none; width: min(72vw, 300px); margin: 0; rotate: none !important; translate: none !important; scroll-snap-align: center; }
   .leque li:hover { scale: none; }
@@ -849,9 +872,6 @@ html.cursor-on, html.cursor-on body, html.cursor-on a, html.cursor-on button, ht
   body { font-size: 16.5px; }
   .topo-in { height: 70px; gap: 12px; }
   .menu-cel { inset: 70px 0 auto; }
-  .tema-prumo { width: 84px; height: 54px; }
-  .tema-prumo .tp-pendulo { height: 24px; }
-  .tema-prumo .tp-lado { width: 26px; height: 26px; bottom: 4px; }
   .capa-baixo { grid-template-columns: 1fr; }
   .capa-redondo { width: 120px; height: 120px; font-size: 14px; justify-self: end; margin-top: -10px; }
   .capa-foto { height: auto; min-height: 560px; display: grid; align-content: end; }
@@ -915,4 +935,34 @@ html.cursor-on, html.cursor-on body, html.cursor-on a, html.cursor-on button, ht
   .cena, .cena-lado, .cena-zoom { opacity: 1 !important; translate: none !important; scale: none !important; }
   .ci-foto { clip-path: none; }
   .capa-foto { clip-path: none; }
+}
+
+/* ---------- seletor de tema: prumo entre o sol e a lua ---------- */
+/* --tp-ang é a inclinação do fio; positivo leva o peso para a esquerda (sol), negativo para a direita (lua) */
+.tema-prumo { --tp-ang: 26deg; position: relative; width: 100px; height: 64px; flex: none; border-radius: 16px; background: var(--tema-fundo); box-shadow: 0 14px 30px -16px rgba(0,0,0,.5), 0 0 0 1px rgba(0,0,0,.06); }
+[data-tema="escuro"] .tema-prumo { --tp-ang: -26deg; }
+.tp-barra { position: absolute; left: 50%; top: 9px; width: 18px; height: 3px; margin-left: -9px; background: var(--tema-cor); }
+.tp-pendulo { position: absolute; left: 50%; top: 11px; width: 2px; height: 30px; margin-left: -1px; background: var(--tema-cor); transform-origin: 50% 0; rotate: var(--tp-ang); transition: rotate 1s cubic-bezier(.3, 1.8, .45, 1); }
+.tp-peso { position: absolute; left: 50%; bottom: -14px; width: 12px; height: 16px; margin-left: -6px; background: var(--tema-peso, var(--tema-cor)); clip-path: polygon(50% 0, 100% 38%, 50% 100%, 0 38%); }
+.tp-lado { position: absolute; bottom: 6px; display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 8px; background: none; color: var(--tema-cor); cursor: pointer; opacity: .45; transition: opacity .4s ease, scale .5s cubic-bezier(.3, 1.6, .45, 1); }
+.tp-claro { left: 4px; } .tp-escuro { right: 4px; }
+.tp-lado svg { width: 19px; height: 19px; }
+.tp-lado[aria-pressed="true"] { opacity: 1; scale: 1.08; }
+.tp-lado:hover { opacity: 1; }
+.tp-lado:focus-visible { outline: 2px solid var(--tema-cor); outline-offset: 1px; }
+@keyframes tpBalanca { 0%, 100% { rotate: var(--tp-ang); } 25% { rotate: calc(var(--tp-ang) * -.5); } 55% { rotate: calc(var(--tp-ang) * 1.25); } 80% { rotate: calc(var(--tp-ang) * .9); } }
+.tp-balanca .tp-pendulo { animation: tpBalanca 1s ease; }
+/* versão compacta (menu do celular): dois botões do mesmo tamanho */
+.tema-compacto { display: inline-grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; border-radius: 12px; border: 1px solid color-mix(in srgb, var(--tema-cor) 18%, transparent); }
+.tema-compacto button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 36px; padding: 0 12px; border: 0; border-radius: 8px; background: none; color: var(--tema-cor); font-size: 13.5px; font-weight: 500; opacity: .6; transition: background-color .3s, color .3s, opacity .3s; }
+.tema-compacto svg { width: 17px; height: 17px; }
+.tema-compacto button[aria-pressed="true"] { background: var(--tema-cor); color: var(--tema-fundo); opacity: 1; }
+.tema-compacto button:focus-visible { outline: 2px solid var(--tema-cor); outline-offset: 2px; }
+/* a página inteira troca de cor junto, sem piscar */
+html.tema-anim *:not(.tema-prumo, .tema-prumo *),
+html.tema-anim *:not(.tema-prumo, .tema-prumo *)::before,
+html.tema-anim *:not(.tema-prumo, .tema-prumo *)::after { transition: background-color .6s ease, color .6s ease, border-color .6s ease, outline-color .6s ease, box-shadow .6s ease, fill .6s ease, stroke .6s ease !important; }
+html.tema-anim body { transition: background-color .6s ease, color .6s ease !important; }
+@media (prefers-reduced-motion: reduce) {
+  .tp-pendulo, .tp-lado { transition: none !important; animation: none !important; }
 }

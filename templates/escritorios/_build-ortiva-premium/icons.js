@@ -1,4 +1,4 @@
-// Ícones próprios do Prumo Premium: traço de 1,6, pontas retas e cantos vivos, como a régua e o prumo.
+// Ícones próprios do Ortiva Premium: traço de 1,6, pontas retas e cantos vivos, como a régua e o prumo.
 // Nada de biblioteca de ícones. Todos usam currentColor.
 const svg = (d, extra = '') => `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"${extra}>${d}</svg>`;
 

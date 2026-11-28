@@ -1,5 +1,5 @@
-// Gera o mapa do Prumo Premium: node gerar-mapa.js petroleo img/mapa_batel.webp
-// Gera o mapa estático da Prumo Contabilidade (endereço de demonstração) a partir de tiles do OpenStreetMap, recolorido na paleta.
+// Gera o mapa do Ortiva Premium: node gerar-mapa.js petroleo img/mapa_batel.webp
+// Gera o mapa estático da Ortiva Contabilidade (endereço de demonstração) a partir de tiles do OpenStreetMap, recolorido na paleta.
 // Mesmo método do THD (clientes/thd-engenharia/_build/gerar-mapa.js). Nunca usar mapa do Google.
 //
 // Uso (sharp instalado fora do projeto):

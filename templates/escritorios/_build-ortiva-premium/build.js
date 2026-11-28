@@ -1,5 +1,5 @@
-// Gera o Prumo Premium (contabilidade) em templates/escritorios/premium/prumo-premium/.
-// Uso: node templates/escritorios/_build-prumo-premium/build.js
+// Gera o Ortiva Premium (contabilidade) em templates/escritorios/premium/ortiva-premium/.
+// Uso: node templates/escritorios/_build-ortiva-premium/build.js
 // Páginas: index.html (início), escritorio.html (o escritório e as políticas), profissionais.html (a equipe),
 // servicos.html (frentes, simulador, agendamento e dúvidas), conteudos.html (artigos) e 404.html.
 // Textos e dados ficam no content.js; interações no app.js; o botão de tema vem de templates/_comum/tema-prumo.js.
@@ -10,8 +10,8 @@ const { I, emblema } = require('./icons');
 const T = require('../../_comum/tema-prumo');
 
 const M = C.marca;
-const SAIDA = path.join(__dirname, '..', 'premium', 'prumo-premium');
-const TEMA_CHAVE = 'prumo-tema';
+const SAIDA = path.join(__dirname, '..', 'premium', 'ortiva-premium');
+const TEMA_CHAVE = 'ortiva-tema';
 const COR_CLARO = '#F4F5EF';
 const COR_ESCURO = '#071315';
 const creditos = JSON.parse(fs.readFileSync(path.join(__dirname, 'img', 'creditos.json'), 'utf8'));
@@ -25,7 +25,7 @@ const endereco = `${M.rua}, ${M.bairro}, ${M.cidade}, ${M.uf}`;
 const DIAS = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
 const dataBR = (iso) => new Date(`${iso}T12:00:00`).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
 const primeiro = (nome) => nome.split(' ')[0];
-const WA_OLA = 'Olá! Vim pelo site da Prumo Contabilidade.';
+const WA_OLA = 'Olá! Vim pelo site da Ortiva Contabilidade.';
 
 // peso do prumo pequeno, usado como separador na faixa corrida (no lugar de bolinha ou ponto médio)
 const PESO = '<svg class="peso-sep" viewBox="0 0 14 20" aria-hidden="true"><path d="M7 0l7 7.5L7 20 0 7.5Z" fill="currentColor"/></svg>';
@@ -64,18 +64,18 @@ const head = (pagina, titulo, desc) => `<!doctype html>
 <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 ${T.head(TEMA_CHAVE)}
-<script>try{var r=document.documentElement,s=sessionStorage;if(s.getItem("prumo-cg")||matchMedia("(prefers-reduced-motion: reduce)").matches)r.classList.add("sem-cg");if(s.getItem("prumo-troca")){r.classList.add("chegando");s.removeItem("prumo-troca");}}catch(e){}</script>
+<script>try{var r=document.documentElement,s=sessionStorage;if(s.getItem("ortiva-cg")||matchMedia("(prefers-reduced-motion: reduce)").matches)r.classList.add("sem-cg");if(s.getItem("ortiva-troca")){r.classList.add("chegando");s.removeItem("ortiva-troca");}}catch(e){}</script>
 </head>`;
 
 // carregando: o fio desce, o peso balança até ficar no prumo, o contador chega a 100 e a tela sobe
 const carregando = `<div class="carregando" aria-hidden="true">
   <div class="cg-fio"><span class="cg-pendulo"><i class="cg-peso"></i></span></div>
-  <p class="cg-nome">${'prumo'.split('').map((l, i) => `<span style="--i:${i}">${l}</span>`).join('')}</p>
+  <p class="cg-nome">${'ortiva'.split('').map((l, i) => `<span style="--i:${i}">${l}</span>`).join('')}</p>
   <p class="cg-rodape"><span>Alinhando os números</span><span class="cg-num"><b data-cg-num>0</b>%</span></p>
 </div>
 <div class="cortina" aria-hidden="true"><span class="cortina-fio"></span>${emblema('cortina-emblema')}</div>`;
 
-const logo = (cls = '') => `<a class="logo ${cls}" href="index.html" aria-label="${M.completo}, início">${emblema()}<span class="logo-txt"><b>prumo</b><small>Contabilidade</small></span></a>`;
+const logo = (cls = '') => `<a class="logo ${cls}" href="index.html" aria-label="${M.completo}, início">${emblema()}<span class="logo-txt"><b>ortiva</b><small>Contabilidade</small></span></a>`;
 
 const topo = (pagina) => {
   const links = PAGINAS.map(([href, nome]) => `<a href="${href}"${href === pagina ? ' aria-current="page"' : ''}>${nome}</a>`).join('');
@@ -85,12 +85,12 @@ const topo = (pagina) => {
     ${logo()}
     <nav class="nav" aria-label="Principal">${links}</nav>
     ${btn('servicos.html#agendar', 'Agendar conversa', 'btn-lima topo-cta')}
-    ${T.prumo('tema-topo', 'claro')}
     <button type="button" class="menu-btn" data-menu aria-expanded="false" aria-controls="menu-cel" aria-label="Abrir menu">${I.menu}</button>
   </div>
   <div class="menu-cel" id="menu-cel" hidden>
     <nav aria-label="Menu do celular">${links}</nav>
     ${btn('servicos.html#agendar', 'Agendar conversa')}
+    <div class="menu-tema"><span>Tema</span>${T.compacto('claro')}</div>
     <p class="menu-info">${I.fone}<a href="tel:${M.telefoneLink}">${M.telefone}</a></p>
   </div>
 </header>
@@ -147,9 +147,9 @@ const rodape = `<footer class="rodape">
       <details class="creditos"><summary>Créditos das imagens</summary><ul>${creditos.map((c) => `<li>${c.arq}: <a href="${c.url}" target="_blank" rel="noopener">${esc(c.autor)}</a>, ${c.fonte}</li>`).join('')}<li>Mapa: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">colaboradores do OpenStreetMap</a></li></ul></details>
     </div>
   </div>
-  <p class="rod-gigante" aria-hidden="true">prumo</p>
+  <p class="rod-gigante" aria-hidden="true">ortiva</p>
 </footer>
-<a class="whats-flutua" href="${wa('Olá! Vim pelo site da Prumo Contabilidade e gostaria de conversar com um contador.')}" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp" data-magnetic>${I.whats}<span>WhatsApp</span></a>
+<a class="whats-flutua" href="${wa('Olá! Vim pelo site da Ortiva Contabilidade e gostaria de conversar com um contador.')}" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp" data-magnetic>${I.whats}<span>WhatsApp</span></a>
 <div class="cookies" id="cookies" role="region" aria-label="Aviso de cookies" hidden>
   <p>Guardamos no seu navegador o tema escolhido e esta preferência. A medição de visitas só é ligada se você aceitar. <button type="button" class="link" data-legal="privacidade">Saiba mais</button></p>
   <div class="ck-btns" data-iguais><button type="button" class="btn btn-tinta" data-ck="todos"><span class="btn-txt" data-txt="Aceitar todos"><span>Aceitar todos</span></span></button><button type="button" class="btn btn-linha" data-ck="essenciais"><span class="btn-txt" data-txt="Só os essenciais"><span>Só os essenciais</span></span></button></div>
@@ -179,7 +179,7 @@ const LEGAIS = {
     <h3>Confidencialidade</h3><p>Os dados enviados são tratados como confidenciais e acessados apenas pela equipe que vai atender você.</p>
     <h3>Por quanto tempo guardamos</h3><p>Pedidos que não viram contratação são apagados em até 6 meses. Dados de clientes são guardados pelo tempo exigido pela lei fiscal e trabalhista.</p>
     <h3>Seus direitos</h3><p>Você pode pedir acesso, correção, portabilidade ou exclusão dos seus dados, e retirar o consentimento, pelo e-mail ${M.email}. Encarregada de dados: ${M.responsavel.split(',')[0]}.</p>
-    <h3>Cookies e armazenamento</h3><p>O site guarda no seu navegador: a escolha de cookies (prumo-cookies), o tema claro ou escuro (prumo-tema) e marcações temporárias da visita (abertura e passagem entre páginas). A medição de visitas, quando existir, só é ligada depois de "Aceitar todos". Não usamos cookies de publicidade. Você pode mudar a escolha em "Preferências de cookies", no rodapé.</p>`],
+    <h3>Cookies e armazenamento</h3><p>O site guarda no seu navegador: a escolha de cookies (ortiva-cookies), o tema claro ou escuro (ortiva-tema) e marcações temporárias da visita (abertura e passagem entre páginas). A medição de visitas, quando existir, só é ligada depois de "Aceitar todos". Não usamos cookies de publicidade. Você pode mudar a escolha em "Preferências de cookies", no rodapé.</p>`],
 };
 
 const janelas = `${Object.entries(LEGAIS).map(([id, [titulo, corpo]]) => `<dialog class="janela jan-legal" data-jan-legal="${id}" aria-labelledby="jl-${id}">
@@ -357,12 +357,13 @@ const inicio = `<section class="capa" aria-labelledby="capa-tit">
         <li class="frente frente-fim"><a href="servicos.html" data-cursor="Abrir"><span class="fr-nome">Ver todos os serviços, prazos e o que inclui cada um</span><span class="fr-seta">${I.dir}</span></a></li>
       </ul>
     </div>
+    <div class="lado-ctrl" aria-label="Passar as frentes" role="group"><button type="button" data-lado="-1" data-alvo=".frentes-janela" aria-label="Anterior">${I.esq}</button><button type="button" data-lado="1" data-alvo=".frentes-janela" aria-label="Próximo">${I.dir}</button></div>
     <div class="frentes-prog" aria-hidden="true"><i></i></div>
   </div>
 </section>
 
 <section class="visao" aria-labelledby="visao-tit">
-  <figure class="visao-foto revela"><img src="${foto('predio-pb')}" alt="Prédio de escritórios em preto e branco" width="1050" height="1400" loading="lazy"><figcaption>Prumo, desde ${M.desde}</figcaption></figure>
+  <figure class="visao-foto revela"><img src="${foto('predio-pb')}" alt="Prédio de escritórios em preto e branco" width="1050" height="1400" loading="lazy"><figcaption>Ortiva, desde ${M.desde}</figcaption></figure>
   <div class="visao-txt">
     <p class="apoio">Nossa visão</p>
     ${tit('h2', 'visao-tit', 'Crescer pede números claros, <em>não complicados.</em>')}
@@ -422,6 +423,7 @@ ${comoFunciona}
         <span class="lq-txt"><b>${p.nome}</b><span>${p.crc}</span><small>${p.segmentos.map((s) => sg[s].curto).join(' e ')}</small></span>
       </a></li>`).join('')}
     </ul>
+    <div class="lado-ctrl" aria-label="Passar os profissionais" role="group"><button type="button" data-lado="-1" data-alvo=".leque" aria-label="Anterior">${I.esq}</button><button type="button" data-lado="1" data-alvo=".leque" aria-label="Próximo">${I.dir}</button></div>
     <p class="eqh-mais">${btn('profissionais.html', 'Ver os profissionais', 'btn-linha')}</p>
   </div>
 </section>
@@ -469,7 +471,7 @@ const escritorio = `${capaInterna('ce-tit', 'O escritório', ['Pequeno o bastant
 
 <section class="sobre" aria-labelledby="sobre-tit">
   <div class="sec-in sobre-grade">
-    <p class="frase-txt" data-frase>Prumo é o fio com um peso na ponta que mostra se uma parede está reta. É o que fazemos com os números da sua empresa: mostrar com clareza se está tudo alinhado, antes que algo entorte.</p>
+    <p class="frase-txt" data-frase>Ortiva vem de orto, que quer dizer reto. Nosso desenho é o prumo, o fio com um peso na ponta que mostra se uma parede está reta. É o que fazemos com os números da sua empresa: mostrar com clareza se está tudo alinhado, antes que algo entorte.</p>
     <div class="sobre-txt">
       <h2 id="sobre-tit" class="vh">Quem somos</h2>
       <p>A ${M.completo} nasceu em ${M.desde}, no ${M.bairro}, quando Laura Tavares deixou a auditoria para atender empresas pequenas e médias de perto. Hoje somos cinco contadores e uma equipe de apoio.</p>
@@ -582,7 +584,7 @@ const profissionais = `<section class="capa-int capa-prof" aria-labelledby="cp-t
         <dl class="pf-dados">
           <div><dt>Frentes</dt><dd class="pf-frentes">${p.segmentos.map((s) => `<a href="servicos.html#${s}">${sg[s].nome}</a>`).join('')}</dd></div>
           <div><dt>Formação</dt><dd><ul>${p.formacao.map((f) => `<li>${f}</li>`).join('')}</ul></dd></div>
-          <div><dt>Na Prumo desde</dt><dd>${p.desde}</dd></div>
+          <div><dt>Na Ortiva desde</dt><dd>${p.desde}</dd></div>
           <div><dt>Atende</dt><dd>${p.agenda.map((d) => DIAS[d]).join(', ')}, presencial ou por vídeo</dd></div>
           <div><dt>Registro</dt><dd>${p.crc}</dd></div>
         </dl>
@@ -595,7 +597,7 @@ const profissionais = `<section class="capa-int capa-prof" aria-labelledby="cp-t
 <section class="final final-curto" aria-labelledby="pfin-tit">
   <div class="final-in">
     ${tit('h2', 'pfin-tit', 'Não sabe com quem falar? <em>A gente direciona.</em>')}
-    <div class="final-btns">${btn(wa('Olá! Vim pelo site da Prumo e quero saber com qual contador devo falar.'), 'Perguntar no WhatsApp', 'btn-lima', ' target="_blank" rel="noopener"')}</div>
+    <div class="final-btns">${btn(wa('Olá! Vim pelo site da Ortiva e quero saber com qual contador devo falar.'), 'Perguntar no WhatsApp', 'btn-lima', ' target="_blank" rel="noopener"')}</div>
   </div>
 </section>`;
 

@@ -1,13 +1,13 @@
-// Prumo Premium: conteúdo da Prumo Contabilidade (marca de demonstração, Curitiba).
+// Ortiva Premium: conteúdo da Ortiva Contabilidade (marca de demonstração, Curitiba).
 // Marca, pessoas, registros no CRC, endereço, telefones, CNPJ, depoimentos e perfis são de demonstração: [EXEMPLO].
 // Publicidade da contabilidade (Código de Ética Profissional do Contador, NBC PG 01, e normas do CFC): anúncio sóbrio,
 // com o registro no CRC, sem aviltamento de honorários, sem concorrência desleal e sem promessa de resultado.
 // Por isso o site não mostra valores de honorários nem "economia garantida". Textos a validar na revisão jurídica.
 
 const marca = {
-  nome: 'Prumo',
-  completo: 'Prumo Contabilidade',
-  razao: 'Prumo Serviços Contábeis Ltda.', // [EXEMPLO]
+  nome: 'Ortiva',
+  completo: 'Ortiva Contabilidade',
+  razao: 'Ortiva Serviços Contábeis Ltda.', // [EXEMPLO]
   cnpj: '00.000.000/0001-00', // [EXEMPLO] fictício
   registroEmpresa: 'Organização contábil registrada no CRC-PR sob o nº 000000/O-0', // [EXEMPLO]
   responsavel: 'Laura Tavares, contadora, CRC-PR 010101/O-1', // [EXEMPLO]
@@ -21,11 +21,11 @@ const marca = {
   telefoneLink: '+554130000000',
   whatsapp: '5541900000000', // [EXEMPLO]
   whatsappTexto: '(41) 90000-0000',
-  email: 'ola@prumocontabilidade.com.br', // [EXEMPLO]
-  dominio: 'https://prumocontabilidade.com.br', // [EXEMPLO]
-  instagram: 'https://instagram.com/prumo.contabil', // [EXEMPLO]
-  instagramUser: '@prumo.contabil',
-  linkedin: 'https://www.linkedin.com/company/prumo-contabilidade', // [EXEMPLO]
+  email: 'ola@ortivacontabilidade.com.br', // [EXEMPLO]
+  dominio: 'https://ortivacontabilidade.com.br', // [EXEMPLO]
+  instagram: 'https://instagram.com/ortiva.contabil', // [EXEMPLO]
+  instagramUser: '@ortiva.contabil',
+  linkedin: 'https://www.linkedin.com/company/ortiva-contabilidade', // [EXEMPLO]
   mapsUrl: 'https://www.openstreetmap.org/?mlat=-25.44270&mlon=-49.29010#map=17/-25.44270/-49.29010',
   rotaUrl: 'https://www.openstreetmap.org/directions?to=-25.44270%2C-49.29010',
 };
@@ -108,7 +108,7 @@ const equipe = [
     id: 'laura', nome: 'Laura Tavares', cargo: 'Sócia fundadora e responsável técnica', crc: 'CRC-PR 010101/O-1', // [EXEMPLO]
     foto: 'equipe-laura', segmentos: ['contabil', 'fiscal'], agenda: [1, 2, 4], desde: 2011,
     frase: 'Número bom é número que o dono da empresa entende.',
-    bio: ['Fundou a Prumo em 2011 depois de dez anos em auditoria. Cuida da contabilidade consultiva e assina como responsável técnica pelo escritório.', 'Acompanha de perto os clientes com relatórios gerenciais e conduz as reuniões trimestrais de resultado.'],
+    bio: ['Fundou a Ortiva em 2011 depois de dez anos em auditoria. Cuida da contabilidade consultiva e assina como responsável técnica pelo escritório.', 'Acompanha de perto os clientes com relatórios gerenciais e conduz as reuniões trimestrais de resultado.'],
     formacao: ['Bacharel em Ciências Contábeis', 'MBA em Controladoria', 'Perita contábil'],
   },
   {

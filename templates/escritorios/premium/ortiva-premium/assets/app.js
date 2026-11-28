@@ -1,4 +1,4 @@
-// Prumo Premium: interações das cinco páginas. Sem biblioteca.
+// Ortiva Premium: interações das cinco páginas. Sem biblioteca.
 // Carregando e cortina entre páginas, topo, agenda fiscal "ao vivo", títulos palavra por palavra, máscaras de foto,
 // rolagem com direção (--p e --q), faixa horizontal das frentes, gráfico 3D, leque da equipe, pilha de depoimentos,
 // carrossel, galeria, filtros, simulador de regime, agendamento, formulários, cookies, cursor e botões magnéticos.
@@ -10,6 +10,8 @@
   const D = JSON.parse($('#pr-dados').textContent);
   const parado = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const comMouse = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  // cursor próprio e magnetismo só no computador: na prévia de celular com mouse ficam desligados
+  const telaGrande = matchMedia('(min-width: 1025px)').matches;
   const limita = (v) => Math.max(0, Math.min(1, v));
   const suave = (k) => 1 - Math.pow(1 - k, 3);
   const guarda = {
@@ -25,11 +27,11 @@
   const RELOGIO = '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5h4"/></svg>';
 
   // ---------- carregando (uma vez por visita): o contador chega a 100 junto com o prumo ----------
-  const libera = () => { raiz.classList.add('pronto'); dispatchEvent(new Event('prumo:pronto')); };
+  const libera = () => { raiz.classList.add('pronto'); dispatchEvent(new Event('ortiva:pronto')); };
   const cg = $('.carregando');
   if (raiz.classList.contains('sem-cg') || !cg) libera();
   else {
-    sessao.gravar('prumo-cg', '1');
+    sessao.gravar('ortiva-cg', '1');
     const num = $('[data-cg-num]', cg);
     const t0 = performance.now();
     const MIN = 2500;
@@ -62,7 +64,7 @@
     if (url.pathname === location.pathname) return; // âncora na mesma página: rolagem normal
     e.preventDefault();
     raiz.classList.add('saindo');
-    sessao.gravar('prumo-troca', '1');
+    sessao.gravar('ortiva-troca', '1');
     setTimeout(() => { location.href = url.href; }, 620);
   });
   addEventListener('pageshow', (e) => { if (e.persisted) raiz.classList.remove('saindo', 'chegando', 'chegou'); });
@@ -153,7 +155,7 @@
       if (el.matches('[data-conta], [data-conta-moeda]')) contar(el, en.isIntersecting);
     }), { rootMargin: '0px 0px -6% 0px', threshold: 0.12 });
     const comeca = () => alvos.forEach((el) => io.observe(el));
-    if (raiz.classList.contains('pronto')) comeca(); else addEventListener('prumo:pronto', comeca, { once: true });
+    if (raiz.classList.contains('pronto')) comeca(); else addEventListener('ortiva:pronto', comeca, { once: true });
   }
 
   // ---------- frentes: a faixa anda de lado enquanto a página desce (só no computador) ----------
@@ -200,7 +202,7 @@
   const cwb = $('.cwb-foto');
   const progFrentes = $('.frentes-prog');
   if (frase) {
-    const destaque = ['clareza', 'alinhado,', 'entorte.'];
+    const destaque = ['reto.', 'alinhado,', 'entorte.'];
     frase.innerHTML = frase.textContent.trim().split(/\s+/).map((p) => `<span${destaque.includes(p) ? ' class="destaque"' : ''}>${p}</span>`).join(' ');
   }
   const palavrasFrase = frase ? $$('span', frase) : [];
@@ -327,6 +329,39 @@
     }), { rootMargin: '-45% 0px -50% 0px' });
     $$('.perfil').forEach((p) => io.observe(p));
   }
+
+  // ---------- faixas de lado no celular (frentes e equipe): setas, dedo e arraste com o mouse ----------
+  $$('[data-lado]').forEach((b) => b.addEventListener('click', () => {
+    const faixa = $(b.dataset.alvo);
+    const item = faixa.querySelector('li');
+    const passo = item ? item.getBoundingClientRect().width + 14 : faixa.clientWidth * 0.8;
+    faixa.scrollBy({ left: Number(b.dataset.lado) * passo, behavior: parado ? 'auto' : 'smooth' });
+  }));
+  $$('.frentes-janela, .leque').forEach((faixa) => {
+    let x0 = null, inicio = 0, moveu = false;
+    faixa.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || faixa.scrollWidth <= faixa.clientWidth) return;
+      x0 = e.clientX; inicio = faixa.scrollLeft; moveu = false;
+    });
+    addEventListener('pointermove', (e) => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0;
+      if (Math.abs(dx) > 5 && !moveu) { moveu = true; faixa.classList.add('arrastando-lado'); }
+      if (moveu) faixa.scrollLeft = inicio - dx;
+    });
+    addEventListener('pointerup', () => {
+      if (x0 === null) return;
+      x0 = null;
+      if (!moveu) return;
+      // devolve o encaixe no card mais próximo depois de soltar
+      const fim = faixa.scrollLeft;
+      faixa.classList.remove('arrastando-lado');
+      faixa.scrollLeft = fim;
+    });
+    // arrastar não pode abrir o link do card
+    faixa.addEventListener('click', (e) => { if (moveu) { e.preventDefault(); e.stopPropagation(); moveu = false; } }, true);
+    faixa.addEventListener('dragstart', (e) => e.preventDefault());
+  });
 
   // ---------- carrossel: setas, barras, arrastar, pausa com o mouse ----------
   $$('[data-carrossel]').forEach((car) => {
@@ -765,9 +800,9 @@
   const ck = $('#cookies');
   if (ck) {
     const mostra = () => { ck.hidden = false; };
-    if (!guarda.ler('prumo-cookies', null)) mostra();
+    if (!guarda.ler('ortiva-cookies', null)) mostra();
     $$('[data-ck]', ck).forEach((b) => b.addEventListener('click', () => {
-      guarda.gravar('prumo-cookies', { escolha: b.dataset.ck, em: new Date().toISOString() });
+      guarda.gravar('ortiva-cookies', { escolha: b.dataset.ck, em: new Date().toISOString() });
       ck.hidden = true;
       // a medição de visitas, quando existir, só é ligada aqui com escolha "todos"
     }));
@@ -775,7 +810,7 @@
   }
 
   // ---------- botões magnéticos: seguem o mouse quando ele chega perto e voltam com mola ----------
-  if (comMouse && !parado) {
+  if (comMouse && telaGrande && !parado) {
     $$('[data-magnetic]').forEach((el) => {
       const forca = el.matches('.capa-redondo, .whats-flutua') ? 0.35 : 0.25;
       el.addEventListener('pointermove', (e) => {
@@ -787,7 +822,7 @@
   }
 
   // ---------- cursor: anel e ponto; o anel mostra uma palavra sobre o que dá para fazer ----------
-  if (comMouse && !parado) {
+  if (comMouse && telaGrande && !parado) {
     const cx = document.createElement('div');
     cx.className = 'cursor fora';
     cx.setAttribute('aria-hidden', 'true');
@@ -839,12 +874,12 @@
     // tocar no lado que já está escolhido só faz o prumo balançar
     if (b.dataset.temaIr === raiz.dataset.tema) {
       const p = b.closest('.tema-prumo');
-      p.classList.remove('tp-balanca'); void p.offsetWidth; p.classList.add('tp-balanca');
+      if (p) { p.classList.remove('tp-balanca'); void p.offsetWidth; p.classList.add('tp-balanca'); }
       return;
     }
     raiz.classList.add('tema-anim');
     raiz.dataset.tema = b.dataset.temaIr;
-    try { localStorage.setItem('prumo-tema', raiz.dataset.tema); } catch (err) { /* sem armazenamento, vale só nesta visita */ }
+    try { localStorage.setItem('ortiva-tema', raiz.dataset.tema); } catch (err) { /* sem armazenamento, vale só nesta visita */ }
     marca();
     clearTimeout(fim);
     fim = setTimeout(() => raiz.classList.remove('tema-anim'), 800);

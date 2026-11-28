@@ -91,7 +91,6 @@ const topo = (pagina) => {
     <nav aria-label="Menu do celular">${links}</nav>
     ${btn('servicos.html#agendar', 'Agendar conversa')}
     <div class="menu-tema"><span>Tema</span>${T.compacto('claro')}</div>
-    <p class="menu-info">${I.fone}<a href="tel:${M.telefoneLink}">${M.telefone}</a></p>
   </div>
 </header>
 ${T.prumo('tema-lado', 'claro')}`;
